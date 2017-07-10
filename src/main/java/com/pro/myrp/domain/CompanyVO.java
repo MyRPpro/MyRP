@@ -11,6 +11,7 @@ public class CompanyVO {
 	private String biz_type;
 	private String biz_item;
 	private String use_state;
+	private String company_type;
 	
 	public String getCompany_id() {
 		return company_id;
@@ -66,5 +67,10 @@ public class CompanyVO {
 	public void setUse_state(String use_state) {
 		this.use_state = use_state;
 	}
-
+	public String getCompany_type() {
+		return company_type;
+	}
+	public void setCompany_type(String company_type) {
+		this.company_type = company_type;
+	}
 }

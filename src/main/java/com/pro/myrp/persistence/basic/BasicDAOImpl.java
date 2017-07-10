@@ -17,15 +17,21 @@ public class BasicDAOImpl implements BasicDAO {
 	private SqlSession sqlSession;
 
 	@Override
-	public int get_company_cnt() {
+	public int select_company_cnt() {
 		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
-		return dao.get_company_cnt();
+		return dao.select_company_cnt();
 	}
 	
 	@Override
-	public ArrayList<CompanyVO> get_company_list(Map<String, Object> daoMap) {
+	public ArrayList<CompanyVO> select_company_list(Map<String, Object> daoMap) {
 		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
-		return dao.get_company_list(daoMap);
+		return dao.select_company_list(daoMap);
+	}
+
+	@Override
+	public int insert_company(CompanyVO vo) {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.insert_company(vo);
 	}
 
 	

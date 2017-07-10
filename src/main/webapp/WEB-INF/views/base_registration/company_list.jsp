@@ -21,6 +21,7 @@ company_list.jsp
 		<th>biz_type</th>
 		<th>biz_item</th>
 		<th>use_state</th>
+		<th>company_type</th>
 	</tr>
 	<c:forEach var="vo" items="${vos}">
 	<tr>
@@ -37,6 +38,7 @@ company_list.jsp
 		<td>${vo.biz_type}</td>
 		<td>${vo.biz_item}</td>
 		<td>${vo.use_state}</td>
+		<td>${vo.company_type}</td>
 	</tr>
 	</c:forEach>
 </table>

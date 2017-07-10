@@ -6,7 +6,7 @@
 <mapper namespace="com.pro.myrp.persistence.basic.BasicDAO">
  	
  	<!-- 거래처 총 개수 -->
- 	<select id="get_company_cnt" resultType="int">
+ 	<select id="select_company_cnt" resultType="int">
  		<![CDATA[
  		SELECT	COUNT(*)
  		FROM	company
@@ -14,12 +14,12 @@
  	</select>
  
  	<!-- 거래처 목록 -->
- 	<select id="get_company_list" parameterType="java.util.Map"
+ 	<select id="select_company_list" parameterType="java.util.Map"
  	resultType="CompanyVO">
  		<![CDATA[
 		SELECT  *
 		FROM    (SELECT company_id, company_name, biz_reg_no, ceo_name, corp_reg_no,
-		        address, biz_type, biz_item, use_state, rownum rNum
+		        address, biz_type, biz_item, use_state, company_type, rownum rNum
 		        FROM    (SELECT *
 		                FROM    company
 		                ORDER BY company_name
@@ -28,4 +28,14 @@
 		WHERE rNum >= #{start} AND rNUM <= #{end}
  		]]>
  	</select>
+ 	
+ 	<!-- 신규거래처 추가 -->
+ 	<insert id="insert_company" parameterType="CompanyVO">
+ 		<![CDATA[
+ 		INSERT INTO company
+		values(#{company_id},#{company_name},#{biz_reg_no},
+		#{ceo_name},#{corp_reg_no},#{address},#{biz_type},
+		#{biz_item},#{use_state},#{company_type})
+		]]>
+ 	</insert>
 </mapper>
