@@ -1,5 +1,6 @@
 package com.pro.myrp.service.basic;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class BasicServiceImpl implements BasicService {
 			daoMap.put("start", start);
 			daoMap.put("end", end);
 			vos = dao.select_company_list(daoMap);
-			model.addAttribute("vos", vos);
+			model.addAttribute("companyVos", vos);
 		}
 		startPage = (currentPage/pageBlock)*pageBlock+1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
@@ -80,7 +81,6 @@ public class BasicServiceImpl implements BasicService {
 		
 	}
 
-
 	@Override
 	public void reg_company_pro_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -95,6 +95,7 @@ public class BasicServiceImpl implements BasicService {
 		String biz_item = req.getParameter("biz_item");
 		String use_state = req.getParameter("use_state");
 		String company_type = req.getParameter("company_type");
+		Date reg_date = req.getParameter("reg_date") == "" ? new Date(0):Date.valueOf(req.getParameter("reg_date"));
 		
 		CompanyVO vo = new CompanyVO();
 		vo.setCompany_id(company_id);
@@ -107,8 +108,53 @@ public class BasicServiceImpl implements BasicService {
 		vo.setBiz_item(biz_item);
 		vo.setUse_state(use_state);
 		vo.setCompany_type(company_type);
+		vo.setReg_date(reg_date);
 		
 		int cnt = dao.insert_company(vo);
+		System.out.println("cnt: "+cnt);
+		model.addAttribute("cnt", cnt);
+	}
+
+	@Override
+	public void modify_company_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String company_id = req.getParameter("company_id");
+		CompanyVO vo = new CompanyVO();
+		vo = dao.select_company(company_id);
+		model.addAttribute("companyVo", vo);
+	}
+
+	@Override
+	public void modify_company_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String company_id = req.getParameter("company_id");
+		String company_name = req.getParameter("company_name");
+		String biz_reg_no = req.getParameter("biz_reg_no");
+		String ceo_name = req.getParameter("ceo_name");
+		String corp_reg_no = req.getParameter("corp_reg_no");
+		String address = req.getParameter("address");
+		String biz_type = req.getParameter("biz_type");
+		String biz_item = req.getParameter("biz_item");
+		String use_state = req.getParameter("use_state");
+		String company_type = req.getParameter("company_type");
+		Date reg_date = req.getParameter("reg_date") == "" ? new Date(0):Date.valueOf(req.getParameter("reg_date"));
+		
+		CompanyVO vo = new CompanyVO();
+		vo.setCompany_id(company_id);
+		vo.setCompany_name(company_name);
+		vo.setBiz_reg_no(biz_reg_no);
+		vo.setCeo_name(ceo_name);
+		vo.setCorp_reg_no(corp_reg_no);
+		vo.setAddress(address);
+		vo.setBiz_type(biz_type);
+		vo.setBiz_item(biz_item);
+		vo.setUse_state(use_state);
+		vo.setCompany_type(company_type);
+		vo.setReg_date(reg_date);
+		
+		int cnt = dao.update_company(vo);
 		System.out.println("cnt: "+cnt);
 		model.addAttribute("cnt", cnt);
 	}

@@ -33,5 +33,25 @@ public interface BasicController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	public String reg_company_pro(HttpServletRequest req, Model model) throws Exception;;
+	public String reg_company_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 거래처 등록 > 거래처 수정
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_company(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 거래처 등록> 거래처 수정 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_company_pro(HttpServletRequest req, Model model) throws Exception;
 }

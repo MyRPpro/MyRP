@@ -63,8 +63,10 @@ name="reg_company_form1" method="post">
 		<tr>
 			<th>use_state</th>
 			<td>
-				사용
-				<input type="checkbox" name="use_state" value="Y" checked>
+				<label for="used">사용</label>
+				<input type="radio" name="use_state" id="used" value="Y" checked>
+				<label for="unused">비사용</label>
+				<input type="radio" name="use_state" id="unused" value="N">
 			</td>
 		</tr>
 		<tr>
@@ -75,6 +77,10 @@ name="reg_company_form1" method="post">
 				<label for="customer">customer</label>
 				<input type="radio" name="company_type" id="customer" value="C">
 			</td>
+		</tr>
+		<tr>
+			<th>reg_date</th>
+			<td><input type="date" name="reg_date"></td>
 		</tr>
 		<tr>
 			<th colspan="2">

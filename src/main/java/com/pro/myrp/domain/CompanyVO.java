@@ -1,5 +1,7 @@
 package com.pro.myrp.domain;
 
+import java.sql.Date;
+
 public class CompanyVO {
 
 	private String company_id;
@@ -12,6 +14,7 @@ public class CompanyVO {
 	private String biz_item;
 	private String use_state;
 	private String company_type;
+	private Date reg_date;
 	
 	public String getCompany_id() {
 		return company_id;
@@ -73,4 +76,11 @@ public class CompanyVO {
 	public void setCompany_type(String company_type) {
 		this.company_type = company_type;
 	}
+	public Date getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
+	}
+	
 }

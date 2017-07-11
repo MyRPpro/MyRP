@@ -27,4 +27,20 @@ public interface BasicDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int insert_company(CompanyVO vo);
+
+	/**
+	 * 거래처 정보 불러오기
+	 * @author amaco78
+	 * @param company_id
+	 * @return
+	 */
+	public CompanyVO select_company(String company_id);
+
+	/**
+	 * 거래처 정보 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_company(CompanyVO vo);
 }

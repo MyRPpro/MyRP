@@ -34,5 +34,17 @@ public class BasicDAOImpl implements BasicDAO {
 		return dao.insert_company(vo);
 	}
 
+	@Override
+	public CompanyVO select_company(String company_id) {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.select_company(company_id);
+	}
+
+	@Override
+	public int update_company(CompanyVO vo) {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.update_company(vo);
+	}
+
 	
 }

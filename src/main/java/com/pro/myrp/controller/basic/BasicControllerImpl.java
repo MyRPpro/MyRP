@@ -45,4 +45,22 @@ public class BasicControllerImpl implements BasicController {
 		service.reg_company_pro_service(model);
 		return "redirect:/base_registration/company_list";
 	}
+
+	@Override
+	@GetMapping(value="modify_company")
+	public String modify_company(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("modify_company");
+		model.addAttribute("req", req);
+		service.modify_company_service(model);
+		return "/base_registration/modify_company";
+	}
+
+	@Override
+	@PostMapping(value="modify_company_pro")
+	public String modify_company_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("modify_company_pro");
+		model.addAttribute("req", req);
+		service.modify_company_pro_service(model);
+		return "redirect:/base_registration/company_list";
+	}
 }
