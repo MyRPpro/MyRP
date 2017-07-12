@@ -5,4 +5,11 @@
  
 <mapper namespace="com.pro.myrp.persistence.hr.HRDAO">
  
+ 	<!-- 인사코드 그룹 목록보기 -->
+ 	<select id="select_hr_code_group" resultType="Hr_code_groupVO">
+ 		<![CDATA[
+ 		SELECT	*
+ 		FROM	hr_code_group
+ 		]]>
+ 	</select>
 </mapper>
