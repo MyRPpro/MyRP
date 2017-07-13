@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
--- °Å·¡Ã³ TABLE »ý¼º (company)
+-- ê±°ëž˜ì²˜ TABLE ìƒì„± (company)
 --------------------------------------------------------------------------------
 CREATE TABLE company (
     company_id      CHAR(10)        NOT NULL    PRIMARY KEY,
@@ -16,12 +16,12 @@ CREATE TABLE company (
                     CHECK(company_type = 'S' OR company_type = 'C'),
     reg_date        DATE            DEFAULT SYSDATE
 );
--- °Å·¡Ã³ Ãß°¡
+-- ê±°ëž˜ì²˜ ì¶”ê°€
 INSERT INTO company
-VALUES( '1111111120','MyRP10','100-81-11111','ÀÌÁ¤Àç','110211-1234566',
+VALUES( '1111111120','MyRP10','100-81-11111','ì´ì •ìž¬','110211-1234566',
         'aaa','aaa','aaa','Y');
 COMMIT;
--- °Å·¡Ã³ Á¤º¸ °Ë»ö (1~10¹ø Æ©ÇÃ)
+-- ê±°ëž˜ì²˜ ì •ë³´ ê²€ìƒ‰ (1~10ë²ˆ íŠœí”Œ)
 SELECT  *
 FROM    (SELECT company_id, company_name, biz_reg_no, ceo_name, corp_reg_no,
         address, biz_type, biz_item, use_state, rownum rNum
@@ -32,7 +32,7 @@ FROM    (SELECT company_id, company_name, biz_reg_no, ceo_name, corp_reg_no,
         )
 WHERE rNum >= 1 AND rNUM <= 4;
 --------------------------------------------------------------------------------
--- Ç°¸ñ TABLE »ý¼º (product)
+-- í’ˆëª© TABLE ìƒì„± (product)
 --------------------------------------------------------------------------------
 CREATE TABLE product(
     product_id          CHAR(10)        PRIMARY KEY,
@@ -42,9 +42,11 @@ CREATE TABLE product(
     use_state           CHAR(1)         DEFAULT 'Y' NOT NULL
                         CHECK(use_state = 'Y' OR use_state = 'N'),
     reg_date            DATE            DEFAULT SYSDATE
+    
+    
 );
 --------------------------------------------------------------------------------
--- ÀÎ»çÄÚµå±×·ì TABLE »ý¼º (hr_code_group)
+-- ì¸ì‚¬ì½”ë“œê·¸ë£¹ TABLE ìƒì„± (hr_code_group)
 --------------------------------------------------------------------------------
 CREATE TABLE hr_code_group(
     hr_code_group_id    NUMBER(1)       PRIMARY KEY,
@@ -53,7 +55,7 @@ CREATE TABLE hr_code_group(
                         CHECK(use_state = 'Y' OR use_state = 'N')
 );
 --------------------------------------------------------------------------------
--- ÀÎ»çÄÚµå TABLE »ý¼º (hr_code)
+-- ì¸ì‚¬ì½”ë“œ TABLE ìƒì„± (hr_code)
 --------------------------------------------------------------------------------
 CREATE TABLE hr_code(
     hr_code_group_id    NUMBER(1)       NOT NULL,
@@ -66,7 +68,7 @@ CREATE TABLE hr_code(
     CONSTRAINT hr_code_pk PRIMARY KEY(hr_code_group_id, hr_code_id)
 );
 --------------------------------------------------------------------------------
--- ºÎ¼­ TABLE »ý¼º (department)
+-- ë¶€ì„œ TABLE ìƒì„± (department)
 --------------------------------------------------------------------------------
 CREATE TABLE department(
     dept_id             NUMBER(4)       PRIMARY KEY,
@@ -76,7 +78,7 @@ CREATE TABLE department(
                         CHECK(use_state = 'Y' OR use_state = 'N')
 );
 --------------------------------------------------------------------------------
--- ÀÎ»çÄ«µå TABLE »ý¼º (employee)
+-- ì¸ì‚¬ì¹´ë“œ TABLE ìƒì„± (employee)
 --------------------------------------------------------------------------------
 CREATE TABLE employee(
     employee_id         NUMBER(4),
@@ -93,9 +95,9 @@ CREATE TABLE employee(
     CONSTRAINT employee_pk PRIMARY KEY(employee_id)
 );
 --------------------------------------------------------------------------------
--- ÀÎ»çÁ¤º¸ TABLE »ý¼º (employee_info)
---------------------------------------------------------------------------------
-DROP TABLE employee_info;
+-- ì¸ì‚¬ì •ë³´ TABLE ìƒì„± (employee_info)
+----------------------------------------------------------------------------------
+--DROP TABLE employee_info;
 CREATE TABLE employee_info(
     employee_id         NUMBER(4)       PRIMARY KEY,
     tel                 VARCHAR2(30),
@@ -109,7 +111,7 @@ CREATE TABLE employee_info(
                         REFERENCES employee(employee_id)
 );
 --------------------------------------------------------------------------------
--- ÀÎ»ç¹ß·É TABLE »ý¼º (personnel_appointment)
+-- ì¸ì‚¬ë°œë ¹ TABLE ìƒì„± (personnel_appointment)
 --------------------------------------------------------------------------------
 CREATE TABLE personnel_appointment(
     employee_id         NUMBER(4),
@@ -132,7 +134,7 @@ CREATE TABLE personnel_appointment(
     CONSTRAINT personnel_appointment_pk PRIMARY KEY(employee_id,appointment_date)
 );
 --------------------------------------------------------------------------------
--- ÅðÁ÷ÀÚ TABLE »ý¼º (retired_employee)
+-- í‡´ì§ìž TABLE ìƒì„± (retired_employee)
 --------------------------------------------------------------------------------
 CREATE TABLE retired_employee(
     employee_id         NUMBER(4),
@@ -143,7 +145,7 @@ CREATE TABLE retired_employee(
     CONSTRAINT retired_employee_pk PRIMARY KEY(employee_id,retired_date)
 );
 --------------------------------------------------------------------------------
--- ±Ù¹«±â·Ï TABLE »ý¼º (work_record)
+-- ê·¼ë¬´ê¸°ë¡ TABLE ìƒì„± (work_record)
 --------------------------------------------------------------------------------
 CREATE TABLE work_record(
     employee_id         NUMBER(4),
@@ -156,9 +158,9 @@ CREATE TABLE work_record(
     CONSTRAINT work_record_pk PRIMARY KEY(employee_id,work_date)
 );
 --------------------------------------------------------------------------------
--- ±ÙÅÂ TABLE »ý¼º (service_attitude)
---------------------------------------------------------------------------------
-DROP TABLE service_attitude;
+-- ê·¼íƒœ TABLE ìƒì„± (service_attitude)
+---------------------------------------------------------------------------------
+--DROP TABLE service_attitude;
 CREATE TABLE service_attitude(
     employee_id             NUMBER(4),
     attitude_date           DATE,
@@ -180,7 +182,7 @@ CREATE TABLE service_attitude(
                         REFERENCES hr_code(hr_code_group_id,hr_code_id)
 );
 --------------------------------------------------------------------------------
--- ±Þ¿©´ëÀå TABLE »ý¼º (salary_register)
+-- ê¸‰ì—¬ëŒ€ìž¥ TABLE ìƒì„± (salary_register)
 --------------------------------------------------------------------------------
 CREATE TABLE salary_register(
     salary_register_id      CHAR(12),
@@ -194,9 +196,9 @@ CREATE TABLE salary_register(
     CONSTRAINT salary_register_pk PRIMARY KEY(salary_register_id,account_id)
 );
 --------------------------------------------------------------------------------
---  ±Þ¿© TABLE »ý¼º (salary)
+--  ê¸‰ì—¬ TABLE ìƒì„± (salary)
 --------------------------------------------------------------------------------
-DROP TABLE salary;
+--DROP TABLE salary;
 CREATE TABLE salary(
     salary_register_id      CHAR(12),
     account_id              CHAR(12),
@@ -219,9 +221,8 @@ CREATE TABLE order_state(
     order_id            CHAR(12)     PRIMARY KEY,
     order_state         NUMBER(5)	DEFAULT	0
 );
-INSERT INTO order_state VALUES('123456789000','11111');
 --------------------------------------------------------------------------------
--- °èÁ¤ TABLE »ý¼º (account)
+-- ê³„ì • TABLE ìƒì„± (account)
 --------------------------------------------------------------------------------
 CREATE TABLE account (
     account_id            CHAR(12)     PRIMARY KEY,
@@ -231,70 +232,33 @@ CREATE TABLE account (
     CONSTRAINT FK_order_id FOREIGN KEY(order_id)
                            REFERENCES order_state(order_id)
 );
-INSERT INTO account
-VALUES ('111111111111','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111112','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111113','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111114','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111115','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111116','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111117','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111118','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111119','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111110','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111121','123456789000',0,'°èÁ¤ÀÌ¸§');
-INSERT INTO account VALUES ('111111111122','123456789000',0,'°èÁ¤ÀÌ¸§');
+
 --------------------------------------------------------------------------------
--- °èÁÂ TABLE »ý¼º (bank_account)
+-- ê³„ì¢Œ TABLE ìƒì„± (bank_account)
 --------------------------------------------------------------------------------
 CREATE TABLE bank_account (
-    bank_account_id       CHAR(12)     PRIMARY KEY, -- °èÁÂÄÚµå(°èÁ¤ÄÚµå)
-    bank_account_name     CHAR(20)     NOT NULL,-- °èÁÂ¸í
-    bank_account_number   VARCHAR2(20) NOT NULL,--°èÁÂ¹øÈ£
-    bank_account_balance  NUMBER(18)   DEFAULT 0,--ÀÜ¾×
-    bank_account_type     VARCHAR2(12)  NOT NULL,--°èÁÂÅ¸ÀÔ
-    bank_name             VARCHAR2(12)  NOT NULL,--ÀºÇà¸í 
-    use_state             CHAR(1)      DEFAULT 'Y'--»ç¿ë»óÅÂ
+    bank_account_id       CHAR(12)     PRIMARY KEY, -- ê³„ì¢Œì½”ë“œ(ê³„ì •ì½”ë“œ)
+    bank_account_name     CHAR(20)     NOT NULL,-- ê³„ì¢Œëª…
+    bank_account_number   VARCHAR2(20) NOT NULL,--ê³„ì¢Œë²ˆí˜¸
+    bank_account_balance  NUMBER(18)   DEFAULT 0,--ìž”ì•¡
+    bank_account_type     VARCHAR2(12)  NOT NULL,--ê³„ì¢Œíƒ€ìž…
+    bank_name             VARCHAR2(12)  NOT NULL,--ì€í–‰ëª… 
+    use_state             CHAR(1)      DEFAULT 'Y'--ì‚¬ìš©ìƒíƒœ
                           CHECK (use_state = 'Y' OR use_state ='N'),
-    reg_date              DATE         DEFAULT SYSDATE,--µî·ÏÀÏÀÚ
+    reg_date              DATE         DEFAULT SYSDATE,--ë“±ë¡ì¼ìž
     CONSTRAINT FK_bank_account_id FOREIGN KEY(bank_account_id)   
                                   REFERENCES account(account_id)   
 );
-
-INSERT INTO bank_account
-VALUES ('111111111111','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111112','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111113','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111114','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111115','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111116','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111117','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111118','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111119','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111110','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111122','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
-INSERT INTO bank_account
-VALUES ('111111111121','ÀÚ»ê°èÁÂ','12345-1234-12',0,'°èÁÂÅ¸ÀÔ','±¹¹ÎÀºÇà','Y',sysdate);
 --------------------------------------------------------------------------------
--- ÀüÇ¥ TABLE »ý¼º (statement)
+-- ì „í‘œ TABLE ìƒì„± (statement)
 --------------------------------------------------------------------------------
 CREATE TABLE statement (
-    statement_id          CHAR(12)     PRIMARY KEY, --ÀüÇ¥¹øÈ£
-    connected_id          CHAR(12)     , --ÁÖ¹®¹øÈ£
-    account_id            CHAR(12)     , --°èÁ¤ÄÚµå
-    reg_date              DATE         DEFAULT SYSDATE, --µî·ÏÀÏÀÚ
-    account_value         NUMBER(18)   NOT NULL, --°èÁ¤±Ý¾×
-    approval_state        NUMBER(5)    DEFAULT 0, --ÁÖ¹®»óÅÂ
+    statement_id          CHAR(12)     PRIMARY KEY, --ì „í‘œë²ˆí˜¸
+    connected_id          CHAR(12)     , --ì£¼ë¬¸ë²ˆí˜¸
+    account_id            CHAR(12)     , --ê³„ì •ì½”ë“œ
+    reg_date              DATE         DEFAULT SYSDATE, --ë“±ë¡ì¼ìž
+    account_value         NUMBER(18)   NOT NULL, --ê³„ì •ê¸ˆì•¡
+    approval_state        NUMBER(5)    DEFAULT 0, --ì£¼ë¬¸ìƒíƒœ
     CONSTRAINT statement_FK1 FOREIGN KEY(connected_id,account_id)
                                REFERENCES sales_order(sales_id, account_id),
     CONSTRAINT statement_FK2 FOREIGN KEY(connected_id,account_id)
@@ -303,15 +267,15 @@ CREATE TABLE statement (
                                REFERENCES purchase_order(purchase_id, account_id)
 );
 
---------MyRP ¹°·ù°ü¸® Table »ý¼º SQL--------
-DROP TABLE warehouse_information;
-DROP TABLE stock_information;
-DROP TABLE stock_order;
-DROP TABLE movement_warehouse;
-DROP TABLE defective_warehouse;
-DROP TABLE adjustment_inventory;
-DROP TABLE storage_out_order;
-DROP TABLE storage_in_order;
+--------MyRP ë¬¼ë¥˜ê´€ë¦¬ Table ìƒì„± SQL--------
+--DROP TABLE warehouse_information;
+--DROP TABLE stock_information;
+--DROP TABLE stock_order;
+--DROP TABLE movement_warehouse;
+--DROP TABLE defective_warehouse;
+--DROP TABLE adjustment_inventory;
+--DROP TABLE storage_out_order;
+--DROP TABLE storage_in_order;
 
 CREATE TABLE warehouse_information (
 warehouse_id        NUMBER(4)	PRIMARY KEY,
@@ -339,9 +303,8 @@ update_date       DATE DEFAULT SYSDATE,
 stock_state       NUMBER(5)	DEFAULT	0,
 CONSTRAINT stock_order_PK PRIMARY KEY(stock_order_id),
 CONSTRAINT stock_order_FK1 FOREIGN KEY(employee_id) REFERENCES employee(employee_id),
-CONSTRAINT stock_order_FK2 FOREIGN KEY(warehouse_id) REFERENCES warehouse_information(warehouse_id),
-CONSTRAINT stock_order_FK3 FOREIGN KEY(product_id) REFERENCES product(product_id),
-CONSTRAINT stock_order_FK4 FOREIGN KEY(stock_order_id) REFERENCES order_state(order_id)
+CONSTRAINT stock_order_FK2 FOREIGN KEY(stock_order_id) REFERENCES order_state(order_id),
+CONSTRAINT stock_order_FK3 FOREIGN KEY(product_id, warehouse_id) REFERENCES stock_information(product_id, warehouse_id)
 );
 
 CREATE TABLE movement_warehouse (
@@ -397,22 +360,22 @@ CONSTRAINT storage_in_order_FK FOREIGN KEY(stock_order_id) REFERENCES stock_orde
 -- table SALES_ORDER
 --------------------------------------------------------------------------------
 
-DROP TABLE sales_order;
+--DROP TABLE sales_order;
 CREATE TABLE sales_order
 (
-  sales_id          CHAR(12)    NOT NULL, /* ÁÖ¹®¹øÈ£ */
-  account_id        CHAR(12)    NOT NULL, /* °èÁ¤ÄÚµå */
-  order_id          CHAR(12),   /* ÁÖ¹®¹øÈ£ */
-  product_id        CHAR(12),   /* Á¦Ç°¹øÈ£ */
-  company_id        CHAR(10),   /* È¸»ç¹øÈ£ */
-  employee_id       NUMBER(4),  /* »ç¿ø¹øÈ£ */
-  reg_date          DATE DEFAULT SYSDATE, /* µî·ÏÀÏÀÚ */
-  update_date       DATE DEFAULT SYSDATE, /* ÃÖÁ¾¼öÁ¤ÀÏÀÚ*/
-  storage_out_date  DATE DEFAULT SYSDATE, /* Ãâ°íÀÏ */
-  count_sales       NUMBER(4)    NOT NULL, /* ÆÇ¸Å°³¼ö */
-  selling_price     NUMBER(10)   NOT NULL, /* ÆÇ¸Å°¡ */
-  sales_state       NUMBER(5)    DEFAULT 0, /* ÁÖ¹®»óÅÂ */
-  condition_note_receivable      NUMBER(2) DEFAULT 3,  /* ¼ö±ÝÁ¶°Ç */
+  sales_id          CHAR(12)    NOT NULL, /* ì£¼ë¬¸ë²ˆí˜¸ */
+  account_id        CHAR(12)    NOT NULL, /* ê³„ì •ì½”ë“œ */
+  order_id          CHAR(12),   /* ì£¼ë¬¸ë²ˆí˜¸ */
+  product_id        CHAR(12),   /* ì œí’ˆë²ˆí˜¸ */
+  company_id        CHAR(10),   /* íšŒì‚¬ë²ˆí˜¸ */
+  employee_id       NUMBER(4),  /* ì‚¬ì›ë²ˆí˜¸ */
+  reg_date          DATE DEFAULT SYSDATE, /* ë“±ë¡ì¼ìž */
+  update_date       DATE DEFAULT SYSDATE, /* ìµœì¢…ìˆ˜ì •ì¼ìž*/
+  storage_out_date  DATE DEFAULT SYSDATE, /* ì¶œê³ ì¼ */
+  count_sales       NUMBER(4)    NOT NULL, /* íŒë§¤ê°œìˆ˜ */
+  selling_price     NUMBER(10)   NOT NULL, /* íŒë§¤ê°€ */
+  sales_state       NUMBER(5)    DEFAULT 0, /* ì£¼ë¬¸ìƒíƒœ */
+  condition_note_receivable      NUMBER(2) DEFAULT 3,  /* ìˆ˜ê¸ˆì¡°ê±´ */
   
   CONSTRAINT sales_order_pk     PRIMARY KEY(sales_id, account_id),
   CONSTRAINT sales_order_fk1    FOREIGN KEY(account_id)   REFERENCES account(account_id),
@@ -423,25 +386,26 @@ CREATE TABLE sales_order
 );
 
 
+
 --------------------------------------------------------------------------------
 -- table PURCHASE_ORDER
 --------------------------------------------------------------------------------
 
-DROP TABLE purchase_order;
+-DROP TABLE purchase_order;
 CREATE TABLE purchase_order (
-	purchase_id       CHAR(12)       NOT NULL,  /* ÁÖ¹®¹øÈ£ */
-	account_id        CHAR(12)       NOT NULL,  /* °èÁ¤ÄÚµå */
-	order_id          CHAR(12),                 /* ÁÖ¹®¹øÈ£ */
-	product_id        CHAR(12),                 /* »óÇ°¹øÈ£ */
-	company_id        CHAR(12),                 /* È¸»ç¹øÈ£ */
-	employee_id       NUMBER(4),                /* »ç¿ø¹øÈ£ */
-	reg_date          DATE DEFAULT    SYSDATE,  /* µî·ÏÀÏÀÚ */
-	update_date       DATE DEFAULT    SYSDATE,  /* ÃÖÁ¾¼öÁ¤ÀÏÀÚ */
-	storage_in_date   DATE DEFAULT    SYSDATE,  /* ÀÔ°íÀÏ */
-	count_purchase    NUMBER(4),                /* ±¸¸Å°³¼ö */
-	supply_price      NUMBER(10)      NOT NULL, /* °ø±Þ°¡ */
-	purchase_state    NUMBER(5)       DEFAULT 0, /* ÆÇ¸Å»óÅÂ */
-  condition_note_payable NUMBER(2)  DEFAULT 3, /* Áö±ÞÁ¶°Ç */
+	purchase_id       CHAR(12)       NOT NULL,  /* ì£¼ë¬¸ë²ˆí˜¸ */
+	account_id        CHAR(12)       NOT NULL,  /* ê³„ì •ì½”ë“œ */
+	order_id          CHAR(12),                 /* ì£¼ë¬¸ë²ˆí˜¸ */
+	product_id        CHAR(12),                 /* ìƒí’ˆë²ˆí˜¸ */
+	company_id        CHAR(12),                 /* íšŒì‚¬ë²ˆí˜¸ */
+	employee_id       NUMBER(4),                /* ì‚¬ì›ë²ˆí˜¸ */
+	reg_date          DATE DEFAULT    SYSDATE,  /* ë“±ë¡ì¼ìž */
+	update_date       DATE DEFAULT    SYSDATE,  /* ìµœì¢…ìˆ˜ì •ì¼ìž */
+	storage_in_date   DATE DEFAULT    SYSDATE,  /* ìž…ê³ ì¼ */
+	count_purchase    NUMBER(4),                /* êµ¬ë§¤ê°œìˆ˜ */
+	supply_price      NUMBER(10)      NOT NULL, /* ê³µê¸‰ê°€ */
+	purchase_state    NUMBER(5)       DEFAULT 0, /* íŒë§¤ìƒíƒœ */
+  condition_note_payable NUMBER(2)  DEFAULT 3, /* ì§€ê¸‰ì¡°ê±´ */
   
   CONSTRAINT purchase_order_pk    PRIMARY KEY(purchase_id, account_id),
   CONSTRAINT purchase_order_fk1   FOREIGN KEY(account_id)   REFERENCES account(account_id),
@@ -451,5 +415,3 @@ CREATE TABLE purchase_order (
   CONSTRAINT purchase_order_fk5   FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
 	
 );
-
-commit;
