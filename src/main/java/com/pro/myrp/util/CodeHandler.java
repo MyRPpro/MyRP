@@ -29,7 +29,13 @@ public class CodeHandler {
 	public static final int distribution_management = 14000;
 	
 	//회계관리
-	public static final int accountion_management = 15000;
+	public static final int accounting_management = 15000;
+		public static final int bank_account_registration_branch = 15200;
+			public static final int bank_account_list = 15210;			//계좌 리스트
+			public static final int register_bank_account = 15220;		//계좌 등록 
+			public static final int modify_bank_account = 15230; 		//계좌 수정 
+			public static final int delete_bank_account = 15240;		//계좌 삭제
+	
 	
 	//인사관리
 	public static final int hr_management = 16000;

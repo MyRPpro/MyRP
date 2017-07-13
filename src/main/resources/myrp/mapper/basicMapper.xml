@@ -25,7 +25,7 @@
 		                ORDER BY company_name
 		                )
 		        )
-		WHERE rNum >= #{start} AND rNUM <= #{end}
+		WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
  	

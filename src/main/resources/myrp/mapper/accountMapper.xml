@@ -5,4 +5,27 @@
  
 <mapper namespace="com.pro.myrp.persistence.account.AccountDAO">
  
+ 	<!-- 계좌 총 개수 -->
+ 	<select id="select_bank_account_cnt" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM   bank_account
+ 		]]>
+ 	</select>
+ 	<!-- 계좌 목록 -->
+ 	<select id="select_bank_account_list" parameterType="java.util.Map"
+ 	resultType="Bank_accountVO">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ( SELECT bank_account_id, bank_account_name, bank_account_number,
+ 						  bank_account_balance, bank_account_type, bank_name,
+ 						  use_state, reg_date, rownum rNum
+ 				     FROM ( select *
+ 				     	    FROM bank_account
+ 				     	    ORDER BY bank_account_name
+ 				     	   )
+ 				 )
+ 			WHERE rNum >= #{start} AND rNum <= #{end}
+ 		]]>
+ 	</select>
 </mapper>
