@@ -9,11 +9,51 @@ import com.pro.myrp.controller.MyRPController;
 public interface HRController extends MyRPController {
 
 	/**
-	 * 인사관리 > 인사코드 등록 > 기초코드목록
+	 * 인사관리 > 인사코드 관리 > 기초코드 그룹 목록
 	 * @author amaco78
 	 * @param req
 	 * @param model
 	 * @return
 	 */
 	public String base_code_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 부서관리 > 부서목록보기
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String dept_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 목록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 근태 관리 > 출결달력 검색
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_attendance_absence(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_register(HttpServletRequest req, Model model) throws Exception;
 }

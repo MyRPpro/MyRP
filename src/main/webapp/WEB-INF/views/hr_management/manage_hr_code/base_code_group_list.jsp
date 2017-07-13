@@ -19,7 +19,7 @@ base_code_list.jsp
 	<tr>
 		<td>${vo.hr_code_group_id}</td>
 		<td>
-			<a href="/hr_management/reg_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
+			<a href="/hr_management/manage_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
 				${vo.hr_code_group_name}
 			</a>
 		</td>
@@ -27,5 +27,8 @@ base_code_list.jsp
 	</tr>
 	</c:forEach>
 </table>
+<form action="/hr_management/manage_hr_code/add_base_code_group" method="get" name="base_code_group_list_form1">
+	<input type="submit" value="인사코드 그룹 등록">
+</form>
 </body>
 </html>

@@ -161,7 +161,7 @@ public class CodeHandler {
 	 * @return
 	 */
 	public String c(int code1, int code2, int code3) {
-		String codeName = null;
+		String codeName = "";
 		Object obj = this;
 		codeName += "/";
 		for(Field field : obj.getClass().getDeclaredFields()){
