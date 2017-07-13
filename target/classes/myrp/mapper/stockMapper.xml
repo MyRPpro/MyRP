@@ -5,4 +5,11 @@
  
 <mapper namespace="com.pro.myrp.persistence.stock.StockDAO">
  
+ 	<!-- 재고현황 -->
+	<select id = "select_stock_condition" resultType="Stock_conditionDTO">
+ 		SELECT s.product_id as product_id, p.product_name as product_name, s.stock_amount as stock_amount, p.purchase_unit_price as purchase_unit_price 
+ 		FROM stock_information s join product p 
+ 		ON s.product_id = p.product_id
+ 	</select>
+
 </mapper>
