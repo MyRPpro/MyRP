@@ -37,6 +37,8 @@ public class CodeHandler {
 		public static final int manage_hr_code = 16100;
 			public static final int base_code_group_list = 16110;
 			public static final int add_base_code_group = 16120;
+			public static final int add_base_code_group_dupCheck = 16121;
+			public static final int add_base_code_group_pro = 16122;
 			public static final int modify_base_code_group = 16130;
 			public static final int base_code_list = 16140;
 			public static final int add_base_code = 16150;

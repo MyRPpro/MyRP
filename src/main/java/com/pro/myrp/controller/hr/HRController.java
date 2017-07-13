@@ -18,6 +18,36 @@ public interface HRController extends MyRPController {
 	public String base_code_list(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
+	 * 인사관리 > 인사코드 관리 > 기초코드 그룹 등록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_base_code_group(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사코드 관리 > 기초코드 그룹 번호 중복확인
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_base_code_dupCheck(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사코드 관리 > 기초코드 그룹 등록 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_base_code_group_pro(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
 	 * 인사관리 > 부서관리 > 부서목록보기
 	 * @author amaco78
 	 * @param req
