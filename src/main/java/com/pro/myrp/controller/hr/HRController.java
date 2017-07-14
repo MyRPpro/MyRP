@@ -15,7 +15,7 @@ public interface HRController extends MyRPController {
 	 * @param model
 	 * @return
 	 */
-	public String base_code_list(HttpServletRequest req, Model model) throws Exception;
+	public String base_code_group_list(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 인사코드 관리 > 기초코드 그룹 등록
@@ -46,6 +46,16 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String add_base_code_group_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사코드 관리 > 그룹별 기초코드 목록보기
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String base_code_list(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 부서관리 > 부서목록보기

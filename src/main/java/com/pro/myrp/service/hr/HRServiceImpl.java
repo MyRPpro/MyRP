@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
 import com.pro.myrp.persistence.hr.HRDAO;
 
@@ -20,7 +21,7 @@ public class HRServiceImpl implements HRService {
 	private HRDAO dao;
 
 	@Override
-	public void base_code_list_service(Model model) throws Exception {
+	public void base_code_group_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		List<Hr_code_groupVO> hr_code_groupVos = new ArrayList<>();
@@ -71,4 +72,25 @@ public class HRServiceImpl implements HRService {
 		
 		model.addAttribute("cnt", cnt);
 	}
+
+	
+	@Override
+	public void base_code_list(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != null) {
+			int hr_code_group_id = Integer.parseInt(req.getParameter("hr_code_group_id"));
+			List<Hr_codeVO> hr_codeVos = new ArrayList<>();
+			hr_codeVos = dao.select_hr_codes(hr_code_group_id);
+			String hr_code_group_name = "";
+			Hr_code_groupVO hr_code_groupVo = new Hr_code_groupVO();
+			hr_code_groupVo = dao.select_hr_code_group(hr_code_group_id);
+			hr_code_group_name = hr_code_groupVo.getHr_code_group_name();
+			model.addAttribute("hr_codeVos", hr_codeVos);
+			model.addAttribute("hr_code_group_name", hr_code_group_name);
+		}
+		
+	}
+
+
 }
