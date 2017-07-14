@@ -17,7 +17,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 
 	@Inject
 	private SalesService service;
-
+	
 	@Override
 	@GetMapping(value="sales_list")
 	public String sales_list(HttpServletRequest req, Model model) throws Exception {
@@ -26,6 +26,19 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		service.sales_list_servie(model);
 		return code.c(sales_management, sales_list);
 	}
+
+
+	@Override
+	@GetMapping(value="detail_sales")
+	public String detail_sales(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("detail_sales");
+		model.addAttribute("req", req);
+		service.detail_sales_service(model);
+		return code.c(sales_management, modify_sales);
+	}
+
+
+	
 	
 	
 }

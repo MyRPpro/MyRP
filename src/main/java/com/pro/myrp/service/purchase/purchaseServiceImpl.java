@@ -1,4 +1,4 @@
-package com.pro.myrp.service.sales;
+package com.pro.myrp.service.purchase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pro.myrp.domain.SalesVO;
-import com.pro.myrp.persistence.sales.SalesDAO;
+import com.pro.myrp.domain.PurchaseVO;
+import com.pro.myrp.persistence.purchase.purchaseDAO;
 
 @Service
-public class SalesServiceImpl implements SalesService {
+public class purchaseServiceImpl implements purchaseService {
 
 	@Inject
-	private SalesDAO dao;
-
+	private purchaseDAO dao;
 
 	@Override
-	public void sales_list_servie(Model model) throws Exception {
-
+	public void purchase_list_servie(Model model) {
+		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
@@ -38,7 +37,7 @@ public class SalesServiceImpl implements SalesService {
 		int	startPage	= 0;
 		int endPage		= 0;
 		
-		cnt = dao.select_sales_cnt();
+		cnt = dao.select_purchase_cnt();
 		
 		System.out.println("  -> sales Count : " + cnt);
 		
@@ -56,13 +55,13 @@ public class SalesServiceImpl implements SalesService {
 		if(cnt > 0) {
 			
 			System.out.println("  -> Complete import cnt ...");
-			ArrayList<SalesVO> vos = new ArrayList<SalesVO>();
+			ArrayList<PurchaseVO> vos = new ArrayList<PurchaseVO>();
 			Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("start", start);
 			daoMap.put("end", end);
 			
-			vos = dao.select_sales_list(daoMap);
-			model.addAttribute("salesVOs", vos);
+			vos = dao.select_purchase_list(daoMap);
+			model.addAttribute("purchaseVOs", vos);
 		}
 		
 		startPage = (currentPage/pageBlock)*pageBlock+1;
@@ -82,27 +81,11 @@ public class SalesServiceImpl implements SalesService {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
-
-
 	
-	@Override
-	public void detail_sales_service(Model model) {
-
-		Map<String, Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		
-		String company_id = req.getParameter("company_id");
-		System.out.println("  -> company_id : "  + company_id);
-		SalesVO vo = dao.select_detail_service(company_id);
-		
-		if( vo != null ){
-			System.out.println("  -> Complete value import ...");
-			model.addAttribute("salesVo", vo);
-			
-		} else {	// 불로오기 실채
-			System.out.println("  -> Error loading value...");
-			
-		}
-		
-	}
+	
+	
+	
+	
 }
+		
+

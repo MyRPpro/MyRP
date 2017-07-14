@@ -22,7 +22,16 @@ public interface SalesController extends MyRPController {
 	public String sales_list (HttpServletRequest req, Model model) throws Exception;
 	
 	
-	
+	/**
+	 * 판매리스트 - 세부정보
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 * 
+	 */
+	public String detail_sales (HttpServletRequest req, Model model) throws Exception;
 	
 	
 }

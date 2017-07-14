@@ -13,4 +13,6 @@ public interface SalesDAO extends MyRPDAO {
 
 	public ArrayList<SalesVO> select_sales_list(Map<String, Object> daoMap);
 
+	public SalesVO select_detail_service(String company_id);
+
 }

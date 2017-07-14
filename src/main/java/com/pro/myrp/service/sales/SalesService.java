@@ -8,4 +8,6 @@ public interface SalesService extends MyRPService {
 
 	void sales_list_servie(Model model) throws Exception;
 
+	void detail_sales_service(Model model);
+
 }

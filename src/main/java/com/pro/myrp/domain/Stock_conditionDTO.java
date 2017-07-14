@@ -37,10 +37,10 @@ public class Stock_conditionDTO {
 	public void setProduct_name(String product_name) {
 		this.product_name = product_name;
 	}
-	public int getPurchase_unit_price() {
+	public int getpurchase_unit_price() {
 		return purchase_unit_price;
 	}
-	public void setPurchase_unit_price(int purchase_unit_price) {
+	public void setpurchase_unit_price(int purchase_unit_price) {
 		this.purchase_unit_price = purchase_unit_price;
 	}
 	public int getSale_unit_price() {

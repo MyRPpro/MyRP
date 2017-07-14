@@ -16,6 +16,8 @@ public interface CodeMyRP {
 				public static final int add_product = 11220;		//상품 신규 등록
 				public static final int modify_product = 11230;		//상품 수정
 		
+				
+				
 		//영업관리
 		public static final int sales_management = 12000;
 			
@@ -24,8 +26,8 @@ public interface CodeMyRP {
 			public static final int search_sales = 12100;			
 				public static final int sales_list = 12110;			//판매 리스트(검색기능 포함)
 				public static final int detail_sales = 12120;		//판매 상세
-				public static final int modify_slaes = 12130;		//판매 수정
-				public static final int search_title = 12140;		//제목으로 검색
+				public static final int modify_sales = 12130;		//판매 수정
+				public static final int search_sales_title = 12140;		//제목으로 검색
 				
 				
 			// 판매입력
@@ -50,6 +52,35 @@ public interface CodeMyRP {
 		
 		//구매관리
 		public static final int purchase_management = 13000;
+			
+		// 구매검색
+		public static final int search_purchase = 13100;			
+			public static final int purchase_list = 13110;			// 구매 리스트(검색기능 포함)
+			public static final int detail_purchase = 13120;		// 구매 상세
+			public static final int modify_purchase = 13130;		// 구매수정
+			public static final int search_purchase_title = 13140;		//제목으로 검색
+			
+			
+		// 구매입력
+		public static final int input_purchase = 13200;
+			public static final int reg_purchase = 13210;			// 구매 입력
+			public static final int reg_purchase_pro = 13220;		// 판매 입력 처리
+			
+		// 구매 현황
+		public static final int staus_purchase = 13300;			
+			public static final int search_status_purchase = 13310;// 구매 현황 검색
+			public static final int status_purchase = 13320;		// 구매 현황
+			/*public static final int detail_purchase = 12120;		// 구매 상세 (중복)*/			
+		
+		// 거래처별 채권
+		public static final int debt_by_company = 13400;			
+			public static final int search_debt_by_company = 13410;			//거래처별채권 검색
+			public static final int debt_by_company_list = 13420;			//판매현황
+			public static final int transaction_company_register = 13430;	//거래처별채권
+			
+		
+		
+		
 		
 		//물류관리
 		public static final int distribution_management = 14000;								//물류 관리

@@ -29,4 +29,10 @@ public class SalesDAOImpl implements SalesDAO {
 		return dao.select_sales_list(daoMap);
 	}
 
+	@Override
+	public SalesVO select_detail_service(String company_id) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_detail_service(company_id);
+	}
+
 }

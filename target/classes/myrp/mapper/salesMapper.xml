@@ -40,6 +40,22 @@
  	</select>
  	
  	
+ 	<!-- 판매내역 자세히 보기 -->
+ 	<select id="select_detail_service" parameterType="String"
+ 	resultType="SalesVO">
+ 		<![CDATA[
+		SELECT  * 
+	    FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID, S.ORDER_ID, S.PRODUCT_ID, 
+		                    S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+		                    S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+		                    S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, C.COMPANY_NAME
+			     FROM    SALES_ORDER S , COMPANY C
+	             WHERE   S.COMPANY_ID = C.COMPANY_ID )
+		WHERE 	COMPANY_ID = #{company_id}
+ 		]]>
+ 	</select>
+ 	
+ 	
  
  
 </mapper>
