@@ -48,4 +48,5 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_bank_account_pro_service(Model model) throws Exception;
+	
 }

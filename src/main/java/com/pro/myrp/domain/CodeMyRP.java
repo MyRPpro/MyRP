@@ -70,7 +70,6 @@ public interface CodeMyRP {
 				public static final int call_bank_account_id = 15220; 		//아이디 불러오기
 				public static final int register_bank_account = 15230;		//계좌 등록
 				public static final int modify_bank_account = 15240; 		//계좌 수정 
-				public static final int delete_bank_account = 15250;		//계좌 삭제
 			//현금출납
 			//전표관리
 			//재권/채무 현황

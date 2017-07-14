@@ -61,10 +61,5 @@ public interface AccountController extends MyRPController{
 	  * @throws Exception
 	  */
 	 public String modify_bank_account_pro(HttpServletRequest req, Model model) throws Exception;
-	
-	/**
-	 * 계좌등록 > 계좌 삭제
-	 */
-	
-	
+
 }
