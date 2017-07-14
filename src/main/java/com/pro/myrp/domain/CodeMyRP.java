@@ -70,10 +70,16 @@ public interface CodeMyRP {
 			public static final int manage_hr_code = 16100;
 				public static final int base_code_group_list = 16110;
 				public static final int add_base_code_group = 16120;
+				public static final int add_base_code_group_dupCheck = 16121;
+				public static final int add_base_code_group_pro = 16122;
 				public static final int modify_base_code_group = 16130;
+				public static final int modify_base_code_group_pro = 16131;
 				public static final int base_code_list = 16140;
 				public static final int add_base_code = 16150;
+				public static final int add_base_code_dupCheck = 16151;
+				public static final int add_base_code_pro = 16152;
 				public static final int modify_base_code = 16160;
+				public static final int modify_base_code_pro = 16161;
 			//부서관리
 			public static final int manage_dept = 16200;
 				public static final int dept_list = 16210;

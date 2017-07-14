@@ -6,10 +6,77 @@
 <mapper namespace="com.pro.myrp.persistence.hr.HRDAO">
  
  	<!-- 인사코드 그룹 목록보기 -->
- 	<select id="select_hr_code_group" resultType="Hr_code_groupVO">
+ 	<select id="select_hr_code_groups" resultType="Hr_code_groupVO">
  		<![CDATA[
  		SELECT	*
  		FROM	hr_code_group
  		]]>
  	</select>
+ 	
+ 	<!-- 인사코드 그룹번호로 인사코드 그룹 검색 -->
+ 	<select id="select_hr_code_group" parameterType="int"
+ 	resultType="Hr_code_groupVO">
+ 		<![CDATA[
+ 		SELECT	*
+ 		FROM	hr_code_group
+ 		WHERE	hr_code_group_id = #{hr_code_group_id}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 인사코드 그룹 등록 -->
+ 	<insert id="insert_base_code_group" parameterType="Hr_code_groupVO">
+ 		<![CDATA[
+ 		INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
+ 		VALUES(#{hr_code_group_id},#{hr_code_group_name},#{use_state})
+ 		]]>
+ 	</insert>
+
+	<!-- 선택된 그룹의 인사코드 목록보기 -->
+	<select id="select_hr_codes" parameterType="int"
+	resultType="Hr_codeVO">
+	<![CDATA[
+	SELECT	*
+	FROM	hr_code
+	WHERE	hr_code_group_id = #{hr_code_group_id}
+	]]>
+	</select>
+
+	<!-- 인사코드 그룹 사용미사용 수정 -->
+	<update id="update_hr_code_group" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	hr_code_group
+		SET		use_state = #{use_state}
+		WHERE	hr_code_group_id = #{hr_code_group_id}
+		]]>
+	</update>
+	
+	<!-- 선택된 번호의 인사코드 정보 검색 -->
+	<select id="select_hr_code" parameterType="int"
+	resultType="Hr_codeVO">
+		<![CDATA[
+		SELECT	*
+		FROM	hr_code
+		WHERE	hr_code_group_id = #{hr_code_group_id}
+		AND		hr_code_id = #{hr_code_id}
+		]]>
+	</select>
+	
+	<!-- 인사코드 등록 -->
+	<insert id="insert_base_code" parameterType="Hr_codeVO">
+		<![CDATA[
+		INSERT INTO	hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+		VALUES(#{hr_code_group_id},#{hr_code_id},#{hr_code_name},#{use_state})
+		]]>
+	</insert>
+
+	<!-- 인사코드 수정 -->
+	<update id="update_hr_code" parameterType="Hr_codeVO">
+		<![CDATA[
+		UPDATE	hr_code
+		SET		hr_code_name = #{hr_code_name},
+				use_state = #{use_state}
+		WHERE	hr_code_group_id = #{hr_code_group_id}
+		AND		hr_code_id = #{hr_code_id}
+		]]>
+	</update>
 </mapper>
