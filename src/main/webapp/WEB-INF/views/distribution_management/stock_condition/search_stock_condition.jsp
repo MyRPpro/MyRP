@@ -9,13 +9,18 @@
 </head>
 <body>
 <h1>재고현황</h1>
-<table border = "1">
+<table border = "1" >
 	<tr>
 		<th>상품코드</th>
 		<th>상품명</th>
-		<th>재고수량</th>
+		<th>창고번호</th>
+		<th>사용상태코드</th>
+		<th>등록일자</th>
 		<th>구입단가</th>
-		<th>금액</th>
+		<th>판매단가</th>
+		<th>재고수량</th>
+		<th>구입금액</th>
+		<th>판매금액</th>
 	</tr>
 	
 	<c:if test = "${stock_conditionDtos != null}">
@@ -23,9 +28,15 @@
 			<tr>
 				<td>${dto.product_id}</td>
 				<td>${dto.product_name}</td>
-				<td>${dto.stock_amount}</td>
+				<td>${dto.warehouse_id}</td>
+				<td>${dto.use_state}</td>
+				<td>${dto.reg_date}</td>
 				<td>${dto.purchase_unit_price}</td>
+				<td>${dto.sale_unit_price}</td>
+				<td>${dto.stock_amount}</td>
 				<td>${dto.stock_amount * dto.purchase_unit_price}</td>
+				<td>${dto.stock_amount * dto.sale_unit_price}</td>
+				
 			</tr>
 		</c:forEach>
 	</c:if>
@@ -35,10 +46,12 @@
 	</tr>
 	</c:if>
 	<tr>
-		<th colspan = "2">합계</th>
-		<td>${stock_amount}</td>
+		<th colspan = "5">합계</th>
 		<td>${purchase_unit_price}</td>
-		<td>${stock_purchase_sum}</td>
+		<td>${sale_unit_price}</td>
+		<td>${stock_amount}</td>
+		<td><fmt:formatNumber value="${stock_purchase_sum}" type = "number" /></td>
+		<td><fmt:formatNumber value="${sale_unit_price_sum}" type = "number" /></td>
 	</tr>
  </table>
 </body>
