@@ -7,4 +7,5 @@
  	<typeAliases>
  		<package name="com.pro.myrp.domain"/>
  	</typeAliases>
+ 	
  </configuration>
