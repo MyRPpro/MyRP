@@ -54,6 +54,19 @@ CREATE TABLE hr_code_group(
     use_state           CHAR(1)         DEFAULT 'Y' NOT NULL
                         CHECK(use_state = 'Y' OR use_state = 'N')
 );
+INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
+VAULES(2,'직급','Y');
+INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
+VAULES(3,'휴가','Y');
+INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
+VAULES(4,'급여','Y');
+INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
+VAULES(5,'수당','Y');
+INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
+VAULES(6,'경비','Y');
+INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
+VAULES(7,'공제','Y');
+COMMIT;
 --------------------------------------------------------------------------------
 -- 인사코드 TABLE 생성 (hr_code)
 --------------------------------------------------------------------------------
@@ -67,6 +80,19 @@ CREATE TABLE hr_code(
                         REFERENCES hr_code_group(hr_code_group_id),
     CONSTRAINT hr_code_pk PRIMARY KEY(hr_code_group_id, hr_code_id)
 );
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+VALUES(2,100,'사원','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+VALUES(2,200,'대리','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+VALUES(2,300,'과장','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+VALUES(2,400,'차장','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+VALUES(2,500,'부장','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+VALUES(2,600,'이사','Y');
+COMMIT;
 --------------------------------------------------------------------------------
 -- 부서 TABLE 생성 (department)
 --------------------------------------------------------------------------------
@@ -384,9 +410,6 @@ CREATE TABLE sales_order
   CONSTRAINT sales_order_fk4    FOREIGN KEY(company_id)   REFERENCES company(company_id),
   CONSTRAINT sales_order_fk5    FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
 );
-
-
-
 --------------------------------------------------------------------------------
 -- table PURCHASE_ORDER
 --------------------------------------------------------------------------------
@@ -413,5 +436,4 @@ CREATE TABLE purchase_order (
   CONSTRAINT purchase_order_fk3   FOREIGN KEY(product_id)   REFERENCES product(product_id),
   CONSTRAINT purchase_order_fk4   FOREIGN KEY(company_id)   REFERENCES company(company_id),
   CONSTRAINT purchase_order_fk5   FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
-	
 );
