@@ -10,7 +10,7 @@
 
 <body>
  register_bank_account.jsp 페이지
-	<form action="/accounting_management/register_bank_account_pro" name="register_bank_account_form1" method="post">
+	<form action="/accounting_management/bank_account_registration/register_bank_account_pro" name="register_bank_account_form1" method="post">
 		<table border="1">
 			<tr>
 				<th>bank_account_id</th>
@@ -33,7 +33,7 @@
 			<tr>
 				<th>bank_account_balance</th>
 				<td>
-					<input type="number" name="bank_account_balance" maxlength="18" min="0" value="0">
+					<input type="number" name="bank_account_balance" max="999999999999999999" min="0" value="0">
 				</td>
 			</tr>
 			<tr>

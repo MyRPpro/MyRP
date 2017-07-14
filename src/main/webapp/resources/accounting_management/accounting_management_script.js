@@ -3,7 +3,7 @@
  */
 
 function call_bank_account_id(){
-	var url="/accounting_management/call_bank_account_id";
+	var url="/accounting_management/bank_account_registration/call_bank_account_id";
 	window.open(url, "confirm", "menubar=no, width=400, height=300");
 }
 
