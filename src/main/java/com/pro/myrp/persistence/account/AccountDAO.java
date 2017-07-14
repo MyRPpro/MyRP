@@ -35,4 +35,17 @@ public interface AccountDAO extends MyRPDAO {
 	 */
 	public int insert_bank_account(Bank_accountVO vo);
 	
+	/**
+	 * 계좌 수정 
+	 * @param bank_account_id
+	 * @return
+	 */
+	public Bank_accountVO select_bank_account(String bank_account_id);
+	
+	/**
+	 * 계좌 수정 처리
+	 * @param vo
+	 * @return
+	 */
+	public int update_bank_account(Bank_accountVO vo);
 }

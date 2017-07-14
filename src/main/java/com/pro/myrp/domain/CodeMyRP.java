@@ -65,7 +65,7 @@ public interface CodeMyRP {
 		public static final int accounting_management = 15000;
 			//회계보고서
 			//계좌등록
-			public static final int bank_account_registration_branch = 15200;
+			public static final int bank_account_registration = 15200;
 				public static final int bank_account_list = 15210;			//계좌 리스트
 				public static final int call_bank_account_id = 15220; 		//아이디 불러오기
 				public static final int register_bank_account = 15230;		//계좌 등록

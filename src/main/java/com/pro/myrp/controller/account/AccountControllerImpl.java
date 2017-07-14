@@ -20,38 +20,56 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	private AccountService service;
 
 	@Override
-	@GetMapping(value="bank_account_list")
+	@GetMapping(value="bank_account_registration/bank_account_list")
 	public String bank_account_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(bank_account_list));
 		model.addAttribute("req", req);
 		service.bank_account_list_service(model);
-		return code.c(accounting_management, bank_account_list);
+		return code.c(accounting_management, bank_account_registration, bank_account_list);
 	}
 
 	@Override
-	@GetMapping(value="register_bank_account")
+	@GetMapping(value="bank_account_registration/register_bank_account")
 	public String register_bank_account(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(register_bank_account));
 		model.addAttribute("req", req);
 		service.register_bank_account_service(model);
-		return code.c(accounting_management, register_bank_account);
+		return code.c(accounting_management, bank_account_registration, register_bank_account);
 	}
 	
 	@Override
-	@GetMapping(value="call_bank_account_id")
+	@GetMapping(value="bank_account_registration/call_bank_account_id")
 	public String call_bank_account_id(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(call_bank_account_id));
 		model.addAttribute("req", req);
 		service.call_bank_account_id_service(model);
-		return code.c(accounting_management, call_bank_account_id);
+		return code.c(accounting_management, bank_account_registration, call_bank_account_id);
 	}
 	
 	@Override
-	@PostMapping(value="register_bank_account_pro")
+	@PostMapping(value="bank_account_registration/register_bank_account_pro")
 	public String register_bank_account_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(register_bank_account));
 		model.addAttribute("req", req);
 		service.register_bank_account_pro_service(model);
-		return "redirect:"+code.c(accounting_management, bank_account_list);
+		return "redirect:"+code.c(accounting_management, bank_account_registration, bank_account_list);
+	}
+
+	@Override
+	@GetMapping(value="bank_account_registration/modify_bank_account")
+	public String modify_bank_account(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_bank_account));
+		model.addAttribute("req", req);
+		service.modify_bank_account_service(model);
+		return code.c(accounting_management, bank_account_registration, modify_bank_account);
+	}
+
+	@Override
+	@PostMapping(value="bank_account_registration/modify_bank_account_pro")
+	public String modify_bank_account_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_bank_account));
+		model.addAttribute("req", req);
+		service.modify_bank_account_pro_service(model);
+		return "redirect:"+code.c(accounting_management, bank_account_registration, bank_account_list);
 	}
 }

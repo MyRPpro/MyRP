@@ -35,4 +35,17 @@ public interface AccountService extends MyRPService {
 	 */
 	public void register_bank_account_pro_service(Model model) throws Exception;
 	
+	/**
+	 * 계좌 등록 > 계좌 수정 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_bank_account_service(Model model) throws Exception;
+	
+	/**
+	 * 계좌 등록 > 계좌 수정 처리 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_bank_account_pro_service(Model model) throws Exception;
 }

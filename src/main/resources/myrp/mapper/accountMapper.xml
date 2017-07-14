@@ -49,4 +49,22 @@
 			  )
  		]]>
  	</insert>
+ 	
+ 	<!-- 계좌 수정정보 불러오기 -->
+ 	<select id="select_bank_account" parameterType="String" resultType="Bank_accountVO">
+ 		<![CDATA[
+ 		SELECT *
+ 		FROM bank_account
+ 		WHERE bank_account_id = #{bank_account_id}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 계좌 수정 처리 -->
+ 	<update id="update_bank_account" parameterType="Bank_accountVO">
+ 		<![CDATA[
+ 		UPDATE bank_account 
+ 		   SET bank_account_name = #{bank_account_name}, bank_account_number = #{bank_account_number}, bank_name = #{bank_name}, use_state = #{use_state}, reg_date = #{reg_date}
+ 		 WHERE bank_account_id = #{bank_account_id}
+ 		]]>
+ 	</update>
 </mapper>

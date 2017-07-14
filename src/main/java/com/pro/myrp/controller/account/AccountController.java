@@ -46,7 +46,21 @@ public interface AccountController extends MyRPController{
 	
 	/**
 	 * 계좌등록 > 계좌 수정
+	 * @param req
+	 * @param model
+	 * @return 
+	 * @throws Exception
 	 */
+	 public String modify_bank_account(HttpServletRequest req, Model model) throws Exception;
+	 
+	 /**
+	  * 계좌등록 > 계좌 수정 처리
+	  * @param req
+	  * @param model
+	  * @return
+	  * @throws Exception
+	  */
+	 public String modify_bank_account_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 계좌등록 > 계좌 삭제

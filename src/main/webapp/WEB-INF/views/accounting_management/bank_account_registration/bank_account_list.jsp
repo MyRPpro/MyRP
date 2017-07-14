@@ -25,7 +25,7 @@ bank_account.jsp
 	<tr>
 		<td>${vo.bank_account_id}</td>
 		<td>
-			<a href="/accounting_management/modify_bank_account?bank_account_id=${vo.bank_account_id}">
+			<a href="/accounting_management/bank_account_registration/modify_bank_account?bank_account_id=${vo.bank_account_id}">
 				${vo.bank_account_name}
 			</a>
 		</td>
@@ -45,26 +45,26 @@ bank_account.jsp
 	<tr>
 		<th>
 			<c:if test="${startPage > pageBlock}">
-				<a href="/accounting_management/bank_account_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-				<a href="/accounting_management/bank_account_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
+				<a href="/accounting_management/bank_account_registration/bank_account_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
+				<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<c:if test="${i == currentPage}">
 					<span>[${i}]</span>
 				</c:if>
 				<c:if test="${i != currentPage}">
-					<a href="/accounting_management/bank_account_list?pageNum=${i}">[${i}]</a>
+					<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${i}">[${i}]</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${pageCount > endPage}">
-				<a href="/accounting_management/bank_account_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-				<a href="/accounting_management/bank_account_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
+				<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
+				<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
 			</c:if>
 		</th>
 	</tr>
 </table>
 </div>
-<form action="/accounting_management/register_bank_account" method="get" name="bank_account_list_form1">
+<form action="/accounting_management/bank_account_registration/register_bank_account" method="get" name="bank_account_list_form1">
 	<input type="submit" value="계좌 등록">
 </form>
 
