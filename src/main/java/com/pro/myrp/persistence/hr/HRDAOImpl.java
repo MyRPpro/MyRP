@@ -1,6 +1,7 @@
 package com.pro.myrp.persistence.hr;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -38,5 +39,11 @@ public class HRDAOImpl implements HRDAO {
 	public List<Hr_codeVO> select_hr_codes(int hr_code_group_id) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_hr_codes(hr_code_group_id);
+	}
+
+	@Override
+	public int update_hr_code_group(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_hr_code_group(daoMap);
 	}
 }

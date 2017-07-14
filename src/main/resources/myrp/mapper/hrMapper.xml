@@ -40,4 +40,13 @@
 	WHERE	hr_code_group_id = #{hr_code_group_id}
 	]]>
 	</select>
+
+	<!-- 인사코드 그룹 사용미사용 수정 -->
+	<update id="update_hr_code_group" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	hr_code_group
+		SET		use_state = #{use_state}
+		WHERE	hr_code_group_id = #{hr_code_group_id}
+		]]>
+	</update>
 </mapper>

@@ -1,6 +1,7 @@
 package com.pro.myrp.persistence.hr;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
@@ -38,4 +39,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public List<Hr_codeVO> select_hr_codes(int hr_code_group_id);
+
+	/**
+	 * 인사코드 그룹의 사용미사용 처리
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int update_hr_code_group(Map<String, Object> daoMap);
 }

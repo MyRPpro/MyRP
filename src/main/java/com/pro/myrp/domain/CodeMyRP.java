@@ -73,6 +73,7 @@ public interface CodeMyRP {
 				public static final int add_base_code_group_dupCheck = 16121;
 				public static final int add_base_code_group_pro = 16122;
 				public static final int modify_base_code_group = 16130;
+				public static final int modify_base_code_group_pro = 16131;
 				public static final int base_code_list = 16140;
 				public static final int add_base_code = 16150;
 				public static final int modify_base_code = 16160;

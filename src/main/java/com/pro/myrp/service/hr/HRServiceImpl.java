@@ -1,6 +1,7 @@
 package com.pro.myrp.service.hr;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,13 +31,13 @@ public class HRServiceImpl implements HRService {
 	}
 
 	@Override
-	public void add_base_code_group(Model model) throws Exception {
+	public void add_base_code_group_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 	}
 
 	@Override
-	public void add_base_code_dupCheck(Model model) throws Exception {
+	public void add_base_code_dupCheck_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		if(req.getParameter("hr_code_group_id") != null) {
@@ -54,7 +55,7 @@ public class HRServiceImpl implements HRService {
 	}
 
 	@Override
-	public void add_base_code_group_pro(Model model) throws Exception {
+	public void add_base_code_group_pro_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		int hr_code_group_id = 0;
@@ -75,22 +76,51 @@ public class HRServiceImpl implements HRService {
 
 	
 	@Override
-	public void base_code_list(Model model) throws Exception {
+	public void modify_base_code_group_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != "") {
+			int hr_code_group_id = Integer.parseInt(req.getParameter("hr_code_group_id"));
+			Hr_code_groupVO hr_code_groupVo = new Hr_code_groupVO();
+			hr_code_groupVo = dao.select_hr_code_group(hr_code_group_id);
+			model.addAttribute("hr_code_groupVo", hr_code_groupVo);
+		}
+		
+	}
+	
+	@Override
+	public void modify_base_code_group_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != null) {
+			int hr_code_group_id =
+					Integer.parseInt(req.getParameter("hr_code_group_id"));
+			String use_state = req.getParameter("use_state");
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("hr_code_group_id", hr_code_group_id);
+			daoMap.put("use_state", use_state);
+			dao.update_hr_code_group(daoMap);
+			model.addAttribute("hr_code_group_id", hr_code_group_id);
+		}
+		
+		
+	}
+	
+	@Override
+	public void base_code_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		if(req.getParameter("hr_code_group_id") != null) {
 			int hr_code_group_id = Integer.parseInt(req.getParameter("hr_code_group_id"));
 			List<Hr_codeVO> hr_codeVos = new ArrayList<>();
 			hr_codeVos = dao.select_hr_codes(hr_code_group_id);
-			String hr_code_group_name = "";
+			
 			Hr_code_groupVO hr_code_groupVo = new Hr_code_groupVO();
 			hr_code_groupVo = dao.select_hr_code_group(hr_code_group_id);
-			hr_code_group_name = hr_code_groupVo.getHr_code_group_name();
 			model.addAttribute("hr_codeVos", hr_codeVos);
-			model.addAttribute("hr_code_group_name", hr_code_group_name);
+			model.addAttribute("hr_code_groupVo", hr_code_groupVo);
 		}
 		
 	}
-
 
 }

@@ -48,6 +48,26 @@ public interface HRController extends MyRPController {
 	public String add_base_code_group_pro(HttpServletRequest req, Model model) throws Exception;
 
 	/**
+	 * 인사관리 > 인사코드 관리 > 기초코드 그룹 수정하기
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_base_code_group(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사코드 관리 > 기초코드 그룹 수정 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_base_code_group_pro(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
 	 * 인사관리 > 인사코드 관리 > 그룹별 기초코드 목록보기
 	 * @author amaco78
 	 * @param req

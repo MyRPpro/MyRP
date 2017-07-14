@@ -33,7 +33,7 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	public String add_base_code_group(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_base_code_group));
 		model.addAttribute("req", req);
-		service.add_base_code_group(model);
+		service.add_base_code_group_service(model);
 		return code.c(hr_management, manage_hr_code, add_base_code_group);
 	}
 
@@ -42,7 +42,7 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	public String add_base_code_dupCheck(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_base_code_group_dupCheck));
 		model.addAttribute("req", req);
-		service.add_base_code_dupCheck(model);
+		service.add_base_code_dupCheck_service(model);
 		return code.c(hr_management, manage_hr_code, add_base_code_group_dupCheck);
 	}
 	
@@ -51,8 +51,26 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	public String add_base_code_group_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_base_code_group_pro));
 		model.addAttribute("req", req);
-		service.add_base_code_group_pro(model);
+		service.add_base_code_group_pro_service(model);
 		return code.c(hr_management, manage_hr_code, add_base_code_group_pro);
+	}
+
+	@Override
+	@GetMapping(value="/manage_hr_code/modify_base_code_group")
+	public String modify_base_code_group(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_base_code_group));
+		model.addAttribute("req", req);
+		service.modify_base_code_group_service(model);
+		return code.c(hr_management, manage_hr_code, modify_base_code_group);
+	}
+	
+	@Override
+	@GetMapping(value="/manage_hr_code/modify_base_code_group_pro")
+	public String modify_base_code_group_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_base_code_group_pro));
+		model.addAttribute("req", req);
+		service.modify_base_code_group_pro_service(model);
+		return "redirect:"+code.c(hr_management, manage_hr_code, base_code_list);
 	}
 	
 	@Override
@@ -60,7 +78,7 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	public String base_code_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(base_code_list));
 		model.addAttribute("req", req);
-		service.base_code_list(model);
+		service.base_code_list_service(model);
 		return code.c(hr_management, manage_hr_code, base_code_list);
 	}
 	
@@ -99,6 +117,10 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		
 		return code.c(hr_management, manage_salary, salary_register);
 	}
+
+	
+
+	
 
 	
 }

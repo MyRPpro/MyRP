@@ -20,7 +20,7 @@ public interface HRService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void add_base_code_group(Model model) throws Exception;
+	public void add_base_code_group_service(Model model) throws Exception;
 
 	/**
 	 * 인사관리 > 인사코드 등록 > 기초코드 그룹 아이디 중복체크
@@ -28,7 +28,7 @@ public interface HRService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void add_base_code_dupCheck(Model model) throws Exception;
+	public void add_base_code_dupCheck_service(Model model) throws Exception;
 
 	/**
 	 * 인사관리 > 인사코드 등록 > 기초코드 그룹 아이디 등록 처리 서비스
@@ -36,13 +36,29 @@ public interface HRService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void add_base_code_group_pro(Model model) throws Exception;
+	public void add_base_code_group_pro_service(Model model) throws Exception;
 
+	/**
+	 * 인사관리 > 인사코드 등록 > 기초코드 그룹 수정화면 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_base_code_group_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사코드 등록 > 기초코드 그룹 수정처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_base_code_group_pro_service(Model model) throws Exception;
+	
 	/**
 	 * 인사관리 > 인사코드 등록 > 그룹별 기초코드 목록 서비스
 	 * @author amaco78
 	 * @param model
 	 * @throws Exception
 	 */
-	public void base_code_list(Model model) throws Exception;
+	public void base_code_list_service(Model model) throws Exception;
 }
