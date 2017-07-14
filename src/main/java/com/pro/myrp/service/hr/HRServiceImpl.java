@@ -37,7 +37,7 @@ public class HRServiceImpl implements HRService {
 	}
 
 	@Override
-	public void add_base_code_dupCheck_service(Model model) throws Exception {
+	public void add_base_code_group_dupCheck_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		if(req.getParameter("hr_code_group_id") != null) {
@@ -74,7 +74,6 @@ public class HRServiceImpl implements HRService {
 		model.addAttribute("cnt", cnt);
 	}
 
-	
 	@Override
 	public void modify_base_code_group_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -121,6 +120,71 @@ public class HRServiceImpl implements HRService {
 			model.addAttribute("hr_code_groupVo", hr_code_groupVo);
 		}
 		
+	}
+
+	@Override
+	public void add_base_code_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != null) {
+			int hr_code_group_id =
+					Integer.parseInt(req.getParameter("hr_code_group_id"));
+			model.addAttribute("hr_code_group_id", hr_code_group_id);
+		}
+	}
+
+	
+	@Override
+	public void add_base_code_dupCheck_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != null) {
+			int hr_code_group_id =
+					Integer.parseInt(req.getParameter("hr_code_group_id"));
+			
+			if(req.getParameter("hr_code_id") != null) {
+				int hr_code_id =
+						Integer.parseInt(req.getParameter("hr_code_id"));
+				Hr_codeVO hr_codeVo = new Hr_codeVO();
+				Map<String, Object> daoMap = new HashMap<>();
+				daoMap.put("hr_code_group_id", hr_code_group_id);
+				daoMap.put("hr_code_id", hr_code_id);
+				hr_codeVo = dao.select_hr_code(daoMap);
+				if(hr_codeVo != null) {
+					model.addAttribute("cnt", 1);
+				} else {
+					model.addAttribute("cnt", 0);
+				}
+				model.addAttribute("hr_code_group_id", hr_code_group_id);
+				model.addAttribute("hr_code_id", hr_code_id);
+			} else {
+				model.addAttribute("cnt", 0);
+			}
+		
+		}
+		
+	}
+
+	
+	@Override
+	public void add_base_code_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int hr_code_id = 0;
+		if(req.getParameter("hr_code_id") != null) {
+			hr_code_id = Integer.parseInt(req.getParameter("hr_code_id"));
+		}
+		int hr_code_group_id = Integer.parseInt(req.getParameter("hr_code_group_id"));
+		String hr_code_name = req.getParameter("hr_code_name");
+		String use_state = req.getParameter("use_state");
+		Hr_codeVO vo = new Hr_codeVO();
+		vo.setHr_code_group_id(hr_code_group_id);
+		vo.setHr_code_id(hr_code_id);
+		vo.setHr_code_name(hr_code_name);
+		vo.setUse_state(use_state);
+		int cnt = dao.insert_base_code(vo);
+		model.addAttribute("hr_code_group_id", hr_code_group_id);
+		model.addAttribute("cnt", cnt);
 	}
 
 }

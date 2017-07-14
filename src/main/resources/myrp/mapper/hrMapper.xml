@@ -49,4 +49,23 @@
 		WHERE	hr_code_group_id = #{hr_code_group_id}
 		]]>
 	</update>
+	
+	<!-- 선택된 번호의 인사코드 정보 검색 -->
+	<select id="select_hr_code" parameterType="int"
+	resultType="Hr_codeVO">
+		<![CDATA[
+		SELECT	*
+		FROM	hr_code
+		WHERE	hr_code_group_id = #{hr_code_group_id}
+		AND		hr_code_id = #{hr_code_id}
+		]]>
+	</select>
+	
+	<!-- 인사코드 등록 -->
+	<insert id="insert_base_code" parameterType="Hr_codeVO">
+		<![CDATA[
+		INSERT INTO	hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
+		VALUES(#{hr_code_group_id},#{hr_code_id},#{hr_code_name},#{use_state})
+		]]>
+	</insert>
 </mapper>

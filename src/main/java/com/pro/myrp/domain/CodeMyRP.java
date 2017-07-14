@@ -76,6 +76,8 @@ public interface CodeMyRP {
 				public static final int modify_base_code_group_pro = 16131;
 				public static final int base_code_list = 16140;
 				public static final int add_base_code = 16150;
+				public static final int add_base_code_dupCheck = 16151;
+				public static final int add_base_code_pro = 16152;
 				public static final int modify_base_code = 16160;
 			//부서관리
 			public static final int manage_dept = 16200;

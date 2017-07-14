@@ -392,7 +392,7 @@ CREATE TABLE sales_order
   sales_id          CHAR(12)    NOT NULL, /* 주문번호 */
   account_id        CHAR(12)    NOT NULL, /* 계정코드 */
   order_id          CHAR(12),   /* 주문번호 */
-  product_id        CHAR(12),   /* 제품번호 */
+  product_id        CHAR(10),   /* 제품번호 */
   company_id        CHAR(10),   /* 회사번호 */
   employee_id       NUMBER(4),  /* 사원번호 */
   reg_date          DATE DEFAULT SYSDATE, /* 등록일자 */
@@ -410,9 +410,6 @@ CREATE TABLE sales_order
   CONSTRAINT sales_order_fk4    FOREIGN KEY(company_id)   REFERENCES company(company_id),
   CONSTRAINT sales_order_fk5    FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
 );
-
-
-
 --------------------------------------------------------------------------------
 -- table PURCHASE_ORDER
 --------------------------------------------------------------------------------
@@ -422,8 +419,8 @@ CREATE TABLE purchase_order (
 	purchase_id       CHAR(12)       NOT NULL,  /* 주문번호 */
 	account_id        CHAR(12)       NOT NULL,  /* 계정코드 */
 	order_id          CHAR(12),                 /* 주문번호 */
-	product_id        CHAR(12),                 /* 상품번호 */
-	company_id        CHAR(12),                 /* 회사번호 */
+	product_id        CHAR(10),                 /* 상품번호 */
+	company_id        CHAR(10),                 /* 회사번호 */
 	employee_id       NUMBER(4),                /* 사원번호 */
 	reg_date          DATE DEFAULT    SYSDATE,  /* 등록일자 */
 	update_date       DATE DEFAULT    SYSDATE,  /* 최종수정일자 */
@@ -439,5 +436,4 @@ CREATE TABLE purchase_order (
   CONSTRAINT purchase_order_fk3   FOREIGN KEY(product_id)   REFERENCES product(product_id),
   CONSTRAINT purchase_order_fk4   FOREIGN KEY(company_id)   REFERENCES company(company_id),
   CONSTRAINT purchase_order_fk5   FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
-	
 );

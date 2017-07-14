@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function autofocus(formName) {
+	function autofocus() {
 		document.add_base_code_group_form1.hr_code_group_id.focus();
 	}
 	

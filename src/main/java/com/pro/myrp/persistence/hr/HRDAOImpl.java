@@ -46,4 +46,17 @@ public class HRDAOImpl implements HRDAO {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.update_hr_code_group(daoMap);
 	}
+
+
+	@Override
+	public Hr_codeVO select_hr_code(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_hr_code(daoMap);
+	}
+
+	@Override
+	public int insert_base_code(Hr_codeVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_base_code(vo);
+	}
 }

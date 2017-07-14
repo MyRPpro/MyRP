@@ -39,10 +39,10 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 
 	@Override
 	@GetMapping(value="manage_hr_code/add_base_code_group_dupCheck")
-	public String add_base_code_dupCheck(HttpServletRequest req, Model model) throws Exception {
+	public String add_base_code_group_dupCheck(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_base_code_group_dupCheck));
 		model.addAttribute("req", req);
-		service.add_base_code_dupCheck_service(model);
+		service.add_base_code_group_dupCheck_service(model);
 		return code.c(hr_management, manage_hr_code, add_base_code_group_dupCheck);
 	}
 	
@@ -83,6 +83,24 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	}
 	
 	@Override
+	@GetMapping(value="manage_hr_code/add_base_code")
+	public String add_base_code(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_base_code));
+		model.addAttribute("req", req);
+		service.add_base_code_service(model);
+		return code.c(hr_management, manage_hr_code, add_base_code);
+	}
+	
+	@Override
+	@GetMapping(value="/manage_hr_code/add_base_code_dupCheck")
+	public String add_base_code_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_base_code_dupCheck));
+		model.addAttribute("req", req);
+		service.add_base_code_dupCheck_service(model);
+		return code.c(hr_management, manage_hr_code, add_base_code_dupCheck);
+	}
+	
+	@Override
 	@GetMapping(value="manage_dept/dept_list")
 	public String dept_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(dept_list));
@@ -117,6 +135,20 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		
 		return code.c(hr_management, manage_salary, salary_register);
 	}
+
+	
+	@Override
+	@PostMapping(value="manage_hr_code/add_base_code_pro")
+	public String add_base_code_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_base_code_pro));
+		model.addAttribute("req", req);
+		service.add_base_code_pro_service(model);
+		return code.c(hr_management, manage_hr_code, add_base_code_pro);
+	}
+
+	
+
+	
 
 	
 

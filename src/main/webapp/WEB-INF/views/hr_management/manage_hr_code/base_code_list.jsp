@@ -41,6 +41,7 @@ base_code_list.jsp
 		</c:forEach>
 	</table>
 	<form action="/hr_management/manage_hr_code/add_base_code" method="get" name="base_code_list_form1">
+		<input type="hidden" name="hr_code_group_id" value="${hr_code_groupVo.hr_code_group_id}">
 		<input type="submit" value="인사코드  등록">
 		<input type="button" value="돌아가기" onclick="window.location='/hr_management/manage_hr_code/base_code_group_list';">
 	</form>

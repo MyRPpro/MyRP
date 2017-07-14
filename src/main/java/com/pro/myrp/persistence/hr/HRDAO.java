@@ -47,4 +47,20 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_hr_code_group(Map<String, Object> daoMap);
+
+	/**
+	 * 선택된 번호의 인사코드 정보 검색
+	 * @author amaco78
+	 * @param hr_code_id
+	 * @return
+	 */
+	public Hr_codeVO select_hr_code(Map<String, Object> daoMap);
+
+	/**
+	 * 인사코드 번호 등록
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_base_code(Hr_codeVO vo);
 }
