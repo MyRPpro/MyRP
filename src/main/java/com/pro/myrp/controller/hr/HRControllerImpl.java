@@ -146,13 +146,24 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		return code.c(hr_management, manage_hr_code, add_base_code_pro);
 	}
 
-	
 
-	
+	@Override
+	@GetMapping(value="manage_hr_code/modify_base_code")
+	public String modify_base_code(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_base_code));
+		model.addAttribute("req", req);
+		service.modify_base_code_service(model);
+		return code.c(hr_management, manage_hr_code, modify_base_code);
+	}
 
-	
-
-	
+	@Override
+	@PostMapping(value="manage_hr_code/modify_base_code_pro")
+	public String modify_base_code_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_base_code_pro));
+		model.addAttribute("req", req);
+		service.modify_base_code_pro_service(model);
+		return code.c(hr_management, manage_hr_code, modify_base_code_pro);
+	}
 
 	
 }

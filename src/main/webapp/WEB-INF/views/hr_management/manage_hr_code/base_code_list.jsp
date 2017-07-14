@@ -33,7 +33,7 @@ base_code_list.jsp
 			<td>${vo.hr_code_group_id}</td>
 			<td>${vo.hr_code_id}</td>
 			<td>
-				<a href="/hr_management/manage_hr_code/modify_base_code?hr_code_id=${vo.hr_code_id}">
+				<a href="/hr_management/manage_hr_code/modify_base_code?hr_code_id=${vo.hr_code_id}&hr_code_group_id=${vo.hr_code_group_id}">
 					${vo.hr_code_name}
 				</a>
 			</td>

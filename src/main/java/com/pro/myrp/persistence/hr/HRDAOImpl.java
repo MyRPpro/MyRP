@@ -59,4 +59,10 @@ public class HRDAOImpl implements HRDAO {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.insert_base_code(vo);
 	}
+
+	@Override
+	public int update_hr_code(Hr_codeVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_hr_code(vo);
+	}
 }

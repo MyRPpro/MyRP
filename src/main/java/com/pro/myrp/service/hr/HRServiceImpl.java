@@ -187,4 +187,51 @@ public class HRServiceImpl implements HRService {
 		model.addAttribute("cnt", cnt);
 	}
 
+
+	@Override
+	public void modify_base_code_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != null) {
+			int hr_code_group_id =
+					Integer.parseInt(req.getParameter("hr_code_group_id"));
+			if(req.getParameter("hr_code_id") != null) {
+				int hr_code_id =
+						Integer.parseInt(req.getParameter("hr_code_id"));
+				Map<String, Object> daoMap = new HashMap<>();
+				daoMap.put("hr_code_group_id", hr_code_group_id);
+				daoMap.put("hr_code_id", hr_code_id);
+				Hr_codeVO vo = dao.select_hr_code(daoMap);
+				model.addAttribute("hr_codeVo", vo);
+			}			
+		}
+	}
+
+
+	@Override
+	public void modify_base_code_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != null) {
+			int hr_code_group_id =
+					Integer.parseInt(req.getParameter("hr_code_group_id"));
+			if(req.getParameter("hr_code_id") != null) {
+				int hr_code_id =
+						Integer.parseInt(req.getParameter("hr_code_id"));
+				String hr_code_name =
+						req.getParameter("hr_code_name");
+				String use_state =
+						req.getParameter("use_state");
+				Hr_codeVO vo = new Hr_codeVO();
+				vo.setHr_code_group_id(hr_code_group_id);
+				vo.setHr_code_id(hr_code_id);
+				vo.setHr_code_name(hr_code_name);
+				vo.setUse_state(use_state);
+				int cnt = dao.update_hr_code(vo);
+				model.addAttribute("cnt", cnt);
+				model.addAttribute("hr_code_group_id", hr_code_group_id);
+			}			
+		}
+	}
+
 }

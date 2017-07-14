@@ -85,4 +85,20 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void add_base_code_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사코드 등록 > 인사코드 수정화면 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_base_code_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사코드 등록 > 인사코드 수정처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_base_code_pro_service(Model model) throws Exception;
 }

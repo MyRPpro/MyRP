@@ -63,4 +63,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int insert_base_code(Hr_codeVO vo);
+
+	/**
+	 * 인사코드 정보 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_hr_code(Hr_codeVO vo);
 }

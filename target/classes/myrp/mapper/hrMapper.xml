@@ -68,4 +68,15 @@
 		VALUES(#{hr_code_group_id},#{hr_code_id},#{hr_code_name},#{use_state})
 		]]>
 	</insert>
+
+	<!-- 인사코드 수정 -->
+	<update id="update_hr_code" parameterType="Hr_codeVO">
+		<![CDATA[
+		UPDATE	hr_code
+		SET		hr_code_name = #{hr_code_name},
+				use_state = #{use_state}
+		WHERE	hr_code_group_id = #{hr_code_group_id}
+		AND		hr_code_id = #{hr_code_id}
+		]]>
+	</update>
 </mapper>

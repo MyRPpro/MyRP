@@ -106,6 +106,26 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String add_base_code_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사코드 관리 > 인사코드 수정화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Excetpion
+	 */
+	public String modify_base_code(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인시코드 관리 > 인사코드 수정처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_base_code_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 부서관리 > 부서목록보기
