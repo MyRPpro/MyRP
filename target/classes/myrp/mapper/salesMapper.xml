@@ -5,4 +5,41 @@
  
 <mapper namespace="com.pro.myrp.persistence.sales.SalesDAO">
  
+ 
+	 <!-- 판매내역 총 개수 -->
+ 	<select id="select_sales_cnt" resultType="int">
+ 		<![CDATA[
+ 		SELECT	COUNT(*)
+ 		FROM	sales_order
+ 		]]>
+ 	</select>
+ 
+ 
+ 	<!-- 판매내역 목록 -->
+ 	<select id="select_sales_list" parameterType="java.util.Map"
+ 	resultType="SalesVO">
+ 		<![CDATA[
+		SELECT  *
+		FROM    ( SELECT SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, 
+                    COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, 
+                    STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+                    CONDITION_NOTE_RECEIVABLE, SALES_STATE, COMPANY_NAME ,rownum rNum
+ 
+		        FROM    (SELECT  S.SALES_ID, S.ACCOUNT_ID, S.ORDER_ID, S.PRODUCT_ID, 
+                            S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+                            S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+                            S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, C.COMPANY_NAME
+				
+		                FROM    SALES_ORDER S , COMPANY C
+                    WHERE   S.COMPANY_ID = C.COMPANY_ID
+		                ORDER BY SALES_ID
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 
+ 
 </mapper>
