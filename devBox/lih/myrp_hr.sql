@@ -42,9 +42,40 @@ CREATE TABLE product(
     use_state           CHAR(1)         DEFAULT 'Y' NOT NULL
                         CHECK(use_state = 'Y' OR use_state = 'N'),
     reg_date            DATE            DEFAULT SYSDATE
-    
-    
 );
+INSERT INTO product
+VALUES('1200000001','JSP 2.3 웹프로그래밍',25000,27000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000002','JAVA 객체지향 디자인 패턴',26000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000003','거침없이 배우는 자바스크립트/제이쿼리',30000,35000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000004','HTML5 + CSS3 웹 표준의 정석',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000005','해킹방어를 위한 JAVA 시큐어코딩',26000,30000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000006','Oracle 11g 프로그래밍',20000,23000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000007','어서와 Java는 처음이지',30000,33000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000008','Head First Java',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000009','Head First Java1',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000010','Head First Java2',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000011','Head First Java3',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000012','Head First Java4',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000013','Head First Java',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000014','Head First Java',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000015','Head First Java',25000,28000,'Y',SYSDATE);
+INSERT INTO product
+VALUES('1200000016','Head First Java',25000,28000,'Y',SYSDATE);
+COMMIT;
 --------------------------------------------------------------------------------
 -- 인사코드그룹 TABLE 생성 (hr_code_group)
 --------------------------------------------------------------------------------

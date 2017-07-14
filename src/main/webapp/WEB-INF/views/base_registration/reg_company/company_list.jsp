@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file = "../../setting.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,7 +28,7 @@ company_list.jsp
 	<tr>
 		<td>${vo.company_id}</td>
 		<td>
-			<a href="/base_registration/modify_company?company_id=${vo.company_id}">
+			<a href="/base_registration/reg_company/modify_company?company_id=${vo.company_id}">
 				${vo.company_name}
 			</a>
 		</td>
@@ -49,27 +49,28 @@ company_list.jsp
 	<tr>
 		<th>
 			<c:if test="${startPage > pageBlock}">
-				<a href="/base_registration/company_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-				<a href="/base_registration/company_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
+				<a href="/base_registration/reg_company/company_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
+				<a href="/base_registration/reg_company/company_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
 			</c:if>
 			<c:forEach var="i" begin="${startPage}" end="${endPage}">
 				<c:if test="${i == currentPage}">
 					<span>[${i}]</span>
 				</c:if>
 				<c:if test="${i != currentPage}">
-					<a href="/base_registration/company_list?pageNum=${i}">[${i}]</a>
+					<a href="/base_registration/reg_company/company_list?pageNum=${i}">[${i}]</a>
 				</c:if>
 			</c:forEach>
 			<c:if test="${pageCount > endPage}">
-				<a href="/base_registration/company_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-				<a href="/base_registration/company_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
+				<a href="/base_registration/reg_company/company_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
+				<a href="/base_registration/reg_company/company_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
 			</c:if>
 		</th>
 	</tr>
 </table>
 </div>
-<form action="/base_registration/reg_company" method="get" name="company_list_form1">
+<form action="/base_registration/reg_company/add_company" method="get" name="company_list_form1">
 	<input type="submit" value="거래처 등록">
+	<input type="button" value="돌아가기" onclick="window.location='/';">
 </form>
 </body>
 </html>

@@ -45,4 +45,11 @@ public interface BasicService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_company_pro_service(Model model) throws Exception;
+
+	/**
+	 * 상품 등록 > 상품 리스트 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void product_list_service(Model model) throws Exception;
 }

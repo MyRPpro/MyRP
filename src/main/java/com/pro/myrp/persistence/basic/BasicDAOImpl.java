@@ -8,7 +8,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.pro.myrp.domain.CompanyVO;
+import com.pro.myrp.domain.base_registration.CompanyVO;
+import com.pro.myrp.domain.base_registration.ProductVO;
 
 @Repository
 public class BasicDAOImpl implements BasicDAO {
@@ -44,6 +45,19 @@ public class BasicDAOImpl implements BasicDAO {
 	public int update_company(CompanyVO vo) {
 		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
 		return dao.update_company(vo);
+	}
+
+	@Override
+	public int select_product_cnt() {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.select_product_cnt();
+	}
+
+
+	@Override
+	public ArrayList<ProductVO> select_product_list(Map<String, Object> daoMap) {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.select_product_list(daoMap);
 	}
 
 	
