@@ -1,7 +1,9 @@
 package com.pro.myrp.service.account;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.persistence.account.AccountDAO;
 
@@ -18,7 +21,8 @@ public class AccountServiceImpl implements AccountService {
 
 	@Inject
 	private AccountDAO dao;
-
+	
+	//계좌리스트
 	@Override
 	public void bank_account_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -72,4 +76,53 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
+	// 계좌등록 : 뷰(View)
+	@Override
+	public void register_bank_account_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+	}
+	
+	// 계좌 등록 : bank_account_id 불러오기
+	@Override
+	public void call_bank_account_id_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+		vos = dao.select_bank_account_id();
+		model.addAttribute("vos", vos);
+	}
+	
+	// 계좌등록 : 등록처리
+	@Override
+	public void register_bank_account_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String bank_account_id = req.getParameter("bank_account_id");
+		String bank_account_name = req.getParameter("bank_account_name");
+		String bank_account_number = req.getParameter("bank_account_number");
+		int bank_account_balance = (Integer.parseInt(req.getParameter("bank_account_balance")));
+		String bank_account_type = req.getParameter("bank_account_type");
+		String bank_name = req.getParameter("bank_name");
+		String use_state = req.getParameter("use_state");
+		Date reg_date = req.getParameter("reg_date") =="" ? new Date(0):Date.valueOf(req.getParameter("reg_date"));
+	
+		Bank_accountVO vo = new Bank_accountVO();
+		vo.setBank_account_id(bank_account_id);
+		vo.setBank_account_name(bank_account_name);
+		vo.setBank_account_number(bank_account_number);
+		vo.setBank_account_balance(bank_account_balance);
+		vo.setBank_account_type(bank_account_type);
+		vo.setBank_name(bank_name);
+		vo.setUse_state(use_state);
+		vo.setReg_date(reg_date);
+		
+		int cnt = dao.insert_bank_account(vo);
+		System.out.println("cnt: " + cnt);
+		model.addAttribute("cnt", cnt);
+	}
+	
+	
+	
 }

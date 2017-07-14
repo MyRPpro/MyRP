@@ -28,4 +28,25 @@
  			WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
+ 	
+ 	<!-- bank_account_id 불러오기 -->
+ 	<select id="select_bank_account_id" resultType="AccountVO">
+ 		<![CDATA[
+ 		select account_id, account_name from account where account_name IN('매출채권','매입채무','급여','부가세예수금','현금')
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 계좌 추가 -->
+ 	<insert id="insert_bank_account" parameterType="Bank_accountVO">
+ 		<![CDATA[
+ 		INSERT INTO bank_account
+ 		values(#{bank_account_id},#{bank_account_name},#{bank_account_number},
+ 			   #{bank_account_balance},#{bank_account_type},#{bank_name},#{use_state},
+ 			   CASE	WHEN	TO_CHAR(#{reg_date},'YYYY') < 2000
+								THEN	SYSDATE
+								ELSE	#{reg_date}
+								END	
+			  )
+ 		]]>
+ 	</insert>
 </mapper>

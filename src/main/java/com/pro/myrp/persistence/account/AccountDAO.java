@@ -3,6 +3,7 @@ package com.pro.myrp.persistence.account;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
@@ -19,5 +20,19 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public ArrayList<Bank_accountVO> select_bank_account_list(Map<String, Object> daoMap);
+	
+	/**
+	 * bank_account_id 불러오기
+	 * @return
+	 */
+	public ArrayList<AccountVO> select_bank_account_id();
+	
+	/**
+	 * 계좌 등록
+	 * @author 정원
+	 * @param vo
+	 * @return
+	 */
+	public int insert_bank_account(Bank_accountVO vo);
 	
 }
