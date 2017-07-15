@@ -16,6 +16,8 @@ public interface purchaseDAO extends MyRPDAO {
 
 	public int update_purchase(PurchaseVO vo);
 
+	public ArrayList<PurchaseVO> slect_quick_serch_purchase(String search_str);
+
 	
 
 

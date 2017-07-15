@@ -64,7 +64,7 @@ public interface CodeMyRP {
 			public static final int detail_purchase = 13120;		// 구매 상세
 			public static final int modify_purchase = 13130;		// 구매수정
 			public static final int modify_purchase_pro = 13140;		// 구매수정
-			public static final int search_purchase_title = 13140;		//제목으로 검색
+			public static final int quick_serch_purchase = 13150;		// 구매 바로검색
 			
 			
 		// 구매입력

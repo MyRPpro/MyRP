@@ -69,5 +69,23 @@
  	</update>
  	
  	
+ 	<!-- 구매 바로 검색 -->
+ 	<select id="slect_quick_serch_purchase" parameterType="String"
+ 	resultType="PurchaseVO">
+ 		<![CDATA[
+		SELECT   P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
+                 P.COMPANY_ID, P.EMPLOYEE_ID, P.REG_DATE, P.UPDATE_DATE, 
+                 P.STORAGE_IN_DATE, P.COUNT_PURCHASE, P.SUPPLY_PRICE, 
+                 P.PURCHASE_STATE, P.CONDITION_NOTE_PAYABLE, C.COMPANY_NAME
+	    FROM	PURCHASE_ORDER P
+	    JOIN	COMPANY C
+	    ON		P.COMPANY_ID = C.COMPANY_ID
+		WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%'
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	
+ 	
  	
 </mapper>

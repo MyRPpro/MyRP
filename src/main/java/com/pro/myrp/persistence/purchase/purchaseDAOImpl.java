@@ -28,7 +28,6 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.select_purchase_list(daoMap);
 	}
 
-
 	@Override
 	public PurchaseVO select_detail_purchase(String company_id) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
@@ -39,6 +38,12 @@ public class purchaseDAOImpl implements purchaseDAO {
 	public int update_purchase(PurchaseVO vo) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.update_purchase(vo);
+	}
+
+	@Override
+	public ArrayList<PurchaseVO> slect_quick_serch_purchase(String search_str) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.slect_quick_serch_purchase(search_str);
 	}
 
 

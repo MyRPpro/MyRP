@@ -49,6 +49,16 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	}
 
 
+	@Override
+	@GetMapping(value="search_purchase/quick_serch_purchase")
+	public String quick_serch_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(quick_serch_purchase));
+		model.addAttribute("req", req);
+		service.quick_serch_purchase_service(model);
+		return "redirect:"+code.c(purchase_management, search_purchase, purchase_list);
+	}
+
+
 	
 	
 }

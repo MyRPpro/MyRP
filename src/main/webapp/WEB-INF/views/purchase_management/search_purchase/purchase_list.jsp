@@ -14,9 +14,26 @@
 
 
 	<h3> 판매 리스트 페이지 : purchase_list.jsp</h3>
-
-	<table border="1">
 	
+	
+	<c:if test="${purchaseVOs eq null}">
+		<script type="text/javascript">
+			alert("검색된 내용이 없습니다.");
+			window.history.back();
+		</script>
+	</c:if>
+	
+	<table border="1">
+		
+		<tr colspan="13" align="center">
+		
+			<form action="/purchase_management/search_purchase/quick_serch_purchase">
+				<input type="text" name="search_str" placeholder="거래처명을 입력하세요." minlength="1" required>
+				<input type="submit" value="검색" >
+			</form>
+			
+		</tr>
+		
 		<tr>
 			<th>purchase_id</th>
 			<th>account_id</th>
@@ -60,6 +77,7 @@
 		</c:forEach>
 		
 	</table>
+	
 	<div class="page_nav">
 	<table>
 		<tr>
@@ -84,9 +102,7 @@
 		</tr>
 	</table>
 	</div>
-	<form action="/purchase_management/search_purchase/reg_purchase" method="get" name="company_list_form1">
-		<input type="submit" value="거래처 등록">
-	</form>
+	
 	
 </body>
 </html>

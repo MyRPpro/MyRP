@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pro.myrp.domain.CompanyVO;
 import com.pro.myrp.domain.PurchaseVO;
 import com.pro.myrp.domain.SalesVO;
 import com.pro.myrp.persistence.purchase.purchaseDAO;
@@ -24,6 +23,9 @@ public class purchaseServiceImpl implements purchaseService {
 
 	@Override
 	public void purchase_list_servie(Model model) {
+		
+		
+		
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
@@ -40,9 +42,27 @@ public class purchaseServiceImpl implements purchaseService {
 		int	startPage	= 0;
 		int endPage		= 0;
 		
-		cnt = dao.select_purchase_cnt();
 		
-		System.out.println("  -> sales Count : " + cnt);
+		
+		ArrayList<PurchaseVO> vos = null;
+		
+		// search_str
+		if ( req.getParameter("search_str") == null ){
+			
+			cnt = dao.select_purchase_cnt();
+			System.out.println("  -> sales Count : " + cnt);
+			
+			
+		} else {
+			
+			String search_str = req.getParameter("search_str");
+			
+			vos = dao.slect_quick_serch_purchase(search_str);
+			cnt = vos.size();
+			System.out.println("  -> cnt : " + cnt );
+		}
+	
+		
 		
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
@@ -58,13 +78,33 @@ public class purchaseServiceImpl implements purchaseService {
 		if(cnt > 0) {
 			
 			System.out.println("  -> Complete import cnt ...");
-			ArrayList<PurchaseVO> vos = new ArrayList<PurchaseVO>();
+			
 			Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("start", start);
 			daoMap.put("end", end);
 			
-			vos = dao.select_purchase_list(daoMap);
-			model.addAttribute("purchaseVOs", vos);
+			if ( req.getParameter("search_str") == null ){
+			
+				vos = dao.select_purchase_list(daoMap);
+				model.addAttribute("purchaseVOs", vos);
+			
+			} else {
+				
+				ArrayList<PurchaseVO> temp_vos = new ArrayList<>();
+				
+				System.out.println("start : " + start);
+				System.out.println("end : " + end);
+				
+				for(int i=start-1 ; i<end ; i++){
+					PurchaseVO tempvo = vos.get(i);
+					
+					
+					System.out.println("vos.get(i) : " + vos.get(i));
+					temp_vos.add(tempvo);
+				}
+				
+				model.addAttribute("purchaseVOs", temp_vos);
+			}
 		}
 		
 		startPage = (currentPage/pageBlock)*pageBlock+1;
@@ -85,7 +125,6 @@ public class purchaseServiceImpl implements purchaseService {
 		}
 	}
 
-	
 	@Override
 	public void detail_purchase_service(Model model) {
 		
@@ -105,7 +144,6 @@ public class purchaseServiceImpl implements purchaseService {
 			
 		}
 	}
-
 	
 	@Override
 	public void modify_purchase_service(Model model){
@@ -158,6 +196,27 @@ public class purchaseServiceImpl implements purchaseService {
 		
 		
 	}
+	
+	@Override
+	public void quick_serch_purchase_service(Model model) {
+		
+		System.out.println("  -> quick_serch_purchase_service ");
+		
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String search_str = req.getParameter("search_str");
+		System.out.println("  -> search_str : " + search_str);
+		
+		if(search_str != null){
+			System.out.println("  -> Str Searching...");
+			model.addAttribute("search_str",search_str);
+		
+		}else{
+			System.out.println("  -> No Str Value...");
+		}
+	}
+	
+	
 	
 	
 	
