@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
 
@@ -47,7 +48,6 @@ public class HRDAOImpl implements HRDAO {
 		return dao.update_hr_code_group(daoMap);
 	}
 
-
 	@Override
 	public Hr_codeVO select_hr_code(Map<String, Object> daoMap) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
@@ -64,5 +64,19 @@ public class HRDAOImpl implements HRDAO {
 	public int update_hr_code(Hr_codeVO vo) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.update_hr_code(vo);
+	}
+
+	
+	@Override
+	public int select_dept_cnt() {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_dept_cnt();
+	}
+
+
+	@Override
+	public List<DeptVO> select_dept_list(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_dept_list(daoMap);
 	}
 }

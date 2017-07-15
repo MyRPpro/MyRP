@@ -77,24 +77,27 @@ public class CodeHandler {
 	//인사관리
 	public static final int hr_management = 16000;
 		//인사코드관리
-		public static final int manage_hr_code = 16100;
-			public static final int base_code_group_list = 16110;
-			public static final int add_base_code_group = 16120;
-			public static final int add_base_code_group_dupCheck = 16121;
-			public static final int add_base_code_group_pro = 16122;
-			public static final int modify_base_code_group = 16130;
-			public static final int modify_base_code_group_pro = 16131;
-			public static final int base_code_list = 16140;
-			public static final int add_base_code = 16150;
-			public static final int add_base_code_dupCheck = 16151;
-			public static final int add_base_code_pro = 16152;
-			public static final int modify_base_code = 16160;
-			public static final int modify_base_code_pro = 16161;
+		public static final int manage_hr_code = 16100;										
+			public static final int base_code_group_list = 16110;							//인사코드 그룹 목록
+			public static final int add_base_code_group = 16120;							//인사코드 그룹 등록 화면
+			public static final int add_base_code_group_dupCheck = 16121;					//인사코드 그룹번호 중복확인
+			public static final int add_base_code_group_pro = 16122;						//인사코드 그룹 등록 처리
+			public static final int modify_base_code_group = 16130;							//인사코드 그룹 수정 화면
+			public static final int modify_base_code_group_pro = 16131;						//인사코드 그룹 수정 처리
+			public static final int base_code_list = 16140;									//인사코드 목록
+			public static final int add_base_code = 16150;									//인사코드 등록 화면
+			public static final int add_base_code_dupCheck = 16151;							//인사코드 번호 중복확인
+			public static final int add_base_code_pro = 16152;								//인사코드 등록 처리
+			public static final int modify_base_code = 16160;								//인사코드 수정 화면
+			public static final int modify_base_code_pro = 16161;							//인사코드 수정 처리
 		//부서관리
 		public static final int manage_dept = 16200;
-			public static final int dept_list = 16210;
-			public static final int add_dept = 16220;
-			public static final int modify_dept = 16230;
+			public static final int dept_list = 16210;										//부서 목록
+			public static final int add_dept = 16220;										//부서 등록 화면
+			public static final int add_dept_dupCheck = 16221;								//부서번호 중복확인
+			public static final int add_dept_pro = 16222;									//부서 등록 처리
+			public static final int modify_dept = 16230;									//부서 수정 화면
+			public static final int modify_dept_pro = 16231;								//부서 수정 처리
 		//인사카드관리
 		public static final int manage_personnel_card = 16300;
 			public static final int personnel_card_list = 16310;

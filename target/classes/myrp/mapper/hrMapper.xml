@@ -79,4 +79,28 @@
 		AND		hr_code_id = #{hr_code_id}
 		]]>
 	</update>
+
+	<!-- 부서의 총 개수 -->
+	<select id="select_dept_cnt" resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	department
+		]]>
+	</select>
+
+	<!-- 부서 목록 보기 -->
+	<select id="select_dept_list" parameterType="java.util.Map"
+	resultType="DeptVO">
+		<![CDATA[
+		SELECT  *
+		FROM    (SELECT dept_id, dept_name, access_role, use_state,
+				rownum rNum
+		        FROM    (SELECT *
+		                FROM    department
+		                ORDER BY dept_id
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
 </mapper>

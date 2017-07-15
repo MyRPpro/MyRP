@@ -3,6 +3,7 @@ package com.pro.myrp.persistence.hr;
 import java.util.List;
 import java.util.Map;
 
+import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
 import com.pro.myrp.persistence.MyRPDAO;
@@ -71,4 +72,19 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_hr_code(Hr_codeVO vo);
+
+	/**
+	 * 부서의 총 개수
+	 * @author amaco78
+	 * @return
+	 */
+	public int select_dept_cnt();
+
+	/**
+	 * 부서 목록 보기
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<DeptVO> select_dept_list(Map<String, Object> daoMap);
 }

@@ -101,4 +101,12 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_base_code_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 부서 관리 > 부서 목록 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void dept_list_service(Model model) throws Exception;
 }

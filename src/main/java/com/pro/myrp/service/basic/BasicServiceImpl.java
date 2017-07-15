@@ -219,7 +219,6 @@ public class BasicServiceImpl implements BasicService {
 		
 	}
 
-
 	@Override
 	public void add_product_dupCheck_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -235,7 +234,6 @@ public class BasicServiceImpl implements BasicService {
 		}
 		model.addAttribute("product_id", product_id);
 	}
-
 
 	@Override
 	public void add_product_pro_service(Model model) throws Exception {
@@ -260,7 +258,6 @@ public class BasicServiceImpl implements BasicService {
 		model.addAttribute("cnt", cnt);
 	}
 
-
 	@Override
 	public void modify_product_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -269,7 +266,6 @@ public class BasicServiceImpl implements BasicService {
 		ProductVO vo = dao.select_product(product_id);
 		model.addAttribute("productVo", vo);
 	}
-
 
 	@Override
 	public void modify_product_pro_service(Model model) throws Exception {
