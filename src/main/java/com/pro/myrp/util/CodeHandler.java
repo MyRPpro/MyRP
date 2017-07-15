@@ -66,7 +66,13 @@ public class CodeHandler {
 			public static final int query_statement = 14640;								//전표 내용 조회
 			public static final int approval_statement = 14650;								//전표 내용 승인
 	//회계관리
-	public static final int accountion_management = 15000;
+	public static final int accounting_management = 15000;
+		public static final int bank_account_registration = 15200;
+			public static final int bank_account_list = 15210;			//계좌 리스트
+			public static final int call_bank_account_id = 15220; 		//아이디 불러오기
+			public static final int register_bank_account = 15230;		//계좌 등록
+			public static final int modify_bank_account = 15240; 		//계좌 수정 
+	
 	
 	//인사관리
 	public static final int hr_management = 16000;

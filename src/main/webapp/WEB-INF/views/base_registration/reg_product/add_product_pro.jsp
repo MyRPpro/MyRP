@@ -15,7 +15,7 @@ add_product_pro.jsp
 		window.location = "/base_registration/reg_product/product_list";
 	</script>
 </c:if>
-<c:if test="%{cnt == 0}">
+<c:if test="${cnt == 0}">
 	<script type="text/javascript">
 		alert("상품의 등록을 실패하였습니다.");
 		window.history.back();
