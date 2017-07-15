@@ -134,6 +134,17 @@ CREATE TABLE department(
     use_state           CHAR(1)         DEFAULT 'Y' NOT NULL
                         CHECK(use_state = 'Y' OR use_state = 'N')
 );
+INSERT INTO department(dept_id,dept_name,access_role,use_state)
+VALUES(2000,'영업','SA','Y');
+INSERT INTO department(dept_id,dept_name,access_role,use_state)
+VALUES(3000,'구매','PU','Y');
+INSERT INTO department(dept_id,dept_name,access_role,use_state)
+VALUES(4000,'물류','DT','Y');
+INSERT INTO department(dept_id,dept_name,access_role,use_state)
+VALUES(5000,'회계','FI','Y');
+INSERT INTO department(dept_id,dept_name,access_role,use_state)
+VALUES(6000,'인사','HR','Y');
+COMMIT;
 --------------------------------------------------------------------------------
 -- 인사카드 TABLE 생성 (employee)
 --------------------------------------------------------------------------------
