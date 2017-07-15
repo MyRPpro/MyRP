@@ -99,15 +99,88 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.add_base_code_dupCheck_service(model);
 		return code.c(hr_management, manage_hr_code, add_base_code_dupCheck);
 	}
+
+	@Override
+	@PostMapping(value="manage_hr_code/add_base_code_pro")
+	public String add_base_code_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_base_code_pro));
+		model.addAttribute("req", req);
+		service.add_base_code_pro_service(model);
+		return code.c(hr_management, manage_hr_code, add_base_code_pro);
+	}
+
+	@Override
+	@GetMapping(value="manage_hr_code/modify_base_code")
+	public String modify_base_code(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_base_code));
+		model.addAttribute("req", req);
+		service.modify_base_code_service(model);
+		return code.c(hr_management, manage_hr_code, modify_base_code);
+	}
+
+	@Override
+	@PostMapping(value="manage_hr_code/modify_base_code_pro")
+	public String modify_base_code_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_base_code_pro));
+		model.addAttribute("req", req);
+		service.modify_base_code_pro_service(model);
+		return code.c(hr_management, manage_hr_code, modify_base_code_pro);
+	}
 	
 	@Override
 	@GetMapping(value="manage_dept/dept_list")
 	public String dept_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(dept_list));
 		model.addAttribute("req", req);
-		
+		service.dept_list_service(model);
 		return code.c(hr_management, manage_dept, dept_list);
 	}
+
+	@Override
+	@GetMapping(value="manage_dept/add_dept")
+	public String add_dept(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_dept));
+		model.addAttribute("req", req);
+		service.add_dept_service(model);
+		return code.c(hr_management, manage_dept, add_dept);
+	}
+	
+	@Override
+	@GetMapping(value="manage_dept/add_dept_dupCheck")
+	public String add_dept_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_dept_dupCheck));
+		model.addAttribute("req", req);
+		service.add_dept_dupCheck_service(model);
+		return code.c(hr_management, manage_dept, add_dept_dupCheck);
+	}
+
+	@Override
+	@PostMapping(value="manage_dept/add_dept_pro")
+	public String add_dept_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_dept_pro));
+		model.addAttribute("req", req);
+		service.add_dept_pro_service(model);
+		return code.c(hr_management, manage_dept, add_dept_pro);
+	}
+	
+	@Override
+	@GetMapping(value="manage_dept/modify_dept")
+	public String modify_dept(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_dept));
+		model.addAttribute("req", req);
+		service.modify_dept_service(model);
+		return code.c(hr_management, manage_dept, modify_dept);
+	}
+	
+	@Override
+	@PostMapping(value="manage_dept/modify_dept_pro")
+	public String modify_dept_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_dept_pro));
+		model.addAttribute("req", req);
+		service.modify_dept_pro_service(model);
+		return code.c(hr_management, manage_dept, modify_dept_pro);
+	}
+	
 
 	@Override
 	@GetMapping(value="manage_personnel_card/personnel_card_list")
@@ -137,33 +210,11 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	}
 
 	
-	@Override
-	@PostMapping(value="manage_hr_code/add_base_code_pro")
-	public String add_base_code_pro(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(add_base_code_pro));
-		model.addAttribute("req", req);
-		service.add_base_code_pro_service(model);
-		return code.c(hr_management, manage_hr_code, add_base_code_pro);
-	}
 
+	
+	
 
-	@Override
-	@GetMapping(value="manage_hr_code/modify_base_code")
-	public String modify_base_code(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(modify_base_code));
-		model.addAttribute("req", req);
-		service.modify_base_code_service(model);
-		return code.c(hr_management, manage_hr_code, modify_base_code);
-	}
-
-	@Override
-	@PostMapping(value="manage_hr_code/modify_base_code_pro")
-	public String modify_base_code_pro(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(modify_base_code_pro));
-		model.addAttribute("req", req);
-		service.modify_base_code_pro_service(model);
-		return code.c(hr_management, manage_hr_code, modify_base_code_pro);
-	}
+	
 
 	
 }

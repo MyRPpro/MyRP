@@ -3,7 +3,8 @@ package com.pro.myrp.persistence.basic;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.pro.myrp.domain.CompanyVO;
+import com.pro.myrp.domain.base_registration.CompanyVO;
+import com.pro.myrp.domain.base_registration.ProductVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface BasicDAO extends MyRPDAO {
@@ -43,4 +44,42 @@ public interface BasicDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_company(CompanyVO vo);
+	
+	/**
+	 * 상품 총 개수
+	 * @author amaco78
+	 * @return
+	 */
+	public int select_product_cnt();
+
+	/**
+	 * 상품 목록
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<ProductVO> select_product_list(Map<String,Object> daoMap);
+
+	/**
+	 * 상품번호로 상품 정보 불러오기
+	 * @author amaco78
+	 * @param product_id
+	 * @return
+	 */
+	public ProductVO select_product(String product_id);
+
+	/**
+	 * 신규 상품 추가
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_product(ProductVO vo);
+
+	/**
+	 * 상품 정보 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_product(ProductVO vo);
 }

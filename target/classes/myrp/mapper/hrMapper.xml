@@ -80,4 +80,57 @@
 		AND		hr_code_id = #{hr_code_id}
 		]]>
 	</update>
+
+	<!-- 부서의 총 개수 -->
+	<select id="select_dept_cnt" resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	department
+		]]>
+	</select>
+
+	<!-- 부서 목록 보기 -->
+	<select id="select_dept_list" parameterType="java.util.Map"
+	resultType="DeptVO">
+		<![CDATA[
+		SELECT  *
+		FROM    (SELECT dept_id, dept_name, access_role, use_state,
+				rownum rNum
+		        FROM    (SELECT *
+		                FROM    department
+		                ORDER BY dept_id
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
+
+	<!-- 부서번호로 부서 정보 검색 -->
+	<select id="select_dept" parameterType="int"
+	resultType="DeptVO">
+		<![CDATA[
+		SELECT	*
+		FROM	department
+		WHERE	dept_id = #{dept_id}
+		]]>
+	</select>
+	
+	<!-- 부서 등록 -->
+	<insert id="insert_dept" parameterType="DeptVO">
+		<![CDATA[
+		INSERT INTO	department(dept_id,dept_name,access_role,use_state)
+		VALUES (#{dept_id},#{dept_name},#{access_role},#{use_state})
+		]]>
+	</insert>
+
+	<!-- 부서 정보 수정 -->
+	<update id="update_dept" parameterType="DeptVO">
+		<![CDATA[
+		UPDATE	department
+		SET		dept_name = #{dept_name},
+				access_role = #{access_role},
+				use_state = #{use_state}
+		WHERE	dept_id = #{dept_id}
+		]]>
+	</update>
 </mapper>
