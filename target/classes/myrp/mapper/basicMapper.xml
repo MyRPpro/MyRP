@@ -88,4 +88,24 @@
 		WHERE rNum >= #{start} AND rNUM <= #{end}
 		]]>
 	</select>
+
+	<!-- 상품번호로 상품 정보 불러오기 -->
+	<select id="select_product" parameterType="String"
+	resultType="ProductVO">
+		<![CDATA[
+		SELECT	*
+		FROM	product
+		WHERE	product_id = #{product_id}
+		]]>
+	</select>
+	
+	<!-- 신규상품 추가 -->
+	<insert id="insert_product" parameterType="ProductVO">
+		<![CDATA[
+		INSERT INTO product(product_id,product_name,purchase_unit_price,
+					sale_unit_price,use_state,reg_date)
+		VALUES(#{product_id},#{product_name},#{purchase_unit_price},
+		#{sale_unit_price},#{use_state},#{reg_date})
+		]]>
+	</insert>
 </mapper>

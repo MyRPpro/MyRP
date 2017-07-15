@@ -58,4 +58,20 @@ public interface BasicDAO extends MyRPDAO {
 	 * @return
 	 */
 	public ArrayList<ProductVO> select_product_list(Map<String,Object> daoMap);
+
+	/**
+	 * 상품번호로 상품 정보 불러오기
+	 * @author amaco78
+	 * @param product_id
+	 * @return
+	 */
+	public ProductVO select_product(String product_id);
+
+	/**
+	 * 신규 상품 추가
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_product(ProductVO vo);
 }

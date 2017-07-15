@@ -31,7 +31,7 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 	public String reg_company(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_company));
 		model.addAttribute("req", req);
-		service.reg_company_service(model);		
+		service.add_company_service(model);		
 		return code.c(base_registration, reg_company, add_company);
 	}
 
@@ -40,7 +40,7 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 	public String reg_company_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_company_pro));
 		model.addAttribute("req", req);
-		service.reg_company_pro_service(model);
+		service.add_company_pro_service(model);
 		return "redirect:"+code.c(base_registration, reg_company, company_list);
 	}
 
@@ -61,7 +61,6 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 		service.modify_company_pro_service(model);
 		return "redirect:"+code.c(base_registration, reg_company, company_list);
 	}
-
 	
 	@Override
 	@GetMapping(value="reg_product/product_list")
@@ -71,4 +70,34 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 		service.product_list_service(model);
 		return code.c(base_registration, reg_product, product_list);
 	}
+
+	@Override
+	@GetMapping(value="/reg_product/add_product")
+	public String add_product(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_product));
+		model.addAttribute("req", req);
+		service.add_product_service(model);
+		return code.c(base_registration, reg_product, add_product);
+	}
+
+
+	@Override
+	@GetMapping(value="/reg_product/add_product_dupCheck")
+	public String add_product_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_product_dupCheck));
+		model.addAttribute("req", req);
+		service.add_product_dupCheck_service(model);
+		return code.c(base_registration, reg_product, add_product_dupCheck);
+	}
+	
+	@Override
+	@PostMapping(value="/reg_product/add_product_pro")
+	public String add_product_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_product_pro));
+		model.addAttribute("req", req);
+		service.add_product_pro_service(model);
+		return code.c(base_registration, reg_product, add_product_pro);
+	}
+
+	
 }

@@ -61,4 +61,16 @@ public class BasicDAOImpl implements BasicDAO {
 	}
 
 	
+	@Override
+	public ProductVO select_product(String product_id) {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.select_product(product_id);
+	}
+
+	@Override
+	public int insert_product(ProductVO vo) {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.insert_product(vo);
+	}
+
 }

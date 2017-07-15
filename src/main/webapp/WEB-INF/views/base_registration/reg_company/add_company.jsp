@@ -80,7 +80,11 @@ name="reg_company_form1" method="post">
 		</tr>
 		<tr>
 			<th>reg_date</th>
-			<td><input type="date" name="reg_date"></td>
+			<td>
+				<c:set var="now" value="<%= new java.util.Date() %>"/>
+				<input type="date" name="reg_date"
+				value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>">
+			</td>
 		</tr>
 		<tr>
 			<th colspan="2">

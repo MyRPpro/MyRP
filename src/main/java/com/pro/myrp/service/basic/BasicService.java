@@ -20,7 +20,7 @@ public interface BasicService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void reg_company_service(Model model) throws Exception;
+	public void add_company_service(Model model) throws Exception;
 
 	/**
 	 * 거래처 등록 > 거래처 신규 등록 처리 서비스
@@ -28,7 +28,7 @@ public interface BasicService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void reg_company_pro_service(Model model) throws Exception;
+	public void add_company_pro_service(Model model) throws Exception;
 
 	/**
 	 * 거래처 등록 > 거래처 수정 서비스
@@ -52,4 +52,28 @@ public interface BasicService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void product_list_service(Model model) throws Exception;
+
+	/**
+	 * 상품 등록 > 상품 신규 등록 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_product_service(Model model) throws Exception;
+
+	/**
+	 * 상품 등록 > 상품번호 중복 확인
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_product_dupCheck_service(Model model) throws Exception;
+
+	/**
+	 * 상품 등록 > 상품 신규 등록 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_product_pro_service(Model model) throws Exception;
 }
