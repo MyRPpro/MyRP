@@ -42,7 +42,7 @@
 			<td>${vo.product_id}</td>
 			
 			<td>
-				<a href="/purchase_management/detail_purchase?company_id=${vo.company_id}">
+				<a href="/purchase_management/search_purchase/detail_purchase?company_id=${vo.company_id}">
 					${vo.company_name}
 				</a>
 			</td>
@@ -65,26 +65,26 @@
 		<tr>
 			<th>
 				<c:if test="${startPage > pageBlock}">
-					<a href="/purchase_management/purchase_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-					<a href="/purchase_management/purchase_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
+					<a href="/purchase_management/search_purchase/purchase_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
+					<a href="/purchase_management/search_purchase/purchase_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
 				</c:if>
 				<c:forEach var="i" begin="${startPage}" end="${endPage}">
 					<c:if test="${i == currentPage}">
 						<span>[${i}]</span>
 					</c:if>
 					<c:if test="${i != currentPage}">
-						<a href="/purchase_management/purchase_list?pageNum=${i}">[${i}]</a>
+						<a href="/purchase_management/search_purchase/purchase_list?pageNum=${i}">[${i}]</a>
 					</c:if>
 				</c:forEach>
 				<c:if test="${pageCount > endPage}">
-					<a href="/purchase_management/purchase_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-					<a href="/purchase_management/purchase_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
+					<a href="/purchase_management/search_purchase/purchase_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
+					<a href="/purchase_management/search_purchase/purchase_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
 				</c:if>
 			</th>
 		</tr>
 	</table>
 	</div>
-	<form action="/purchase_management/reg_purchase" method="get" name="company_list_form1">
+	<form action="/purchase_management/search_purchase/reg_purchase" method="get" name="company_list_form1">
 		<input type="submit" value="거래처 등록">
 	</form>
 	

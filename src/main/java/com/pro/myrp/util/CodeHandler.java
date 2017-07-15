@@ -57,7 +57,8 @@ public class CodeHandler {
 				public static final int purchase_list = 13110;			// 구매 리스트(검색기능 포함)
 				public static final int detail_purchase = 13120;		// 구매 상세
 				public static final int modify_purchase = 13130;		// 구매수정
-				public static final int search_purchase_title = 13140;		//제목으로 검색
+				public static final int modify_purchase_pro = 13140;		// 구매수정처리
+				public static final int search_purchase_title = 13150;		//제목으로 검색
 				
 				
 			// 구매입력

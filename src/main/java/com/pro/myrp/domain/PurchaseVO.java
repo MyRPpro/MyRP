@@ -106,6 +106,20 @@ public class PurchaseVO {
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
 	}
+	@Override
+	public String toString() {
+		return "PurchaseVO [purchase_id=" + purchase_id + ", account_id=" + account_id + ", order_id=" + order_id
+				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
+				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_in_date=" + storage_in_date
+				+ ", count_purchase=" + count_purchase + ", supply_price=" + supply_price + ", purchase_state="
+				+ purchase_state + ", condition_note_payable=" + condition_note_payable + ", company_name="
+				+ company_name + "]";
+	}
+
+
+	
+	
+	
 	
 	
 	

@@ -35,6 +35,14 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.select_detail_purchase(company_id);
 	}
 
+	@Override
+	public int update_purchase(PurchaseVO vo) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_purchase(vo);
+	}
+
+
+
 
 
 }

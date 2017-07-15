@@ -1,5 +1,6 @@
 package com.pro.myrp.service.purchase;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pro.myrp.domain.CompanyVO;
 import com.pro.myrp.domain.PurchaseVO;
 import com.pro.myrp.domain.SalesVO;
 import com.pro.myrp.persistence.purchase.purchaseDAO;
@@ -103,6 +105,61 @@ public class purchaseServiceImpl implements purchaseService {
 			
 		}
 	}
+
+	
+	@Override
+	public void modify_purchase_service(Model model){
+		
+		System.out.println("  -> modify_purchase_service");
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		String purchase_id = req.getParameter("purchase_id");
+		String account_id = req.getParameter("account_id");
+		String order_id = req.getParameter("order_id");
+		String product_id = req.getParameter("product_id");
+		String company_id = req.getParameter("company_id");
+		String company_name = req.getParameter("company_name");
+		int employee_id =  Integer.parseInt( req.getParameter("employee_id"));
+		Date reg_date = req.getParameter("reg_date") == ""  ? new Date(0):Date.valueOf(req.getParameter("reg_date")); 
+		Date update_date = req.getParameter("update_date")	 == ""  ? new Date(0):Date.valueOf(req.getParameter("update_date"));
+		Date storage_in_date = req.getParameter("storage_in_date")	 == ""  ? new Date(0):Date.valueOf(req.getParameter("storage_in_date"));
+		int count_purchase = Integer.parseInt(req.getParameter("count_purchase") );
+		long supply_price = Long.parseLong(req.getParameter("supply_price") );
+		int purchase_state = Integer.parseInt(req.getParameter("purchase_state") );
+		int condition_note_payable = Integer.parseInt(req.getParameter("condition_note_payable") );
+
+		
+		PurchaseVO vo = new PurchaseVO();
+		
+		vo.setPurchase_id(purchase_id);
+		vo.setAccount_id(account_id);
+		vo.setOrder_id(order_id);
+		vo.setProduct_id(product_id);
+		vo.setCompany_id(company_id);
+		vo.setEmployee_id(employee_id);
+		vo.setCompany_name(company_name);
+		vo.setReg_date(reg_date);
+		vo.setUpdate_date(update_date);
+		vo.setStorage_in_date(storage_in_date);
+		vo.setCount_purchase(count_purchase);
+		vo.setSupply_price(supply_price);
+		vo.setPurchase_state(purchase_state);
+		vo.setCondition_note_payable(condition_note_payable);
+		
+		System.out.println("  -> vo : " + vo.getPurchase_id());
+		
+		
+		int cnt = dao.update_purchase(vo);
+		
+		System.out.println("  -> cnt: "+cnt);
+		model.addAttribute("cnt", cnt);
+		
+		
+		
+	}
+	
+	
 	
 	
 	

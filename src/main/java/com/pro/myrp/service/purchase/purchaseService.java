@@ -10,4 +10,7 @@ public interface purchaseService extends MyRPService {
 
 	public void detail_purchase_service(Model model);
 
+
+	public void modify_purchase_service(Model model);
+
 }

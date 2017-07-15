@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,21 +11,22 @@
 
 
 
-
 <body>
 
-	<h3> 구매 내역 수정 페이지 : modify_slaes.jsp</h3>
+	<h3> 구매 내역 상세 페이지 : detail_purchase.jsp</h3>
 	
-	<form action="/sales_management/modify_purchase_pro"
-	name="modify_purchase_form" method="post">
 	
+	
+	
+	<form action="/purchase_management/search_purchase/modify_purchase"
+	name="modify_purchase_form" method="get">
 	
 	
 		<table border="1">
 			<tr>
 				<th>purchase_id</th>
 				<td>
-					<input type="text" name="purchase_id" 	value="${purchaseVO.purchase_id}" maxlength="10" readonly="readonly">
+					<input type="text" name="purchase_id" 	value="${purchaseVO.purchase_id}" maxlength="10" readonly >
 				</td>
 			</tr>
 			<tr>
@@ -48,14 +51,16 @@
 			<tr>
 				<th>company_name</th>
 				<td>
-					<input type="text" name="company_name" value="${purchaseVO.company_name}"  >
+					<input type="hidden" name="company_id" value="${purchaseVO.company_id}">
+					<input type="text" name="company_name" value="${purchaseVO.company_name}" required  >
 				</td>
 			</tr>
 			<tr>
 				<th>employee_id</th>
 				<td>
 					<input type="number" name="employee_id" value="${purchaseVO.employee_id}" 
-					max="9999" onKeyup="employee_id_check();" required >
+					max="20" onKeyup="employee_id_check();" required >
+					
 				</td>
 			</tr>
 			<tr>
@@ -80,25 +85,29 @@
 			<tr>
 				<th>count_purchase</th>
 				<td>
-					<input type="number" name="count_purchase" value="${purchaseVO.count_purchase}" required>
+					<input type="number" name="count_purchase" value="${purchaseVO.count_purchase}" 
+					min="1" max="9999" min="1" max="9999999999" required>
 				</td>
 			</tr>
 			<tr>
 				<th>supply_price</th>
 				<td>
-					<input type="number" name="supply_price" value="${purchaseVO.supply_price}" required>
+					<input type="number" name="supply_price" value="${purchaseVO.supply_price}" 
+					min="1" max="9999999999" required>
 				</td>
 			</tr>
 			<tr>
 				<th>purchase_state</th>
 				<td>
-					<input type="number" name="purchase_state" value="${purchaseVO.purchase_state}" required>
+					<input type="number" name="purchase_state" value="${purchaseVO.purchase_state}" 
+					min="1" max="29999" required>
 				</td>
 			</tr>
 			<tr>
 				<th>condition_note_payable</th>
 				<td>
-					<input type="number" name="condition_note_payable" value="${purchaseVO.condition_note_payable}" required>
+					<input type="number" name="condition_note_payable" value="${purchaseVO.condition_note_payable}" 
+					min="1" max="99" required>
 				</td>
 			</tr>
 

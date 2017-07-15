@@ -30,5 +30,15 @@ public interface purchaseController extends MyRPController {
 	 */
 	public String detail_purchase(HttpServletRequest req, Model model) throws Exception;
 
+	
+	/**
+	 * 구매 수정 처리
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_purchase_pro(HttpServletRequest req, Model model) throws Exception;
 
 }

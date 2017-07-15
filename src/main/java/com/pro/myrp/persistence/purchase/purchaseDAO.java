@@ -14,6 +14,10 @@ public interface purchaseDAO extends MyRPDAO {
 
 	public PurchaseVO select_detail_purchase(String company_id);
 
+	public int update_purchase(PurchaseVO vo);
+
+	
+
 
 
 }

@@ -54,4 +54,20 @@
  		]]>
  	</select>
  	
+ 	
+ 	<!-- 구매 정보 수정 -->
+ 	<update id="update_purchase" parameterType="PurchaseVO">
+ 		<![CDATA[
+		UPDATE	PURCHASE_ORDER
+		SET		PURCHASE_ID = #{purchase_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
+				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id}, EMPLOYEE_ID = #{employee_id},
+				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_IN_DATE = #{storage_in_date},
+				COUNT_PURCHASE = #{count_purchase}, SUPPLY_PRICE = #{supply_price}, 
+				PURCHASE_STATE = #{purchase_state}, CONDITION_NOTE_PAYABLE = #{condition_note_payable}
+		WHERE	COMPANY_ID = #{company_id}
+ 		]]>
+ 	</update>
+ 	
+ 	
+ 	
 </mapper>
