@@ -32,6 +32,9 @@
 		window.open(url, "dupCheck", "menubar=no, width=300, height=200");
 	}
 	
+	function check_change() {
+		document.add_base_code_form1.dupcheck.value = 0;
+	}
 </script>
 <body onload="autofocus();">
 add_base_code_group.jsp
@@ -41,7 +44,9 @@ name="add_base_code_group_form1" method="post" onsubmit="return validate_form();
 		<tr>
 			<th>hr_code_group_id</th>
 			<td>
-				<input type="number" name="hr_code_group_id" min="1" max="9" step="1" required>
+				<input type="number" name="hr_code_group_id"
+				min="1" max="9" step="1" required
+				onchange="return check_change();">
 				<input type="button" name="dup_check_btn" value="중복확인"
 				onclick="return check_dup();">
 			</td>

@@ -7,14 +7,19 @@ public interface CodeMyRP {
 		public static final int base_registration = 11000;			
 			//거래처 등록
 			public static final int reg_company = 11100;
-				public static final int company_list = 11110;		//거래처 리스트
-				public static final int add_company = 11120;		//거래처 추가
-				public static final int modify_company = 11130;		//거래처 수정
+				public static final int company_list = 11110;									//거래처 리스트
+				public static final int add_company = 11120;									//거래처 추가
+				public static final int add_company_pro = 11121;								//거래처 추가 처리
+				public static final int modify_company = 11130;									//거래처 수정
+				public static final int modify_company_pro = 11131;								//거래처 수정 처리
 			//상품 등록
 			public static final int reg_product = 11200;
-				public static final int product_list = 11210;		//상품 리스트
-				public static final int add_product = 11220;		//상품 신규 등록
-				public static final int modify_product = 11230;		//상품 수정
+				public static final int product_list = 11210;									//상품 리스트
+				public static final int add_product = 11220;									//상품 신규 등록
+				public static final int add_product_dupCheck = 11221;							//상품 번호 중복 체크
+				public static final int add_product_pro = 11222;								//상품 신규 등록 처리
+				public static final int modify_product = 11230;									//상품 수정
+				public static final int modify_product_pro = 11231;								//상품 수정 처리
 		
 		//영업관리
 		public static final int sales_management = 12000;

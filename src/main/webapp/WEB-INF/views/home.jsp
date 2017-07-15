@@ -13,9 +13,10 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <h3>기초등록</h3>
-<a href="/base_registration/company_list">기초등록-거래처등록</a><br>
-
+<a href="/base_registration/reg_company/company_list">기초등록-거래처등록</a><br>
+<a href="/base_registration/reg_product/product_list">기초등록-상품등록</a><br>
 <hr>
+
 <h3>회계 관리</h3>
 <a href="/accounting_management/financial_statements/search_balance_sheet">회계관리-재무상태표 조회</a><br>
 <a href="/accounting_management/bank_account_registration/bank_account_list">회계관리-계좌리스트</a><br>

@@ -1,4 +1,4 @@
-package com.pro.myrp.domain;
+package com.pro.myrp.domain.base_registration;
 
 import java.sql.Date;
 

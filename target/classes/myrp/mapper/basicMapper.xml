@@ -64,4 +64,61 @@
 		WHERE	company_id = #{company_id}
  		]]>
  	</update>
+
+	<!-- 상품 총 개수 -->
+	<select id="select_product_cnt" resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	product
+		]]>
+	</select>
+
+	<!-- 상품 목록 -->
+	<select id="select_product_list" parameterType="java.util.Map"
+	resultType="ProductVO">
+		<![CDATA[
+		SELECT  *
+		FROM    (SELECT product_id, product_name, purchase_unit_price,
+				sale_unit_price, use_state, reg_date, rownum rNum
+		        FROM    (SELECT *
+		                FROM    product
+		                ORDER BY product_name
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+		]]>
+	</select>
+
+	<!-- 상품번호로 상품 정보 불러오기 -->
+	<select id="select_product" parameterType="String"
+	resultType="ProductVO">
+		<![CDATA[
+		SELECT	*
+		FROM	product
+		WHERE	product_id = #{product_id}
+		]]>
+	</select>
+	
+	<!-- 신규상품 추가 -->
+	<insert id="insert_product" parameterType="ProductVO">
+		<![CDATA[
+		INSERT INTO product(product_id,product_name,purchase_unit_price,
+					sale_unit_price,use_state,reg_date)
+		VALUES(#{product_id},#{product_name},#{purchase_unit_price},
+		#{sale_unit_price},#{use_state},#{reg_date})
+		]]>
+	</insert>
+
+	<!-- 상품 정보 수정 -->
+	<update id="update_product" parameterType="ProductVO">
+		<![CDATA[
+		UPDATE	product
+		SET		product_name = #{product_name},
+				purchase_unit_price = #{purchase_unit_price},
+				sale_unit_price = #{sale_unit_price},
+				use_state = #{use_state},
+				reg_date = #{reg_date}
+		WHERE	product_id = #{product_id}
+		]]>
+	</update>
 </mapper>
