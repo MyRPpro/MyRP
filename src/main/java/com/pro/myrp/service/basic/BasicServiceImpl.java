@@ -259,4 +259,38 @@ public class BasicServiceImpl implements BasicService {
 		int cnt = dao.insert_product(vo);
 		model.addAttribute("cnt", cnt);
 	}
+
+
+	@Override
+	public void modify_product_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String product_id = req.getParameter("product_id");
+		ProductVO vo = dao.select_product(product_id);
+		model.addAttribute("productVo", vo);
+	}
+
+
+	@Override
+	public void modify_product_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String product_id = req.getParameter("product_id");
+		String product_name = req.getParameter("product_name");
+		int purchase_unit_price =
+				Integer.parseInt(req.getParameter("purchase_unit_price"));
+		int sale_unit_price =
+				Integer.parseInt(req.getParameter("sale_unit_price"));
+		String use_state = req.getParameter("use_state");
+		Date reg_date = Date.valueOf(req.getParameter("reg_date"));
+		ProductVO vo = new ProductVO();
+		vo.setProduct_id(product_id);
+		vo.setProduct_name(product_name);
+		vo.setPurchase_unit_price(purchase_unit_price);
+		vo.setSale_unit_price(sale_unit_price);
+		vo.setUse_state(use_state);
+		vo.setReg_date(reg_date);
+		int cnt = dao.update_product(vo);
+		model.addAttribute("cnt", cnt);
+	}
 }

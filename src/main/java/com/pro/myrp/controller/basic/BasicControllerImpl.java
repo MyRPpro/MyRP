@@ -100,4 +100,23 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 	}
 
 	
+	@Override
+	@GetMapping(value="/reg_product/modify_product")
+	public String modify_product(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_product));
+		model.addAttribute("req", req);
+		service.modify_product_service(model);
+		return code.c(base_registration, reg_product, modify_product);
+	}
+
+
+	@Override
+	@PostMapping(value="reg_product/modify_product_pro")
+	public String modify_product_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_product_pro));
+		model.addAttribute("req", req);
+		service.modify_product_pro_service(model);
+		return code.c(base_registration, reg_product, modify_product_pro);
+	}
+	
 }

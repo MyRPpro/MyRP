@@ -76,4 +76,20 @@ public interface BasicService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void add_product_pro_service(Model model) throws Exception;
+
+	/**
+	 * 상품 등록 > 상품 수정 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_product_service(Model model) throws Exception;
+
+	/**
+	 * 상품 등록 > 상품 수정 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_product_pro_service(Model model) throws Exception; 
 }

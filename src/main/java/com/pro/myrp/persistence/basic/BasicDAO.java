@@ -74,4 +74,12 @@ public interface BasicDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int insert_product(ProductVO vo);
+
+	/**
+	 * 상품 정보 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_product(ProductVO vo);
 }

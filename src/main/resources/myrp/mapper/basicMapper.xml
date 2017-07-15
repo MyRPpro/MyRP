@@ -108,4 +108,17 @@
 		#{sale_unit_price},#{use_state},#{reg_date})
 		]]>
 	</insert>
+
+	<!-- 상품 정보 수정 -->
+	<update id="update_product" parameterType="ProductVO">
+		<![CDATA[
+		UPDATE	product
+		SET		product_name = #{product_name},
+				purchase_unit_price = #{purchase_unit_price},
+				sale_unit_price = #{sale_unit_price},
+				use_state = #{use_state},
+				reg_date = #{reg_date}
+		WHERE	product_id = #{product_id}
+		]]>
+	</update>
 </mapper>

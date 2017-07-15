@@ -87,7 +87,8 @@ name="add_product_form1" method="post" onsubmit="return validate_form();">
 				<c:set var="now" value="<%= new java.util.Date() %>"/>
 				<input type="date" name="reg_date" 
 				value="<fmt:formatDate 
-						value='${now}' pattern='yyyy-MM-dd'/>" >
+						value='${now}' pattern='yyyy-MM-dd'/>" 
+				required>
 			</td>
 		</tr>
 		<tr>

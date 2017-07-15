@@ -73,4 +73,11 @@ public class BasicDAOImpl implements BasicDAO {
 		return dao.insert_product(vo);
 	}
 
+
+	@Override
+	public int update_product(ProductVO vo) {
+		BasicDAO dao = sqlSession.getMapper(BasicDAO.class);
+		return dao.update_product(vo);
+	}
+
 }
