@@ -89,8 +89,17 @@ public class HRDAOImpl implements HRDAO {
 
 
 	@Override
-	public int insert_dept(DeptVO vo) {
+ 	public int insert_dept(DeptVO vo) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.insert_dept(vo);
 	}
+
+	
+	@Override
+	public int update_dept(DeptVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_dept(vo);
+	}
+
 }
+

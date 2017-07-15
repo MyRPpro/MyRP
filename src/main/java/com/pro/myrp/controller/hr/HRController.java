@@ -168,6 +168,26 @@ public interface HRController extends MyRPController {
 	public String add_dept_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
+	 * 인사관리 > 부서관리 > 부서정보 수정 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_dept(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 부서관리 > 부서정보 수정 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_dept_pro(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
 	 * 인사관리 > 인사카드 관리 > 인사카드 목록
 	 * @author amaco78
 	 * @param req

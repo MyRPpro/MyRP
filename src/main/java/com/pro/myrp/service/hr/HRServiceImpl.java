@@ -334,4 +334,37 @@ public class HRServiceImpl implements HRService {
 		}
 	}
 
+	
+	@Override
+	public void modify_dept_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("dept_id") != null) {
+			int dept_id =
+					Integer.parseInt(req.getParameter("dept_id"));
+			DeptVO vo = new DeptVO();
+			vo = dao.select_dept(dept_id);
+			model.addAttribute("deptVo", vo);
+		}
+	}
+
+	
+	@Override
+	public void modify_dept_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int dept_id = Integer.parseInt(req.getParameter("dept_id"));
+		String dept_name = req.getParameter("dept_name");
+		String access_role = req.getParameter("access_role");
+		String use_state = req.getParameter("use_state");
+		DeptVO vo = new DeptVO();
+		vo.setDept_id(dept_id);
+		vo.setDept_name(dept_name);
+		vo.setAccess_role(access_role);
+		vo.setUse_state(use_state);
+		int cnt = dao.update_dept(vo);
+		model.addAttribute("cnt", cnt);
+	}
+
+	
 }

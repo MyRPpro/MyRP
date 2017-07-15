@@ -103,4 +103,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int insert_dept(DeptVO vo);
+
+	/**
+	 * 부서 수정 처리
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_dept(DeptVO vo);
 }

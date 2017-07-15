@@ -114,10 +114,22 @@
 		]]>
 	</select>
 	
+	<!-- 부서 등록 -->
 	<insert id="insert_dept" parameterType="DeptVO">
 		<![CDATA[
 		INSERT INTO	department(dept_id,dept_name,access_role,use_state)
 		VALUES (#{dept_id},#{dept_name},#{access_role},#{use_state})
 		]]>
 	</insert>
+
+	<!-- 부서 정보 수정 -->
+	<update id="update_dept" parameterType="DeptVO">
+		<![CDATA[
+		UPDATE	department
+		SET		dept_name = #{dept_name},
+				access_role = #{access_role},
+				use_state = #{use_state}
+		WHERE	dept_id = #{dept_id}
+		]]>
+	</update>
 </mapper>
