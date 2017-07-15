@@ -109,4 +109,28 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void dept_list_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 부서 관리 > 부서 등록 화면 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_dept_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 부서 관리 > 부서번호 중뵥 체크 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_dept_dupCheck_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 부서 관리 > 부서 등록 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_dept_pro_service(Model model) throws Exception;
 }

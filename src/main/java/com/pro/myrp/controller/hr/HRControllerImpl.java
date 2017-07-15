@@ -137,6 +137,33 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	}
 
 	@Override
+	@GetMapping(value="manage_dept/add_dept")
+	public String add_dept(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_dept));
+		model.addAttribute("req", req);
+		service.add_dept_service(model);
+		return code.c(hr_management, manage_dept, add_dept);
+	}
+	
+	@Override
+	@GetMapping(value="manage_dept/add_dept_dupCheck")
+	public String add_dept_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_dept_dupCheck));
+		model.addAttribute("req", req);
+		service.add_dept_dupCheck_service(model);
+		return code.c(hr_management, manage_dept, add_dept_dupCheck);
+	}
+
+	@Override
+	@PostMapping(value="manage_dept/add_dept_pro")
+	public String add_dept_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_dept_pro));
+		model.addAttribute("req", req);
+		service.add_dept_pro_service(model);
+		return code.c(hr_management, manage_dept, add_dept_pro);
+	}
+	
+	@Override
 	@GetMapping(value="manage_personnel_card/personnel_card_list")
 	public String personnel_card_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(personnel_card_list));
@@ -162,6 +189,11 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		
 		return code.c(hr_management, manage_salary, salary_register);
 	}
+
+	
 	
 
+	
+
+	
 }

@@ -287,4 +287,51 @@ public class HRServiceImpl implements HRService {
 		}
 	}
 
+
+	@Override
+	public void add_dept_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+	}
+
+
+	@Override
+	public void add_dept_dupCheck_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("dept_id") != null) {
+			int dept_id = Integer.parseInt(req.getParameter("dept_id"));
+			DeptVO vo = dao.select_dept(dept_id);
+			if(vo != null) {
+				model.addAttribute("cnt", 1);
+				model.addAttribute("dup_dept_name", vo.getDept_name());
+			} else {
+				model.addAttribute("cnt", 0);
+			}
+			model.addAttribute("dept_id", dept_id);
+		}
+	}
+
+
+	@Override
+	public void add_dept_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("dept_id") != null) {
+			int dept_id =
+					Integer.parseInt(req.getParameter("dept_id"));
+			String dept_name = req.getParameter("dept_name");
+			String access_role = req.getParameter("access_role");
+			String use_state = req.getParameter("use_state");
+			DeptVO vo = new DeptVO();
+			vo.setDept_id(dept_id);
+			vo.setDept_name(dept_name);
+			vo.setAccess_role(access_role);
+			vo.setUse_state(use_state);
+			int cnt = dao.insert_dept(vo);
+			model.addAttribute("cnt", cnt);
+		}
+	}
+
 }

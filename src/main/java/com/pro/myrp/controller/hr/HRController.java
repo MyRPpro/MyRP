@@ -136,6 +136,36 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String dept_list(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 부서관리 > 부서 등록 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_dept(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 부서관리 > 부서번호 중복체크
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_dept_dupCheck(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 부서관리 > 부서 등록 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_dept_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 인사카드 관리 > 인사카드 목록
@@ -166,4 +196,5 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String salary_register(HttpServletRequest req, Model model) throws Exception;
+
 }
