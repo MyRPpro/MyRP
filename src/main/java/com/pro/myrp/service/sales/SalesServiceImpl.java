@@ -19,7 +19,6 @@ public class SalesServiceImpl implements SalesService {
 	@Inject
 	private SalesDAO dao;
 
-
 	@Override
 	public void sales_list_servie(Model model) throws Exception {
 
@@ -83,8 +82,6 @@ public class SalesServiceImpl implements SalesService {
 		}
 	}
 
-
-	
 	@Override
 	public void detail_sales_service(Model model) {
 
@@ -99,7 +96,7 @@ public class SalesServiceImpl implements SalesService {
 			System.out.println("  -> Complete value import ...");
 			model.addAttribute("salesVo", vo);
 			
-		} else {	// 불로오기 실채
+		} else {	// 불러오기 실패
 			System.out.println("  -> Error loading value...");
 			
 		}

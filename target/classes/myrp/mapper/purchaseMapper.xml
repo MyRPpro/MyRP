@@ -6,7 +6,7 @@
 <mapper namespace="com.pro.myrp.persistence.purchase.purchaseDAO">
  	
  	
-	 <!-- 판매내역 총 개수 -->
+	 <!-- 구매내역 총 개수 -->
  	<select id="select_purchase_cnt" resultType="int">
  		<![CDATA[
  		SELECT	COUNT(*)
@@ -15,7 +15,7 @@
  	</select>
  
  
- 	<!-- 판매내역 목록 -->
+ 	<!-- 구매내역 목록 -->
  	<select id="select_purchase_list" parameterType="java.util.Map"
  	resultType="PurchaseVO">
  		<![CDATA[
@@ -30,12 +30,27 @@
                             P.STORAGE_IN_DATE, P.COUNT_PURCHASE, P.SUPPLY_PRICE, 
                             P.PURCHASE_STATE, P.CONDITION_NOTE_PAYABLE, C.COMPANY_NAME
 				
-		                FROM    purchase_ORDER P , COMPANY C
+		                FROM    PURCHASE_ORDER P , COMPANY C
                     WHERE   P.COMPANY_ID = C.COMPANY_ID
 		                ORDER BY PURCHASE_ID
 		                )
 		        )
 		WHERE rNum >= #{start} AND rNUM <= #{end}
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 구매내역 자세히 보기 -->
+ 	<select id="select_detail_purchase" parameterType="String"
+ 	resultType="PurchaseVO">
+ 		<![CDATA[
+		SELECT  * 
+	    FROM   ( SELECT  P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
+                            P.COMPANY_ID, P.EMPLOYEE_ID, P.REG_DATE, P.UPDATE_DATE, 
+                            P.STORAGE_IN_DATE, P.COUNT_PURCHASE, P.SUPPLY_PRICE, 
+                            P.PURCHASE_STATE, P.CONDITION_NOTE_PAYABLE, C.COMPANY_NAME
+			     FROM    PURCHASE_ORDER P , COMPANY C
+	             WHERE   P.COMPANY_ID = C.COMPANY_ID )
+		WHERE 	COMPANY_ID = #{company_id}
  		]]>
  	</select>
  	

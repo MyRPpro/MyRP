@@ -29,5 +29,12 @@ public class purchaseDAOImpl implements purchaseDAO {
 	}
 
 
+	@Override
+	public PurchaseVO select_detail_purchase(String company_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_detail_purchase(company_id);
+	}
+
+
 
 }

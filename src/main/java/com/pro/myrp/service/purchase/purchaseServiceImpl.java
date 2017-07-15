@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.PurchaseVO;
+import com.pro.myrp.domain.SalesVO;
 import com.pro.myrp.persistence.purchase.purchaseDAO;
 
 @Service
@@ -79,6 +80,27 @@ public class purchaseServiceImpl implements purchaseService {
 			model.addAttribute("pageBlock", pageBlock);
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("currentPage", currentPage);
+		}
+	}
+
+	
+	@Override
+	public void detail_purchase_service(Model model) {
+		
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		String company_id = req.getParameter("company_id");
+		System.out.println("  -> company_id : "  + company_id);
+		PurchaseVO vo = dao.select_detail_purchase( company_id );
+		
+		if( vo != null ){
+			System.out.println("  -> Complete value import ...");
+			model.addAttribute("purchaseVO", vo);
+			
+		} else {	// 불러오기 실패
+			System.out.println("  -> Error loading value...");
+			
 		}
 	}
 	

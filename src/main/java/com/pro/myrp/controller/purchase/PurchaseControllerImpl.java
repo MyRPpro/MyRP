@@ -27,6 +27,16 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		return code.c(purchase_management, purchase_list);
 	}
 
+	
+	@Override
+	@GetMapping(value="detail_purchase")
+	public String detail_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(detail_purchase));
+		model.addAttribute("req", req);
+		service.detail_purchase_service(model);
+		return code.c(purchase_management, modify_purchase);
+	}
+
 
 	
 	

@@ -12,6 +12,8 @@ public interface purchaseDAO extends MyRPDAO {
 
 	public ArrayList<PurchaseVO> select_purchase_list(Map<String, Object> daoMap);
 
+	public PurchaseVO select_detail_purchase(String company_id);
+
 
 
 }
