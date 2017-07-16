@@ -80,7 +80,6 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 		return code.c(base_registration, reg_product, add_product);
 	}
 
-
 	@Override
 	@GetMapping(value="/reg_product/add_product_dupCheck")
 	public String add_product_dupCheck(HttpServletRequest req, Model model) throws Exception {
@@ -98,7 +97,6 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 		service.add_product_pro_service(model);
 		return code.c(base_registration, reg_product, add_product_pro);
 	}
-
 	
 	@Override
 	@GetMapping(value="/reg_product/modify_product")
@@ -108,7 +106,6 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 		service.modify_product_service(model);
 		return code.c(base_registration, reg_product, modify_product);
 	}
-
 
 	@Override
 	@PostMapping(value="reg_product/modify_product_pro")

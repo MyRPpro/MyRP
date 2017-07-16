@@ -149,4 +149,28 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_dept_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드관리 > 인사카드 검색 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void personnel_card_search_service(Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드관리 > 인사카드 목록 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void personnel_card_list_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드관리 > 인사카드 페이지 네비게이션 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void personnel_card_nav_service(Model model) throws Exception;
 }

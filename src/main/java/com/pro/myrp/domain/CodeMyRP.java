@@ -104,7 +104,9 @@ public interface CodeMyRP {
 				public static final int modify_dept_pro = 16231;								//부서 수정 처리
 			//인사카드관리
 			public static final int manage_personnel_card = 16300;
-				public static final int personnel_card_list = 16310;
+				public static final int personnel_card_search = 16310;
+				public static final int personnel_card_list = 16311;
+				public static final int personnel_card_nav = 16312;
 				public static final int reg_personnel_card = 16320;
 				public static final int modify_personnel_card = 16330;
 				public static final int manage_hr_appointment = 16340;

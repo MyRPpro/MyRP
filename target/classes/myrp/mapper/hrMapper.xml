@@ -41,7 +41,7 @@
 	]]>
 	</select>
 
-	<!-- 인사코드 그룹 사용미사용 수정 -->
+	<!-- 인사코드 그룹 사용비사용 수정 -->
 	<update id="update_hr_code_group" parameterType="java.util.Map">
 		<![CDATA[
 		UPDATE	hr_code_group
@@ -132,4 +132,82 @@
 		WHERE	dept_id = #{dept_id}
 		]]>
 	</update>
+	
+	<!-- 사원의 총 수 -->
+	<select id="select_employee_cnt" parameterType="String" resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	(SELECT	*
+				FROM	employee
+				WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+				UNION
+				SELECT	*
+				FROM	employee
+				WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%')
+		]]>
+	</select>
+
+	<!-- 사원 목롭 보기 -->
+	<select id="select_employee_list" parameterType="java.util.Map"
+	resultType="EmployeeVO">
+		<![CDATA[
+		SELECT  *
+		FROM    (SELECT employee_id, dept_id, hr_code_group_rank,
+				rank_code, employee_name, residence_reg_no, join_date,
+				rownum rNum
+		        FROM    (SELECT	*
+				        FROM	(SELECT *
+				                FROM    employee
+				                WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+								UNION
+								SELECT	*
+								FROM	employee
+								WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
+		                		)
+		                ORDER BY employee_name
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 인사카드 목록 보기 -->
+	<select id="select_personnel_card_list" parameterType="java.util.Map"
+	resultType="Personnel_card_listDTO">
+		<![CDATA[
+		SELECT	*
+		FROM	(SELECT employee_id, dept_id, dept_name,
+		        hr_code_group_rank, hr_code_group_name,
+		        rank_code, hr_code_name,
+		        employee_name, residence_reg_no, join_date,
+		        rownum rNum
+		        FROM    (SELECT *
+		                FROM    (SELECT E.employee_id, E.dept_id, D.dept_name,
+		                                E.hr_code_group_rank, G.hr_code_group_name,
+		                                E.rank_code, C.hr_code_name,
+		                                E.employee_name, E.residence_reg_no,
+		                                E.join_date
+		                        FROM    employee E, department D, hr_code C, hr_code_group G
+		                        WHERE	E.dept_id = D.dept_id
+		                        AND		E.hr_code_group_rank = G.hr_code_group_id
+		                        AND		E.rank_code = C.hr_code_id
+		                        AND     E.employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+		                        UNION
+		                        SELECT E.employee_id, E.dept_id, D.dept_name,
+		                                E.hr_code_group_rank, G.hr_code_group_name,
+		                                E.rank_code, C.hr_code_name,
+		                                E.employee_name, E.residence_reg_no,
+		                                E.join_date
+		                        FROM    employee E, department D, hr_code C, hr_code_group G
+		                        WHERE	E.dept_id = D.dept_id
+		                        AND		E.hr_code_group_rank = G.hr_code_group_id
+		                        AND		E.rank_code = C.hr_code_id
+		                        AND     E.employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
+		                        )
+		                ORDER BY employee_name
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
 </mapper>

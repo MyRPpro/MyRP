@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.pro.myrp.domain.hr_management.DeptVO;
+import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface HRDAO extends MyRPDAO {
@@ -111,4 +113,27 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_dept(DeptVO vo);
+
+	/**
+	 * 사원의 총 수
+	 * @author amaco78
+	 * @return
+	 */
+	public int select_employee_cnt(String searchStr);
+
+	/**
+	 * 사원 목록 보기
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<EmployeeVO> select_employee_list(Map<String, Object> daoMap);
+
+	/**
+	 * 인사카드 목록 보기
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<Personnel_card_listDTO> select_personnel_card_list(Map<String, Object> daoMap);
 }

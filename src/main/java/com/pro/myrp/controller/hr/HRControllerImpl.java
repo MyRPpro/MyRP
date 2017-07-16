@@ -181,16 +181,33 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		return code.c(hr_management, manage_dept, modify_dept_pro);
 	}
 	
-
+	@Override
+	@GetMapping(value="manage_personnel_card/personnel_card_search")
+	public String personnel_card_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_search));
+		model.addAttribute("req", req);
+		service.personnel_card_search_service(model);
+		return code.c(hr_management, manage_personnel_card, personnel_card_search);
+	}
+	
 	@Override
 	@GetMapping(value="manage_personnel_card/personnel_card_list")
 	public String personnel_card_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(personnel_card_list));
 		model.addAttribute("req", req);
-		
+		service.personnel_card_list_service(model);
 		return code.c(hr_management, manage_personnel_card, personnel_card_list);
 	}
 
+	@Override
+	@GetMapping(value="manage_personnel_card/personnel_card_nav")
+	public String personnel_card_nav(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_nav));
+		model.addAttribute("req", req);
+		service.personnel_card_nav_service(model);
+		return code.c(hr_management, manage_personnel_card, personnel_card_nav);
+	}
+	
 	@Override
 	@GetMapping(value="manage_service_attitude/search_attendance_absence")
 	public String search_attendance_absence(HttpServletRequest req, Model model) throws Exception {
@@ -208,6 +225,10 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		
 		return code.c(hr_management, manage_salary, salary_register);
 	}
+
+	
+
+	
 
 	
 

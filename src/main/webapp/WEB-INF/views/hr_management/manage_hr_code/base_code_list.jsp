@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-function test() {
+function control_code() {
 	$("#modify_base_code_group_div").load("/hr_management/manage_hr_code/modify_base_code_group?hr_code_group_id=${hr_code_groupVo.hr_code_group_id}");
 }
 </script>
-<body onload="test();">
+<body onload="control_code();">
 base_code_list.jsp
 <div id="modify_base_code_group_div">
 
@@ -49,7 +49,7 @@ base_code_list.jsp
 <c:if test="${hr_code_groupVo.use_state == 'N'}">
 	<table border="1">
 		<tr>
-			<th>${hr_code_groupVo.hr_code_group_name} 는 미사용 상태입니다.</th>
+			<th>${hr_code_groupVo.hr_code_group_name} 는 비사용 상태입니다.</th>
 		</tr>
 	</table>
 	<form action="/hr_management/manage_hr_code/add_base_code" method="get" name="base_code_list_form1">

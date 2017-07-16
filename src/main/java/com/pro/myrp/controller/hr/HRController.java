@@ -188,6 +188,16 @@ public interface HRController extends MyRPController {
 	public String modify_dept_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 검색
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_search(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
 	 * 인사관리 > 인사카드 관리 > 인사카드 목록
 	 * @author amaco78
 	 * @param req
@@ -196,6 +206,16 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String personnel_card_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 페이지 네비게이션
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_nav(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 근태 관리 > 출결달력 검색

@@ -162,6 +162,55 @@ CREATE TABLE employee(
                         REFERENCES hr_code(hr_code_group_id,hr_code_id),
     CONSTRAINT employee_pk PRIMARY KEY(employee_id)
 );
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(6001,6000,2,100,'이인홍','7812161111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(4001,4000,2,200,'최연호','8510121111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(2001,2000,2,300,'장은철','8707101111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(3001,3000,2,400,'장재희','8705231111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(5001,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0001,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0002,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0003,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0004,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0005,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0006,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0007,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0008,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0009,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0010,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
+            employee_name,residence_reg_no,join_date)
+VALUES(0011,5000,2,500,'이주원','9501302111111',SYSDATE);
+COMMIT;
 --------------------------------------------------------------------------------
 -- 인사정보 TABLE 생성 (employee_info)
 ----------------------------------------------------------------------------------
@@ -479,3 +528,58 @@ CREATE TABLE purchase_order (
   CONSTRAINT purchase_order_fk4   FOREIGN KEY(company_id)   REFERENCES company(company_id),
   CONSTRAINT purchase_order_fk5   FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
 );
+
+--------------------------------------------------------------------------------
+-- 사원 목록 조회(employeeVO)
+--------------------------------------------------------------------------------
+SELECT  *
+		FROM    (SELECT employee_id, dept_id, hr_code_group_rank,
+				rank_code, employee_name, residence_reg_no, join_date,
+				rownum rNum
+		        FROM    (SELECT	*
+				        FROM	(SELECT *
+				                FROM    employee
+				                WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+								UNION
+								SELECT	*
+								FROM	employee
+								WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
+		                		)
+		                ORDER BY employee_name
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNum <= #{end}
+--------------------------------------------------------------------------------
+-- 인사카드 목록 조회(personnel_card_listDTO)
+--------------------------------------------------------------------------------
+SELECT	*
+FROM	(SELECT employee_id, dept_id, dept_name,
+        hr_code_group_rank, hr_code_group_name,
+        rank_code, hr_code_name,
+        employee_name, residence_reg_no, join_date,
+        rownum rNum
+        FROM    (SELECT E.employee_id, E.dept_id, D.dept_name,
+                        E.hr_code_group_rank, G.hr_code_group_name,
+                        E.rank_code, C.hr_code_name,
+                        E.employee_name, E.residence_reg_no,
+                        E.join_date
+                FROM    employee E, department D, hr_code C, hr_code_group G
+                WHERE	E.dept_id = D.dept_id
+                AND		E.hr_code_group_rank = G.hr_code_group_id
+                AND		E.rank_code = C.hr_code_id
+                AND     E.employee_name like '%'||NVL(null,E.employee_name)||'%'
+                UNION
+                SELECT E.employee_id, E.dept_id, D.dept_name,
+                        E.hr_code_group_rank, G.hr_code_group_name,
+                        E.rank_code, C.hr_code_name,
+                        E.employee_name, E.residence_reg_no,
+                        E.join_date
+                FROM    employee E, department D, hr_code C, hr_code_group G
+                WHERE	E.dept_id = D.dept_id
+                AND		E.hr_code_group_rank = G.hr_code_group_id
+                AND		E.rank_code = C.hr_code_id
+                AND     E.employee_id like NVL(null,E.employee_name)
+                ORDER BY employee_name
+                )
+        )
+WHERE rNum >= 1 AND rNum <= 5;
