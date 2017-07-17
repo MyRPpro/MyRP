@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
+import com.pro.myrp.domain.accounting_management.StatementVO;
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
@@ -52,6 +53,46 @@ public class AccountDAOImpl implements AccountDAO {
 	public int update_bank_account(Bank_accountVO vo) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.update_bank_account(vo);
+	}
+	@Override
+	public int select_statements_cnt() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_statements_cnt();
+	}
+	@Override
+	public ArrayList<StatementVO> select_statements(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_statements(daoMap);
+	}
+	@Override
+	public ArrayList<StatementVO> select_statement_detail(String statement_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_statement_detail(statement_id);
+	}
+	@Override
+	public String select_detail_company_name(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_detail_company_name(daoMap);
+	}
+	@Override
+	public int update_statement_approval_state(String statement_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.update_statement_approval_state(statement_id);
+	}
+	@Override
+	public int update_account_account_value(String statement_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.update_account_account_value(statement_id);
+	}
+	@Override
+	public int select_statement_cnt(String statement_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_statement_cnt(statement_id);
+	}
+	@Override
+	public ArrayList<StatementVO> select_statement_ids(String statement_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_statement_ids(statement_id);
 	}
 	
 	

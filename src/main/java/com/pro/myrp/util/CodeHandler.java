@@ -132,6 +132,15 @@ public class CodeHandler {
 			public static final int call_bank_account_id = 15220; 		//아이디 불러오기
 			public static final int register_bank_account = 15230;		//계좌 등록
 			public static final int modify_bank_account = 15240; 		//계좌 수정 
+		//전표관리
+		public static final int statement_management = 15400;
+			public static final int search_all_statements = 15410;			//전체전표 조회
+			public static final int search_statement_detail = 15420; 		//상세전표 조회
+			public static final int search_disapproval_statement = 15430; 	//미승인 전표조회
+			public static final int search_approval_statement = 15440;		//승인 전표조회
+			public static final int approve_statement = 15450; 				//전표 승인
+			public static final int disapprove_statement = 15460;			//전표 승인거절
+			public static final int make_statement = 15470; 				//전표 생성
 	
 	
 	//인사관리

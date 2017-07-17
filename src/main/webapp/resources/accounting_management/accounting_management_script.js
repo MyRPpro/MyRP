@@ -20,3 +20,8 @@ function set_bank_account_id(bank_account_id, account_name){
 	opener.document.register_bank_account_form1.bank_account_type.value = account_name;
 	self.close();
 }
+
+function search_statement_detail(statement_id, connected_id){
+	var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&connected_id="+connected_id;
+	window.open(url, "confirm", "menubar=no, width=800, height=600");
+}
