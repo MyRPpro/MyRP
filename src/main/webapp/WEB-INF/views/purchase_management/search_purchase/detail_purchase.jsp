@@ -86,7 +86,7 @@
 				<th>count_purchase</th>
 				<td>
 					<input type="number" name="count_purchase" value="${purchaseVO.count_purchase}" 
-					min="1" max="9999" min="1" max="9999999999" required>
+					min="1" max="9999" required>
 				</td>
 			</tr>
 			<tr>
