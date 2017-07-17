@@ -20,12 +20,55 @@ public interface CodeMyRP {
 				public static final int add_product_pro = 11222;								//상품 신규 등록 처리
 				public static final int modify_product = 11230;									//상품 수정
 				public static final int modify_product_pro = 11231;								//상품 수정 처리
-		
+				
 		//영업관리
 		public static final int sales_management = 12000;
-		
+			// 판매검색
+			public static final int search_sales = 12100;			
+				public static final int sales_list = 12110;			//판매 리스트(검색기능 포함)
+				public static final int detail_sales = 12120;		//판매 상세
+				public static final int modify_sales = 12130;		//판매 수정
+				public static final int search_sales_title = 12140;		//제목으로 검색
+			// 판매입력
+			public static final int input_sales = 12200;
+				public static final int reg_sales = 12210;			//판매 입력
+				public static final int reg_sales_pro = 12220;		//판매 입력 처리
+			// 판매 현황
+			public static final int staus_sales = 12300;			
+				public static final int search_status_sales = 12310;//편매현황 검색
+				public static final int status_sales = 12320;		//판매현황
+				/*public static final int detail_sales = 12120;		//판매 상세 (중복)*/			
+			// 거래처별 채권
+			public static final int bond_by_transaction = 12400;			
+				public static final int search_bond_by_transaction = 12410;			//거래처별채권 검색
+				public static final int detail_bond_by_transaction = 12420;			//판매현황
+				public static final int transaction_management_register = 12430;	//거래처별채권
+			public static final int temp_table = 12990;		//임시 테이블	
+
 		//구매관리
 		public static final int purchase_management = 13000;
+			// 구매검색
+			public static final int search_purchase 		 = 13100;	// 구매 검색
+				public static final int purchase_list 		 = 13110;	// 구매 리스트
+				public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
+				public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
+				public static final int detail_purchase 	 = 13140;	// 구매 상세
+				public static final int modify_purchase 	 = 13150;	// 구매 수정
+				public static final int quick_serch_purchase = 13160;	// 구매 바로검색
+			// 구매입력
+			public static final int input_purchase = 13200;
+				public static final int reg_purchase = 13210;			// 구매 입력
+				public static final int reg_purchase_pro = 13220;		// 판매 입력 처리
+			// 구매 현황
+			public static final int staus_purchase = 13300;			
+				public static final int search_status_purchase = 13310;// 구매 현황 검색
+				public static final int status_purchase = 13320;		// 구매 현황
+				/*public static final int detail_purchase = 12120;		// 구매 상세 (중복)*/			
+			// 거래처별 채권
+			public static final int debt_by_company = 13400;			
+				public static final int search_debt_by_company = 13410;			//거래처별채권 검색
+				public static final int debt_by_company_list = 13420;			//판매현황
+				public static final int transaction_company_register = 13430;	//거래처별채권
 		
 		//물류관리
 		public static final int distribution_management = 14000;								//물류 관리
@@ -53,7 +96,6 @@ public interface CodeMyRP {
 				public static final int registration_movement_warehouse = 14440;				//창고 이동 등록		
 				public static final int modification_movement_warehouse = 14450;				//창고 이동 수정		
 				public static final int delete_movement_warehouse = 14460;						//창고 이동 삭제				
-	
 				
 			public static final int adjustment_inventory  = 14500;								//재고 조정
 				public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
@@ -78,6 +120,7 @@ public interface CodeMyRP {
 			//현금출납
 			//전표관리
 			//재권/채무 현황
+
 		//인사관리
 		public static final int hr_management = 16000;
 			//인사코드관리
@@ -132,5 +175,6 @@ public interface CodeMyRP {
 				public static final int fix_salary = 16550;
 				public static final int search_salary_history = 16560;
 			//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
+				
 		
 }
