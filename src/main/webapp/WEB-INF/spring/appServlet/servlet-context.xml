@@ -23,6 +23,12 @@
 	
 	<context:component-scan base-package="com.pro.myrp" />
 	
+	<!-- MultipartResolver 설정 -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="100000000" />
+        <beans:property name="maxInMemorySize" value="100000000" />
+    </beans:bean>
+	
 	<!-- MyBatis 설정 -->
 	<!-- connection pool(server>context.xml) 설정 -->
 	<beans:bean name="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">

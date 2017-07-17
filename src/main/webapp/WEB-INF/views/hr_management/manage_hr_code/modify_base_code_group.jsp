@@ -29,7 +29,7 @@ method="get" name="modify_base_code_group_form1">
 				<label for="used">사용</label>
 				<input type="radio" name="use_state" id="used" value="Y"
 				<c:if test="${hr_code_groupVo.use_state == 'Y'}">checked</c:if>>
-				<label for="unused">미사용</label>
+				<label for="unused">비사용</label>
 				<input type="radio" name="use_state" id="unused" value="N"
 				<c:if test="${hr_code_groupVo.use_state == 'N'}">checked</c:if>>
 			</td>

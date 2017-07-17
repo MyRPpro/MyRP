@@ -24,69 +24,52 @@ public class CodeHandler {
 	
 	//영업관리
 	public static final int sales_management = 12000;
-	
 			// 판매검색
 			public static final int search_sales = 12100;			
 				public static final int sales_list = 12110;			//판매 리스트(검색기능 포함)
 				public static final int detail_sales = 12120;		//판매 상세
 				public static final int modify_slaes = 12130;		//판매 수정
 				public static final int search_title = 12140;		//제목으로 검색
-				
-				
-				
 			// 판매입력
 			public static final int input_sales = 12200;
 				public static final int reg_sales = 12210;			//판매 입력
 				public static final int reg_sales_pro = 12220;		//판매 입력 처리
-				
 			// 판매 현황
 			public static final int staus_sales = 12300;			
 				public static final int search_status_sales = 12310;//편매현황 검색
 				public static final int status_sales = 12320;		//판매현황
 				/*public static final int detail_sales = 12120;		//판매 상세 (중복)*/			
-			
 			// 거래처별 채권
 			public static final int bond_by_transaction = 12400;			
 				public static final int search_bond_by_transaction = 12410;			//거래처별채권 검색
 				public static final int detail_bond_by_transaction = 12420;			//판매현황
 				public static final int transaction_management_register = 12430;	//거래처별채권
-			
 			public static final int temp_table = 12990;		//임시 테이블	
 				
 	//구매관리
 	public static final int purchase_management = 13000;
-	
 			// 구매검색
-	public static final int search_purchase 		 = 13100;	// 구매 검색
-		public static final int purchase_list 		 = 13110;	// 구매 리스트
-		public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
-		public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
-		public static final int detail_purchase 	 = 13140;	// 구매 상세
-		public static final int modify_purchase 	 = 13150;	// 구매 수정
-		public static final int quick_serch_purchase = 13160;	// 구매 바로검색
-				
-				
-				
-			// 구매입력
-			public static final int input_purchase = 13200;
-				public static final int reg_purchase = 13210;			// 구매 입력
-				public static final int reg_purchase_pro = 13220;		// 판매 입력 처리
-				
-			// 구매 현황
-			public static final int staus_purchase = 13300;			
-				public static final int search_status_purchase = 13310;// 구매 현황 검색
-				public static final int status_purchase = 13320;		// 구매 현황
-				/*public static final int detail_purchase = 12120;		// 구매 상세 (중복)*/			
-			
-			// 거래처별 채권
-			public static final int debt_by_company = 13400;			
-				public static final int search_debt_by_company = 13410;			//거래처별채권 검색
-				public static final int debt_by_company_list = 13420;			//판매현황
-				public static final int transaction_company_register = 13430;	//거래처별채권
-				
-	
-	
-	
+		public static final int search_purchase 		 = 13100;	// 구매 검색
+			public static final int purchase_list 		 = 13110;	// 구매 리스트
+			public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
+			public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
+			public static final int detail_purchase 	 = 13140;	// 구매 상세
+			public static final int modify_purchase 	 = 13150;	// 구매 수정
+			public static final int quick_serch_purchase = 13160;	// 구매 바로검색
+		// 구매입력
+		public static final int input_purchase = 13200;
+			public static final int reg_purchase = 13210;			// 구매 입력
+			public static final int reg_purchase_pro = 13220;		// 판매 입력 처리
+		// 구매 현황
+		public static final int staus_purchase = 13300;			
+			public static final int search_status_purchase = 13310;// 구매 현황 검색
+			public static final int status_purchase = 13320;		// 구매 현황
+			/*public static final int detail_purchase = 12120;		// 구매 상세 (중복)*/			
+		// 거래처별 채권
+		public static final int debt_by_company = 13400;			
+			public static final int search_debt_by_company = 13410;			//거래처별채권 검색
+			public static final int debt_by_company_list = 13420;			//판매현황
+			public static final int transaction_company_register = 13430;	//거래처별채권
 	
 	//물류관리
 	public static final int distribution_management = 14000;								//물류 관리
@@ -125,6 +108,7 @@ public class CodeHandler {
 			public static final int identified_statement_ist = 14630;						//확인 전표 리스트
 			public static final int query_statement = 14640;								//전표 내용 조회
 			public static final int approval_statement = 14650;								//전표 내용 승인
+
 	//회계관리
 	public static final int accounting_management = 15000;
 		public static final int bank_account_registration = 15200;
@@ -141,7 +125,6 @@ public class CodeHandler {
 			public static final int approve_statement = 15450; 				//전표 승인
 			public static final int disapprove_statement = 15460;			//전표 승인거절
 			public static final int make_statement = 15470; 				//전표 생성
-	
 	
 	//인사관리
 	public static final int hr_management = 16000;
@@ -169,9 +152,16 @@ public class CodeHandler {
 			public static final int modify_dept_pro = 16231;								//부서 수정 처리
 		//인사카드관리
 		public static final int manage_personnel_card = 16300;
-			public static final int personnel_card_list = 16310;
-			public static final int reg_personnel_card = 16320;
+			public static final int personnel_card_search = 16310;
+			public static final int personnel_card_list = 16311;
+			public static final int personnel_card_nav = 16312;
+			public static final int add_personnel_card = 16320;
+			public static final int add_personnel_card_picture = 16321;
+			public static final int add_personnel_card_upload = 16322;
+			public static final int add_personnel_card_dupCheck = 16323;
+			public static final int add_personnel_card_pro = 16324;
 			public static final int modify_personnel_card = 16330;
+			public static final int modify_personnel_card_pro = 16331;
 			public static final int manage_hr_appointment = 16340;
 			public static final int manage_retired_employee = 16350;
 		//근태관리

@@ -1,15 +1,18 @@
 package com.pro.myrp.controller.hr;
 
+import java.io.File;
+import java.io.IOException;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import com.pro.myrp.domain.CodeMyRP;
+import com.pro.myrp.domain.hr_management.FileDTO;
 import com.pro.myrp.service.hr.HRService;
 
 @Controller
@@ -181,16 +184,95 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		return code.c(hr_management, manage_dept, modify_dept_pro);
 	}
 	
-
+	@Override
+	@GetMapping(value="manage_personnel_card/personnel_card_search")
+	public String personnel_card_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_search));
+		model.addAttribute("req", req);
+		service.personnel_card_search_service(model);
+		return code.c(hr_management, manage_personnel_card, personnel_card_search);
+	}
+	
 	@Override
 	@GetMapping(value="manage_personnel_card/personnel_card_list")
 	public String personnel_card_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(personnel_card_list));
 		model.addAttribute("req", req);
-		
+		service.personnel_card_list_service(model);
 		return code.c(hr_management, manage_personnel_card, personnel_card_list);
 	}
 
+	@Override
+	@GetMapping(value="manage_personnel_card/personnel_card_nav")
+	public String personnel_card_nav(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_nav));
+		model.addAttribute("req", req);
+		service.personnel_card_nav_service(model);
+		return code.c(hr_management, manage_personnel_card, personnel_card_nav);
+	}
+	
+	@Override
+	@GetMapping(value="manage_personnel_card/add_personnel_card")
+	public String add_personnel_card(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_personnel_card));
+		model.addAttribute("req", req);
+		service.add_personnel_card_service(model);
+		return code.c(hr_management, manage_personnel_card, add_personnel_card);
+	}
+	
+	@Override
+	@GetMapping(value="manage_personnel_card/add_personnel_card_picture")
+	public String add_personnel_card_picture(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_personnel_card_picture));
+		model.addAttribute("req", req);
+		service.add_personnel_card_picture_service(model);
+		return code.c(hr_management, manage_personnel_card, add_personnel_card_picture);
+	}
+	
+	@Override
+	@PostMapping(value="/manage_personnel_card/add_personnel_card_upload")
+	public String add_personnel_card_upload(FileDTO dto, Model model) throws Exception {
+		System.out.println(code.c(add_personnel_card_upload));
+		String msg = "";
+		MultipartFile file = dto.getFile();
+		if (file != null) {
+			String fileName = dto.getName();
+			try {
+				String path = "C:/Users/amaco78/Documents/project/MyRP/src/main/webapp/resources/images/";
+				File file2 = new File(path + fileName + ".jpg");
+				file.transferTo(file2);
+				model.addAttribute("employee_id", fileName);
+				msg = "성공적으로 파일업로드 되었습니다.";
+			} catch (IOException e) {
+				e.printStackTrace();
+				msg = "파일업로드에 실패하였습니다. 잠시후 다시 시도해 주세요.";
+			}
+		} else {
+			msg = "선택받은 파일이 없거나 재대로 연결되지 않았습니다.";
+		}
+		model.addAttribute("msg", msg);
+		return code.c(hr_management, manage_personnel_card, add_personnel_card_upload);
+	}
+	
+	@Override
+	@GetMapping(value="manage_personnel_card/add_personnel_card_dupCheck")
+	public String add_personnel_card_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_personnel_card_dupCheck));
+		model.addAttribute("req", req);
+		service.add_personnel_card_dupCheck_service(model);
+		System.out.println(code.c(hr_management, manage_personnel_card, add_personnel_card_dupCheck));
+		return code.c(hr_management, manage_personnel_card, add_personnel_card_dupCheck);
+	}
+	
+	@Override
+	@PostMapping(value="manage_personnel_card/add_personnel_card_pro")
+	public String add_personnel_card_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_personnel_card_pro));
+		model.addAttribute("req", req);
+		service.add_personnel_card_pro_service(model);
+		return code.c(hr_management, manage_personnel_card, add_personnel_card_pro);
+	}
+	
 	@Override
 	@GetMapping(value="manage_service_attitude/search_attendance_absence")
 	public String search_attendance_absence(HttpServletRequest req, Model model) throws Exception {
@@ -208,11 +290,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		
 		return code.c(hr_management, manage_salary, salary_register);
 	}
-
-	
-
-	
-	
 
 	
 
