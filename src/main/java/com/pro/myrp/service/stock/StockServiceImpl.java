@@ -33,9 +33,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		
 		for(int i = 0; i < stock_conditionDtos.size(); i++) {
 			stock_amount += stock_conditionDtos.get(i).getStock_amount();
-			purchase_unit_price += stock_conditionDtos.get(i).getPurchase_unit_price();
+			purchase_unit_price += stock_conditionDtos.get(i).getpurchase_unit_price();
 			sale_unit_price += stock_conditionDtos.get(i).getSale_unit_price();
-			stock_purchase_sum += (stock_conditionDtos.get(i).getStock_amount() * stock_conditionDtos.get(i).getPurchase_unit_price());
+			stock_purchase_sum += (stock_conditionDtos.get(i).getStock_amount() * stock_conditionDtos.get(i).getpurchase_unit_price());
 			sale_unit_price_sum += ((long)stock_conditionDtos.get(i).getStock_amount() * (long)stock_conditionDtos.get(i).getSale_unit_price());
 			System.out.println("sale_unit_price_sum : " + sale_unit_price_sum);
 			System.out.println("stock_conditionDtos.get(i).getStock_amount() : " + stock_conditionDtos.get(i).getStock_amount());

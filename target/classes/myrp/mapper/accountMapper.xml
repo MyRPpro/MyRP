@@ -14,7 +14,7 @@
  	</select>
  	<!-- 계좌 목록 -->
  	<select id="select_bank_account_list" parameterType="java.util.Map"
- 	resultType="Bank_accountVO">
+ 	resultType="com.pro.myrp.domain.accounting_management.Bank_accountVO">
  		<![CDATA[
  			SELECT *
  			FROM ( SELECT bank_account_id, bank_account_name, bank_account_number,
