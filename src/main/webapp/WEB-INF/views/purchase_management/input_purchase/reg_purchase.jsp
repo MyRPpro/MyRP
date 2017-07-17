@@ -25,7 +25,7 @@
 			<tr>
 				<!-- <th>purchase_id</th> -->
 				<th>account_id</th>
-				<th>order_id</th>
+				<!-- <th>order_id</th> -->
 				<th>product_id</th>
 				<th>company_name</th>
 				<th>employee_id</th>
@@ -66,14 +66,14 @@
 				</td>
 				
 				<!-- 3 order_id : 타부서에서 입력함 -->
-				<td> 
+				<%-- <td> 
 					<select name="order_id">
 					  <datalist id="order_id">
 					    <c:forEach var="order" items="${order_ids}">
 					  		<option value="${order.order_id}">${order.order_id} </option>
 					  	</c:forEach>
 					  </datalist>
-				</td>
+				</td> --%>
 				
 				<!-- 4 product_id -->
 				<td> 

@@ -369,20 +369,42 @@ CREATE TABLE bank_account (
 --------------------------------------------------------------------------------
 CREATE TABLE statement (
     statement_id          CHAR(12)     PRIMARY KEY, --전표번호
-    connected_id          CHAR(12)     , --주문번호
-    account_id            CHAR(12)     , --계정코드
     reg_date              DATE         DEFAULT SYSDATE, --등록일자
     account_value         NUMBER(18)   NOT NULL, --계정금액
     approval_state        NUMBER(5)    DEFAULT 0, --주문상태
     statement_type        NUMBER(5) NOT NULL,
-    CONSTRAINT statement_FK1 FOREIGN KEY(connected_id,account_id)
-                               REFERENCES sales_order(sales_id, account_id),
-    CONSTRAINT statement_FK2 FOREIGN KEY(connected_id,account_id)
-                               REFERENCES salary_register(salary_register_id, account_id),
-    CONSTRAINT statement_FK3 FOREIGN KEY(connected_id,account_id)
-                               REFERENCES purchase_order(purchase_id, account_id)
 );
 
+CREATE TABLE tax_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    account_id      CHAR(12),
+    CONSTRAINT tax_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT tax_statement_fk2 FOREIGN KEY(account_id) REFERENCES account(account_id)
+);
+
+CREATE TABLE sales_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    sales_id        CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT sales_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT sales_statement_fk2 FOREIGN KEY(sales_id,account_id) REFERENCES sales_order(sales_id,account_id)
+);
+
+CREATE TABLE purchase_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    purchase_id     CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT purchase_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT purchase_statement_fk2 FOREIGN KEY(purchase_id,account_id) REFERENCES purchase_order(purchase_id,account_id)
+);
+
+CREATE TABLE salary_register_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    salary_register_id  CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT salary_register_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT salary_register_statement_fk2 FOREIGN KEY(salary_register_id,account_id) REFERENCES salary_register(salary_register_id,account_id)
+);
 --------MyRP 물류관리 Table 생성 SQL--------
 --DROP TABLE warehouse_information;
 --DROP TABLE stock_information;
@@ -445,9 +467,12 @@ CREATE TABLE adjustment_inventory (
 stock_order_id    CHAR(12),
 search_date       DATE      DEFAULT SYSDATE,	
 taked_stock       NUMBER(4)	NOT NULL,
+delete_stock      NUMBER(4) NOT NULL,
 CONSTRAINT adjustment_inventory_PK PRIMARY KEY(stock_order_id),
 CONSTRAINT adjustment_inventory_FK FOREIGN KEY(stock_order_id) REFERENCES stock_order(stock_order_id)
 );
+
+
 
 CREATE TABLE storage_out_order (
 stock_order_id    CHAR(12) ,	
@@ -834,3 +859,45 @@ ALTER TABLE stock_order ADD CONSTRAINT stock_order_FK1 FOREIGN KEY(stock_order_t
 ALTER TABLE bank_account MODIFY bank_account_name VARCHAR2(255);
 ALTER TABLE bank_account MODIFY bank_name VARCHAR2(255);
 ALTER TABLE statement ADD statement_type NUMBER(5) NOT NULL;
+ALTER TABLE adjustment_inventory ADD delete_stock NUMBER(4) NOT NULL;
+ALTER TABLE stock_order DROP CONSTRAINT stock_order_fk2;
+
+ALTER TABLE statement DROP CONSTRAINT statement_FK1;
+ALTER TABLE statement DROP CONSTRAINT statement_FK2;
+ALTER TABLE statement DROP CONSTRAINT statement_FK3;
+ALTER TABLE statement DROP COLUMN connected_id;
+ALTER TABLE statement DROP COLUMN account_id;
+
+CREATE TABLE tax_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    account_id      CHAR(12),
+    CONSTRAINT tax_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT tax_statement_fk2 FOREIGN KEY(account_id) REFERENCES account(account_id)
+);
+
+CREATE TABLE sales_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    sales_id        CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT sales_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT sales_statement_fk2 FOREIGN KEY(sales_id,account_id) REFERENCES sales_order(sales_id,account_id)
+);
+
+CREATE TABLE purchase_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    purchase_id     CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT purchase_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT purchase_statement_fk2 FOREIGN KEY(purchase_id,account_id) REFERENCES purchase_order(purchase_id,account_id)
+);
+
+CREATE TABLE salary_register_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    salary_register_id  CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT salary_register_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT salary_register_statement_fk2 FOREIGN KEY(salary_register_id,account_id) REFERENCES salary_register(salary_register_id,account_id)
+);
+
+CREATE SEQUENCE purchase_seq
+START WITH 1 INCREMENT BY 1 MAXVALUE 99999;

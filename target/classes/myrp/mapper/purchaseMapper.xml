@@ -123,19 +123,19 @@
  	
  	<!-- 오더 테이블 목록 불러오기 -->
  	<select id="select_order_ids" resultType="PurchaseVO">
- 		SELECT ORDER_ID, ACCOUNT_ID
+ 		SELECT ACCOUNT_ID
 		FROM ACCOUNT
  	</select>
  	
  	<insert id="insert_reg_purchase" parameterType="PurchaseVO">
  		INSERT INTO PURCHASE_ORDER
-			  (PURCHASE_ID, ACCOUNT_ID, ORDER_ID,
+			  (PURCHASE_ID, ACCOUNT_ID,
 			  PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID,
 			  REG_DATE, UPDATE_DATE,  STORAGE_IN_DATE,
 			  COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE,
 			  CONDITION_NOTE_PAYABLE)
 		VALUES 
-			  ( PURCHASE_SEQ.NEXTVAL, #{account_id}, #{order_id},
+			  ( PURCHASE_SEQ.NEXTVAL, #{account_id},
 			  #{product_id}, #{company_id}, #{employee_id},
 			  #{reg_date}, SYSDATE, #{storage_in_date},
 			  #{count_purchase}, #{supply_price}, 25451, #{condition_note_payable}
