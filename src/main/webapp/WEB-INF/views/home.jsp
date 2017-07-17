@@ -27,8 +27,8 @@
 <a href="purchase_management/search_purchase/purchase_list">구매검색-구매 리스트</a><br>
 <a href="purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-세부 페이지</a><br>
 <a href="purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-수정 페이지</a><br>
-<a href="purchase_management/search_purchase/quick_serch_purchase">구매검색-구매 리스트-검색 페이지</a><br>
-<a href="purchase_management/">구매입력</a><br>
+<a href="purchase_management/search_purchase/purchase_list">구매검색-구매 리스트-검색 페이지</a><br>
+<a href="purchase_management/input_purchase/reg_purchase">구매입력</a><br>
 <a href="purchase_management/">구매현황</a><br>
 <a href="purchase_management/">거래처별 채무</a><br>
 <hr>

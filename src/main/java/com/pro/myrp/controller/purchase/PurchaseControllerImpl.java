@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -50,12 +51,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	}
 
 	
-	
-	/*
-	temp_table
-	purchase_list
-	*/
-	
 	@Override
 	@GetMapping(value="search_purchase/detail_purchase")
 	public String detail_purchase(HttpServletRequest req, Model model) throws Exception {
@@ -83,6 +78,29 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		model.addAttribute("req", req);
 		service.quick_serch_purchase_service(model);
 		return "redirect:"+code.c(purchase_management, search_purchase, purchase_list_table);
+	}
+
+
+	
+	
+	
+	@Override
+	@GetMapping(value="input_purchase/reg_purchase")
+	public String reg_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_purchase));
+		model.addAttribute("req",req);
+		service.reg_purchase_service(model);
+		return code.c(purchase_management , input_purchase , reg_purchase);
+	}
+
+
+	@Override
+	@PostMapping(value="input_purchase/reg_purchase_pro")
+	public String reg_purchase_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_purchase_pro));
+		model.addAttribute("req",req);
+		service.reg_purchase_service_pro(model);
+		return code.c(purchase_management, input_purchase, reg_purchase_pro);
 	}
 
 
