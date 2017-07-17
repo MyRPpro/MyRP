@@ -6,6 +6,7 @@ public class AccountVO {
 	private String account_name; 		//계정이름
 	private String order_id;			//주문번호
 	private int account_balance;		//잔액
+	
 	public String getAccount_id() {
 		return account_id;
 	}
