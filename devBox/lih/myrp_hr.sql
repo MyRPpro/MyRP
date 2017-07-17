@@ -453,7 +453,7 @@ CREATE TABLE sales_order
   CONSTRAINT sales_order_fk5    FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
 );
 --------------------------------------------------------------------------------
--- table PURCHASE_ORDER
+-- table purchase_ORDER
 --------------------------------------------------------------------------------
 
 -DROP TABLE purchase_order;
