@@ -8,6 +8,7 @@ import com.pro.myrp.controller.MyRPController;
 
 public interface purchaseController extends MyRPController {
 	
+	
 	/**
 	 * 구맬 리스트 
 	 * @author Jang.EC
@@ -17,6 +18,26 @@ public interface purchaseController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String purchase_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 구매 리스트_ 테이블 내용
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String purchase_list_table(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 구매 리스트_ 테이블 번호
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String purchase_list_page(HttpServletRequest req, Model model) throws Exception;
 	
 	
 	
@@ -29,7 +50,6 @@ public interface purchaseController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String detail_purchase(HttpServletRequest req, Model model) throws Exception;
-
 	
 	/**
 	 * 구매 수정 처리

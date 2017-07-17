@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -19,15 +18,43 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	@Inject
 	private purchaseService service;
 
+	
+	
 	@Override
 	@GetMapping(value="search_purchase/purchase_list")
 	public String purchase_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(purchase_list));
 		model.addAttribute("req", req);
-		service.purchase_list_servie(model);
+		/*service.purchase_list_servie(model);*/
 		return code.c(purchase_management,search_purchase,purchase_list);
 	}
+	
+	
+	@Override
+	@GetMapping(value="search_purchase/purchase_list_table")
+	public String purchase_list_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(purchase_list_table));
+		model.addAttribute("req", req);
+		service.purchase_list_servie(model);
+		return code.c(purchase_management,search_purchase,purchase_list_table);
+	}
 
+
+	@Override
+	@GetMapping(value="search_purchase/purchase_list_page")
+	public String purchase_list_page(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(purchase_list_page));
+		model.addAttribute("req", req);
+		service.purchase_list_servie(model);
+		return code.c(purchase_management,search_purchase,purchase_list_page);
+	}
+
+	
+	
+	/*
+	temp_table
+	purchase_list
+	*/
 	
 	@Override
 	@GetMapping(value="search_purchase/detail_purchase")
@@ -55,8 +82,12 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		System.out.println(code.c(quick_serch_purchase));
 		model.addAttribute("req", req);
 		service.quick_serch_purchase_service(model);
-		return "redirect:"+code.c(purchase_management, search_purchase, purchase_list);
+		return "redirect:"+code.c(purchase_management, search_purchase, purchase_list_table);
 	}
+
+
+	
+
 
 
 	

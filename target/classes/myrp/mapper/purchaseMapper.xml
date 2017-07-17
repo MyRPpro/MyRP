@@ -5,16 +5,14 @@
  
 <mapper namespace="com.pro.myrp.persistence.purchase.purchaseDAO">
  	
- 	
-	 <!-- 구매내역 총 개수 -->
+ 	 <!-- 구매내역 총 개수 -->
  	<select id="select_purchase_cnt" resultType="int">
  		<![CDATA[
  		SELECT	COUNT(*)
  		FROM	purchase_ORDER
  		]]>
  	</select>
- 
- 
+ 	
  	<!-- 구매내역 목록 -->
  	<select id="select_purchase_list" parameterType="java.util.Map"
  	resultType="PurchaseVO">
@@ -55,13 +53,14 @@
  	</select>
  	
  	
+ 	
  	<!-- 구매 정보 수정 -->
  	<update id="update_purchase" parameterType="PurchaseVO">
  		<![CDATA[
-		UPDATE	PURCHASE_ORDER
+		UPDATE	PURCHASE_ORDER 
 		SET		PURCHASE_ID = #{purchase_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
-				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id}, EMPLOYEE_ID = #{employee_id},
-				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_IN_DATE = #{storage_in_date},
+				PRODUCT_ID = #{product_id}, EMPLOYEE_ID = #{employee_id}, REG_DATE = #{reg_date}, 
+				UPDATE_DATE = #{update_date}, STORAGE_IN_DATE = #{storage_in_date},
 				COUNT_PURCHASE = #{count_purchase}, SUPPLY_PRICE = #{supply_price}, 
 				PURCHASE_STATE = #{purchase_state}, CONDITION_NOTE_PAYABLE = #{condition_note_payable}
 		WHERE	COMPANY_ID = #{company_id}
@@ -69,14 +68,12 @@
  	</update>
  	
  	
- 	<!-- 구매 바로 검색 -->
- 	<select id="slect_quick_serch_purchase" parameterType="String"
- 	resultType="PurchaseVO">
+ 	
+ 	<!-- 구매 바로 검색 개수 -->
+ 	<select id="count_quick_serch_purchase" parameterType="String"
+ 	resultType="int">
  		<![CDATA[
-		SELECT   P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
-                 P.COMPANY_ID, P.EMPLOYEE_ID, P.REG_DATE, P.UPDATE_DATE, 
-                 P.STORAGE_IN_DATE, P.COUNT_PURCHASE, P.SUPPLY_PRICE, 
-                 P.PURCHASE_STATE, P.CONDITION_NOTE_PAYABLE, C.COMPANY_NAME
+		SELECT  COUNT(P.PURCHASE_ID) 
 	    FROM	PURCHASE_ORDER P
 	    JOIN	COMPANY C
 	    ON		P.COMPANY_ID = C.COMPANY_ID
@@ -85,7 +82,23 @@
  	</select>
  	
  	
- 	
- 	
+ 	<!-- 구매 바로 검색 -->
+ 	<select id="select_quick_serch_purchase" parameterType="java.util.Map"
+ 	resultType="PurchaseVO">
+ 		<![CDATA[
+ 		SELECT  * 
+		FROM (	SELECT   P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
+		                 P.COMPANY_ID, P.EMPLOYEE_ID, P.REG_DATE, P.UPDATE_DATE, 
+		                 P.STORAGE_IN_DATE, P.COUNT_PURCHASE, P.SUPPLY_PRICE, 
+		                 P.PURCHASE_STATE, P.CONDITION_NOTE_PAYABLE, C.COMPANY_NAME, rownum rNum
+			    FROM	PURCHASE_ORDER P
+			    JOIN	COMPANY C
+			    ON		P.COMPANY_ID = C.COMPANY_ID
+				WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%' )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY PURCHASE_ID
+		
+ 		]]>
+ 	</select>
  	
 </mapper>

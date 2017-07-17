@@ -24,8 +24,7 @@ public class purchaseServiceImpl implements purchaseService {
 	@Override
 	public void purchase_list_servie(Model model) {
 		
-		
-		
+		System.out.println("  -> purchase_list_servie " );
 		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
@@ -42,27 +41,35 @@ public class purchaseServiceImpl implements purchaseService {
 		int	startPage	= 0;
 		int endPage		= 0;
 		
-		
-		
 		ArrayList<PurchaseVO> vos = null;
+		String search_str = null;
+		int search_check = 0;
 		
-		// search_str
-		if ( req.getParameter("search_str") == null ){
+		// 검색어  유무 체크 
+		if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
+			/*System.out.println("널인데 왜 떠? : " + req.getParameter("search_str") );*/
+			search_check = 1;
+		}
+		
+		
+		// 검색어가 있을 경우
+		if( search_check == 1 ){
 			
-			cnt = dao.select_purchase_cnt();
-			System.out.println("  -> sales Count : " + cnt);
+			search_str = req.getParameter("search_str");
+			model.addAttribute("search_str",search_str);
+
+			// 개수 구하기
+			cnt = dao.count_quick_serch_purchase(search_str);
+			System.out.println("  -> Search Cnt : " + cnt );
 			
 			
+		// 검색어가 있을 경우(전체 로드)
 		} else {
 			
-			String search_str = req.getParameter("search_str");
+			// 전체 개수 구하기
+			cnt = dao.select_purchase_cnt();
 			
-			vos = dao.slect_quick_serch_purchase(search_str);
-			cnt = vos.size();
-			System.out.println("  -> cnt : " + cnt );
 		}
-	
-		
 		
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
@@ -74,6 +81,8 @@ public class purchaseServiceImpl implements purchaseService {
 		end = start + pageSize - 1;
 		if(end > cnt) end = cnt;
 		number = cnt - (currentPage - 1) * pageSize;
+		System.out.println("  -> 테스트 : " + start+", "+end);
+		
 		
 		if(cnt > 0) {
 			
@@ -82,29 +91,28 @@ public class purchaseServiceImpl implements purchaseService {
 			Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("start", start);
 			daoMap.put("end", end);
+			daoMap.put("search_str", search_str);
 			
-			if ( req.getParameter("search_str") == null ){
-			
+			if( search_check == 1 ){
+				System.out.println("  -> Search_str :" +  req.getParameter("search_str") );
+				
+				// 검색된 내용만 불러오기
+				vos = dao.select_quick_serch_purchase(daoMap);
+				model.addAttribute("purchaseVOs", vos);
+				
+				
+			} else {
+				System.out.println("  -> Print All List  ...");
+				
+				// 전체 목록 불러오기
 				vos = dao.select_purchase_list(daoMap);
 				model.addAttribute("purchaseVOs", vos);
-			
-			} else {
 				
-				ArrayList<PurchaseVO> temp_vos = new ArrayList<>();
-				
-				System.out.println("start : " + start);
-				System.out.println("end : " + end);
-				
-				for(int i=start-1 ; i<end ; i++){
-					PurchaseVO tempvo = vos.get(i);
-					
-					
-					System.out.println("vos.get(i) : " + vos.get(i));
-					temp_vos.add(tempvo);
-				}
-				
-				model.addAttribute("purchaseVOs", temp_vos);
 			}
+
+		} else {
+			
+			System.out.println("  -> Cnt is Zero...");
 		}
 		
 		startPage = (currentPage/pageBlock)*pageBlock+1;
@@ -123,8 +131,84 @@ public class purchaseServiceImpl implements purchaseService {
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("currentPage", currentPage);
 		}
+		
+		/*
+		//-----------------------------------------------
+		// search_str
+		if ( req.getParameter("search_str") == null ){
+			
+		
+			System.out.println("  -> Sales Count : " + cnt);
+			
+			
+		} else {
+			
+			String search_str = req.getParameter("search_str");
+			
+			vos = dao.slect_quick_serch_purchase(search_str);
+			cnt = vos.size();
+			System.out.println("  -> Search Cnt : " + cnt );
+		}
+	
+		
+		for(int i=start-1 ; i<end ; i++){
+			PurchaseVO tempvo = vos.get(i);
+			
+			
+			System.out.println("vos.get(i) : " + vos.get(i));
+			temp_vos.add(tempvo);
+		}
+		*/
+		
+	}
+	
+	
+	
+	@Override
+	public void purchase_list_table_servie(Model model) {
+		
+		System.out.println("  -> purchase_list_table_servie " );
+		
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
 	}
 
+	@Override
+	public void purchase_list_page_servie(Model model) {
+		
+		System.out.println("  -> purchase_list_page_servie " );
+		
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+	}
+	
+	
 	@Override
 	public void detail_purchase_service(Model model) {
 		
@@ -215,6 +299,8 @@ public class purchaseServiceImpl implements purchaseService {
 			System.out.println("  -> No Str Value...");
 		}
 	}
+
+	
 	
 	
 	

@@ -10,7 +10,6 @@
 <body>
 	
 	
-	
 	<c:if test="${cnt == 1}">
 		<script type="text/javascript">
 			setTimeout(function(){

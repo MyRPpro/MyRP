@@ -39,11 +39,17 @@ public class purchaseDAOImpl implements purchaseDAO {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.update_purchase(vo);
 	}
+	
+	@Override
+	public ArrayList<PurchaseVO> select_quick_serch_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_quick_serch_purchase(daoMap);
+	}
 
 	@Override
-	public ArrayList<PurchaseVO> slect_quick_serch_purchase(String search_str) {
+	public int count_quick_serch_purchase(String search_str) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.slect_quick_serch_purchase(search_str);
+		return dao.count_quick_serch_purchase(search_str);
 	}
 
 

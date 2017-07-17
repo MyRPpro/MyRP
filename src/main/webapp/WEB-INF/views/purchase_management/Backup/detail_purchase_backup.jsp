@@ -52,7 +52,7 @@
 				<th>company_name</th>
 				<td>
 					<input type="hidden" name="company_id" value="${purchaseVO.company_id}">
-					<input type="text" name="company_name" value="${purchaseVO.company_name}" readonly  >
+					<input type="text" name="company_name" value="${purchaseVO.company_name}" required  >
 				</td>
 			</tr>
 			<tr>
@@ -100,7 +100,7 @@
 				<th>purchase_state</th>
 				<td>
 					<input type="number" name="purchase_state" value="${purchaseVO.purchase_state}" 
-					min="1" max="29999" readonly>
+					min="1" max="29999" required>
 				</td>
 			</tr>
 			<tr>
@@ -116,17 +116,14 @@
 			<th colspan="2">
 				<input type="submit" value="수정하기">
 				<input type="reset"	value="재작성">
-				<!-- 
 				<input type="button" value="돌아가기"
 				onclick="window.history.back();">
-				 -->
 			</th>
 		</tr>
 			
 		</table>
 	
 	</form>
-	
 	
 	
 	
