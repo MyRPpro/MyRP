@@ -49,4 +49,31 @@ public interface AccountService extends MyRPService {
 	 */
 	public void modify_bank_account_pro_service(Model model) throws Exception;
 	
+	/**
+	 * 전표 관리 > 전체 전표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_all_statements_service(Model model) throws Exception;
+	
+	/**
+	 * 전표 관리 > 상세 전표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_statement_detail(Model model) throws Exception;
+	
+	/**
+	 * 전표 관리 > 세금 전표 자동 생성 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	/*public void make_statement_service(Model model) throws Exception;*/
+	
+	/**
+	 * 전표관리 > 전표 승인 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void approve_statement_service(Model model) throws Exception;
 }
