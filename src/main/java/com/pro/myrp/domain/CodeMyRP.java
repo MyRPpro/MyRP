@@ -107,8 +107,13 @@ public interface CodeMyRP {
 				public static final int personnel_card_search = 16310;
 				public static final int personnel_card_list = 16311;
 				public static final int personnel_card_nav = 16312;
-				public static final int reg_personnel_card = 16320;
+				public static final int add_personnel_card = 16320;
+				public static final int add_personnel_card_picture = 16321;
+				public static final int add_personnel_card_upload = 16322;
+				public static final int add_personnel_card_dupCheck = 16323;
+				public static final int add_personnel_card_pro = 16324;
 				public static final int modify_personnel_card = 16330;
+				public static final int modify_personnel_card_pro = 16331;
 				public static final int manage_hr_appointment = 16340;
 				public static final int manage_retired_employee = 16350;
 			//근태관리

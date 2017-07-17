@@ -9,7 +9,6 @@
 </head>
 <body>
 personnel_card_list.jsp
-<hr>
 <table border="1">
 	<tr>
 		<th colspan="7">EmployeeVO</th>
@@ -75,6 +74,5 @@ personnel_card_list.jsp
 	</tr>
 	</c:forEach>
 </table>
-<hr>
 </body>
 </html>

@@ -1,10 +1,9 @@
 package com.pro.myrp.controller.hr;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.ui.Model;
-
 import com.pro.myrp.controller.MyRPController;
+import com.pro.myrp.domain.hr_management.FileDTO;
 
 public interface HRController extends MyRPController {
 
@@ -216,6 +215,56 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String personnel_card_nav(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 등록 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 사원 사진 등록 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_picture(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 직원사진 등록
+	 * @author amaco78
+	 * @param dto
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_upload(FileDTO dto, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드 관리 > 사원번호 중복 체크
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_dupCheck(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 등록 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 근태 관리 > 출결달력 검색
