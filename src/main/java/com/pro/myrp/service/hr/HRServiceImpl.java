@@ -18,6 +18,7 @@ import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.persistence.hr.HRDAO;
 
@@ -483,7 +484,6 @@ public class HRServiceImpl implements HRService {
 		}
 	}
 
-	
 	@Override
 	public void add_personnel_card_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -528,5 +528,17 @@ public class HRServiceImpl implements HRService {
 		int cnt2 = dao.insert_employee_info(vo2);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("cnt2", cnt2);
+	}
+
+
+	@Override
+	public void modify_personnel_card_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		Personnel_cardDTO dto = new Personnel_cardDTO();
+		dto = dao.select_personnel_card(employee_id);
+		System.out.println(dto);
+		model.addAttribute("personnel_cardDto", dto);
 	}
 }

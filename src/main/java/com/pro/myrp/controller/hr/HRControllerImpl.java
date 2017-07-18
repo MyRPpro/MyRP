@@ -291,7 +291,12 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		return code.c(hr_management, manage_salary, salary_register);
 	}
 
-	
-
-	
+	@Override
+	@GetMapping(value="manage_personnel_card/modify_personnel_card")
+	public String modify_personnel_card(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_personnel_card));
+		model.addAttribute("req", req);
+		service.modify_personnel_card_service(model);
+		return code.c(hr_management, manage_personnel_card, modify_personnel_card);
+	}
 }

@@ -273,4 +273,25 @@
 					#{email},#{address},#{hourly_wage},#{salary_account})
 		]]>
 	</insert>
+	
+	<!-- 인사카드 정보 수정 -->
+	<select id="select_personnel_card" parameterType="int"
+	resultType="Personnel_cardDTO">
+		<![CDATA[
+		SELECT	E.employee_id,E.dept_id,D.dept_name,
+				E.hr_code_group_rank,HCG.hr_code_group_name,
+				E.rank_code,HC.hr_code_name,
+				E.employee_name,E.residence_reg_no,E.join_date,
+				EI.tel,EI.mobile_tel,EI.passport_no,EI.email,
+				EI.address,EI.hourly_wage,EI.salary_account
+		FROM	hr_code HC,hr_code_group HCG,
+				department D,employee E,employee_info EI
+		WHERE	HC.hr_code_group_id = E.hr_code_group_rank
+		AND		HC.hr_code_group_id = HCG.hr_code_group_id
+		AND		HC.hr_code_id = E.rank_code
+		AND		D.dept_id = E.dept_id
+		AND		EI.employee_id = E.employee_id
+		AND		E.employee_id = #{employee_id}
+		]]>
+	</select>
 </mapper>
