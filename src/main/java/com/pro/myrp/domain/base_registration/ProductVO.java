@@ -10,7 +10,17 @@ public class ProductVO {
 	private int sale_unit_price;
 	private String use_state;
 	private Date reg_date;
+	private int stock_amount;
 	
+	
+	
+	
+	public int getStock_amount() {
+		return stock_amount;
+	}
+	public void setStock_amount(int stock_amount) {
+		this.stock_amount = stock_amount;
+	}
 	public String getProduct_id() {
 		return product_id;
 	}
