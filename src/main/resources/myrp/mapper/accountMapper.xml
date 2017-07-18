@@ -78,39 +78,71 @@
  	
  	<!-- 전표 가져오기 -->
  	<select id="select_statements" parameterType="java.util.Map"
- 	resultType="StatementVO">
+ 	resultType="JoinStatementDTO">
  		<![CDATA[
  			SELECT *
- 			FROM ( SELECT statement_id, connected_id, account_id, reg_date, account_value,
- 						  approval_state, rownum rNum
- 				     FROM ( select *
- 				     	    FROM statement
- 				     	    ORDER BY reg_date
- 				     	   )
- 				 )
+ 			FROM ( SELECT s.statement_id, sales.sales_id, salary.salary_register_id, purc.purchase_id, 
+ 						  tax.account_id as tax_account_id, sales.account_id as sales_account_id, purc.account_id as purchase_account_id, salary.account_id as salary_account_id,
+						  s.reg_date, s.account_value, s.approval_state, s.statement_type, rownum rNum
+ 				     FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
+ 				     	  			  left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+ 				     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
+ 				     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
+ 				     ORDER BY s.reg_date
+ 				  )
  			WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
  	<!-- 전표 상세 내용 가져오기 > 디테일, account_name 가져오기  -->
- 	<select id="select_statement_detail" parameterType="String" resultType="StatementVO">
+ 	<!-- <select id="select_statement_detail" parameterType="java.util.Map" resultType="StatementVO">
+ 		<if test="typeCnt == 1">
  		<![CDATA[
- 		 SELECT s.statement_id, s.connected_id, s.account_id, s.reg_date, s.statement_type,
- 			   s.account_value, s.approval_state, a.account_name 
- 		FROM (SELECT * FROM statement WHERE 
-          connected_id=(SELECT connected_id FROM statement WHERE statement_id = #{statement_id}) AND 
-          statement_type=(SELECT statement_type FROM statement WHERE statement_id = #{statement_id})) s JOIN account a ON s.account_id = a.account_id
+ 		 SELECT s.statement_id, s.sales_id, s.account_id, s.reg_date, s.statement_type,
+ 		 		s.account_value, s.approval_state, a.account_name
+ 		   FROM ((SELECT * FROM sales_statement) sales JOIN statement statement ON statement.statement_id = sales.statement_id)
+ 		  		) s JOIN account a ON s.account_id = a.account_id
+ 		  WHERE s.statement_id = #{statement_id}
  		]]>
- 	</select>
+ 		</if>
+ 		<if test="typeCnt == 2">
+ 		<![CDATA[
+ 		 SELECT s.statement_id, s.salary_register_id, s.account_id, s.reg_date, s.statement_type,
+ 		 		s.account_value, s.approval_state, a.account_name
+ 		   FROM ((SELECT * FROM salary_register_statement) salary JOIN statement statement ON statement.statement_id = salary.statement_id)
+ 		  		) s JOIN account a ON s.account_id = a.account_id
+ 		  WHERE s.statement_id = #{statement_id}
+ 		]]>
+ 		</if>
+ 		<if test="typeCnt == 3">
+ 		<![CDATA[
+ 		 SELECT s.statement_id, s.purchase_id, s.account_id, s.reg_date, s.statement_type,
+ 		 		s.account_value, s.approval_state, a.account_name
+ 		   FROM ((SELECT * FROM purchase_statement) sales JOIN statement statement ON statement.statement_id = sales.statement_id)
+ 		  		) s JOIN account a ON s.account_id = a.account_id
+ 		  WHERE s.statement_id = #{statement_id}
+ 		]]>
+ 		</if>
+ 		<if test="typeCnt == 4">
+ 		<![CDATA[
+ 		 SELECT s.statement_id, s.account_id, s.reg_date, s.statement_type,
+ 		 		s.account_value, s.approval_state, a.account_name
+ 		   FROM ((SELECT * FROM tax_statement) tax JOIN statement statement ON statement.statement_id = tax.statement_id)
+ 		  		) s JOIN account a ON s.account_id = a.account_id
+ 		  WHERE s.statement_id = #{statement_id}
+ 		]]>
+ 		</if>
+ 		
+ 	</select> -->
  	<!-- 전표 상세 내용 가져오기 > company_name 가져오기  -->
- 	<select id="select_detail_company_name" parameterType="java.util.Map" resultType="String">
- 		<if test="table_name == 'purchase_order'">
+ 	<!-- <select id="select_detail_company_name" parameterType="java.util.Map" resultType="String">
+ 		<if test="typeCnt == 2">
  		<![CDATA[
  		SELECT c.company_name
- 		  FROM company c JOIN (SELECT company_id FROM purchase_order WHERE purchase_id = #{connected_id}) p 
+ 		  FROM company c JOIN (SELECT company_id FROM purchase_order WHERE purchase_id = #{purchase_id}) p 
  		                 ON c.company_id = p.company_id 
  		]]>
  		</if>
- 		<if test="table_name == 'sales_order'">
+ 		<if test="typeCnt == 1">
  		<![CDATA[
  		SELECT c.company_name
  		  FROM company c JOIN sales_order s 
@@ -118,46 +150,49 @@
  		 WHERE s.sales_id = #{connected_id}
  		]]>
  		</if>
- 		<if test="table_name == 'salary_register'">
+ 		<if test="typeCnt == 3">
  		<![CDATA[
  		SELECT c.company_name
  		  FROM company c JOIN (SELECT salary_register FROM purchase_order WHERE salary_register_id = #{connected_id}) p 
  		                 ON c.company_id = p.company_id 
  		]]>
  		</if>
- 	</select> 	
+ 		<if test="typeCnt == 4">
+ 		SELECT '세무청' FROM dual
+ 		</if>
+ 	</select> 	 -->
  	
  	<!-- 전표관리 > 전표 승인 > approval_state 변경 -->
- 	<update id="update_statement_approval_state" parameterType="String">
+ 	<!-- <update id="update_statement_approval_state" parameterType="String">
  		<![CDATA[
  		UPDATE statement SET approval_state = '25452'
  		WHERE statement_id = #{statement_id}
  		]]>
- 	</update>
+ 	</update> -->
  	<!-- 전표관리 > 전표 승인 > account balance 변경 -->
- 	<update id="update_account_account_value" parameterType="String">
+ 	<!-- <update id="update_account_account_value" parameterType="String">
  		<![CDATA[
  		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
  		 WHERE account_id = (SELECT account_id FROM statement WHERE statement_id = #{statement_id})
  		]]>
- 	</update>
+ 	</update> -->
  	
  	<!-- 전표관리 > 전표 승인 > statement cnt 가져오기 -->
-	<select id="select_statement_cnt" parameterType="String" resultType="int">
+	<!-- <select id="select_statement_cnt" parameterType="String" resultType="int">
 		<![CDATA[
 		SELECT COUNT(*)
 		FROM (SELECT * FROM statement WHERE 
           connected_id=(SELECT connected_id FROM statement WHERE statement_id = #{statement_id}) AND 
           statement_type=(SELECT statement_type FROM statement WHERE statement_id = #{statement_id}))
 		]]>
-	</select>
+	</select> -->
 	<!-- 전표관리 > 전표 승인 > 해당하는 거래의 전표 코드 가져오기 -->
-	<select id="select_statement_ids" parameterType="String" resultType="StatementVO">
+	<!-- <select id="select_statement_ids" parameterType="String" resultType="StatementVO">
 		<![CDATA[
 		SELECT *
 		FROM (SELECT * FROM statement WHERE 
           connected_id=(SELECT connected_id FROM statement WHERE statement_id = #{statement_id}) AND 
           statement_type=(SELECT statement_type FROM statement WHERE statement_id = #{statement_id}))
 		]]>
-	</select>
+	</select> -->
 </mapper>

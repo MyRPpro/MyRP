@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
+import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
 import com.pro.myrp.domain.accounting_management.StatementVO;
 
 @Repository
@@ -60,21 +61,21 @@ public class AccountDAOImpl implements AccountDAO {
 		return dao.select_statements_cnt();
 	}
 	@Override
-	public ArrayList<StatementVO> select_statements(Map<String, Object> daoMap) {
+	public ArrayList<JoinStatementDTO> select_statements(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_statements(daoMap);
 	}
-	@Override
-	public ArrayList<StatementVO> select_statement_detail(String statement_id) {
+	/*@Override
+	public ArrayList<StatementVO> select_statement_detail(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.select_statement_detail(statement_id);
+		return dao.select_statement_detail(daoMap);
 	}
 	@Override
 	public String select_detail_company_name(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_detail_company_name(daoMap);
-	}
-	@Override
+	}*/
+	/*@Override
 	public int update_statement_approval_state(String statement_id) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.update_statement_approval_state(statement_id);
@@ -93,7 +94,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public ArrayList<StatementVO> select_statement_ids(String statement_id) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_statement_ids(statement_id);
-	}
+	}*/
 	
 	
 	

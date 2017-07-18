@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
-import com.pro.myrp.domain.accounting_management.StatementVO;
+import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface AccountDAO extends MyRPDAO {
@@ -61,46 +61,46 @@ public interface AccountDAO extends MyRPDAO {
 	 * @param daoMap
 	 * @return
 	 */
-	public ArrayList<StatementVO> select_statements(Map<String, Object> daoMap);
+	public ArrayList<JoinStatementDTO> select_statements(Map<String, Object> daoMap);
 	
 	/**
 	 * 전표 상세 내용
 	 * @param statement_id
 	 * @return
 	 */
-	public ArrayList<StatementVO> select_statement_detail(String statement_id);
+	/*public ArrayList<StatementVO> select_statement_detail(Map<String, Object> daoMap);*/
 	
 	/**
 	 * 전표 상세 내용 > company_name가져오기 
 	 * @param daoMap
 	 * @return
 	 */
-	public String select_detail_company_name(Map<String, Object> daoMap);
+	/*public String select_detail_company_name(Map<String, Object> daoMap);*/
 	
 	/**
 	 * 전표 승인 > 전표상태 바꿔주기
 	 * @param daoMap
 	 * @return
 	 */
-	public int update_statement_approval_state(String statement_id);
+	/*public int update_statement_approval_state(String statement_id);
 	
-	/**
+	*//**
 	 * 전표 승인 > 계정 값 업데이트 해주기
 	 * @param statement_id
 	 * @return
-	 */
+	 *//*
 	public int update_account_account_value(String statement_id);
 	
-	/**
+	*//**
 	 * 전표 승인 > 헤당하는 거래에 해당하는 전표개수 가져오기
 	 * @param statement_id
 	 * @return
-	 */
+	 *//*
 	public int select_statement_cnt(String statement_id);
-	/**
+	*//**
 	 * 전표 승인 > 해당하는 거래의 전표 코드 가져오기
 	 * @param statement_id
 	 * @return
-	 */
-	public ArrayList<StatementVO> select_statement_ids(String statement_id);
+	 *//*
+	public ArrayList<StatementVO> select_statement_ids(String statement_id);*/
 }

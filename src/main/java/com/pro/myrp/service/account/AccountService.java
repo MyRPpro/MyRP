@@ -61,7 +61,7 @@ public interface AccountService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void search_statement_detail(Model model) throws Exception;
+	/*public void search_statement_detail(Model model) throws Exception;*/
 	
 	/**
 	 * 전표 관리 > 세금 전표 자동 생성 서비스
@@ -75,5 +75,5 @@ public interface AccountService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void approve_statement_service(Model model) throws Exception;
+	/*public void approve_statement_service(Model model) throws Exception;*/
 }

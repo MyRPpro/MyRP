@@ -21,7 +21,19 @@ function set_bank_account_id(bank_account_id, account_name){
 	self.close();
 }
 
-function search_statement_detail(statement_id, connected_id){
-	var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&connected_id="+connected_id;
+function search_statement_detail(statement_id, connected_id, typeCnt){
+	if(typeCnt==1){
+		var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
+	}
+	if(typeCnt==2){
+		var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&purchase_id="+connected_id;
+	}
+	if(typeCnt==3){
+		var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
+	}
+	if(typeCnt==4){
+		var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
+	}
+	
 	window.open(url, "confirm", "menubar=no, width=800, height=600");
 }

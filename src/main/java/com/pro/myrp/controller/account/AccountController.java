@@ -78,7 +78,7 @@ public interface AccountController extends MyRPController{
 	  * @return
 	  * @throws Exception
 	  */
-	 public String search_statement_detail(HttpServletRequest req, Model model) throws Exception;
+	/* public String search_statement_detail(HttpServletRequest req, Model model) throws Exception;*/
 	 
 	 /**
 	  * 전표관리 > 세금전표 자동 생성
@@ -96,5 +96,5 @@ public interface AccountController extends MyRPController{
 	  * @return
 	  * @throws Exception
 	  */
-	 public String approve_statement(HttpServletRequest req, Model model) throws Exception;
+	/* public String approve_statement(HttpServletRequest req, Model model) throws Exception;*/
 }
