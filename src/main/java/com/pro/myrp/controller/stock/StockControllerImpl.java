@@ -1,14 +1,11 @@
 package com.pro.myrp.controller.stock;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,6 +32,22 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 	public String stockpile(HttpServletRequest req, Model model) throws Exception {
 		return code.c(distribution_management, stockpile, search_stockpile );
 	}
+	
+	@Override
+	@RequestMapping(value = "stockpile/search_stockpile_search", method = {RequestMethod.GET,RequestMethod.POST})
+	public String search_stockpile_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_stockpile_search));
+		service.search_stockpile_search_service(req,model);
+		return code.c(distribution_management, stockpile, search_stockpile_search);
+	}
+	
+	@Override
+	@RequestMapping(value = "stockpile/select_stockpile_search", method = {RequestMethod.GET,RequestMethod.POST})
+	public String select_stockpile_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(select_stockpile_search));
+		service.select_stockpile_search_service(req,model);
+		return code.c(distribution_management, stockpile, select_stockpile_search);
+	}
 
 	@Override
 	@RequestMapping(value = "reg_warehouse/warehouse_list", method = {RequestMethod.GET,RequestMethod.POST})
@@ -59,4 +72,6 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 	public String search_distribution_order(HttpServletRequest req, Model model) throws Exception {
 		return code.c(distribution_management, search_distribution_order, all_statement_list);
 	}
+	
+	
 }

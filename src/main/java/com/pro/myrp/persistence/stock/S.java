@@ -13,8 +13,8 @@ import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
 import com.pro.myrp.domain.distribution_manage.select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.stockpile_searchDTO;
 
-@Repository
-public class StockDAOImpl implements StockDAO {
+/*@Repository*/
+public class S implements StockDAO {
 
 	@Inject
 	private SqlSession sqlSession;
