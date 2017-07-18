@@ -155,5 +155,17 @@ public class HRDAOImpl implements HRDAO {
 		return dao.select_personnel_card(employee_id);
 	}
 
+	@Override
+	public int update_employee(EmployeeVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_employee(vo);
+	}
+
+	@Override
+	public int update_employee_info(Employee_infoVO vo2) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_employee_info(vo2);
+	}
+
 }
 

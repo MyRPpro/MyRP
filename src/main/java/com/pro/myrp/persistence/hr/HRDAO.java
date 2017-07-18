@@ -179,5 +179,27 @@ public interface HRDAO extends MyRPDAO {
 	 */
 	public int insert_employee_info(Employee_infoVO vo2);
 
+	/**
+	 * 사번으로 인사카드 정보 검색
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
 	public Personnel_cardDTO select_personnel_card(int employee_id);
+
+	/**
+	 * 인사카드 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_employee(EmployeeVO vo);
+
+	/**
+	 * 인사카드 정보 수정
+	 * @author amaco78
+	 * @param vo2
+	 * @return
+	 */
+	public int update_employee_info(Employee_infoVO vo2);
 }

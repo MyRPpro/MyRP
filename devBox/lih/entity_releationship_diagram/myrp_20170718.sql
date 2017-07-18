@@ -38,7 +38,6 @@ CREATE TABLE product(
                         CHECK(use_state = 'Y' OR use_state = 'N'),
     reg_date            DATE            DEFAULT SYSDATE
 );
-
 --------------------------------------------------------------------------------
 -- 인사코드그룹 TABLE 생성 (hr_code_group)
 --------------------------------------------------------------------------------
@@ -48,19 +47,6 @@ CREATE TABLE hr_code_group(
     use_state           CHAR(1)         DEFAULT 'Y' NOT NULL
                         CHECK(use_state = 'Y' OR use_state = 'N')
 );
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VALUES(2,'직급','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VALUES(3,'휴가','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VALUES(4,'급여','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VALUES(5,'수당','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VALUES(6,'경비','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VALUES(7,'공제','Y');
-COMMIT;
 --------------------------------------------------------------------------------
 -- 인사코드 TABLE 생성 (hr_code)
 --------------------------------------------------------------------------------
@@ -234,7 +220,7 @@ CREATE TABLE order_state(
 CREATE TABLE account (
     account_id            CHAR(12)     PRIMARY KEY,
     account_balance       NUMBER(18)   DEFAULT 0,
-    account_name          VARCHAR2(40) NOT NULL
+    account_name          VARCHAR2(40) NOT NULL,
 );
 
 --------------------------------------------------------------------------------
@@ -350,9 +336,16 @@ storage_in_date   DATE DEFAULT SYSDATE,
 CONSTRAINT storage_in_order_PK PRIMARY KEY(stock_order_id),
 CONSTRAINT storage_in_order_FK FOREIGN KEY(stock_order_id) REFERENCES stock_order(stock_order_id)
 );
+
+
+
+
+
+
 --------------------------------------------------------------------------------
 -- table SALES_ORDER
 --------------------------------------------------------------------------------
+
 --DROP TABLE sales_order;
 CREATE TABLE sales_order
 (
@@ -379,6 +372,7 @@ CREATE TABLE sales_order
 --------------------------------------------------------------------------------
 -- table PURCHASE_ORDER
 --------------------------------------------------------------------------------
+
 --DROP TABLE purchase_order;
 CREATE TABLE purchase_order (
 	purchase_id       CHAR(12)       NOT NULL,  /* 주문번호 */
@@ -489,10 +483,6 @@ FROM	(SELECT employee_id, dept_id, dept_name,
                 )
         )
 WHERE rNum >= 1 AND rNum <= 5;
-
-
-
-
 --------------------------------------------------------------------------------
 -- 더미 데이터 (2017-07-17)
 --------------------------------------------------------------------------------
@@ -577,7 +567,6 @@ INSERT INTO department(dept_id,dept_name,access_role,use_state) VALUES(6000,'인
 COMMIT;
 
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(6001,6000,2,100,'이인홍','7812161111111',SYSDATE);
-INSERT INTO employee_info(employee_id,hourly_wage) VALUES(6001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(4001,4000,2,200,'최연호','8510121111111',SYSDATE);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(2001,2000,2,300,'장은철','8707101111111',SYSDATE);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(3001,3000,2,400,'장재희','8705231111111',SYSDATE);
@@ -712,10 +701,10 @@ UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT + 100 WHERE PRODUCT_ID 
 UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23205 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500011050000;
 COMMIT;
 -- 지급대기
-UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23206 WHRER PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500012010000;
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23206 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500012010000;
 -- 지급완료
 INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('311017071301','500011010000','200017071301','1200000002','1100000002',3001,SYSDATE,SYSDATE,SYSDATE,100,11000,23207,3.0);
-UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23207 WHRER PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500012010000;
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23207 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500012010000;
 INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071812,SYSDATE,-11000,25451,54105);
 INSERT INTO PURCHASE_STATEMENT(STATEMENT_ID,PURCHASE_ID,ACCOUNT_ID) VALUES(547017071812,311017071301,500012010000);
 INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071813,SYSDATE,-11000,25451,54105);
@@ -725,6 +714,7 @@ COMMIT;
 UPDATE STOCK_ORDER SET STOCK_STATE = 24202 WHERE STOCK_ORDER_ID = 475017071803;
 UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT - 100 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 1001;
 UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT + 100 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 3001;
+COMMIT;
 -- 출고완료 처리
 UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT - 200 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 3001;
 UPDATE STOCK_ORDER SET STOCK_STATE = 24752 WHERE STOCK_ORDER_ID = 475017071802;
@@ -744,7 +734,7 @@ INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEME
 INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071815,211017071302,500011010000);
 COMMIT;
 --------------------------------------------------------------------------------
--- 사용안함
+-- 급여 지급 절차 시뮬레이션 (모듈연결 위주로)
 --------------------------------------------------------------------------------
 
 

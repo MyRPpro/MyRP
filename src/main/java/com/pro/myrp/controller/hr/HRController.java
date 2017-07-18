@@ -275,6 +275,16 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String modify_personnel_card(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 정보 수정 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_personnel_card_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 근태 관리 > 출결달력 검색

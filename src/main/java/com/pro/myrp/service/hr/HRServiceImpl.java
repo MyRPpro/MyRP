@@ -529,7 +529,6 @@ public class HRServiceImpl implements HRService {
 		model.addAttribute("cnt2", cnt2);
 	}
 
-
 	@Override
 	public void modify_personnel_card_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -539,5 +538,58 @@ public class HRServiceImpl implements HRService {
 		dto = dao.select_personnel_card(employee_id);
 		System.out.println(dto);
 		model.addAttribute("personnel_cardDto", dto);
+	}
+
+	@Override
+	public void modify_personnel_card_pro_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		String employee_name = req.getParameter("employee_name");
+		int dept_id = Integer.parseInt(req.getParameter("dept_id"));
+		int hr_code_id = Integer.parseInt(req.getParameter("rank_code"));
+		String residence_reg_no1 = req.getParameter("residence_reg_no1");
+		String residence_reg_no2 = req.getParameter("residence_reg_no2");
+		String residence_reg_no = residence_reg_no1+residence_reg_no2;
+		Date join_date = Date.valueOf(req.getParameter("join_date"));
+		String tel = req.getParameter("tel");
+		String mobile_tel = req.getParameter("mobile_tel");
+		String passport_no = req.getParameter("passport_no");
+		String email = "";
+		String email1 = req.getParameter("email1");
+		String email2 = req.getParameter("email2");
+		String email3 = req.getParameter("email3");
+		if(email3.equals("0")) {
+			email = email1+"@"+email2;			
+		} else {
+			email = email1+"@"+email3;
+		}
+
+		String address = req.getParameter("address");
+		int hourly_wage = Integer.parseInt(req.getParameter("hourly_wage"));
+		String salary_account = req.getParameter("salary_account");
+		
+		Personnel_card_listDTO dto = new Personnel_card_listDTO();
+		EmployeeVO vo = new EmployeeVO();
+		vo.setEmployee_id(employee_id);
+		vo.setEmployee_name(employee_name);
+		vo.setDept_id(dept_id);
+		vo.setHr_code_group_rank(2);
+		vo.setRank_code(hr_code_id);			
+		vo.setResidence_reg_no(residence_reg_no);
+		vo.setJoin_date(join_date);
+		int cnt = dao.update_employee(vo);
+		Employee_infoVO vo2 = new Employee_infoVO();
+		vo2.setEmployee_id(employee_id);
+		vo2.setTel(mobile_tel);
+		vo2.setMobile_tel(mobile_tel);
+		vo2.setPassport_no(passport_no);
+		vo2.setEmail(email);
+		vo2.setAddress(address);
+		vo2.setHourly_wage(hourly_wage);
+		vo2.setSalary_account(salary_account);
+		int cnt2 = dao.update_employee_info(vo2);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("cnt2", cnt2);
 	}
 }

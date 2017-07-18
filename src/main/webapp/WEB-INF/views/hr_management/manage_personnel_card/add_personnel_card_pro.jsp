@@ -17,7 +17,7 @@ add_personnel_card_pro.jsp
 </c:if>
 <c:if test="${cnt == 0 || cnt2 ==0}">
 	<script type="text/javascript">
-		alert("부서 등록을 실패하였습니다.");
+		alert("인사카드 등록을 실패하였습니다.");
 		window.history.back();
 	</script>
 </c:if>

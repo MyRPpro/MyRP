@@ -7,6 +7,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	
+	function emailChk() {
+		var form = document.modify_personnel_card_form1;
+		if(form.email3.value != 0) {
+			form.email2.value = form.email3.value;
+			form.email2.setAttribute("disabled",true);
+		} else if(form.email3.value == 0) {
+			form.email2.value = "";
+			form.email2.removeAttribute("disabled");
+			form.email2.focus();
+		}	
+	}
+	
+	function addPicture() {
+		var employee_id = document.modify_personnel_card_form1.employee_id.value;
+		var url = "/hr_management/manage_personnel_card/add_personnel_card_picture?employee_id="+employee_id;
+		window.open(url, "addPicture", "menubar=no, width=500, height=300");
+	}
+</script>
 <body>
 modify_personnel_card.jsp
 <form action="/hr_management/manage_personnel_card/modify_personnel_card_pro"
@@ -15,6 +35,12 @@ onsubmit="return validate_form();">
 	<div id="employee_picture_div">
 	</div>
 	<table border="1">
+		<tr>
+			<th colspan="2" style="width:100px; height:130px;">
+				<img alt="사진 이미지" src="/resources/images/${personnel_cardDto.employee_id}.jpg"
+				width="100" height="125">
+			</th>
+		</tr>
 		<tr>
 			<th>employee_id</th>
 			<td>
@@ -100,11 +126,11 @@ onsubmit="return validate_form();">
 			<td>email</td>
 			<td>
 				<input type="text" name="email1"
-				value="${fn:split(personnel_cardDto.email,'@')[1]}"
+				value="${fn:split(personnel_cardDto.email,'@')[0]}"
 				maxlength="20">
 				@
 				<input type="text" name="email2"
-				value="${fn:split(personnel_cardDto.email,'@')[2]}"
+				value="${fn:split(personnel_cardDto.email,'@')[1]}"
 				maxlength="19">
 				<select name="email3"
 				onchange="emailChk();">

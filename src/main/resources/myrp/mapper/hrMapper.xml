@@ -294,4 +294,33 @@
 		AND		E.employee_id = #{employee_id}
 		]]>
 	</select>
+	
+	<!-- 인사카드 수정 -->
+	<update id="update_employee" parameterType="EmployeeVO">
+		<![CDATA[
+		UPDATE 	employee
+		SET		dept_id = #{dept_id},
+				hr_code_group_rank = #{hr_code_group_rank},
+				rank_code = #{rank_code},
+				employee_name = #{employee_name},
+				residence_reg_no = #{residence_reg_no},
+				join_date = #{join_date}
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</update>
+	
+	<!-- 인사카드 정보 수정 -->
+	<update id="update_employee_info" parameterType="Employee_infoVO">
+		<![CDATA[
+		UPDATE	employee_info
+		SET		tel = #{tel},
+				mobile_tel = #{mobile_tel},
+				passport_no = #{passport_no},
+				email = #{email},
+				address = #{address},
+				hourly_wage = #{hourly_wage},
+				salary_account = #{salary_account}
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</update>
 </mapper>

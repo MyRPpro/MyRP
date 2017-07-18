@@ -579,9 +579,13 @@ COMMIT;
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(6001,6000,2,100,'이인홍','7812161111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(6001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(4001,4000,2,200,'최연호','8510121111111',SYSDATE);
+INSERT INTO employee_info(employee_id,hourly_wage) VALUES(4001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(2001,2000,2,300,'장은철','8707101111111',SYSDATE);
+INSERT INTO employee_info(employee_id,hourly_wage) VALUES(2001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(3001,3000,2,400,'장재희','8705231111111',SYSDATE);
+INSERT INTO employee_info(employee_id,hourly_wage) VALUES(3001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(5001,5000,2,500,'이주원','9501302111111',SYSDATE);
+INSERT INTO employee_info(employee_id,hourly_wage) VALUES(5001,5000);
 COMMIT;
 --------------------------------------------------------------------------------
 -- 상품 판매 절차 시뮬레이션 (모듈연결 위주로)
@@ -744,13 +748,16 @@ INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEME
 INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071815,211017071302,500011010000);
 COMMIT;
 --------------------------------------------------------------------------------
--- 사용안함
+-- 급여 지급 절차 시뮬레이션 (모듈연결 위주로)
 --------------------------------------------------------------------------------
-
-
-Insert into MYRP.SALARY_REGISTER (SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE) values ('645017071301','500014010000',to_date('17/07/14','RR/MM/DD'),'급여대장명 01',to_date('17/08/13','RR/MM/DD'),5000000,1793,26451);
-Insert into MYRP.SALARY_REGISTER (SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE) values ('645017071202','500014010000',to_date('17/07/13','RR/MM/DD'),'급여대장명 02',to_date('17/08/12','RR/MM/DD'),-5000000,5303,26452);
+-- 급여지급요청 [급여대장명: 6월 정기급여, 금액: 10,000,000원]
+INSERT INTO SALARY_REGISTER(SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE) VALUES(645017071901,500014010000,SYSDATE,'6월 정기급여',SYSDATE,10000000,5,26451);
+-- 회계전표 생성[급여 계정]
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071816,SYSDATE,10000000,25451,54103);
+INSERT INTO SALARY_REGISTER_STATEMENT(STATEMENT_ID,SALARY_REGISTER_ID,ACCOUNT_ID) VALUES(547017071816,645017071901,500014010000);
 COMMIT;
+-- 회계팀 전표승인
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071809;
 --------------------------------------------------------------------------------
 -- 테이블 변경사항 2017-07-17 (상기 테이블들은 변경사항 적용상태로 수정됨)
 --------------------------------------------------------------------------------
