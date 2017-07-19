@@ -11,15 +11,13 @@
 <body>
 <h3> 전체 전표 조회 </h3>
 총 전표 개수 : ${cnt}
-<form action="/accounting_management/statement_management/search_unapproval_statements" method="get" name="statement_list_form2">
-	<input type="submit" value="미승인 전표 조회">	
-</form>
-<form action="/accounting_management/statement_management/search_approval_statements" method="get" name="statement_list_form3">
-	<input type="submit" value="승인 전표 조회">	
-</form>
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
 	<input type="submit" value="전표 등록">	
 </form>
+
+<button onclick = "window.location='/accounting_management/statement_management/search_unapproval_statements'"> 미승인 전표 조회</button>
+<button onclick = "window.location='/accounting_management/statement_management/search_approval_statements'"> 승인 전표 조회</button>
+
 <table border="1">
 	<tr>
 		<th> statement_id </th>
