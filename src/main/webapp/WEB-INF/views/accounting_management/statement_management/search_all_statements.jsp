@@ -13,7 +13,7 @@ search_all_statements.jsp
 <h3> 전체 전표 조회 </h3>
 총 전표 개수 : ${cnt}
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
-	<input type="submit" value="전표 등록">
+	<input type="submit" value="전표 등록">	
 </form>
 <table border="1">
 	<tr>

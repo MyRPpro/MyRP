@@ -9,12 +9,7 @@
 </head>
 <body>
 <h3> 상세 전표 조회 </h3>
-<button <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/approve_statement?statement_id=${statement_id}';"> <!-- 승인된 상태이면 승인버튼 비활성 -->
-	승인
-</button>
-<button<c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/disapprove_statement?statement_id=${statement_id}';"> <!--  승인되지않은 상태이면 승인거절버튼 비활성-->
- 	거절
-</button>
+
 <table border="1">
 	<tr>
 		<th> 
@@ -22,7 +17,7 @@
 		</th>
 		<td>
 			<c:if test="${statement_type=='54101'}"> 매출전표 </c:if>
-			<c:if test="${statement_type=='54102'}"> 매입전표 </c:if>
+			<c:if test="${statement_type=='54102<%-- <%--  --%> --%>'}"> 매입전표 </c:if>
 			<c:if test="${statement_type=='54104'}"> 입금전표 </c:if>
 			<c:if test="${statement_type=='54105'}"> 출금전표 </c:if>	
 			<c:if test="${statement_type=='54106'}"> 일반전표 </c:if>	
@@ -59,12 +54,14 @@
 			 <c:forEach var ="dto" items="${dtos}">
 				<c:if test="${statement_id == dto.statement_id}"><b></c:if> 
 				${dto.statement_id}
+				<c:set var="statement_ides" value="${statement_ides},${dto.statement_id}" />
 				<c:if test="${statement_id == dto.statement_id}"></b></c:if><br>
 			 </c:forEach>
 		</td>
 	</tr>
 	 <tr>
-	 	<th colspan="4"> 거래 </th>
+	 	<th colspan="4"> 거래 
+	 	</th>
 	 </tr>
 	 <c:forEach var ="dto" items="${dtos}">
 		<c:if test="${statement_type=='54101' && (dto.account_id !='500011020000' && dto.account_id !='500011010000')}"> <!-- 매출전표의 경우 매출채권이나 현금이 아닌경우 거래내역 -->
@@ -177,5 +174,20 @@
 	</tr>
 	
 </table>
+	<c:if test="${sales_id!=null}">
+		<c:set var="connected_id" value="${sales_id}" />
+	</c:if>
+	<c:if test="${purchase_id!=null}">
+		<c:set var="connected_id" value="${purchase_id}" />
+	</c:if>
+	<c:if test="${salary_register_id!=null}">
+		<c:set var="connected_id" value="${salary_register_id}" />
+	</c:if>
+<button <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/approve_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}';"> <!-- 승인된 상태이면 승인버튼 비활성 -->
+	승인
+</button>
+<button<c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/disapprove_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}';"> <!--  승인되지않은 상태이면 승인거절버튼 비활성-->
+ 	거절
+</button>
 </body>
 </html>

@@ -75,35 +75,20 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_detail_company_name(daoMap);
 	}
-	
 	@Override
-	public int select_sum_statement(Map<String, Object> daoMap) {
+	public int update_statement_approval_state(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.select_sum_statement(daoMap);
-	}
-	/*@Override
-	public int update_statement_approval_state(String statement_id) {
-		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.update_statement_approval_state(statement_id);
+		return dao.update_statement_approval_state(daoMap);
 	}
 	@Override
-	public int update_account_account_value(String statement_id) {
+	public int update_account_account_value(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.update_account_account_value(statement_id);
+		return dao.update_account_account_value(daoMap);
 	}
 	@Override
-	public int select_statement_cnt(String statement_id) {
+	public String select_connected_id(String statement_id) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.select_statement_cnt(statement_id);
+		return dao.select_connected_id(statement_id);
 	}
-	@Override
-	public ArrayList<StatementVO> select_statement_ids(String statement_id) {
-		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.select_statement_ids(statement_id);
-	}*/
-	
-	
-	
-	
 	
 }

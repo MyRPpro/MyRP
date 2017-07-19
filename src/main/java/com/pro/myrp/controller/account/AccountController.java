@@ -96,5 +96,5 @@ public interface AccountController extends MyRPController{
 	  * @return
 	  * @throws Exception
 	  */
-	/* public String approve_statement(HttpServletRequest req, Model model) throws Exception;*/
+	public String approve_statement(HttpServletRequest req, Model model) throws Exception;
 }

@@ -75,5 +75,5 @@ public interface AccountService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	/*public void approve_statement_service(Model model) throws Exception;*/
+	public void approve_statement_service(Model model) throws Exception;
 }

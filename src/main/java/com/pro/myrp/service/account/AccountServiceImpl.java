@@ -211,9 +211,6 @@ public class AccountServiceImpl implements AccountService {
 					dto.setSalary_register_id(tempDTO.getSalary_register_id());
 					}
 				}
-				System.out.println("구매아이디: "+dto.getPurchase_id());
-				System.out.println("판매아이디: "+dto.getSales_id());
-				System.out.println("급여아이디: "+dto.getSalary_register_id());
 				if(dto.getSales_id()!=null) { //sales_id 
 					salesCnt = 1;
 				}
@@ -269,12 +266,15 @@ public class AccountServiceImpl implements AccountService {
 			if(sales_id !=null) {
 				daoMap.put("sales_id", sales_id);
 				typeCnt =1;
+				model.addAttribute("sales_id", sales_id);
 			}else if(purchase_id !=null) {
 				daoMap.put("purchase_id", purchase_id);
 				typeCnt =2;
+				model.addAttribute("purchase_id", purchase_id);
 			}else if(salary_register_id !=null) {
 				daoMap.put("salary_register_id", salary_register_id);
 				typeCnt =3;
+				model.addAttribute("salary_register_id", salary_register_id);
 			}else {
 				typeCnt =4;
 			}
@@ -285,19 +285,9 @@ public class AccountServiceImpl implements AccountService {
 		JoinStatementDTO dto = new JoinStatementDTO();
 		for(int i=0; i<dtos.size(); i++) {
 			JoinStatementDTO tempDTO = dtos.get(i);
-			if(tempDTO.getSales_id()!=null) {
-			dto.setSales_id(tempDTO.getSales_id());
-			}else if(tempDTO.getPurchase_id()!=null) {
-			dto.setPurchase_id(tempDTO.getPurchase_id());
-			}else if(tempDTO.getSalary_register_id()!=null) {
-			dto.setSalary_register_id(tempDTO.getSalary_register_id());
-			}
 			dto.setStatement_type(tempDTO.getStatement_type());
 			dto.setApproval_state(tempDTO.getApproval_state());
 		}
-		model.addAttribute("sales_id", dto.getSales_id());
-		model.addAttribute("purchase_id", dto.getPurchase_id());
-		model.addAttribute("salary_register", dto.getSalary_register_id());
 		model.addAttribute("statement_type", dto.getStatement_type());
 		model.addAttribute("approval_state", dto.getApproval_state());
 		model.addAttribute("statement_id", statement_id);
@@ -313,28 +303,33 @@ public class AccountServiceImpl implements AccountService {
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 		
 	}*/
-	/*@Override
+	
+	// 전표 승인 처리 
+	@Override
 	public void approve_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
-		String statement_id = req.getParameter("statement_id");
+		String statement_ides = req.getParameter("statement_id");
+		int typeCnt = Integer.parseInt(req.getParameter("typeCnt"));
+		String statement_ids[] = statement_ides.split(",");
 		int scnt = 0;
 		int acnt = 0;
-		
-		int cnt = dao.select_statement_cnt(statement_id); //선택한 거래에 해당하는 전표개수
-		ArrayList<StatementVO> vos = new ArrayList<StatementVO>();
-		vos = dao.select_statement_ids(statement_id);
-		
-		for(int i= 0; i<=cnt; i++){		
-			StatementVO tempVO = vos.get(i);
-			scnt += dao.update_statement_approval_state(tempVO.getStatement_id()); //전표 승인상태 변경
-			System.out.println(dao.update_statement_approval_state(tempVO.getStatement_id()));
-			acnt += dao.update_account_account_value(tempVO.getStatement_id()); // 계정 값 변경 
+		int cnt = statement_ids.length-1; //선택한 거래에 해당하는 전표개수
+		Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("typeCnt", typeCnt);
+		for(int i= 1; i<cnt+1; i++){		
+			daoMap.put("statement_id", statement_ids[i]);
+			scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
+			acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
 		}
+		
+		String statement_id = statement_ids[1];
+		String connected_id = req.getParameter("connected_id"); 
+		model.addAttribute("statement_id", statement_id);
+		model.addAttribute("connected_id", connected_id);
+		model.addAttribute("typeCnt", typeCnt);
+		model.addAttribute("cnt", cnt);
 		model.addAttribute("scnt", scnt);
 		model.addAttribute("acnt", acnt); 
 	}
-	
-	
-	*/
 }

@@ -158,37 +158,67 @@
  		SELECT '세무청' FROM dual
  		</if>
  	</select>
- 	<!-- 전표관리 > 전표 승인 > approval_state 변경 -->
- 	<!-- <update id="update_statement_approval_state" parameterType="String">
- 		<![CDATA[
- 		UPDATE statement SET approval_state = '25452'
- 		WHERE statement_id = #{statement_id}
- 		]]>
- 	</update> -->
- 	<!-- 전표관리 > 전표 승인 > account balance 변경 -->
- 	<!-- <update id="update_account_account_value" parameterType="String">
- 		<![CDATA[
- 		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
- 		 WHERE account_id = (SELECT account_id FROM statement WHERE statement_id = #{statement_id})
- 		]]>
- 	</update> -->
- 	
  	<!-- 전표관리 > 전표 승인 > statement cnt 가져오기 -->
-	<!-- <select id="select_statement_cnt" parameterType="String" resultType="int">
+	<select id="select_statement_cnt" parameterType="String" resultType="int">
 		<![CDATA[
 		SELECT COUNT(*)
 		FROM (SELECT * FROM statement WHERE 
           connected_id=(SELECT connected_id FROM statement WHERE statement_id = #{statement_id}) AND 
           statement_type=(SELECT statement_type FROM statement WHERE statement_id = #{statement_id}))
 		]]>
-	</select> -->
+	</select>
 	<!-- 전표관리 > 전표 승인 > 해당하는 거래의 전표 코드 가져오기 -->
-	<!-- <select id="select_statement_ids" parameterType="String" resultType="StatementVO">
+	<select id="select_statement_ids" parameterType="String" resultType="StatementVO">
 		<![CDATA[
 		SELECT *
 		FROM (SELECT * FROM statement WHERE 
           connected_id=(SELECT connected_id FROM statement WHERE statement_id = #{statement_id}) AND 
           statement_type=(SELECT statement_type FROM statement WHERE statement_id = #{statement_id}))
 		]]>
-	</select> -->
+	</select>
+ 	<!-- 전표관리 > 전표 승인 > approval_state 변경 -->
+ 	<update id="update_statement_approval_state" parameterType="java.util.Map">
+ 		<![CDATA[
+ 		UPDATE statement SET approval_state = '25452'
+ 		WHERE statement_id = #{statement_id}
+ 		]]>
+ 	</update>
+ 	<!-- 전표관리 > 전표 승인 > account balance 변경 -->
+ 	<update id="update_account_account_value" parameterType="java.util.Map">
+ 		<if test="typeCnt == 1">
+ 		<![CDATA[
+ 		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+ 		 WHERE account_id = (SELECT account_id FROM sales_statement WHERE statement_id =#{statement_id})
+ 		]]>
+ 		</if>
+ 		<if test="typeCnt == 2">
+ 		<![CDATA[
+ 		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+ 		 WHERE account_id = (SELECT account_id FROM purchase_statement WHERE statement_id =#{statement_id})
+ 		]]>
+ 		</if>
+ 		<if test="typeCnt == 3">
+ 		<![CDATA[
+ 		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+ 		 WHERE account_id = (SELECT account_id FROM salary_register_statement WHERE statement_id =#{statement_id})
+ 		]]>
+ 		</if>
+ 		<if test="typeCnt == 4">
+ 		<![CDATA[
+ 		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+ 		 WHERE account_id = (SELECT account_id FROM tax_statement WHERE statement_id = #{statement_id})
+ 		]]>
+ 		</if>
+ 	</update>
+ 	<!-- 전표 아이디로 connected_id 가져오기-->
+ 	<select id="select_connected_id" parameterType="String" resultType="String">
+ 		<![CDATA[
+ 		 SELECT sales.sales_id, salary.salary_register_id, purc.purchase_id
+ 		   FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
+                            left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+ 				     	    left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
+ 				     	    left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
+ 		  WHERE s.statement_id= #{statement_id}
+ 		]]>
+ 	</select>
 </mapper>
