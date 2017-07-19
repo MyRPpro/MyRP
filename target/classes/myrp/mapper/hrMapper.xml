@@ -273,4 +273,54 @@
 					#{email},#{address},#{hourly_wage},#{salary_account})
 		]]>
 	</insert>
+	
+	<!-- 인사카드 정보 수정 -->
+	<select id="select_personnel_card" parameterType="int"
+	resultType="Personnel_cardDTO">
+		<![CDATA[
+		SELECT	E.employee_id,E.dept_id,D.dept_name,
+				E.hr_code_group_rank,HCG.hr_code_group_name,
+				E.rank_code,HC.hr_code_name,
+				E.employee_name,E.residence_reg_no,E.join_date,
+				EI.tel,EI.mobile_tel,EI.passport_no,EI.email,
+				EI.address,EI.hourly_wage,EI.salary_account
+		FROM	hr_code HC,hr_code_group HCG,
+				department D,employee E,employee_info EI
+		WHERE	HC.hr_code_group_id = E.hr_code_group_rank
+		AND		HC.hr_code_group_id = HCG.hr_code_group_id
+		AND		HC.hr_code_id = E.rank_code
+		AND		D.dept_id = E.dept_id
+		AND		EI.employee_id = E.employee_id
+		AND		E.employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 인사카드 수정 -->
+	<update id="update_employee" parameterType="EmployeeVO">
+		<![CDATA[
+		UPDATE 	employee
+		SET		dept_id = #{dept_id},
+				hr_code_group_rank = #{hr_code_group_rank},
+				rank_code = #{rank_code},
+				employee_name = #{employee_name},
+				residence_reg_no = #{residence_reg_no},
+				join_date = #{join_date}
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</update>
+	
+	<!-- 인사카드 정보 수정 -->
+	<update id="update_employee_info" parameterType="Employee_infoVO">
+		<![CDATA[
+		UPDATE	employee_info
+		SET		tel = #{tel},
+				mobile_tel = #{mobile_tel},
+				passport_no = #{passport_no},
+				email = #{email},
+				address = #{address},
+				hourly_wage = #{hourly_wage},
+				salary_account = #{salary_account}
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</update>
 </mapper>
