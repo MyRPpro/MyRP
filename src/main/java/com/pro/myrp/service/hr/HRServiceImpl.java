@@ -517,7 +517,7 @@ public class HRServiceImpl implements HRService {
 		int cnt = dao.insert_employee(vo);
 		Employee_infoVO vo2 = new Employee_infoVO();
 		vo2.setEmployee_id(employee_id);
-		vo2.setTel(mobile_tel);
+		vo2.setTel(tel);
 		vo2.setMobile_tel(mobile_tel);
 		vo2.setPassport_no(passport_no);
 		vo2.setEmail(email);
@@ -581,7 +581,7 @@ public class HRServiceImpl implements HRService {
 		int cnt = dao.update_employee(vo);
 		Employee_infoVO vo2 = new Employee_infoVO();
 		vo2.setEmployee_id(employee_id);
-		vo2.setTel(mobile_tel);
+		vo2.setTel(tel);
 		vo2.setMobile_tel(mobile_tel);
 		vo2.setPassport_no(passport_no);
 		vo2.setEmail(email);

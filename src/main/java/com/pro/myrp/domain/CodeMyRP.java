@@ -168,8 +168,6 @@ public interface CodeMyRP {
 				public static final int add_personnel_card_pro = 16324;
 				public static final int modify_personnel_card = 16330;
 				public static final int modify_personnel_card_pro = 16331;
-				public static final int manage_hr_appointment = 16340;
-				public static final int manage_retired_employee = 16350;
 			//근태관리
 			public static final int manage_service_attitude = 16400;
 				public static final int search_attendance_absence = 16410;
@@ -185,6 +183,16 @@ public interface CodeMyRP {
 				public static final int calc_salary = 16540;
 				public static final int fix_salary = 16550;
 				public static final int search_salary_history = 16560;
+			//인사발령 관리
+			public static final int manage_hr_appointment = 16600;
+				public static final int hr_appointment_list = 16610;
+				public static final int add_hr_appointment = 16620;
+				public static final int personnel_card_appointment = 16630;
+			//퇴사자 관리
+			public static final int manage_retired_employee = 16700;
+				public static final int retired_employee_list = 16710;
+				public static final int add_retired_employee = 16720;
+				public static final int personnel_card_retired = 16730;
 			//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
 				
 		
