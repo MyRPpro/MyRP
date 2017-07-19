@@ -78,13 +78,39 @@ public class purchaseDAOImpl implements purchaseDAO {
 	}
 
 	@Override
-	public ArrayList<PurchaseVO> select_order_ids() {
+	public ArrayList<PurchaseVO> select_account_ids() {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.select_order_ids();
+		return dao.select_account_ids();
 	}
 
 	
+	@Override
+	public int insert_reg_purchase_statement(PurchaseVO vo) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.insert_reg_purchase_statement(vo);
+	}
 
+	@Override
+	public String select_purchase_id() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_id();
+		
+	}
+
+	@Override
+	public String select_statement_id() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_statement_id();
+	}
+
+	@Override
+	public List<PurchaseVO> select_purchase_order(String product_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_order(product_id);
+	}
+
+	
+	
 
 
 

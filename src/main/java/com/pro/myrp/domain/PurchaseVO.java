@@ -26,9 +26,22 @@ public class PurchaseVO {
 	private String product_name;
 	private String company_name;
 	private String employee_name;
+	private String account_name;
+	private String statement_id;
+	private int rnum;
+	private String purchase_state_name;
 	
 	
 	
+	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
 	public String getPurchase_id() {
 		return purchase_id;
 	}
@@ -141,15 +154,7 @@ public class PurchaseVO {
 		this.company_name = company_name;
 	}
 
-	@Override
-	public String toString() {
-		return "PurchaseVO [purchase_id=" + purchase_id + ", account_id=" + account_id + ", order_id=" + order_id
-				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
-				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_in_date=" + storage_in_date
-				+ ", count_purchase=" + count_purchase + ", supply_price=" + supply_price + ", purchase_state="
-				+ purchase_state + ", condition_note_payable=" + condition_note_payable + ", company_name="
-				+ company_name + "]";
-	}
+
 
 	public String getProduct_name() {
 		return product_name;
@@ -166,6 +171,36 @@ public class PurchaseVO {
 	public void setEmployee_name(String employee_name) {
 		this.employee_name = employee_name;
 	}
+
+	public String getAccount_name() {
+		return account_name;
+	}
+
+	public void setAccount_name(String account_name) {
+		this.account_name = account_name;
+	}
+
+	public String getStatement_id() {
+		return statement_id;
+	}
+
+	public void setStatement_id(String statement_id) {
+		this.statement_id = statement_id;
+	}
+
+	@Override
+	public String toString() {
+		return "PurchaseVO [purchase_id=" + purchase_id + ", account_id=" + account_id + ", order_id=" + order_id
+				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
+				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_in_date=" + storage_in_date
+				+ ", count_purchase=" + count_purchase + ", supply_price=" + supply_price + ", purchase_state="
+				+ purchase_state + ", condition_note_payable=" + condition_note_payable + ", product_name="
+				+ product_name + ", company_name=" + company_name + ", employee_name=" + employee_name
+				+ ", account_name=" + account_name + ", statement_id=" + statement_id + "]";
+	}
+
+	
+	
 	
 	
 	
