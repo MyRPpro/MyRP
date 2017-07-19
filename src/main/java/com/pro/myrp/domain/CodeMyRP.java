@@ -55,10 +55,12 @@ public interface CodeMyRP {
 				public static final int detail_purchase 	 = 13140;	// 구매 상세
 				public static final int modify_purchase 	 = 13150;	// 구매 수정
 				public static final int quick_serch_purchase = 13160;	// 구매 바로검색
+				
 			// 구매입력
 			public static final int input_purchase = 13200;
-				public static final int reg_purchase = 13210;			// 구매 입력
-				public static final int reg_purchase_pro = 13220;		// 판매 입력 처리
+				public static final int reg_purchase 		= 13210;	// 구매 입력 양식
+				public static final int reg_purchase_table 	= 13220;	// 구매 입력 테이블
+				
 			// 구매 현황
 			public static final int staus_purchase = 13300;			
 				public static final int search_status_purchase = 13310;// 구매 현황 검색
@@ -196,4 +198,51 @@ public interface CodeMyRP {
 			//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
 				
 		
+				
+		//상태코드
+		public static final int statet_transition = 20000;
+			
+			//회계 
+			public static final int disapproval_statement 		= 25451;	// 전표 미승인								
+			public static final int approval_statement_state 	= 25452;	// 전표 승인	
+			public static final int denial_approval_statement 	= 25453;	// 전표 승인 거절	
+			
+			//인사
+			public static final int request_payments_salary 	= 26451;	// 급여지급요청						
+			public static final int wait_payments_salary 		= 26452;	// 급여지급대기
+			public static final int complete_payments_salary 	= 26453;	// 급여지급완료
+			
+			//물류
+			public static final int receive_request_storage_in_warehouse 	= 24101;	// 입고요청접수						
+			public static final int complete_storage_in_warehouse 			= 24102;	// 입고완료
+			public static final int receive_request_storage_out_warehouse 	= 24201;	// 출고요청접수
+			public static final int wait_storage_out_warehouse 				= 24202;	// 출고대기						
+			public static final int prepare_inventory 						= 24203;	// 재고준비중
+			public static final int complete_storage_out_warehouse 			= 24752;	// 출고완료
+			public static final int request_purchase 						= 24753;	// 구매요청						
+			public static final int complete_inventory 						= 24621;	// 재고조사완료
+			
+			//영업
+			public static final int check_sales_estimate 					= 22211;	// 판매견적확인						
+			public static final int approval_sales_estimate 				= 22212;	// 판매견적승인
+			public static final int request_approval_sales_statement 		= 22213;	// 판매전표승인요청
+			public static final int complete_approval_sales_statement 		= 22214;	// 판매전표승인완료						
+			public static final int deadline 								= 22215;	// 마감
+			public static final int request_sales_storage_out_warehouse 	= 22222;	// 영업출고요청
+			public static final int complete_sales_storage_out_warehouse 	= 22223;	// 영업출고완료						
+			public static final int wait_colleciton 						= 22411;	// 수금대기
+			public static final int complete_colleciton 					= 22412;	// 수금완료
+
+			//구매
+			public static final int check_order								= 23201;	// 주문확인
+			public static final int request_approval_purchase_statement 	= 23202;	// 구매전표승인요청
+			public static final int complete_approval_purchase_statement 	= 23203;	// 구매전표승인완료
+			public static final int request_purchase_storage_in_warehouse 	= 23204;	// 구매입고요청						
+			public static final int complete_purchase_storage_in_warehouse 	= 23205;	// 구매입고완료
+			public static final int wait_payments 							= 23206;	// 지급대기
+			public static final int complete_payments 						= 23207;	// 지급완료						
+
+
+							
+				
 }

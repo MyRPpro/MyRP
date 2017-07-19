@@ -93,19 +93,33 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		return code.c(purchase_management , input_purchase , reg_purchase);
 	}
 
-
+	
 	@Override
-	@PostMapping(value="input_purchase/reg_purchase_pro")
-	public String reg_purchase_pro(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(reg_purchase_pro));
+	@GetMapping(value="input_purchase/reg_purchase_table")
+	public String reg_purchase_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_purchase_table));
 		model.addAttribute("req",req);
-		service.reg_purchase_service_pro(model);
-		return code.c(purchase_management, input_purchase, reg_purchase_pro);
+		service.reg_purchase_table(model);
+		return code.c(purchase_management, input_purchase, reg_purchase_table);
+	}
+	
+	
+	
+	@Override
+	@GetMapping(value="status_purchase/search_status_purchase")
+	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_purchase));
+		model.addAttribute("req", req);
+		return code.c(purchase_management, staus_purchase, search_status_purchase);
 	}
 
 
 	
 
+
+	
+	
+	
 
 
 	
