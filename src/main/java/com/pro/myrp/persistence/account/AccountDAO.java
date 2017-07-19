@@ -105,4 +105,15 @@ public interface AccountDAO extends MyRPDAO {
 	 */
 	public int update_statement_disapproval_state(Map<String, Object> daoMap);
 	
+	/**
+	 * 미승인 전표 개수
+	 * @return
+	 */
+	public int select_unapproval_statements_cnt();
+	/**
+	 * 미승인 전표 조회
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_unapproval_statements(Map<String, Object> daoMap);
 }
