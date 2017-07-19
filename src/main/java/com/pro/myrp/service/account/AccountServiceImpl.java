@@ -332,4 +332,30 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("scnt", scnt);
 		model.addAttribute("acnt", acnt); 
 	}
+	// 전표 승인 거절
+	@Override
+	public void disapprove_statement_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req =(HttpServletRequest)map.get("req");
+		
+		String statement_ides = req.getParameter("statement_id");
+		int typeCnt = Integer.parseInt(req.getParameter("typeCnt"));
+		String statement_ids[] = statement_ides.split(",");
+		int scnt = 0;
+		int cnt = statement_ids.length-1; //선택한 거래에 해당하는 전표개수
+		Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("typeCnt", typeCnt);
+		for(int i= 1; i<cnt+1; i++){		
+			daoMap.put("statement_id", statement_ids[i]);
+			scnt += dao.update_statement_disapproval_state(daoMap);//전표 승인상태 변경
+		}
+		
+		String statement_id = statement_ids[1];
+		String connected_id = req.getParameter("connected_id"); 
+		model.addAttribute("statement_id", statement_id);
+		model.addAttribute("connected_id", connected_id);
+		model.addAttribute("typeCnt", typeCnt);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("scnt", scnt);
+	}
 }

@@ -99,6 +99,15 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return code.c(accounting_management, statement_management, approve_statement);
 	}
 
+	@Override
+	@GetMapping(value="statement_management/disapprove_statement")
+	public String disapprove_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(disapprove_statement));
+		model.addAttribute("req",req);
+		service.disapprove_statement_service(model);
+		return code.c(accounting_management, statement_management, disapprove_statement);
+	}
+
 	/*@Override
 	public String make_statement(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(make_statement));

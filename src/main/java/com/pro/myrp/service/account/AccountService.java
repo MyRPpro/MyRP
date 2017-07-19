@@ -76,4 +76,11 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void approve_statement_service(Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 전표 승인거절 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void disapprove_statement_service(Model model) throws Exception;
 }

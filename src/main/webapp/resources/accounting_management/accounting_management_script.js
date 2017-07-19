@@ -58,6 +58,22 @@ function complete_approval(statement_id, connected_id, typeCnt){
 	}
 }
 
+//승인거절 메세지 띄우고 전표페이지 다시 돌아가기
+function complete_disapproval(statement_id, connected_id, typeCnt){
+	alert("승인거절 처리되었습니다");
+	if(typeCnt==1){
+		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
+	}
+	if(typeCnt==2){
+		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&purchase_id="+connected_id;
+	}
+	if(typeCnt==3){
+		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
+	}
+	if(typeCnt==4){
+		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
+	}
+}
 //자식창 닫을 때 부모창 새로고침
 function reload(){
 	window.opener.document.location.href=window.opener.document.URL;

@@ -98,5 +98,11 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public String select_connected_id(String statement_id);
+	/**
+	 * 전표 승인 거절 > 전표상태 바꿔주기
+	 * @param daoMap
+	 * @return
+	 */
+	public int update_statement_disapproval_state(Map<String, Object> daoMap);
 	
 }

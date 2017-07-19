@@ -90,5 +90,10 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_connected_id(statement_id);
 	}
+	@Override
+	public int update_statement_disapproval_state(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.update_statement_disapproval_state(daoMap);
+	}
 	
 }

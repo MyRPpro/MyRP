@@ -221,4 +221,11 @@
  		  WHERE s.statement_id= #{statement_id}
  		]]>
  	</select>
+ 	<!-- 전표관리 > 전표 승인 > approval_state 변경 -->
+ 	<update id="update_statement_disapproval_state" parameterType="java.util.Map">
+ 		<![CDATA[
+ 		UPDATE statement SET approval_state = '25453'
+ 		WHERE statement_id = #{statement_id}
+ 		]]>
+ 	</update>
 </mapper>

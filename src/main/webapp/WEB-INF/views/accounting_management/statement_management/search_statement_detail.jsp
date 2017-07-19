@@ -187,7 +187,7 @@
 	승인
 </button>
 <button<c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/disapprove_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}';"> <!--  승인되지않은 상태이면 승인거절버튼 비활성-->
- 	거절
+ 	승인거절
 </button>
 </body>
 </html>
