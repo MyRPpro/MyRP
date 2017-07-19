@@ -752,12 +752,24 @@ COMMIT;
 --------------------------------------------------------------------------------
 -- 급여지급요청 [급여대장명: 6월 정기급여, 금액: 10,000,000원]
 INSERT INTO SALARY_REGISTER(SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE) VALUES(645017071901,500014010000,SYSDATE,'6월 정기급여',SYSDATE,10000000,5,26451);
+COMMIT;
 -- 회계전표 생성[급여 계정]
 INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071816,SYSDATE,10000000,25451,54103);
 INSERT INTO SALARY_REGISTER_STATEMENT(STATEMENT_ID,SALARY_REGISTER_ID,ACCOUNT_ID) VALUES(547017071816,645017071901,500014010000);
 COMMIT;
 -- 회계팀 전표승인
-UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071809;
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071816;
+COMMIT;
+-- 급여지급대기
+UPDATE SALARY_REGISTER SET SALARY_STATE = 26452 WHERE SALARY_REGISTER_ID = 645017071901 AND ACCOUNT_ID = 500014010000;
+COMMIT;
+-- 급여수령
+UPDATE SALARY_REGISTER SET SALARY_STATE = 26453 WHERE SALARY_REGISTER_ID = 645017071901 AND ACCOUNT_ID = 500014010000;
+COMMIT;
+-- 회계전표 생성[급여 계정]
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071817,SYSDATE,-10000000,25451,54103);
+INSERT INTO SALARY_REGISTER_STATEMENT(STATEMENT_ID,SALARY_REGISTER_ID,ACCOUNT_ID) VALUES(547017071817,645017071901,500014010000);
+COMMIT;
 --------------------------------------------------------------------------------
 -- 테이블 변경사항 2017-07-17 (상기 테이블들은 변경사항 적용상태로 수정됨)
 --------------------------------------------------------------------------------
@@ -816,3 +828,39 @@ START WITH 1 INCREMENT BY 1 MAXVALUE 99999;
 ALTER TABLE sales_order DROP CONSTRAINT SALES_ORDER_FK2;
 ALTER TABLE purchase_order DROP CONSTRAINT PURCHASE_ORDER_FK2;
 ALTER TABLE stock_order DROP CONSTRAINT STOCK_ORDER_FK1;
+
+
+
+--------------------------------------------------------------------------------
+-- 테스트 코드 사용하지 마세요.!!!
+--------------------------------------------------------------------------------
+INSERT INTO PERSONNEL_APPOINTMENT
+VALUES(6001,SYSDATE,2,200,100,3000,6000);
+INSERT INTO PERSONNEL_APPOINTMENT
+VALUES(6001,SYSDATE,2,100,200,6000,3000);
+COMMIT;
+
+SELECT	employee_id,employee_name,appointment_date,
+        hr_code_group_rank,pre_rank,post_rank,
+        pre_dept,post_dept,rownum rNum
+FROM	(SELECT	PA.employee_id,E.employee_name,PA.appointment_date,
+                PA.hr_code_group_rank,PA.pre_rank,PA.post_rank,
+                PA.pre_dept,PA.post_dept,rownum rNum
+        FROM	personnel_appointment PA , employee E
+        WHERE	PA.employee_id = E.employee_id	
+        AND		E.employee_id IN	(SELECT	employee_id
+                                    FROM	employee
+                                    WHERE	employee_id like '%'||NVL(null,employee_id)||'%'
+                                    UNION
+                                    SELECT	employee_id
+                                    FROM	employee
+                                    WHERE	employee_name like '%'||NVL(null,employee_name)||'%'	
+                                    )
+        ORDER BY appointment_date
+        )
+WHERE rNum >= 1 AND rNum <= 5;
+
+SELECT	Max(appointment_date)
+		FROM	personnel_appointment
+		GROUP BY employee_id
+		HAVING	employee_id = 6001;

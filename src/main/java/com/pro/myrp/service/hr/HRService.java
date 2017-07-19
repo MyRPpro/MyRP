@@ -1,7 +1,10 @@
 package com.pro.myrp.service.hr;
 
+import java.util.List;
+
 import org.springframework.ui.Model;
 
+import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.service.MyRPService;
 
 public interface HRService extends MyRPService {
@@ -221,4 +224,61 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_personnel_card_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 검색 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void hr_appointment_search_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 페이지 네비게이션 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void hr_appointment_nav_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 목록 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void hr_appointment_list_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 등록 화면 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_hr_appointment_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 부서선택시 해당부서 근무사원 반환 서비스
+	 * @author amaco78
+	 * @param dept_id
+	 * @return
+	 * @throws Exception
+	 */
+	public List<EmployeeVO> select_dept_service(int dept_id) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 사원선택시 인사발령 등록 화면 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void hr_appointment_regform_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 등록 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_hr_appointment_pro_service(Model model) throws Exception;
 }

@@ -2,15 +2,23 @@ package com.pro.myrp.controller.hr;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.pro.myrp.domain.CodeMyRP;
+import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.FileDTO;
 import com.pro.myrp.service.hr.HRService;
 
@@ -298,7 +306,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.modify_personnel_card_service(model);
 		return code.c(hr_management, manage_personnel_card, modify_personnel_card);
 	}
-
 	
 	@Override
 	@PostMapping(value="manage_personnel_card/modify_personnel_card_pro")
@@ -307,5 +314,76 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		model.addAttribute("req", req);
 		service.modify_personnel_card_pro_service(model);
 		return code.c(hr_management, manage_personnel_card, modify_personnel_card_pro);
+	}
+
+	@Override
+	@GetMapping(value="manage_hr_appointment/hr_appointment_search")
+	public String hr_appointment_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(hr_appointment_search));
+		model.addAttribute("req", req);
+		service.hr_appointment_search_service(model);
+		return code.c(hr_management, manage_hr_appointment, hr_appointment_search);
+	}
+
+	@Override
+	@GetMapping(value="manage_hr_appointment/hr_appointment_nav")
+	public String hr_appointment_nav(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(hr_appointment_nav));
+		model.addAttribute("req", req);
+		service.hr_appointment_nav_service(model);
+		return code.c(hr_management, manage_hr_appointment, hr_appointment_nav);
+	}
+
+	@Override
+	@GetMapping(value="manage_hr_appointment/hr_appointment_list")
+	public String hr_appointment_list(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(hr_appointment_list));
+		model.addAttribute("req", req);
+		service.hr_appointment_list_service(model);
+		return code.c(hr_management, manage_hr_appointment, hr_appointment_list);
+	}
+	
+	@Override
+	@GetMapping(value="manage_hr_appointment/add_hr_appointment")
+	public String add_hr_appointment(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_hr_appointment));
+		model.addAttribute("req", req);
+		service.add_hr_appointment_service(model);
+		return code.c(hr_management, manage_hr_appointment, add_hr_appointment);
+	}
+
+	@Override
+	@ResponseBody
+	@GetMapping(value="manage_hr_appointment/select_dept/{dept_id}")
+	public ResponseEntity<List<EmployeeVO>> select_dept(@PathVariable("dept_id") int dept_id) {
+		ResponseEntity<List<EmployeeVO>> entity = null;
+		try {
+			System.out.println("entity service start");
+			entity = new ResponseEntity<>(service.select_dept_service(dept_id),HttpStatus.OK);			
+			System.out.println("entity service end");
+		} catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		System.out.println("entity return");
+		return entity;
+	}
+
+	@Override
+	@GetMapping(value="manage_hr_appointment/hr_appointment_regform")
+	public String hr_appointment_regform(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(hr_appointment_regform));
+		model.addAttribute("req", req);
+		service.hr_appointment_regform_service(model);
+		return code.c(hr_management, manage_hr_appointment, hr_appointment_regform);
+	}
+
+	@Override
+	@PostMapping(value="manage_hr_appointment/add_hr_appointment_pro")
+	public String add_hr_appointment_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_hr_appointment_pro));
+		model.addAttribute("req", req);
+		service.add_hr_appointment_pro_service(model);
+		return code.c(hr_management, manage_hr_appointment, add_hr_appointment_pro);
 	}
 }

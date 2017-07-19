@@ -15,8 +15,10 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
+import com.pro.myrp.domain.hr_management.Hr_appointment_listDTO;
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.persistence.hr.HRDAO;
@@ -381,9 +383,7 @@ public class HRServiceImpl implements HRService {
 		int currentPage	= 0;
 		
 		String searchStr = req.getParameter("searchStr");
-		System.out.println("searchStr: "+searchStr);
 		cnt = dao.select_employee_cnt(searchStr);
-		System.out.println(cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);
@@ -591,5 +591,192 @@ public class HRServiceImpl implements HRService {
 		int cnt2 = dao.update_employee_info(vo2);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("cnt2", cnt2);
+	}
+
+	@Override
+	public void hr_appointment_search_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+	}
+
+	@Override
+	public void hr_appointment_nav_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		String searchStr = req.getParameter("searchStr");
+		cnt = dao.select_appointment_cnt(searchStr);
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("searchStr", searchStr);
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		}
+	}
+	
+	@Override
+	public void hr_appointment_list_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		
+		String searchStr = req.getParameter("searchStr");
+		cnt = dao.select_appointment_cnt(searchStr);
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		if(cnt > 0) {
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			daoMap.put("searchStr", searchStr);
+			List<Hr_appointment_listDTO> dtos = new ArrayList<>();
+			dtos = dao.select_hr_appointment_list(daoMap);
+			for(int i=0; i<dtos.size(); i++) {
+				Hr_appointment_listDTO dto = dtos.get(i);
+				int hr_code_group_rank = dto.getHr_code_group_rank();
+				int pre_rank = dto.getPre_rank();
+				int post_rank = dto.getPost_rank();
+				int pre_dept = dto.getPre_dept();
+				int post_dept = dto.getPost_dept();
+				daoMap.clear();
+				daoMap.put("hr_code_group_id", hr_code_group_rank);
+				daoMap.put("hr_code_id", pre_rank);
+				dto.setPre_rank_name(dao.select_hr_code_name(daoMap));
+				daoMap.clear();
+				daoMap.put("hr_code_group_id", hr_code_group_rank);
+				daoMap.put("hr_code_id", post_rank);
+				dto.setPost_rank_name(dao.select_hr_code_name(daoMap));
+				dto.setPre_dept_name(dao.select_dept_name(pre_dept));
+				dto.setPost_dept_name(dao.select_dept_name(post_dept));
+			}
+			model.addAttribute("hr_appointment_listDtos", dtos);
+		}
+	}
+	
+	@Override
+	public void add_hr_appointment_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		List<EmployeeVO> vos = new ArrayList<>();
+		
+		vos = dao.select_employees();
+		model.addAttribute("employeeVos", vos);
+		
+		String use_state = "Y";
+		List<DeptVO> deptVos = dao.select_used_dept_list(use_state);
+		model.addAttribute("deptVos", deptVos);
+		
+		int hr_code_group_id = 2;
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("use_state", use_state);
+		daoMap.put("hr_code_group_id", hr_code_group_id);
+		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		model.addAttribute("hr_codeVos", hr_codeVos);		
+	}
+
+	@Override
+	public List<EmployeeVO> select_dept_service(int dept_id) throws Exception {
+		return dao.select_employee_list_for_dept_id(dept_id);
+	}
+
+	@Override
+	public void hr_appointment_regform_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		EmployeeVO vo = dao.select_employee(employee_id);
+		int hr_code_id = vo.getRank_code();
+		int hr_code_group_id = 2;
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("hr_code_group_id", hr_code_group_id);
+		daoMap.put("hr_code_id", hr_code_id);
+		String rank_name = dao.select_hr_code_name(daoMap);
+		
+		int dept_id = vo.getDept_id();
+		String dept_name = dao.select_dept_name(dept_id);
+
+		model.addAttribute("hr_code_id", hr_code_id);
+		model.addAttribute("rank_name", rank_name);
+		model.addAttribute("dept_id", dept_id);
+		model.addAttribute("dept_name", dept_name);
+		model.addAttribute("employeeVo", vo);
+		
+		Date appointment_date = dao.select_appointment_date(vo.getEmployee_id());
+		model.addAttribute("appointment_date", appointment_date);
+		
+		String use_state = "Y";
+		List<DeptVO> deptVos = dao.select_used_dept_list(use_state);
+		model.addAttribute("deptVos", deptVos);
+		
+		daoMap.clear();
+		daoMap.put("use_state", use_state);
+		daoMap.put("hr_code_group_id", hr_code_group_id);
+		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		model.addAttribute("hr_codeVos", hr_codeVos);
+		
+	}
+
+	@Override
+	public void add_hr_appointment_pro_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		Date appointment_date = Date.valueOf(req.getParameter("appointment_date"));
+		int hr_code_group_rank = Integer.parseInt(req.getParameter("hr_code_group_rank"));
+		int pre_rank = Integer.parseInt(req.getParameter("pre_rank"));
+		int post_rank = Integer.parseInt(req.getParameter("post_rank"));
+		int pre_dept = Integer.parseInt(req.getParameter("pre_dept"));
+		int post_dept = Integer.parseInt(req.getParameter("post_dept"));
+		
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("employee_id", employee_id);
+		daoMap.put("dept_id", post_dept);
+		daoMap.put("rank_code", post_rank);
+		int cnt = dao.update_employee_appoint(daoMap);
+		if(cnt == 1) {
+			Personnel_appointmentVO vo = new Personnel_appointmentVO();
+			vo.setEmployee_id(employee_id);
+			vo.setAppointment_date(appointment_date);
+			vo.setHr_code_group_rank(hr_code_group_rank);
+			vo.setPre_rank(pre_rank);
+			vo.setPost_rank(post_rank);
+			vo.setPre_dept(pre_dept);
+			vo.setPost_dept(post_dept);
+			cnt = dao.insert_personnel_appointment(vo);
+			model.addAttribute("cnt", cnt);
+		}
 	}
 }
