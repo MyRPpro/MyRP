@@ -252,7 +252,7 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 	//상세전표조회
-	/*@Override
+	@Override
 	public void search_statement_detail(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -262,28 +262,51 @@ public class AccountServiceImpl implements AccountService {
 		String purchase_id = req.getParameter("purchase_id");
 		String salary_register_id = req.getParameter("salary_register_id");
 		
-		ArrayList<StatementVO> vos = new ArrayList<StatementVO>();
+		int typeCnt = 0;
 		Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("statement_id", statement_id);
 		// 전표 디테일, account_name 가져오기
-		if(sales_id !=null) {
-			daoMap.put("sales_id", sales_id);
-			daoMap.put("typeCnt", 1);
-		}else if(purchase_id !=null) {
-			daoMap.put("purchase_id", purchase_id);
-			daoMap.put("typeCnt", 2);
-		}else if(salary_register_id !=null) {
-			daoMap.put("salary_register_id", salary_register_id);
-			daoMap.put("typeCnt", 3);
-		}else {
-			daoMap.put("typeCnt", 4);
+			if(sales_id !=null) {
+				daoMap.put("sales_id", sales_id);
+				typeCnt =1;
+			}else if(purchase_id !=null) {
+				daoMap.put("purchase_id", purchase_id);
+				typeCnt =2;
+			}else if(salary_register_id !=null) {
+				daoMap.put("salary_register_id", salary_register_id);
+				typeCnt =3;
+			}else {
+				typeCnt =4;
+			}
+			daoMap.put("typeCnt", typeCnt);
+		ArrayList<JoinStatementDTO> dtos = dao.select_statement_detail(daoMap);
+		model.addAttribute("dtos", dtos);
+		
+		JoinStatementDTO dto = new JoinStatementDTO();
+		for(int i=0; i<dtos.size(); i++) {
+			JoinStatementDTO tempDTO = dtos.get(i);
+			if(tempDTO.getSales_id()!=null) {
+			dto.setSales_id(tempDTO.getSales_id());
+			}else if(tempDTO.getPurchase_id()!=null) {
+			dto.setPurchase_id(tempDTO.getPurchase_id());
+			}else if(tempDTO.getSalary_register_id()!=null) {
+			dto.setSalary_register_id(tempDTO.getSalary_register_id());
+			}
+			dto.setStatement_type(tempDTO.getStatement_type());
+			dto.setApproval_state(tempDTO.getApproval_state());
 		}
-		vos = dao.select_statement_detail(daoMap);
-		model.addAttribute("vos", vos);
+		model.addAttribute("sales_id", dto.getSales_id());
+		model.addAttribute("purchase_id", dto.getPurchase_id());
+		model.addAttribute("salary_register", dto.getSalary_register_id());
+		model.addAttribute("statement_type", dto.getStatement_type());
+		model.addAttribute("approval_state", dto.getApproval_state());
+		model.addAttribute("statement_id", statement_id);
+		
+		model.addAttribute("typeCnt",typeCnt);
 		
 		String company_name = dao.select_detail_company_name(daoMap);
 		model.addAttribute("company_name", company_name);
-	}*/
+	}
 	/*@Override
 	public void make_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();

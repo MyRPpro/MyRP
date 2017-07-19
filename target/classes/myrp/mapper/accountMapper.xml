@@ -93,75 +93,71 @@
  			WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
+ 	
  	<!-- 전표 상세 내용 가져오기 > 디테일, account_name 가져오기  -->
- 	<!-- <select id="select_statement_detail" parameterType="java.util.Map" resultType="StatementVO">
- 		<if test="typeCnt == 1">
+ 	<select id="select_statement_detail" parameterType="java.util.Map" resultType="JoinStatementDTO">
+ 		<if test="typeCnt == 1"> <!-- sales -->
  		<![CDATA[
- 		 SELECT s.statement_id, s.sales_id, s.account_id, s.reg_date, s.statement_type,
- 		 		s.account_value, s.approval_state, a.account_name
- 		   FROM ((SELECT * FROM sales_statement) sales JOIN statement statement ON statement.statement_id = sales.statement_id)
- 		  		) s JOIN account a ON s.account_id = a.account_id
- 		  WHERE s.statement_id = #{statement_id}
+ 		 SELECT s.statement_id, s.statement_type, s.reg_date, sales.account_id, s.account_value, sales.sales_id, s.approval_state, a.account_name
+      	   FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
+                            left outer JOIN account a ON sales.account_id = a.account_id
+          WHERE sales.sales_id = #{sales_id} AND s.statement_type = (SELECT statement_type FROM statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
- 		<if test="typeCnt == 2">
+ 		<if test="typeCnt == 2"> <!-- purchase -->
  		<![CDATA[
- 		 SELECT s.statement_id, s.salary_register_id, s.account_id, s.reg_date, s.statement_type,
- 		 		s.account_value, s.approval_state, a.account_name
- 		   FROM ((SELECT * FROM salary_register_statement) salary JOIN statement statement ON statement.statement_id = salary.statement_id)
- 		  		) s JOIN account a ON s.account_id = a.account_id
- 		  WHERE s.statement_id = #{statement_id}
+ 		 SELECT s.statement_id, s.statement_type, s.reg_date, purc.account_id, s.account_value, purc.purchase_id, s.approval_state, a.account_name
+      	   FROM statement s left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+                            left outer JOIN account a ON purc.account_id = a.account_id
+          WHERE purc.purchase_id = #{purchase_id} AND s.statement_type = (SELECT statement_type FROM statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
- 		<if test="typeCnt == 3">
+ 		<if test="typeCnt == 3"> <!-- salary -->
  		<![CDATA[
- 		 SELECT s.statement_id, s.purchase_id, s.account_id, s.reg_date, s.statement_type,
- 		 		s.account_value, s.approval_state, a.account_name
- 		   FROM ((SELECT * FROM purchase_statement) sales JOIN statement statement ON statement.statement_id = sales.statement_id)
- 		  		) s JOIN account a ON s.account_id = a.account_id
- 		  WHERE s.statement_id = #{statement_id}
+ 		 SELECT s.statement_id, s.statement_type, s.reg_date, salary.salary_register_id, s.account_value, salary.salary_register_id, s.approval_state, a.account_name
+      	   FROM statement s left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
+                            left outer JOIN account a ON salary.account_id = a.account_id
+          WHERE salary.salary_register_id = #{salary_register_id} AND s.statement_type = (SELECT statement_type FROM statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
- 		<if test="typeCnt == 4">
+ 		<if test="typeCnt == 4"> <!-- tax -->
  		<![CDATA[
- 		 SELECT s.statement_id, s.account_id, s.reg_date, s.statement_type,
- 		 		s.account_value, s.approval_state, a.account_name
- 		   FROM ((SELECT * FROM tax_statement) tax JOIN statement statement ON statement.statement_id = tax.statement_id)
- 		  		) s JOIN account a ON s.account_id = a.account_id
- 		  WHERE s.statement_id = #{statement_id}
+ 		 SELECT s.statement_id, s.statement_type, s.reg_date, tax.account_id, s.account_value, s.approval_state, a.account_name
+      	   FROM statement s left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
+                            left outer JOIN account a ON tax.account_id = a.account_id
+          WHERE s.reg_date(SELECT reg_date FROM statement WHERE statement_id =#{statement_id}) 
+                AND s.statement_type = (SELECT statement_type FROM statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
  		
- 	</select> -->
+ 	</select>
  	<!-- 전표 상세 내용 가져오기 > company_name 가져오기  -->
- 	<!-- <select id="select_detail_company_name" parameterType="java.util.Map" resultType="String">
+ 	<select id="select_detail_company_name" parameterType="java.util.Map" resultType="String">
+ 		<if test="typeCnt == 1">
+ 		<![CDATA[
+ 		SELECT DISTINCT c.company_name
+ 		  FROM company c JOIN (SELECT company_id FROM sales_order WHERE sales_id = #{sales_id}) s 
+ 		                 ON c.company_id = s.company_id 
+ 		]]>
+ 		</if>
  		<if test="typeCnt == 2">
  		<![CDATA[
- 		SELECT c.company_name
+ 		SELECT DISTINCT c.company_name
  		  FROM company c JOIN (SELECT company_id FROM purchase_order WHERE purchase_id = #{purchase_id}) p 
  		                 ON c.company_id = p.company_id 
  		]]>
  		</if>
- 		<if test="typeCnt == 1">
- 		<![CDATA[
- 		SELECT c.company_name
- 		  FROM company c JOIN sales_order s 
- 		                 ON c.company_id = s.company_id 
- 		 WHERE s.sales_id = #{connected_id}
- 		]]>
- 		</if>
  		<if test="typeCnt == 3">
  		<![CDATA[
- 		SELECT c.company_name
- 		  FROM company c JOIN (SELECT salary_register FROM purchase_order WHERE salary_register_id = #{connected_id}) p 
+ 		SELECT DISTINCT c.company_name
+ 		  FROM company c JOIN (SELECT company_id FROM salary_register WHERE salary_register_id = #{salary_register_id}) p 
  		                 ON c.company_id = p.company_id 
  		]]>
  		</if>
  		<if test="typeCnt == 4">
  		SELECT '세무청' FROM dual
  		</if>
- 	</select> 	 -->
- 	
+ 	</select>
  	<!-- 전표관리 > 전표 승인 > approval_state 변경 -->
  	<!-- <update id="update_statement_approval_state" parameterType="String">
  		<![CDATA[

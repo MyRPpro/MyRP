@@ -68,15 +68,21 @@ public interface AccountDAO extends MyRPDAO {
 	 * @param statement_id
 	 * @return
 	 */
-	/*public ArrayList<StatementVO> select_statement_detail(Map<String, Object> daoMap);*/
+	public ArrayList<JoinStatementDTO> select_statement_detail(Map<String, Object> daoMap);
 	
 	/**
 	 * 전표 상세 내용 > company_name가져오기 
 	 * @param daoMap
 	 * @return
 	 */
-	/*public String select_detail_company_name(Map<String, Object> daoMap);*/
+	public String select_detail_company_name(Map<String, Object> daoMap);
 	
+	/**
+	 * 전표 상세 내용 > sum 구해오기
+	 * @param daoMap
+	 * @return
+	 */
+	public int select_sum_statement(Map<String, Object> daoMap);
 	/**
 	 * 전표 승인 > 전표상태 바꿔주기
 	 * @param daoMap

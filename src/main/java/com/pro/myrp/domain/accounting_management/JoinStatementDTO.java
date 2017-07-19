@@ -22,6 +22,23 @@ public class JoinStatementDTO {
     public String salary_account_id;
     public String tax_account_id;
     
+    public String account_name;
+    public String company_name;
+    
+    
+    public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+	public String getAccount_name() {
+		return account_name;
+	}
+	public void setAccount_name(String account_name) {
+		this.account_name = account_name;
+	}
+	
     public String getSales_account_id() {
 		return sales_account_id;
 	}

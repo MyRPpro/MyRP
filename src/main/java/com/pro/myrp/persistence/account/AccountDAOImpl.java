@@ -65,8 +65,8 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_statements(daoMap);
 	}
-	/*@Override
-	public ArrayList<StatementVO> select_statement_detail(Map<String, Object> daoMap) {
+	@Override
+	public ArrayList<JoinStatementDTO> select_statement_detail(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_statement_detail(daoMap);
 	}
@@ -74,7 +74,13 @@ public class AccountDAOImpl implements AccountDAO {
 	public String select_detail_company_name(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_detail_company_name(daoMap);
-	}*/
+	}
+	
+	@Override
+	public int select_sum_statement(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_sum_statement(daoMap);
+	}
 	/*@Override
 	public int update_statement_approval_state(String statement_id) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
@@ -95,6 +101,7 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_statement_ids(statement_id);
 	}*/
+	
 	
 	
 	

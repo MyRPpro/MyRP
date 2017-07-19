@@ -34,12 +34,22 @@ search_all_statements.jsp
 	</c:if>
 	<c:forEach var="dto" items="${dtos}"> 
 	<tr>
-		<td>
+		<td> 
 		<a href="javascript:void(0);" onclick="search_statement_detail(${dto.statement_id},
-			<c:if test="${salesCnt==1}">${dto.sales_id}, 1</c:if>
-			<c:if test="${purchaseCnt==1}">${dto.purchase_id}, 2 </c:if>
-			<c:if test="${salaryCnt==1}">${salary_register_id}, 3 </c:if>
-			<c:if test="${taxCnt==1}"> tax , 4</c:if>
+			<c:choose>
+				<c:when test="${dto.sales_id!=null}">
+					${dto.sales_id}, 1
+				</c:when>
+				<c:when test="${dto.purchase_id!=null}">
+					${dto.purchase_id}, 2
+				</c:when>
+				<c:when test="${dto.salary_register_id!=null}">
+					${dto.salary_register_id}, 3
+				</c:when>
+				<c:when test="${dto.sales_id==null&&dto.purchase_id==null&&dto.salary_register_id==null}">
+					 tax , 4
+				</c:when>
+			</c:choose>	
 		)"> ${dto.statement_id}</a>
 		</td>
 		<td>

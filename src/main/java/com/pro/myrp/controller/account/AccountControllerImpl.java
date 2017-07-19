@@ -82,14 +82,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return code.c(accounting_management, statement_management, search_all_statements);
 	}
 
-	/*@Override
+	@Override
 	@GetMapping(value="statement_management/search_statement_detail")
 	public String search_statement_detail(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(search_statement_detail));
 		model.addAttribute("req", req);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 		service.search_statement_detail(model);
 		return code.c(accounting_management, statement_management , search_statement_detail);
-	}*/
+	}
 
 	/*@Override
 	@GetMapping(value="statement_management/approve_statement")
