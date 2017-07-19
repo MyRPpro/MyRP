@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../../setting.jsp" %>
-<%@ include file = "../../distribution_management_setting.jsp" %>
-    
 <c:forEach var = "dto" items = "${search_stockpile_searchDtos}">
 <c:if test = "${dto.product_id != null}">
 <input name = "checked" type = "checkbox" value = "${dto.product_id}">${dto.product_id}&nbsp;${dto.product_name}<br>
