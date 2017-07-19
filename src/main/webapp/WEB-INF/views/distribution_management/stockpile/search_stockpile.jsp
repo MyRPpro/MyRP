@@ -1,9 +1,193 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../../setting.jsp" %>
-<%@ include file = "../../distribution_management_setting.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<script type="text/javascript">
+$(function(){
+	$('#select_stockpile').unbind("click").bind("click",function(){
+		togo = $('#search_result');
+		var warehouse = document.getElementsByName("checke_warehouse");
+		var product = document.getElementsByName("checke_product");
+		var start_day = document.getElementById("start_date").value;
+		var end_day = document.getElementById("end_date").value;
+		var now = new Date();
+		var sales_state= null;
+		var year= now.getFullYear();
+	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+		
+		var today = year + "-" + mon + "-" + (now.getDate()+1);
+		
+		if(start_day == "" || end_day == ""){
+			alert("날짜를 선택하시오.");
+			return false;
+		}
+		if(warehouse[0] != null){
+			var house = warehouse[0].value;
+			for(var i = 1; i < warehouse.length; i++){
+				house += "-" +  warehouse[i].value;
+			}
+		}
+		if(product[0] != null){
+			var pro = product[0].value;
+			for(var i = 1; i < product.length; i++){
+				pro += "-" + product[i].value;
+			}
+		}
+		var data = {
+					"warehouse" : house,
+					"product" : pro,
+					"start_day" : start_day,
+					"end_day" : end_day,
+					"today" : today,
+					"sales_state" : sales_state
+					}
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/stockpile/select_stockpile_search",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});
+	});
+
+	$('#search_button_product').unbind("click").bind("click",function(){
+		var togo = null;
+
+		var condition = null;
+		var search = null;
+		var where = null;
+		
+		var product_id = document.getElementById("product_id");
+		var product_name = document.getElementById("product_name");
+		var product_search = document.getElementById("product_search") == null ? null : warehounse_search = document.getElementById("product_search");
+		
+		if($(product_id).prop("checked") || $(product_name).prop("checked")){
+			condition = $(product_id).prop("checked") ? product_id.value : product_name.value;
+			search = product_search.value;
+			where = 'product';
+			togo = $('#product_result');
+		}
+		
+		var data = {
+					"condition" 	: condition,
+					"search" 	: search,
+					"where"		: where,
+					};
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/stockpile/search_stockpile_search",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});
+	});
+});
+
+function go(goes){
+
+	var values = document.getElementsByName("checked");
+	var search_value = new Array();
+	
+	for(var i = 0; i < values.length; i++){
+		if(values[i].checked){
+			search_value.push(values[i].value);
+		}
+	}
+	if(goes == 'warehouse'){
+		$("#warehouse_search_result").html("");
+		for(var i = 0; i < search_value.length; i++){
+			$("#warehouse_search_result").append("<input type = 'checkbox' name = 'checke_warehouse' value = '" + search_value[i] + "'>" + search_value[i]);
+		}
+	}
+	
+	if(goes == 'product'){
+		$("#product_search_result").html("");
+		for(var i = 0; i < search_value.length; i++){
+			$("#product_search_result").append("<input type = 'checkbox' name = 'checke_product' value = '" + search_value[i] + "'>" + search_value[i]);
+		}
+	}
+	$('input[name=checked]').prop('checked', false);
+}
+
+
+function search_stockpile(date){
+	togo = $('#search_result');
+	var start_day = document.getElementById("start_date");
+	var end_day = document.getElementById("end_date");
+	var now = new Date();
+	
+	var year= now.getFullYear();
+	var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+	var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+	
+	if(date == 'today'){
+		start_day.value = year + "-" + mon + "-" + (now.getDate());
+		end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+		return false;
+	
+	}else if(date == 'week'){
+		var i = now.getDay();
+		if(i > 0 && i < 7){
+			aa = 1 - i;
+			start_day.value =  year + "-" + mon + "-" + (now.getDate() + aa);
+		}
+		end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+	
+		if(start_day.value == end_day.value){
+			end_day.value = year + "-" + mon + "-" + (now.getDate()+2);
+		}
+		return false;
+	
+	}else if(date == 'month'){
+		if(now.getMonth()+1 >= 10 && now.getMonth()+2 >= 8 && now.getMonth()+2 <= 10){
+			start_day.value = year + "-" + (now.getMonth()+1) + "-01";
+			end_day.value = year + "-" + (now.getMonth()+2) + "-01";
+		}else{
+			start_day.value = year + "-0" + (now.getMonth()+1) + "-01";
+			end_day.value = year + "-0" + (now.getMonth()+2) + "-01";
+		}
+		return false;
+	
+	}else if(date == 'year'){
+		start_day.value = year + "-01-01";
+		end_day.value = (now.getFullYear() + 1) + "-01-01";
+		return false;
+	
+	}else if(date == '1_quarter'){
+			start_day.value = year + "-01-01";
+			end_day.value = year + "-04-01";
+			return false;
+	
+	}else if(date == '2_quarter'){
+			start_day.value = year + "-04-01";
+			end_day.value = year + "-07-01";
+			return false;
+	
+	}else if(date == '3_quarter'){
+			start_day.value = year + "-07-01";
+			end_day.value = year + "-10-01";
+			return false;
+	
+	}else if(date == '4_quarter'){
+			start_day.value = year + "-10-01";
+			end_day.value = (now.getFullYear()+1) + "-01-01";
+			return false;
+	
+	}else if(date == 'first_half'){
+		start_day.value = year + "-01-01";
+		end_day.value = year + "-07-01";
+		return false;
+	
+	}else if(date == 'second_half'){
+		start_day.value = year + "-07-01";
+		end_day.value = (now.getFullYear()+1) + "-01-01";
+		return false;
+	}
+}
+</script>	
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -15,22 +199,12 @@ search_stockpile.jsp
 	<a href="/distribution_management/stockpile/search_self_information">자가 정보 조회</a>
 	<a href="/distribution_management/stockpile/search_defective_information">불량 정보 조회</a>
 	<a href="/distribution_management/stockpile/search_and_modification_movement_information">이동 정보 조회 및 수정</a>
+	<a href="/">메인</a>
 	
 	<!-- 구현 -->
 	
 <h3>재고수불부 검색</h3>
 <table border = "1" >
-	<tr>
-		<th colspan = "2">
-			<select id = "select_stockplie">
-				<option value = "0">분류를 선택하시오.</option>
-				<option value = "purchase_order">구매</option>
-				<option value = "sales_order">판매</option>
-				<option value = "adjustment_inventory">재고조정</option>
-				<option value = "defective_warehouse">불량</option>
-			</select>
-		</th>
-	</tr>
 	<tr>
 		<th>기준일자</th>
 		<th>
@@ -40,15 +214,15 @@ search_stockpile.jsp
 		</th>
 	</tr>
 
-	<tr>
+	<!-- <tr>
 		<th>창고<a class = "btn btn-default" data-target = "#warehouse_modal" data-toggle="modal"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></th>
 		<th>
 			<div id = "warehouse_search_result"></div> 	
 		</th>
-	</tr>
+	</tr> -->
 	<tr>
 		<th>상품
-			<!-- <a class = "btn btn-default" data-target = "#product_modal" data-toggle="modal"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> -->
+			<a class = "btn btn-default" data-target = "#product_modal" data-toggle="modal"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a> 
 		</th>
 		<th>
 			<div id = "product_search_result"></div> 		
@@ -88,7 +262,7 @@ search_stockpile.jsp
 
 
 	
-<h4>상품 검색하기</h4>
+<!-- <h4>상품 검색하기</h4>
 <table>
 	<tr>
 		<th>
@@ -104,11 +278,11 @@ search_stockpile.jsp
 		</td>
 	</tr>
 </table>
-	
+	 -->
 <div id = "search_result"></div>
 	
 	<!-- modal -->
-	<div class = "modal" id = "warehouse_modal" tabindex = "-1">	<!-- 위에서 #modal로 해서 id modal 지정 -->
+	<!-- <div class = "modal" id = "warehouse_modal" tabindex = "-1">	위에서 #modal로 해서 id modal 지정
 			<div class = "modal-dialog">
 				<div class = "modal-content">
 					<div class = "modal-body">
@@ -132,8 +306,8 @@ search_stockpile.jsp
 					</div>
 				</div>
 			</div>
-	</div>
-	<!-- <div class = "modal" id = "product_modal" tabindex = "-1">	위에서 #modal로 해서 id modal 지정
+	</div> -->
+	<div class = "modal" id = "product_modal" tabindex = "-1">	위에서 #modal로 해서 id modal 지정
 			<div class = "modal-dialog">
 				<div class = "modal-content">
 					<div class = "modal-body">
@@ -157,6 +331,7 @@ search_stockpile.jsp
 					</div>
 				</div>
 			</div>
-	</div> -->
+	</div> 
+	
 </body>
 </html>

@@ -10,11 +10,18 @@ public class ProductVO {
 	private int sale_unit_price;
 	private String use_state;
 	private Date reg_date;
+
+	private String warehouse_id;
 	private int stock_amount;
 	
 	
 	
-	
+	public String getWarehouse_id() {
+		return warehouse_id;
+	}
+	public void setWarehouse_id(String warehouse_id) {
+		this.warehouse_id = warehouse_id;
+	}
 	public int getStock_amount() {
 		return stock_amount;
 	}

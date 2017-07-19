@@ -38,20 +38,14 @@ public class StockDAOImpl implements StockDAO {
 	}
 
 	@Override
-	public ProductVO select_product_name(Model model) {
+	public ArrayList<ProductVO> select_product_name(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
 		return dao.select_product_name(model);
 	}
 
 	@Override
-	public ArrayList<select_stockpile_searchDTO> select_stockpile_search_purchase(Model model) {
+	public ArrayList<ProductVO> select_product_id(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
-		return dao.select_stockpile_search_purchase(model);
-	}
-
-	@Override
-	public ArrayList<select_stockpile_searchDTO> select_stockpile_search_sales(Model model) {
-		StockDAO dao = sqlSession.getMapper(StockDAO.class);
-		return dao.select_stockpile_search_sales(model);
+		return dao.select_product_id(model);
 	}
 }

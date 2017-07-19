@@ -1,6 +1,10 @@
 package com.pro.myrp.service.stock;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -72,165 +76,161 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 
 	@Override
 	public void select_stockpile_search_service(HttpServletRequest req, Model model) throws Exception {
-		String house = req.getParameter("warehouse") == null ? null : req.getParameter("warehouse");
 		String pro = req.getParameter("product") == null ? null : req.getParameter("product");
-		String select_stockplie = req.getParameter("select_stockplie") == null ? null : req.getParameter("select_stockplie");
-		String sales_state = req.getParameter("sales_state") == null ? null : req.getParameter("sales_state");
 		String start_day = req.getParameter("start_day");
 		String end_day = req.getParameter("end_day");
 		String today = req.getParameter("today");
+		int add_stock= 0;
 		
-		int add_plus_stock = 0;
-		int add_minus_stock = 0;
-		int add_stock = 0;
-		int minus_plus_stock = 0;
-		int minus_minus_stock = 0; 
-		
-		String[] warehouse = house == null ? null : house.split("-");
 		String[] product = pro == null ? null : pro.split("-");
 		
 		ArrayList<select_stockpile_searchDTO> select_stockpile_searchDtos = new ArrayList<select_stockpile_searchDTO>();
-		ArrayList<select_stockpile_searchDTO> select_stockpile_minusDtos = new ArrayList<select_stockpile_searchDTO>();
 		ArrayList<ProductVO> product_name_list = new ArrayList<ProductVO>();
+		ArrayList<ProductVO> select_product = new ArrayList<ProductVO>();
+		ArrayList<String> search_product = new ArrayList<String>();
 		
-		model.addAttribute("warehouse",warehouse);
 		model.addAttribute("product",product);
-		model.addAttribute("select_stockplie",select_stockplie);
 		model.addAttribute("start_day",start_day);
 		model.addAttribute("end_day",end_day);
 		
+		select_stockpile_searchDtos = dao.select_stockpile_search(model);
 		
-		if(select_stockplie == null){
-			//재고조정	
-		}else if(select_stockplie.equals("adjustment_inventory")){
-			select_stockpile_searchDtos = dao.select_stockpile_search(model);
-
-		//구매
-		}else if(select_stockplie.equals("purchase_order")){
-			select_stockpile_searchDtos = dao.select_stockpile_search_purchase(model);
-		
-		//판매
-		}else if(select_stockplie.equals("sales_order") || select_stockplie.equals("defective_warehouse")){
-			model.addAttribute("sales_state",sales_state);
-			select_stockpile_searchDtos = dao.select_stockpile_search_sales(model);
-		}
-
-		
-		//총 재고 관련 계산
+		search_product.add(select_stockpile_searchDtos.get(0).getProduct_id());
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
-			String product_id = select_stockpile_searchDtos.get(i).getProduct_id();
-			
-			model.addAttribute("product_id",product_id);
-			
-			if(product_name_list.size() == 0){
-				product_name_list.add(dao.select_product_name(model));
-				
-			}else{
-				int size = product_name_list.size();
-				for(int y = 0; y < size; y++){
-					if(!product_id.equals(product_name_list.get(y).getProduct_id())){
-						product_name_list.add(dao.select_product_name(model));
-						break;
-					}
+				for(int a = 0; a < search_product.size(); a++ ){
+					 if(!select_stockpile_searchDtos.get(i).getProduct_id().equals(search_product.get(a))){
+						 search_product.add(select_stockpile_searchDtos.get(i).getProduct_id());
+						 break;
+					 }
 				}
 			}
-			add_plus_stock += select_stockpile_searchDtos.get(i).getCount_purchase();
-			add_minus_stock += select_stockpile_searchDtos.get(i).getCount_sales();
-			add_minus_stock += select_stockpile_searchDtos.get(i).getDeleted_stock();
+
+		model.addAttribute("product_id", search_product);
+		product_name_list = dao.select_product_name(model);
+		select_product = dao.select_product_id(model);
+		
+		int warehouse_good_stock = 0;
+		int warehouse_bad_stock = 0;
+		int warehouse_will_stock = 0;
+		
+		search_product.add(product_name_list.get(0).getProduct_id());
+		for(int i = 0;i < product_name_list.size(); i++){
+			if(product_name_list.get(i).getWarehouse_id().equals("1001")){
+				warehouse_good_stock += product_name_list.get(i).getStock_amount();
+			}else if(product_name_list.get(i).getWarehouse_id().equals("2001")){
+				warehouse_bad_stock += product_name_list.get(i).getStock_amount();
+			}else if(product_name_list.get(i).getWarehouse_id().equals("3001")){
+				warehouse_will_stock += product_name_list.get(i).getStock_amount();
+			}
+		}
+		
+		
+		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
+			if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 1).equals("2")){
+				select_stockpile_searchDtos.get(i).setMinus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
+			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 1).equals("3")){
+				select_stockpile_searchDtos.get(i).setPlus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
+			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 1).equals("4")){
+				if(select_stockpile_searchDtos.get(i).getMoving_stock() > 0){
+					select_stockpile_searchDtos.get(i).setPlus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
+				}else{
+					select_stockpile_searchDtos.get(i).setMinus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
+				}
+			}
+			
+		}
+		
+		
+		for(int i = 0; i < select_product.size(); i++){
+			String product_name = null;
+			int stock_amount = 0;
+			for(int x = 0; x < product_name_list.size(); x++){
+				if(product_name_list.get(x).getProduct_id().equals(select_product.get(i).getProduct_id())){
+					product_name = product_name_list.get(x).getProduct_name();
+					stock_amount = product_name_list.get(x).getStock_amount();
+					
+					add_stock += product_name_list.get(x).getStock_amount();
+					select_product.get(i).setProduct_name(product_name);
+					break;
+				}
+			}
+			for(int y = 0; y < select_stockpile_searchDtos.size(); y++){
+				if(product_name != null && select_product.get(i).getProduct_id().equals(select_stockpile_searchDtos.get(y).getProduct_id())){
+					select_stockpile_searchDtos.get(y).setProduct_name(product_name);
+					select_stockpile_searchDtos.get(y).setStock_amount(stock_amount);
+				}
+			}
 		}
 		
 		if(Integer.parseInt(end_day.replace("-", "")) < Integer.parseInt(today.replace("-", ""))){
-			
-			System.out.println("여긴 타면 안됨");
-			
+			ArrayList<select_stockpile_searchDTO> select_stockpile_minusDtos = new ArrayList<select_stockpile_searchDTO>();
 			model.addAttribute("start_day",end_day);
 			model.addAttribute("end_day",today);
 			
-			if(select_stockplie == null){
-				
-			}else if(select_stockplie.equals("adjustment_inventory")){
-				select_stockpile_minusDtos = dao.select_stockpile_search(model);
-
-			//구매
-			}else if(select_stockplie.equals("purchase_order")){
-				select_stockpile_minusDtos = dao.select_stockpile_search_purchase(model);
+			select_stockpile_minusDtos = dao.select_stockpile_search(model);
 			
-			//판매
-			}else if(select_stockplie.equals("sales_order") || select_stockplie.equals("defective_warehouse")){
-				select_stockpile_minusDtos = dao.select_stockpile_search_sales(model);
-			}
-			
-			for(int i = 0; i < select_stockpile_minusDtos.size(); i++){
-				
-				minus_plus_stock += select_stockpile_minusDtos.get(i).getCount_purchase();
-				
-				minus_minus_stock += select_stockpile_minusDtos.get(i).getCount_sales();
-				minus_minus_stock += select_stockpile_minusDtos.get(i).getDeleted_stock();
-				
-			}
-			//add_stock += minus_minus_stock - minus_plus_stock;
-		}
-		
-		for(int q = 0; q < product_name_list.size(); q++){
-			int siz = select_stockpile_searchDtos.size();
-			for(int w = 0; w < siz; w++ ){
-				if(product_name_list.get(q).getProduct_id().equals(select_stockpile_searchDtos.get(w).getProduct_id())){
-					add_stock += select_stockpile_searchDtos.get(w).getStock_amount();
-					System.out.println(select_stockpile_searchDtos.get(w).getStock_amount());
-					System.out.println(add_stock);
-							break;
+			for(int y = 0; y < select_product.size(); y++){
+				for(int i = 0; i < select_stockpile_minusDtos.size(); i++){
+					if(select_product.get(y).getProduct_id().equals(select_stockpile_minusDtos.get(i).getProduct_id())){
+						
+					for(int x = 0; x < select_stockpile_searchDtos.size(); x++){
+						if(select_product.get(y).getProduct_id().equals(select_stockpile_searchDtos.get(x).getProduct_id())){
+							int stock = select_stockpile_searchDtos.get(x).getStock_amount();
+							
+							if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("2")){
+								select_stockpile_searchDtos.get(x).setStock_amount(stock + select_stockpile_minusDtos.get(i).getMoving_stock());
+								
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("3")){
+								select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
+							
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("4")){
+								if(select_stockpile_minusDtos.get(i).getMoving_stock() > 0){
+									select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
+								
+								}else{
+									select_stockpile_searchDtos.get(x).setStock_amount(stock + select_stockpile_minusDtos.get(i).getMoving_stock());
+									
+								}
+							}
+						
+							}
 						}
 					}
 				}
-		
-		
-		//각 product stock 계산
-		for(int i = 0; i < product_name_list.size(); i++){
-			int pstock = 0;
-			int mstock = 0;
-			int mstock2 = 0;
-			int stock = product_name_list.get(i).getStock_amount();
-			int size = select_stockpile_searchDtos.size();
-			for(int a = 0; a < size;a++ ){
-				if(product_name_list.get(i).getProduct_id().equals(select_stockpile_searchDtos.get(a).getProduct_id())){
-					if(a+1 < size){
-					for(int b = a+1; b < size; b++){	
-						if(product_name_list.get(i).getProduct_id().equals(select_stockpile_searchDtos.get(b).getProduct_id())){
-							
-							pstock = select_stockpile_searchDtos.get(b).getCount_purchase();
-							mstock = select_stockpile_searchDtos.get(b).getCount_sales();
-							mstock2 = select_stockpile_searchDtos.get(b).getDeleted_stock();
-							
-							select_stockpile_searchDtos.get(i).setStock_amount(stock - pstock + mstock + mstock2);
-							
+			}
+		}
+			
+		//재고 계산
+		int stock = 0;
+		for(int i = 0; i < select_product.size(); i++){
+			for(int y = select_stockpile_searchDtos.size()-1; y >= 0; y--){
+				if(select_product.get(i).getProduct_id().equals(select_stockpile_searchDtos.get(y).getProduct_id())){
+					for(int x = y - 1; x >= 0; x--){
+					if(select_product.get(i).getProduct_id().equals(select_stockpile_searchDtos.get(x).getProduct_id())){
+							 stock = select_stockpile_searchDtos.get(y).getMinus_stock() - select_stockpile_searchDtos.get(y).getPlus_stock();
+							select_stockpile_searchDtos.get(x).setStock_amount(select_stockpile_searchDtos.get(y).getStock_amount() + stock);
 							break;
-						}else{
-							break;
+							
 						}
-					}
 					}
 				}
 				
-				if(Integer.parseInt(end_day.replace("-", "")) < Integer.parseInt(today.replace("-", ""))){
-					product_name_list.get(i).setStock_amount(product_name_list.get(i).getStock_amount() + minus_minus_stock - minus_plus_stock);
-				}
 			}
 		}
-		
-		
-		
 		
 		model.addAttribute("select_stockpile_searchDtos", select_stockpile_searchDtos);
 		model.addAttribute("product_name_list", product_name_list);
+		model.addAttribute("select_product", select_product);
 		
-		model.addAttribute("add_plus_stock", add_plus_stock);
-		model.addAttribute("add_minus_stock", add_minus_stock);
-		model.addAttribute("add_stock", add_stock); 
-		
-		model.addAttribute("select_stockplie", select_stockplie);
+		model.addAttribute("warehouse_good_stock", warehouse_good_stock);
+		model.addAttribute("warehouse_bad_stock", warehouse_bad_stock);
+		model.addAttribute("warehouse_will_stock", warehouse_will_stock); 
 		
 		model.addAttribute("start_day",start_day);
 		model.addAttribute("end_day",end_day);
+		
+		model.addAttribute("add_stock",add_stock);
 	}
-
 }
+
+
