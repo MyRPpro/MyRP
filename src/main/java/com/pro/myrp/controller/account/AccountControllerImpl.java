@@ -117,6 +117,15 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return code.c(accounting_management, statement_management, search_unapproval_statements);
 	}
 
+	@Override
+	@GetMapping(value="statement_management/search_approval_statements")
+	public String search_approval_statements(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_approval_statements));
+		model.addAttribute("req", req);
+		service.search_approval_statements_service(model);
+		return code.c(accounting_management, statement_management, search_approval_statements);
+	}
+
 	/*@Override
 	public String make_statement(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(make_statement));

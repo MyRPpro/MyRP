@@ -257,4 +257,32 @@
  		]]>
  	</select>
  	
+ 	<!-- 승인 전표 총 개수 -->
+ 	<select id="select_approval_statements_cnt" resultType="int">
+ 		<![CDATA[
+ 		SELECT COUNT(*)
+ 		  FROM statement
+ 		 WHERE approval_state = '25452'
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- 승인 전표 가져오기 -->
+ 	<select id="select_approval_statements" parameterType="java.util.Map"
+ 	resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ( SELECT s.statement_id, sales.sales_id, salary.salary_register_id, purc.purchase_id, 
+ 						  tax.account_id as tax_account_id, sales.account_id as sales_account_id, purc.account_id as purchase_account_id, salary.account_id as salary_account_id,
+						  s.reg_date, s.account_value, s.approval_state, s.statement_type, rownum rNum
+ 				     FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
+ 				     	  			  left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+ 				     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
+ 				     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
+         			 WHERE s.approval_state = '25452'
+ 				     ORDER BY s.reg_date
+ 				  )
+ 			WHERE rNum >= #{start} AND rNum <= #{end}
+ 		]]>
+ 	</select>
+ 	
 </mapper>

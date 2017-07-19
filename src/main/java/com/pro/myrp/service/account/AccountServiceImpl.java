@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
-import com.pro.myrp.domain.accounting_management.StatementVO;
 import com.pro.myrp.persistence.account.AccountDAO;
 
 @Service
@@ -445,6 +444,96 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("pageBlock", pageBlock);
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("currentPage", currentPage);
+		}
+	}
+	//승인전표 조회
+	@Override
+	public void search_approval_statements_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		cnt = dao.select_approval_statements_cnt();
+		System.out.println("cnt: " +  cnt);
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		
+		if(cnt > 0) {
+			ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+			Map<String, Object> daoMap = new HashMap<>();
+				daoMap.put("start", start);
+				daoMap.put("end", end);
+			int salesCnt = 0;
+			int purchaseCnt = 0;
+			int salaryCnt = 0;
+			int taxCnt = 0;
+			
+			dtos = dao.select_approval_statements(daoMap);
+			JoinStatementDTO dto = new JoinStatementDTO();
+				for(int i=0; i<dtos.size(); i++) {
+					JoinStatementDTO tempDTO = dtos.get(i);
+					if(tempDTO.getSales_id()!=null) {
+					dto.setSales_id(tempDTO.getSales_id());
+					}else if(tempDTO.getPurchase_id()!=null) {
+					dto.setPurchase_id(tempDTO.getPurchase_id());
+					}else if(tempDTO.getSalary_register_id()!=null) {
+					dto.setSalary_register_id(tempDTO.getSalary_register_id());
+					}
+				}
+				if(dto.getSales_id()!=null) { //sales_id 
+					salesCnt = 1;
+				}
+				if(dto.getSalary_register_id()!=null) { //salary_register_id
+					salaryCnt = 1;
+				}
+				if(dto.getPurchase_id()!=null) { //purchase_id
+					purchaseCnt = 1;
+				}
+				if(dto.getSalary_register_id()==null && dto.getSales_id()==null && dto.getPurchase_id()==null){
+					taxCnt = 1;
+				}
+				model.addAttribute("dtos", dtos);
+				model.addAttribute("salesCnt", salesCnt);
+				model.addAttribute("purchaseCnt", purchaseCnt);
+				model.addAttribute("salaryCnt", salaryCnt);
+				model.addAttribute("taxCnt", taxCnt);
+				System.out.println("sales, purchase, salary, tax CNT : "+ salesCnt+","+ purchaseCnt +","+ salaryCnt +","+ taxCnt);
+		}
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		System.out.println("start,end:"+startPage+","+endPage);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);	
 		}
 	}
 }

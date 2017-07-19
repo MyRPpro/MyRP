@@ -90,4 +90,11 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void search_unapproval_statements_service(Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 승인 전표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_approval_statements_service(Model model) throws Exception;
 }

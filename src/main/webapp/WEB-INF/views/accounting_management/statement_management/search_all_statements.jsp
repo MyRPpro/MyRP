@@ -9,11 +9,13 @@
 </head>
 <script src = "/resources/accounting_management/accounting_management_script.js"></script>
 <body>
-search_all_statements.jsp
 <h3> 전체 전표 조회 </h3>
 총 전표 개수 : ${cnt}
 <form action="/accounting_management/statement_management/search_unapproval_statements" method="get" name="statement_list_form2">
 	<input type="submit" value="미승인 전표 조회">	
+</form>
+<form action="/accounting_management/statement_management/search_approval_statements" method="get" name="statement_list_form3">
+	<input type="submit" value="승인 전표 조회">	
 </form>
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
 	<input type="submit" value="전표 등록">	

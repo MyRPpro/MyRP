@@ -105,6 +105,16 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_unapproval_statements(daoMap);
 	}
+	@Override
+	public int select_approval_statements_cnt() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_approval_statements_cnt();
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_approval_statements(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_approval_statements(daoMap);
+	}
 	
 	
 	

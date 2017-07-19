@@ -9,7 +9,7 @@
 </head>
 <script src = "/resources/accounting_management/accounting_management_script.js"></script>
 <body>
-<h3> 미승인 전표 조회 </h3>
+<h3> 승인 전표 조회 </h3>
 총 전표 개수 : ${cnt}
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
 	<input type="submit" value="전표 등록">	
@@ -27,7 +27,7 @@
 	<c:if test="${cnt==0}">
 	<tr>
 		<th align="center" colspan="7">
-			존재하는 미승인 전표가 없습니다
+			존재하는 승인 전표가 없습니다
 		</th>
 	</tr>
 	</c:if>
@@ -103,20 +103,20 @@
 			<tr>
 				<th>
 					<c:if test="${startPage > pageBlock}">
-						<a href="/accounting_management/statement_management/search_unapproval_statements">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements">[◀◀]</a> <!-- 첫 페이지로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
 					</c:if>
 					<c:forEach var="i" begin="${startPage}" end="${endPage}">
 						<c:if test="${i == currentPage}">
 							<span>[${i}]</span>
 						</c:if>
 						<c:if test="${i != currentPage}">
-							<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${i}">[${i}]</a>
+							<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${i}">[${i}]</a>
 						</c:if>
 					</c:forEach>
 					<c:if test="${pageCount > endPage}">
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
 					</c:if>
 				</th>
 			</tr>

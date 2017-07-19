@@ -114,5 +114,13 @@ public interface AccountController extends MyRPController{
 	 */
 	public String search_unapproval_statements(HttpServletRequest req, Model model) throws Exception;
 	
+	/**
+	 * 전표관리 > 승인 전표 조회
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_approval_statements(HttpServletRequest req, Model model) throws Exception;
 }
 
