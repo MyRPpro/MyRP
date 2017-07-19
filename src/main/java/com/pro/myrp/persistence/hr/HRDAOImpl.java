@@ -13,6 +13,7 @@ import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 
 @Repository
@@ -135,14 +136,12 @@ public class HRDAOImpl implements HRDAO {
 		return dao.select_employee(employee_id);
 	}
 
-
 	@Override
 	public int insert_employee(EmployeeVO vo) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.insert_employee(vo);
 	}
 
-	
 	@Override
 	public int insert_employee_info(Employee_infoVO vo2) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
@@ -150,8 +149,23 @@ public class HRDAOImpl implements HRDAO {
 	}
 
 	
+	@Override
+	public Personnel_cardDTO select_personnel_card(int employee_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_personnel_card(employee_id);
+	}
 
-	
+	@Override
+	public int update_employee(EmployeeVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_employee(vo);
+	}
+
+	@Override
+	public int update_employee_info(Employee_infoVO vo2) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_employee_info(vo2);
+	}
 
 }
 

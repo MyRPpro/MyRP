@@ -18,4 +18,8 @@ public interface purchaseService extends MyRPService {
 
 	public void reg_purchase_service_pro(Model model);
 
+	public void reg_purchase_table(Model model);
+	
+	
+
 }

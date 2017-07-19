@@ -16,11 +16,6 @@ CREATE TABLE company (
                     CHECK(company_type = 'S' OR company_type = 'C'),
     reg_date        DATE            DEFAULT SYSDATE
 );
--- 거래처 추가
-INSERT INTO company
-VALUES( '1111111120','MyRP10','100-81-11111','이정재','110211-1234566',
-        'aaa','aaa','aaa','Y');
-COMMIT;
 -- 거래처 정보 검색 (1~10번 튜플)
 SELECT  *
 FROM    (SELECT company_id, company_name, biz_reg_no, ceo_name, corp_reg_no,
@@ -43,39 +38,6 @@ CREATE TABLE product(
                         CHECK(use_state = 'Y' OR use_state = 'N'),
     reg_date            DATE            DEFAULT SYSDATE
 );
-INSERT INTO product
-VALUES('1200000001','JSP 2.3 웹프로그래밍',25000,27000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000002','JAVA 객체지향 디자인 패턴',26000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000003','거침없이 배우는 자바스크립트/제이쿼리',30000,35000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000004','HTML5 + CSS3 웹 표준의 정석',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000005','해킹방어를 위한 JAVA 시큐어코딩',26000,30000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000006','Oracle 11g 프로그래밍',20000,23000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000007','어서와 Java는 처음이지',30000,33000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000008','Head First Java',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000009','Head First Java1',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000010','Head First Java2',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000011','Head First Java3',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000012','Head First Java4',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000013','Head First Java',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000014','Head First Java',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000015','Head First Java',25000,28000,'Y',SYSDATE);
-INSERT INTO product
-VALUES('1200000016','Head First Java',25000,28000,'Y',SYSDATE);
-COMMIT;
 --------------------------------------------------------------------------------
 -- 인사코드그룹 TABLE 생성 (hr_code_group)
 --------------------------------------------------------------------------------
@@ -85,19 +47,6 @@ CREATE TABLE hr_code_group(
     use_state           CHAR(1)         DEFAULT 'Y' NOT NULL
                         CHECK(use_state = 'Y' OR use_state = 'N')
 );
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VAULES(2,'직급','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VAULES(3,'휴가','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VAULES(4,'급여','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VAULES(5,'수당','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VAULES(6,'경비','Y');
-INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state)
-VAULES(7,'공제','Y');
-COMMIT;
 --------------------------------------------------------------------------------
 -- 인사코드 TABLE 생성 (hr_code)
 --------------------------------------------------------------------------------
@@ -111,19 +60,6 @@ CREATE TABLE hr_code(
                         REFERENCES hr_code_group(hr_code_group_id),
     CONSTRAINT hr_code_pk PRIMARY KEY(hr_code_group_id, hr_code_id)
 );
-INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
-VALUES(2,100,'사원','Y');
-INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
-VALUES(2,200,'대리','Y');
-INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
-VALUES(2,300,'과장','Y');
-INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
-VALUES(2,400,'차장','Y');
-INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
-VALUES(2,500,'부장','Y');
-INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state)
-VALUES(2,600,'이사','Y');
-COMMIT;
 --------------------------------------------------------------------------------
 -- 부서 TABLE 생성 (department)
 --------------------------------------------------------------------------------
@@ -134,17 +70,6 @@ CREATE TABLE department(
     use_state           CHAR(1)         DEFAULT 'Y' NOT NULL
                         CHECK(use_state = 'Y' OR use_state = 'N')
 );
-INSERT INTO department(dept_id,dept_name,access_role,use_state)
-VALUES(2000,'영업','SA','Y');
-INSERT INTO department(dept_id,dept_name,access_role,use_state)
-VALUES(3000,'구매','PU','Y');
-INSERT INTO department(dept_id,dept_name,access_role,use_state)
-VALUES(4000,'물류','DT','Y');
-INSERT INTO department(dept_id,dept_name,access_role,use_state)
-VALUES(5000,'회계','FI','Y');
-INSERT INTO department(dept_id,dept_name,access_role,use_state)
-VALUES(6000,'인사','HR','Y');
-COMMIT;
 --------------------------------------------------------------------------------
 -- 인사카드 TABLE 생성 (employee)
 --------------------------------------------------------------------------------
@@ -162,55 +87,6 @@ CREATE TABLE employee(
                         REFERENCES hr_code(hr_code_group_id,hr_code_id),
     CONSTRAINT employee_pk PRIMARY KEY(employee_id)
 );
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(6001,6000,2,100,'이인홍','7812161111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(4001,4000,2,200,'최연호','8510121111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(2001,2000,2,300,'장은철','8707101111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(3001,3000,2,400,'장재희','8705231111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(5001,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0001,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0002,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0003,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0004,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0005,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0006,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0007,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0008,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0009,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0010,5000,2,500,'이주원','9501302111111',SYSDATE);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,
-            employee_name,residence_reg_no,join_date)
-VALUES(0011,5000,2,500,'이주원','9501302111111',SYSDATE);
-COMMIT;
 --------------------------------------------------------------------------------
 -- 인사정보 TABLE 생성 (employee_info)
 ----------------------------------------------------------------------------------
@@ -368,43 +244,13 @@ CREATE TABLE bank_account (
 -- 전표 TABLE 생성 (statement)
 --------------------------------------------------------------------------------
 CREATE TABLE statement (
-    statement_id          CHAR(12)     PRIMARY KEY, --전표번호
-    reg_date              DATE         DEFAULT SYSDATE, --등록일자
-    account_value         NUMBER(18)   NOT NULL, --계정금액
-    approval_state        NUMBER(5)    DEFAULT 0, --주문상태
-    statement_type        NUMBER(5) NOT NULL,
+    statement_id          CHAR(12)     	PRIMARY KEY, --전표번호
+    reg_date              DATE         	DEFAULT SYSDATE, --등록일자
+    account_value         NUMBER(18)   	NOT NULL, --계정금액
+    approval_state        NUMBER(5)    	DEFAULT 0, --주문상태
+    statement_type        NUMBER(5) 	NOT NULL
 );
 
-CREATE TABLE tax_statement (
-    statement_id    CHAR(12)    PRIMARY KEY,
-    account_id      CHAR(12),
-    CONSTRAINT tax_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
-    CONSTRAINT tax_statement_fk2 FOREIGN KEY(account_id) REFERENCES account(account_id)
-);
-
-CREATE TABLE sales_statement (
-    statement_id    CHAR(12)    PRIMARY KEY,
-    sales_id        CHAR(12),
-    account_id      CHAR(12),
-    CONSTRAINT sales_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
-    CONSTRAINT sales_statement_fk2 FOREIGN KEY(sales_id,account_id) REFERENCES sales_order(sales_id,account_id)
-);
-
-CREATE TABLE purchase_statement (
-    statement_id    CHAR(12)    PRIMARY KEY,
-    purchase_id     CHAR(12),
-    account_id      CHAR(12),
-    CONSTRAINT purchase_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
-    CONSTRAINT purchase_statement_fk2 FOREIGN KEY(purchase_id,account_id) REFERENCES purchase_order(purchase_id,account_id)
-);
-
-CREATE TABLE salary_register_statement (
-    statement_id    CHAR(12)    PRIMARY KEY,
-    salary_register_id  CHAR(12),
-    account_id      CHAR(12),
-    CONSTRAINT salary_register_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
-    CONSTRAINT salary_register_statement_fk2 FOREIGN KEY(salary_register_id,account_id) REFERENCES salary_register(salary_register_id,account_id)
-);
 --------MyRP 물류관리 Table 생성 SQL--------
 --DROP TABLE warehouse_information;
 --DROP TABLE stock_information;
@@ -527,7 +373,7 @@ CREATE TABLE sales_order
 -- table PURCHASE_ORDER
 --------------------------------------------------------------------------------
 
--DROP TABLE purchase_order;
+--DROP TABLE purchase_order;
 CREATE TABLE purchase_order (
 	purchase_id       CHAR(12)       NOT NULL,  /* 주문번호 */
 	account_id        CHAR(12)       NOT NULL,  /* 계정코드 */
@@ -550,6 +396,37 @@ CREATE TABLE purchase_order (
   CONSTRAINT purchase_order_fk5   FOREIGN KEY(employee_id)  REFERENCES employee(employee_id)
 );
 
+
+CREATE TABLE tax_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    account_id      CHAR(12),
+    CONSTRAINT tax_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT tax_statement_fk2 FOREIGN KEY(account_id) REFERENCES account(account_id)
+);
+
+CREATE TABLE sales_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    sales_id        CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT sales_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT sales_statement_fk2 FOREIGN KEY(sales_id,account_id) REFERENCES sales_order(sales_id,account_id)
+);
+
+CREATE TABLE purchase_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    purchase_id     CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT purchase_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT purchase_statement_fk2 FOREIGN KEY(purchase_id,account_id) REFERENCES purchase_order(purchase_id,account_id)
+);
+
+CREATE TABLE salary_register_statement (
+    statement_id    CHAR(12)    PRIMARY KEY,
+    salary_register_id  CHAR(12),
+    account_id      CHAR(12),
+    CONSTRAINT salary_register_statement_fk1 FOREIGN KEY(statement_id) REFERENCES statement(statement_id),
+    CONSTRAINT salary_register_statement_fk2 FOREIGN KEY(salary_register_id,account_id) REFERENCES salary_register(salary_register_id,account_id)
+);
 --------------------------------------------------------------------------------
 -- 사원 목록 조회(employeeVO)
 --------------------------------------------------------------------------------
@@ -606,10 +483,6 @@ FROM	(SELECT employee_id, dept_id, dept_name,
                 )
         )
 WHERE rNum >= 1 AND rNum <= 5;
-
-
-
-
 --------------------------------------------------------------------------------
 -- 더미 데이터 (2017-07-17)
 --------------------------------------------------------------------------------
@@ -708,11 +581,11 @@ INSERT INTO SALES_ORDER (SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID,
 INSERT INTO SALES_ORDER (SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, SALES_STATE, CONDITION_NOTE_RECEIVABLE) VALUES ('211017071301','500011060000','300017071801','1200000001','1100000001',2001,to_date('07/12/2017', 'mm-dd-yyyy'),to_date('07/12/2017', 'mm-dd-yyyy'),to_date('07/12/2017', 'mm-dd-yyyy'),1,1000,22213,3.0);
 COMMIT;
 -- 회계전표 생성[매출채권 계정, 부가세 예수금 계정, 상품매출 계정]
-INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071801,SYSDATE,1100,25452,54101);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071801,SYSDATE,1100,25451,54101);
 INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071801,211017071301,500011020000);
-INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071802,SYSDATE,100,25452,54101);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071802,SYSDATE,100,25451,54101);
 INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071802,211017071301,500012020000);
-INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071803,SYSDATE,1000,25452,54101);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071803,SYSDATE,1000,25451,54101);
 INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071803,211017071301,500011060000);
 COMMIT;
 -- 회계팀 전표승인
@@ -744,7 +617,7 @@ COMMIT;
 UPDATE SALES_ORDER SET SALES_STATE = 22223 WHERE SALES_ID = 211017071301 AND ACCOUNT_ID = 500011060000;
 COMMIT;
 --수금대기 [수금일로 부터 지정한 기간만큼 남은 시점에 상태 변경]
-UPDATE SALES_ORDER SET SALES_STATE = 22411 WHERE SALES_ID = 211017071301 AND ACCOUNT_ID = 500011060000;
+UPDATE SALES_ORDER SET SALES_STATE = 22411 WHERE SALES_ID = 211017071301 AND ACCOUNT_ID = 500011020000;
 COMMIT;
 --수금완료 [수금처리를 완료하여 매출채권 계정을 감하고 현금 계정을 가합니다. 회계전표처리:매출채권-,현금+]
 INSERT INTO SALES_ORDER (SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, SALES_STATE, CONDITION_NOTE_RECEIVABLE) VALUES ('211017071301','500011010000','300017071801','1200000001','1100000001',2001,to_date('07/14/2017', 'mm-dd-yyyy'),to_date('07/14/2017', 'mm-dd-yyyy'),to_date('07/14/2017', 'mm-dd-yyyy'),1,1100,22412,3.0);
@@ -755,17 +628,121 @@ INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEME
 INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071805,211017071301,500011010000);
 COMMIT;
 
-INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('211017071301','500012010000','200017071301','1000000001','1000000001',3001,to_date('07/14/2017', 'mm-dd-yyyy'),to_date('07/14/2017', 'mm-dd-yyyy'),to_date('07/14/2017', 'mm-dd-yyyy'),1,1100,23202.0,3.0);
-INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('211017071301','500011030000','200017071202','1000000002','1000000002',3001,to_date('07/13/2017', 'mm-dd-yyyy'),to_date('07/13/2017', 'mm-dd-yyyy'),to_date('07/13/2017', 'mm-dd-yyyy'),1,100,23202.0,3.0);
-INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('211017071301','500011050000','200017071103','1000000003','1000000003',3001,to_date('07/12/2017', 'mm-dd-yyyy'),to_date('07/12/2017', 'mm-dd-yyyy'),to_date('07/12/2017', 'mm-dd-yyyy'),1,1000,23202.0,3.0);
-INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('211017071301','500011010000','200017071004','1000000004','1000000004',3001,to_date('07/11/2017', 'mm-dd-yyyy'),to_date('07/11/2017', 'mm-dd-yyyy'),to_date('07/11/2017', 'mm-dd-yyyy'),-1,1100,23207.0,3.0);
+--------------------------------------------------------------------------------
+-- 상품 구매 절차 시뮬레이션 (모듈연결 위주로)
+--------------------------------------------------------------------------------
+-- 판매전표승인요청 [영업주문생성]
+INSERT INTO SALES_ORDER (SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, SALES_STATE, CONDITION_NOTE_RECEIVABLE) VALUES ('211017071302','500011020000','300017071801','1200000002','1100000002',2001,to_date('07/14/2017', 'mm-dd-yyyy'),to_date('07/14/2017', 'mm-dd-yyyy'),to_date('07/14/2017', 'mm-dd-yyyy'),200,22000,22213,3.0);
+INSERT INTO SALES_ORDER (SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, SALES_STATE, CONDITION_NOTE_RECEIVABLE) VALUES ('211017071302','500012020000','300017071801','1200000002','1100000002',2001,to_date('07/13/2017', 'mm-dd-yyyy'),to_date('07/13/2017', 'mm-dd-yyyy'),to_date('07/13/2017', 'mm-dd-yyyy'),200,2000,22213,3.0);
+INSERT INTO SALES_ORDER (SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, SALES_STATE, CONDITION_NOTE_RECEIVABLE) VALUES ('211017071302','500011060000','300017071801','1200000002','1100000002',2001,to_date('07/12/2017', 'mm-dd-yyyy'),to_date('07/12/2017', 'mm-dd-yyyy'),to_date('07/12/2017', 'mm-dd-yyyy'),200,20000,22213,3.0);
+COMMIT;
+-- 회계전표 생성[매출채권 계정, 부가세 예수금 계정, 상품매출 계정]
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071806,SYSDATE,22000,25451,54101);
+INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071806,211017071302,500011020000);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071807,SYSDATE,2000,25451,54101);
+INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071807,211017071302,500012020000);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071808,SYSDATE,20000,25451,54101);
+INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071808,211017071302,500011060000);
+COMMIT;
+-- 회계팀 전표승인
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071806;
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071807;
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071808;
+COMMIT;
+-- 판매전표승인완료 [상품매출 연결된 오더는 출고요청으로 변경]
+UPDATE SALES_ORDER SET SALES_STATE = 22214 WHERE SALES_ID = 211017071302 AND ACCOUNT_ID = 500011020000;
+UPDATE SALES_ORDER SET SALES_STATE = 22214 WHERE SALES_ID = 211017071302 AND ACCOUNT_ID = 500012020000;
+UPDATE SALES_ORDER SET SALES_STATE = 22222 WHERE SALES_ID = 211017071302 AND ACCOUNT_ID = 500011060000;
+COMMIT;
+-- 물류 출고요청 전표 생성
+INSERT INTO STOCK_ORDER(STOCK_ORDER_ID,STOCK_ORDER_TYPE,PRODUCT_ID,WAREHOUSE_ID,EMPLOYEE_ID,REG_DATE,UPDATE_DATE,STOCK_STATE) VALUES(475017071802,211017071301,1200000002,1001,4001,SYSDATE,SYSDATE,24201);
+INSERT INTO STORAGE_OUT_ORDER(STOCK_ORDER_ID,COUNT_SALES,AVAILABLE_STOCK,LACK_STOCK,STORAGE_OUT_DATE) VALUES(475017071802,200,100,100,to_date('07/12/2017', 'mm-dd-yyyy'));
+-- 구매요청 [재고 부족 확인시 LACK_STOCK > 0]
+UPDATE STOCK_ORDER SET STOCK_STATE = 24753 WHERE STOCK_ORDER_ID = 475017071802;
+COMMIT;
+--출고대기창고에 요청수량 입고 처리
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT - 100 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 1001;
+INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) VALUES(1200000002,3001,100);
+COMMIT;
+--재고준비중 [출고대기창고에 요청수량 중 일부만 입고된 경우]
+UPDATE STOCK_ORDER SET STOCK_STATE = 24203 WHERE STOCK_ORDER_ID = 475017071802;
+COMMIT;
+-- 구매전표승인요청 [구매주문생성]
+INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('311017071301','500012010000','200017071301','1200000002','1100000002',3001,SYSDATE,SYSDATE,SYSDATE,100,11000,23202,3.0);
+INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('311017071301','500011030000','200017071202','1200000002','1100000002',3001,SYSDATE,SYSDATE,SYSDATE,100,1000,23202,3.0);
+INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('311017071301','500011050000','200017071103','1200000002','1100000002',3001,SYSDATE,SYSDATE,SYSDATE,100,10000,23202,3.0);
 commit;
+-- 회계전표 생성[매입채무 계정, 부가세 대급금 계정, 상품매입 계정]
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071809,SYSDATE,11000,25451,54102);
+INSERT INTO PURCHASE_STATEMENT(STATEMENT_ID,PURCHASE_ID,ACCOUNT_ID) VALUES(547017071809,311017071301,500012010000);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071810,SYSDATE,1000,25451,54102);
+INSERT INTO PURCHASE_STATEMENT(STATEMENT_ID,PURCHASE_ID,ACCOUNT_ID) VALUES(547017071810,311017071301,500011030000);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071811,SYSDATE,10000,25451,54102);
+INSERT INTO PURCHASE_STATEMENT(STATEMENT_ID,PURCHASE_ID,ACCOUNT_ID) VALUES(547017071811,311017071301,500011050000);
+COMMIT;
+-- 회계팀 전표승인
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071809;
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071810;
+UPDATE STATEMENT SET APPROVAL_STATE = 25452 WHERE STATEMENT_ID = 547017071811;
+COMMIT;
+-- 구매전표승인완료 [상품매입 연결된 오더는 입고요청으로 변경]
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23203 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500012010000;
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23203 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500011030000;
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23204 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500011050000;
+COMMIT;
+-- 물류 입고요청 전표 생성
+INSERT INTO STOCK_ORDER(STOCK_ORDER_ID,STOCK_ORDER_TYPE,PRODUCT_ID,WAREHOUSE_ID,EMPLOYEE_ID,REG_DATE,UPDATE_DATE,STOCK_STATE) VALUES(475017071803,311017071301,1200000002,1001,4001,SYSDATE,SYSDATE,24101);
+INSERT INTO STORAGE_IN_ORDER(STOCK_ORDER_ID,COUNT_PURCHASE,STORAGE_IN_DATE) VALUES(475017071803,100,SYSDATE);
+COMMIT;
+-- 입고완료 처리
+UPDATE STOCK_ORDER SET STOCK_STATE = 24102 WHERE STOCK_ORDER_ID = 475017071803;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT + 100 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 1001;
+--구매입고완료 [입고 완료된 상태를 구매주문 전표에 업데이트]
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23205 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500011050000;
+COMMIT;
+-- 지급대기
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23206 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500012010000;
+-- 지급완료
+INSERT INTO PURCHASE_ORDER (PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE, CONDITION_NOTE_PAYABLE) VALUES ('311017071301','500011010000','200017071301','1200000002','1100000002',3001,SYSDATE,SYSDATE,SYSDATE,100,11000,23207,3.0);
+UPDATE PURCHASE_ORDER SET PURCHASE_STATE = 23207 WHERE PURCHASE_ID = 311017071301 AND ACCOUNT_ID = 500012010000;
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071812,SYSDATE,-11000,25451,54105);
+INSERT INTO PURCHASE_STATEMENT(STATEMENT_ID,PURCHASE_ID,ACCOUNT_ID) VALUES(547017071812,311017071301,500012010000);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071813,SYSDATE,-11000,25451,54105);
+INSERT INTO PURCHASE_STATEMENT(STATEMENT_ID,PURCHASE_ID,ACCOUNT_ID) VALUES(547017071813,311017071301,500011010000);
+COMMIT;
+-- 출고대기 
+UPDATE STOCK_ORDER SET STOCK_STATE = 24202 WHERE STOCK_ORDER_ID = 475017071803;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT - 100 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 1001;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT + 100 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 3001;
+COMMIT;
+-- 출고완료 처리
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = STOCK_AMOUNT - 200 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 3001;
+UPDATE STOCK_ORDER SET STOCK_STATE = 24752 WHERE STOCK_ORDER_ID = 475017071802;
+COMMIT;
+--영업출고완료 [출고 완료된 상태를 영업주문 전표에 업데이트]
+UPDATE SALES_ORDER SET SALES_STATE = 22223 WHERE SALES_ID = 211017071302 AND ACCOUNT_ID = 500011060000;
+COMMIT;
+--수금대기 [수금일로 부터 지정한 기간만큼 남은 시점에 상태 변경]
+UPDATE SALES_ORDER SET SALES_STATE = 22411 WHERE SALES_ID = 211017071302 AND ACCOUNT_ID = 500011020000;
+COMMIT;
+--수금완료 [수금처리를 완료하여 매출채권 계정을 감하고 현금 계정을 가합니다. 회계전표처리:매출채권-,현금+]
+INSERT INTO SALES_ORDER (SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, SALES_STATE, CONDITION_NOTE_RECEIVABLE) VALUES ('211017071302','500011010000','300017071801','1200000002','1100000002',2001,SYSDATE,SYSDATE,SYSDATE,200,22000,22412,3.0);
+UPDATE SALES_ORDER SET SALES_STATE = 22412 WHERE SALES_ID = 211017071302 AND ACCOUNT_ID = 500011020000;
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071814,SYSDATE,-22000,25451,54104);
+INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071814,211017071302,500011020000);
+INSERT INTO STATEMENT(STATEMENT_ID,REG_DATE,ACCOUNT_VALUE,APPROVAL_STATE,STATEMENT_TYPE) VALUES(547017071815,SYSDATE,22000,25451,54104);
+INSERT INTO SALES_STATEMENT(STATEMENT_ID,SALES_ID,ACCOUNT_ID) VALUES(547017071815,211017071302,500011010000);
+COMMIT;
+--------------------------------------------------------------------------------
+-- 급여 지급 절차 시뮬레이션 (모듈연결 위주로)
+--------------------------------------------------------------------------------
+
 
 Insert into MYRP.SALARY_REGISTER (SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE) values ('645017071301','500014010000',to_date('17/07/14','RR/MM/DD'),'급여대장명 01',to_date('17/08/13','RR/MM/DD'),5000000,1793,26451);
 Insert into MYRP.SALARY_REGISTER (SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE) values ('645017071202','500014010000',to_date('17/07/13','RR/MM/DD'),'급여대장명 02',to_date('17/08/12','RR/MM/DD'),-5000000,5303,26452);
 COMMIT;
 --------------------------------------------------------------------------------
--- 테이블 변경사항 2017-07-18 (상기 테이블들은 변경사항 적용상태로 수정됨)
+-- 테이블 변경사항 2017-07-17 (상기 테이블들은 변경사항 적용상태로 수정됨)
 --------------------------------------------------------------------------------
 ALTER TABLE account DROP COLUMN order_id;
 ALTER TABLE warehouse_information MODIFY warehouse_name VARCHAR(255);
@@ -782,10 +759,6 @@ ALTER TABLE statement DROP CONSTRAINT statement_FK2;
 ALTER TABLE statement DROP CONSTRAINT statement_FK3;
 ALTER TABLE statement DROP COLUMN connected_id;
 ALTER TABLE statement DROP COLUMN account_id;
-
-ALTER TABLE sales_order DROP CONSTRAINT SALES_ORDER_FK2;
-ALTER TABLE purchase_order DROP CONSTRAINT PURCHASE_ORDER_FK2;
-ALTER TABLE stock_order DROP CONSTRAINT STOCK_ORDER_FK1;
 
 CREATE TABLE tax_statement (
     statement_id    CHAR(12)    PRIMARY KEY,
@@ -820,3 +793,9 @@ CREATE TABLE salary_register_statement (
 
 CREATE SEQUENCE purchase_seq
 START WITH 1 INCREMENT BY 1 MAXVALUE 99999;
+--------------------------------------------------------------------------------
+-- 테이블 변경사항 2017-07-18 (상기 테이블들은 변경사항 적용상태로 수정됨)
+--------------------------------------------------------------------------------
+ALTER TABLE sales_order DROP CONSTRAINT SALES_ORDER_FK2;
+ALTER TABLE purchase_order DROP CONSTRAINT PURCHASE_ORDER_FK2;
+ALTER TABLE stock_order DROP CONSTRAINT STOCK_ORDER_FK1;

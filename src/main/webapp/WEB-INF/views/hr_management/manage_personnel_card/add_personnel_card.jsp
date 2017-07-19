@@ -29,6 +29,34 @@
 			document.add_personnel_card_form1.hr_code_id.focus();
 			return false;
 		}
+		
+		var reg_name = /^[가-힣]{2,5}$/; //이름 유효성검사
+		var employee_name = document.add_personnel_card_form1.employee_name;
+		var result_name = reg_name.test(employee_name.value);
+		if(!result_name) {
+			alert("이릅은 2~5자의 한글로 입력해야 합니다.");
+			employee_name.value = "";
+			employee_name.focus();
+			return false;
+		}
+		
+		var reg_sId1 = /^\d{6}$/; //주민번호 유효성 검사
+		var reg_sId2 = /^(1|2|3|4)\d{6}$/;
+		var residence_reg_no1 = document.add_personnel_card_form1.residence_reg_no1;
+		var residence_reg_no2 = document.add_personnel_card_form1.residence_reg_no2;
+		var result_sId1 = reg_sId1.test(residence_reg_no1.value);
+		var result_sId2 = reg_sId2.test(residence_reg_no2.value);
+		if(!result_sId1) {
+			alert("생년월일이 잘못입력되었습니다.")
+			residence_reg_no1.value= "";
+			residence_reg_no1.focus();
+			return false;
+		} else if(!result_sId2) {
+			alert("7자리의 값을 정확하게 입력해야 합니다.");
+			residence_reg_no2.value = "";
+			residence_reg_no2.focus();
+			return false;
+		}
 	}
 	
 	function check_dup() {
