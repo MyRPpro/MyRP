@@ -8,6 +8,7 @@ import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
 import com.pro.myrp.domain.hr_management.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
@@ -177,4 +178,28 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int insert_employee_info(Employee_infoVO vo2);
+
+	/**
+	 * 사번으로 인사카드 정보 검색
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
+	public Personnel_cardDTO select_personnel_card(int employee_id);
+
+	/**
+	 * 인사카드 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_employee(EmployeeVO vo);
+
+	/**
+	 * 인사카드 정보 수정
+	 * @author amaco78
+	 * @param vo2
+	 * @return
+	 */
+	public int update_employee_info(Employee_infoVO vo2);
 }

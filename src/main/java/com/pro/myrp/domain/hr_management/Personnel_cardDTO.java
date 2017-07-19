@@ -2,6 +2,16 @@ package com.pro.myrp.domain.hr_management;
 
 import java.sql.Date;
 
+/**
+ * 인사카드DTO<br>
+ * hr_code_group (hr_code_group_id)
+ * hr_code (hr_code_group_id,hr_code_id)<br>
+ * dept (dept_id)<br>
+ * employee (employee_id)<br>
+ * employee_info (employee_id)<br>
+ * @author amaco78
+ *
+ */
 public class Personnel_cardDTO {
 
 	private int employee_id;
