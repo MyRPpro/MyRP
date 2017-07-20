@@ -37,7 +37,8 @@ public interface CodeMyRP {
 			// 판매입력
 			public static final int input_sales = 12200;
 				public static final int reg_sales = 12210;			//판매 입력
-				public static final int reg_sales_pro = 12220;		//판매 입력 처리
+				public static final int reg_sales_table = 12220;	//판매 입력 처리
+				
 			// 판매 현황
 			public static final int staus_sales = 12300;			
 				public static final int search_status_sales = 12310;//편매현황 검색

@@ -1,6 +1,5 @@
 package com.pro.myrp.service.purchase;
 
-import java.io.Console;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -404,7 +403,6 @@ public class purchaseServiceImpl implements purchaseService {
 		
 	
 	}
-
 	
 	@Override
 	public void reg_purchase_table(Model model) {

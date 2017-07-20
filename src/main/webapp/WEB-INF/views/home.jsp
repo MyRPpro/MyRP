@@ -20,17 +20,21 @@
 
 <h3>판매 관리</h3>
 <a href="/sales_management/search_sales/sales_list">판매검색-판매 리스트</a><br>
-<a href="sales_management/search_sales/detail_sales?company_id=1100000001&sales_id=211017071301">판매검색-판매 리스트-세부 페이지</a><br>
+<a href="/sales_management/search_sales/detail_sales?sales_id=311017072113$&sales_state=22211">판매검색-판매 리스트-세부 페이지</a><br>
+<a href="/sales_management/search_sales/modify_sales?sales_id=311017072113$&sales_state=22211">판매검색-판매 리스트-수정 페이지</a><br>
+<a href="/sales_management/search_sales/sales_list">판매검색-판매 리스트-검색 페이지</a><br>
+<a href="/sales_management/input_sales/reg_sales">판매입력</a><br>
 <hr>
 
+
 <h3>구매 관리</h3>
-<a href="purchase_management/search_purchase/purchase_list">구매검색-구매 리스트</a><br>
-<a href="purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-세부 페이지</a><br>
-<a href="purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-수정 페이지</a><br>
-<a href="purchase_management/search_purchase/purchase_list">구매검색-구매 리스트-검색 페이지</a><br>
-<a href="purchase_management/input_purchase/reg_purchase">구매입력</a><br>
-<a href="purchase_management/">구매현황</a><br>
-<a href="purchase_management/">거래처별 채무</a><br>
+<a href="/purchase_management/search_purchase/purchase_list">구매검색-구매 리스트</a><br>
+<a href="/purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-세부 페이지</a><br>
+<a href="/purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-수정 페이지</a><br>
+<a href="/purchase_management/search_purchase/purchase_list">구매검색-구매 리스트-검색 페이지</a><br>
+<a href="/purchase_management/input_purchase/reg_purchase">구매입력</a><br>
+<a href="/purchase_management/">구매현황</a><br>
+<a href="/purchase_management/">거래처별 채무</a><br>
 <hr>
 
 <h3>물류 관리</h3>

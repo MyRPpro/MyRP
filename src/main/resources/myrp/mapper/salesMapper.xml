@@ -4,9 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.pro.myrp.persistence.sales.SalesDAO">
- 
- 
-	
+
  
  		
  	<!-- 판매 바로 검색 개수 -->
@@ -160,7 +158,7 @@
 		                )
 		       	 )
 		WHERE 	rNum >= #{start} AND rNUM <= #{end}
-		ORDER BY SALES_ID DESC, COMPANY_NAME ASC
+		ORDER BY SALES_ID ASC, ACCOUNT_ID ASC 
  		]]>
  	</select>
 	
@@ -310,7 +308,148 @@
 		SELECT EMPLOYEE_ID, EMPLOYEE_NAME FROM EMPLOYEE
 	</select>	 	
  	
- 
- 
- 
+ 	
+ 	
+ 	
+
+ 	
+ 	<!-- 상품 테이블 목록 불러오기 -->
+ 	<select id="select_product_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	PRODUCT_ID, PRODUCT_NAME
+		FROM 	PRODUCT
+		]]>
+ 	</select>
+ 	
+ 	<!-- 거래처 테이블 목록 불러오기 -->
+ 	<select id="select_company_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	COMPANY_ID, COMPANY_NAME
+		FROM 	COMPANY
+		]]>
+ 	</select>
+ 	
+ 	<!-- 사원 테이블 목록 불러오기 -->
+ 	<select id="select_employee_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
+		FROM 	EMPLOYEE
+		]]>
+ 	</select>
+ 	
+ 	<!-- 오더 테이블 목록 불러오기 -->
+ 	<select id="select_account_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID, ACCOUNT_NAME
+		FROM 	ACCOUNT
+		]]>
+ 	</select>
+ 	
+	<!-- sales_ID 불러오기 -->
+ 	<select id="select_sales_id" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	2110||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
+      			||LPAD(SALES_SEQ.NEXTVAL,2,0)
+ 		FROM 	DUAL
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- STATEMENT_ID 불러오기 -->
+ 	<select id="select_statement_id" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	5000||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
+      			||LPAD(STATEMENT_SEQ.NEXTVAL,2,0)
+ 		FROM 	DUAL
+ 		]]>
+ 	</select>
+
+
+ 	
+ 	<!-- 구매 입력  -->
+ 	<insert id="insert_reg_sales" parameterType="salesDTO">
+ 		
+ 		INSERT INTO SALES_ORDER (	
+				SALES_ID, ORDER_ID, ACCOUNT_ID, 
+			    PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID,
+			    REG_DATE, UPDATE_DATE,  STORAGE_OUT_DATE,
+			    COUNT_SALES, SELLING_PRICE, SALES_STATE,
+			    CONDITION_NOTE_RECEIVABLE)
+		VALUES ( 
+				#{sales_id},  
+			    0,
+			    #{account_id}, 
+			    #{product_id}, 
+			    #{company_id}, 
+			    #{employee_id}, 
+			    #{reg_date}, 
+			    SYSDATE, 
+			    #{storage_out_date}, 
+			    #{count_sales}, 
+			    #{selling_price}, 
+			    22212, 
+			    #{condition_note_receivable} 
+			   )
+		
+ 	</insert>
+ 	
+ 	<insert id="insert_reg_sales_statement" parameterType="salesDTO">
+ 		
+		INSERT INTO SALES_STATEMENT
+      			  ( STATEMENT_ID, sales_ID, ACCOUNT_ID )
+		VALUES
+			      ( #{statement_id},	
+			       #{sales_id},
+			       #{account_id} 	
+			      )
+	
+ 	</insert>
+ 	
+ 	<!-- STATEMENT_ID 불러오기 -->
+ 	<select id="select_sales_order" parameterType="String" resultType="salesDTO">
+ 		<![CDATA[
+		SELECT  *
+		FROM    ( 
+		        SELECT
+		        sales_ID, 
+		        NVL( DECODE
+		            ( ACCOUNT_ID,
+		               '500011060000','상품매출',
+		              '500012020000','부가세예수금',
+		              '500011020000','매출채권' )
+		              ,'입력값 오류' ) as ACCOUNT_NAME,
+		        ORDER_ID,
+		        NVL(( 
+		          SELECT  PRODUCT_NAME
+		          FROM    PRODUCT
+		          WHERE   PO.PRODUCT_ID = PRODUCT.PRODUCT_ID )
+		         ,'입력값 오류' ) AS PRODUCT_NAME,
+		        NVL(( 
+		          SELECT  COMPANY_NAME
+		          FROM    COMPANY
+		          WHERE   PO.COMPANY_ID = COMPANY.COMPANY_ID )
+		         ,'입력값 오류' ) AS COMPANY_NAME,
+		        NVL(( 
+		          SELECT  EMPLOYEE_NAME
+		          FROM    EMPLOYEE
+		          WHERE   PO.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID )
+		         ,'입력값 오류' ) AS EMPLOYEE_NAME,
+		        REG_DATE, UPDATE_DATE, 
+		        storage_out_date, count_sales,
+		        selling_price, 
+		        sales_state,
+		        NVL(( 
+		          SELECT  KOR_NAME
+		          FROM    STATE ST
+		          WHERE   PO.sales_state = ST.CODE )
+		         ,'입력값 오류' ) AS STATE_NAME ,
+		        condition_note_receivable,
+		        ROWNUM rnum
+		        FROM sales_ORDER PO 
+		        WHERE   PO.sales_ID = #{sales_id}
+			     )
+		ORDER 	BY rnum
+		]]>
+ 	</select>
+ 	
 </mapper>

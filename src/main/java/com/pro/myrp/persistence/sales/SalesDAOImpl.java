@@ -1,6 +1,7 @@
 package com.pro.myrp.persistence.sales;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.pro.myrp.domain.sales_management.ModifySelectDTO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
-import com.pro.myrp.domain.sales_management.SalesVO;
 
 @Repository
 public class SalesDAOImpl implements SalesDAO {
@@ -86,6 +86,74 @@ public class SalesDAOImpl implements SalesDAO {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_employee();
 	}
+
+
+	
+	
+	
+	
+	@Override
+	public ArrayList<SalesDTO> select_product_ids() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_product_ids();
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_company_ids() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_company_ids();
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_employee_ids() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_employee_ids();
+	}
+
+
+	@Override
+	public int insert_reg_sales(SalesDTO dto) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.insert_reg_sales(dto);
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_account_ids() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_ids();
+	}
+
+
+	@Override
+	public int insert_reg_sales_statement(SalesDTO dto) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.insert_reg_sales_statement(dto);
+	}
+
+
+	@Override
+	public String select_sales_id() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_sales_id();
+	}
+
+
+	@Override
+	public String select_statement_id() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_statement_id();
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_sales_order(String product_id) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_sales_order(product_id);
+	}
+	
 
 	
 	

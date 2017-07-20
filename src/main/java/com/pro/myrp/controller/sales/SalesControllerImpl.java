@@ -28,7 +28,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		return code.c(sales_management,search_sales,sales_list);
 	}
 	
-	
 	@Override
 	@GetMapping(value="search_sales/sales_list_table")
 	public String sales_list_table(HttpServletRequest req, Model model) throws Exception {
@@ -38,7 +37,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		return code.c(sales_management,search_sales,sales_list_table);
 	}
 
-
 	@Override
 	@GetMapping(value="search_sales/sales_list_page")
 	public String sales_list_page(HttpServletRequest req, Model model) throws Exception {
@@ -47,7 +45,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		service.sales_list_servie(model);
 		return code.c(sales_management,search_sales,sales_list_page);
 	}
-
 	
 	@Override
 	@GetMapping(value="search_sales/detail_sales")
@@ -74,6 +71,26 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		model.addAttribute("req", req);
 		service.modify_sales_pro_service(model);
 		return code.c(sales_management, search_sales, modify_sales_pro);
+	}
+	
+	
+	@Override
+	@GetMapping(value="input_sales/reg_sales")
+	public String reg_sales(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_sales));
+		model.addAttribute("req",req);
+		service.reg_sales_service(model);
+		return code.c(sales_management , input_sales , reg_sales);
+	}
+	
+	@Override
+	@GetMapping(value="input_sales/reg_sales_table")
+	public String reg_sales_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_sales_table));
+		model.addAttribute("req",req);
+		service.reg_sales_table(model);
+		return code.c(sales_management, input_sales, reg_sales_table);
+	
 	}
 
 

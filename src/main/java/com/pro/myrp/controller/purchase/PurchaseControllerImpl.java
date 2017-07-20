@@ -70,7 +70,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	}
 
 	
-	
 	@Override
 	@GetMapping(value="input_purchase/reg_purchase")
 	public String reg_purchase(HttpServletRequest req, Model model) throws Exception {
@@ -91,7 +90,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	}
 	
 	
-	
 	@Override
 	@GetMapping(value="status_purchase/search_status_purchase")
 	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception {
@@ -99,19 +97,7 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		model.addAttribute("req", req);
 		return code.c(purchase_management, staus_purchase, search_status_purchase);
 	}
-
-
-	
-
-
-	
-	
-	
-
-
-	
 	
 }
-
 
 

@@ -15,16 +15,13 @@ public interface SalesService extends MyRPService {
 	public void detail_sales_service(Model model);
 	
 	public void modify_sales_pro_service(Model model);
+
 	
 	
-	
-	
-	/*
 	public void reg_sales_service(Model model);
-	
+
 	public void reg_sales_service_pro(Model model);
 
 	public void reg_sales_table(Model model);
-	*/
-	
+
 }

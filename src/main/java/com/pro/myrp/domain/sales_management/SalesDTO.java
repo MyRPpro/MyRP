@@ -194,17 +194,6 @@ public class SalesDTO {
 		this.state_name = state_name;
 	}
 
-	@Override
-	public String toString() {
-		return "SalesDTO [sales_id=" + sales_id + ", account_id=" + account_id + ", order_id=" + order_id
-				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
-				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_out_date=" + storage_out_date
-				+ ", count_sales=" + count_sales + ", selling_price=" + selling_price + ", condition_note_receivable="
-				+ condition_note_receivable + ", sales_state=" + sales_state + ", company_name=" + company_name
-				+ ", employee_name=" + employee_name + ", account_name=" + account_name + ", statement_id="
-				+ statement_id + ", rnum=" + rnum + ", state_name=" + state_name + "]";
-	}
-
 
 
 	public String getProduct_name() {
@@ -215,6 +204,19 @@ public class SalesDTO {
 		this.product_name = product_name;
 	}
 
+	@Override
+	public String toString() {
+		return "SalesDTO [sales_id=" + sales_id + ", account_id=" + account_id + ", order_id=" + order_id
+				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
+				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_out_date=" + storage_out_date
+				+ ", count_sales=" + count_sales + ", selling_price=" + selling_price + ", condition_note_receivable="
+				+ condition_note_receivable + ", sales_state=" + sales_state + ", account_name=" + account_name
+				+ ", product_name=" + product_name + ", company_name=" + company_name + ", employee_name="
+				+ employee_name + ", statement_id=" + statement_id + ", state_name=" + state_name + ", rnum=" + rnum
+				+ "]";
+	}
+
+	
 
 	
 	
