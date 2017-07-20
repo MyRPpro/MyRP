@@ -19,8 +19,8 @@
 <hr>
 
 <h3>판매 관리</h3>
-<a href="/sales_management/sales_list">판매검색-판매 리스트</a><br>
-<a href="sales_management/detail_sales?company_id=1000000020">판매검색-판매 리스트-리스트 세부 페이지</a><br>
+<a href="/sales_management/search_sales/sales_list">판매검색-판매 리스트</a><br>
+<a href="sales_management/search_sales/detail_sales?company_id=1100000001&sales_id=211017071301">판매검색-판매 리스트-세부 페이지</a><br>
 <hr>
 
 <h3>구매 관리</h3>

@@ -1,6 +1,7 @@
 package com.pro.myrp.persistence.purchase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.pro.myrp.domain.PurchaseVO;
@@ -37,7 +38,5 @@ public interface purchaseDAO extends MyRPDAO {
 	public String select_statement_id();
 
 	public List<PurchaseVO> select_purchase_order(String product_id);
-
-
 
 }
