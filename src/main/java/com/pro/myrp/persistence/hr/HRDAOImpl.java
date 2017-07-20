@@ -222,4 +222,10 @@ public class HRDAOImpl implements HRDAO {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.update_employee_appoint(daoMap);
 	}
+
+	@Override
+	public List<Hr_appointment_listDTO> select_appointment(int employee_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_appointment(employee_id);
+	}
 }

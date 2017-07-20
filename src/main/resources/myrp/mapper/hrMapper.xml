@@ -435,4 +435,20 @@
 		WHERE	employee_id = #{employee_id}
 		]]>
 	</update>
+	
+	<!-- 선택된 사원의 인사발령정보 목록 보기 -->
+	<select id="select_appointment" parameterType="int"
+	resultType="Hr_appointment_listDTO">
+		<![CDATA[
+		SELECT	PA.employee_id,E.employee_name,PA.appointment_date,
+				PA.hr_code_group_rank,PA.pre_rank,PA.post_rank,
+				PA.pre_dept,PA.post_dept
+		FROM	personnel_appointment PA , employee E
+		WHERE	PA.employee_id = E.employee_id	
+		AND		E.employee_id =		(SELECT	employee_id
+									FROM	employee
+									WHERE	employee_id = #{employee_id}
+									)
+		]]>
+	</select>
 </mapper>

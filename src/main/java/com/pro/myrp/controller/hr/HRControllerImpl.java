@@ -2,6 +2,7 @@ package com.pro.myrp.controller.hr;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -358,14 +359,11 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	public ResponseEntity<List<EmployeeVO>> select_dept(@PathVariable("dept_id") int dept_id) {
 		ResponseEntity<List<EmployeeVO>> entity = null;
 		try {
-			System.out.println("entity service start");
 			entity = new ResponseEntity<>(service.select_dept_service(dept_id),HttpStatus.OK);			
-			System.out.println("entity service end");
 		} catch(Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		System.out.println("entity return");
 		return entity;
 	}
 
@@ -386,4 +384,16 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.add_hr_appointment_pro_service(model);
 		return code.c(hr_management, manage_hr_appointment, add_hr_appointment_pro);
 	}
+
+	
+	@Override
+	@GetMapping(value="manage_hr_appointment/personnel_card_appointment")
+	public String personnel_card_appointment(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_appointment));
+		model.addAttribute("req", req);
+		service.personnel_card_appointment_service(model);
+		return code.c(hr_management, manage_hr_appointment, personnel_card_appointment);
+	}
+
+	
 }

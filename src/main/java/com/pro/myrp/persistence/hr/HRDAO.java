@@ -276,4 +276,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_employee_appoint(Map<String, Object> daoMap);
+
+	/**
+	 * 해당 사원으 인사발령 목록 조회
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
+	public List<Hr_appointment_listDTO> select_appointment(int employee_id);
 }

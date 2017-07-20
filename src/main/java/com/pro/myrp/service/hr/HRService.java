@@ -1,5 +1,6 @@
 package com.pro.myrp.service.hr;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.ui.Model;
@@ -281,4 +282,12 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void add_hr_appointment_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사카드 인사발령정보 보기 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void personnel_card_appointment_service(Model model) throws Exception;
 }

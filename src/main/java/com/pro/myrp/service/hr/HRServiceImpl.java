@@ -1,5 +1,6 @@
 package com.pro.myrp.service.hr;
 
+import java.io.Console;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -536,7 +537,7 @@ public class HRServiceImpl implements HRService {
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
 		Personnel_cardDTO dto = new Personnel_cardDTO();
 		dto = dao.select_personnel_card(employee_id);
-		System.out.println(dto);
+		model.addAttribute("employee_id", dto.getEmployee_id());
 		model.addAttribute("personnel_cardDto", dto);
 	}
 
@@ -734,9 +735,14 @@ public class HRServiceImpl implements HRService {
 		model.addAttribute("dept_name", dept_name);
 		model.addAttribute("employeeVo", vo);
 		
-		Date appointment_date = dao.select_appointment_date(vo.getEmployee_id());
-		model.addAttribute("appointment_date", appointment_date);
 		
+		Date appointment_date = dao.select_appointment_date(vo.getEmployee_id());
+		String last_date = "2000-01-01";
+		if(appointment_date != null) {
+			last_date = appointment_date.toString();			
+		}
+		model.addAttribute("appointment_date", appointment_date);
+		model.addAttribute("last_date", last_date);
 		String use_state = "Y";
 		List<DeptVO> deptVos = dao.select_used_dept_list(use_state);
 		model.addAttribute("deptVos", deptVos);
@@ -761,22 +767,55 @@ public class HRServiceImpl implements HRService {
 		int pre_dept = Integer.parseInt(req.getParameter("pre_dept"));
 		int post_dept = Integer.parseInt(req.getParameter("post_dept"));
 		
-		Map<String, Object> daoMap = new HashMap<>();
-		daoMap.put("employee_id", employee_id);
-		daoMap.put("dept_id", post_dept);
-		daoMap.put("rank_code", post_rank);
-		int cnt = dao.update_employee_appoint(daoMap);
+
+		
+		Personnel_appointmentVO vo = new Personnel_appointmentVO();
+		vo.setEmployee_id(employee_id);
+		vo.setAppointment_date(appointment_date);
+		vo.setHr_code_group_rank(hr_code_group_rank);
+		vo.setPre_rank(pre_rank);
+		vo.setPost_rank(post_rank);
+		vo.setPre_dept(pre_dept);
+		vo.setPost_dept(post_dept);
+		int cnt = dao.insert_personnel_appointment(vo);
 		if(cnt == 1) {
-			Personnel_appointmentVO vo = new Personnel_appointmentVO();
-			vo.setEmployee_id(employee_id);
-			vo.setAppointment_date(appointment_date);
-			vo.setHr_code_group_rank(hr_code_group_rank);
-			vo.setPre_rank(pre_rank);
-			vo.setPost_rank(post_rank);
-			vo.setPre_dept(pre_dept);
-			vo.setPost_dept(post_dept);
-			cnt = dao.insert_personnel_appointment(vo);
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("employee_id", employee_id);
+			daoMap.put("dept_id", post_dept);
+			daoMap.put("rank_code", post_rank);
+			cnt = dao.update_employee_appoint(daoMap);
 			model.addAttribute("cnt", cnt);
 		}
 	}
+
+	@Override
+	public void personnel_card_appointment_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		List<Hr_appointment_listDTO> dtos = dao.select_appointment(employee_id);
+		for(int i=0; i<dtos.size(); i++) {
+			Hr_appointment_listDTO dto = dtos.get(i);
+		
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("hr_code_group_id", dto.getHr_code_group_rank());
+			daoMap.put("hr_code_id", dto.getPre_rank());
+			String pre_rank_name = dao.select_hr_code_name(daoMap);
+			daoMap.clear();
+			daoMap.put("hr_code_group_id", dto.getHr_code_group_rank());
+			daoMap.put("hr_code_id", dto.getPost_rank());
+			String post_rank_name = dao.select_hr_code_name(daoMap);
+			
+			String pre_dept_name = dao.select_dept_name(dto.getPre_dept());
+			String post_dept_name = dao.select_dept_name(dto.getPost_dept());
+			dto.setPre_rank_name(pre_rank_name);
+			dto.setPost_rank_name(post_rank_name);
+			dto.setPre_dept_name(pre_dept_name);
+			dto.setPost_dept_name(post_dept_name);
+		}
+		model.addAttribute("employee_id", employee_id);
+		model.addAttribute("dtos", dtos);
+	}
+
+	
 }

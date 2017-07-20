@@ -1,5 +1,6 @@
 package com.pro.myrp.controller.hr;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -362,6 +363,16 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String add_hr_appointment_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사카드 인사발령 이력보기
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_appointment(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 인사관리 > 근태 관리 > 출결달력 검색

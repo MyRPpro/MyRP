@@ -29,6 +29,18 @@
 </script>
 <body>
 modify_personnel_card.jsp
+<table border="1">
+	<tr>
+		<th>
+			<input type="button" value="HOME"
+			onclick="window.location='/';">
+			<input type="button" value="INFO"
+			onclick="window.location='/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${employee_id}';">
+			<input type="button" value="APPOINT"
+			onclick="window.location='/hr_management/manage_hr_appointment/personnel_card_appointment?employee_id=${employee_id}';">
+		</th>
+	</tr>
+</table>
 <form action="/hr_management/manage_personnel_card/modify_personnel_card_pro"
 method="post" name="modify_personnel_card_form1"
 onsubmit="return validate_form();">
@@ -36,8 +48,11 @@ onsubmit="return validate_form();">
 	</div>
 	<table border="1">
 		<tr>
+			<th colspan="2">Personnel_cardDTO</th>
+		</tr>
+		<tr>
 			<th colspan="2" style="width:100px; height:130px;">
-				<img alt="사진 이미지" src="/resources/images/${personnel_cardDto.employee_id}.jpg"
+				<img alt="사진 이미지" src="/resources/images/${employee_id}.jpg"
 				width="100" height="125">
 			</th>
 		</tr>

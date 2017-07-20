@@ -26,8 +26,17 @@
 			alert("발령 부서를 선택하세요.");
 			post_dept.focus();
 			return false;
-		}	
+		}
+		var last_date = new Date("${last_date}");
+		last_date.setTime(last_date*1+1000*60*60*24);
+		var select_date = new Date(document.hr_appointment_regform1.appointment_date.value);
+		if(select_date < last_date) {
+			alert("마지막 발령일자 이후로만 선택이 가능합니다.");
+			document.hr_appointment_regform1.appointment_date.focus();
+			return false;
+		}
 	}
+
 </script>
 <body>
 hr_appointment_regform.jsp<br>
@@ -53,7 +62,7 @@ onsubmit="return fn_appointment_reg();">
 			<td>
 				<input type="date" name="appointment_date"
 				value="<fmt:formatDate value='${appointment_date}' pattern='yyyy-MM-dd'/>"
-				required onchange="fn_appointment_date_change();">
+				required>
 			</td>
 		</tr>
 		<tr>
