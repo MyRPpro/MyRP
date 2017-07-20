@@ -191,8 +191,12 @@ public interface CodeMyRP {
 				public static final int search_salary_history = 16560;
 			//인사발령 관리
 			public static final int manage_hr_appointment = 16600;
-				public static final int hr_appointment_list = 16610;
+				public static final int hr_appointment_search = 16610;
+				public static final int hr_appointment_list = 16611;
+				public static final int hr_appointment_nav = 16612;
 				public static final int add_hr_appointment = 16620;
+				public static final int hr_appointment_regform = 16621;
+				public static final int add_hr_appointment_pro = 16622;
 				public static final int personnel_card_appointment = 16630;
 			//퇴사자 관리
 			public static final int manage_retired_employee = 16700;

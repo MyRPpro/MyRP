@@ -5,7 +5,6 @@
  
 <mapper namespace="com.pro.myrp.persistence.hr.HRDAO">
 
-
  	<!-- 인사코드 그룹 목록보기 -->
  	<select id="select_hr_code_groups" resultType="Hr_code_groupVO">
  		<![CDATA[
@@ -63,10 +62,21 @@
 	</update>
 	
 	<!-- 선택된 번호의 인사코드 정보 검색 -->
-	<select id="select_hr_code" parameterType="int"
+	<select id="select_hr_code" parameterType="java.util.Map"
 	resultType="Hr_codeVO">
 		<![CDATA[
 		SELECT	*
+		FROM	hr_code
+		WHERE	hr_code_group_id = #{hr_code_group_id}
+		AND		hr_code_id = #{hr_code_id}
+		]]>
+	</select>
+	
+	<!-- 선택된 번호의 인사코드명 검색 -->
+	<select id="select_hr_code_name" parameterType="java.util.Map"
+	resultType="String">
+		<![CDATA[
+		SELECT	hr_code_name
 		FROM	hr_code
 		WHERE	hr_code_group_id = #{hr_code_group_id}
 		AND		hr_code_id = #{hr_code_id}
@@ -147,6 +157,16 @@
 		]]>
 	</select>
 	
+	<!-- 부서번호로 부서명 검색 -->
+	<select id="select_dept_name" parameterType="int"
+	resultType="String">
+		<![CDATA[
+		SELECT	dept_name
+		FROM	department
+		WHERE	dept_id = #{dept_id}
+		]]>
+	</select>
+	
 	<!-- 부서 등록 -->
 	<insert id="insert_dept" parameterType="DeptVO">
 		<![CDATA[
@@ -201,6 +221,24 @@
 		                )
 		        )
 		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 사원전체 목록 보기 -->
+	<select id="select_employees" resultType="EmployeeVO">
+		<![CDATA[
+		SELECT	*
+		FROM	employee
+		]]>
+	</select>
+	
+	<!-- 부서선택시 해당부서 근무 사원 보기 -->
+	<select id="select_employee_list_for_dept_id" parameterType="int"
+	resultType="EmployeeVO">
+		<![CDATA[
+		SELECT	*
+		FROM	employee
+		WHERE	dept_id = #{dept_id}
 		]]>
 	</select>
 	
@@ -323,4 +361,96 @@
 		WHERE	employee_id = #{employee_id}
 		]]>
 	</update>
+	
+	<!-- 검색어를 사용한 인사발령정보 숫자 검색 -->
+	<select id="select_appointment_cnt" parameterType="String"
+	resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	personnel_appointment
+		WHERE	employee_id IN	(SELECT	employee_id
+								FROM	employee
+								WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+								UNION
+								SELECT	employee_id
+								FROM	employee
+								WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'	
+								)
+		]]>
+	</select>
+	
+	<!-- 검색어를 사용한 인사발령정보 목록 -->
+	<select id="select_hr_appointment_list" parameterType="java.util.Map"
+	resultType="Hr_appointment_listDTO">
+		<![CDATA[
+		SELECT	*
+		FROM	(SELECT	employee_id,employee_name,appointment_date,
+						hr_code_group_rank,pre_rank,post_rank,
+						pre_dept,post_dept,rownum rNum
+				FROM	(SELECT	PA.employee_id,E.employee_name,PA.appointment_date,
+								PA.hr_code_group_rank,PA.pre_rank,PA.post_rank,
+								PA.pre_dept,PA.post_dept
+						FROM	personnel_appointment PA , employee E
+						WHERE	PA.employee_id = E.employee_id	
+						AND		E.employee_id IN	(SELECT	employee_id
+													FROM	employee
+													WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+													UNION
+													SELECT	employee_id
+													FROM	employee
+													WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'	
+													)
+						ORDER BY E.employee_name, PA.appointment_date DESC
+						)
+				)
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 인사발령 등록 -->
+	<insert id="insert_personnel_appointment"
+	parameterType="Personnel_appointmentVO">
+		<![CDATA[
+		INSERT	INTO	personnel_appointment(employee_id,appointment_date,hr_code_group_rank,pre_rank,post_rank,pre_dept,post_dept)
+		VALUES(#{employee_id},#{appointment_date},#{hr_code_group_rank},#{pre_rank},#{post_rank},#{pre_dept},#{post_dept})
+		]]>
+	</insert>
+	
+	<!-- 선택된 사원의 최종 발령일자 조회 -->
+	<select id="select_appointment_date" parameterType="int"
+	resultType="java.sql.Date">
+		<![CDATA[
+		SELECT	Max(appointment_date)
+		FROM	personnel_appointment
+		GROUP BY employee_id
+		HAVING	employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 인사발령정보 사원테이블 반영 -->
+	<update id="update_employee_appoint" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	employee
+		SET		dept_id = #{dept_id},
+				rank_code = #{rank_code}
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</update>
+	
+	<!-- 선택된 사원의 인사발령정보 목록 보기 -->
+	<select id="select_appointment" parameterType="int"
+	resultType="Hr_appointment_listDTO">
+		<![CDATA[
+		SELECT	PA.employee_id,E.employee_name,PA.appointment_date,
+				PA.hr_code_group_rank,PA.pre_rank,PA.post_rank,
+				PA.pre_dept,PA.post_dept
+		FROM	personnel_appointment PA , employee E
+		WHERE	PA.employee_id = E.employee_id	
+		AND		E.employee_id =		(SELECT	employee_id
+									FROM	employee
+									WHERE	employee_id = #{employee_id}
+									)
+		ORDER BY E.employee_name, PA.appointment_date DESC 
+		]]>
+	</select>
 </mapper>

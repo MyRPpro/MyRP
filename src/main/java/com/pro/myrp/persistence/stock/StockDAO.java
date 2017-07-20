@@ -28,7 +28,7 @@ public interface StockDAO extends MyRPDAO {
 	public ArrayList<stockpile_searchDTO> select_search_stockpile_search(Model model);
 
 	/**
-	 * 재고수불부 > 재고수불부 결과 페이지 > 재고수불부 결과 페이지 - 불량, 재고조정
+	 * 재고수불부 > 재고수불부 결과 페이지 > 재고수불부 결과 페이지
 	 * @author choidream
 	 * @param model
 	 * @return
@@ -41,22 +41,13 @@ public interface StockDAO extends MyRPDAO {
 	 * @param model
 	 * @return
 	 */
-	public ProductVO select_product_name(Model model);
+	public ArrayList<ProductVO> select_product_name(Model model);
 
 	/**
-	 * 재고수불부 > 재고수불부 결과 페이지 > 재고수불부 결과 페이지 - 구매
+	 * 재고수불부 > 재고수불부 결과 페이지 > 비교할 product_id
 	 * @author choidream
 	 * @param model
 	 * @return
 	 */
-	public ArrayList<select_stockpile_searchDTO> select_stockpile_search_purchase(Model model);
-
-	/**
-	 * 재고수불부 > 재고수불부 결과 페이지 > 재고수불부 결과 페이지 - 판매
-	 * @author choidream
-	 * @param model
-	 * @return
-	 */
-	public ArrayList<select_stockpile_searchDTO> select_stockpile_search_sales(Model model);
-
+	public ArrayList<ProductVO> select_product_id(Model model);
 }
