@@ -162,8 +162,7 @@ onsubmit="return validate_form();">
 			<td>
 				<c:set var="now" value="<%= new java.util.Date() %>"/>
 				<input type="date" name="join_date" 
-				value="<fmt:formatDate 
-						value='${now}' pattern='yyyy-MM-dd'/>" 
+				value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
 				required>
 			</td>
 		</tr>
