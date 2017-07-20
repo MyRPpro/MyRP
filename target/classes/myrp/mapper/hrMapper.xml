@@ -5,7 +5,6 @@
  
 <mapper namespace="com.pro.myrp.persistence.hr.HRDAO">
 
-
  	<!-- 인사코드 그룹 목록보기 -->
  	<select id="select_hr_code_groups" resultType="Hr_code_groupVO">
  		<![CDATA[
@@ -363,6 +362,7 @@
 		]]>
 	</update>
 	
+	<!-- 검색어를 사용한 인사발령정보 숫자 검색 -->
 	<select id="select_appointment_cnt" parameterType="String"
 	resultType="int">
 		<![CDATA[
@@ -379,6 +379,7 @@
 		]]>
 	</select>
 	
+	<!-- 검색어를 사용한 인사발령정보 목록 -->
 	<select id="select_hr_appointment_list" parameterType="java.util.Map"
 	resultType="Hr_appointment_listDTO">
 		<![CDATA[
@@ -449,6 +450,7 @@
 									FROM	employee
 									WHERE	employee_id = #{employee_id}
 									)
+		ORDER BY E.employee_name, PA.appointment_date DESC 
 		]]>
 	</select>
 </mapper>
