@@ -82,7 +82,6 @@ public class purchaseServiceImpl implements purchaseService {
 		end = start + pageSize - 1;
 		if(end > cnt) end = cnt;
 		number = cnt - (currentPage - 1) * pageSize;
-		System.out.println("  -> 테스트 : " + start+", "+end);
 		
 		
 		if(cnt > 0) {

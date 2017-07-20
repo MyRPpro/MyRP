@@ -1,8 +1,17 @@
-package com.pro.myrp.domain;
+package com.pro.myrp.domain.sales_management;
 
 import java.sql.Date;
 
-public class SalesVO {
+
+/**
+ * @author Jang.EC
+ *
+ */
+/**
+ * @author Jang.EC
+ *
+ */
+public class SalesDTO {
 
 	private String sales_id;
 	private String account_id;
@@ -14,15 +23,19 @@ public class SalesVO {
 	private Date update_date;
 	private Date storage_out_date;
 	private int count_sales;
-	private long selling_price;
+	private Long selling_price;
 	private int condition_note_receivable;
 	private int sales_state;
 	
+	
 	// 추가한 변수 들
-	private String company_name;
-	
-	
-	
+	private String account_name;
+	private String product_name;
+	private String company_name;	
+	private String employee_name;
+	private String statement_id;
+	private String state_name;
+	private int rnum;
 	
 	
 	
@@ -106,11 +119,11 @@ public class SalesVO {
 		this.count_sales = count_sales;
 	}
 
-	public long getSelling_price() {
+	public Long getSelling_price() {
 		return selling_price;
 	}
 
-	public void setSelling_price(long selling_price) {
+	public void setSelling_price(Long selling_price) {
 		this.selling_price = selling_price;
 	}
 
@@ -133,15 +146,6 @@ public class SalesVO {
 	
 
 
-	@Override
-	public String toString() {
-		return "SalesVO [sales_id=" + sales_id + ", account_id=" + account_id + ", order_id=" + order_id
-				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
-				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_out_date=" + storage_out_date
-				+ ", count_sales=" + count_sales + ", selling_price=" + selling_price + ", condition_note_receivable="
-				+ condition_note_receivable + ", sales_state=" + sales_state + "]";
-	}
-
 	public String getCompany_name() {
 		return company_name;
 	}
@@ -149,6 +153,68 @@ public class SalesVO {
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
 	}
+
+	public String getEmployee_name() {
+		return employee_name;
+	}
+
+	public void setEmployee_name(String employee_name) {
+		this.employee_name = employee_name;
+	}
+
+	public String getAccount_name() {
+		return account_name;
+	}
+
+	public void setAccount_name(String account_name) {
+		this.account_name = account_name;
+	}
+
+	public String getStatement_id() {
+		return statement_id;
+	}
+
+	public void setStatement_id(String statement_id) {
+		this.statement_id = statement_id;
+	}
+
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+
+	public String getState_name() {
+		return state_name;
+	}
+
+	public void setState_name(String state_name) {
+		this.state_name = state_name;
+	}
+
+	@Override
+	public String toString() {
+		return "SalesDTO [sales_id=" + sales_id + ", account_id=" + account_id + ", order_id=" + order_id
+				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
+				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_out_date=" + storage_out_date
+				+ ", count_sales=" + count_sales + ", selling_price=" + selling_price + ", condition_note_receivable="
+				+ condition_note_receivable + ", sales_state=" + sales_state + ", company_name=" + company_name
+				+ ", employee_name=" + employee_name + ", account_name=" + account_name + ", statement_id="
+				+ statement_id + ", rnum=" + rnum + ", state_name=" + state_name + "]";
+	}
+
+
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
 
 	
 	

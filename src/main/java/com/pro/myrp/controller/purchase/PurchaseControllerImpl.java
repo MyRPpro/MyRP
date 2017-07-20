@@ -20,7 +20,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	private purchaseService service;
 
 	
-	
 	@Override
 	@GetMapping(value="search_purchase/purchase_list")
 	public String purchase_list(HttpServletRequest req, Model model) throws Exception {
@@ -70,18 +69,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		return code.c(purchase_management, search_purchase, modify_purchase);
 	}
 
-
-	@Override
-	@GetMapping(value="search_purchase/quick_serch_purchase")
-	public String quick_serch_purchase(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(quick_serch_purchase));
-		model.addAttribute("req", req);
-		service.quick_serch_purchase_service(model);
-		return "redirect:"+code.c(purchase_management, search_purchase, purchase_list_table);
-	}
-
-
-	
 	
 	
 	@Override

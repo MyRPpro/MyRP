@@ -6,18 +6,173 @@
 <mapper namespace="com.pro.myrp.persistence.sales.SalesDAO">
  
  
-	 <!-- 판매내역 총 개수 -->
- 	<select id="select_sales_cnt" resultType="int">
+	
+ 
+ 		
+ 	<!-- 판매 바로 검색 개수 -->
+ 	<select id="count_quick_serch_sales" parameterType="String"
+ 	resultType="int">
  		<![CDATA[
- 		SELECT	COUNT(*)
- 		FROM	sales_order
+		SELECT  COUNT(S.SALES_ID) 
+	    FROM	SALES_ORDER S
+	    JOIN	COMPANY C
+	    ON		S.COMPANY_ID = C.COMPANY_ID
+		WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%'
  		]]>
  	</select>
  
  
+ 	<!-- 판매내역 총 개수 -->
+ 	<select id="select_sales_cnt" resultType="int">
+ 		<![CDATA[
+ 		SELECT	COUNT(*)
+ 		FROM	SALES_ORDER
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 판매 바로 검색 -->
+ 	<select id="select_quick_serch_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, state_name ,rownum rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                C.COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+		                FROM	SALES_ORDER S
+		                JOIN	COMPANY C
+		                ON		S.COMPANY_ID = C.COMPANY_ID
+		                WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%'
+		                ORDER BY SALES_ID DESC
+		                )
+		          )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID 
+		
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 판매 바로 검색 
+ 	<select id="select_quick_serch_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT  * 
+		FROM (	SELECT   S.SALES_ID, S.ACCOUNT_ID, S.ORDER_ID, S.PRODUCT_ID, 
+		                 S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+		                 S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+		                 S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, C.COMPANY_NAME, rownum rNum
+			    FROM	SALES_ORDER S
+			    JOIN	COMPANY C
+			    ON		S.COMPANY_ID = C.COMPANY_ID
+				WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%' )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID ASC, COMPANY_NAME ASC
+		
+ 		]]>
+ 	</select>
+ 	-->
+ 
  	<!-- 판매내역 목록 -->
  	<select id="select_sales_list" parameterType="java.util.Map"
- 	resultType="SalesVO">
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+		SELECT  *
+		FROM    ( 
+				SELECT 	SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, STATE_NAME ,rownum rnum
+		
+		        FROM    (
+		        		SELECT  
+				                S.SALES_ID, 
+				                ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,    
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+		                FROM    SALES_ORDER S 
+		                ORDER BY SALES_ID DESC
+		                )
+		       	 )
+		WHERE 	rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID 
+ 		]]>
+ 	</select>
+	
+	
+	
+	
+ 	<!-- 판매내역 목록 -->
+ 	<!-- 
+ 	<select id="select_sales_list" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
  		<![CDATA[
 		SELECT  *
 		FROM    ( SELECT SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, 
@@ -36,13 +191,64 @@
 		                )
 		        )
 		WHERE rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID ASC, COMPANY_NAME ASC
+ 		]]>
+ 	</select>
+	 -->
+	
+ 	
+ 	<!-- 판매내역 자세히 보기 -->
+ 	<select id="select_detail_sales" parameterType="String"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+			SELECT  * 
+	        FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID,  S.ORDER_ID, S.PRODUCT_ID, 
+	                         S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+	                         S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+	                         S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, 
+	                         A.ACCOUNT_NAME, P.PRODUCT_NAME,  C.COMPANY_NAME,
+                        	 E.EMPLOYEE_NAME, ST.KOR_NAME AS STATE_NAME
+	                 FROM    SALES_ORDER S
+	                 JOIN    ACCOUNT A
+	                 ON      S.ACCOUNT_ID = A.ACCOUNT_ID
+	                 JOIN    PRODUCT P
+	                 ON      S.PRODUCT_ID = P.PRODUCT_ID 
+	                 JOIN    COMPANY C
+	                 ON      S.COMPANY_ID = C.COMPANY_ID 
+	                 JOIN    EMPLOYEE E
+	                 ON      S.EMPLOYEE_ID = E.EMPLOYEE_ID
+	                 JOIN    STATE ST
+                 	 ON      S.SALES_STATE = ST.CODE
+	                )
+			WHERE 	SALES_ID = #{sales_id}
  		]]>
  	</select>
  	
  	
- 	<!-- 판매내역 자세히 보기 -->
- 	<select id="select_detail_service" parameterType="String"
- 	resultType="SalesVO">
+ 	<!-- 판매내역 자세히 보기 v2
+ 	<select id="select_detail_sales" parameterType="String"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+			SELECT  * 
+		    FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID,  S.ORDER_ID, S.PRODUCT_ID, 
+		                     S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+		                     S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+		                     S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, 
+                        	 C.COMPANY_NAME, A.ACCOUNT_NAME
+				     FROM    SALES_ORDER S
+			         JOIN    COMPANY C
+			         ON      S.COMPANY_ID = C.COMPANY_ID 
+			         JOIN    ACCOUNT A
+			         ON      S.ACCOUNT_ID = A.ACCOUNT_ID
+			        )
+			WHERE 	SALES_ID = #{sales_id}
+ 		]]>
+ 	</select>
+ 	 -->
+ 	
+ 	<!-- 판매내역 자세히 보기
+ 	<select id="select_detail_sales" parameterType="String"
+ 	resultType="SalesDTO">
  		<![CDATA[
 		SELECT  * 
 	    FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID, S.ORDER_ID, S.PRODUCT_ID, 
@@ -52,10 +258,61 @@
 			     FROM    SALES_ORDER S , COMPANY C
 	             WHERE   S.COMPANY_ID = C.COMPANY_ID )
 		WHERE 	COMPANY_ID = #{company_id}
+		AND		SALES_ID = #{sales_id}
  		]]>
  	</select>
+ 	 -->
+ 	
+ 	<!-- 판매 정보 수정 -->
+ 	<update id="update_sales" parameterType="SalesDTO">
+ 		<![CDATA[
+		UPDATE	SALES_ORDER 
+		SET		SALES_ID = #{sales_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
+				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id},  EMPLOYEE_ID = #{employee_id}, 
+				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_OUT_DATE = #{storage_out_date},
+				COUNT_SALES = #{count_sales}, SELLING_PRICE = #{selling_price}, 
+				SALES_STATE = #{sales_state}, CONDITION_NOTE_RECEIVABLE = #{condition_note_receivable}
+		WHERE	ACCOUNT_ID = #{account_id}
+		AND		SALES_ID = #{sales_id}
+ 		]]>
+ 	</update>
  	
  	
+ 	
+ 	<!-- 판매 정보 수정 
+ 	<update id="update_sales" parameterType="SalesDTO">
+ 		<![CDATA[
+		UPDATE	SALES_ORDER 
+		SET		SALES_ID = #{sales_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
+				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id},  EMPLOYEE_ID = #{employee_id}, 
+				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_OUT_DATE = #{storage_out_date},
+				COUNT_SALES = #{count_sales}, SELLING_PRICE = #{selling_price}, 
+				SALES_STATE = #{sales_state}, CONDITION_NOTE_RECEIVABLE = #{condition_note_receivable}
+		WHERE	COMPANY_ID = #{company_id}
+		AND		SALES_ID = #{sales_id}
+ 		]]>
+ 	</update>
+ 	-->
+ 	
+ 	
+ 	
+ 	<select id="select_account" resultType="ModifySelectDTO">
+		SELECT ACCOUNT_ID, ACCOUNT_NAME FROM ACCOUNT
+	</select>
+		
+	<select id="select_product" resultType="ModifySelectDTO">
+		SELECT PRODUCT_ID, PRODUCT_NAME FROM PRODUCT
+	</select>
+	
+	<select id="select_company" resultType="ModifySelectDTO">
+		SELECT COMPANY_ID, COMPANY_NAME FROM COMPANY
+	</select>
+		
+	<select id="select_employee" resultType="ModifySelectDTO">	
+		SELECT EMPLOYEE_ID, EMPLOYEE_NAME FROM EMPLOYEE
+	</select>	 	
+ 	
+ 
  
  
 </mapper>

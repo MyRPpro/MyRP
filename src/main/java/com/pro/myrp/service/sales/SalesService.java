@@ -6,8 +6,25 @@ import com.pro.myrp.service.MyRPService;
 
 public interface SalesService extends MyRPService {
 
-	void sales_list_servie(Model model) throws Exception;
+	public void sales_list_servie(Model model);
+	
+	public void sales_list_table_servie(Model model);
+	
+	public void sales_list_page_servie(Model model);
+	
+	public void detail_sales_service(Model model);
+	
+	public void modify_sales_pro_service(Model model);
+	
+	
+	
+	
+	/*
+	public void reg_sales_service(Model model);
+	
+	public void reg_sales_service_pro(Model model);
 
-	void detail_sales_service(Model model);
-
+	public void reg_sales_table(Model model);
+	*/
+	
 }
