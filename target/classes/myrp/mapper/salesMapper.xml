@@ -157,10 +157,11 @@
 				                WHERE  S.SALES_STATE = ST.CODE
 				                ),'입력값 오류' ) AS STATE_NAME
 		                FROM    SALES_ORDER S 
+		                ORDER BY SALES_ID DESC
 		                )
 		       	 )
 		WHERE 	rNum >= #{start} AND rNUM <= #{end}
-		ORDER BY SALES_ID DESC, COMPANY_NAME ASC
+		ORDER BY SALES_ID DESC, ACCOUNT_ID 
  		]]>
  	</select>
 	

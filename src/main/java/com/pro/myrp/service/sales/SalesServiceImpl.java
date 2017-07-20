@@ -317,35 +317,38 @@ public class SalesServiceImpl implements SalesService {
 			
 		}
 		model.addAttribute("Modify",Modify);
+		
+		
+		/*	예전코드
+			String company_id = req.getParameter("company_id");
+			String sales_id = req.getParameter("sales_id");
+			String account_id = req.getParameter("account_id");
+			String sales_state = req.getParameter("sales_state");
+			
+			System.out.println("  -> company_id : "  + company_id);
+			System.out.println("  -> sales_id : "  + sales_id);
+			System.out.println("  -> account_id : "  + account_id);
+			System.out.println("  -> sales_state : "  + sales_state);
+			
+			Map<String,Object> daoMap = new HashMap<>();
+			daoMap.put("company_id", company_id);
+			daoMap.put("sales_id", sales_id);
+			daoMap.put("account_id", account_id);
+			
+			SalesDTO dto = dao.select_detail_sales( daoMap );
+			
+			if( dto != null ){
+				System.out.println("  -> Complete value import ...");
+				model.addAttribute("dto", dto);
+				
+			} else {	// 불러오기 실패
+				System.out.println("  -> Error loading value...");
+				
+			}
+			*/
+
 	}
 	
-	/*	예전코드
-		String company_id = req.getParameter("company_id");
-		String sales_id = req.getParameter("sales_id");
-		String account_id = req.getParameter("account_id");
-		String sales_state = req.getParameter("sales_state");
-		
-		System.out.println("  -> company_id : "  + company_id);
-		System.out.println("  -> sales_id : "  + sales_id);
-		System.out.println("  -> account_id : "  + account_id);
-		System.out.println("  -> sales_state : "  + sales_state);
-		
-		Map<String,Object> daoMap = new HashMap<>();
-		daoMap.put("company_id", company_id);
-		daoMap.put("sales_id", sales_id);
-		daoMap.put("account_id", account_id);
-		
-		SalesDTO dto = dao.select_detail_sales( daoMap );
-		
-		if( dto != null ){
-			System.out.println("  -> Complete value import ...");
-			model.addAttribute("dto", dto);
-			
-		} else {	// 불러오기 실패
-			System.out.println("  -> Error loading value...");
-			
-		}
-		*/
 
 	@Override
 	public void modify_sales_pro_service(Model model) {
