@@ -18,6 +18,7 @@ import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
 import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
 
 @Repository
 public class HRDAOImpl implements HRDAO {
@@ -227,5 +228,11 @@ public class HRDAOImpl implements HRDAO {
 	public List<Hr_appointment_listDTO> select_appointment(int employee_id) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_appointment(employee_id);
+	}
+
+	@Override
+	public List<Retired_EmployeeDTO> select_retired_employee_list(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_retired_employee_list(daoMap);
 	}
 }

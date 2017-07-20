@@ -1,6 +1,5 @@
 package com.pro.myrp.service.hr;
 
-import java.io.Console;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +21,7 @@ import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
 import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
 import com.pro.myrp.persistence.hr.HRDAO;
 
 @Service
@@ -817,5 +817,91 @@ public class HRServiceImpl implements HRService {
 		model.addAttribute("dtos", dtos);
 	}
 
-	
+	@Override
+	public void retired_employee_search_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+	}
+
+	@Override
+	public void retired_employee_list_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+
+		int pageSize	= 5;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		
+		String searchStr = req.getParameter("searchStr");
+		cnt = dao.select_appointment_cnt(searchStr);
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		if(cnt > 0) {
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			daoMap.put("searchStr", searchStr);
+			List<Retired_EmployeeDTO> dtos = new ArrayList<>();
+			dtos = dao.select_retired_employee_list(daoMap);
+			for(int i=0; i<dtos.size(); i++) {
+				Retired_EmployeeDTO dto = dtos.get(i);
+				int dept_id = dto.getDept_id();
+				int hr_code_group_id = dto.getHr_code_group_rank();
+				int hr_code_id = dto.getRank_code();
+				daoMap.clear();
+				daoMap.put("hr_code_group_id", hr_code_group_id);
+				daoMap.put("hr_code_id", hr_code_id);
+				dto.setHr_code_name(dao.select_hr_code_name(daoMap));
+				daoMap.clear();
+				dto.setDept_name(dao.select_dept_name(dept_id));
+			}
+			model.addAttribute("retired_employeeDto", dtos);
+		}
+	}
+
+	@Override
+	public void retired_employee_nav_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		String searchStr = req.getParameter("searchStr");
+		cnt = dao.select_appointment_cnt(searchStr);
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("searchStr", searchStr);
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		}
+	}
+
 }

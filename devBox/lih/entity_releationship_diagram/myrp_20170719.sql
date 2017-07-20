@@ -151,6 +151,8 @@ CREATE TABLE retired_employee(
                         REFERENCES employee(employee_id),
     CONSTRAINT retired_employee_pk PRIMARY KEY(employee_id,retired_date)
 );
+INSERT INTO retired_employee VALUES(2001,TO_DATE('2017-7-21'),'건강문제');
+commit;
 --------------------------------------------------------------------------------
 -- 근무기록 TABLE 생성 (work_record)
 --------------------------------------------------------------------------------

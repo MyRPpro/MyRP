@@ -13,6 +13,7 @@ import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
 import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface HRDAO extends MyRPDAO {
@@ -284,4 +285,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public List<Hr_appointment_listDTO> select_appointment(int employee_id);
+
+	/**
+	 * 퇴사자 목록 조회
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<Retired_EmployeeDTO> select_retired_employee_list(Map<String, Object> daoMap);
 }

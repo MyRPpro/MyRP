@@ -1,6 +1,5 @@
 package com.pro.myrp.controller.hr;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -394,4 +393,33 @@ public interface HRController extends MyRPController {
 	 */
 	public String salary_register(HttpServletRequest req, Model model) throws Exception;
 
+	/**
+	 * 인사관리 > 퇴사자 관리 > 퇴사자 조회
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String retired_employee_search(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 퇴사자 관리 > 퇴사자 목록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String retired_employee_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 퇴사자 관리 > 퇴사자 페이지 네비게이션
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String retired_employee_nav(HttpServletRequest req, Model model) throws Exception;
 }

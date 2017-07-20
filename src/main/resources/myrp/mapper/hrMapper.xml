@@ -453,4 +453,32 @@
 		ORDER BY E.employee_name, PA.appointment_date DESC 
 		]]>
 	</select>
+	
+	<!-- 검색어를 사용한 퇴사자 목록 보기 -->
+	<select id="select_retired_employee_list" parameterType="java.util.Map"
+	resultType="Retired_EmployeeDTO">
+		<![CDATA[
+		SELECT	*
+		FROM	(SELECT	employee_id, employee_name, dept_id,
+						hr_code_group_rank, rank_code, join_date,
+						retired_date, retired_reason, rownum rNum
+				FROM	(SELECT	E.employee_id, E.employee_name, E.dept_id,
+								E.hr_code_group_rank, E.rank_code, 
+								E.join_date, RE.retired_date, RE.retired_reason
+						FROM	retired_employee RE , employee E
+						WHERE	RE.employee_id = E.employee_id
+						AND		E.employee_id IN	(SELECT	employee_id
+													FROM	employee
+													WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+													UNION
+													SELECT	employee_id
+													FROM	employee
+													WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'	
+													)
+						ORDER BY RE.retired_date DESC
+						)
+				)
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
 </mapper>

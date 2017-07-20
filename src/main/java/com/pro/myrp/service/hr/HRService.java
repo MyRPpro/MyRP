@@ -1,6 +1,5 @@
 package com.pro.myrp.service.hr;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.ui.Model;
@@ -290,4 +289,28 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void personnel_card_appointment_service(Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 퇴사자 관리 > 퇴사자정보 조회
+	 * @author amaco78
+	 * @param moel
+	 * @throws Exception
+	 */
+	public void retired_employee_search_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 퇴사자 관리 > 퇴사자 목록
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void retired_employee_list_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 퇴사자 관리 > 퇴사자 페이지 네비게이션
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void retired_employee_nav_service(Model model) throws Exception;
 }
