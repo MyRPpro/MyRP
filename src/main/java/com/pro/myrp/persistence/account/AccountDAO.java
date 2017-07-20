@@ -129,4 +129,35 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public ArrayList<JoinStatementDTO> select_approval_statements(Map<String,Object> daoMap);
+
+	/**
+	 * 전표생성 > connected_id 불러오기 - sales, purchase, salary
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_sales_statement();
+	public ArrayList<JoinStatementDTO> select_purchase_statement();
+	public ArrayList<JoinStatementDTO> select_salary_statement();
+	public ArrayList<JoinStatementDTO> select_tax_statement();
+	
+	/**
+	 * 전표 생성 > statement 에 값 집어넣기
+	 * @return
+	 */
+	public int insert_statement(StatementVO vo);
+	/**
+	 * 전표 생성 > sales_statement, purchase_statement, salary_register_statement, tax_statement 에 값 집어넣기
+	 * @param dto
+	 * @return
+	 */
+	public int insert_connected_statement(JoinStatementDTO dto);
+
+	/**
+	 * 전표생성 > 같은 connected_id 가진 관련 전표 내용 가져오기
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_same_id_sales_statement(String sales_id);
+	public ArrayList<JoinStatementDTO> select_same_id_purchase_statement(String purchase_id);
+	public ArrayList<JoinStatementDTO> select_same_id_salary_statement(String salary_register_id);
+	public JoinStatementDTO select_same_type_tax(String account_id);
+			
 }

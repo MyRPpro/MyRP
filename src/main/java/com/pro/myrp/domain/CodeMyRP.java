@@ -153,6 +153,9 @@ public interface CodeMyRP {
 				public static final int approve_statement = 15450; 				//전표 승인
 				public static final int disapprove_statement = 15460;			//전표 승인거절
 				public static final int make_statement = 15470; 				//전표 생성
+				public static final int call_connected_id_view = 15480;			//연결주문id불러오기:뷰
+				public static final int call_connected_id = 15490;				//연결주문id불러오기
+				
 			//재권/채무 현황
 		//인사관리
 		public static final int hr_management = 16000;

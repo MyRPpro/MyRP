@@ -114,7 +114,7 @@
  		</if>
  		<if test="typeCnt == 3"> <!-- salary -->
  		<![CDATA[
- 		 SELECT s.statement_id, s.statement_type, s.reg_date, salary.salary_register_id, s.account_value, salary.salary_register_id, s.approval_state, a.account_name
+ 		 SELECT s.statement_id, s.statement_type, s.reg_date, salary.account_id, s.account_value, salary.salary_register_id, s.approval_state, a.account_name
       	   FROM statement s left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
                             left outer JOIN account a ON salary.account_id = a.account_id
           WHERE salary.salary_register_id = #{salary_register_id} AND s.statement_type = (SELECT statement_type FROM statement WHERE statement_id = #{statement_id})
@@ -125,8 +125,7 @@
  		 SELECT s.statement_id, s.statement_type, s.reg_date, tax.account_id, s.account_value, s.approval_state, a.account_name
       	   FROM statement s left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
                             left outer JOIN account a ON tax.account_id = a.account_id
-          WHERE s.reg_date(SELECT reg_date FROM statement WHERE statement_id =#{statement_id}) 
-                AND s.statement_type = (SELECT statement_type FROM statement WHERE statement_id = #{statement_id})
+          WHERE s.statement_type = (SELECT statement_type FROM statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
  		
@@ -284,5 +283,108 @@
  			WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
+ 	<!-- connected_id 불러오기 : sales -->
+ 	<select id="select_sales_statement" resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 		SELECT s.sales_id, s.account_id, a.account_name, (s.count_sales*s.selling_price)as account_value, s.reg_date
+ 		  FROM sales_order s JOIN account a ON s.account_id = a.account_id
+ 		  WHERE s.sales_id NOT IN (SELECT so.sales_id FROM sales_order so JOIN sales_statement st ON so.sales_id=st.sales_id AND so.account_id=st.account_id)
+ 		]]>
+ 	</select>
+ 	<!-- connected_id 불러오기 : purchase-->
+ 	<select id="select_purchase_statement" resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 		 SELECT p.purchase_id, p.account_id, a.account_name,(p.count_purchase*p.supply_price)as account_value, p.reg_date
+ 		  FROM purchase_order p JOIN account a ON p.account_id = a.account_id
+ 		  WHERE p.purchase_id NOT IN (SELECT po.purchase_id FROM purchase_order po JOIN purchase_statement pt ON po.purchase_id=pt.purchase_id AND po.account_id=pt.account_id)
+ 		]]>
+ 	</select>
+ 	<!-- connected_id 불러오기 : salary -->
+ 	<select id="select_salary_statement" resultType="AccountVO">
+ 		<![CDATA[
+ 		SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
+ 		FROM salary_register s JOIN account a ON s.account_id = a.account_id
+ 		WHERE s.salary_register_id NOT IN (SELECT sr.salary_register_id FROM salary_register sr JOIN salary_register_statement st ON sr.salary_register_id=st.salary_register_id AND sr.account_id=st.account_id)
+ 		]]>
+ 	</select>
+ 	<!-- connected_id 불러오기 : tax - tax의 경우 account_id 만 받아온다 -->
+ 	<select id="select_tax_statement" resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 		SELECT account_id, account_name, account_balance as account_value FROM account 
+ 		WHERE account_id IN ('500012020000', '500011030000') AND account_balance > 0
+ 		]]>
+ 	</select>
+ 	<!-- 전표생성 -->
+ 	<insert id="insert_statement" parameterType="StatementVO">
+ 		<![CDATA[
+ 		
+ 		
+ 		INSERT INTO statement VALUES(
+ 		('5470'||TO_CHAR((SELECT sysdate FROM dual),'YYMMDD')||LPAD(statement_seq.NEXTVAL,2,0)),
+ 		sysdate,#{account_value},'25451',#{statement_type})
+ 		]]>
+ 	</insert>
  	
+ 	<!-- 커넥트 전표 생성 -->
+ 	<insert id="insert_connected_statement" parameterType="JoinStatementDTO">
+ 		<if test ="sales_id!=null">
+ 		<![CDATA[
+ 		INSERT INTO sales_statement VALUES(
+ 		('5470'||TO_CHAR((SELECT sysdate FROM dual),'YYMMDD')||LPAD(statement_seq.CURRVAL,2,0)),
+ 		#{sales_id},#{account_id})
+ 		]]>
+ 		</if>
+ 		<if test ="purchase_id!=null">
+ 		<![CDATA[
+ 		INSERT INTO purchase_statement VALUES(
+ 		('5470'||TO_CHAR((SELECT sysdate FROM dual),'YYMMDD')||LPAD(statement_seq.CURRVAL,2,0)),
+ 		#{purchase_id},#{account_id})
+ 		]]>
+ 		</if>
+ 		<if test ="salary_register_id!=null">
+ 		<![CDATA[
+ 		INSERT INTO salary_register_statement VALUES(
+ 		('5470'||TO_CHAR((SELECT sysdate FROM dual),'YYMMDD')||LPAD(statement_seq.CURRVAL,2,0)),
+ 		#{salary_register_id},#{account_id})
+ 		]]>
+ 		</if>
+ 		<if test ="sales_id==null">
+ 			<if test= "purchase_id==null">
+ 				<if test= "salary_register_id==null">
+ 		<![CDATA[
+ 		INSERT INTO tax_statement VALUES(
+ 		('5470'||TO_CHAR((SELECT sysdate FROM dual),'YYMMDD')||LPAD(statement_seq.CURRVAL,2,0)), #{account_id})
+ 		]]>
+ 				</if>
+ 			</if>
+ 		</if>
+ 	</insert>
+ 	<!-- 같은 connected_id 가진 관련전표 내용 가져오기 -->
+ 	<select id="select_same_id_sales_statement" parameterType="String" resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 		 SELECT s.sales_id, s.account_id, a.account_name, (s.count_sales*s.selling_price)as account_value, s.reg_date
+ 		 FROM sales_order s JOIN account a ON s.account_id = a.account_id
+    	 WHERE sales_id = #{sales_id}
+ 		]]>
+ 	</select>
+ 	<select id="select_same_id_purchase_statement" parameterType="String" resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 		 SELECT p.purchase_id, p.account_id, a.account_name,(p.count_purchase*p.supply_price)as account_value, p.reg_date
+ 		 FROM purchase_order p JOIN account a ON p.account_id = a.account_id
+    	 WHERE purchase_id = #{purchase_id}
+ 		]]>
+ 	</select>
+ 	<select id="select_same_id_salary_statement" parameterType="String" resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 		 SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
+ 		  FROM salary_register s JOIN account a ON s.account_id = a.account_id
+    	 WHERE salary_register_id = #{salary_register_id}
+ 		]]>
+ 	</select>
+ 	<select id="select_same_type_tax" parameterType="String" resultType="JoinStatementDTO">
+ 		<![CDATA[
+ 		SELECT account_id, account_name, account_balance as account_value FROM account 
+ 		WHERE account_id = #{account_id}
+ 		]]>
+ 	</select>
 </mapper>

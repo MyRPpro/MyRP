@@ -17,7 +17,7 @@
 		</th>
 		<td>
 			<c:if test="${statement_type=='54101'}"> 매출전표 </c:if>
-			<c:if test="${statement_type=='54102<%-- <%--  --%> --%>'}"> 매입전표 </c:if>
+			<c:if test="${statement_type=='54102'}"> 매입전표 </c:if>
 			<c:if test="${statement_type=='54104'}"> 입금전표 </c:if>
 			<c:if test="${statement_type=='54105'}"> 출금전표 </c:if>	
 			<c:if test="${statement_type=='54106'}"> 일반전표 </c:if>	

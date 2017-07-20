@@ -81,15 +81,6 @@ public interface AccountController extends MyRPController{
 	 public String search_statement_detail(HttpServletRequest req, Model model) throws Exception;
 	 
 	 /**
-	  * 전표관리 > 세금전표 자동 생성
-	  * @param req
-	  * @param model
-	  * @return
-	  * @throws Exception
-	  *//*
-	 public String make_statement(HttpServletRequest req, Model model) throws Exception;*/
-	 
-	 /**
 	  * 전표관리 > 전표승인
 	  * @param req
 	  * @param model
@@ -122,5 +113,41 @@ public interface AccountController extends MyRPController{
 	 * @throws Exception
 	 */
 	public String search_approval_statements(HttpServletRequest req, Model model) throws Exception;
+	
+	 /**
+	  * 전표관리 > 전표 생성
+	  * @param req
+	  * @param model
+	  * @return
+	  * @throws Exception
+	  */
+	public String make_statement(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 전표생성 > connected_id 	불러오기 : 
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String call_connected_id(HttpServletRequest req, Model model) throws Exception;
+	/**
+	 * 전표관리 > 전표생성 > connected_id 	불러오기 : 뷰
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String call_connected_id_view(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 전표생성 > 전표생성처리
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String make_statement_pro(HttpServletRequest req, Model model) throws Exception;
+	
 }
 

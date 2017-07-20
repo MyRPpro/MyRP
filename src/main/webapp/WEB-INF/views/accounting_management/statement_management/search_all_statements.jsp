@@ -40,18 +40,18 @@
 		<td> 
 		<a href="javascript:void(0);" onclick="search_statement_detail(${dto.statement_id},
 			<c:choose>
-				<c:when test="${dto.sales_id!=null}">
+				<c:when test="${dto.sales_account_id !=null}">
 					${dto.sales_id}, 1
 				</c:when>
-				<c:when test="${dto.purchase_id!=null}">
+				<c:when test="${dto.purchase_account_id !=null}">
 					${dto.purchase_id}, 2
 				</c:when>
-				<c:when test="${dto.salary_register_id!=null}">
+				<c:when test="${dto.salary_account_id !=null}">
 					${dto.salary_register_id}, 3
 				</c:when>
-				<c:when test="${dto.sales_id==null&&dto.purchase_id==null&&dto.salary_register_id==null}">
-					 tax , 4
-				</c:when>
+				<%-- <c:when test="${dto.tax_account_id !=null}">
+					, 4
+				</c:when> --%>
 			</c:choose>	
 		)"> ${dto.statement_id}</a>
 		</td>
@@ -63,31 +63,31 @@
 			<c:if test="${dto.statement_type=='54106'}"> 일반전표 </c:if>	
 		</td>
 		<td> 
-			<c:if test="${salesCnt==1}">
+			<c:if test="${dto.sales_account_id !=null}">
 			${dto.sales_id}
 			</c:if>
-			<c:if test="${purchaseCnt==1}">
+			<c:if test="${dto.purchase_account_id !=null}">
 			${dto.purchase_id}
 			</c:if>
-			<c:if test="${salaryCnt==1}">
+			<c:if test="${dto.salary_account_id !=null}">
 			${dto.salary_register_id}
 			</c:if>
-			<c:if test="${taxCnt==1}">
-			* tax_managing
+			<c:if test="${dto.tax_account_id !=null}">
+				*tax
 			</c:if>
 			
 		</td>
 		<td> 
-			<c:if test="${salesCnt==1}">
+			<c:if test="${dto.sales_account_id !=null}">
 			${dto.sales_account_id} 
 			</c:if>
-			<c:if test="${purchaseCnt==1}">
+			<c:if test="${dto.purchase_account_id !=null}">
 			${dto.purchase_account_id}
 			</c:if>
-			<c:if test="${salaryCnt==1}">
+			<c:if test="${dto.salary_account_id !=null}">
 			${dto.salary_account_id} 
 			</c:if>
-			<c:if test="${taxCnt==1}">
+			<c:if test="${dto.tax_account_id !=null}">
 			${dto.tax_account_id}
 			</c:if>
 		</td>

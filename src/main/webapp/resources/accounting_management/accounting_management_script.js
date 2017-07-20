@@ -34,7 +34,7 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 	if(typeCnt==3){
 		var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
 	}
-	if(typeCnt==4){
+	if(typeCnt==null){
 		var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
 	}
 	
@@ -44,6 +44,7 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 //승인메시지 띄우고 전표페이지 다시 돌아가기
 function complete_approval(statement_id, connected_id, typeCnt){
 	alert("승인처리되었습니다");
+	if(typeCnt==1||typeCnt==2||typeCnt==3){
 	if(typeCnt==1){
 		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
 	}
@@ -53,7 +54,7 @@ function complete_approval(statement_id, connected_id, typeCnt){
 	if(typeCnt==3){
 		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
 	}
-	if(typeCnt==4){
+	}else {
 		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
 	}
 }
@@ -61,23 +62,91 @@ function complete_approval(statement_id, connected_id, typeCnt){
 //승인거절 메세지 띄우고 전표페이지 다시 돌아가기
 function complete_disapproval(statement_id, connected_id, typeCnt){
 	alert("승인거절 처리되었습니다");
-	if(typeCnt==1){
-		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
-	}
-	if(typeCnt==2){
-		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&purchase_id="+connected_id;
-	}
-	if(typeCnt==3){
-		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
-	}
-	if(typeCnt==4){
-		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
+	if(typeCnt==1||typeCnt==2||typeCnt==3){
+		if(typeCnt==1){
+			window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
+		}
+		if(typeCnt==2){
+			window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&purchase_id="+connected_id;
+		}
+		if(typeCnt==3){
+			window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
+		}
+	}else {
+			window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
 	}
 }
 //자식창 닫을 때 부모창 새로고침
 function reload(){
 	window.opener.document.location.href=window.opener.document.URL;
 }
+
+// connected_id => sales_id, purchase_id, salary_register_id 불러오기
+function call_connected_id(){
+	var statement_type = document.make_statement_form1.statement_type.value;
+	var url="/accounting_management/statement_management/call_connected_id_view?statement_type="+statement_type;
+	window.open(url, "confirm", "menubar=no, width=800, height=300");
+}
+
+// connected_id => sales_id, purchase_id, salary_register_id 불러오기
+function set_connected_id(connected_id, account_id, account_name, account_value, typeCnt){
+	opener.document.make_statement_form1.connected_id.value = connected_id;
+	opener.document.make_statement_form1.account_id.value = account_id;
+	opener.document.make_statement_form1.account_name.value = account_name;
+	opener.document.make_statement_form1.account_value.value = account_value;
+	opener.document.make_statement_form1.typeCnt.value = typeCnt;
+	self.close();
+}
+
+function set_account_id(account_id, account_name, account_value, typeCnt){
+	opener.document.make_statement_form1.account_id.value = account_id;
+	opener.document.make_statement_form1.account_name.value = account_name;
+	opener.document.make_statement_form1.account_value.value = account_value;
+	opener.document.make_statement_form1.typeCnt.value = typeCnt;
+	if(typeCnt==4){ // tax 선택
+		if(account_id == "500012020000"){//부가세예수금 =>출금전표
+			opener.document.make_statement_form1.statement_type.value = "54105";
+		}else{ //부가세대급금 => 입금전표
+			opener.document.make_statement_form1.statement_type.value = "54104";
+		}
+	}
+	if(typeCnt==3){ // salary 선택
+		opener.document.make_statement_form1.statement_type.value = "54103";
+	}
+	self.close();
+}
+
+function check_input_value(){
+	if(!document.make_statement_form1.account_id.value){
+		alert("'조회' 버튼을 통해 계정코드를 입력해주세요!");
+		document.make_statement_form1.calling_button.focus();
+		return false;
+	}else if(!document.make_statement_form1.account_name.value){
+		alert("조회 버튼을 통해 계정이름를 입력해주세요!");
+		document.make_statement_form1.calling_button.focus();
+		return false;
+	}else if(!document.make_statement_form1.account_value.value){
+		alert("조회 버튼을 통해 계정코드를 입력해주세요!");
+		document.make_statement_form1.calling_button.focus();
+		return false;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

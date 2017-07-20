@@ -115,6 +115,59 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_approval_statements(daoMap);
 	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_sales_statement() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_sales_statement();
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_purchase_statement() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_purchase_statement();
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_salary_statement() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_salary_statement();
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_tax_statement() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_tax_statement();
+	}
+	
+	@Override
+	public int insert_statement(StatementVO vo) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.insert_statement(vo);
+	}
+	@Override
+	public int insert_connected_statement(JoinStatementDTO dto) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.insert_connected_statement(dto);
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_same_id_sales_statement(String sales_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_same_id_sales_statement(sales_id);
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_same_id_purchase_statement(String purchase_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_same_id_purchase_statement(purchase_id);
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_same_id_salary_statement(String salary_register_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_same_id_salary_statement(salary_register_id);
+	}
+	@Override
+	public JoinStatementDTO select_same_type_tax(String account_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_same_type_tax(account_id);
+	}
+	
+	
 	
 	
 	

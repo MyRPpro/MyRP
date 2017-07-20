@@ -140,8 +140,9 @@ public class CodeHandler {
 			public static final int search_approval_statements = 15440;		//승인 전표조회
 			public static final int approve_statement = 15450; 				//전표 승인
 			public static final int disapprove_statement = 15460;			//전표 승인거절
-			public static final int make_statement = 15470; 				//전표 생성
-	
+			public static final int make_statement = 15470; 
+			public static final int call_connected_id_view = 15480;			//연결주문id불러오기:뷰//전표 생성
+			public static final int call_connected_id = 15490;				//연결주문id불러오기
 	
 	//인사관리
 	public static final int hr_management = 16000;

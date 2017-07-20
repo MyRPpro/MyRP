@@ -25,8 +25,15 @@ public class JoinStatementDTO {
     public String account_name;
     public String company_name;
     
+    public String account_balance;
     
-    public String getCompany_name() {
+    public String getAccount_balance() {
+		return account_balance;
+	}
+	public void setAccount_balance(String account_balance) {
+		this.account_balance = account_balance;
+	}
+	public String getCompany_name() {
 		return company_name;
 	}
 	public void setCompany_name(String company_name) {

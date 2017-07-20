@@ -10,9 +10,18 @@
 </head>
 <body onunload=reload()>
 	<c:if test="${scnt == cnt && acnt == cnt}"> 
-		<script type="text/javascript">
-			window.onload = complete_approval(${statement_id}, ${connected_id}, ${typeCnt});
-		</script>
+		
+			<c:if test="${typeCnt == 4}">
+				<script type="text/javascript">
+					window.onload = complete_approval(${statement_id});
+				</script>
+			</c:if>
+			<c:if test="${typeCnt != 4 }">
+				<script type="text/javascript">
+					window.onload = complete_approval(${statement_id}, ${connected_id}, ${typeCnt});
+				</script>
+			</c:if>
+			}
 	</c:if>
 </body>
 </html>

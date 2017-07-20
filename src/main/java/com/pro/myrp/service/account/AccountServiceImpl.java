@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
+import com.pro.myrp.domain.accounting_management.StatementVO;
 import com.pro.myrp.persistence.account.AccountDAO;
 
 @Service
@@ -208,26 +209,11 @@ public class AccountServiceImpl implements AccountService {
 					dto.setPurchase_id(tempDTO.getPurchase_id());
 					}else if(tempDTO.getSalary_register_id()!=null) {
 					dto.setSalary_register_id(tempDTO.getSalary_register_id());
+					}else if(tempDTO.getTax_account_id()!=null) {
+					dto.setTax_account_id(tempDTO.getTax_account_id());
 					}
 				}
-				if(dto.getSales_id()!=null) { //sales_id 
-					salesCnt = 1;
-				}
-				if(dto.getSalary_register_id()!=null) { //salary_register_id
-					salaryCnt = 1;
-				}
-				if(dto.getPurchase_id()!=null) { //purchase_id
-					purchaseCnt = 1;
-				}
-				if(dto.getSalary_register_id()==null && dto.getSales_id()==null && dto.getPurchase_id()==null){
-					taxCnt = 1;
-				}
 				model.addAttribute("dtos", dtos);
-				model.addAttribute("salesCnt", salesCnt);
-				model.addAttribute("purchaseCnt", purchaseCnt);
-				model.addAttribute("salaryCnt", salaryCnt);
-				model.addAttribute("taxCnt", taxCnt);
-				System.out.println("sales, purchase, salary, tax CNT : "+ salesCnt+","+ purchaseCnt +","+ salaryCnt +","+ taxCnt);
 		}
 		startPage = (currentPage/pageBlock)*pageBlock+1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
@@ -296,12 +282,12 @@ public class AccountServiceImpl implements AccountService {
 		String company_name = dao.select_detail_company_name(daoMap);
 		model.addAttribute("company_name", company_name);
 	}
-	/*@Override
+	//전표 생성
+	@Override
 	public void make_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
-		
-	}*/
+	}
 	
 	// 전표 승인 처리 
 	@Override
@@ -325,11 +311,16 @@ public class AccountServiceImpl implements AccountService {
 		String statement_id = statement_ids[1];
 		String connected_id = req.getParameter("connected_id"); 
 		model.addAttribute("statement_id", statement_id);
-		model.addAttribute("connected_id", connected_id);
+		if(connected_id != null) model.addAttribute("connected_id", connected_id);
 		model.addAttribute("typeCnt", typeCnt);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("scnt", scnt);
 		model.addAttribute("acnt", acnt); 
+		
+
+		System.out.println("cnt = " + cnt);
+		System.out.println("scnt = " + scnt);
+		System.out.println("acnt = " + acnt);
 	}
 	// 전표 승인 거절
 	@Override
@@ -352,7 +343,7 @@ public class AccountServiceImpl implements AccountService {
 		String statement_id = statement_ids[1];
 		String connected_id = req.getParameter("connected_id"); 
 		model.addAttribute("statement_id", statement_id);
-		model.addAttribute("connected_id", connected_id);
+		if(connected_id != null) model.addAttribute("connected_id", connected_id);
 		model.addAttribute("typeCnt", typeCnt);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("scnt", scnt);
@@ -535,5 +526,102 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("currentPage", currentPage);	
 		}
+	}
+	// connected_id 불러오기
+	@Override
+	public void call_connected_id_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		int select_connection = Integer.parseInt(req.getParameter("select_connection"));
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		if(select_connection == 1) { //sales 
+			dtos = dao.select_sales_statement();
+			model.addAttribute("sales_dtos",dtos);
+		}else if(select_connection == 2) { //purchase
+			dtos = dao.select_purchase_statement();
+			model.addAttribute("purchase_dtos",dtos);
+		}else if(select_connection ==3) { //salary
+			dtos = dao.select_salary_statement();
+			model.addAttribute("salary_dtos",dtos);
+		}else if(select_connection ==4) { //tax
+			dtos = dao.select_tax_statement();
+			model.addAttribute("tax_dtos",dtos);
+		}
+	}
+	@Override
+	public void call_connected_id_view_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+	}
+	// 전표 등록 처리
+	@Override
+	public void make_statement_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		int typeCnt = Integer.parseInt(req.getParameter("typeCnt"));
+		String connected_id = req.getParameter("connected_id");
+		String statement_type = req.getParameter("statement_type");
+		String account_id = req.getParameter("account_id");
+		int scnt = 0;
+		int ccnt = 0;
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		StatementVO vo = new StatementVO(); // 전표생성 
+		JoinStatementDTO dto = new JoinStatementDTO(); //연결전표생성
+		
+		if(typeCnt==1) {
+			dtos = dao.select_same_id_sales_statement(connected_id);
+		}if(typeCnt==2) {
+			dtos = dao.select_same_id_purchase_statement(connected_id);
+		}if(typeCnt==3) {
+			dtos = dao.select_same_id_salary_statement(connected_id);
+		}if(typeCnt==4) {
+			JoinStatementDTO taxdto = new JoinStatementDTO(); // 세금 전표 생성
+			taxdto = dao.select_same_type_tax(account_id);
+			int taxValue = -taxdto.getAccount_value();
+			
+			vo.setAccount_value(taxValue);
+			vo.setStatement_type(statement_type);
+			scnt = dao.insert_statement(vo); //세금전표 생성처리(부가세대급금,부가세예수금)
+			dto.setAccount_id(account_id); 
+			ccnt = dao.insert_connected_statement(dto); //연결전표 생성처리
+			
+			if(taxdto.getAccount_id().equals("500011030000")) { // 부가세대급금
+				vo.setAccount_value(-taxValue);
+			}
+			scnt = scnt + dao.insert_statement(vo); //세금전표 생성처리(현금)
+			dto.setAccount_id("500011010000");
+			ccnt = ccnt + dao.insert_connected_statement(dto); //연결전표 생성처리
+		}
+		if(typeCnt!=4) {
+		for(int i=0; i<dtos.size(); i++) {
+			JoinStatementDTO tempDTO = dtos.get(i);
+			
+			int account_value = tempDTO.getAccount_value();
+			vo.setAccount_value(account_value);
+			vo.setStatement_type(statement_type);
+			if(typeCnt==4) {
+				scnt = dao.insert_statement(vo);
+			}
+			scnt = scnt + dao.insert_statement(vo); // 전표생성
+			
+			if(typeCnt==1) {
+				String sales_id = connected_id;
+				dto.setSales_id(sales_id);
+			}
+			if(typeCnt==2) {
+				String purchase_id = connected_id;
+				dto.setPurchase_id(purchase_id);
+			}
+			if(typeCnt==3) {
+				String salary_register_id = connected_id;
+				dto.setSalary_register_id(salary_register_id);
+			}
+			account_id = tempDTO.getAccount_id();
+			dto.setAccount_id(account_id);
+			ccnt = dao.insert_connected_statement(dto); //연결전표 생성처리
+		}
+		}
+		model.addAttribute("addStatementCnt", scnt);
+		model.addAttribute("addConnectedCnt", ccnt);
 	}
 }
