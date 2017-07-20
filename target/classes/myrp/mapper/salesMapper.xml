@@ -79,10 +79,11 @@
 		                JOIN	COMPANY C
 		                ON		S.COMPANY_ID = C.COMPANY_ID
 		                WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%'
+		                ORDER BY SALES_ID DESC
 		                )
 		          )
 		WHERE rNum >= #{start} AND rNUM <= #{end}
-		ORDER BY SALES_ID DESC, COMPANY_NAME ASC
+		ORDER BY SALES_ID DESC, ACCOUNT_ID 
 		
  		]]>
  	</select>
