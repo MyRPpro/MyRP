@@ -24,6 +24,10 @@
 <a href="/sales_management/search_sales/modify_sales?sales_id=311017072113$&sales_state=22211">판매검색-판매 리스트-수정 페이지</a><br>
 <a href="/sales_management/search_sales/sales_list">판매검색-판매 리스트-검색 페이지</a><br>
 <a href="/sales_management/input_sales/reg_sales">판매입력</a><br>
+<a href="/sales_management/status_sales/search_status_sales">판매현황</a><br>
+<a href="/sales_management/status_sales/search_status_sales_table">판매현황-테이블</a><br>
+<a href="/sales_management/status_sales/search_status_sales_page">판매현황-페이지</a><br>
+<a href="/sales_management/status_sales/search_status_sales_detail">판매현황-세부페이지</a><br>
 <hr>
 
 

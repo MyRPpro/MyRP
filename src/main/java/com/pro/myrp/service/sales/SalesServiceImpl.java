@@ -21,6 +21,7 @@ public class SalesServiceImpl implements SalesService {
 	@Inject
 	private SalesDAO dao;
 	
+	
 	@Override
 	public void sales_list_servie(Model model) {
 		System.out.println("  -> sales_list_servie " );
@@ -534,7 +535,6 @@ public class SalesServiceImpl implements SalesService {
 		model.addAttribute("account_ids",account_ids);
 		
 	}
-	
 
 	@Override
 	public void reg_sales_service_pro(Model model) {
@@ -713,7 +713,35 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	
+	
+	@Override
+	public void search_status_sales_service(Model model) {
+		// 판매 검색 
+		
+		
+		
+	}
 
+	@Override
+	public void search_status_sales_table_service(Model model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void search_status_sales_page_service(Model model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void search_status_sales_detail_service(Model model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
 
 	
 	
