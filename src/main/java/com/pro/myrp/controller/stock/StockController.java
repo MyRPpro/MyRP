@@ -60,7 +60,7 @@ public interface StockController extends MyRPController {
 	public String reg_warehouse(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
-	 * 재고조정 > 재고조정 조회 페이지
+	 * 창고이동 > 창고이동 리스트 페이지
 	 * @author choidream
 	 * @param req
 	 * @param model
@@ -70,7 +70,7 @@ public interface StockController extends MyRPController {
 	public String movement_warehouse (HttpServletRequest req, Model model) throws Exception;
 	
 	/**
-	 * 물류주문조회 > 전체 전표 목록 리스트
+	 * 재고조정 > 재고조정 조회 페이지
 	 * @author choidream
 	 * @param req
 	 * @param model
@@ -79,7 +79,36 @@ public interface StockController extends MyRPController {
 	 */
 	public String adjustment_inventory(HttpServletRequest req, Model model) throws Exception;
 	
+	/**
+	 * 물류주문조회 > 전체 전표 목록 리스트
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	public String search_distribution_order(HttpServletRequest req, Model model) throws Exception;
+
+
+	/**
+	 * 물류주문조회 > 전표 상세페이지
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	String request_in_out_storage(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 물류주문조회 > 전표 처리 
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	String request_in_out_storage_pro(HttpServletRequest req, Model model) throws Exception;
 
 
 	

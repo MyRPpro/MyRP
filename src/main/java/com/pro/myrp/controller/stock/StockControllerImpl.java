@@ -70,7 +70,34 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 	@Override
 	@RequestMapping(value = "search_distribution_order/all_statement_list", method = {RequestMethod.GET,RequestMethod.POST})
 	public String search_distribution_order(HttpServletRequest req, Model model) throws Exception {
-		return code.c(distribution_management, search_distribution_order, all_statement_list);
+		
+		System.out.println("/all_statement_list");
+		
+		service.search_distribution_order_service(req,model);
+		
+		return code.c(distribution_management, search_distribution_order, statement_list);
+	}
+	
+	@Override
+	@RequestMapping(value = "search_distribution_order/request_in_out_storage", method = {RequestMethod.GET,RequestMethod.POST})
+	public String request_in_out_storage(HttpServletRequest req, Model model) throws Exception {
+		
+		System.out.println("/request_in_out_storage");
+		
+		service.request_in_out_storage_service(req,model);
+		
+		return code.c(distribution_management, search_distribution_order, request_in_out_storage);
+	}
+	
+	@Override
+	@RequestMapping(value = "search_distribution_order/request_in_out_storage_pro", method = {RequestMethod.GET,RequestMethod.POST})
+	public String request_in_out_storage_pro(HttpServletRequest req, Model model) throws Exception {
+		
+		System.out.println("/request_in_out_storage_pro");
+		
+		service.request_in_out_storage_pro_service(req,model);
+		
+		return code.c(distribution_management, search_distribution_order, statement_list);
 	}
 	
 	

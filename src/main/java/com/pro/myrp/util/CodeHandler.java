@@ -119,10 +119,8 @@ public class CodeHandler {
 					public static final int registraion_adjustment_inventory = 14520;				//재고 조정 등록
 					
 				public static final int search_distribution_order = 14600;							//물류 주문 조회
-					public static final int all_statement_list = 14610; 							//전체 전표 리스트
-					public static final int unidentified_lstatement_ist = 14620;					//미확인 전표 리스트
-					public static final int identified_statement_ist = 14630;						//확인 전표 리스트
-					public static final int query_statement = 14640;								//전표 내용 조회
+					public static final int statement_list = 14610; 								//전체 전표 리스트
+					public static final int request_in_out_storage = 14640;							//전표 내용 조회
 					public static final int approval_statement = 14650;								//전표 내용 승인
 			
 	//회계관리
