@@ -82,6 +82,7 @@ public interface CodeMyRP {
 			public static final int stock_condition = 14100;									//재고현황 검색
 				public static final int search_stock_condition = 14110;							//재고현황 검색
 			
+
 			public static final int stockpile = 14200;											//재고 수불부
 				public static final int search_stockpile = 14210;								//재고수불부 검색
 					public static final int search_stockpile_search = 14211;					//재고수불부 검색 Ajax 페이지
@@ -117,8 +118,8 @@ public interface CodeMyRP {
 				public static final int identified_statement_ist = 14630;						//확인 전표 리스트
 				public static final int query_statement = 14640;								//전표 내용 조회
 				public static final int approval_statement = 14650;								//전표 내용 승인
-				
-		//회계관리
+			
+			//회계관리
 		public static final int accounting_management = 15000;
 			//회계보고서
 			//계좌등록
