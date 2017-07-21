@@ -1,6 +1,7 @@
 package com.pro.myrp.service.stock;
 
 import java.lang.reflect.Array;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,10 +14,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.CodeMyRP;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.base_registration.ProductVO;
+import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stock_order_typeDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
-import com.pro.myrp.domain.distribution_manage.select_stockpile_searchDTO;
-import com.pro.myrp.domain.distribution_manage.stockpile_searchDTO;
+import com.pro.myrp.domain.distribution_manage.In_storageDTO;
+import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
+import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
 import com.pro.myrp.persistence.stock.StockDAO;
 
 @Service
@@ -67,7 +73,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("search", search);
 		model.addAttribute("where", where);
 		
-		ArrayList<stockpile_searchDTO> search_stockpile_searchDtos  = dao.select_search_stockpile_search(model);
+		ArrayList<Stockpile_searchDTO> search_stockpile_searchDtos  = dao.select_search_stockpile_search(model);
 		
 		model.addAttribute("search_stockpile_searchDtos", search_stockpile_searchDtos);
 		
@@ -84,7 +90,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		
 		String[] product = pro == null ? null : pro.split("-");
 		
-		ArrayList<select_stockpile_searchDTO> select_stockpile_searchDtos = new ArrayList<select_stockpile_searchDTO>();
+		ArrayList<Select_stockpile_searchDTO> select_stockpile_searchDtos = new ArrayList<Select_stockpile_searchDTO>();
 		ArrayList<ProductVO> product_name_list = new ArrayList<ProductVO>();
 		ArrayList<ProductVO> select_product = new ArrayList<ProductVO>();
 		ArrayList<String> search_product = new ArrayList<String>();
@@ -163,7 +169,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		}
 		
 		if(Integer.parseInt(end_day.replace("-", "")) < Integer.parseInt(today.replace("-", ""))){
-			ArrayList<select_stockpile_searchDTO> select_stockpile_minusDtos = new ArrayList<select_stockpile_searchDTO>();
+			ArrayList<Select_stockpile_searchDTO> select_stockpile_minusDtos = new ArrayList<Select_stockpile_searchDTO>();
 			model.addAttribute("start_day",end_day);
 			model.addAttribute("end_day",today);
 			
@@ -230,6 +236,272 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("end_day",end_day);
 		
 		model.addAttribute("add_stock",add_stock);
+	}
+
+	@Override
+	public void search_distribution_order_service(HttpServletRequest req, Model model) throws Exception {
+		
+		//ArrayList<Order_stateVO> order_stateDto = new ArrayList<Order_stateVO>();
+		ArrayList<Search_distribution_orderDTO> order_stateDto = new ArrayList<Search_distribution_orderDTO>();
+		//order_stateDto = dao.select_order_state(model);
+		order_stateDto = dao.Search_distribution_order(model);
+		
+		model.addAttribute("order_stateDto", order_stateDto);
+		
+	}
+
+	@Override
+	public void request_in_out_storage_service(HttpServletRequest req, Model model) throws Exception {
+		String goes = req.getParameter("goes");
+		String stock_order_type = req.getParameter("stock_order_type");
+		
+		ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
+		ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
+		
+		model.addAttribute("goes",goes);
+		model.addAttribute("stock_order_type",stock_order_type);
+		
+		if(goes.equals("in")){
+			model.addAttribute("opt", 1);
+			in_storageDtos = dao.select_in_storage(model);
+			model.addAttribute("in_storageDtos", in_storageDtos);
+		}else if(goes.equals("out")){
+			model.addAttribute("opt", 1);
+			out_storageDtos = dao.select_out_storage(model);
+			model.addAttribute("out_storageDtos", out_storageDtos);
+		}
+	}
+
+	@Override
+	public void request_in_out_storage_pro_service(HttpServletRequest req, Model model) throws Exception {
+		String goes = req.getParameter("goes");
+		String stock_order_type = req.getParameter("id");
+		System.out.println("req.getParameter(id : " + req.getParameter("id"));
+		System.out.println("stock_order_type : " + stock_order_type);
+		
+		String product_id;
+		int warehouse_id;
+		int employee_id;
+		Date reg_date;
+		String stock_state;
+		
+		int count_sales;
+		int stock_amount;
+		int available_stock;
+		int lack_stock;
+		Date storage_out_date;
+		
+		int count_purchase;
+		Date storage_in_date;
+		
+		int cnt = 0;
+		int stock_cnt = 0;
+	
+		ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
+		ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
+		
+		model.addAttribute("stock_order_type", stock_order_type);
+		
+		if(goes.equals("out_storage")){
+			out_storageDtos = dao.select_out_storage(model);
+			
+			product_id = out_storageDtos.get(0).getProduct_id();
+			warehouse_id = out_storageDtos.get(0).getWarehouse_id();
+			employee_id = out_storageDtos.get(0).getEmployee_id();
+			reg_date = out_storageDtos.get(0).getReg_date();
+			count_sales = out_storageDtos.get(0).getCount_sales();
+			stock_amount = out_storageDtos.get(0).getStock_amount();
+			available_stock = count_sales;
+			lack_stock = 0;
+			storage_out_date = out_storageDtos.get(0).getStorage_out_date();
+			stock_state = "24202";
+			
+			model.addAttribute("product_id", product_id);
+			model.addAttribute("warehouse_id", warehouse_id);
+			model.addAttribute("employee_id", employee_id);
+			model.addAttribute("reg_date", reg_date);
+			model.addAttribute("count_sales", count_sales);
+			model.addAttribute("available_stock", available_stock);
+			model.addAttribute("lack_stock", lack_stock);
+			model.addAttribute("storage_out_date", storage_out_date);
+			model.addAttribute("stock_state", stock_state);
+			
+			cnt = dao.insert_out_storage(model);
+			if(cnt == 1){
+				
+				 dao.update_stock_out_storage(model);
+				 stock_cnt = dao.select_product_in_warehouse(model);
+				 
+				 if(stock_cnt >= 1){
+					 model.addAttribute("st_op", 1);
+					 dao.update_stock_out_storage(model);
+				 }else{
+					 dao.insert_stock_out_storage(model);
+				 }
+				cnt = dao.update_order_state(model);
+				dao.update_sales_state(model);
+				model.addAttribute("op", 1);
+				cnt = dao.insert_out_storage(model);
+			}
+			
+		}else if(goes.equals("out_storage_wait")){
+			out_storageDtos = dao.select_out_storage(model);
+
+			product_id = out_storageDtos.get(0).getProduct_id();
+			warehouse_id = out_storageDtos.get(0).getWarehouse_id();
+			employee_id = out_storageDtos.get(0).getEmployee_id();
+			reg_date = out_storageDtos.get(0).getReg_date();
+			count_sales = out_storageDtos.get(0).getCount_sales();
+			stock_amount = out_storageDtos.get(0).getStock_amount();
+			available_stock = stock_amount;
+			lack_stock = count_sales - stock_amount;
+			storage_out_date = out_storageDtos.get(0).getStorage_out_date();
+			stock_state = "24203";
+			
+			model.addAttribute("product_id", product_id);
+			model.addAttribute("warehouse_id", warehouse_id);
+			model.addAttribute("employee_id", employee_id);
+			model.addAttribute("reg_date", reg_date);
+			model.addAttribute("count_sales", count_sales);
+			model.addAttribute("available_stock", available_stock);
+			model.addAttribute("lack_stock", lack_stock);
+			model.addAttribute("storage_out_date", storage_out_date);
+			model.addAttribute("stock_state", stock_state);
+			
+			cnt = dao.insert_out_storage(model);
+			if(cnt == 1){
+				
+				 dao.update_stock_out_storage(model);
+				 stock_cnt = dao.select_product_in_warehouse(model);
+				 
+				 if(stock_cnt >= 1){
+					 model.addAttribute("st_op", 1);
+					 dao.update_stock_out_storage(model);
+				 }else{
+					 dao.insert_stock_out_storage(model);
+				 }
+				cnt = dao.update_order_state(model);
+				dao.update_sales_state(model);
+				model.addAttribute("op", 1);
+				cnt = dao.insert_out_storage(model);
+			}
+		}else if(goes.equals("in_storage")){
+			
+			in_storageDtos = dao.select_in_storage(model);
+			product_id = in_storageDtos.get(0).getProduct_id();
+			warehouse_id = in_storageDtos.get(0).getWarehouse_id();
+			employee_id = in_storageDtos.get(0).getEmployee_id();
+			reg_date = in_storageDtos.get(0).getReg_date();
+			count_purchase = in_storageDtos.get(0).getCount_purchase();
+			storage_in_date = in_storageDtos.get(0).getStorage_in_date();
+			stock_state = "24102";
+			String order_id = in_storageDtos.get(0).getOrder_id();
+			
+			model.addAttribute("product_id", product_id);
+			model.addAttribute("warehouse_id", warehouse_id);
+			model.addAttribute("employee_id", employee_id);
+			model.addAttribute("reg_date", reg_date);
+			model.addAttribute("count_purchase", count_purchase);
+			model.addAttribute("storage_in_date", storage_in_date);
+			model.addAttribute("stock_state", stock_state);
+			model.addAttribute("order_id", order_id);
+			
+			//todo STOCK_ORDER_id 가져와야 함
+			cnt = dao.insert_in_storage(model);
+			if(cnt == 1){
+				model.addAttribute("op", 1);
+				cnt = dao.insert_in_storage(model);
+				dao.update_order_state(model);
+				dao.update_purchase_state(model);
+				 model.addAttribute("st_op", 2);
+				 dao.update_stock_out_storage(model);
+				 
+				 //
+				 stock_order_type = dao.select_stock_order_type(model);
+				 model.addAttribute("stock_order_type", stock_order_type);
+				 
+				 stock_state = "24202";
+				 model.addAttribute("stock_state", stock_state);
+				 
+				 dao.update_sales_state(model);
+			}
+		}else if(goes.equals("storage_out_complete")){
+			Select_stock_order_typeDTO dto = dao.select_stock_order_out_order(model);
+			
+			String stock_order_id = dto.getStock_order_id();
+			stock_order_type = dto.getStock_order_type();
+			count_sales = dto.getCount_sales();
+			available_stock = dto.getAvailable_stock();
+			lack_stock = dto.getLack_stock();
+			storage_out_date = dto.getStorage_out_date();
+			
+			product_id = dto.getProduct_id();
+			warehouse_id = dto.getWarehouse_id();
+			employee_id = dto.getEmployee_id();
+			reg_date = dto.getReg_date();
+			Date update_date = dto.getUpdate_date();
+			stock_state = "24752";
+			
+			model.addAttribute("stock_order_id", stock_order_id);
+			model.addAttribute("stock_order_type", stock_order_type);
+			model.addAttribute("count_sales", count_sales);
+			model.addAttribute("available_stock", available_stock);
+			model.addAttribute("lack_stock", lack_stock);
+			model.addAttribute("stock_state", stock_state);
+			model.addAttribute("product_id", product_id);
+			
+			dao.update_order_state(model);
+			model.addAttribute("st_op", 4);
+			dao.update_stock_out_storage(model);
+			dao.update_sales_state(model);
+			
+			model.addAttribute("st_op", 5);
+			dao.update_stock_out_storage(model);
+			 
+			/*out_storageDtos = dao.select_out_storage(model);
+			
+			product_id = out_storageDtos.get(0).getProduct_id();
+			warehouse_id = out_storageDtos.get(0).getWarehouse_id();
+			employee_id = out_storageDtos.get(0).getEmployee_id();
+			reg_date = out_storageDtos.get(0).getReg_date();
+			count_sales = out_storageDtos.get(0).getCount_sales();
+			stock_amount = out_storageDtos.get(0).getStock_amount();
+			if(stock_amount - count_sales >= 0){
+				available_stock = count_sales;
+				lack_stock = 0;
+				
+			}else{
+				available_stock = stock_amount;
+				lack_stock =count_sales - stock_amount;
+			}
+
+			storage_out_date = out_storageDtos.get(0).getStorage_out_date();
+			stock_state = "24752";
+			
+			model.addAttribute("product_id", product_id);
+			model.addAttribute("warehouse_id", warehouse_id);
+			model.addAttribute("employee_id", employee_id);
+			model.addAttribute("reg_date", reg_date);
+			model.addAttribute("count_sales", count_sales);
+			model.addAttribute("available_stock", available_stock);
+			model.addAttribute("lack_stock", lack_stock);
+			model.addAttribute("storage_out_date", storage_out_date);
+			model.addAttribute("stock_state", stock_state);
+			
+			dao.update_order_state(model);
+			model.addAttribute("st_op", 4);
+			dao.update_stock_out_storage(model);
+			dao.update_order_state(model);
+			dao.update_sales_state(model);
+			
+			if(stock_amount - count_sales < 0){
+				model.addAttribute("st_op", 5);
+				dao.insert_out_storage(model);
+			}*/
+			
+		}
+		
+		model.addAttribute("cnt", cnt);
 	}
 }
 
