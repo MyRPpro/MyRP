@@ -19,18 +19,22 @@
 <hr>
 
 <h3>판매 관리</h3>
-<a href="/sales_management/sales_list">판매검색-판매 리스트</a><br>
-<a href="sales_management/detail_sales?company_id=1000000020">판매검색-판매 리스트-리스트 세부 페이지</a><br>
+<a href="/sales_management/search_sales/sales_list">판매검색-판매 리스트</a><br>
+<a href="/sales_management/search_sales/detail_sales?sales_id=311017072113$&sales_state=22211">판매검색-판매 리스트-세부 페이지</a><br>
+<a href="/sales_management/search_sales/modify_sales?sales_id=311017072113$&sales_state=22211">판매검색-판매 리스트-수정 페이지</a><br>
+<a href="/sales_management/search_sales/sales_list">판매검색-판매 리스트-검색 페이지</a><br>
+<a href="/sales_management/input_sales/reg_sales">판매입력</a><br>
 <hr>
 
+
 <h3>구매 관리</h3>
-<a href="purchase_management/search_purchase/purchase_list">구매검색-구매 리스트</a><br>
-<a href="purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-세부 페이지</a><br>
-<a href="purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-수정 페이지</a><br>
-<a href="purchase_management/search_purchase/purchase_list">구매검색-구매 리스트-검색 페이지</a><br>
-<a href="purchase_management/input_purchase/reg_purchase">구매입력</a><br>
-<a href="purchase_management/">구매현황</a><br>
-<a href="purchase_management/">거래처별 채무</a><br>
+<a href="/purchase_management/search_purchase/purchase_list">구매검색-구매 리스트</a><br>
+<a href="/purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-세부 페이지</a><br>
+<a href="/purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-수정 페이지</a><br>
+<a href="/purchase_management/search_purchase/purchase_list">구매검색-구매 리스트-검색 페이지</a><br>
+<a href="/purchase_management/input_purchase/reg_purchase">구매입력</a><br>
+<a href="/purchase_management/">구매현황</a><br>
+<a href="/purchase_management/">거래처별 채무</a><br>
 <hr>
 
 <h3>물류 관리</h3>
@@ -45,7 +49,7 @@
 <h3>회계 관리</h3>
 <a href="/accounting_management/financial_statements/search_balance_sheet">회계관리-재무상태표 조회</a><br>
 <a href="/accounting_management/bank_account_registration/bank_account_list">회계관리-계좌리스트</a><br>
-<a href="/accounting_management/cash/search_deposit_payment_history">회계관리-입/출금내역 조회</a><br>
+<a href="/accounting_management/account_management/account_list">회계관리 - 계정 목록 조회</a><br>
 <a href="/accounting_management/statement_management/search_all_statements">회계관리-전체전표 조회</a><br>
 <a href="/accounting_management/bond_debt_status/search_bond_debt">회계관리-채권/채무 조회</a><br>
 <a href="/accounting_management/account_management/account_list">회계관리-계정목록 조회</a>
@@ -61,8 +65,6 @@
 <hr>
 
 <h3>근태 관리</h3>
-<a href="/hr_management/manage_service_attitude/search_attendance_absence">근태관리-근태 조회</a><br>
-<a href="/hr_management/manage_service_attitude/search_attendance_absence">근태관리-근태 등록</a><br>
-<a href="/hr_management/manage_service_attitude/search_attendance_absence">근태관리-근태 집계표</a><br>
+<a href="/attitude_management/search_attitude/search_attitude_search">근태관리-근태 조회</a>
 </body>
 </html>

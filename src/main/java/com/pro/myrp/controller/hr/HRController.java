@@ -372,17 +372,7 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String personnel_card_appointment(HttpServletRequest req, Model model) throws Exception;
-	
-	/**
-	 * 인사관리 > 근태 관리 > 출결달력 검색
-	 * @author amaco78
-	 * @param req
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	public String search_attendance_absence(HttpServletRequest req, Model model) throws Exception;
-	
+
 	/**
 	 * 인사관리 > 급여 관리 > 급여대장
 	 * @author amaco78

@@ -1,6 +1,5 @@
 package com.pro.myrp.service.purchase;
 
-import java.io.Console;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,7 +81,6 @@ public class purchaseServiceImpl implements purchaseService {
 		end = start + pageSize - 1;
 		if(end > cnt) end = cnt;
 		number = cnt - (currentPage - 1) * pageSize;
-		System.out.println("  -> 테스트 : " + start+", "+end);
 		
 		
 		if(cnt > 0) {
@@ -405,7 +403,6 @@ public class purchaseServiceImpl implements purchaseService {
 		
 	
 	}
-
 	
 	@Override
 	public void reg_purchase_table(Model model) {

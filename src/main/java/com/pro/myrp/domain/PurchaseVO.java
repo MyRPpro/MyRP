@@ -2,10 +2,12 @@ package com.pro.myrp.domain;
 
 import java.sql.Date;
 
+
 /**
  * @author Jang.EC
  *
  */
+
 public class PurchaseVO {
 
 	private String purchase_id;
@@ -29,7 +31,7 @@ public class PurchaseVO {
 	private String account_name;
 	private String statement_id;
 	private int rnum;
-	private String purchase_state_name;
+	private String state_name;
 	
 	
 	
@@ -187,6 +189,18 @@ public class PurchaseVO {
 	public void setStatement_id(String statement_id) {
 		this.statement_id = statement_id;
 	}
+	
+	
+		
+
+
+	public String getState_name() {
+		return state_name;
+	}
+
+	public void setState_name(String state_name) {
+		this.state_name = state_name;
+	}
 
 	@Override
 	public String toString() {
@@ -196,9 +210,11 @@ public class PurchaseVO {
 				+ ", count_purchase=" + count_purchase + ", supply_price=" + supply_price + ", purchase_state="
 				+ purchase_state + ", condition_note_payable=" + condition_note_payable + ", product_name="
 				+ product_name + ", company_name=" + company_name + ", employee_name=" + employee_name
-				+ ", account_name=" + account_name + ", statement_id=" + statement_id + "]";
+				+ ", account_name=" + account_name + ", statement_id=" + statement_id + ", rnum=" + rnum
+				+ ", state_name=" + state_name + "]";
 	}
 
+	
 	
 	
 	

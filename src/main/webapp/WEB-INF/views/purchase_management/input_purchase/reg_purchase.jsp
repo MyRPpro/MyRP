@@ -209,7 +209,7 @@
 				placeholder="구매 수량" requiered > </td>
 				
 				<!-- 11 supply_price -->
-				<td> <input type="number"  id="supply_price" name="supply_price" min="1" max="9999999999" 
+				<td> <input type="number"  id="supply_price" name="supply_price" min="1" max="999999999" 
 				placeholder="구매단가" requiered  ></td>
 				
 				<!-- 12 purchase_state : 입력할 때는 미승인 상태로 -->
