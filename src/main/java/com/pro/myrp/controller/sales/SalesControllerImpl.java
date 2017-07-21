@@ -93,6 +93,15 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	
 	}
 
+	@Override
+	@GetMapping(value="search_sales/req_storage_out")
+	public String req_storage_out(HttpServletRequest req, Model model) throws Exception {
+		
+		model.addAttribute("req", req);
+		service.req_storage_out_service(model);
+		return code.c(sales_management, search_sales, sales_list);
+	}
+
 
 	
 	

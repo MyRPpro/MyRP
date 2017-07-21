@@ -59,6 +59,7 @@ public interface SalesDAO extends MyRPDAO {
 
 	public ArrayList<SalesDTO> select_sales_order(String product_id);
 	
+	public int update_req_storage_out(Map<String, Object> daoMap);
 	
 	
 	/*

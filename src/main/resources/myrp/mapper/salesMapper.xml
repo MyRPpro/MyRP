@@ -417,7 +417,7 @@
 		        sales_ID, 
 		        NVL( DECODE
 		            ( ACCOUNT_ID,
-		               '500011060000','상품매출',
+		               '500012030000','상품매출',
 		              '500012020000','부가세예수금',
 		              '500011020000','매출채권' )
 		              ,'입력값 오류' ) as ACCOUNT_NAME,
@@ -454,5 +454,14 @@
 		ORDER 	BY rnum
 		]]>
  	</select>
+ 	
+ 	<update id="update_req_storage_out" parameterType="java.util.Map">
+ 		<![CDATA[
+ 			UPDATE	sales_order
+ 			SET		sales_state = #{sales_state}
+ 			WHERE	sales_id = #{sales_id}
+ 			AND		account_id = #{account_id}
+ 		]]>
+ 	</update>
  	
 </mapper>

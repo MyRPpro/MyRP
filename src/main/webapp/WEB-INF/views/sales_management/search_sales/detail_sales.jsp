@@ -117,9 +117,14 @@
 				
 			</tr>
 		</table>
-		
+		<c:if test="${sales_state == 22213 }">
 		<input type="button" value="회계전표 입력하기 " 
 			onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
+		</c:if>
+		<c:if test="${sales_state == 22214}">
+		<input type="button" value="출고요청" 
+			onclick="window.location='/sales_management/search_sales/req_storage_out?sales_id=${sales_id}';" >
+		</c:if>
 	</form>
 	
 </body>

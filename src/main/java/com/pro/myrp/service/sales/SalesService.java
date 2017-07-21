@@ -24,4 +24,6 @@ public interface SalesService extends MyRPService {
 
 	public void reg_sales_table(Model model);
 
+	public void req_storage_out_service(Model model);
+	
 }

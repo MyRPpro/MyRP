@@ -153,6 +153,13 @@ public class SalesDAOImpl implements SalesDAO {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_sales_order(product_id);
 	}
+
+
+	@Override
+	public int update_req_storage_out(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_req_storage_out(daoMap);
+	}
 	
 
 	
