@@ -12,10 +12,8 @@
 $(function(){
 	$('#storage_out').click(function(){
 		var togo = $('#request');
-		var stock_order_type = document.getElementById("order_id").value;
 		var data = {
 					"goes" : "out",
-					"stock_order_type" : stock_order_type
 					}
 		$.ajax({ 					
 			data: 	data,
@@ -29,10 +27,23 @@ $(function(){
 	
 	$('#storage_in').click(function(){
 		var togo = $('#request');
-		var stock_order_type = document.getElementById("order_id").value;
 		var data = {
 					"goes" : "in",
-					"stock_order_type" : stock_order_type
+					}
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/search_distribution_order/request_in_out_storage",
+			success: function(response) {
+				togo.html(response);	
+			}
+		});
+	});	
+	
+	$('#storage_out_complete').click(function(){
+		var togo = $('#request');
+		var data = {
+					"goes" : "storage_out_complete",
 					}
 		$.ajax({ 					
 			data: 	data,
@@ -44,50 +55,78 @@ $(function(){
 		});
 	});	
 });
-
-function storage_go(id, goes,storage_out_date){
-	var now = new Date();
-	var year= now.getFullYear();
-    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-	var today = year + mon + "-" +  (now.getDate());
-
-	if(storage_out_date.replace("-","") > today){
-		alert("출고예정일이 안되었습니다.");
-		return false;
-	}
-	window.location = "/distribution_management/search_distribution_order/request_in_out_storage_pro?id="+id+"&goes="+goes
-}
 </script>
 all_statement_list.jsp
-<input type = "text" id = "order_id" placeholder = "id를 입력하시오">
 <button id = "storage_out">출고요청</button>
 <button id = "storage_in">입고요청</button>
+<button id = "storage_out_complete">출고완료요청</button>
 <button onclick = "window.location = '/'">홈으로</button>
-<div id = "request"></div>	
 <br>
 <br>
+<div id = "request"></div>
 <br>
-<br>
-
-	<table border = "1">
+<br>	
+<h3>입고요청 처리내역</h3>
+<table border = "1">
+	<tr>
+		<th>STOCK_ORDER_ID</th>
+		<th>STOCK_ORDER_TYPE</th>
+		<th>PRODUCT_ID</th>
+		<th>WAREHOUSE_ID</th>
+		<th>EMPLOYEE_ID</th>
+		<th>REG_DATE</th>
+		<th>UPDATE_DATE</th>
+		<th>STOCK_STATE</th>
+		<th>COUNT_PURCHASE</th>
+		<th>STORAGE_IN_DATE</th>
+	</tr>
+	<c:forEach var = "dto" items = "${in_storageDtos}">
 		<tr>
-			<th>전표번호</th>
-			<th>상태코드</th>
-			<th>상태</th>
-			<th>출고예정일</th>
-			<th>승인버튼</th>
+			<th>${dto.stock_order_id}</th>
+			<th>${dto.stock_order_type}</th>
+			<th>${dto.product_id}</th>
+			<th>${dto.warehouse_id}</th>
+			<th>${dto.employee_id}</th>
+			<th>${dto.reg_date}</th>
+			<th>${dto.update_date}</th>
+			<th>${dto.stock_state}</th>
+			<th>${dto.count_purchase}</th>
+			<th>${dto.storage_in_date}</th>
 		</tr>
-		<c:forEach var = "dto" items = "${order_stateDto}"> 
-			<c:if test = "${dto.order_state == 24202}">
-			<tr>
-				<th><%-- <a href = "/distribution_management/search_distribution_order/?order_id=${dto.order_id}"> --%>${dto.order_id}<!-- </a> --></th>
-				<th>${dto.order_state}</th>
-				<th>출고 대기</th>
-				<th>${dto.storage_out_date}</th>
-				<th><button onclick = "storage_go('${dto.order_id}','storage_out_complete','${dto.storage_out_date}')">버튼</button></th>
-			</tr>
-			</c:if>
-		</c:forEach>
-	</table>
-</body>
+	</c:forEach>
+</table>
+
+<h3>출고요청 처리내역</h3>
+<table border = "1">
+	<tr>
+		<th>STOCK_ORDER_ID</th>
+		<th>STOCK_ORDER_TYPE</th>
+		<th>PRODUCT_ID</th>
+		<th>WAREHOUSE_ID</th>
+		<th>EMPLOYEE_ID</th>
+		<th>REG_DATE</th>
+		<th>UPDATE_DATE</th>
+		<th>STOCK_STATE</th>
+		<th>COUNT_SALES</th>
+		<th>AVAILABLE_STOCK</th>
+		<th>LACK_STOCK</th>
+		<th>STORAGE_OUT_DATE</th>
+	</tr>
+	<c:forEach var = "dto" items = "${out_storageDtos}">
+		<tr>
+			<th>${dto.stock_order_id}</th>
+			<th>${dto.stock_order_type}</th>
+			<th>${dto.product_id}</th>
+			<th>${dto.warehouse_id}</th>
+			<th>${dto.employee_id}</th>
+			<th>${dto.reg_date}</th>
+			<th>${dto.update_date}</th>
+			<th>${dto.stock_state}</th>
+			<th>${dto.count_sales}</th>
+			<th>${dto.available_stock}</th>
+			<th>${dto.lack_stock}</th>
+			<th>${dto.storage_out_date}</th>
+		</tr>
+	</c:forEach>
+</table>
 </html>

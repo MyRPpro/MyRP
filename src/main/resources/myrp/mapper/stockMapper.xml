@@ -105,7 +105,7 @@
 	<select id = "select_order_state" parameterType="java.util.Map" resultType="Order_stateVO">
  		SELECT	*
  		FROM	order_state
- 		WHERE	order_state in (24201,24102,24202)
+ 		WHERE	order_state in (22222,23204,24202)
  	</select> 	
  	
  	<select id = "Search_distribution_order" parameterType="java.util.Map" resultType="Search_distribution_orderDTO">
@@ -120,9 +120,7 @@
  		SELECT	*
  		FROM	purchase_order p JOIN stock_information s
  		ON		p.product_id = s.product_id
- 		<!-- JOIN	stock_order st
- 		ON		p.purchase_id = st.stock_order_type  -->
- 		WHERE	purchase_id = #{stock_order_type}
+ 		WHERE	p.purchase_state = 23204
  		AND		s.warehouse_id = 1001
  		AND		p.account_id = 500011050000
  		<if test = "opt == 1">
@@ -134,9 +132,7 @@
  		SELECT	*
  		FROM	sales_order p JOIN stock_information s
  		ON		p.product_id = s.product_id
- 		<!-- JOIN	stock_order st -->
- 		<!-- ON		p.sales_id = st.stock_order_type -->
- 		WHERE	p.sales_id = #{stock_order_type}
+ 		WHERE	SALES_STATE = 22222
  		AND		s.warehouse_id = 1001
  		AND		p.account_id = 500011030000
  		<!-- AND		st.stock_state NOT IN (24202,24752,24203) -->
@@ -245,5 +241,35 @@
  		FROM	stock_order o  JOIN storage_out_order s
  		ON		s.stock_order_id = o.stock_order_id
  		WHERE	stock_order_type = #{stock_order_type}
+ 	</select>
+ 
+  	<select id = "select_warehouse_list" parameterType="java.util.Map" resultType = "WarehouseVO">
+ 		SELECT	*
+ 		FROM	warehouse_information
+ 		<if test = "warehouse_id != null">
+ 		WHERE	warehouse_id = #{warehouse_id}
+ 		</if>
+ 	</select>
+ 	
+ 	<insert id="insert_warehouse" parameterType="java.util.Map">
+ 		INSERT INTO warehouse_information
+ 		VALUES	(#{warehouse_id},#{warehouse_name},#{warehouse_location})
+ 	</insert>
+ 	<update id="update_warehouse" parameterType="java.util.Map">
+ 		UPDATE	warehouse_information
+ 		SET		warehouse_name = #{warehouse_name}, warehouse_location = #{warehouse_location}
+ 		WHERE	warehouse_id = #{warehouse_id}
+ 	</update>
+ 	
+ 	<select id = "select_storage_out_order" resultType = "Select_stock_order_typeDTO">
+ 		SELECT	*
+ 		FROM	stock_order s JOIN storage_out_order o
+ 		ON		s.stock_order_id = o.stock_order_id
+ 	</select>
+ 	
+ 	<select id = "select_storage_in_order" resultType = "Select_stock_order_typeDTO">
+ 		SELECT	*
+ 		FROM	stock_order s JOIN storage_in_order o
+ 		ON		s.stock_order_id = o.stock_order_id
  	</select>
 </mapper>

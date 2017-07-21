@@ -13,6 +13,7 @@ import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
+import com.pro.myrp.domain.distribution_manage.WarehouseVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface StockDAO extends MyRPDAO {
@@ -143,4 +144,26 @@ public interface StockDAO extends MyRPDAO {
 	public String select_stock_order_type(Model model);
 
 	public Select_stock_order_typeDTO select_stock_order_out_order(Model model);
+
+	public ArrayList<WarehouseVO> select_warehouse_list(Model model);
+
+	public int insert_warehouse(Model model);
+
+	public int update_warehouse(Model model);
+	
+	/**
+	 * 물류주문조회 > 리스트 페이지 - 입고주문들
+	 * @author choidream
+	 * @param model
+	 * @return
+	 */
+	public ArrayList<In_storageDTO> select_storage_in_order();
+
+	/**
+	 * 물류주문조회 > 리스트 페이지 - 출고주문들
+	 * @author choidream
+	 * @param model
+	 * @return
+	 */
+	public ArrayList<Out_storageDTO> select_storage_out_order();
 }

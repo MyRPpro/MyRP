@@ -4,9 +4,8 @@ import java.sql.Date;
 
 public class Select_stock_order_typeDTO {
 	
-	private String stock_order_type;
-	
 	private String stock_order_id;
+	private String stock_order_type;
 	private int count_sales;
 	private int available_stock;
 	private int lack_stock;
@@ -19,6 +18,24 @@ public class Select_stock_order_typeDTO {
 	private Date update_date;
 	private int stock_state;
 	
+	private int count_purchase;
+	private Date storage_in_date;
+	
+	public int getCount_purchase() {
+		return count_purchase;
+	}
+
+	public void setCount_purchase(int count_purchase) {
+		this.count_purchase = count_purchase;
+	}
+
+	public Date getStorage_in_date() {
+		return storage_in_date;
+	}
+
+	public void setStorage_in_date(Date storage_in_date) {
+		this.storage_in_date = storage_in_date;
+	}
 
 	public String getStock_order_id() {
 		return stock_order_id;

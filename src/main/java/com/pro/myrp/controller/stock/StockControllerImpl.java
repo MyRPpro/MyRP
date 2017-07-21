@@ -52,7 +52,25 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 	@Override
 	@RequestMapping(value = "reg_warehouse/warehouse_list", method = {RequestMethod.GET,RequestMethod.POST})
 	public String reg_warehouse(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(warehouse_list));
+		service.reg_warehouse_service(req,model);
 		return code.c(distribution_management, reg_warehouse, warehouse_list);
+	}
+	
+	@Override
+	@RequestMapping(value = "reg_warehouse/warehouse_view", method = {RequestMethod.GET,RequestMethod.POST})
+	public String reg_warehouse_view(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(warehouse_view));
+		service.reg_warehouse_view_service(req,model);
+		return code.c(distribution_management, reg_warehouse, warehouse_view);
+	}
+	
+	@Override
+	@RequestMapping(value = "reg_warehouse/warehouse_pro", method = {RequestMethod.GET,RequestMethod.POST})
+	public String reg_warehouse_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(warehouse_pro));
+		service.reg_warehouse_pro_service(req,model);
+		return "redirect:" + code.c(distribution_management, reg_warehouse, warehouse_list);
 	}
 
 	@Override
@@ -68,10 +86,10 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 	}
 
 	@Override
-	@RequestMapping(value = "search_distribution_order/all_statement_list", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "search_distribution_order/statement_list", method = {RequestMethod.GET,RequestMethod.POST})
 	public String search_distribution_order(HttpServletRequest req, Model model) throws Exception {
 		
-		System.out.println("/all_statement_list");
+		System.out.println("/statement_list");
 		
 		service.search_distribution_order_service(req,model);
 		
@@ -97,7 +115,7 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 		
 		service.request_in_out_storage_pro_service(req,model);
 		
-		return code.c(distribution_management, search_distribution_order, statement_list);
+		return "redirect:" + code.c(distribution_management, search_distribution_order, statement_list);
 	}
 	
 	

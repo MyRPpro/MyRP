@@ -43,7 +43,7 @@
 <a href="/distribution_management/reg_warehouse/warehouse_list">창고 리스트</a><br>
 <a href="/distribution_management/movement_warehouse/movement_all_list">창고 이동 전체 리스트</a><br>
 <a href="/distribution_management/adjustment_inventory/adjustment_inventory_list">재고 조정 조회</a><br>
-<a href="/distribution_management/search_distribution_order/all_statement_list">전체 전표 리스트</a>
+<a href="/distribution_management/search_distribution_order/statement_list">전체 전표 리스트</a>
 <hr>
 
 <h3>회계 관리</h3>

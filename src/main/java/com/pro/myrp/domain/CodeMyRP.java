@@ -94,9 +94,8 @@ public interface CodeMyRP {
 						
 					public static final int reg_warehouse = 14300;										//창고등록
 						public static final int warehouse_list = 14310; 								//창고 리스트
-						public static final int registration_warehouse = 14320;							//창고 등록
-						public static final int modifycation_warehouse =14330;							//창고 수정
-						public static final int delete_warehouse = 14340;								//창고 삭제
+						public static final int warehouse_view = 14320; 								//창고 등록 / 수정 입력
+						public static final int warehouse_pro = 14330;									//창고 등록 / 수정 처리
 						
 					public static final int movement_warehouse = 14400;									//창고 이동
 						public static final int movement_all_list = 14410; 								//전체 리스트

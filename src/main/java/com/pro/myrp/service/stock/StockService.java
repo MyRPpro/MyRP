@@ -49,4 +49,34 @@ public interface StockService extends MyRPService {
 	 */
 	public void request_in_out_storage_pro_service(HttpServletRequest req, Model model) throws Exception;
 
+	/**
+	 * 창고등록 > 창고리스트 
+	 * @author choidream 
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void reg_warehouse_service(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 창고등록 > 창고 등록 / 수정 입력
+	 * @author choidream 
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void reg_warehouse_view_service(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 창고등록 > 창고 등록 / 수정 처리
+	 * @author choidream 
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void reg_warehouse_pro_service(HttpServletRequest req, Model model) throws Exception;
+
+	
+	
+
 }

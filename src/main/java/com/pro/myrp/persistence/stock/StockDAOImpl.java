@@ -17,6 +17,7 @@ import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
+import com.pro.myrp.domain.distribution_manage.WarehouseVO;
 
 @Repository
 public class StockDAOImpl implements StockDAO {
@@ -137,5 +138,35 @@ public class StockDAOImpl implements StockDAO {
 	public Select_stock_order_typeDTO select_stock_order_out_order(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
 		return dao.select_stock_order_out_order(model);
+	}
+
+	@Override
+	public ArrayList<WarehouseVO> select_warehouse_list(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_warehouse_list(model);
+	}
+
+	@Override
+	public int insert_warehouse(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.insert_warehouse(model);
+	}
+
+	@Override
+	public int update_warehouse(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.update_warehouse(model);
+	}
+
+	@Override
+	public ArrayList<In_storageDTO> select_storage_in_order() {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_storage_in_order();
+	}
+
+	@Override
+	public ArrayList<Out_storageDTO> select_storage_out_order() {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_storage_out_order();
 	}
 }
