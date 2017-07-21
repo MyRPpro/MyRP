@@ -10,7 +10,8 @@
 <script src = "/resources/accounting_management/accounting_management_script.js"></script>
 <body>
 <h3> 미승인 전표 조회 </h3>
-총 미승인 전표 개수 : ${cnt}
+총 미승인 전표 개수 : ${cnt}<br>
+<button onclick="window.location='/'"> 홈으로 </button>
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
 	<input type="submit" value="전표 등록">	
 </form>

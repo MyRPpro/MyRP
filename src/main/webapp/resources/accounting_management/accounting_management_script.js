@@ -42,11 +42,17 @@ function check_bank_account(){
 		alert("은행이름을 입력해주세요!");
 		document.register_bank_account_form1.bank_name.focus();
 		return false;
-	}
-	
+	}	
 } 
+//해당전표거래 해당 계좌가 존재하는지 체크
 function bank_account_excist(){
 	alert("관련 전표거래에 해당하는 은행계좌가 존재하지 않거나, 이용이 불가하여 거래승인이 불가합니다. 계좌를 먼저 개설해주세요 ");
+	if(confirm("계좌개설페이지로 이동하시겠습니까?")){
+		self.close();
+		window.opener.location="/accounting_management/bank_account_registration/register_bank_account";
+	}else{
+		window.opener.location="/accounting_management/statement_management/search_all_statements";
+	}
 }
 
 //전표 상세페이지 띄우기
@@ -70,7 +76,7 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 //승인메시지 띄우고 전표페이지 다시 돌아가기
 function complete_approval(statement_id, connected_id, typeCnt){
 	alert("승인처리되었습니다");
-	if(typeCnt==1||typeCnt==2||typeCnt==3){
+	
 	if(typeCnt==1){
 		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
 	}
@@ -80,11 +86,13 @@ function complete_approval(statement_id, connected_id, typeCnt){
 	if(typeCnt==3){
 		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
 	}
-	}else {
-		window.location="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
-	}
 }
-
+//승인메시지 띄우고 전표페이지 다시 돌아가기 (세금)
+function complete_approval_tax(statement_id){
+	alert("등록/승인처리되었습니다");
+	var url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
+	window.location="/accounting_management/statement_management/search_all_statements";
+}
 //승인거절 메세지 띄우고 전표페이지 다시 돌아가기
 function complete_disapproval(statement_id, connected_id, typeCnt){
 	alert("승인거절 처리되었습니다");

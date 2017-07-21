@@ -392,11 +392,34 @@
  	
  	<!-- 승인할 전표가 가진 계정이 은행이 있어야하는지 확인 -->
  	<select id="select_check_account_id_with_statement_id" parameterType="java.util.Map" resultType="int">
+ 		<if test="typeCnt == 1">
+ 		<![CDATA[
+ 		SELECT COUNT(*) FROM (SELECT statement_id FROM sales_statement 
+                      WHERE account_id IN(500011020000, 500012010000, 500014010000, 500012020000, 500011010000))
+		WHERE statement_id = #{statement_id}
+ 		]]>
+ 		</if>
+ 		<if test="typeCnt == 2">
  		<![CDATA[
  		SELECT COUNT(*) FROM (SELECT statement_id FROM purchase_statement 
                       WHERE account_id IN(500011020000, 500012010000, 500014010000, 500012020000, 500011010000))
 		WHERE statement_id = #{statement_id}
  		]]>
+ 		</if>
+ 		<if test="typeCnt == 3">
+ 		<![CDATA[
+ 		SELECT COUNT(*) FROM (SELECT statement_id FROM salary_register_statement 
+                      WHERE account_id IN(500011020000, 500012010000, 500014010000, 500012020000, 500011010000))
+		WHERE statement_id = #{statement_id}
+ 		]]>
+ 		</if>
+ 		<if test="typeCnt == 4">
+ 		<![CDATA[
+ 		SELECT COUNT(*) FROM (SELECT statement_id FROM tax_statement 
+                      WHERE account_id IN(500011020000, 500012010000, 500014010000, 500012020000, 500011010000))
+		WHERE statement_id = #{statement_id}
+ 		]]>
+ 		</if>
  	</select>
  	<!-- 승인할 전표가 가진 계정이 은행이 있어야하는데, 그것의 계좌가 있는지 확인 -->
  	<select id="select_check_excist" parameterType="java.util.Map" resultType="int">
@@ -429,39 +452,37 @@
  		]]>
  		</if>
  	</select>
- 	
- 	<select id="update_bank_account_account_value" parameterType="java.util.Map" resultType="int">
+ 	<!-- 계좌정보 업데이트 -->
+ 	<update id="update_bank_account_account_value" parameterType="java.util.Map">
  		<if test="typeCnt == 1">
  		<![CDATA[
- 		 UPDATE bank_account SET bank_account_balance = (SELECT account_balance FROM account 
-                                                           WHERE account_id = (SELECT account_id FROM sales_statement WHERE statement_id = #{statement_id})
-                                                         )
+ 		 UPDATE bank_account SET bank_account_balance = bank_account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
          WHERE bank_account_id = (SELECT account_id FROM sales_statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
  		<if test="typeCnt == 2">
  		<![CDATA[
- 		UPDATE bank_account SET bank_account_balance = (SELECT account_balance FROM account 
-                                                           WHERE account_id = (SELECT account_id FROM purchase_statement WHERE statement_id = #{statement_id})
-        											    )
-        WHERE bank_account_id = (SELECT account_id FROM purchase_statement WHERE statement_id = #{statement_id})                                                 
+ 		UPDATE bank_account SET bank_account_balance = bank_account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+        WHERE bank_account_id = (SELECT account_id FROM purchase_statement WHERE statement_id = #{statement_id})                                           
  		]]>
  		</if>
  		<if test="typeCnt == 3">
  		<![CDATA[
- 		UPDATE bank_account SET bank_account_balance = (SELECT account_balance FROM account 
-                                                           WHERE account_id = (SELECT account_id FROM salary_register_statement WHERE statement_id = #{statement_id})
-                                                         )
+ 		UPDATE bank_account SET bank_account_balance = bank_account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
         WHERE bank_account_id = (SELECT account_id FROM salary_register_statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
  		<if test="typeCnt == 4">
  		<![CDATA[
- 		UPDATE bank_account SET bank_account_balance = (SELECT account_balance FROM account 
-                                                           WHERE account_id = (SELECT account_id FROM tax_statement WHERE statement_id = #{statement_id})
-         											   )
-         WHERE bank_account_id = (SELECT account_id FROM tax_statement WHERE statement_id = #{statement_id})                                               
+ 		UPDATE bank_account SET bank_account_balance = bank_account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+        WHERE bank_account_id = (SELECT account_id FROM tax_statement WHERE statement_id = #{statement_id})
  		]]>
  		</if>
+ 	</update>
+ 	<!-- 세금 전표 statement_id 가져오기 -->
+ 	<select id="select_get_tax_statement_id" resultType="String">
+ 		<![CDATA[
+ 		SELECT '5470' || TO_CHAR(sysdate,'YYMMDD') || LPAD(statement_seq.CURRVAL,2,0) FROM dual
+ 		]]>
  	</select>
 </mapper>

@@ -10,6 +10,7 @@
 
 <body>
  register_bank_account.jsp 페이지
+ <button onclick="window.location='/'"> 홈으로 </button>
 	<form action="/accounting_management/bank_account_registration/register_bank_account_pro" name="register_bank_account_form1" method="post" onsubmit ="return check_bank_account();">
 		<table border="1">
 			<tr>
