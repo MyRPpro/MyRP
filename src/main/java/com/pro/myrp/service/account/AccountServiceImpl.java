@@ -309,24 +309,27 @@ public class AccountServiceImpl implements AccountService {
 			daoMap.put("statement_id", statement_ids[i]);
 			int checkBankAccountCnt = 0;
 			int checkAccountCnt = dao.select_check_account_id_with_statement_id(daoMap);
-			System.out.println("checkAccountCnt 는???"+checkAccountCnt );
-			if(checkAccountCnt==1) { //계좌값가져야하는 계정의 전표라면
-				checkCnt=1;
-				checkBankAccountCnt = dao.select_check_excist(daoMap); //그 계정이 통장있는지 확인
-				if(checkBankAccountCnt==0) {
-					checkCnt=2;
+				if(checkAccountCnt==1) { //계좌 가져야하는 계정의 전표라면
+					checkCnt=1;
+					checkBankAccountCnt = dao.select_check_excist(daoMap); //그 계정이 계좌가 있는지 확인
+					if(checkBankAccountCnt==0) { //계좌가 없는경우
+						checkCnt=2; 
+					}
+				}else {
+					checkCnt=0;
 				}
-			}
+			System.out.println(i+"번쨰전표 : "+statement_ids[i]);
 			System.out.println("checkAccountCnt : " + checkAccountCnt);
 			System.out.println("checkBankAccountCnt : " + checkBankAccountCnt);
+			System.out.println("checkCnt : " + checkCnt);
 		}
-		if(checkCnt==0) {
+		if(checkCnt==0) { //계좌 가져야하는 계정의 전표가 아닌경우
 			for(int i= 1; i<cnt+1; i++){	
 				daoMap.put("statement_id", statement_ids[i]);
 				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
 				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
 			}
-		}else if(checkCnt==1){
+		}else if(checkCnt==1){ //계좌 가져야하는 계정의 전표인 경우
 			for(int i= 1; i<cnt+1; i++){	
 				daoMap.put("statement_id", statement_ids[i]);
 				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
@@ -601,7 +604,7 @@ public class AccountServiceImpl implements AccountService {
 			dtos = dao.select_same_id_purchase_statement(connected_id);
 		}if(typeCnt==3) {
 			dtos = dao.select_same_id_salary_statement(connected_id);
-		}if(typeCnt==4) {
+		}if(typeCnt==4) { //tax의 경우
 			JoinStatementDTO taxdto = new JoinStatementDTO(); // 세금 전표 생성
 			taxdto = dao.select_same_type_tax(account_id);
 			int taxValue = -taxdto.getAccount_value();
@@ -609,46 +612,52 @@ public class AccountServiceImpl implements AccountService {
 			vo.setAccount_value(taxValue);
 			vo.setStatement_type(statement_type);
 			scnt = dao.insert_statement(vo); //세금전표 생성처리(부가세대급금,부가세예수금)
+			String taxStId = dao.select_get_tax_statement_id();
 			dto.setAccount_id(account_id); 
 			ccnt = dao.insert_connected_statement(dto); //연결전표 생성처리
-			
 			if(taxdto.getAccount_id().equals("500011030000")) { // 부가세대급금
 				vo.setAccount_value(-taxValue);
 			}
 			scnt = scnt + dao.insert_statement(vo); //세금전표 생성처리(현금)
+			String cashStId = dao.select_get_tax_statement_id();
 			dto.setAccount_id("500011010000");
 			ccnt = ccnt + dao.insert_connected_statement(dto); //연결전표 생성처리
+			
+			String statement_id = "," + taxStId + "," + cashStId;
+			model.addAttribute("typeCnt", typeCnt);
+			model.addAttribute("statement_id",statement_id);
 		}
 		if(typeCnt!=4) {
-		for(int i=0; i<dtos.size(); i++) {
-			JoinStatementDTO tempDTO = dtos.get(i);
-			
-			int account_value = tempDTO.getAccount_value();
-			vo.setAccount_value(account_value);
-			vo.setStatement_type(statement_type);
-			if(typeCnt==4) {
-				scnt = dao.insert_statement(vo);
+			for(int i=0; i<dtos.size(); i++) {
+				JoinStatementDTO tempDTO = dtos.get(i);
+				
+				int account_value = tempDTO.getAccount_value();
+				vo.setAccount_value(account_value);
+				vo.setStatement_type(statement_type);
+				if(typeCnt==4) {
+					scnt = dao.insert_statement(vo);
+				}
+				scnt = scnt + dao.insert_statement(vo); // 전표생성
+				
+				if(typeCnt==1) {
+					String sales_id = connected_id;
+					dto.setSales_id(sales_id);
+				}
+				if(typeCnt==2) {
+					String purchase_id = connected_id;
+					dto.setPurchase_id(purchase_id);
+				}
+				if(typeCnt==3) {
+					String salary_register_id = connected_id;
+					dto.setSalary_register_id(salary_register_id);
+				}
+				account_id = tempDTO.getAccount_id();
+				dto.setAccount_id(account_id);
+				ccnt = dao.insert_connected_statement(dto); //연결전표 생성처리
 			}
-			scnt = scnt + dao.insert_statement(vo); // 전표생성
-			
-			if(typeCnt==1) {
-				String sales_id = connected_id;
-				dto.setSales_id(sales_id);
-			}
-			if(typeCnt==2) {
-				String purchase_id = connected_id;
-				dto.setPurchase_id(purchase_id);
-			}
-			if(typeCnt==3) {
-				String salary_register_id = connected_id;
-				dto.setSalary_register_id(salary_register_id);
-			}
-			account_id = tempDTO.getAccount_id();
-			dto.setAccount_id(account_id);
-			ccnt = dao.insert_connected_statement(dto); //연결전표 생성처리
-		}
-		}
 		model.addAttribute("addStatementCnt", scnt);
 		model.addAttribute("addConnectedCnt", ccnt);
+		}
+		
 	}
 }

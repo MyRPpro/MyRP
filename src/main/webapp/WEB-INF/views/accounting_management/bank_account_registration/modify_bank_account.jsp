@@ -9,6 +9,7 @@
 </head>
 <body>
 	modify_bank_account.jsp 페이지
+	<button onclick="window.location='/'"> 홈으로 </button>
 	<form action="/accounting_management/bank_account_registration/modify_bank_account_pro" name="modify_bank_account_form1" method="post">
 	 	<table border="1">
 	 		<tr>

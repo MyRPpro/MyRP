@@ -175,5 +175,9 @@ public interface AccountDAO extends MyRPDAO {
 	public ArrayList<JoinStatementDTO> select_same_id_purchase_statement(String purchase_id);
 	public ArrayList<JoinStatementDTO> select_same_id_salary_statement(String salary_register_id);
 	public JoinStatementDTO select_same_type_tax(String account_id);
-			
+	/**
+	 * 전표생성 > 세금 전표 id 가져오기
+	 * @return
+	 */
+	public String select_get_tax_statement_id();
 }

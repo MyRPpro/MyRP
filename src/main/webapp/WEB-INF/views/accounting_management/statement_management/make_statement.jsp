@@ -12,6 +12,7 @@
 <h3> 전표 생성 </h3>
 <form action="/accounting_management/statement_management/make_statement_pro" name="make_statement_form1" method="post" onsubmit="return check_input_value();">
 	<input type="hidden" name=typeCnt>
+<button onclick="window.location='/'"> 홈으로 </button>
 <table border="1">
 	<tr>	
 		<th> statement_type </th>

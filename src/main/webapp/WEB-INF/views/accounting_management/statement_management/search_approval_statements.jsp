@@ -11,6 +11,7 @@
 <body>
 <h3> 승인 전표 조회 </h3>
 총 승인 전표 개수 : ${cnt}
+<br><button onclick="window.location='/'"> 홈으로 </button>
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
 	<input type="submit" value="전표 등록">	
 </form>

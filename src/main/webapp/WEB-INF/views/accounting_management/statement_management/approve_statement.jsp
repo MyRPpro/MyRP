@@ -12,7 +12,7 @@
 	<c:if test="${scnt == cnt && acnt == cnt }"> 
 			<c:if test="${typeCnt == 4}">
 				<script type="text/javascript">
-					window.onload = complete_approval(${statement_id});
+					window.onload = complete_approval_tax(${statement_id});
 				</script>
 			</c:if>
 			<c:if test="${typeCnt != 4 }">
