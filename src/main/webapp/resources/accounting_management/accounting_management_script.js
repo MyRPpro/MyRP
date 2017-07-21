@@ -9,7 +9,7 @@ function call_bank_account_id(){
 }
 
 // 은행 account_id 설정
-function set_bank_account_id(bank_account_id, account_name){
+function set_bank_account_id(bank_account_id, account_name, account_balance){
 	opener.document.register_bank_account_form1.bank_account_id.value = bank_account_id;
 	switch(account_name){
 		case "현금" : account_name = "주 계좌"; break;
@@ -20,8 +20,31 @@ function set_bank_account_id(bank_account_id, account_name){
 		default : account_name = "잘못됐다";break;
 	}
 	opener.document.register_bank_account_form1.bank_account_type.value = account_name;
+	opener.document.register_bank_account_form1.bank_account_balance.value = account_balance;
 	self.close();
 }
+
+//bank_account_register 정보가 올바른지 체크
+function check_bank_account(){
+	if(!document.register_bank_account_form1.bank_account_id.value){
+		alert("'조회' 버튼을 통해 계좌코드를 입력해주세요!");
+		document.register_bank_account_form1.calling_button.focus();
+		return false;
+	}else if(!document.register_bank_account_form1.bank_account_name.value){
+		alert("계좌이름을 입력해주세요!");
+		document.register_bank_account_form1.bank_account_name.focus();
+		return false;
+	}else if(!document.register_bank_account_form1.bank_account_number.value){
+		alert("계좌번호를 입력해주세요!");
+		document.register_bank_account_form1.bank_account_number.focus();
+		return false;
+	}else if(!document.register_bank_account_form1.bank_name.value){
+		alert("은행이름을 입력해주세요!");
+		document.register_bank_account_form1.bank_name.focus();
+		return false;
+	}
+	
+} 
 
 //전표 상세페이지 띄우기
 function search_statement_detail(statement_id, connected_id, typeCnt){

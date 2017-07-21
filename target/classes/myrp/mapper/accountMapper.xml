@@ -32,7 +32,9 @@
  	<!-- bank_account_id 불러오기 -->
  	<select id="select_bank_account_id" resultType="AccountVO">
  		<![CDATA[
- 		select account_id, account_name from account where account_name IN('매출채권','매입채무','급여','부가세예수금','현금')
+ 		 SELECT account_id, account_name, account_balance FROM account 
+          WHERE account_name IN('매출채권','매입채무','급여','부가세예수금','현금') 
+          AND account_id NOT IN(SELECT bank_account_id FROM bank_account)
  		]]>
  	</select>
  	
