@@ -299,15 +299,41 @@ public class AccountServiceImpl implements AccountService {
 		String statement_ids[] = statement_ides.split(",");
 		int scnt = 0;
 		int acnt = 0;
+		int bcnt = 0;
+		int checkCnt = 0;
 		int cnt = statement_ids.length-1; //선택한 거래에 해당하는 전표개수
 		Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("typeCnt", typeCnt);
-		for(int i= 1; i<cnt+1; i++){		
-			daoMap.put("statement_id", statement_ids[i]);
-			scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
-			acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
-		}
 		
+		for(int i=1; i<cnt+1; i++) {
+			daoMap.put("statement_id", statement_ids[i]);
+			int checkBankAccountCnt = 0;
+			int checkAccountCnt = dao.select_check_account_id_with_statement_id(daoMap);
+			System.out.println("checkAccountCnt 는???"+checkAccountCnt );
+			if(checkAccountCnt==1) { //계좌값가져야하는 계정의 전표라면
+				checkCnt=1;
+				checkBankAccountCnt = dao.select_check_excist(daoMap); //그 계정이 통장있는지 확인
+				if(checkBankAccountCnt==0) {
+					checkCnt=2;
+				}
+			}
+			System.out.println("checkAccountCnt : " + checkAccountCnt);
+			System.out.println("checkBankAccountCnt : " + checkBankAccountCnt);
+		}
+		if(checkCnt==0) {
+			for(int i= 1; i<cnt+1; i++){	
+				daoMap.put("statement_id", statement_ids[i]);
+				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
+				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
+			}
+		}else if(checkCnt==1){
+			for(int i= 1; i<cnt+1; i++){	
+				daoMap.put("statement_id", statement_ids[i]);
+				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
+				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
+				bcnt += dao.update_bank_account_account_value(daoMap);
+			}
+		}
 		String statement_id = statement_ids[1];
 		String connected_id = req.getParameter("connected_id"); 
 		model.addAttribute("statement_id", statement_id);
@@ -316,7 +342,8 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("scnt", scnt);
 		model.addAttribute("acnt", acnt); 
-		
+		model.addAttribute("bcnt", bcnt);
+		model.addAttribute("checkCnt", checkCnt);
 
 		System.out.println("cnt = " + cnt);
 		System.out.println("scnt = " + scnt);

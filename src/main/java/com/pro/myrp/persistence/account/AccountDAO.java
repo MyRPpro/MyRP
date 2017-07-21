@@ -92,12 +92,28 @@ public interface AccountDAO extends MyRPDAO {
 	 */
 	public int update_account_account_value(Map<String, Object> daoMap);
 	
+	public int update_bank_account_account_value(Map<String, Object> daoMap);
+	
 	/**
 	 * 전표 id로 connected_id 가져오기 
 	 * @param statement_id
 	 * @return
 	 */
 	public String select_connected_id(String statement_id);
+	
+	/** 
+	 * 전표 승인 > 승인할 전표의 계정이 계좌를 가지고 있어야하는 지 확인
+	  *@param daoMap
+	 * @return
+	 */
+	public int select_check_account_id_with_statement_id(Map<String, Object> daoMap);
+	/**
+	 * 전표 승인 > 승인할 전표가 가진 계정값이 계좌를 가지고있는지 확인
+	 * @param daoMap
+	 * @return
+	 */
+	public int select_check_excist(Map<String, Object> daoMap);
+	
 	/**
 	 * 전표 승인 거절 > 전표상태 바꿔주기
 	 * @param daoMap

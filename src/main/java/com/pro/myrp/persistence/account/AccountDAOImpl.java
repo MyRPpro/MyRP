@@ -166,6 +166,21 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_same_type_tax(account_id);
 	}
+	@Override
+	public int select_check_account_id_with_statement_id(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_check_account_id_with_statement_id(daoMap);
+	}
+	@Override
+	public int select_check_excist(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_check_excist(daoMap);
+	}
+	@Override
+	public int update_bank_account_account_value(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.update_bank_account_account_value(daoMap);
+	}
 	
 	
 	

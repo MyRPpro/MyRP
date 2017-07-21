@@ -9,8 +9,7 @@
 <script src = "/resources/accounting_management/accounting_management_script.js"></script>
 </head>
 <body onunload=reload()>
-	<c:if test="${scnt == cnt && acnt == cnt}"> 
-		
+	<c:if test="${scnt == cnt && acnt == cnt }"> 
 			<c:if test="${typeCnt == 4}">
 				<script type="text/javascript">
 					window.onload = complete_approval(${statement_id});
@@ -22,6 +21,11 @@
 				</script>
 			</c:if>
 			}
+	</c:if>
+	<c:if test="${checkCnt == 2}">
+		<script type="text/javascript">
+			window.onload = bank_account_excist();
+		</script>
 	</c:if>
 </body>
 </html>

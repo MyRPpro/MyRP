@@ -45,6 +45,9 @@ function check_bank_account(){
 	}
 	
 } 
+function bank_account_excist(){
+	alert("관련 전표거래에 해당하는 은행계좌가 존재하지 않거나, 이용이 불가하여 거래승인이 불가합니다. 계좌를 먼저 개설해주세요 ");
+}
 
 //전표 상세페이지 띄우기
 function search_statement_detail(statement_id, connected_id, typeCnt){
