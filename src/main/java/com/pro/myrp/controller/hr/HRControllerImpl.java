@@ -280,15 +280,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.add_personnel_card_pro_service(model);
 		return code.c(hr_management, manage_personnel_card, add_personnel_card_pro);
 	}
-	
-	@Override
-	@GetMapping(value="manage_service_attitude/search_attendance_absence")
-	public String search_attendance_absence(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(search_attendance_absence));
-		model.addAttribute("req", req);
-		
-		return code.c(hr_management, manage_service_attitude, search_attendance_absence);
-	}
 
 	@Override
 	@GetMapping(value="manage_salary/salary_register")

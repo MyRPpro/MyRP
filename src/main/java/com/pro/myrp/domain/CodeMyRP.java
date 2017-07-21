@@ -175,13 +175,7 @@ public interface CodeMyRP {
 				public static final int add_personnel_card_pro = 16324;
 				public static final int modify_personnel_card = 16330;
 				public static final int modify_personnel_card_pro = 16331;
-			//근태관리
-			public static final int manage_service_attitude = 16400;
-				public static final int search_attendance_absence = 16410;
-				public static final int reg_attendance = 16420;
-				public static final int reg_service_attitude = 16430;
-				public static final int search_service_attitude = 16440;
-				public static final int service_attitude_summary_sheet = 16450;
+			
 			//급여관리
 			public static final int manage_salary = 16500;
 				public static final int salary_register = 16510;
@@ -204,7 +198,14 @@ public interface CodeMyRP {
 				public static final int retired_employee_list = 16710;
 				public static final int add_retired_employee = 16720;
 				public static final int personnel_card_retired = 16730;
-			//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
+
+		//근태관리
+		public static final int attitude_management = 17000;
+			public static final int search_attitude = 17100;
+				public static final int search_attitude_search = 17110;
+		
+			public static final int add_attitude = 17200;
+		//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
 				
 		
 				
