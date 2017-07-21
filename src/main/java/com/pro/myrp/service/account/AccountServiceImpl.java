@@ -309,7 +309,7 @@ public class AccountServiceImpl implements AccountService {
 			daoMap.put("statement_id", statement_ids[i]);
 			int checkBankAccountCnt = 0;
 			int checkAccountCnt = dao.select_check_account_id_with_statement_id(daoMap);
-			System.out.println("checkAccountCnt 는???"+checkAccountCnt );
+			System.out.println("checkAccountCnt1 는???"+checkAccountCnt );
 			if(checkAccountCnt==1) { //계좌값가져야하는 계정의 전표라면
 				checkCnt=1;
 				checkBankAccountCnt = dao.select_check_excist(daoMap); //그 계정이 통장있는지 확인
