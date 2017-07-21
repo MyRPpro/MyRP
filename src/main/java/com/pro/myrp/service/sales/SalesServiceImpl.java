@@ -580,11 +580,11 @@ public class SalesServiceImpl implements SalesService {
 		int cnt =0;
 		if( sales_cnt == 1 ){
 			System.out.println("  -> Insert Success...");
-			
+			/*
 			// 전표 처리 : sales_STATEMENT
 			int statement_cnt = dao.insert_reg_sales_statement(vo);
 			if ( statement_cnt == 1 ) cnt = 1;
-			
+			*/
 		} else {
 			System.out.println("  -> Error during Insert...");
 		}
@@ -616,6 +616,7 @@ public class SalesServiceImpl implements SalesService {
 			new Date(0) : Date.valueOf(req.getParameter("storage_out_date"));
 		int count_sales = Integer.parseInt( req.getParameter("count_sales") ); 
 		Long supply_price = Long.parseLong( req.getParameter("selling_price") );
+		int sales_state = Integer.parseInt( req.getParameter("sales_state") );
 		int condition_note_receivable = Integer.parseInt( req.getParameter("condition_note_receivable") );
 		
 		System.out.println("  -> test product_id : " + product_id);
@@ -626,6 +627,7 @@ public class SalesServiceImpl implements SalesService {
 		// 생성자 생성
 		SalesDTO dto = new SalesDTO();
 		dto.setSales_id(sales_id);
+		dto.setOrder_id("0");
 		dto.setProduct_id(product_id);
 		dto.setCompany_id(company_id);
 		dto.setEmployee_id(employee_id);
@@ -633,26 +635,23 @@ public class SalesServiceImpl implements SalesService {
 		dto.setStorage_out_date(storage_out_date);
 		dto.setCount_sales(count_sales);
 		dto.setSelling_price(supply_price);
+		dto.setSales_state(sales_state);	// 판매번호 : 테스트용
 		dto.setCondition_note_receivable(condition_note_receivable);
-		
+
+		// 판매 상태 : 테스트용
+		System.out.println("  -> sales_state : " + dto.getSales_state());
 		System.out.println("  -> test dto get : " + dto.toString());
 		
 		
 		// order_id 불러오기(임시값 : null값도 괜춘)
 		/*String order_id = req.getParameter("order_id");*/
-		String order_id = "0";
-		
-		// 주문번호 : 테스트용
-		int sales_state = Integer.parseInt( req.getParameter("sales_state") );
-		dto.setSales_state(sales_state);	// 주문번호 : 테스트용
-		
+
 		
 		// 가격 계산 ( 구매가, 부가세, 총합 )
 		int cnt = 0;	
 		long price = supply_price;
 		long tax = price/10;
 		long sum = price + tax;
-		String statement_id = null;
 	
 		
 		// 상품매출 insert , 가격 x 수량
