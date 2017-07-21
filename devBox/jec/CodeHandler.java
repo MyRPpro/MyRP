@@ -198,14 +198,14 @@ public class CodeHandler {
 	public static final int statet_transition = 20000;
 		
 		//회계 
-		public static final int disapproval_statement 		= 25451;	// 전표 미승인								
-		public static final int approval_statement_state 	= 25452;	// 전표 승인	
-		public static final int denial_approval_statement 	= 25453;	// 전표 승인 거절	
+		public static final int disapproval_statement 					= 25451;	// 전표 미승인								
+		public static final int approval_statement_state 				= 25452;	// 전표 승인	
+		public static final int denial_approval_statement 				= 25453;	// 전표 승인 거절	
 		
 		//인사
-		public static final int request_payments_salary 	= 26451;	// 급여지급요청						
-		public static final int wait_payments_salary 		= 26452;	// 급여지급대기
-		public static final int complete_payments_salary 	= 26453;	// 급여지급완료
+		public static final int request_payments_salary 				= 26451;	// 급여지급요청						
+		public static final int wait_payments_salary 					= 26452;	// 급여지급대기
+		public static final int complete_payments_salary 				= 26453;	// 급여지급완료
 		
 		//물류
 		public static final int receive_request_storage_in_warehouse 	= 24101;	// 입고요청접수						
