@@ -9,15 +9,13 @@
 </head>
 <script src = "/resources/accounting_management/accounting_management_script.js"></script>
 <body>
-<h3> 전체 전표 조회 </h3>
-총 전표 개수 : ${cnt}
+<h3> 승인 전표 조회 </h3>
+총 승인 전표 개수 : ${cnt}
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
 	<input type="submit" value="전표 등록">	
 </form>
-
 <button onclick = "window.location='/accounting_management/statement_management/search_unapproval_statements'"> 미승인 전표 조회</button>
-<button onclick = "window.location='/accounting_management/statement_management/search_approval_statements'"> 승인 전표 조회</button>
-
+<button onclick = "window.location='/accounting_management/statement_management/search_all_statements'"> 전체 전표 조회</button>
 <table border="1">
 	<tr>
 		<th> statement_id </th>
@@ -31,7 +29,7 @@
 	<c:if test="${cnt==0}">
 	<tr>
 		<th align="center" colspan="7">
-			존재하는 전표가 없습니다
+			존재하는 승인 전표가 없습니다
 		</th>
 	</tr>
 	</c:if>
@@ -40,18 +38,18 @@
 		<td> 
 		<a href="javascript:void(0);" onclick="search_statement_detail(${dto.statement_id},
 			<c:choose>
-				<c:when test="${dto.sales_account_id !=null}">
+				<c:when test="${dto.sales_id!=null}">
 					${dto.sales_id}, 1
 				</c:when>
-				<c:when test="${dto.purchase_account_id !=null}">
+				<c:when test="${dto.purchase_id!=null}">
 					${dto.purchase_id}, 2
 				</c:when>
-				<c:when test="${dto.salary_account_id !=null}">
+				<c:when test="${dto.salary_register_id!=null}">
 					${dto.salary_register_id}, 3
 				</c:when>
-				<%-- <c:when test="${dto.tax_account_id !=null}">
-					, 4
-				</c:when> --%>
+				<c:when test="${dto.sales_id==null&&dto.purchase_id==null&&dto.salary_register_id==null}">
+					 tax , 4
+				</c:when>
 			</c:choose>	
 		)"> ${dto.statement_id}</a>
 		</td>
@@ -63,31 +61,31 @@
 			<c:if test="${dto.statement_type=='54106'}"> 일반전표 </c:if>	
 		</td>
 		<td> 
-			<c:if test="${dto.sales_account_id !=null}">
+			<c:if test="${salesCnt==1}">
 			${dto.sales_id}
 			</c:if>
-			<c:if test="${dto.purchase_account_id !=null}">
+			<c:if test="${purchaseCnt==1}">
 			${dto.purchase_id}
 			</c:if>
-			<c:if test="${dto.salary_account_id !=null}">
+			<c:if test="${salaryCnt==1}">
 			${dto.salary_register_id}
 			</c:if>
-			<c:if test="${dto.tax_account_id !=null}">
-				*tax
+			<c:if test="${taxCnt==1}">
+			* tax_managing
 			</c:if>
 			
 		</td>
 		<td> 
-			<c:if test="${dto.sales_account_id !=null}">
+			<c:if test="${salesCnt==1}">
 			${dto.sales_account_id} 
 			</c:if>
-			<c:if test="${dto.purchase_account_id !=null}">
+			<c:if test="${purchaseCnt==1}">
 			${dto.purchase_account_id}
 			</c:if>
-			<c:if test="${dto.salary_account_id !=null}">
+			<c:if test="${salaryCnt==1}">
 			${dto.salary_account_id} 
 			</c:if>
-			<c:if test="${dto.tax_account_id !=null}">
+			<c:if test="${taxCnt==1}">
 			${dto.tax_account_id}
 			</c:if>
 		</td>
@@ -107,20 +105,20 @@
 			<tr>
 				<th>
 					<c:if test="${startPage > pageBlock}">
-						<a href="/accounting_management/statement_management/search_all_statements">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-						<a href="/accounting_management/statement_management/search_all_statements?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements">[◀◀]</a> <!-- 첫 페이지로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
 					</c:if>
 					<c:forEach var="i" begin="${startPage}" end="${endPage}">
 						<c:if test="${i == currentPage}">
 							<span>[${i}]</span>
 						</c:if>
 						<c:if test="${i != currentPage}">
-							<a href="/accounting_management/statement_management/search_all_statements?pageNum=${i}">[${i}]</a>
+							<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${i}">[${i}]</a>
 						</c:if>
 					</c:forEach>
 					<c:if test="${pageCount > endPage}">
-						<a href="/accounting_management/statement_management/search_all_statements?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-						<a href="/accounting_management/statement_management/search_all_statements?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
+						<a href="/accounting_management/statement_management/search_approval_statements?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
 					</c:if>
 				</th>
 			</tr>
