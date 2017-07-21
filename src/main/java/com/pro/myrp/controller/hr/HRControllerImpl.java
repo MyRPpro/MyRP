@@ -420,4 +420,22 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.retired_employee_nav_service(model);
 		return code.c(hr_management, manage_retired_employee, retired_employee_nav);
 	}
+
+	@Override
+	@GetMapping(value="manage_retired_employee/add_retired_employee")
+	public String add_retired_employee(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_retired_employee));
+		model.addAttribute("req", req);
+		
+		return code.c(hr_management, manage_retired_employee, add_retired_employee);
+	}
+
+	@Override
+	@PostMapping(value="manage_retired_employee/add_retired_employee_pro")
+	public String add_retired_employee_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_retired_employee_pro));
+		model.addAttribute("req", req);
+		
+		return code.c(hr_management, manage_retired_employee, add_retired_employee_pro);
+	}
 }

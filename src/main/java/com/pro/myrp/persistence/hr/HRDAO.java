@@ -286,6 +286,13 @@ public interface HRDAO extends MyRPDAO {
 	 */
 	public List<Hr_appointment_listDTO> select_appointment(int employee_id);
 
+	 /** 검색된 퇴사자 정보 총수
+	 * @author amaco78
+	 * @param searchStr
+	 * @return
+	 */
+	public int select_retired_employee_cnt(String searchStr);
+	
 	/**
 	 * 퇴사자 목록 조회
 	 * @author amaco78

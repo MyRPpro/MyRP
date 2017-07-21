@@ -235,4 +235,10 @@ public class HRDAOImpl implements HRDAO {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_retired_employee_list(daoMap);
 	}
+
+	@Override
+	public int select_retired_employee_cnt(String searchStr) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_retired_employee_cnt(searchStr);
+	}
 }

@@ -882,7 +882,7 @@ public class HRServiceImpl implements HRService {
 		int endPage		= 0;
 		
 		String searchStr = req.getParameter("searchStr");
-		cnt = dao.select_appointment_cnt(searchStr);
+		cnt = dao.select_retired_employee_cnt(searchStr);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);
