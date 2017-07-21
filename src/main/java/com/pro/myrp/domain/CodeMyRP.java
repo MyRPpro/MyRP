@@ -22,17 +22,23 @@ public interface CodeMyRP {
 				public static final int modify_product_pro = 11231;								//상품 수정 처리
 				
 		//영업관리
-		public static final int sales_management = 12000;
+		public static final int sales_management 			= 12000;
+			
+		
 			// 판매검색
-			public static final int search_sales = 12100;			
-				public static final int sales_list = 12110;			//판매 리스트(검색기능 포함)
-				public static final int detail_sales = 12120;		//판매 상세
-				public static final int modify_sales = 12130;		//판매 수정
-				public static final int search_sales_title = 12140;		//제목으로 검색
+			public static final int search_sales 			= 12100;			
+				public static final int sales_list 			= 12110;	// 판매 검색
+				public static final int sales_list_table  	= 12120;	// 판매 리스트 테이블 내용
+				public static final int sales_list_page 	= 12130;	// 판매 리스트 테이블 페이지 번호
+				public static final int detail_sales 		= 12140;	// 판매 상세
+				public static final int modify_sales 		= 12150;	// 판매 상세 + 수정
+				public static final int modify_sales_pro 	= 12160;	// 판매 수정 처리
+				
 			// 판매입력
 			public static final int input_sales = 12200;
 				public static final int reg_sales = 12210;			//판매 입력
-				public static final int reg_sales_pro = 12220;		//판매 입력 처리
+				public static final int reg_sales_table = 12220;	//판매 입력 처리
+				
 			// 판매 현황
 			public static final int staus_sales = 12300;			
 				public static final int search_status_sales = 12310;//편매현황 검색
@@ -54,7 +60,6 @@ public interface CodeMyRP {
 				public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
 				public static final int detail_purchase 	 = 13140;	// 구매 상세
 				public static final int modify_purchase 	 = 13150;	// 구매 수정
-				public static final int quick_serch_purchase = 13160;	// 구매 바로검색
 				
 			// 구매입력
 			public static final int input_purchase = 13200;

@@ -1,4 +1,4 @@
-package com.pro.myrp.domain;
+package com.pro.myrp.domain.sales_management;
 
 import java.sql.Date;
 
@@ -15,16 +15,9 @@ public class SalesVO {
 	private Date storage_out_date;
 	private int count_sales;
 	private long selling_price;
-	private int condition_note_receivable;
 	private int sales_state;
-	
-	// 추가한 변수 들
-	private String company_name;
-	
-	
-	
-	
-	
+	private int condition_note_receivable;
+
 	
 	public String getSales_id() {
 		return sales_id;
@@ -129,31 +122,16 @@ public class SalesVO {
 	public void setSales_state(int sales_state) {
 		this.sales_state = sales_state;
 	}
-	
-	
-
 
 	@Override
 	public String toString() {
 		return "SalesVO [sales_id=" + sales_id + ", account_id=" + account_id + ", order_id=" + order_id
 				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
 				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_out_date=" + storage_out_date
-				+ ", count_sales=" + count_sales + ", selling_price=" + selling_price + ", condition_note_receivable="
-				+ condition_note_receivable + ", sales_state=" + sales_state + "]";
+				+ ", count_sales=" + count_sales + ", selling_price=" + selling_price + ", sales_state=" + sales_state
+				+ ", condition_note_receivable=" + condition_note_receivable + "]";
 	}
 
-	public String getCompany_name() {
-		return company_name;
-	}
-
-	public void setCompany_name(String company_name) {
-		this.company_name = company_name;
-	}
-
-	
-	
-	
-	
 	
 	
 }

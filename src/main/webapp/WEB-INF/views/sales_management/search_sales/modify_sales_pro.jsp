@@ -8,13 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	
+
 	<c:if test="${cnt == 1}">
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("정상적으로 수정되었습니다.");
-				window.location="/purchase_management/search_purchase/purchase_list"
+				window.location="/sales_management/search_sales/sales_list"
 			}, 500);
 		</script>
 	</c:if>
@@ -26,6 +25,7 @@
 			
 		</script>
 	</c:if>
-	
+
+
 </body>
 </html>

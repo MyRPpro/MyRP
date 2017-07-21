@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -17,27 +18,85 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 
 	@Inject
 	private SalesService service;
+
+
+	@Override
+	@GetMapping(value="search_sales/sales_list")
+	public String sales_list(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(sales_list));
+		model.addAttribute("req", req);
+		return code.c(sales_management,search_sales,sales_list);
+	}
 	
 	@Override
-	@GetMapping(value="sales_list")
-	public String sales_list(HttpServletRequest req, Model model) throws Exception {
-		System.out.println("sales_list");
+	@GetMapping(value="search_sales/sales_list_table")
+	public String sales_list_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(sales_list_table));
 		model.addAttribute("req", req);
 		service.sales_list_servie(model);
-		return code.c(sales_management, sales_list);
+		return code.c(sales_management,search_sales,sales_list_table);
 	}
-
 
 	@Override
-	@GetMapping(value="detail_sales")
+	@GetMapping(value="search_sales/sales_list_page")
+	public String sales_list_page(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(sales_list_page));
+		model.addAttribute("req", req);
+		service.sales_list_servie(model);
+		return code.c(sales_management,search_sales,sales_list_page);
+	}
+	
+	@Override
+	@GetMapping(value="search_sales/detail_sales")
 	public String detail_sales(HttpServletRequest req, Model model) throws Exception {
-		System.out.println("detail_sales");
+		System.out.println(code.c(detail_sales));
 		model.addAttribute("req", req);
 		service.detail_sales_service(model);
-		return code.c(sales_management, modify_sales);
+		return code.c(sales_management, search_sales,detail_sales);
+	}
+
+	@Override
+	@GetMapping(value="search_sales/modify_sales")
+	public String modify_sales(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_sales));
+		model.addAttribute("req", req);
+		service.detail_sales_service(model);
+		return code.c(sales_management, search_sales, modify_sales);
+	}
+
+	@Override
+	@PostMapping(value="search_sales/modify_sales_pro")
+	public String modify_sales_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_sales));
+		model.addAttribute("req", req);
+		service.modify_sales_pro_service(model);
+		return code.c(sales_management, search_sales, modify_sales_pro);
+	}
+	
+	
+	@Override
+	@GetMapping(value="input_sales/reg_sales")
+	public String reg_sales(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_sales));
+		model.addAttribute("req",req);
+		service.reg_sales_service(model);
+		return code.c(sales_management , input_sales , reg_sales);
+	}
+	
+	@Override
+	@GetMapping(value="input_sales/reg_sales_table")
+	public String reg_sales_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_sales_table));
+		model.addAttribute("req",req);
+		service.reg_sales_table(model);
+		return code.c(sales_management, input_sales, reg_sales_table);
+	
 	}
 
 
+	
+	
+	
 	
 	
 	

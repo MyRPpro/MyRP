@@ -1,4 +1,4 @@
-package com.pro.myrp.domain;
+package com.pro.myrp.domain.sales_management;
 
 import java.sql.Date;
 
@@ -7,10 +7,13 @@ import java.sql.Date;
  * @author Jang.EC
  *
  */
+/**
+ * @author Jang.EC
+ *
+ */
+public class SalesDTO {
 
-public class PurchaseVO {
-
-	private String purchase_id;
+	private String sales_id;
 	private String account_id;
 	private String order_id;
 	private String product_id;
@@ -18,38 +21,30 @@ public class PurchaseVO {
 	private int employee_id;
 	private Date reg_date;
 	private Date update_date;
-	private Date storage_in_date;
-	private int count_purchase;
-	private long supply_price;
-	private int purchase_state;
-	private int condition_note_payable;
+	private Date storage_out_date;
+	private int count_sales;
+	private Long selling_price;
+	private int condition_note_receivable;
+	private int sales_state;
 	
-	// 기본 테이블외 추가한 변수들 
-	private String product_name;
-	private String company_name;
-	private String employee_name;
+	
+	// 추가한 변수 들
 	private String account_name;
+	private String product_name;
+	private String company_name;	
+	private String employee_name;
 	private String statement_id;
-	private int rnum;
 	private String state_name;
+	private int rnum;
 	
 	
 	
-	
-	public int getRnum() {
-		return rnum;
+	public String getSales_id() {
+		return sales_id;
 	}
 
-	public void setRnum(int rnum) {
-		this.rnum = rnum;
-	}
-
-	public String getPurchase_id() {
-		return purchase_id;
-	}
-
-	public void setPurchase_id(String purchase_id) {
-		this.purchase_id = purchase_id;
+	public void setSales_id(String sales_id) {
+		this.sales_id = sales_id;
 	}
 
 	public String getAccount_id() {
@@ -108,45 +103,48 @@ public class PurchaseVO {
 		this.update_date = update_date;
 	}
 
-	public Date getStorage_in_date() {
-		return storage_in_date;
+	public Date getStorage_out_date() {
+		return storage_out_date;
 	}
 
-	public void setStorage_in_date(Date storage_in_date) {
-		this.storage_in_date = storage_in_date;
+	public void setStorage_out_date(Date storage_out_date) {
+		this.storage_out_date = storage_out_date;
 	}
 
-	public int getCount_purchase() {
-		return count_purchase;
+	public int getCount_sales() {
+		return count_sales;
 	}
 
-	public void setCount_purchase(int count_purchase) {
-		this.count_purchase = count_purchase;
+	public void setCount_sales(int count_sales) {
+		this.count_sales = count_sales;
 	}
 
-	public long getSupply_price() {
-		return supply_price;
+	public Long getSelling_price() {
+		return selling_price;
 	}
 
-	public void setSupply_price(long supply_price) {
-		this.supply_price = supply_price;
+	public void setSelling_price(Long selling_price) {
+		this.selling_price = selling_price;
 	}
 
-	public int getPurchase_state() {
-		return purchase_state;
+	public int getCondition_note_receivable() {
+		return condition_note_receivable;
 	}
 
-	public void setPurchase_state(int purchase_state) {
-		this.purchase_state = purchase_state;
+	public void setCondition_note_receivable(int condition_note_receivable) {
+		this.condition_note_receivable = condition_note_receivable;
 	}
 
-	public int getCondition_note_payable() {
-		return condition_note_payable;
+	public int getSales_state() {
+		return sales_state;
 	}
 
-	public void setCondition_note_payable(int condition_note_payable) {
-		this.condition_note_payable = condition_note_payable;
+	public void setSales_state(int sales_state) {
+		this.sales_state = sales_state;
 	}
+	
+	
+
 
 	public String getCompany_name() {
 		return company_name;
@@ -154,16 +152,6 @@ public class PurchaseVO {
 
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
-	}
-
-
-
-	public String getProduct_name() {
-		return product_name;
-	}
-
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
 	}
 
 	public String getEmployee_name() {
@@ -189,10 +177,14 @@ public class PurchaseVO {
 	public void setStatement_id(String statement_id) {
 		this.statement_id = statement_id;
 	}
-	
-	
-		
 
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 
 	public String getState_name() {
 		return state_name;
@@ -202,36 +194,34 @@ public class PurchaseVO {
 		this.state_name = state_name;
 	}
 
+
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
 	@Override
 	public String toString() {
-		return "PurchaseVO [purchase_id=" + purchase_id + ", account_id=" + account_id + ", order_id=" + order_id
+		return "SalesDTO [sales_id=" + sales_id + ", account_id=" + account_id + ", order_id=" + order_id
 				+ ", product_id=" + product_id + ", company_id=" + company_id + ", employee_id=" + employee_id
-				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_in_date=" + storage_in_date
-				+ ", count_purchase=" + count_purchase + ", supply_price=" + supply_price + ", purchase_state="
-				+ purchase_state + ", condition_note_payable=" + condition_note_payable + ", product_name="
-				+ product_name + ", company_name=" + company_name + ", employee_name=" + employee_name
-				+ ", account_name=" + account_name + ", statement_id=" + statement_id + ", rnum=" + rnum
-				+ ", state_name=" + state_name + "]";
+				+ ", reg_date=" + reg_date + ", update_date=" + update_date + ", storage_out_date=" + storage_out_date
+				+ ", count_sales=" + count_sales + ", selling_price=" + selling_price + ", condition_note_receivable="
+				+ condition_note_receivable + ", sales_state=" + sales_state + ", account_name=" + account_name
+				+ ", product_name=" + product_name + ", company_name=" + company_name + ", employee_name="
+				+ employee_name + ", statement_id=" + statement_id + ", state_name=" + state_name + ", rnum=" + rnum
+				+ "]";
 	}
+
+	
 
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-		
-		
-		
-		
-		
-	
-		
 	
 }
