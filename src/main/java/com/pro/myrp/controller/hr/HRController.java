@@ -1,10 +1,17 @@
 package com.pro.myrp.controller.hr;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.pro.myrp.controller.MyRPController;
+import com.pro.myrp.domain.hr_management.EmployeeVO;
+import com.pro.myrp.domain.hr_management.FileDTO;
 
 public interface HRController extends MyRPController {
 
@@ -188,6 +195,16 @@ public interface HRController extends MyRPController {
 	public String modify_dept_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 검색
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_search(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
 	 * 인사관리 > 인사카드 관리 > 인사카드 목록
 	 * @author amaco78
 	 * @param req
@@ -198,15 +215,165 @@ public interface HRController extends MyRPController {
 	public String personnel_card_list(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
-	 * 인사관리 > 근태 관리 > 출결달력 검색
+	 * 인사관리 > 인사카드 관리 > 인사카드 페이지 네비게이션
 	 * @author amaco78
 	 * @param req
 	 * @param model
 	 * @return
 	 * @throws Exception
 	 */
-	public String search_attendance_absence(HttpServletRequest req, Model model) throws Exception;
+	public String personnel_card_nav(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 등록 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card(HttpServletRequest req, Model model) throws Exception;
 	
+	/**
+	 * 인사관리 > 인사카드 관리 > 사원 사진 등록 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_picture(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 직원사진 등록
+	 * @author amaco78
+	 * @param dto
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_upload(FileDTO dto, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드 관리 > 사원번호 중복 체크
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_dupCheck(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 등록 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_personnel_card_pro(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 정보 수정 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_personnel_card(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 정보 수정 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_personnel_card_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 조회
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String hr_appointment_search(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 페이지 네비게이션
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String hr_appointment_nav(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 목록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String hr_appointment_list(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 등록 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_hr_appointment(HttpServletRequest req, Model model) throws Exception; 
+	
+	/**
+	 * 인사관리 > 인사발령 관리 > 부서선택시 해당부서 근무사원 반환
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public ResponseEntity<List<EmployeeVO>> select_dept(@PathVariable("dept_id") int dept_id);
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 사원선택시 인사발령 폼 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String hr_appointment_regform(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사발령 등록 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_hr_appointment_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 인사발령 관리 > 인사카드 인사발령 이력보기
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_appointment(HttpServletRequest req, Model model) throws Exception;
+
 	/**
 	 * 인사관리 > 급여 관리 > 급여대장
 	 * @author amaco78

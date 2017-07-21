@@ -5,6 +5,99 @@
  
 <mapper namespace="com.pro.myrp.persistence.stock.StockDAO">
  
-
-
+ 	<!-- 재고현황 -->
+	<select id = "select_stock_condition" resultType="Stock_conditionDTO">
+ 		SELECT *
+ 		FROM stock_information s join product p 
+ 		ON s.product_id = p.product_id
+ 	</select>
+ 	
+ 	<!-- 재고수불부 검색페이지 -->
+ 	<select id = "select_search_stockpile_search" parameterType="java.util.Map" resultType="stockpile_searchDTO">
+		SELECT	* 
+		FROM	${where}
+		WHERE 	${condition} like '%'||#{search}||'%'
+ 	</select>
+ 	
+ 	<!-- 재고수불부 결과 페이지 -->
+ 	<select id = "select_stockpile_search" parameterType="java.util.Map" resultType="select_stockpile_searchDTO">
+ 	SELECT  *
+		FROM    ( SELECT  *
+		          FROM  ( SELECT  sales_id AS pro_id, storage_out_date AS sto_date, count_sales AS moving_stock, sales_state AS sto_state, product_id
+		                  FROM    sales_order 
+	                      WHERE   sales_state = '22223' 
+	                      OR      sales_state = '24621' 
+			              <if test = "product != null">
+						  AND	  product_id in
+							 		 <foreach item="product" collection="product" open="(" separator="," close=")">
+							 		 	#{product}
+							 		 </foreach>
+					 	  </if>    
+		                  
+		                  UNION
+		                  
+		                  SELECT  sales_id AS pro_id, storage_out_date AS sto_date, count_sales AS moving_stock, sales_state AS sto_state, product_id
+		                  FROM    sales_order 
+	                      WHERE   sales_state = '0' 
+			              <if test = "product != null">
+						  AND	  product_id in
+							 		 <foreach item="product" collection="product" open="(" separator="," close=")">
+							 		 	#{product}
+							 		 </foreach>
+					 	  </if>    
+		                  
+		                  UNION
+		                  
+		                  SELECT	purchase_id AS pro_id, storage_in_date AS sto_date, count_purchase AS moving_stock, purchase_state AS sto_state, product_id
+		                  FROM		purchase_order
+		                  WHERE		purchase_state = '23205'
+	                      OR	  	purchase_state = '22411'		                
+	                      OR		  purchase_state = '22412'	
+                      	  <if test = "product != null">
+						  AND		product_id in
+							 		<foreach item="product" collection="product" open="(" separator="," close=")">
+							 		 	#{product}
+							 		</foreach>
+				 		   </if>	                 
+                      
+		                  UNION
+		                  
+		                  SELECT  s.stock_order_id AS pro_id, s.update_date AS sto_date, a.delete_stock AS moving_stock, s.stock_state AS sto_state, s.product_id
+		                  FROM    stock_order s JOIN  adjustment_inventory a
+		                  ON      s.stock_order_id = a.stock_order_id
+			 			   <if test = "product != null">
+					 		   WHERE  s.product_id in
+					 		   <foreach item="product" collection="product" open="(" separator="," close=")">
+					 		 	  #{product}
+					 		   </foreach>
+				 		   </if>
+		                )
+		          ORDER BY sto_date
+		        )
+	 WHERE	sto_date BETWEEN #{start_day} AND #{end_day} 
+ 	</select>
+ 	
+ 	<!-- product id로 name stock amount 가져오기 -->
+ 	<select id = "select_product_name" parameterType="java.util.Map" resultType="ProductVO">
+ 		SELECT	p.product_name as product_name, p.product_id as product_id, s.stock_amount as stock_amount, s.warehouse_id as warehouse_id
+ 		FROM	product p JOIN stock_information s
+ 		ON		s.product_id = p.product_id
+ 		<if test = "product_id != null">
+ 			WHERE	p.product_id in
+ 			<foreach collection="product_id" item="product_id" open="(" separator="," close=")">
+ 				 #{product_id}
+ 			</foreach>
+ 		</if>
+ 	</select>
+ 	<select id = "select_product_id" parameterType="java.util.Map" resultType="ProductVO">
+ 		SELECT	DISTINCT p.product_id as product_id
+ 		FROM	product p JOIN stock_information s
+ 		ON		s.product_id = p.product_id
+ 		<if test = "product_id != null">
+ 			WHERE	p.product_id in
+ 			<foreach collection="product_id" item="product_id" open="(" separator="," close=")">
+ 				 #{product_id}
+ 			</foreach>
+ 		</if>
+ 	</select>
 </mapper>

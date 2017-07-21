@@ -8,7 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>재고현황</h1>
+<a href="/">메인</a>
+<h3>재고현황</h3>
 <table border = "1" >
 	<tr>
 		<th>상품코드</th>

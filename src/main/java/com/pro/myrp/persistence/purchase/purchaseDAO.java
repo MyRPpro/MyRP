@@ -1,6 +1,7 @@
 package com.pro.myrp.persistence.purchase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.pro.myrp.domain.PurchaseVO;
@@ -19,12 +20,23 @@ public interface purchaseDAO extends MyRPDAO {
 	public int count_quick_serch_purchase (String search_str);
 	
 	public ArrayList<PurchaseVO> select_quick_serch_purchase( Map<String, Object> daoMap);
-	
-	
-	
 
+	public ArrayList<PurchaseVO> select_product_ids();
+
+	public ArrayList<PurchaseVO> select_company_ids();
+
+	public ArrayList<PurchaseVO> select_employee_ids();
+
+	public int insert_reg_purchase(PurchaseVO vo);
+
+	public ArrayList<PurchaseVO> select_account_ids();
+
+	public int insert_reg_purchase_statement(PurchaseVO vo);
+
+	public String select_purchase_id();
 	
+	public String select_statement_id();
 
-
+	public List<PurchaseVO> select_purchase_order(String product_id);
 
 }

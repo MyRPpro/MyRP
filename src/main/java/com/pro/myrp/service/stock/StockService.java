@@ -18,4 +18,8 @@ public interface StockService extends MyRPService {
 	 */
 	public String stock_condition_service(HttpServletRequest req, Model model) throws Exception;
 
+	public String search_stockpile_search_service(HttpServletRequest req, Model model) throws Exception;
+
+	public void select_stockpile_search_service(HttpServletRequest req, Model model) throws Exception;
+
 }

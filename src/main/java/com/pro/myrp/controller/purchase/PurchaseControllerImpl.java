@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -18,7 +19,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	@Inject
 	private purchaseService service;
 
-	
 	
 	@Override
 	@GetMapping(value="search_purchase/purchase_list")
@@ -50,12 +50,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	}
 
 	
-	
-	/*
-	temp_table
-	purchase_list
-	*/
-	
 	@Override
 	@GetMapping(value="search_purchase/detail_purchase")
 	public String detail_purchase(HttpServletRequest req, Model model) throws Exception {
@@ -75,24 +69,35 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		return code.c(purchase_management, search_purchase, modify_purchase);
 	}
 
-
+	
 	@Override
-	@GetMapping(value="search_purchase/quick_serch_purchase")
-	public String quick_serch_purchase(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(quick_serch_purchase));
-		model.addAttribute("req", req);
-		service.quick_serch_purchase_service(model);
-		return "redirect:"+code.c(purchase_management, search_purchase, purchase_list_table);
+	@GetMapping(value="input_purchase/reg_purchase")
+	public String reg_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_purchase));
+		model.addAttribute("req",req);
+		service.reg_purchase_service(model);
+		return code.c(purchase_management , input_purchase , reg_purchase);
 	}
 
-
 	
-
-
-
+	@Override
+	@GetMapping(value="input_purchase/reg_purchase_table")
+	public String reg_purchase_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_purchase_table));
+		model.addAttribute("req",req);
+		service.reg_purchase_table(model);
+		return code.c(purchase_management, input_purchase, reg_purchase_table);
+	}
 	
+	
+	@Override
+	@GetMapping(value="status_purchase/search_status_purchase")
+	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_purchase));
+		model.addAttribute("req", req);
+		return code.c(purchase_management, staus_purchase, search_status_purchase);
+	}
 	
 }
-
 
 

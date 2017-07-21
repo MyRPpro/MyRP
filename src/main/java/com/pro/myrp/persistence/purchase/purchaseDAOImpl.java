@@ -1,6 +1,7 @@
 package com.pro.myrp.persistence.purchase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -52,6 +53,65 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.count_quick_serch_purchase(search_str);
 	}
 
+	
+	@Override
+	public ArrayList<PurchaseVO> select_product_ids() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_product_ids();
+	}
+
+	@Override
+	public ArrayList<PurchaseVO> select_company_ids() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_company_ids();
+	}
+
+	@Override
+	public ArrayList<PurchaseVO> select_employee_ids() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_employee_ids();
+	}
+
+	@Override
+	public int insert_reg_purchase(PurchaseVO vo) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.insert_reg_purchase(vo);
+	}
+
+	@Override
+	public ArrayList<PurchaseVO> select_account_ids() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_account_ids();
+	}
+
+	
+	@Override
+	public int insert_reg_purchase_statement(PurchaseVO vo) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.insert_reg_purchase_statement(vo);
+	}
+
+	@Override
+	public String select_purchase_id() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_id();
+		
+	}
+
+	@Override
+	public String select_statement_id() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_statement_id();
+	}
+
+	@Override
+	public List<PurchaseVO> select_purchase_order(String product_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_order(product_id);
+	}
+
+	
+	
 
 
 
