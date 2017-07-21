@@ -27,6 +27,8 @@
 	 var selling_price = document.getElementById("selling_price");
 	 var sales_state = document.getElementById("sales_state");
 	 var condition_note_receivable = document.getElementById("condition_note_receivable");
+	
+
 	 
 	 if( product_id.value == 0 ){
 		 alert("상품이 선택되지 않았습니다. 원하는 상품을 선택해주세요.");		product_id.focus();		return false;
@@ -161,7 +163,7 @@
 				
 				<!-- 12 sales_state : 입력할 때는 미승인 상태로 -->
 					<td> <input type="number" name="sales_state" id="sales_state"  min="1" max="99999" 
-				placeholder="상태코드" requiered value=22212></td>	<!-- 판매전표승인요청 -->
+				placeholder="상태코드" requiered value="22213" readonly></td>	<!-- 판매전표승인요청 -->
 				
 			
 				<!-- 13 condition_note_receivable -->

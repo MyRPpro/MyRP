@@ -35,7 +35,7 @@
  		<![CDATA[
  		SELECT  *
 		FROM    ( 
-				SELECT  SALES_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
 		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
 		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
 		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, state_name ,rownum rNum
@@ -43,6 +43,7 @@
 		        FROM    (
 		                SELECT  
 				                S.SALES_ID, 
+				                ACCOUNT_ID,
 				                NVL((
 				                SELECT ACCOUNT_NAME 
 				                FROM   ACCOUNT A
@@ -77,10 +78,11 @@
 		                JOIN	COMPANY C
 		                ON		S.COMPANY_ID = C.COMPANY_ID
 		                WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%'
+		                ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
 		                )
 		          )
 		WHERE rNum >= #{start} AND rNUM <= #{end}
-		ORDER BY SALES_ID DESC, COMPANY_NAME ASC
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
 		
  		]]>
  	</select>
@@ -155,10 +157,11 @@
 				                WHERE  S.SALES_STATE = ST.CODE
 				                ),'입력값 오류' ) AS STATE_NAME
 		                FROM    SALES_ORDER S 
+		               ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
 		                )
 		       	 )
 		WHERE 	rNum >= #{start} AND rNUM <= #{end}
-		ORDER BY SALES_ID ASC, ACCOUNT_ID ASC 
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
  		]]>
  	</select>
 	
@@ -366,7 +369,7 @@
 
 
  	
- 	<!-- 구매 입력  -->
+ 	<!-- 판매 입력  -->
  	<insert id="insert_reg_sales" parameterType="salesDTO">
  		
  		INSERT INTO SALES_ORDER (	
@@ -387,7 +390,7 @@
 			    #{storage_out_date}, 
 			    #{count_sales}, 
 			    #{selling_price}, 
-			    22212, 
+			    #{sales_state}, 
 			    #{condition_note_receivable} 
 			   )
 		
@@ -405,7 +408,7 @@
 	
  	</insert>
  	
- 	<!-- STATEMENT_ID 불러오기 -->
+ 	<!-- 판매  불러오기 -->
  	<select id="select_sales_order" parameterType="String" resultType="salesDTO">
  		<![CDATA[
 		SELECT  *

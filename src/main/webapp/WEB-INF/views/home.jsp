@@ -68,7 +68,8 @@
 <a href="/hr_management/manage_salary/salary_register">인사관리-급여 관리</a><br>
 <hr>
 
-
+<h3>근태 관리</h3>
+<a href="/attitude_management/search_attitude/search_attitude_search">근태관리-근태 조회</a>
 
 </body>
 </html>
