@@ -163,7 +163,7 @@
 				
 				<!-- 12 sales_state : 입력할 때는 미승인 상태로 -->
 					<td> <input type="number" name="sales_state" id="sales_state"  min="1" max="99999" 
-				placeholder="상태코드" requiered value="22211"></td>	<!-- 판매전표승인요청 -->
+				placeholder="상태코드" requiered value="22213" readonly></td>	<!-- 판매전표승인요청 -->
 				
 			
 				<!-- 13 condition_note_receivable -->
