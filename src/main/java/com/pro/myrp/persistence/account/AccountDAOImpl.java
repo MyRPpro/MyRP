@@ -181,6 +181,11 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.update_bank_account_account_value(daoMap);
 	}
+	@Override
+	public String select_get_tax_statement_id() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_get_tax_statement_id();
+	}
 	
 	
 	

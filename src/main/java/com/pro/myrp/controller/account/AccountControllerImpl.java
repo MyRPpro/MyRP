@@ -160,8 +160,13 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		System.out.println(code.c(make_statement));
 		model.addAttribute("req",req);
 		service.make_statement_pro_service(model);
-		return "redirect:"+code.c(accounting_management, statement_management, search_all_statements);
+		int typeCnt = Integer.parseInt(req.getParameter("typeCnt"));
+		String url = "";
+		if(typeCnt==4) {
+			url=code.c(accounting_management, statement_management, approve_statement);
+		}else {
+			url=code.c(accounting_management, statement_management, search_all_statements);
+		}
+		return "redirect:"+ url;
 	}
-	
-	
 }
