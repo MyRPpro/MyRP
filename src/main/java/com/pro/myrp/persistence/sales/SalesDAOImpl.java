@@ -1,5 +1,6 @@
 package com.pro.myrp.persistence.sales;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -155,6 +156,51 @@ public class SalesDAOImpl implements SalesDAO {
 	}
 
 
+
+	
+	@Override
+	public ArrayList<SalesDTO> select_detail_status_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_detail_status_sales(daoMap);
+	}
+
+
+	@Override
+	public int count_search_status_sales(Map<String, String> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.count_search_status_sales(daoMap);
+	}
+	
+
+
+	@Override
+	public ArrayList<SalesDTO> select_serch_status_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_serch_status_sales(daoMap);
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_all_status_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_all_status_sales(daoMap);
+	}
+
+
+	@Override
+	public int count_option_status_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.count_option_status_sales(daoMap);
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_serch_option_status_sales(Map<String, Object> optionMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_serch_option_status_sales(optionMap);
+	}
+
+		
 	@Override
 	public int update_req_storage_out(Map<String, Object> daoMap) {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);

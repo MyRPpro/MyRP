@@ -35,22 +35,26 @@ public class CodeHandler {
 			public static final int modify_sales_pro 	= 12160;	// 판매 수정 처리
 			
 		// 판매입력
-		public static final int input_sales = 12200;
-			public static final int reg_sales = 12210;			//판매 입력
-			public static final int reg_sales_table = 12220;	//판매 입력 처리
+		public static final int input_sales 			= 12200;
+			public static final int reg_sales 			= 12210;	//판매 입력
+			public static final int reg_sales_table 	= 12220;	//판매 입력 처리
+			
+		// 판매 현황
+		public static final int status_sales 					= 12300;	//판매현황		
+			public static final int search_status_sales 		= 12310;	//편매현황 검색
+			public static final int search_status_sales_table 	= 12320;	//판매현황 테이블
+			public static final int search_status_sales_page 	= 12330;	//판매현황 페이지
+			public static final int search_status_sales_detail 	= 12340;	//판매현황 세부
 		
-			// 판매 현황
-		public static final int staus_sales = 12300;			
-			public static final int search_status_sales = 12310;//편매현황 검색
-			public static final int status_sales = 12320;		//판매현황
-			/*public static final int detail_sales = 12120;		//판매 상세 (중복)*/			
-		// 거래처별 채권
+			// 거래처별 채권
 		public static final int bond_by_transaction = 12400;			
 			public static final int search_bond_by_transaction = 12410;			//거래처별채권 검색
 			public static final int detail_bond_by_transaction = 12420;			//판매현황
 			public static final int transaction_management_register = 12430;	//거래처별채권
-		public static final int temp_table = 12990;		//임시 테이블	
+		
+			public static final int temp_table = 12990;		//임시 테이블	
 				
+			
 	//구매관리
 	public static final int purchase_management = 13000;
 		// 구매검색
