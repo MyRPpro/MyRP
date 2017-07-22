@@ -13,6 +13,8 @@ import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
 import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.Retired_employeeVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface HRDAO extends MyRPDAO {
@@ -284,4 +286,44 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public List<Hr_appointment_listDTO> select_appointment(int employee_id);
+
+	 /** 
+	 * 검색된 퇴사자 정보 총수
+	 * @author amaco78
+	 * @param searchStr
+	 * @return
+	 */
+	public int select_retired_employee_cnt(String searchStr);
+	
+	/**
+	 * 퇴사자 목록 조회
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<Retired_EmployeeDTO> select_retired_employee_list(Map<String, Object> daoMap);
+
+	/**
+	 * 퇴사자 등록
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_retired_employee(Retired_employeeVO vo);
+
+	/**
+	 * 선택된 사원의 부서 이동
+	 * @author amaco78
+	 * @param dept_no
+	 * @return
+	 */
+	public int update_employee_dept_no(Map<String, Object> daoMap);
+
+	/**
+	 * 해당사원의 퇴사정보 목록 조회
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
+	public List<Retired_EmployeeDTO> select_retired_employee_history(int employee_id);
 }

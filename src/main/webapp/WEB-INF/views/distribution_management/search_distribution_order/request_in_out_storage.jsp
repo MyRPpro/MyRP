@@ -15,7 +15,7 @@ function storage_go(id, goes){
 </script>
 <body>
 <c:if test = "${goes == 'out'}">
-물류 출고요청 
+물류 출고요청 ${out_storageDtos}
 <table border = "1">
 	<tr>
 		<!-- <th>STOCK_ORDER_ID</th> -->

@@ -317,7 +317,8 @@ public class SalesServiceImpl implements SalesService {
 			
 		}
 		model.addAttribute("Modify",Modify);
-		
+		model.addAttribute("sales_id", sales_id);
+		model.addAttribute("sales_state", sales_state);
 
 		/*	예전코드
 			String company_id = req.getParameter("company_id");
@@ -655,7 +656,7 @@ public class SalesServiceImpl implements SalesService {
 	
 		
 		// 상품매출 insert , 가격 x 수량
-		dto.setAccount_id("500011060000");
+		dto.setAccount_id("500012030000");
 		dto.setSelling_price(price);
 		System.out.println("  -> price : " + price );
 		
@@ -709,6 +710,19 @@ public class SalesServiceImpl implements SalesService {
 		// 500011030000 : 부가세대급금(10%)
 		// 500012010000 : 매입채무 
 		
+	}
+
+	@Override
+	public void req_storage_out_service(Model model) {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String sales_id = req.getParameter("sales_id");
+		Map<String, Object> daoMap = new HashMap<>();
+		System.out.println("■■■■■■■■■■■■sales_id" + sales_id);
+		daoMap.put("sales_id", sales_id);
+		daoMap.put("account_id", "500012030000");
+		daoMap.put("sales_state", 22222);
+		int cnt = dao.update_req_storage_out(daoMap);
 	}
 
 	

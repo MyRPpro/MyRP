@@ -151,6 +151,8 @@ CREATE TABLE retired_employee(
                         REFERENCES employee(employee_id),
     CONSTRAINT retired_employee_pk PRIMARY KEY(employee_id,retired_date)
 );
+INSERT INTO retired_employee VALUES(2001,TO_DATE('2017-7-21'),'건강문제');
+commit;
 --------------------------------------------------------------------------------
 -- 근무기록 TABLE 생성 (work_record)
 --------------------------------------------------------------------------------
@@ -823,12 +825,17 @@ CREATE TABLE salary_register_statement (
 CREATE SEQUENCE purchase_seq
 START WITH 1 INCREMENT BY 1 MAXVALUE 99999;
 
+CREATE SEQUENCE SALES_SEQ
+START WITH 1 INCREMENT BY 1 MAXVALUE 99 cycle;
+
 --DROP SEQUENCE order_seq;
 CREATE SEQUENCE order_seq
 START WITH 1 INCREMENT BY 1 MAXVALUE 99999;
 --DROP SEQUENCE statement_seq;
 CREATE SEQUENCE statement_seq
 START WITH 1 INCREMENT BY 1 MAXVALUE 99;
+
+
 --------------------------------------------------------------------------------
 -- 테이블 변경사항 2017-07-18 (상기 테이블들은 변경사항 적용상태로 수정됨)
 --------------------------------------------------------------------------------
