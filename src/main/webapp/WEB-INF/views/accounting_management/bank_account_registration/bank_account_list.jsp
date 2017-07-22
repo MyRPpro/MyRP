@@ -9,7 +9,7 @@
 </head>
 <body>
 bank_account.jsp
-
+<button onclick="window.location='/'"> 홈으로 </button>
 <table border="1">
 	<tr>
 		<th>bank_account_id</th>

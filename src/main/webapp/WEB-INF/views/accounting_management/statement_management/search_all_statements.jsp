@@ -11,6 +11,7 @@
 <body>
 <h3> 전체 전표 조회 </h3>
 총 전표 개수 : ${cnt}
+<button onclick="window.location='/'"> 홈으로 </button>
 <form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
 	<input type="submit" value="전표 등록">	
 </form>
@@ -58,6 +59,7 @@
 		<td>
 			<c:if test="${dto.statement_type=='54101'}"> 매출전표 </c:if>
 			<c:if test="${dto.statement_type=='54102'}"> 매입전표 </c:if>
+			<c:if test="${dto.statement_type=='54103'}"> 급여전표 </c:if>
 			<c:if test="${dto.statement_type=='54104'}"> 입금전표 </c:if>
 			<c:if test="${dto.statement_type=='54105'}"> 출금전표 </c:if>	
 			<c:if test="${dto.statement_type=='54106'}"> 일반전표 </c:if>	
