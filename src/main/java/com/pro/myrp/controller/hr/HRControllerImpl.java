@@ -417,7 +417,7 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	public String add_retired_employee(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_retired_employee));
 		model.addAttribute("req", req);
-		
+		service.add_retired_employee_service(model);
 		return code.c(hr_management, manage_retired_employee, add_retired_employee);
 	}
 
@@ -426,7 +426,27 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	public String add_retired_employee_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_retired_employee_pro));
 		model.addAttribute("req", req);
-		
+		service.add_retired_employee_pro_service(model);
 		return code.c(hr_management, manage_retired_employee, add_retired_employee_pro);
+	}
+
+	
+	@Override
+	@GetMapping(value="manage_retired_employee/retired_employee_regform")
+	public String retired_employee_regform(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(retired_employee_regform));
+		model.addAttribute("req", req);
+		service.retired_employee_regform_service(model);
+		return code.c(hr_management, manage_retired_employee, retired_employee_regform);
+	}
+
+	
+	@Override
+	@GetMapping(value="manage_retired_employee/personnel_card_retired")
+	public String personnel_card_retired(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_retired));
+		model.addAttribute("req", req);
+		service.personnel_card_retired_service(model);
+		return code.c(hr_management, manage_retired_employee, personnel_card_retired);
 	}
 }

@@ -432,4 +432,24 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String add_retired_employee_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 퇴사자 관리 > 사원선택시 퇴사자 폼 화면
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String retired_employee_regform(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 퇴사자 관리 > 인사카드 퇴사자 이력보기
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_retired(HttpServletRequest req, Model model) throws Exception;
 }

@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file = "../../setting.jsp" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file ="../../setting.jsp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-personnel_card_appointment.jsp
+personnel_card_retired.jsp
 <table border="1">
 	<tr>
 		<th>
@@ -37,31 +36,23 @@ personnel_card_appointment.jsp
 	<tr>
 		<th>employee_id</th>
 		<th>employee_name</th>
-		<th>appointment_date</th>
+		<th>dept_id</th>
 		<th>hr_code_group_rank</th>
-		<th>pre_rank</th>
-		<th>pre_rank_name</th>
-		<th>post_rank</th>
-		<th>post_rank_name</th>
-		<th>pre_dept</th>
-		<th>pre_dept_name</th>
-		<th>post_dept</th>
-		<th>post_dept_name</th>
+		<th>rank_code</th>
+		<th>join_date</th>
+		<th>retired_date</th>
+		<th>retired_reason</th>
 	</tr>
 	<c:forEach var="dto" items="${dtos}">
 	<tr>
 		<td>${dto.employee_id}</td>
 		<td>${dto.employee_name}</td>
-		<td>${dto.appointment_date}</td>
+		<td>${dto.dept_id}</td>
 		<td>${dto.hr_code_group_rank}</td>
-		<td>${dto.pre_rank}</td>
-		<td>${dto.pre_rank_name}</td>
-		<td>${dto.post_rank}</td>
-		<td>${dto.post_rank_name}</td>
-		<td>${dto.pre_dept}</td>
-		<td>${dto.pre_dept_name}</td>
-		<td>${dto.post_dept}</td>
-		<td>${dto.post_dept_name}</td>
+		<td>${dto.rank_code}</td>
+		<td>${dto.join_date}</td>
+		<td>${dto.retired_date}</td>
+		<td>${dto.retired_reason}</td>
 	</tr>
 	</c:forEach>
 </table>

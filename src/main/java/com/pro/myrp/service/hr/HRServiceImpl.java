@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pro.myrp.domain.CodeMyRP;
 import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
@@ -22,10 +23,11 @@ import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.Retired_employeeVO;
 import com.pro.myrp.persistence.hr.HRDAO;
 
 @Service
-public class HRServiceImpl implements HRService {
+public class HRServiceImpl implements HRService, CodeMyRP {
 
 	@Inject
 	private HRDAO dao;
@@ -837,7 +839,7 @@ public class HRServiceImpl implements HRService {
 		int currentPage	= 0;
 		
 		String searchStr = req.getParameter("searchStr");
-		cnt = dao.select_appointment_cnt(searchStr);
+		cnt = dao.select_retired_employee_cnt(searchStr);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);
@@ -902,6 +904,90 @@ public class HRServiceImpl implements HRService {
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("currentPage", currentPage);
 		}
+	}
+
+	
+	@Override
+	public void add_retired_employee_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		List<EmployeeVO> vos = new ArrayList<>();
+		
+		vos = dao.select_employees();
+		model.addAttribute("employeeVos", vos);
+		
+		String use_state = "Y";
+		List<DeptVO> deptVos = dao.select_used_dept_list(use_state);
+		model.addAttribute("deptVos", deptVos);
+		
+		int hr_code_group_id = 2;
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("use_state", use_state);
+		daoMap.put("hr_code_group_id", hr_code_group_id);
+		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		model.addAttribute("hr_codeVos", hr_codeVos);	
+	}
+
+	
+	@Override
+	public void retired_employee_regform_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		EmployeeVO vo = dao.select_employee(employee_id);
+		
+		String employee_name = vo.getEmployee_name();
+		int dept_id = vo.getDept_id();
+		String dept_name = dao.select_dept_name(dept_id);
+		int hr_code_group_rank = vo.getHr_code_group_rank();
+		int rank_code = vo.getRank_code();
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("hr_code_group_id", hr_code_group_rank);
+		daoMap.put("hr_code_id", rank_code);
+		String hr_code_name = dao.select_hr_code_name(daoMap);
+		Date join_date = vo.getJoin_date();
+		
+		Retired_EmployeeDTO dto = new Retired_EmployeeDTO();
+		dto.setEmployee_id(employee_id);
+		dto.setEmployee_name(employee_name);
+		dto.setDept_id(dept_id);
+		dto.setDept_name(dept_name);
+		dto.setHr_code_group_rank(hr_code_group_rank);
+		dto.setRank_code(rank_code);
+		dto.setHr_code_name(hr_code_name);
+		dto.setJoin_date(join_date);
+		model.addAttribute("dto", dto);
+	}
+
+
+	@Override
+	public void add_retired_employee_pro_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		Date retired_date = Date.valueOf(req.getParameter("retired_date"));
+		String retired_reason = req.getParameter("retired_reason");
+		
+		Retired_employeeVO vo = new Retired_employeeVO();
+		vo.setEmployee_id(employee_id);
+		vo.setRetired_date(retired_date);
+		vo.setRetired_reason(retired_reason);
+		
+		int cnt = dao.insert_retired_employee(vo);
+		model.addAttribute("cnt", cnt);
+	}
+
+
+	@Override
+	public void personnel_card_retired_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		List<Retired_EmployeeDTO> dtos = dao.select_retired_employee_history(employee_id);
+		model.addAttribute("employee_id", employee_id);
+		model.addAttribute("dtos", dtos);
 	}
 
 }

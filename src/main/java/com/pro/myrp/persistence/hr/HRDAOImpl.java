@@ -19,6 +19,7 @@ import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.Retired_employeeVO;
 
 @Repository
 public class HRDAOImpl implements HRDAO {
@@ -240,5 +241,23 @@ public class HRDAOImpl implements HRDAO {
 	public int select_retired_employee_cnt(String searchStr) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_retired_employee_cnt(searchStr);
+	}
+
+	@Override
+	public int insert_retired_employee(Retired_employeeVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_retired_employee(vo);
+	}
+
+	@Override
+	public int update_employee_dept_no(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_employee_dept_no(daoMap);
+	}
+
+	@Override
+	public List<Retired_EmployeeDTO> select_retired_employee_history(int employee_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_retired_employee_history(employee_id);
 	}
 }

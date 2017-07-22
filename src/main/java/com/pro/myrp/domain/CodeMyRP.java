@@ -201,7 +201,8 @@ public interface CodeMyRP {
 				public static final int retired_employee_list = 16711;
 				public static final int retired_employee_nav = 16712;
 				public static final int add_retired_employee = 16720;
-				public static final int add_retired_employee_pro = 16721;
+				public static final int retired_employee_regform = 16721;
+				public static final int add_retired_employee_pro = 16722;
 				public static final int personnel_card_retired = 16730;
 
 		//근태관리

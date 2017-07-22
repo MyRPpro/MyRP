@@ -132,6 +132,7 @@
 		</if>	
 	</select>
 
+	<!-- 사용상태인 부서 목록 보기 -->
 	<select id="select_used_dept_list" parameterType="String"
 	resultType="DeptVO">
 		<![CDATA[
@@ -238,7 +239,9 @@
 		<![CDATA[
 		SELECT	*
 		FROM	employee
-		WHERE	dept_id = #{dept_id}
+		WHERE	employee_id NOT IN	(SELECT DISTINCT employee_id
+									FROM	retired_employee)
+		AND		dept_id = #{dept_id}
 		]]>
 	</select>
 	
@@ -499,4 +502,34 @@
 		]]>
 	</select>
 	
+	<!-- 퇴사자 등록 -->
+	<insert id="insert_retired_employee" parameterType="Retired_employeeVO">
+		<![CDATA[
+		INSERT INTO retired_employee(employee_id,retired_date,retired_reason)
+		VALUES(#{employee_id},#{retired_date},#{retired_reason})
+		]]>
+	</insert>
+	
+	<!-- 선택된 사원의 부서변경 -->
+	<update id="update_employee_dept_no" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	employee
+		SET		dept_id = #{dept_id}
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</update>
+
+	<!-- 선택된 사원의 퇴사정보 이력 보기 -->
+	<select id="select_retired_employee_history" parameterType="int"
+	resultType="Retired_EmployeeDTO">
+		<![CDATA[
+		SELECT	E.employee_id, E.employee_name, E.dept_id,
+				E.hr_code_group_rank, E.rank_code, 
+				E.join_date, RE.retired_date, RE.retired_reason
+		FROM	retired_employee RE , employee E
+		WHERE	RE.employee_id = E.employee_id
+		AND		E.employee_id = #{employee_id}
+		ORDER BY RE.retired_date DESC
+		]]>
+	</select>
 </mapper>
