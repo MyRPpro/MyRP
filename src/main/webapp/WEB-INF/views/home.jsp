@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ include file = "setting.jsp" %>
 <html>
 <head>
 	<title>MyRP</title>
@@ -12,6 +11,18 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<%
+	request.getSession().setAttribute("dest", null);
+%>
+<c:if test="${ROLE != null}">
+	${ROLE.employee_name}
+	<input type="button" value="로그아웃" 
+	onclick="window.location='/user/logout';">
+</c:if>
+<c:if test="${ROLE == null}">
+	<input type="button" value="로그인"
+	onclick="window.location='/user/login';">
+</c:if>
 
 <h3>기초등록</h3>
 <a href="/base_registration/reg_company/company_list">기초등록-거래처등록</a><br>
