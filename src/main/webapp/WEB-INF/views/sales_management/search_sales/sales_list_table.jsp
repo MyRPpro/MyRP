@@ -73,12 +73,12 @@
 		
 		if( state == "22211" ){
 			$('#list_dateil').load('/sales_management/search_sales/modify_sales?sales_id='+param[0]
-			+'&sales_state='+param[1] );
+			+'&sales_state='+param[1]);
 			return false;
 			
 		} else {
 			$('#list_dateil').load('/sales_management/search_sales/detail_sales?sales_id='+param[0]
-			+'&sales_state='+param[1] );
+			+'&sales_state='+param[1]);
 			return false;
 			
 		}

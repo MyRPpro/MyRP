@@ -74,7 +74,14 @@ public interface SalesController extends MyRPController {
 	 */
 	public String modify_sales_pro(HttpServletRequest req, Model model) throws Exception;
 	
-	
+	/**
+	 * @author 
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String req_storage_out(HttpServletRequest req, Model model) throws Exception;
 
 	// ---------------------------------------------------
 	// 			판매 입력  R-2002 input_sales

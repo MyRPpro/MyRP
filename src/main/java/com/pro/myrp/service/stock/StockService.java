@@ -22,4 +22,31 @@ public interface StockService extends MyRPService {
 
 	public void select_stockpile_search_service(HttpServletRequest req, Model model) throws Exception;
 
+	/**
+	 * 물류 주문 > 주문 리스트 
+	 * @author choidream 
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_distribution_order_service(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 물류 주문 > 주문 상세 
+	 * @author choidream 
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void request_in_out_storage_service(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 물류 주문 > 주문 처리 
+	 * @author choidream 
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void request_in_out_storage_pro_service(HttpServletRequest req, Model model) throws Exception;
+
 }

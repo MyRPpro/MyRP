@@ -4,23 +4,17 @@ import java.util.Date;
 
 public class StatementVO {
 	public String statement_id; 		//전표번호
-    public String connected_id; 		//주문번호
     public String account_id; 			//계정코드
     public Date reg_date; 				//등록일자
     public int account_value;			//계정금액
     public int approval_state;			//주문상태
-	
-    public String getStatement_id() {
+    public String statement_type; 		//전표타입
+    
+	public String getStatement_id() {
 		return statement_id;
 	}
 	public void setStatement_id(String statement_id) {
 		this.statement_id = statement_id;
-	}
-	public String getConnected_id() {
-		return connected_id;
-	}
-	public void setConnected_id(String connected_id) {
-		this.connected_id = connected_id;
 	}
 	public String getAccount_id() {
 		return account_id;
@@ -46,4 +40,12 @@ public class StatementVO {
 	public void setApproval_state(int approval_state) {
 		this.approval_state = approval_state;
 	}
-}
+	public String getStatement_type() {
+		return statement_type;
+	}
+	public void setStatement_type(String statement_type) {
+		this.statement_type = statement_type;
+	}
+	
+    
+  }

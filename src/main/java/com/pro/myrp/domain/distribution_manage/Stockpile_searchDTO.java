@@ -1,6 +1,6 @@
 package com.pro.myrp.domain.distribution_manage;
 
-public class stockpile_searchDTO {
+public class Stockpile_searchDTO {
 
 	private String product_id;
 	private String product_name;

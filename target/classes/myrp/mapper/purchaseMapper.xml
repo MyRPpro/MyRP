@@ -178,7 +178,7 @@
 			    #{storage_in_date}, <!-- STORAGE_IN_DATE -->
 			    #{count_purchase}, <!-- COUNT_PURCHASE -->
 			    #{supply_price}, <!-- SUPPLY_PRICE -->
-			    25451, <!-- 전표 미승인 상태 , PURCHASE_STATE -->
+			    #{purchase_state}, <!-- 전표 미승인 상태 , PURCHASE_STATE -->
 			    #{condition_note_payable} <!-- CONDITION_NOTE_PAYABLE -->
 			   )
 		

@@ -156,6 +156,7 @@ public class SalesDAOImpl implements SalesDAO {
 	}
 
 
+
 	
 	@Override
 	public ArrayList<SalesDTO> select_detail_status_sales(Map<String, Object> daoMap) {
@@ -197,6 +198,13 @@ public class SalesDAOImpl implements SalesDAO {
 	public ArrayList<SalesDTO> select_serch_option_status_sales(Map<String, Object> optionMap) {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_serch_option_status_sales(optionMap);
+	}
+
+		
+	@Override
+	public int update_req_storage_out(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_req_storage_out(daoMap);
 	}
 	
 

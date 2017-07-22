@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ include file = "setting.jsp" %>
 <html>
 <head>
 	<title>MyRP</title>
@@ -12,6 +11,18 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<%
+	request.getSession().setAttribute("dest", null);
+%>
+<c:if test="${ROLE != null}">
+	${ROLE.employee_name}
+	<input type="button" value="로그아웃" 
+	onclick="window.location='/user/logout';">
+</c:if>
+<c:if test="${ROLE == null}">
+	<input type="button" value="로그인"
+	onclick="window.location='/user/login';">
+</c:if>
 
 <h3>기초등록</h3>
 <a href="/base_registration/reg_company/company_list">기초등록-거래처등록</a><br>
@@ -48,7 +59,7 @@
 <h3>회계 관리</h3>
 <a href="/accounting_management/financial_statements/search_balance_sheet">회계관리-재무상태표 조회</a><br>
 <a href="/accounting_management/bank_account_registration/bank_account_list">회계관리-계좌리스트</a><br>
-<a href="/accounting_management/cash/search_deposit_payment_history">회계관리-입/출금내역 조회</a><br>
+<a href="/accounting_management/account_management/account_list">회계관리 - 계정 목록 조회</a><br>
 <a href="/accounting_management/statement_management/search_all_statements">회계관리-전체전표 조회</a><br>
 <a href="/accounting_management/bond_debt_status/search_bond_debt">회계관리-채권/채무 조회</a><br>
 <a href="/accounting_management/account_management/account_list">회계관리-계정목록 조회</a>
@@ -59,12 +70,11 @@
 <a href="/hr_management/manage_dept/dept_list">인사관리-부서 관리</a><br>
 <a href="/hr_management/manage_personnel_card/personnel_card_search">인사관리-인사카드 관리</a><br>
 <a href="/hr_management/manage_hr_appointment/hr_appointment_search">인사관리-인사발령 관리</a><br>
-<a href="/hr_management/manage_service_attitude/search_attendance_absence">인사관리-근태 관리</a><br>
+<a href="/hr_management/manage_retired_employee/retired_employee_search">인사관리-퇴사자 관리</a><br>
 <a href="/hr_management/manage_salary/salary_register">인사관리-급여 관리</a><br>
 <hr>
 
 <h3>근태 관리</h3>
 <a href="/attitude_management/search_attitude/search_attitude_search">근태관리-근태 조회</a>
-
 </body>
 </html>

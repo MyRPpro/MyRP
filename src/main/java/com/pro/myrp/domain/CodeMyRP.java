@@ -80,48 +80,47 @@ public interface CodeMyRP {
 				public static final int debt_by_company_list = 13420;			//판매현황
 				public static final int transaction_company_register = 13430;	//거래처별채권
 		
-				//물류관리
-				public static final int distribution_management = 14000;								//물류 관리
-					public static final int stock_condition = 14100;									//재고현황 검색
-						public static final int search_stock_condition = 14110;							//재고현황 검색
-					
-					public static final int stockpile = 14200;											//재고 수불부
-						public static final int search_stockpile = 14210;								//재고수불부 검색
-							public static final int search_stockpile_search = 14211;					//재고수불부 검색 Ajax 페이지
-							public static final int select_stockpile_search = 14212;					//재고수불부 검색 Ajax 결과 페이지
-						public static final int search_adjust_information = 14220;						//조정 정보 조회
-						public static final int search_selling_information = 14230;						//판매 정보 조회
-						public static final int search_self_information = 14240;						//자가 정보 조회
-						public static final int search_defective_information = 14250;					//불량 정보 조회
-						public static final int search_and_modification_movement_information = 14260;	//이동 정보 조회 및 수정
-						
-					public static final int reg_warehouse = 14300;										//창고등록
-						public static final int warehouse_list = 14310; 								//창고 리스트
-						public static final int registration_warehouse = 14320;							//창고 등록
-						public static final int modifycation_warehouse =14330;							//창고 수정
-						public static final int delete_warehouse = 14340;								//창고 삭제
-						
-					public static final int movement_warehouse = 14400;									//창고 이동
-						public static final int movement_all_list = 14410; 								//전체 리스트
-						public static final int movement_unidentified_list = 14420;						//미확인 리스트		
-						public static final int movement_identified_list = 14430;						//확인 리스트
-						public static final int registration_movement_warehouse = 14440;				//창고 이동 등록		
-						public static final int modification_movement_warehouse = 14450;				//창고 이동 수정		
-						public static final int delete_movement_warehouse = 14460;						//창고 이동 삭제				
+		//물류관리
+		public static final int distribution_management = 14000;								//물류 관리
+			public static final int stock_condition = 14100;									//재고현황 검색
+				public static final int search_stock_condition = 14110;							//재고현황 검색
 			
-						
-					public static final int adjustment_inventory  = 14500;								//재고 조정
-						public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
-						public static final int registraion_adjustment_inventory = 14520;				//재고 조정 등록
-						
-					public static final int search_distribution_order = 14600;							//물류 주문 조회
-						public static final int all_statement_list = 14610; 							//전체 전표 리스트
-						public static final int unidentified_lstatement_ist = 14620;					//미확인 전표 리스트
-						public static final int identified_statement_ist = 14630;						//확인 전표 리스트
-						public static final int query_statement = 14640;								//전표 내용 조회
-						public static final int approval_statement = 14650;								//전표 내용 승인
+
+			public static final int stockpile = 14200;											//재고 수불부
+				public static final int search_stockpile = 14210;								//재고수불부 검색
+					public static final int search_stockpile_search = 14211;					//재고수불부 검색 Ajax 페이지
+					public static final int select_stockpile_search = 14212;					//재고수불부 검색 Ajax 결과 페이지
+				public static final int search_adjust_information = 14220;						//조정 정보 조회
+				public static final int search_selling_information = 14230;						//판매 정보 조회
+				public static final int search_self_information = 14240;						//자가 정보 조회
+				public static final int search_defective_information = 14250;					//불량 정보 조회
+				public static final int search_and_modification_movement_information = 14260;	//이동 정보 조회 및 수정
 				
-		//회계관리
+			public static final int reg_warehouse = 14300;										//창고등록
+				public static final int warehouse_list = 14310; 								//창고 리스트
+				public static final int registration_warehouse = 14320;							//창고 등록
+				public static final int modifycation_warehouse =14330;							//창고 수정
+				public static final int delete_warehouse = 14340;								//창고 삭제
+				
+			public static final int movement_warehouse = 14400;									//창고 이동
+				public static final int movement_all_list = 14410; 								//전체 리스트
+				public static final int movement_unidentified_list = 14420;						//미확인 리스트		
+				public static final int movement_identified_list = 14430;						//확인 리스트
+				public static final int registration_movement_warehouse = 14440;				//창고 이동 등록		
+				public static final int modification_movement_warehouse = 14450;				//창고 이동 수정		
+				public static final int delete_movement_warehouse = 14460;						//창고 이동 삭제				
+	
+				
+			public static final int adjustment_inventory  = 14500;								//재고 조정
+				public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
+				public static final int registraion_adjustment_inventory = 14520;				//재고 조정 등록
+				
+			public static final int search_distribution_order = 14600;							//물류 주문 조회
+				public static final int statement_list = 14610; 							//전체 전표 리스트
+				public static final int request_in_out_storage = 14620;					//미확인 전표 리스트
+				public static final int approval_statement = 14650;								//전표 내용 승인
+			
+			//회계관리
 		public static final int accounting_management = 15000;
 			//회계보고서
 			//계좌등록
@@ -135,11 +134,14 @@ public interface CodeMyRP {
 			public static final int statement_management = 15400;
 				public static final int search_all_statements = 15410;			//전체전표 조회
 				public static final int search_statement_detail = 15420; 		//상세전표 조회
-				public static final int search_disapproval_statement = 15430; 	//미승인 전표조회
-				public static final int search_approval_statement = 15440;		//승인 전표조회
+				public static final int search_unapproval_statements = 15430; 	//미승인 전표조회
+				public static final int search_approval_statements = 15440;		//승인 전표조회
 				public static final int approve_statement = 15450; 				//전표 승인
 				public static final int disapprove_statement = 15460;			//전표 승인거절
 				public static final int make_statement = 15470; 				//전표 생성
+				public static final int call_connected_id_view = 15480;			//연결주문id불러오기:뷰
+				public static final int call_connected_id = 15490;				//연결주문id불러오기
+				
 			//재권/채무 현황
 
 		//인사관리
@@ -198,8 +200,12 @@ public interface CodeMyRP {
 				public static final int personnel_card_appointment = 16630;
 			//퇴사자 관리
 			public static final int manage_retired_employee = 16700;
-				public static final int retired_employee_list = 16710;
+				public static final int retired_employee_search = 16710;
+				public static final int retired_employee_list = 16711;
+				public static final int retired_employee_nav = 16712;
 				public static final int add_retired_employee = 16720;
+				public static final int retired_employee_regform = 16721;
+				public static final int add_retired_employee_pro = 16722;
 				public static final int personnel_card_retired = 16730;
 
 		//근태관리
