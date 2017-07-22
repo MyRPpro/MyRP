@@ -28,10 +28,11 @@ public interface SalesService extends MyRPService {
 	
 	public void search_status_sales_service(Model model);
 
+	public void search_status_sales_detail_service(Model model);
+	
 	public void search_status_sales_table_service(Model model);
 
 	public void search_status_sales_page_service(Model model);
 
-	public void search_status_sales_detail_service(Model model);
-
+	
 }

@@ -113,9 +113,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		model.addAttribute("req",req);
 		service.search_status_sales_table_service(model);
 		return code.c(sales_management, status_sales, search_status_sales_table);
-	
 	}
-	
 
 	@Override
 	@GetMapping(value="status_sales/search_status_sales_page")
@@ -138,7 +136,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	
 	}
 
-
+	
 	
 	
 	

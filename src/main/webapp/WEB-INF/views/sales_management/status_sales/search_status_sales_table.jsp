@@ -1,14 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ include file="../../setting.jsp" %>
 
-	<h3> 판매 현황 테이블 페이지 : search_status_sales_table.jsp</h3>
+<body>
+	
+	검색결과 : ${cnt} 개
+	<c:if test="${cnt==0}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("검색결과가 없습니다. 전체내역을 표시합니다.");
+				list_table(1,2);
+			}, 200);
+		</script>
+	</c:if>
+	
+	<table border="1" style="text-align: center;">
+		
+		<tr>
+			<th>sales_id</th>
+			<th>account</th>
+			<!-- <th>order_id</th> -->
+			<th>product</th>
+			<th>company</th>
+			<th>employee</th>
+			<th>reg_date</th>
+			<th>update_date</th>
+			<th>storage_out_date</th>
+			<th>count</th>
+			<th>selling_price</th>
+			<th>sales_state</th>
+			<th>condition</th>
+		</tr>
+		
+		<c:forEach var="dto" items="${SalesDTOs}">
+		
+		<tr>
+		
+			<!-- 판매번호를 눌렀을 때 이동 -->
+			<td>
+				<a href="javascript:detail_status_page('${dto.sales_id},${dto.account_id}')">
+					${dto.sales_id}
+				</a>
+			</td>
+			
+			<td>${dto.account_name}</td>
+			<td>${dto.product_name}</td>
+			<td>${dto.company_name}</td>
+			<td>${dto.employee_name}</td>
+			<td>${dto.reg_date}</td>
+			<td>${dto.update_date}</td>
+			<td>${dto.storage_out_date}</td>
+			<td> <fmt:formatNumber value="${dto.count_sales}" type="number"/> </td>
+			<td> <fmt:formatNumber value="${dto.selling_price}" type="currency"/> </td>
+			<td>${dto.state_name} </td>
+			<td>${dto.condition_note_receivable}</td>
+			
+		</tr>
+		</c:forEach>
+		
+	</table>
+	
+
+	<script type="text/javascript">	
+	
+		function detail_status_page(param){
+			
+			param = param.split(',');
+			console.log(" sales_id :" + param[0] );		
+			console.log(" account_id :" + param[1] );	
+			
+			$('#list_dateil').load('/sales_management/status_sales/search_status_sales_detail?sales_id='+param[0]
+			+'&account_id='+param[1] );
+			
+		return false;
+	}
+	
+	</script>
+	<hr>
+	<div id="list_dateil"></div>
 	
 </body>
 </html>

@@ -1,13 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+<%@ include file="../../setting.jsp" %>
+<%-- 페이지 체크 : ${date_check} --%>
 <body>
-	<h3> 판매 현황 페이징 페이지 : search_status_sales_page.jsp</h3>
-	
+	<table>
+		<tr>
+			<th>
+				<c:if test="${startPage > pageBlock}">
+					<a href="javascript:list_table('1','${date_check}')">[◀◀]</a> <!-- 첫 페이지로 이동 -->
+					
+					<a href="javascript:list_table('${startPage - pageBlock}','${date_check}')">[◀]</a> <!-- 이전 블록으로 이동 -->
+				</c:if>
+				<c:forEach var="i" begin="${startPage}" end="${endPage}">
+					<c:if test="${i == currentPage}">
+						<span>[${i}]</span>
+					</c:if>
+					<c:if test="${i != currentPage}">
+						<a href="javascript:list_table('${i}','${date_check}')"> [${i}]</a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageCount > endPage}">
+					<a href="javascript:list_table('${startPage + pageBlock}','${date_check}')">[▶]</a> <!-- 다음 블록으로 이동 -->
+					<a href="javascript:list_table('${pageCount}','${date_check}')">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
+				</c:if>
+			</th>
+		</tr>
+	</table>
+
 </body>
-</html>

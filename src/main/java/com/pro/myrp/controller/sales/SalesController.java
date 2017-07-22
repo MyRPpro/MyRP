@@ -101,7 +101,6 @@ public interface SalesController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	
 	public String reg_sales_table(HttpServletRequest req, Model model) throws Exception;
 
 
@@ -118,7 +117,6 @@ public interface SalesController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	
 	public String search_status_sales(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
@@ -129,9 +127,7 @@ public interface SalesController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	
 	public String search_status_sales_table(HttpServletRequest req, Model model) throws Exception;
-	
 	
 	/**
 	 * 판매 현황 페이지
@@ -141,9 +137,7 @@ public interface SalesController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	
 	public String search_status_sales_page(HttpServletRequest req, Model model) throws Exception;
-	
 	
 	/**
 	 * 판매 현황세부
@@ -153,7 +147,6 @@ public interface SalesController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	
 	public String search_status_sales_detail(HttpServletRequest req, Model model) throws Exception;
 	
 }
