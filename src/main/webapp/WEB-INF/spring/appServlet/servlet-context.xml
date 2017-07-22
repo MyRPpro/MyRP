@@ -59,6 +59,40 @@
 			<beans:constructor-arg index="0" ref="sqlSessionFactory"/>
 	</beans:bean>
 	
+	<!-- 권한 관리 설정 -->
+	<beans:bean id="loginInterceptor" class="com.pro.myrp.util.authentication.LoginInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor" class="com.pro.myrp.util.authentication.AuthInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor_SA" class="com.pro.myrp.util.authentication.AuthInterceptor_SA"></beans:bean>
+	<beans:bean id="authInterceptor_PU" class="com.pro.myrp.util.authentication.AuthInterceptor_PU"></beans:bean>
+	<beans:bean id="authInterceptor_DT" class="com.pro.myrp.util.authentication.AuthInterceptor_DT"></beans:bean>
+	<beans:bean id="authInterceptor_FI" class="com.pro.myrp.util.authentication.AuthInterceptor_FI"></beans:bean>
+	<beans:bean id="authInterceptor_HR" class="com.pro.myrp.util.authentication.AuthInterceptor_HR"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/loginPost"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/sales_management/**/*"/>
+			<beans:ref bean="authInterceptor_SA"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/purchase_management/**/*"/>
+			<beans:ref bean="authInterceptor_PU"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/distribution_management/**/*"/>
+			<beans:ref bean="authInterceptor_DT"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/accounting_management/**/*"/>
+			<beans:ref bean="authInterceptor_FI"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/hr_management/**/*"/>
+			<beans:ref bean="authInterceptor_HR"/>
+		</interceptor>
+	</interceptors>
 	
 	
 </beans:beans>
