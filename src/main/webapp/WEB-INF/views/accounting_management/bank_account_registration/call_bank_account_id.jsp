@@ -16,11 +16,11 @@
 				계좌 개설 목적 
 			</th>
 		</tr>
-		
+		<c:if test="${vos != null}">
 		<c:forEach var="vo" items="${vos}">
 		<tr>
 				<td>
-				<button onclick="set_bank_account_id('${vo.account_id}','${vo.account_name}')">
+				<button onclick="set_bank_account_id('${vo.account_id}','${vo.account_name}',${vo.account_balance})">
 					<c:if test="${vo.account_name.equals('현금')}">
 						주 계좌
 					</c:if>
@@ -41,6 +41,10 @@
 				</td>
 		</tr>
 		</c:forEach>
+		</c:if>
+		<c:if test="${vos}==null">
+			모든 계좌가 개설되었습니다
+		</c:if>
 	</table>
 </body>
 </html>

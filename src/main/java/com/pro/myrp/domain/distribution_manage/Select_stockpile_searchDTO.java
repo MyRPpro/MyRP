@@ -2,7 +2,7 @@ package com.pro.myrp.domain.distribution_manage;
 
 import java.sql.Date;
 
-public class select_stockpile_searchDTO {
+public class Select_stockpile_searchDTO {
 	
 	private String pro_id;
 	private String product_id;

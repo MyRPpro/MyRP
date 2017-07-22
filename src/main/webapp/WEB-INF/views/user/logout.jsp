@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-identified_statement_ist.jsp
+<script type="text/javascript">
+	alert("로그아웃이 완료되었습니다.");
+	window.location="/";
+</script>
 </body>
 </html>

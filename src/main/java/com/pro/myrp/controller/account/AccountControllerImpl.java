@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pro.myrp.domain.CodeMyRP;
 import com.pro.myrp.service.account.AccountService;
@@ -90,23 +91,82 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.search_statement_detail(model);
 		return code.c(accounting_management, statement_management , search_statement_detail);
 	}
-
 	@Override
 	@GetMapping(value="statement_management/approve_statement")
 	public String approve_statement(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(approve_statement));
 		model.addAttribute("req", req);
 		service.approve_statement_service(model);
-		return "redirect:"+code.c(accounting_management, statement_management, search_statement_detail);
+		return code.c(accounting_management, statement_management, approve_statement);
 	}
 
-	/*@Override
+	@Override
+	@GetMapping(value="statement_management/disapprove_statement")
+	public String disapprove_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(disapprove_statement));
+		model.addAttribute("req",req);
+		service.disapprove_statement_service(model);
+		return code.c(accounting_management, statement_management, disapprove_statement);
+	}
+
+	@Override
+	@GetMapping(value="statement_management/search_unapproval_statements")
+	public String search_unapproval_statements(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_unapproval_statements));
+		model.addAttribute("req", req);
+		service.search_unapproval_statements_service(model);
+		return code.c(accounting_management, statement_management, search_unapproval_statements);
+	}
+
+	@Override
+	@GetMapping(value="statement_management/search_approval_statements")
+	public String search_approval_statements(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_approval_statements));
+		model.addAttribute("req", req);
+		service.search_approval_statements_service(model);
+		return code.c(accounting_management, statement_management, search_approval_statements);
+	}
+
+	@Override
+	@GetMapping(value="statement_management/make_statement")
 	public String make_statement(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(make_statement));
 		model.addAttribute("req",req);
 		service.make_statement_service(model);
 		return code.c(accounting_management, statement_management, make_statement);
-	}*/
+	}
+
+	@Override
+	@GetMapping(value="statement_management/call_connected_id")
+	public String call_connected_id(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(call_connected_id));
+		model.addAttribute("req", req);
+		service.call_connected_id_service(model);
+		return code.c(accounting_management, statement_management, call_connected_id);
+	}
 	
-	
+	@Override
+	@GetMapping(value="statement_management/call_connected_id_view")
+	public String call_connected_id_view(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(call_connected_id_view));
+		model.addAttribute("req",req);
+		service.call_connected_id_view_service(model);;
+		return code.c(accounting_management, statement_management, call_connected_id_view);
+	}
+
+	@Override
+	@RequestMapping(value="statement_management/make_statement_pro", method = {RequestMethod.GET, RequestMethod.POST})
+	public String make_statement_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(make_statement));
+		model.addAttribute("req",req);
+		service.make_statement_pro_service(model);
+		int typeCnt = Integer.parseInt(req.getParameter("typeCnt"));
+		String url = "";
+		if(typeCnt==4) {
+			url=code.c(accounting_management, statement_management, approve_statement);
+		}else {
+			url=code.c(accounting_management, statement_management, search_all_statements);
+		}
+		return "redirect:"+ url;
+	}
 }

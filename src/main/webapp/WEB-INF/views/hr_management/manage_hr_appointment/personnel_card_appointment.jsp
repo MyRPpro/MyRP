@@ -19,6 +19,8 @@ personnel_card_appointment.jsp
 			onclick="window.location='/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${employee_id}';">
 			<input type="button" value="APPOINT"
 			onclick="window.location='/hr_management/manage_hr_appointment/personnel_card_appointment?employee_id=${employee_id}';">
+			<input type="button" value="RETIRED"
+			onclick="window.location='/hr_management/manage_retired_employee/personnel_card_retired?employee_id=${employee_id}';">
 		</th>
 	</tr>
 </table>
