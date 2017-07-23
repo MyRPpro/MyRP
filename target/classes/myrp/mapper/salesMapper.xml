@@ -833,7 +833,6 @@
 		ORDER 	BY SALES_ID DESC, ACCOUNT_ID ASC
  	</select>
  	
- 	
 
  	<update id="update_req_storage_out" parameterType="java.util.Map">
  		<![CDATA[
