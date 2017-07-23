@@ -180,4 +180,16 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public String select_get_tax_statement_id();
+	
+	/**
+	 * 게정관리 > 계정 목록 조회 > 계정 갯수 가져오기
+	 * @return
+	 */
+	public int select_account_cnt();
+	
+	/**
+	 * 계정관리 > 계정 목록 조회 > 계정 목록 가져오기
+	 * @return
+	 */
+	public ArrayList<AccountVO> select_account_list(Map<String, Object> daoMap);
 }

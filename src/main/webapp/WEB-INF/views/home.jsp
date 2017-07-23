@@ -49,7 +49,7 @@
 <h3>회계 관리</h3>
 <a href="/accounting_management/financial_statements/search_balance_sheet">회계관리-재무상태표 조회</a><br>
 <a href="/accounting_management/bank_account_registration/bank_account_list">회계관리-계좌리스트</a><br>
-<a href="/accounting_management/account_management/account_list">회계관리 - 계정 목록 조회</a><br>
+<a href="/accounting_management/account_management/search_account_list">회계관리 - 계정 목록 조회</a><br>
 <a href="/accounting_management/statement_management/search_all_statements">회계관리-전체전표 조회</a><br>
 <a href="/accounting_management/bond_debt_status/search_bond_debt">회계관리-채권/채무 조회</a><br>
 <a href="/accounting_management/account_management/account_list">회계관리-계정목록 조회</a>

@@ -14,7 +14,7 @@
  	</select>
  	<!-- 계좌 목록 -->
  	<select id="select_bank_account_list" parameterType="java.util.Map"
- 	resultType="com.pro.myrp.domain.accounting_management.Bank_accountVO">
+ 	resultType="Bank_accountVO">
  		<![CDATA[
  			SELECT *
  			FROM ( SELECT bank_account_id, bank_account_name, bank_account_number,
@@ -485,4 +485,26 @@
  		SELECT '5470' || TO_CHAR(sysdate,'YYMMDD') || LPAD(statement_seq.CURRVAL,2,0) FROM dual
  		]]>
  	</select>
+ 	
+ 	<!-- 계정 관리 > 계정 리스트 조회 > 계정 갯수 가져오기 -->
+ 	<select id="select_account_cnt" resultType="int">
+ 		<![CDATA[
+ 			SELECT COUNT(*)
+ 			FROM   account
+ 		]]>
+ 	</select>
+ 	<!-- 계정 관리 > 계정 리스트 조회 > 계정 목록 가져오기 -->
+ 	<select id="select_account_list" parameterType="java.util.Map" resultType="AccountVO">
+ 		<![CDATA[
+ 			SELECT *
+ 			FROM ( SELECT account_id, account_balance, account_name, rownum rNum
+ 				     FROM ( select *
+ 				     	    FROM account
+ 				     	    ORDER BY account_id
+ 				     	   )
+ 				 )
+ 			WHERE rNum >= #{start} AND rNum <= #{end}
+ 		]]>
+ 	</select>
+ 	
 </mapper>

@@ -660,4 +660,64 @@ public class AccountServiceImpl implements AccountService {
 		}
 		
 	}
+	
+	//////////////////////////// 계정 관리 ///////////////////////////////////////
+	@Override
+	public void search_account_list_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		
+		int pageSize	= 10;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		cnt = dao.select_account_cnt();
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		if(cnt > 0) {
+			ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			vos = dao.select_account_list(daoMap);
+			model.addAttribute("accountVos", vos);
+		}
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		System.out.println("start,end:"+startPage+","+endPage);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		}
+	}
+	@Override
+	public void add_account_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+	}
 }
