@@ -26,7 +26,7 @@ function storage_comp_go(id, goes,storage_out_date){
 </script>
 <body>
 <c:if test = "${goes == 'out'}">
-물류 출고요청 
+물류 출고요청 ${out_storageDtos}
 <table border = "1">
 	<tr>
 		<th>STOCK_ORDER_TYPE</th>

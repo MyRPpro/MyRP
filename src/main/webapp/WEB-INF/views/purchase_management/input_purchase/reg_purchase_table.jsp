@@ -73,7 +73,7 @@
 			
 		</table>
 		<br>
-		<input type="button" value="전표입력하기" onclick="window.location='/distribution_management/search_distribution_order/all_statement_list'" >
+		<input type="button" value="전표입력하기" onclick="window.location='/accounting_management/statement_management/make_statement';" >
 	
 	</form>
 

@@ -40,11 +40,14 @@ public interface CodeMyRP {
 				public static final int reg_sales_table = 12220;	//판매 입력 처리
 				
 			// 판매 현황
-			public static final int staus_sales = 12300;			
-				public static final int search_status_sales = 12310;//편매현황 검색
-				public static final int status_sales = 12320;		//판매현황
-				/*public static final int detail_sales = 12120;		//판매 상세 (중복)*/			
-			// 거래처별 채권
+			public static final int status_sales 					= 12300;	//판매현황		
+				public static final int search_status_sales 		= 12310;	//편매현황 검색
+				public static final int search_status_sales_table 	= 12320;	//판매현황 테이블
+				public static final int search_status_sales_page 	= 12330;	//판매현황 페이지
+				public static final int search_status_sales_detail 	= 12340;	//판매현황 세부
+			
+				
+				// 거래처별 채권
 			public static final int bond_by_transaction = 12400;			
 				public static final int search_bond_by_transaction = 12410;			//거래처별채권 검색
 				public static final int detail_bond_by_transaction = 12420;			//판매현황
@@ -81,7 +84,7 @@ public interface CodeMyRP {
 				public static final int distribution_management = 14000;								//물류 관리
 					public static final int stock_condition = 14100;									//재고현황 검색
 						public static final int search_stock_condition = 14110;							//재고현황 검색
-					
+						
 					public static final int stockpile = 14200;											//재고 수불부
 						public static final int search_stockpile = 14210;								//재고수불부 검색
 							public static final int search_stockpile_search = 14211;					//재고수불부 검색 Ajax 페이지
@@ -112,7 +115,9 @@ public interface CodeMyRP {
 						public static final int request_in_out_storage = 14620;							//전표 내용 조회
 						public static final int approval_statement = 14650;								//전표 내용 승인
 				
-		//회계관리
+				
+			
+			//회계관리
 		public static final int accounting_management = 15000;
 			//회계보고서
 			//계좌등록
@@ -192,8 +197,12 @@ public interface CodeMyRP {
 				public static final int personnel_card_appointment = 16630;
 			//퇴사자 관리
 			public static final int manage_retired_employee = 16700;
-				public static final int retired_employee_list = 16710;
+				public static final int retired_employee_search = 16710;
+				public static final int retired_employee_list = 16711;
+				public static final int retired_employee_nav = 16712;
 				public static final int add_retired_employee = 16720;
+				public static final int retired_employee_regform = 16721;
+				public static final int add_retired_employee_pro = 16722;
 				public static final int personnel_card_retired = 16730;
 
 		//근태관리

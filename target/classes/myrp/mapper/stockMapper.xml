@@ -134,7 +134,7 @@
  		ON		p.product_id = s.product_id
  		WHERE	SALES_STATE = 22222
  		AND		s.warehouse_id = 1001
- 		AND		p.account_id = 500011030000
+ 		AND		p.account_id = 500012030000
  		<!-- AND		st.stock_state NOT IN (24202,24752,24203) -->
  		<if test = "opt == 1">
  			AND		SALES_STATE != 24202
@@ -233,7 +233,7 @@
  		UPDATE	SALES_ORDER
  		SET		SALES_STATE = #{stock_state}
  		WHERE	SALES_ID = #{stock_order_type}
- 		AND		ACCOUNT_ID = 500011030000
+ 		AND		ACCOUNT_ID = 500012030000
  	</update>
  	
  	<update id = "update_purchase_state" parameterType="java.util.Map">

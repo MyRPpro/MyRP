@@ -35,25 +35,28 @@ public class CodeHandler {
 			public static final int modify_sales_pro 	= 12160;	// 판매 수정 처리
 			
 		// 판매입력
-		public static final int input_sales = 12200;
-			public static final int reg_sales = 12210;			//판매 입력
-			public static final int reg_sales_table = 12220;	//판매 입력 처리
+		public static final int input_sales 			= 12200;
+			public static final int reg_sales 			= 12210;	//판매 입력
+			public static final int reg_sales_table 	= 12220;	//판매 입력 처리
+			
+		// 판매 현황
+		public static final int status_sales 					= 12300;	//판매현황		
+			public static final int search_status_sales 		= 12310;	//편매현황 검색
+			public static final int search_status_sales_table 	= 12320;	//판매현황 테이블
+			public static final int search_status_sales_page 	= 12330;	//판매현황 페이지
+			public static final int search_status_sales_detail 	= 12340;	//판매현황 세부
 		
-			// 판매 현황
-		public static final int staus_sales = 12300;			
-			public static final int search_status_sales = 12310;//편매현황 검색
-			public static final int status_sales = 12320;		//판매현황
-			/*public static final int detail_sales = 12120;		//판매 상세 (중복)*/			
-		// 거래처별 채권
+			// 거래처별 채권
 		public static final int bond_by_transaction = 12400;			
 			public static final int search_bond_by_transaction = 12410;			//거래처별채권 검색
 			public static final int detail_bond_by_transaction = 12420;			//판매현황
 			public static final int transaction_management_register = 12430;	//거래처별채권
-		public static final int temp_table = 12990;		//임시 테이블	
+		
+			public static final int temp_table = 12990;		//임시 테이블	
 				
+			
 	//구매관리
 	public static final int purchase_management = 13000;
-		
 		// 구매검색
 		public static final int search_purchase 		 = 13100;	// 구매 검색
 			public static final int purchase_list 		 = 13110;	// 구매 리스트
@@ -62,23 +65,16 @@ public class CodeHandler {
 			public static final int detail_purchase 	 = 13140;	// 구매 상세
 			public static final int modify_purchase 	 = 13150;	// 구매 수정
 			public static final int quick_serch_purchase = 13160;	// 구매 바로검색
-		
 		// 구매입력
 		public static final int input_purchase = 13200;
 			public static final int reg_purchase 		= 13210;	// 구매 입력 양식
 			public static final int reg_purchase_table 	= 13220;	// 구매 입력 테이블
-			
-			
 		// 구매 현황
 		public static final int staus_purchase 						= 13300;	// 구매 현황	
 			public static final int search_status_purchase 			= 13310;	// 구매 현황 검색
 			public static final int search_status_purchase_table 	= 13320;	// 구매 현황 테이블
 			public static final int search_status_purchase_page 	= 13330;	// 구매 현황 페이지
 			public static final int search_status_purchase_detail 	= 13340;	// 구매 현황 세부
-			
-			
-			
-			
 		// 거래처별 채권
 		public static final int debt_by_company = 13400;			
 			public static final int search_debt_by_company = 13410;			//거래처별채권 검색
@@ -185,7 +181,7 @@ public class CodeHandler {
 			public static final int fix_salary = 16550;
 			public static final int search_salary_history = 16560;
 		//인사발령 관리
-			public static final int manage_hr_appointment = 16600;
+		public static final int manage_hr_appointment = 16600;
 			public static final int hr_appointment_search = 16610;
 			public static final int hr_appointment_list = 16611;
 			public static final int hr_appointment_nav = 16612;
@@ -195,8 +191,12 @@ public class CodeHandler {
 			public static final int personnel_card_appointment = 16630;
 		//퇴사자 관리
 		public static final int manage_retired_employee = 16700;
-			public static final int retired_employee_list = 16710;
+			public static final int retired_employee_search = 16710;
+			public static final int retired_employee_list = 16711;
+			public static final int retired_employee_nav = 16712;
 			public static final int add_retired_employee = 16720;
+			public static final int retired_employee_regform = 16721;
+			public static final int add_retired_employee_pro = 16722;
 			public static final int personnel_card_retired = 16730;
 	
 	//근태관리

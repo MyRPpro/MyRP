@@ -74,10 +74,17 @@ public interface SalesController extends MyRPController {
 	 */
 	public String modify_sales_pro(HttpServletRequest req, Model model) throws Exception;
 	
-	
+	/**
+	 * @author 
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String req_storage_out(HttpServletRequest req, Model model) throws Exception;
 
 	// ---------------------------------------------------
-	// 			판매 입력  R-2002 input_purchase
+	// 			판매 입력  R-2002 input_sales
 	// ---------------------------------------------------
 	
 	
@@ -101,10 +108,52 @@ public interface SalesController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	
 	public String reg_sales_table(HttpServletRequest req, Model model) throws Exception;
 
 
-	
 
+	// ---------------------------------------------------
+	// 			판매 현황  R-2003 status_sales
+	// ---------------------------------------------------
+	
+	/**
+	 * 판매 현황 검색
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_status_sales(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 판매 현황 테이블
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_status_sales_table(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 판매 현황 페이지
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_status_sales_page(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 판매 현황세부
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_status_sales_detail(HttpServletRequest req, Model model) throws Exception;
+	
 }

@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: choidream
+=======
+Built-By: "Jang.EC"
+>>>>>>> 0923d84e93eea7c1541087670c0f6a14cffc0452
 Build-Jdk: 1.8.0_131
 Created-By: Maven Integration for Eclipse
 
