@@ -150,7 +150,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	public String call_connected_id_view(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(call_connected_id_view));
 		model.addAttribute("req",req);
-		service.call_connected_id_view_service(model);;
+		service.call_connected_id_view_service(model);
 		return code.c(accounting_management, statement_management, call_connected_id_view);
 	}
 
@@ -169,4 +169,59 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		}
 		return "redirect:"+ url;
 	}
+
+	@Override
+	@GetMapping(value="account_management/search_account_list")
+	public String search_account_list(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_account_list));
+		model.addAttribute("req",req);
+		service.search_account_list_service(model);
+		return code.c(accounting_management, account_management, search_account_list);
+	}
+
+	@Override
+	@GetMapping(value="account_management/add_account")
+	public String add_account(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_account));
+		model.addAttribute("req", req);
+		service.add_account_service(model);
+		return code.c(accounting_management, account_management, add_account);
+	}
+
+	@Override
+	@GetMapping(value="account_management/add_account_dupCheck")
+	public String add_account_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_account_dupCheck));
+		model.addAttribute("req",req);
+		service.add_account_dupCheck_service(model);
+		return code.c(accounting_management, account_management, add_account_dupCheck);
+	}
+
+	@Override
+	@GetMapping(value="account_management/add_account_pro")
+	public String add_account_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_account));
+		model.addAttribute("req",req);
+		service.add_account_pro_service(model);
+		return "redirect:" + code.c(accounting_management, account_management, search_account_list);
+	}
+
+	@Override
+	@GetMapping(value="account_management/modify_account")
+	public String modify_account(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_account));
+		model.addAttribute("req",req);
+		service.modify_account_service(model);
+		return code.c(accounting_management, account_management, modify_account);
+	}
+
+	@Override
+	@PostMapping(value="account_management/modify_account_pro")
+	public String modify_account_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_account));
+		model.addAttribute("req",req);
+		service.modify_account_pro_service(model);
+		return "redirect:"+ code.c(accounting_management, account_management, search_account_list);
+	}
+	
 }

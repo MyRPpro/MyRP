@@ -527,8 +527,6 @@
 		]]>
  	</select>
  	
-
- 	
  	 	<!-- 판매 바로 검색 개수 -->
  	<select id="count_search_status_sales" parameterType="java.util.Map"
  	resultType="int">
@@ -831,7 +829,6 @@
 				BETWEEN #{start} AND #{end}       
 		ORDER 	BY SALES_ID DESC, ACCOUNT_ID ASC
  	</select>
- 	
  	
 
  	<update id="update_req_storage_out" parameterType="java.util.Map">
