@@ -187,5 +187,23 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.add_account_service(model);
 		return code.c(accounting_management, account_management, add_account);
 	}
+
+	@Override
+	@GetMapping(value="account_management/add_account_dupCheck")
+	public String add_account_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_account_dupCheck));
+		model.addAttribute("req",req);
+		service.add_account_dupCheck_service(model);
+		return code.c(accounting_management, account_management, add_account_dupCheck);
+	}
+
+	@Override
+	@GetMapping(value="account_management/add_account_pro")
+	public String add_account_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_account));
+		model.addAttribute("req",req);
+		service.add_account_pro_service(model);
+		return "redirect:" + code.c(accounting_management, account_management, search_account_list);
+	}
 	
 }

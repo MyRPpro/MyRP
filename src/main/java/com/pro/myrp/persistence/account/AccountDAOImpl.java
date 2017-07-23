@@ -196,6 +196,16 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_account_list(daoMap);
 	}
+	@Override
+	public AccountVO select_account(String account_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_account(account_id);
+	}
+	@Override
+	public int insert_account(AccountVO vo) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.insert_account(vo);
+	}
 	
 	
 	

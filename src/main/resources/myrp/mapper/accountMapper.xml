@@ -507,4 +507,20 @@
  		]]>
  	</select>
  	
+ 	<!-- 계정관리 > 계정 추가 > account_id 중복확인 -->
+	<select id="select_account" parameterType="String" resultType="AccountVO">
+		<![CDATA[
+		SELECT	*
+		FROM	account
+		WHERE	account_id = #{account_id}
+		]]>
+	</select>
+	
+	<!-- 계정관리 > 계정추가 처리 -->
+	<insert id="insert_account" parameterType="AccountVO">
+		<![CDATA[
+		INSERT INTO account 
+		VALUES(#{account_id}, #{account_balance}, #{account_name})
+		]]>
+	</insert>
 </mapper>

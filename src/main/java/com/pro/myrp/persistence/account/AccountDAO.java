@@ -192,4 +192,19 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public ArrayList<AccountVO> select_account_list(Map<String, Object> daoMap);
+
+	/**
+	 * 계정관리 > 계정 추가 > account_id 중복확인
+	 * @param account_id
+	 * @return
+	 */
+	public AccountVO select_account(String account_id);
+	
+	/**
+	 * 계정관리 > 계정추가 처리
+	 * @param vo
+	 * @return
+	 */
+	public int insert_account(AccountVO vo);
+	
 }

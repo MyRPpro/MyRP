@@ -15,6 +15,7 @@ import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
 import com.pro.myrp.domain.accounting_management.StatementVO;
+import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.persistence.account.AccountDAO;
 
 @Service
@@ -719,5 +720,38 @@ public class AccountServiceImpl implements AccountService {
 	public void add_account_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
+	}
+	@Override
+	public void add_account_dupCheck_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		String account_id = req.getParameter("account_id");
+		if(req.getParameter("account_id") != null) {
+			AccountVO vo = dao.select_account("5000" + account_id + "0000");
+			if(vo != null) {
+				model.addAttribute("cnt", 1);
+				model.addAttribute("account_name", vo.getAccount_name());
+			} else {
+				model.addAttribute("cnt", 0);
+			}
+			model.addAttribute("account_id", account_id);
+		}
+	}
+	@Override
+	public void add_account_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		
+		String account_id = req.getParameter("account_id");
+		String account_name = req.getParameter("account_name");
+		int account_balance = Integer.parseInt(req.getParameter("account_balance"));
+	
+		AccountVO vo = new AccountVO();
+		vo.setAccount_id(account_id);
+		vo.setAccount_name(account_name);
+		vo.setAccount_balance(account_balance);
+		
+		int cnt = dao.insert_account(vo);
+		model.addAttribute("cnt", cnt);
 	}
 }

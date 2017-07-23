@@ -112,23 +112,37 @@ public interface AccountService extends MyRPService {
 	public void call_connected_id_service(Model model) throws Exception;
 	
 	/**
-	 * 전표관리 > 전표생성 > 전표생성처리
+	 * 전표관리 > 전표생성 > 전표생성처리 서비스
 	 * @param model
 	 * @throws Exception
 	 */
 	public void make_statement_pro_service(Model model) throws Exception;
 	
 	/**
-	 * 계정관리 > 계정 목록 조회
+	 * 계정관리 > 계정 목록 조회 서비스
 	 * @param model
 	 * @throws Exception
 	 */
 	public void search_account_list_service(Model model) throws Exception;
 	
 	/**
-	 * 계정관리 > 계정 추가
+	 * 계정관리 > 계정 추가서비스
 	 * @param model
 	 * @throws Exception
 	 */
 	public void add_account_service(Model model) throws Exception;
+	
+	/**
+	 * 계정관리 > 계정추가 > 계정 중복 확인서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_account_dupCheck_service(Model model) throws Exception;
+
+	/**
+	 * 계정관리 > 계정추가처리서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_account_pro_service(Model model) throws Exception;
 }
