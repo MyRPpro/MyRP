@@ -78,13 +78,12 @@
 		
 		                FROM	SALES_ORDER S
 		                WHERE 	S.SALES_ID LIKE '%'||#{search_str}||'%'
-		                ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		                ORDER BY S.SALES_ID DESC, S.ACCOUNT_ID ASC 
 		                )
 		          )
-		WHERE rNum >= #{start} AND rNUM <= #{end}
+		WHERE rNum BETWEEN #{start} AND #{end}
 		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
-		
- 		]]>
+		]]>
  	</select>
 
  
@@ -343,8 +342,8 @@
 				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_OUT_DATE = #{storage_out_date},
 				COUNT_SALES = #{count_sales}, SELLING_PRICE = #{selling_price}, 
 				SALES_STATE = #{sales_state}, CONDITION_NOTE_RECEIVABLE = #{condition_note_receivable}
-		WHERE	ACCOUNT_ID = #{account_id}
-		AND		SALES_ID = #{sales_id}
+		WHERE	SALES_ID = #{sales_id}
+		AND		ACCOUNT_ID = #{account_id}
  		]]>
  	</update>
  	
@@ -711,7 +710,7 @@
 	            </when>
                 
                 <otherwise>
-	                OR 1=1;
+	                OR 1=1
 	            </otherwise>
             </choose>
 	   </where> 
@@ -802,7 +801,7 @@
 					            </when>
 				                
 				                <otherwise>
-					                AND 1=1;
+					                AND 1=1
 					            </otherwise>
 				                
 				            </choose>
@@ -843,6 +842,182 @@
  			AND		account_id = #{account_id}
  		]]>
  	</update>
+ 	
+ 	
+ 	<select id="select_count_approve_sales" resultType="int">
+ 		<![CDATA[
+ 			SELECT 	COUNT(SALES_ID)
+			FROM 	SALES_ORDER
+			WHERE 	SALES_STATE = 22214
+			
+ 		]]>
+ 	</select>
 
+
+	<update id="update_account_approve_serch_sales" >
+		
+		UPDATE  SALES_ORDER                                 
+		SET     SALES_STATE = 22214                         
+		WHERE   SALES_ID IN (SELECT SALES_ID
+		                    FROM    SALES_STATEMENT
+		                    WHERE   STATEMENT_ID IN (SELECT  ORDER_ID
+		                                            FROM    ORDER_STATE
+		                                            WHERE   ORDER_ID LIKE '5470%'
+		                                            AND     ORDER_STATE = 25452
+		                                            )
+		                    )
+		AND     SALES_STATE = 22213
+		
+	</update>
+
+
+
+ 	
+ 	<select id="select_account_approve_serch_sales" resultType="SalesDTO">
+ 		<![CDATA[
+ 			
+		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+                CONDITION_NOTE_RECEIVABLE, SALES_STATE, STATE_NAME, rownum rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+                        S.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+			            FROM	SALES_ORDER S 
+	                    WHERE 	S.SALES_STATE IN 22214
+			            ORDER 	BY S.SALES_ID DESC, S.ACCOUNT_ID ASC 
+		                )
+		          )
+		WHERE 	rNum
+			 	BETWEEN #{start} AND #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	 	
+ 	<select id="select_count_stock_out_sales" resultType="int">
+ 		<![CDATA[
+ 			SELECT 	COUNT(SALES_ID)
+			FROM 	SALES_ORDER
+      		WHERE 	SALES_STATE = 22223
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<update id="update_stock_out_serch_sales" >
+		
+		UPDATE  SALES_ORDER                                 
+		SET     SALES_STATE = 22223                         
+		WHERE   SALES_ID IN (SELECT SALES_ID
+		                    FROM    SALES_STATEMENT
+		                    WHERE   STATEMENT_ID IN (SELECT  ORDER_ID
+		                                            FROM    ORDER_STATE
+		                                            WHERE   ORDER_ID LIKE '5470%'
+		                                            AND     ORDER_STATE = 25452
+		                                            )
+		                    )
+		AND     SALES_STATE = 22222
+		
+	</update>
+ 	
+ 	
+ 	<select id="select_stock_out_serch_sales" resultType="SalesDTO">
+ 		<![CDATA[
+ 			
+		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+                CONDITION_NOTE_RECEIVABLE, SALES_STATE, STATE_NAME, rownum rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+                        S.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+			            FROM	SALES_ORDER S 
+	                    WHERE 	S.SALES_STATE IN 22223
+			            ORDER 	BY S.SALES_ID DESC, S.ACCOUNT_ID ASC 
+		                )
+		          )
+		WHERE 	rNum
+			 	BETWEEN #{start} AND #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC
+ 		]]>
+ 	</select>
+ 	
  	
 </mapper>

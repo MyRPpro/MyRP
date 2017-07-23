@@ -62,6 +62,7 @@ public interface SalesDAO extends MyRPDAO {
 	
 	public int update_req_storage_out(Map<String, Object> daoMap);
 	
+	
 
 	// status_sales_service
 	
@@ -76,6 +77,21 @@ public interface SalesDAO extends MyRPDAO {
 	public int count_option_status_sales(Map<String, Object> optionMap);
 
 	public ArrayList<SalesDTO> select_serch_option_status_sales(Map<String, Object> optionMap);
+	
+	
+	// search_sales_account
+
+	public int select_count_approve_sales();
+
+	public ArrayList<SalesDTO> select_account_approve_serch_sales(Map<String, Object> daoMap);
+
+	public int update_account_approve_serch_sales();
+
+	public int update_stock_out_serch_sales();
+
+	public ArrayList<SalesDTO> select_stock_out_serch_sales(Map<String, Object> daoMap);
+
+	public int select_count_stock_out_sales();
 
 	
 }

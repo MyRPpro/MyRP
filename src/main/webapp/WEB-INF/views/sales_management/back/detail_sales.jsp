@@ -7,28 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-
-<style>
-    table {
-        table-layout: fixed;
-    }
-    tr td {
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-    table tr:hover {  
-        background: #f3f3f3;
-    }
-</style>
-
 <body>
 	
 	<h3> 판매내역 상세 페이지 : detail_sales.jsp</h3>
 	
-		<form action="#" method="post" name="search_sales_from"   >
+		<form action="#" method="post" name="search_sales_from">
 	
 		<!-- 수정불가 -->
-		<table border="1" width="1500px" >
+		<table border="1" >
 		
 			<tr>
 				<!-- 1  --> <th>sales</th>
@@ -49,7 +35,7 @@
 			<tr>	
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="text" name="sales_id" id="sales_id" value="${dto.sales_id}" maxlength="10" readonly >
+						<input type="text" name="sales_id" value="${dto.sales_id}" maxlength="10" readonly >
 					</c:forEach>
 				</td>
 				
@@ -136,27 +122,17 @@
 			onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
 		</c:if>
 		<c:if test="${sales_state == 22214}">
-		<input type="button" value="출고요청하기" 
-			onclick="req_storage_out();">
+		<input type="button" value="출고요청" 
+			onclick="window.location='/sales_management/search_sales/detail_sales_pro?req_kind=storage_out'">
 		</c:if>
 	</form>
 	
-	
-	<script type="text/javascript">
-	function req_storage_out(){
-		var sales_id = document.getElementById("sales_id").value;
-		console.log( " sned sales_id : " + sales_id );
 
-		window.location="/sales_management/search_sales/detail_sales_pro"
-						+"?req_kind=storage_out&sales_id="+sales_id;
-						
-	}
-	</script>
 	
-	
-	
+		
 </body>
 </html>
+
 
 
 

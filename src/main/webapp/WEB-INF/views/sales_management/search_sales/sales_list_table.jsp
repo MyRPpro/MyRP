@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
  <%@ include file="../../setting.jsp" %>
 <body>
-	
+
+	<c:if test="${cnt==0}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("검색결과가 없습니다. 전체내역을 표시합니다.");
+				search_list(1,0);
+			}, 200);
+		</script>
+	</c:if>
 	
 	<table border="1" style="text-align: center;">
 		
@@ -22,7 +30,7 @@
 			<th>condition</th>
 		</tr>
 		
-		<c:forEach var="dto" items="${SalesDTOs}">
+		<c:forEach var="dto" items="${dtos}">
 		
 		<tr>
 		
@@ -71,7 +79,7 @@
 		console.log(" sales_state :" + param[1] )
 		var state = param[1];
 		
-		if( state == "22211" ){
+		if( state == "22213" ){
 			$('#list_dateil').load('/sales_management/search_sales/modify_sales?sales_id='+param[0]
 			+'&sales_state='+param[1]);
 			return false;

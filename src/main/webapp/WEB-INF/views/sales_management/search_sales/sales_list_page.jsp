@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../setting.jsp" %>
 
-검색 개수 : ${cnt} 개
-
+검색개수 : ${cnt}
+<br>검색종류 : ${check}
 <body>
 	<table>
 		<tr>

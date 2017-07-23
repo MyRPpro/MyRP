@@ -12,13 +12,18 @@
 
 
 	<h3> 판매 리스트 페이지 : sales_list.jsp</h3>
-
 	
-	<form action="#" name="sales_list" method="post" onsubmit="return search_list(1,2)" >
+	<script type="text/javascript">
+	
+	</script>
+	
+	<form action="#" name="sales_list" method="post" onsubmit="return search_list(1,1)" >
 		<input type="text" name="search_str" placeholder="판매번호을 입력하세요." minlength="1">
 		<input type="submit" value="검색">
-		<input type="button" value="전체목록" onclick="return search_list(1,1)">
+		<input type="button" value="전체목록" onclick="return search_list(1,0)">
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
+		<input type="button" value="전표승인조회" onclick="return search_list(1,2)">
+		<input type="button" value="출고완료조회" onclick="return search_list(1,3)">
 	</form>
 	<hr>
 	<div id="list_page"></div>
@@ -41,16 +46,27 @@
 		var search_str = null;
 		console.log(" pagenum :" + pagenum )
 		
-		if ( check == 1 ){
+		// 전체 검색
+		if ( check == 0 ){
 			search_str = "all";
 			
-		} else if ( check == 2){
+		// 검색어 검색
+		} else if ( check == 1 ){
 			search_str = document.sales_list.search_str.value;
 			if ( !search_str ){
 				search_str = "all";
 			}
 			console.log(" search_str :" + search_str );
+		
+		// 전표승인 검색
+		} else if (check == 2 ){
+			search_str = "account";
+		
+		// 출고완료 검색
+		} else if (check == 3 ){
+			search_str = "stock";
 		}
+	
 		
 		$('#list_table').load('/sales_management/search_sales/sales_list_table?search_str='+search_str+'&pageNum='+pagenum);
 		$('#list_page').load('/sales_management/search_sales/sales_list_page?search_str='+search_str+'&pageNum='+pagenum);

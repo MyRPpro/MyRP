@@ -33,6 +33,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	public String sales_list_table(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(sales_list_table));
 		model.addAttribute("req", req);
+		service.sales_list_servie(model);
 		service.sales_list_table_servie(model);
 		return code.c(sales_management,search_sales,sales_list_table);
 	}
@@ -42,6 +43,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	public String sales_list_page(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(sales_list_page));
 		model.addAttribute("req", req);
+		service.sales_list_servie(model);
 		service.sales_list_page_servie(model);
 		return code.c(sales_management,search_sales,sales_list_page);
 	}
@@ -53,6 +55,15 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		model.addAttribute("req", req);
 		service.detail_sales_service(model);
 		return code.c(sales_management, search_sales,detail_sales);
+	}
+	
+	@Override
+	@GetMapping(value="search_sales/detail_sales_pro")
+	public String detail_sales_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(detail_sales));
+		model.addAttribute("req", req);
+		service.detail_sales_pro_service(model);
+		return code.c(sales_management, search_sales,sales_list);
 	}
 
 	@Override
@@ -118,7 +129,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	@Override
 	@GetMapping(value="search_sales/req_storage_out")
 	public String req_storage_out(HttpServletRequest req, Model model) throws Exception {
-		
 		model.addAttribute("req", req);
 		service.req_storage_out_service(model);
 		return code.c(sales_management, search_sales, sales_list);
