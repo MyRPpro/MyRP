@@ -528,8 +528,6 @@
 		]]>
  	</select>
  	
-
- 	
  	 	<!-- 판매 바로 검색 개수 -->
  	<select id="count_search_status_sales" parameterType="java.util.Map"
  	resultType="int">
