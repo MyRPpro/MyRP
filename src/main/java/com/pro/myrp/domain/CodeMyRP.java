@@ -40,11 +40,14 @@ public interface CodeMyRP {
 				public static final int reg_sales_table = 12220;	//판매 입력 처리
 				
 			// 판매 현황
-			public static final int staus_sales = 12300;			
-				public static final int search_status_sales = 12310;//편매현황 검색
-				public static final int status_sales = 12320;		//판매현황
-				/*public static final int detail_sales = 12120;		//판매 상세 (중복)*/			
-			// 거래처별 채권
+			public static final int status_sales 					= 12300;	//판매현황		
+				public static final int search_status_sales 		= 12310;	//편매현황 검색
+				public static final int search_status_sales_table 	= 12320;	//판매현황 테이블
+				public static final int search_status_sales_page 	= 12330;	//판매현황 페이지
+				public static final int search_status_sales_detail 	= 12340;	//판매현황 세부
+			
+				
+				// 거래처별 채권
 			public static final int bond_by_transaction = 12400;			
 				public static final int search_bond_by_transaction = 12410;			//거래처별채권 검색
 				public static final int detail_bond_by_transaction = 12420;			//판매현황
@@ -81,7 +84,7 @@ public interface CodeMyRP {
 				public static final int distribution_management = 14000;								//물류 관리
 					public static final int stock_condition = 14100;									//재고현황 검색
 						public static final int search_stock_condition = 14110;							//재고현황 검색
-					
+						
 					public static final int stockpile = 14200;											//재고 수불부
 						public static final int search_stockpile = 14210;								//재고수불부 검색
 							public static final int search_stockpile_search = 14211;					//재고수불부 검색 Ajax 페이지
@@ -94,18 +97,14 @@ public interface CodeMyRP {
 						
 					public static final int reg_warehouse = 14300;										//창고등록
 						public static final int warehouse_list = 14310; 								//창고 리스트
-						public static final int registration_warehouse = 14320;							//창고 등록
-						public static final int modifycation_warehouse =14330;							//창고 수정
-						public static final int delete_warehouse = 14340;								//창고 삭제
+						public static final int warehouse_view = 14320; 								//창고 등록 / 수정 입력
+						public static final int warehouse_pro = 14330;									//창고 등록 / 수정 처리
 						
 					public static final int movement_warehouse = 14400;									//창고 이동
-						public static final int movement_all_list = 14410; 								//전체 리스트
-						public static final int movement_unidentified_list = 14420;						//미확인 리스트		
-						public static final int movement_identified_list = 14430;						//확인 리스트
-						public static final int registration_movement_warehouse = 14440;				//창고 이동 등록		
-						public static final int modification_movement_warehouse = 14450;				//창고 이동 수정		
-						public static final int delete_movement_warehouse = 14460;						//창고 이동 삭제				
-			
+						public static final int movement_list = 14410; 									//전체 리스트
+						public static final int movement_view = 14420;									//창고이동 등록 / 수정 입력
+						public static final int movement_pro = 14430;									//창고이동 등록 / 수정 처리 
+						public static final int movement_product = 14440;								//창고이동 등록 / 수정 입력 페이지에 창고 선택시 상품 뿌려주는
 						
 					public static final int adjustment_inventory  = 14500;								//재고 조정
 						public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
@@ -113,10 +112,12 @@ public interface CodeMyRP {
 						
 					public static final int search_distribution_order = 14600;							//물류 주문 조회
 						public static final int statement_list = 14610; 								//전체 전표 리스트
-						public static final int request_in_out_storage = 14640;							//전표 내용 조회
+						public static final int request_in_out_storage = 14620;							//전표 내용 조회
 						public static final int approval_statement = 14650;								//전표 내용 승인
 				
-		//회계관리
+				
+			
+			//회계관리
 		public static final int accounting_management = 15000;
 			//회계보고서
 			//계좌등록
@@ -201,8 +202,12 @@ public interface CodeMyRP {
 				public static final int personnel_card_appointment = 16630;
 			//퇴사자 관리
 			public static final int manage_retired_employee = 16700;
-				public static final int retired_employee_list = 16710;
+				public static final int retired_employee_search = 16710;
+				public static final int retired_employee_list = 16711;
+				public static final int retired_employee_nav = 16712;
 				public static final int add_retired_employee = 16720;
+				public static final int retired_employee_regform = 16721;
+				public static final int add_retired_employee_pro = 16722;
 				public static final int personnel_card_retired = 16730;
 
 		//근태관리

@@ -1,5 +1,6 @@
 package com.pro.myrp.persistence.sales;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,31 +60,22 @@ public interface SalesDAO extends MyRPDAO {
 
 	public ArrayList<SalesDTO> select_sales_order(String product_id);
 	
-	
-	
-	/*
+	public int update_req_storage_out(Map<String, Object> daoMap);
 	
 
+	// status_sales_service
 	
+	public ArrayList<SalesDTO> select_detail_status_sales(Map<String, Object> daoMap);
+
+	public int count_search_status_sales(Map<String, String> daoMap);
+
+	public ArrayList<SalesDTO> select_serch_status_sales(Map<String, Object> daoMap);
+
+	public ArrayList<SalesDTO> select_all_status_sales(Map<String, Object> daoMap);
+
+	public int count_option_status_sales(Map<String, Object> optionMap);
+
+	public ArrayList<SalesDTO> select_serch_option_status_sales(Map<String, Object> optionMap);
+
 	
-	
-
-	public ArrayList<SalesVO> select_product_ids();
-
-	public ArrayList<SalesVO> select_company_ids();
-
-	public ArrayList<SalesVO> select_employee_ids();
-
-	public int insert_reg_sales(SalesVO vo);
-
-	public ArrayList<SalesVO> select_account_ids();
-
-	public int insert_reg_sales_statement(SalesVO vo);
-
-	public String select_sales_id();
-	
-	public String select_statement_id();
-
-	public List<SalesVO> select_sales_order(String product_id);
-	*/
 }

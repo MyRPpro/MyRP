@@ -90,10 +90,64 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		model.addAttribute("req",req);
 		service.reg_sales_table(model);
 		return code.c(sales_management, input_sales, reg_sales_table);
-	
 	}
 
 
+	
+	
+	@Override
+	@GetMapping(value="status_sales/search_status_sales")
+	public String search_status_sales(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_sales));
+		model.addAttribute("req",req);
+		service.search_status_sales_service(model);
+		return code.c(sales_management, status_sales, search_status_sales);
+	
+	}
+	
+
+	@Override
+	@GetMapping(value="status_sales/search_status_sales_table")
+	public String search_status_sales_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_sales_table));
+		model.addAttribute("req",req);
+		service.search_status_sales_table_service(model);
+		return code.c(sales_management, status_sales, search_status_sales_table);
+	}
+
+	@Override
+	@GetMapping(value="search_sales/req_storage_out")
+	public String req_storage_out(HttpServletRequest req, Model model) throws Exception {
+		
+		model.addAttribute("req", req);
+		service.req_storage_out_service(model);
+		return code.c(sales_management, search_sales, sales_list);
+	}
+
+
+
+	@Override
+	@GetMapping(value="status_sales/search_status_sales_page")
+	public String search_status_sales_page(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_sales_page));
+		model.addAttribute("req",req);
+		service.search_status_sales_page_service(model);
+		return code.c(sales_management, status_sales, search_status_sales_page);
+	
+	}
+	
+
+	@Override
+	@GetMapping(value="status_sales/search_status_sales_detail")
+	public String search_status_sales_detail(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_sales_detail));
+		model.addAttribute("req",req);
+		service.search_status_sales_detail_service(model);
+		return code.c(sales_management, status_sales, search_status_sales_detail);
+	
+	}
+
+	
 	
 	
 	

@@ -15,7 +15,6 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("정상적으로 입력되었습니다.");
-				/* window.location="/purchase_management/input_purchase/reg_purchase" */
 			}, 500);
 		</script>
 	</c:if>
@@ -50,10 +49,10 @@
 			
 			<tr>
 				<th>${dto.rnum}</th> 			<!-- 1 -->
-				<td>${dto.sales_id}</td> 		<!-- 2 -->
+				<td id="sales_id">${dto.sales_id}</td> 		<!-- 2 -->
 				<td>${dto.account_name}</td> 	<!-- 3 -->
 				<td>${dto.product_name}</td> 	<!-- 4 -->
-				<td>${dto.company_name}</td>		<!-- 5 -->
+				<td>${dto.company_name}</td>	<!-- 5 -->
 				<td>${dto.employee_name}</td>	<!-- 6 -->
 				<td>							<!-- 7 -->
 				<fmt:formatDate value="${dto.reg_date}" pattern="MM-dd"/>
@@ -70,12 +69,19 @@
 			</tr>
 
 			</c:forEach>
-			
 		</table>
 		<br>
-		<input type="button" value="전표입력하기" onclick="window.location='/distribution_management/search_distribution_order/all_statement_list'" >
 	
+		<input type="button" value="전표입력하기" onclick="sendStatement();">
 	</form>
-
+	
+	<script type="text/javascript">
+	function sendStatement(){
+		var sales_id = document.getElementById("sales_id").innerHTML
+		console.log( " sned sales_id : " + sales_id );
+		window.location="/accounting_management/statement_management/make_statement"
+						+"?sales_id="+sales_id;
+	}
+	</script>
 </body>
 </html>

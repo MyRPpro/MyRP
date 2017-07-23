@@ -288,6 +288,8 @@ public class AccountServiceImpl implements AccountService {
 	public void make_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		
+		
 	}
 	
 	// 전표 승인 처리 
@@ -310,15 +312,15 @@ public class AccountServiceImpl implements AccountService {
 			daoMap.put("statement_id", statement_ids[i]);
 			int checkBankAccountCnt = 0;
 			int checkAccountCnt = dao.select_check_account_id_with_statement_id(daoMap);
-				if(checkAccountCnt==1) { //계좌 가져야하는 계정의 전표라면
-					checkCnt=1;
-					checkBankAccountCnt = dao.select_check_excist(daoMap); //그 계정이 계좌가 있는지 확인
-					if(checkBankAccountCnt==0) { //계좌가 없는경우
-						checkCnt=2; 
-					}
-				}else {
-					checkCnt=0;
+			if(checkAccountCnt==1) { //계좌 가져야하는 계정의 전표라면
+				checkCnt=1;
+				checkBankAccountCnt = dao.select_check_excist(daoMap); //그 계정이 계좌가 있는지 확인
+				if(checkBankAccountCnt==0) { //계좌가 없는경우
+					checkCnt=2; 
 				}
+			}else {
+				checkCnt=0;
+			}
 			System.out.println(i+"번쨰전표 : "+statement_ids[i]);
 			System.out.println("checkAccountCnt : " + checkAccountCnt);
 			System.out.println("checkBankAccountCnt : " + checkBankAccountCnt);
