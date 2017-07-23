@@ -28,7 +28,21 @@
 		</td>
 		<th> connected_id </th>
 		<td colspan="2">
-			<input type="text" name="connected_id"> 
+			
+			<!-- 판매에서 추가한 부분 시작 : 등록한 판매번호를 받아서 저장  -->
+			
+			<c:choose>
+				<c:when test="${sales_id ne null}">
+					<input type="text" name="connected_id" value="${sales_id}" > 
+				</c:when>
+				<c:otherwise>
+					
+					<input type="text" name="connected_id" > 
+				</c:otherwise>
+			</c:choose>
+			<!-- 판매에서 추가한 부분 종료  -->
+		
+			<!-- <input type="text" name="connected_id" >  <- 판매에서 주석 처리 -->	
 			<input type="button" value="조회" onclick="call_connected_id()" name="calling_button">
 		</td>
 	</tr>
