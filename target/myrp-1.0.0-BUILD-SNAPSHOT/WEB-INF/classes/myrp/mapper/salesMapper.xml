@@ -1,0 +1,855 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.pro.myrp.persistence.sales.SalesDAO">
+
+ 
+ 		
+ 	<!-- 판매 바로 검색 개수 -->
+ 	<select id="count_quick_serch_sales" parameterType="String"
+ 	resultType="int">
+ 		<![CDATA[
+		SELECT  COUNT(S.SALES_ID) 
+	    FROM	SALES_ORDER S
+	    JOIN	COMPANY C
+	    ON		S.COMPANY_ID = C.COMPANY_ID
+		WHERE 	C.COMPANY_ID LIKE '%'||#{search_str}||'%'
+ 		]]>
+ 	</select>
+ 
+ 
+ 	<!-- 판매내역 총 개수 -->
+ 	<select id="select_sales_cnt" resultType="int">
+ 		<![CDATA[
+ 		SELECT	COUNT(*)
+ 		FROM	SALES_ORDER
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 판매 바로 검색 -->
+ 	<select id="select_quick_serch_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, state_name ,rownum rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+				                ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                C.COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+		                FROM	SALES_ORDER S
+		                JOIN	COMPANY C
+		                ON		S.COMPANY_ID = C.COMPANY_ID
+		                WHERE 	C.COMPANY_ID LIKE '%'||#{search_str}||'%'
+		                ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		                )
+		          )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		
+ 		]]>
+ 	</select>
+
+ 
+ 	<!-- 판매내역 목록 -->
+ 	<select id="select_sales_list" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+		SELECT  *
+		FROM    ( 
+				SELECT 	SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, STATE_NAME ,rownum rnum
+		
+		        FROM    (
+		        		SELECT  
+				                S.SALES_ID, 
+				                ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,    
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+		                FROM    SALES_ORDER S 
+		               ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		                )
+		       	 )
+		WHERE 	rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+ 		]]>
+ 	</select>
+	
+	
+	
+ 	<!-- 판매내역 목록 예전버전
+ 	<select id="select_sales_list" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+		SELECT  *
+		FROM    ( 
+				SELECT 	SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, STATE_NAME ,rownum rnum
+		
+		        FROM    (
+		        		SELECT  
+				                S.SALES_ID, 
+				                ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,    
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+		                FROM    SALES_ORDER S 
+		               ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		                )
+		       	 )
+		WHERE 	rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+ 		]]>
+ 	</select>
+	 -->
+	
+	
+	
+ 	<!-- 판매내역 목록 -->
+ 	<!-- 
+ 	<select id="select_sales_list" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+		SELECT  *
+		FROM    ( SELECT SALES_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, 
+                    COMPANY_ID, EMPLOYEE_ID, REG_DATE, UPDATE_DATE, 
+                    STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+                    CONDITION_NOTE_RECEIVABLE, SALES_STATE, COMPANY_NAME ,rownum rNum
+ 
+		        FROM    (SELECT  S.SALES_ID, S.ACCOUNT_ID, S.ORDER_ID, S.PRODUCT_ID, 
+                            S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+                            S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+                            S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, C.COMPANY_NAME
+				
+		                FROM    SALES_ORDER S , COMPANY C
+                    WHERE   S.COMPANY_ID = C.COMPANY_ID
+		                ORDER BY SALES_ID
+		                )
+		        )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID ASC, COMPANY_NAME ASC
+ 		]]>
+ 	</select>
+	 -->
+	
+ 	
+ 	<!-- 판매내역 자세히 보기 -->
+ 	<select id="select_detail_sales" parameterType="String"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+			SELECT  * 
+	        FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID,  S.ORDER_ID, S.PRODUCT_ID, 
+	                         S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+	                         S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+	                         S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, 
+	                         A.ACCOUNT_NAME, P.PRODUCT_NAME,  C.COMPANY_NAME,
+                        	 E.EMPLOYEE_NAME, ST.KOR_NAME AS STATE_NAME
+	                 FROM    SALES_ORDER S
+	                 JOIN    ACCOUNT A
+	                 ON      S.ACCOUNT_ID = A.ACCOUNT_ID
+	                 JOIN    PRODUCT P
+	                 ON      S.PRODUCT_ID = P.PRODUCT_ID 
+	                 JOIN    COMPANY C
+	                 ON      S.COMPANY_ID = C.COMPANY_ID 
+	                 JOIN    EMPLOYEE E
+	                 ON      S.EMPLOYEE_ID = E.EMPLOYEE_ID
+	                 JOIN    STATE ST
+                 	 ON      S.SALES_STATE = ST.CODE
+	                )
+			WHERE 	SALES_ID = #{sales_id}
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	<!-- 판매내역 자세히 보기(판매현황용) -->
+ 	<select id="select_detail_status_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+			SELECT  * 
+	        FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID,  S.ORDER_ID, S.PRODUCT_ID, 
+	                         S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+	                         S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+	                         S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, 
+	                         A.ACCOUNT_NAME, P.PRODUCT_NAME,  C.COMPANY_NAME,
+                        	 E.EMPLOYEE_NAME, ST.KOR_NAME AS STATE_NAME
+	                 FROM    SALES_ORDER S
+	                 JOIN    ACCOUNT A
+	                 ON      S.ACCOUNT_ID = A.ACCOUNT_ID
+	                 JOIN    PRODUCT P
+	                 ON      S.PRODUCT_ID = P.PRODUCT_ID 
+	                 JOIN    COMPANY C
+	                 ON      S.COMPANY_ID = C.COMPANY_ID 
+	                 JOIN    EMPLOYEE E
+	                 ON      S.EMPLOYEE_ID = E.EMPLOYEE_ID
+	                 JOIN    STATE ST
+                 	 ON      S.SALES_STATE = ST.CODE
+	                )
+			WHERE 	SALES_ID = #{var1}
+			AND 	ACCOUNT_ID = #{var2}
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	<!-- 판매내역 자세히 보기 v2
+ 	<select id="select_detail_sales" parameterType="String"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+			SELECT  * 
+		    FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID,  S.ORDER_ID, S.PRODUCT_ID, 
+		                     S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+		                     S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+		                     S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, 
+                        	 C.COMPANY_NAME, A.ACCOUNT_NAME
+				     FROM    SALES_ORDER S
+			         JOIN    COMPANY C
+			         ON      S.COMPANY_ID = C.COMPANY_ID 
+			         JOIN    ACCOUNT A
+			         ON      S.ACCOUNT_ID = A.ACCOUNT_ID
+			        )
+			WHERE 	SALES_ID = #{sales_id}
+ 		]]>
+ 	</select>
+ 	 -->
+ 	
+ 	<!-- 판매내역 자세히 보기
+ 	<select id="select_detail_sales" parameterType="String"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+		SELECT  * 
+	    FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID, S.ORDER_ID, S.PRODUCT_ID, 
+		                    S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+		                    S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+		                    S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, C.COMPANY_NAME
+			     FROM    SALES_ORDER S , COMPANY C
+	             WHERE   S.COMPANY_ID = C.COMPANY_ID )
+		WHERE 	COMPANY_ID = #{company_id}
+		AND		SALES_ID = #{sales_id}
+ 		]]>
+ 	</select>
+ 	 -->
+ 	
+ 	<!-- 판매 정보 수정 -->
+ 	<update id="update_sales" parameterType="SalesDTO">
+ 		<![CDATA[
+		UPDATE	SALES_ORDER 
+		SET		SALES_ID = #{sales_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
+				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id},  EMPLOYEE_ID = #{employee_id}, 
+				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_OUT_DATE = #{storage_out_date},
+				COUNT_SALES = #{count_sales}, SELLING_PRICE = #{selling_price}, 
+				SALES_STATE = #{sales_state}, CONDITION_NOTE_RECEIVABLE = #{condition_note_receivable}
+		WHERE	ACCOUNT_ID = #{account_id}
+		AND		SALES_ID = #{sales_id}
+ 		]]>
+ 	</update>
+ 	
+ 	
+ 	
+ 	<!-- 판매 정보 수정 
+ 	<update id="update_sales" parameterType="SalesDTO">
+ 		<![CDATA[
+		UPDATE	SALES_ORDER 
+		SET		SALES_ID = #{sales_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
+				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id},  EMPLOYEE_ID = #{employee_id}, 
+				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_OUT_DATE = #{storage_out_date},
+				COUNT_SALES = #{count_sales}, SELLING_PRICE = #{selling_price}, 
+				SALES_STATE = #{sales_state}, CONDITION_NOTE_RECEIVABLE = #{condition_note_receivable}
+		WHERE	COMPANY_ID = #{company_id}
+		AND		SALES_ID = #{sales_id}
+ 		]]>
+ 	</update>
+ 	-->
+ 	
+ 	
+ 	
+ 	<select id="select_account" resultType="ModifySelectDTO">
+		SELECT ACCOUNT_ID, ACCOUNT_NAME FROM ACCOUNT
+	</select>
+		
+	<select id="select_product" resultType="ModifySelectDTO">
+		SELECT PRODUCT_ID, PRODUCT_NAME FROM PRODUCT
+	</select>
+	
+	<select id="select_company" resultType="ModifySelectDTO">
+		SELECT COMPANY_ID, COMPANY_NAME FROM COMPANY
+	</select>
+		
+	<select id="select_employee" resultType="ModifySelectDTO">	
+		SELECT EMPLOYEE_ID, EMPLOYEE_NAME FROM EMPLOYEE
+	</select>	 	
+ 	
+ 	
+ 	
+ 	
+
+ 	
+ 	<!-- 상품 테이블 목록 불러오기 -->
+ 	<select id="select_product_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	PRODUCT_ID, PRODUCT_NAME
+		FROM 	PRODUCT
+		]]>
+ 	</select>
+ 	
+ 	<!-- 거래처 테이블 목록 불러오기 -->
+ 	<select id="select_company_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	COMPANY_ID, COMPANY_NAME
+		FROM 	COMPANY
+		]]>
+ 	</select>
+ 	
+ 	<!-- 사원 테이블 목록 불러오기 -->
+ 	<select id="select_employee_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
+		FROM 	EMPLOYEE
+		]]>
+ 	</select>
+ 	
+ 	<!-- 오더 테이블 목록 불러오기 -->
+ 	<select id="select_account_ids" resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID, ACCOUNT_NAME
+		FROM 	ACCOUNT
+		]]>
+ 	</select>
+ 	
+	<!-- sales_ID 불러오기 -->
+ 	<select id="select_sales_id" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	2110||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
+      			||LPAD(SALES_SEQ.NEXTVAL,2,0)
+ 		FROM 	DUAL
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- STATEMENT_ID 불러오기 -->
+ 	<select id="select_statement_id" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	5000||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
+      			||LPAD(STATEMENT_SEQ.NEXTVAL,2,0)
+ 		FROM 	DUAL
+ 		]]>
+ 	</select>
+
+
+ 	
+ 	<!-- 판매 입력  -->
+ 	<insert id="insert_reg_sales" parameterType="salesDTO">
+ 		
+ 		INSERT INTO SALES_ORDER (	
+				SALES_ID, ORDER_ID, ACCOUNT_ID, 
+			    PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID,
+			    REG_DATE, UPDATE_DATE,  STORAGE_OUT_DATE,
+			    COUNT_SALES, SELLING_PRICE, SALES_STATE,
+			    CONDITION_NOTE_RECEIVABLE)
+		VALUES ( 
+				#{sales_id},  
+			    0,
+			    #{account_id}, 
+			    #{product_id}, 
+			    #{company_id}, 
+			    #{employee_id}, 
+			    #{reg_date}, 
+			    SYSDATE, 
+			    #{storage_out_date}, 
+			    #{count_sales}, 
+			    #{selling_price}, 
+			    #{sales_state}, 
+			    #{condition_note_receivable} 
+			   )
+		
+ 	</insert>
+ 	
+ 	<insert id="insert_reg_sales_statement" parameterType="salesDTO">
+ 		
+		INSERT INTO SALES_STATEMENT
+      			  ( STATEMENT_ID, sales_ID, ACCOUNT_ID )
+		VALUES
+			      ( #{statement_id},	
+			       #{sales_id},
+			       #{account_id} 	
+			      )
+	
+ 	</insert>
+ 	
+ 	<!-- 판매  불러오기 -->
+ 	<select id="select_sales_order" parameterType="String" resultType="salesDTO">
+ 		<![CDATA[
+		SELECT  *
+		FROM    ( 
+		        SELECT
+		        sales_ID, 
+<<<<<<< HEAD
+		        NVL((  
+		          SELECT  KOR_NAME
+		          FROM    STATE
+		          WHERE   PO.SALES_STATE = STATE.CODE )
+		          ,'입력값 오류' ) as ACCOUNT_NAME,
+=======
+		        NVL( DECODE
+		            ( ACCOUNT_ID,
+		               '500012030000','상품매출',
+		              '500012020000','부가세예수금',
+		              '500011020000','매출채권' )
+		              ,'입력값 오류' ) as ACCOUNT_NAME,
+>>>>>>> 62dbd43bfd505cb6644b272bbd16e97848549152
+		        ORDER_ID,
+		        NVL(( 
+		          SELECT  PRODUCT_NAME
+		          FROM    PRODUCT
+		          WHERE   PO.PRODUCT_ID = PRODUCT.PRODUCT_ID )
+		         ,'입력값 오류' ) AS PRODUCT_NAME,
+		        NVL(( 
+		          SELECT  COMPANY_NAME
+		          FROM    COMPANY
+		          WHERE   PO.COMPANY_ID = COMPANY.COMPANY_ID )
+		         ,'입력값 오류' ) AS COMPANY_NAME,
+		        NVL(( 
+		          SELECT  EMPLOYEE_NAME
+		          FROM    EMPLOYEE
+		          WHERE   PO.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID )
+		         ,'입력값 오류' ) AS EMPLOYEE_NAME,
+		        REG_DATE, UPDATE_DATE, 
+		        storage_out_date, count_sales,
+		        selling_price, 
+		        sales_state,
+		        NVL(( 
+		          SELECT  KOR_NAME
+		          FROM    STATE ST
+		          WHERE   PO.sales_state = ST.CODE )
+		         ,'입력값 오류' ) AS STATE_NAME ,
+		        condition_note_receivable,
+		        ROWNUM rnum
+		        FROM sales_ORDER PO 
+		        WHERE   PO.sales_ID = #{sales_id}
+			     )
+		ORDER 	BY rnum
+		]]>
+ 	</select>
+ 	
+<<<<<<< HEAD
+ 	
+ 	 	<!-- 판매 바로 검색 개수 -->
+ 	<select id="count_search_status_sales" parameterType="java.util.Map"
+ 	resultType="int">
+ 		
+		SELECT 	COUNT(REG_DATE) 
+		FROM 	SALES_ORDER
+		<where>
+	       <choose>
+	            <when test="start_date > 0 ">
+	            	AND 	REG_DATE
+							BETWEEN  	TO_DATE(#{start_date}, 'YYYYMMDD') 
+							AND 		TO_DATE(#{end_date}, 'YYYYMMDD')
+	            </when>
+                
+                <otherwise>
+	                AND 1=1
+	            </otherwise>
+            </choose>
+        </where>  
+ 	</select>
+ 
+ 	
+ 	
+ 	
+ 	<!-- 판매 바로 검색 -->
+ 	<select id="select_serch_status_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		
+ 		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, state_name ,rownum rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+				                ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+		                FROM	SALES_ORDER S
+		                
+	                  	<where>
+					    	<choose>
+					            <when test="start_date > 0 ">
+					            	AND 	REG_DATE
+									BETWEEN  	TO_DATE(#{start_date}, 'YYYYMMDD') 
+									AND 		TO_DATE(#{end_date}, 'YYYYMMDD')
+					            </when>
+				                <otherwise>
+					                AND 1=1
+					            </otherwise>
+				            </choose>
+				        </where>  
+		                ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		                )
+		          )
+		WHERE 	rNum 
+				BETWEEN #{start} AND  #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC
+		
+ 	
+ 	</select>
+ 	
+ 	
+ 	<!-- 판매 바로 검색 -->
+ 	<select id="select_all_status_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+ 		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, state_name ,rownum rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+				                ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+		                FROM	SALES_ORDER S
+		                ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		                )
+		          )
+		WHERE rNum >= #{start} AND rNUM <= #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC
+		]]>
+ 	</select>
+ 	
+ 		<!-- 판매현황 옵션 검색 개수 -->
+ 	<select id="count_option_status_sales" parameterType="java.util.Map"
+ 	resultType="int">
+ 		
+		SELECT  COUNT(S.SALES_ID) 
+	    FROM	SALES_ORDER S
+	    <where>
+	       <choose>
+	            <when test="account > 0 ">
+	                AND ACCOUNT_ID IN #{account}
+	            </when>
+	            
+	            <when test="product > 0 ">
+	                AND PRODUCT_ID IN #{product}
+	            </when>
+	            
+	             <when test="company > 0 ">
+	                AND COMPANY_ID IN #{company}
+	            </when>
+
+	            <when test="employee > 0 ">
+	                AND EMPLOYEE_ID IN #{employee}
+	            </when>
+                
+                <otherwise>
+	                OR 1=1;
+	            </otherwise>
+            </choose>
+	   </where> 
+				            
+        <if test="account > 0 ">
+           AND S.ACCOUNT_ID IN #{account}
+       </if>
+       
+       <if test="product > 0 ">
+           AND S.PRODUCT_ID IN #{product}
+       </if>
+       
+        <if test="company > 0 ">
+           AND S.COMPANY_ID IN #{company}
+       </if>
+
+       <if test="employee > 0 ">
+           AND S.EMPLOYEE_ID IN #{employee}
+       </if>
+	   
+ 	</select>
+ 	
+ 	<!-- 판매 현황 옵션 검색 -->
+ 	<select id="select_serch_option_status_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+		                CONDITION_NOTE_RECEIVABLE, SALES_STATE, state_name, ROWNUM rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+				                ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+		                FROM	SALES_ORDER S
+		             	<where>
+					       <choose>
+					            <when test="account > 0 ">
+					                AND S.ACCOUNT_ID IN #{account}
+					            </when>
+					            
+					            <when test="product > 0 ">
+					                AND S.PRODUCT_ID IN #{product}
+					            </when>
+					            
+					             <when test="company > 0 ">
+					                AND S.COMPANY_ID IN #{company}
+					            </when>
+				
+					            <when test="employee > 0 ">
+					                AND S.EMPLOYEE_ID IN #{employee}
+					            </when>
+				                
+				                <otherwise>
+					                AND 1=1;
+					            </otherwise>
+				                
+				            </choose>
+				            
+				             <if test="account > 0 ">
+				                AND S.ACCOUNT_ID IN #{account}
+				            </if>
+				            
+				            <if test="product > 0 ">
+				                AND S.PRODUCT_ID IN #{product}
+				            </if>
+				            
+				             <if test="company > 0 ">
+				                AND S.COMPANY_ID IN #{company}
+				            </if>
+			
+				            <if test="employee > 0 ">
+				                AND S.EMPLOYEE_ID IN #{employee}
+				            </if>
+	
+	   					</where> 
+		                ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
+		                )
+		          )
+		          
+		WHERE 	rNum 
+				BETWEEN #{start} AND #{end}       
+		ORDER 	BY SALES_ID DESC, ACCOUNT_ID ASC
+ 	</select>
+ 	
+ 	
+=======
+ 	<update id="update_req_storage_out" parameterType="java.util.Map">
+ 		<![CDATA[
+ 			UPDATE	sales_order
+ 			SET		sales_state = #{sales_state}
+ 			WHERE	sales_id = #{sales_id}
+ 			AND		account_id = #{account_id}
+ 		]]>
+ 	</update>
+>>>>>>> 62dbd43bfd505cb6644b272bbd16e97848549152
+ 	
+</mapper>
