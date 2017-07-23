@@ -11,7 +11,8 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.base_registration.ProductVO;
 import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
-import com.pro.myrp.domain.distribution_manage.Select_stock_order_typeDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stock_order_movement_warehouseDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stock_order_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
 import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
@@ -135,7 +136,7 @@ public class StockDAOImpl implements StockDAO {
 	}
 
 	@Override
-	public Select_stock_order_typeDTO select_stock_order_out_order(Model model) {
+	public Select_stock_order_storageDTO select_stock_order_out_order(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
 		return dao.select_stock_order_out_order(model);
 	}
@@ -168,5 +169,53 @@ public class StockDAOImpl implements StockDAO {
 	public ArrayList<Out_storageDTO> select_storage_out_order() {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
 		return dao.select_storage_out_order();
+	}
+
+	@Override
+	public ArrayList<Select_stock_order_movement_warehouseDTO> select_movement_warehouse_list(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_movement_warehouse_list(model);
+	}
+
+	@Override
+	public int delete_movement_warehouse(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.delete_movement_warehouse(model);
+	}
+
+	@Override
+	public int delete_movement_stock_order(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.delete_movement_stock_order(model);
+	}
+
+	@Override
+	public ArrayList<ProductVO> select_product_info(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_product_info(model);
+	}
+
+	@Override
+	public int insert_movement_warehouse(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.insert_movement_warehouse(model);
+	}
+
+	@Override
+	public int update_movement_warehouse(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.update_movement_warehouse(model);
+	}
+
+	@Override
+	public int insert_stock_order(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.insert_stock_order(model);
+	}
+
+	@Override
+	public int update_stock_order(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.update_stock_order(model);
 	}
 }

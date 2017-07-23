@@ -2,7 +2,7 @@ package com.pro.myrp.domain.distribution_manage;
 
 import java.sql.Date;
 
-public class Select_stock_order_typeDTO {
+public class Select_stock_order_storageDTO {
 	
 	private String stock_order_id;
 	private String stock_order_type;

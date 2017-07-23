@@ -7,7 +7,8 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.base_registration.ProductVO;
 import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
-import com.pro.myrp.domain.distribution_manage.Select_stock_order_typeDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stock_order_movement_warehouseDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stock_order_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
 import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
@@ -143,7 +144,7 @@ public interface StockDAO extends MyRPDAO {
 
 	public String select_stock_order_type(Model model);
 
-	public Select_stock_order_typeDTO select_stock_order_out_order(Model model);
+	public Select_stock_order_storageDTO select_stock_order_out_order(Model model);
 
 	public ArrayList<WarehouseVO> select_warehouse_list(Model model);
 
@@ -166,4 +167,38 @@ public interface StockDAO extends MyRPDAO {
 	 * @return
 	 */
 	public ArrayList<Out_storageDTO> select_storage_out_order();
+
+	/**
+	 * 창고이동 > 창고이동 리스트
+	 * @author choidream
+	 * @param model
+	 * @return
+	 */
+	public ArrayList<Select_stock_order_movement_warehouseDTO> select_movement_warehouse_list(Model model);
+
+	/**
+	 * 창고이동 > 창고내역 삭제
+	 * @author choidream
+	 * @param model
+	 * @return
+	 */
+	public int delete_movement_warehouse(Model model);
+
+	/**
+	 * stock_order 내역 삭제
+	 * @author choidream
+	 * @param model
+	 * @return
+	 */
+	public int delete_movement_stock_order(Model model);
+
+	public ArrayList<ProductVO> select_product_info(Model model);
+
+	public int insert_movement_warehouse(Model model);
+
+	public int update_movement_warehouse(Model model);
+
+	public int insert_stock_order(Model model);
+
+	public int update_stock_order(Model model);
 }

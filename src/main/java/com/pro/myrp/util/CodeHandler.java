@@ -106,12 +106,10 @@ public class CodeHandler {
 					public static final int warehouse_pro = 14330;									//창고 등록 / 수정 처리
 					
 					public static final int movement_warehouse = 14400;								//창고 이동
-					public static final int movement_all_list = 14410; 								//전체 리스트
-					public static final int movement_unidentified_list = 14420;						//미확인 리스트		
-					public static final int movement_identified_list = 14430;						//확인 리스트
-					public static final int registration_movement_warehouse = 14440;				//창고 이동 등록		
-					public static final int modification_movement_warehouse = 14450;				//창고 이동 수정		
-					public static final int delete_movement_warehouse = 14460;						//창고 이동 삭제	
+					public static final int movement_list = 14410; 									//전체 리스트
+					public static final int movement_view = 14420;									//창고이동 등록 / 수정 입력		
+					public static final int movement_pro = 14430;									//창고이동 등록 / 수정 처리
+					public static final int movement_product = 14440;								//창고이동 등록 / 수정 입력 페이지에 창고 선택시 상품 뿌려주는
 					
 				public static final int adjustment_inventory  = 14500;								//재고 조정
 					public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회

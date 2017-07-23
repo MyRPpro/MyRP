@@ -57,8 +57,8 @@
 	<c:forEach var = "vo" items = "${reg_warehouse_listVos}" >	
 			<tr>
 				<th><input type = "text" value = "${vo.warehouse_id}" name = "warehouse_id" readonly></th>
-				<th><input type = "text" id = "name" value = "${vo.warehouse_name}" name = "warehouse_name"></th>
-				<th><input type = "text" id = "location" value = "${vo.warehouse_location}" name = "warehouse_location"></th>
+				<th><input type = "text" id = "name" value = "${vo.warehouse_name}" name = "warehouse_name" required></th>
+				<th><input type = "text" id = "location" value = "${vo.warehouse_location}" name = "warehouse_location" required></th>
 			</tr>
 		</c:forEach>
 	<tr>

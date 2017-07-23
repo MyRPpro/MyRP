@@ -89,7 +89,37 @@ public interface StockController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	public String movement_warehouse (HttpServletRequest req, Model model) throws Exception;
+	public String movement_warehouse_list (HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 창고이동 > 창고이동 등록 / 수정 페이지
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	String movement_warehouse_movement_view(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 창고이동 > 창고이동 등록 / 수정 페이지
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	String movement_warehouse_movement_pro(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 창고이동 > 창고이동 등록 / 수정시 창고 선택하면 창고에 있는 재고만 나오게
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	String movement_warehouse_movement_product(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
 	 * 재고조정 > 재고조정 조회 페이지
@@ -131,6 +161,9 @@ public interface StockController extends MyRPController {
 	 * @throws Exception
 	 */
 	String request_in_out_storage_pro(HttpServletRequest req, Model model) throws Exception;
+
+
+	
 
 
 	

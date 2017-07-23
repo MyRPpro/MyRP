@@ -74,11 +74,37 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 	}
 
 	@Override
-	@RequestMapping(value = "movement_warehouse/movement_all_list", method = {RequestMethod.GET,RequestMethod.POST})
-	public String movement_warehouse(HttpServletRequest req, Model model) throws Exception {
-		return code.c(distribution_management, movement_warehouse, movement_all_list);
+	@RequestMapping(value = "movement_warehouse/movement_list", method = {RequestMethod.GET,RequestMethod.POST})
+	public String movement_warehouse_list(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(movement_list));
+		service.movement_warehouse_list_service(req,model);
+		return code.c(distribution_management, movement_warehouse, movement_list);
 	}
-
+	
+	@Override
+	@RequestMapping(value = "movement_warehouse/movement_view", method = {RequestMethod.GET,RequestMethod.POST})
+	public String movement_warehouse_movement_view(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(movement_view));
+		service.movement_warehouse_view_service(req,model);
+		return code.c(distribution_management, movement_warehouse, movement_view);
+	}
+	
+	@Override
+	@RequestMapping(value = "movement_warehouse/movement_pro", method = {RequestMethod.GET,RequestMethod.POST})
+	public String movement_warehouse_movement_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(movement_pro));
+		service.movement_warehouse_pro_service(req,model);
+		return  "redirect:" + code.c(distribution_management, movement_warehouse, movement_list);
+	}
+	
+	@Override
+	@RequestMapping(value = "movement_warehouse/movement_product", method = {RequestMethod.GET,RequestMethod.POST})
+	public String movement_warehouse_movement_product(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(movement_product));
+		service.movement_warehouse_product_service(req,model);
+		return code.c(distribution_management, movement_warehouse, movement_product);
+	}
+	
 	@Override
 	@RequestMapping(value = "adjustment_inventory/adjustment_inventory_list", method = {RequestMethod.GET,RequestMethod.POST})
 	public String adjustment_inventory(HttpServletRequest req, Model model) throws Exception {
@@ -117,6 +143,6 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 		
 		return "redirect:" + code.c(distribution_management, search_distribution_order, statement_list);
 	}
-	
+
 	
 }

@@ -2,6 +2,7 @@ package com.pro.myrp.service.stock;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -12,13 +13,16 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.CodeMyRP;
 import com.pro.myrp.domain.base_registration.ProductVO;
 import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
-import com.pro.myrp.domain.distribution_manage.Select_stock_order_typeDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stock_order_movement_warehouseDTO;
+import com.pro.myrp.domain.distribution_manage.Select_stock_order_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
 import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.WarehouseVO;
+import com.pro.myrp.domain.hr_management.EmployeeVO;
+import com.pro.myrp.persistence.hr.HRDAO;
 import com.pro.myrp.persistence.stock.StockDAO;
 
 @Service
@@ -26,6 +30,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 
 	@Inject
 	private StockDAO dao;
+	
+	@Inject
+	private HRDAO hdao;
 	
 	@Override
 	public String stock_condition_service(HttpServletRequest req, Model model) throws Exception {
@@ -422,7 +429,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				 dao.update_sales_state(model);
 			}
 		}else if(goes.equals("storage_out_complete")){
-			Select_stock_order_typeDTO dto = dao.select_stock_order_out_order(model);
+			Select_stock_order_storageDTO dto = dao.select_stock_order_out_order(model);
 			
 			String stock_order_id = dto.getStock_order_id();
 			stock_order_type = dto.getStock_order_type();
@@ -502,6 +509,134 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		}else if(opt.equals("modify")){
 			dao.update_warehouse(model);
 		}
+	}
+
+	@Override
+	public void movement_warehouse_list_service(HttpServletRequest req, Model model)  throws Exception{
+		ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
+		movement_warehouseDtos = dao.select_movement_warehouse_list(model);
+		model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+	}
+	
+	@Override
+	public void movement_warehouse_view_service(HttpServletRequest req, Model model)  throws Exception{
+		String id = req.getParameter("id");
+		model.addAttribute("id",id);
+		
+		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		List<EmployeeVO> employeeVos = new ArrayList<EmployeeVO>();
+		
+		warehouseVos = dao.select_warehouse_list(model);
+		employeeVos = hdao.select_employees();
+		
+		model.addAttribute("warehouseVos",warehouseVos);
+		model.addAttribute("employeeVos",employeeVos);
+		
+		if(!id.equals("new")){
+			ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
+			model.addAttribute("stock_order_id", id);
+			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
+			model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+		}
+	}
+
+	@Override
+	public void movement_warehouse_pro_service(HttpServletRequest req, Model model)  throws Exception{
+		String id = req.getParameter("id");
+		String opt = req.getParameter("opt") == null ? null : req.getParameter("opt");
+		
+		System.out.println("opt : " + opt);
+		
+		if(id != null && id.equals("new")){
+			String product_id = req.getParameter("product_id");
+			String warehouse_id = req.getParameter("warehouse_id");
+			String employee_id = req.getParameter("employee_id");
+			String arrive_warehouse_id = req.getParameter("arrive_warehouse_id");
+			String movement_amount = req.getParameter("movement_amount");
+			
+			model.addAttribute("product_id",product_id);
+			model.addAttribute("warehouse_id",warehouse_id);
+			model.addAttribute("employee_id",employee_id);
+			model.addAttribute("arrive_warehouse_id",arrive_warehouse_id);
+			model.addAttribute("movement_amount",movement_amount);
+			model.addAttribute("stock_order_id", "4751");
+
+			dao.insert_stock_order(model);
+			dao.insert_movement_warehouse(model);
+		
+		}else if(opt != null && opt.equals("del")){
+			model.addAttribute("stock_order_id", id);
+			dao.delete_movement_warehouse(model);
+			dao.delete_movement_stock_order(model);
+		
+		}else if(opt != null && opt.equals("confirm")){
+			ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
+			model.addAttribute("stock_order_id", id);
+			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
+			
+			String product_id =  movement_warehouseDtos.get(0).getProduct_id();
+			int warehouse_id =  movement_warehouseDtos.get(0).getWarehouse_id();
+			int arrive_warehouse_id =  movement_warehouseDtos.get(0).getArrive_warehouse();
+			int stock_amount =  movement_warehouseDtos.get(0).getMovement_amount();
+			
+			model.addAttribute("product_id", product_id);
+			model.addAttribute("warehouse_id", warehouse_id);
+			model.addAttribute("arrive_warehouse_id", arrive_warehouse_id);
+			model.addAttribute("stock_amount", stock_amount);
+			
+			model.addAttribute("mv_op", "1");
+			dao.update_stock_out_storage(model);
+			model.addAttribute("mv_op", "2");
+			
+			ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
+			productVos = dao.select_product_info(model);
+			
+			System.out.println("productVos.size : " + productVos.size());
+			
+			if(productVos.size() > 0){
+				dao.update_stock_out_storage(model);
+			}else{
+				dao.insert_stock_out_storage(model);
+			}
+			model.addAttribute("movement_state", "1");
+			dao.update_movement_warehouse(model);
+			
+		}else{
+			String product_id = req.getParameter("product_id");
+			String warehouse_id = req.getParameter("warehouse_id");
+			String employee_id = req.getParameter("employee_id");
+			String arrive_warehouse_id = req.getParameter("arrive_warehouse_id");
+			String movement_amount = req.getParameter("movement_amount");
+			String stock_order_id = req.getParameter("stock_order_id");
+			
+			model.addAttribute("product_id",product_id);
+			model.addAttribute("warehouse_id",warehouse_id);
+			model.addAttribute("employee_id",employee_id);
+			model.addAttribute("arrive_warehouse_id",arrive_warehouse_id);
+			model.addAttribute("movement_amount",movement_amount);
+			model.addAttribute("stock_order_id",stock_order_id);
+			
+			dao.update_stock_order(model);
+			dao.update_movement_warehouse(model);
+		}
+	}
+
+	@Override
+	public void movement_warehouse_product_service(HttpServletRequest req, Model model) throws Exception {
+		String warehouse_id = req.getParameter("warehouse_id");
+		String goes = req.getParameter("goes");
+		//String product_id = req.getParameter("product_id") == null ? null : req.getParameter("product_id");
+		
+		model.addAttribute("warehouse_id", warehouse_id);
+		//model.addAttribute("product_id", product_id);
+		model.addAttribute("goes", goes);
+		
+		ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
+		productVos = dao.select_product_info(model);
+		
+		model.addAttribute("productVos",productVos);
+		
+		
 	}
 }
 
