@@ -45,9 +45,10 @@ public class SalesServiceImpl implements SalesService {
 		String search_str = null;
 		int search_check = 0;
 		
-		// 검색어  유무 체크 
-		if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
-			/*System.out.println("널인데 왜 떠? : " + req.getParameter("search_str") );*/
+		// 전체 검색 or 검색어 검색 
+		if( req.getParameter("search_str").equals("all") ){
+			search_check = 0;
+		}else if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
 			search_check = 1;
 		}
 		
@@ -65,23 +66,17 @@ public class SalesServiceImpl implements SalesService {
 			
 		// 검색어가 있을 경우(전체 로드)
 		} else {
-			
-			// 전체 개수 구하기
 			cnt = dao.select_sales_cnt();
-			
 		}
 		
 		pageNum = req.getParameter("pageNum");
-		if(pageNum == null) {
-			pageNum = "1";
-		}
+		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);
 		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
 		start = (currentPage -1) * pageSize + 1;
 		end = start + pageSize - 1;
 		if(end > cnt) end = cnt;
 		number = cnt - (currentPage - 1) * pageSize;
-		
 		
 		if(cnt > 0) {
 			
@@ -99,20 +94,15 @@ public class SalesServiceImpl implements SalesService {
 				dtos = dao.select_quick_serch_sales(daoMap);
 				model.addAttribute("SalesDTOs", dtos);
 				
-				
 			} else {
 				System.out.println("  -> Print All List  ...");
 				
 				// 전체 목록 불러오기
 				dtos = dao.select_sales_list(daoMap);
 				model.addAttribute("SalesDTOs", dtos);
-				
 			}
 
-		} else {
-			
-			System.out.println("  -> Cnt is Zero...");
-		}
+		} else System.out.println("  -> Cnt is Zero...");
 		
 		startPage = (currentPage/pageBlock)*pageBlock+1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
@@ -142,35 +132,54 @@ public class SalesServiceImpl implements SalesService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		int pageSize	= 5;
+		int pageBlock	= 3;
 		int cnt			= 0;
 		int start		= 0;
 		int end			= 0;
+		int number		= 0;
 		String pageNum	= null;
 		int currentPage	= 0;
-		
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
 		
 		ArrayList<SalesDTO> dtos = null;
 		String search_str = null;
 		int search_check = 0;
 		
-		// 검색어  유무 체크 
-		if( req.getParameter("search_str") != null && 
-				req.getParameter("search_str") != "" ){
-			search_str = req.getParameter("search_str");
-			System.out.println("  -> search_str : " + search_str);
+		// 전체 검색 or 검색어 검색 
+		if( req.getParameter("search_str").equals("all") ){
+			search_check = 0;
+		}else if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
 			search_check = 1;
 		}
 		
-		pageNum = req.getParameter("pageNum"); 
-		if(pageNum==null) pageNum = "1";
+		// 검색어가 있을 경우
+		if( search_check == 1 ){
+			
+			search_str = req.getParameter("search_str");
+			model.addAttribute("search_str",search_str);
+			model.addAttribute("  -> search_str : " + search_str);
+
+			// 개수 구하기
+			cnt = dao.count_quick_serch_sales(search_str);
+			System.out.println("  -> Search Cnt : " + cnt );
+			
+			
+		// 검색어가 있을 경우(전체 로드)
+		} else {
+			cnt = dao.select_sales_cnt();
+		}
+		
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
 		start = (currentPage -1) * pageSize + 1;
 		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
 		
-		System.out.println("  -> start,end : " + start +", "+ end);
-		
-		cnt = dao.select_sales_cnt();
-	
 		if(cnt > 0) {
 			
 			System.out.println("  -> Complete import cnt ...");
@@ -192,10 +201,28 @@ public class SalesServiceImpl implements SalesService {
 				
 				// 전체 목록 불러오기
 				dtos = dao.select_sales_list(daoMap);
-				model.addAttribute("dtos", dtos);
+				model.addAttribute("SalesDTOs", dtos);
 			}
-			
+
 		} else System.out.println("  -> Cnt is Zero...");
+		
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		}
+		
 	}
 
 	@Override
@@ -220,24 +247,30 @@ public class SalesServiceImpl implements SalesService {
 		
 		String search_str = null;
 		int search_check = 0;
-		
-		// 검색어  유무 체크 
-		if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
+
+		// 전체 검색 or 검색어 검색 
+		if( req.getParameter("search_str").equals("all") ){
+			search_check = 0;
+		}else if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
 			search_check = 1;
 		}
 		
 		// 검색어가 있을 경우
-		if( search_check == 1 ){	
+		if( search_check == 1 ){
 			
 			search_str = req.getParameter("search_str");
+			model.addAttribute("search_str",search_str);
+			model.addAttribute("  -> search_str : " + search_str);
+
+			// 개수 구하기
 			cnt = dao.count_quick_serch_sales(search_str);
-			System.out.println("  -> SearchCnt : " + cnt );
-		
-		} else {	// 검색어가 없을 경우(전체 로드) 
+			System.out.println("  -> Search Cnt : " + cnt );
+			model.addAttribute("check",2);
 			
-			// 전체 개수 구하기
+		// 검색어가 있을 경우(전체 로드)
+		} else {
 			cnt = dao.select_sales_cnt();
-			System.out.println("  -> AllCnt : " + cnt );
+			model.addAttribute("check",1);
 		}
 		
 		pageNum = req.getParameter("pageNum");
@@ -274,6 +307,7 @@ public class SalesServiceImpl implements SalesService {
 	public void detail_sales_service(Model model) {
 		
 		System.out.println("  -> detail_sales_service");
+		
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
@@ -509,8 +543,6 @@ public class SalesServiceImpl implements SalesService {
 		model.addAttribute("cnt", cnt);
 		*/
 	}
-
-	
 	
 	@Override
 	public void reg_sales_service(Model model) {

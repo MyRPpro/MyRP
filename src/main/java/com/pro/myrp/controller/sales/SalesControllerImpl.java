@@ -33,7 +33,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	public String sales_list_table(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(sales_list_table));
 		model.addAttribute("req", req);
-		service.sales_list_servie(model);
+		service.sales_list_table_servie(model);
 		return code.c(sales_management,search_sales,sales_list_table);
 	}
 
@@ -42,7 +42,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	public String sales_list_page(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(sales_list_page));
 		model.addAttribute("req", req);
-		service.sales_list_servie(model);
+		service.sales_list_page_servie(model);
 		return code.c(sales_management,search_sales,sales_list_page);
 	}
 	

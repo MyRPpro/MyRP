@@ -11,11 +11,9 @@
  	<select id="count_quick_serch_sales" parameterType="String"
  	resultType="int">
  		<![CDATA[
-		SELECT  COUNT(S.SALES_ID) 
-	    FROM	SALES_ORDER S
-	    JOIN	COMPANY C
-	    ON		S.COMPANY_ID = C.COMPANY_ID
-		WHERE 	C.COMPANY_ID LIKE '%'||#{search_str}||'%'
+		SELECT  COUNT(SALES_ID) 
+	    FROM	SALES_ORDER
+		WHERE 	SALES_ID LIKE '%'||#{search_str}||'%'
  		]]>
  	</select>
  
@@ -56,7 +54,11 @@
 				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
 				                ),'입력값 오류' ) AS PRODUCT_NAME ,
 				                S.COMPANY_ID,  
-				                C.COMPANY_NAME ,
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = c.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
 				                NVL((
 				                SELECT EMPLOYEE_NAME 
 				                FROM   EMPLOYEE E
@@ -72,12 +74,10 @@
 				                SELECT KOR_NAME 
 				                FROM   STATE ST
 				                WHERE  S.SALES_STATE = ST.CODE
-				                ),'입력값 오류' ) AS state_name
+				                ),'입력값 오류' ) AS STATE_NAME
 		
 		                FROM	SALES_ORDER S
-		                JOIN	COMPANY C
-		                ON		S.COMPANY_ID = C.COMPANY_ID
-		                WHERE 	C.COMPANY_ID LIKE '%'||#{search_str}||'%'
+		                WHERE 	S.SALES_ID LIKE '%'||#{search_str}||'%'
 		                ORDER BY SALES_ID DESC, ACCOUNT_ID ASC 
 		                )
 		          )
