@@ -149,5 +149,57 @@ public interface AccountController extends MyRPController{
 	 */
 	public String make_statement_pro(HttpServletRequest req, Model model) throws Exception;
 	
+	/**
+	 * 계정관리 > 계정 목록 조회
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_account_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 계정관리 > 계정 추가
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_account(HttpServletRequest req, Model model) throws Exception;	
+	
+	/**
+	 * 계정 관리 > 계정 추가 > account_id 중복체크
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_account_dupCheck(HttpServletRequest req, Model model) throws Exception;
+
+	/** 
+	 * 계정 관리 > 계정 추가 처리
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String add_account_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 계정관리 > 계정 수정
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_account(HttpServletRequest req, Model model) throws Exception;
+	/**
+	 * 계정관리 > 계정수정 처리
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_account_pro(HttpServletRequest req, Model model) throws Exception;
 }
 
