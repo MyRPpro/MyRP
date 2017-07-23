@@ -207,4 +207,17 @@ public interface AccountDAO extends MyRPDAO {
 	 */
 	public int insert_account(AccountVO vo);
 	
+	/**
+	 * 계정관리 > 계정수정
+	 * @param account_id
+	 * @return
+	 */
+	public AccountVO select_ori_account(String account_id);
+
+	/**
+	 * 계정관리 > 계정수정 처리
+	 * @param vo
+	 * @return
+	 */
+	public int update_modify_account(AccountVO vo);
 }

@@ -754,4 +754,28 @@ public class AccountServiceImpl implements AccountService {
 		int cnt = dao.insert_account(vo);
 		model.addAttribute("cnt", cnt);
 	}
+	@Override
+	public void modify_account_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		String account_id = req.getParameter("account_id");
+		AccountVO vo = dao.select_ori_account(account_id);
+		model.addAttribute("vo", vo);
+	}
+	@Override
+	public void modify_account_pro_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		String account_id = req.getParameter("account_id");
+		String account_name = req.getParameter("account_name");
+		int account_balance = Integer.parseInt(req.getParameter("account_balance"));
+		
+		AccountVO vo = new AccountVO();
+		vo.setAccount_id(account_id);
+		vo.setAccount_name(account_name);
+		vo.setAccount_balance(account_balance);
+		
+		int cnt = dao.update_modify_account(vo);
+		model.addAttribute("cnt",cnt);		
+	}
 }

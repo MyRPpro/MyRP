@@ -184,5 +184,22 @@ public interface AccountController extends MyRPController{
 	 * @throws Exception
 	 */
 	public String add_account_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 계정관리 > 계정 수정
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_account(HttpServletRequest req, Model model) throws Exception;
+	/**
+	 * 계정관리 > 계정수정 처리
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_account_pro(HttpServletRequest req, Model model) throws Exception;
 }
 

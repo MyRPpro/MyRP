@@ -523,4 +523,19 @@
 		VALUES(#{account_id}, #{account_balance}, #{account_name})
 		]]>
 	</insert>
+	
+	<!-- 계정관리 > 계정수정 -->
+	<select id="select_ori_account" parameterType="String" resultType="AccountVO">
+		<![CDATA[
+		SELECT * FROM account WHERE account_id = #{account_id}
+		]]>
+	</select>
+	
+	<!-- 계정관리 > 계정수정 처리 -->
+	<update id="update_modify_account" parameterType="AccountVO">
+		<![CDATA[
+		UPDATE account SET account_name = #{account_name}
+		WHERE account_id = #{account_id}
+		]]>
+	</update>
 </mapper>

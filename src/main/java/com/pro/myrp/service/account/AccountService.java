@@ -145,4 +145,18 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void add_account_pro_service(Model model) throws Exception;
+	
+	/**
+	 * 계정관리 > 계정 수정 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_account_service(Model model) throws Exception;
+	
+	/** 
+	 * 계정관리 > 계정 수정 처리 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_account_pro_service(Model model) throws Exception;
 }
