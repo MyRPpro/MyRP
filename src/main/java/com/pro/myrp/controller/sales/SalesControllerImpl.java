@@ -90,7 +90,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		model.addAttribute("req",req);
 		service.reg_sales_table(model);
 		return code.c(sales_management, input_sales, reg_sales_table);
-	
 	}
 
 

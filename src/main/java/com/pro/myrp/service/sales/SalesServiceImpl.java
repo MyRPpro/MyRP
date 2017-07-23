@@ -696,8 +696,8 @@ public class SalesServiceImpl implements SalesService {
 			
 			// 리스트를 만들어서 결과값을 담음
 			ArrayList<SalesDTO> dtos = new ArrayList<>();
-			product_id = dto.getSales_id();
-			dtos = dao.select_sales_order(product_id);
+			sales_id = dto.getSales_id();
+			dtos = dao.select_sales_order(sales_id);
 			model.addAttribute("dtos", dtos);
 			System.out.println("  ->  dtos : " + dtos.toString());
 			
