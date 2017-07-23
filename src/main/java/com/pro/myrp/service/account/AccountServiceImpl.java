@@ -287,6 +287,8 @@ public class AccountServiceImpl implements AccountService {
 	public void make_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		
+		
 	}
 	
 	// 전표 승인 처리 

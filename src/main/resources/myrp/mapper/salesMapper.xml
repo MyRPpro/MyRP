@@ -486,42 +486,43 @@
 		SELECT  *
 		FROM    ( 
 		        SELECT
-		        sales_ID, 
-		        NVL( DECODE
-		            ( ACCOUNT_ID,
-		               '500012030000','상품매출',
-		              '500012020000','부가세예수금',
-		              '500011020000','매출채권' )
-		              ,'입력값 오류' ) as ACCOUNT_NAME,
-		        ORDER_ID,
-		        NVL(( 
-		          SELECT  PRODUCT_NAME
-		          FROM    PRODUCT
-		          WHERE   PO.PRODUCT_ID = PRODUCT.PRODUCT_ID )
-		         ,'입력값 오류' ) AS PRODUCT_NAME,
-		        NVL(( 
-		          SELECT  COMPANY_NAME
-		          FROM    COMPANY
-		          WHERE   PO.COMPANY_ID = COMPANY.COMPANY_ID )
-		         ,'입력값 오류' ) AS COMPANY_NAME,
-		        NVL(( 
-		          SELECT  EMPLOYEE_NAME
-		          FROM    EMPLOYEE
-		          WHERE   PO.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID )
-		         ,'입력값 오류' ) AS EMPLOYEE_NAME,
-		        REG_DATE, UPDATE_DATE, 
-		        storage_out_date, count_sales,
-		        selling_price, 
-		        sales_state,
-		        NVL(( 
-		          SELECT  KOR_NAME
-		          FROM    STATE ST
-		          WHERE   PO.sales_state = ST.CODE )
-		         ,'입력값 오류' ) AS STATE_NAME ,
-		        condition_note_receivable,
-		        ROWNUM rnum
-		        FROM sales_ORDER PO 
-		        WHERE   PO.sales_ID = #{sales_id}
+			        sales_ID, 
+			        NVL( DECODE
+			            ( ACCOUNT_ID,
+			              '500012030000','상품매출',
+			              '500012020000','부가세예수금',
+			              '500011020000','매출채권' )
+			              ,'입력값 오류' ) as ACCOUNT_NAME,
+			        ORDER_ID,
+			        NVL(( 
+			          SELECT  PRODUCT_NAME
+			          FROM    PRODUCT
+			          WHERE   S.PRODUCT_ID = PRODUCT.PRODUCT_ID )
+			         ,'입력값 오류' ) AS PRODUCT_NAME,
+			        NVL(( 
+			          SELECT  COMPANY_NAME
+			          FROM    COMPANY
+			          WHERE   S.COMPANY_ID = COMPANY.COMPANY_ID )
+			         ,'입력값 오류' ) AS COMPANY_NAME,
+			        NVL(( 
+			          SELECT  EMPLOYEE_NAME
+			          FROM    EMPLOYEE
+			          WHERE   S.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID )
+			         ,'입력값 오류' ) AS EMPLOYEE_NAME,
+			        REG_DATE, UPDATE_DATE, 
+			        STORAGE_OUT_DATE, COUNT_SALES,
+			        SELLING_PRICE, 
+			        SALES_STATE,
+			        NVL(( 
+			          SELECT  KOR_NAME
+			          FROM    STATE ST
+			          WHERE   S.SALES_STATE = ST.CODE )
+			         ,'입력값 오류' ) AS STATE_NAME ,
+			        CONDITION_NOTE_RECEIVABLE,
+			        ROWNUM rnum
+			        
+		        FROM 	SALES_ORDER S 
+		        WHERE   S.sales_ID = #{sales_id}
 			     )
 		ORDER 	BY rnum
 		]]>
@@ -830,7 +831,7 @@
 		ORDER 	BY SALES_ID DESC, ACCOUNT_ID ASC
  	</select>
  	
- 	
+
  	<update id="update_req_storage_out" parameterType="java.util.Map">
  		<![CDATA[
  			UPDATE	sales_order
@@ -839,5 +840,6 @@
  			AND		account_id = #{account_id}
  		]]>
  	</update>
+
  	
 </mapper>
