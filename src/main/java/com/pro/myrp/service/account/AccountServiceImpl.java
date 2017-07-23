@@ -288,10 +288,7 @@ public class AccountServiceImpl implements AccountService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 		
-		/* 판매에서 추가한 부분 시작 : 등록한 판매번호를 받아서 저장  */
-		String sales_id = req.getParameter("sales_id");
-		model.addAttribute("sales_id",sales_id);
-		/* 판매에서 추가한 부분 종료  */
+		
 	}
 	
 	// 전표 승인 처리 
