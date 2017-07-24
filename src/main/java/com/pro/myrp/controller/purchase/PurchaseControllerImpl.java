@@ -70,6 +70,8 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	}
 
 	
+	
+	
 	@Override
 	@GetMapping(value="input_purchase/reg_purchase")
 	public String reg_purchase(HttpServletRequest req, Model model) throws Exception {

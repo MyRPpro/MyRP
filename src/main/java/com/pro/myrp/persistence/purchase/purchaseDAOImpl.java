@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.pro.myrp.domain.PurchaseVO;
+import com.pro.myrp.domain.purchase_management.PurchaseDTO;
 
 @Repository
 public class purchaseDAOImpl implements purchaseDAO {
@@ -24,25 +24,25 @@ public class purchaseDAOImpl implements purchaseDAO {
 	}
 
 	@Override
-	public ArrayList<PurchaseVO> select_purchase_list(Map<String, Object> daoMap) {
+	public ArrayList<PurchaseDTO> select_purchase_list(Map<String, Object> daoMap) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_purchase_list(daoMap);
 	}
 
 	@Override
-	public PurchaseVO select_detail_purchase(String company_id) {
+	public PurchaseDTO select_detail_purchase(String company_id) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_detail_purchase(company_id);
 	}
 
 	@Override
-	public int update_purchase(PurchaseVO vo) {
+	public int update_purchase(PurchaseDTO dto) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.update_purchase(vo);
+		return dao.update_purchase(dto);
 	}
 	
 	@Override
-	public ArrayList<PurchaseVO> select_quick_serch_purchase(Map<String, Object> daoMap) {
+	public ArrayList<PurchaseDTO> select_quick_serch_purchase(Map<String, Object> daoMap) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_quick_serch_purchase(daoMap);
 	}
@@ -55,40 +55,40 @@ public class purchaseDAOImpl implements purchaseDAO {
 
 	
 	@Override
-	public ArrayList<PurchaseVO> select_product_ids() {
+	public ArrayList<PurchaseDTO> select_product_ids() {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_product_ids();
 	}
 
 	@Override
-	public ArrayList<PurchaseVO> select_company_ids() {
+	public ArrayList<PurchaseDTO> select_company_ids() {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_company_ids();
 	}
 
 	@Override
-	public ArrayList<PurchaseVO> select_employee_ids() {
+	public ArrayList<PurchaseDTO> select_employee_ids() {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_employee_ids();
 	}
 
 	@Override
-	public int insert_reg_purchase(PurchaseVO vo) {
+	public int insert_reg_purchase(PurchaseDTO dto) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.insert_reg_purchase(vo);
+		return dao.insert_reg_purchase(dto);
 	}
 
 	@Override
-	public ArrayList<PurchaseVO> select_account_ids() {
+	public ArrayList<PurchaseDTO> select_account_ids() {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_account_ids();
 	}
 
 	
 	@Override
-	public int insert_reg_purchase_statement(PurchaseVO vo) {
+	public int insert_reg_purchase_statement(PurchaseDTO dto) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.insert_reg_purchase_statement(vo);
+		return dao.insert_reg_purchase_statement(dto);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class purchaseDAOImpl implements purchaseDAO {
 	}
 
 	@Override
-	public List<PurchaseVO> select_purchase_order(String product_id) {
+	public List<PurchaseDTO> select_purchase_order(String product_id) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.select_purchase_order(product_id);
 	}

@@ -1,4 +1,4 @@
-package com.pro.myrp.domain;
+package com.pro.myrp.domain.purchase_management;
 
 import java.sql.Date;
 
@@ -8,7 +8,7 @@ import java.sql.Date;
  *
  */
 
-public class PurchaseVO {
+public class PurchaseDTO {
 
 	private String purchase_id;
 	private String account_id;
