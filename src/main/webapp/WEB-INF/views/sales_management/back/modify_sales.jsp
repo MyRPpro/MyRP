@@ -12,15 +12,28 @@
     table {
         table-layout: fixed;
     }
+    table, th, td {
+        border-collapse: collapse;
+    }
+    th, td {
+        height:20px;
+        padding: 5px;
+    }
     tr td {
+        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
     }
+    /* ... 넘침 해제
+    td {     
+        white-space:normal; 
+        word-wrap: break-word;
+    }*/
     table tr:hover {  
         background: #f3f3f3;
     }
 </style>
- 
+
 <body>
 
 	<h3> 판매내역 수정 페이지 : modify_sales.jsp</h3>
@@ -29,7 +42,7 @@
 		id="modify_sales_form1" method="post">
 		
 		
-		<table id="modify_sales_form2" border="1" width="2000px" >
+		<table id="modify_sales_form2" border="1" width="150%" >
 		
 			<tr>
 				<!-- 1  --> <th>sales</th>
@@ -201,8 +214,8 @@
 					<input type="submit" value="수정하기">
 					<input type="reset"	value="재작성">
 					(
-					<input type="button" value="견적승인">
-					<input type="button" value="승인취소">
+					<input type="reset"	value="견적승인">
+					<input type="reset"	value="승인취소">
 					<- 승인권자 메뉴)
 				</th>
 			</tr>

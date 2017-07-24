@@ -38,5 +38,9 @@ public interface SalesService extends MyRPService {
 
 	public void req_storage_out_service(Model model);
 
+	public void detail_sales_pro_service(Model model);
+
+	public void modify_sales_service(Model model);
+
 	
 }
