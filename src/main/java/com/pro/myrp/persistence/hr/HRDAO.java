@@ -326,4 +326,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public List<Retired_EmployeeDTO> select_retired_employee_history(int employee_id);
+
+	/**
+	 * 검색어를 반영한 급여대장 개수 검색
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int select_salary_register_cnt(Map<String, Object> daoMap);
 }

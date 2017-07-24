@@ -1,6 +1,7 @@
 package com.pro.myrp.service.hr;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -24,6 +26,7 @@ import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
 import com.pro.myrp.domain.hr_management.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.Salary_registerVO;
 import com.pro.myrp.persistence.hr.HRDAO;
 
 @Service
@@ -905,7 +908,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
-
 	
 	@Override
 	public void add_retired_employee_service(Model model) throws Exception {
@@ -927,7 +929,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
 		model.addAttribute("hr_codeVos", hr_codeVos);	
 	}
-
 	
 	@Override
 	public void retired_employee_regform_service(Model model) throws Exception {
@@ -960,7 +961,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("dto", dto);
 	}
 
-
 	@Override
 	public void add_retired_employee_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -979,7 +979,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("cnt", cnt);
 	}
 
-
 	@Override
 	public void personnel_card_retired_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -994,7 +993,57 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 	public void salary_register_search_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int hr_code_group_id = 4;
+		String use_state = "Y";
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("use_state", use_state);
+		daoMap.put("hr_code_group_id", hr_code_group_id);
+		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		model.addAttribute("hr_codeVos", hr_codeVos);	
+	}
+
+	
+	@Override
+	public void salary_register_list_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
+		int pageSize	= 5;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		
+		String salary_register_name = req.getParameter("salary_register_name");
+		Date search_start_month = null;
+		Date search_end_month = null;
+		if(!req.getParameter("search_start_month").equals("null")) {
+			search_start_month = Date.valueOf(req.getParameter("search_start_month"));
+		}
+		if(!req.getParameter("search_end_month").equals("null")) {
+			search_end_month = Date.valueOf(req.getParameter("search_end_month"));
+		}
+		System.out.println("■■■■■■■■■■"+search_start_month+"/"+search_end_month);
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("salary_register_name", salary_register_name);
+		daoMap.put("search_start_month", search_start_month);
+		daoMap.put("search_end_month", search_end_month);
+		cnt = dao.select_salary_register_cnt(daoMap);
+		System.out.println("■■■■■■■■■■cnt: "+cnt);
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		/*if(cnt > 0) {
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			List<Salary_registerVO> vos = new ArrayList<>();
+			vos = dao.select_salary_register_list(daoMap);
+			model.addAttribute("salary_registerVos", vos);
+		}*/
 	}
 
 }

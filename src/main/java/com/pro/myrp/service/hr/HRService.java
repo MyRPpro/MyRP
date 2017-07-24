@@ -353,4 +353,12 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void salary_register_search_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 목록 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void salary_register_list_service(Model model) throws Exception;
 }

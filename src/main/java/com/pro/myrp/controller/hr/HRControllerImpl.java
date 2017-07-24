@@ -2,7 +2,6 @@ package com.pro.myrp.controller.hr;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -429,7 +428,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.add_retired_employee_pro_service(model);
 		return code.c(hr_management, manage_retired_employee, add_retired_employee_pro);
 	}
-
 	
 	@Override
 	@GetMapping(value="manage_retired_employee/retired_employee_regform")
@@ -439,7 +437,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.retired_employee_regform_service(model);
 		return code.c(hr_management, manage_retired_employee, retired_employee_regform);
 	}
-
 	
 	@Override
 	@GetMapping(value="manage_retired_employee/personnel_card_retired")
@@ -448,5 +445,25 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		model.addAttribute("req", req);
 		service.personnel_card_retired_service(model);
 		return code.c(hr_management, manage_retired_employee, personnel_card_retired);
+	}
+
+	
+	@Override
+	@GetMapping(value="manage_salary/salary_register_list")
+	public String salary_register_list(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(salary_register_list));
+		model.addAttribute("req", req);
+		service.salary_register_list_service(model);
+		return code.c(hr_management, manage_salary, salary_register_list);
+	}
+	
+
+	@Override
+	@GetMapping(value="manage_salary/salary_register_nav")
+	public String salary_register_nav(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(salary_register_nav));
+		model.addAttribute("req", req);
+		
+		return code.c(hr_management, manage_salary, salary_register_nav);
 	}
 }

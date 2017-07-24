@@ -374,16 +374,6 @@ public interface HRController extends MyRPController {
 	public String personnel_card_appointment(HttpServletRequest req, Model model) throws Exception;
 
 	/**
-	 * 인사관리 > 급여 관리 > 급여대장 검색
-	 * @author amaco78
-	 * @param req
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	public String salary_register_search(HttpServletRequest req, Model model) throws Exception;
-
-	/**
 	 * 인사관리 > 퇴사자 관리 > 퇴사자 조회
 	 * @author amaco78
 	 * @param req
@@ -452,4 +442,34 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String personnel_card_retired(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 검색
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_register_search(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 목록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_register_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 급여 관리 > 급여 대장 페이지 네비게이션
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_register_nav(HttpServletRequest req, Model model) throws Exception;
 }
