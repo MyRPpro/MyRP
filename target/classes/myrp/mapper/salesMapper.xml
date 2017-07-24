@@ -881,7 +881,7 @@
 
 
 	<update id="update_account_approve_serch_sales" >
-		
+		<![CDATA[
 		UPDATE  SALES_ORDER                                 
 		SET     SALES_STATE = 22214                         
 		WHERE   SALES_ID IN (SELECT SALES_ID
@@ -893,7 +893,7 @@
 		                                            )
 		                    )
 		AND     SALES_STATE = 22213
-		
+		]]>
 	</update>
 
 
