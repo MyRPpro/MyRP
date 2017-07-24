@@ -20,6 +20,7 @@ import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
 import com.pro.myrp.domain.hr_management.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.Salary_registerVO;
 
 @Repository
 public class HRDAOImpl implements HRDAO {
@@ -265,5 +266,12 @@ public class HRDAOImpl implements HRDAO {
 	public int select_salary_register_cnt(Map<String, Object> daoMap) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_salary_register_cnt(daoMap);
+	}
+
+	
+	@Override
+	public List<Salary_registerVO> select_salary_register_list(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_register_list(daoMap);
 	}
 }

@@ -539,8 +539,11 @@
 		<![CDATA[
 		SELECT	COUNT(*)
 		FROM	salary_register
-		WHERE	salary_register_name = NVL(#{salary_register_name},salary_register_name)
-		AND		pay_date BETWEEN NVL(#{search_start_month},TO_DATE('20000101','yyyyMMdd')) AND NVL(#{search_end_month},SYSDATE)
+		WHERE	salary_register_name = 	CASE #{salary_register_name}
+			                            WHEN '0' THEN salary_register_name
+			                            ELSE #{salary_register_name}
+			                            END
+		AND		pay_date BETWEEN #{search_start} AND #{search_end}
 		]]>
 	</select>
 </mapper>

@@ -783,6 +783,13 @@ INSERT INTO account (account_id, account_balance, account_name) VALUES ('5000130
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014010000', '0', '급여');
 commit;
 
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011010000', '자산통장' , '123-456-7889111' , 0 , '주 계좌', '국민은행', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011020000', '판매통장' , '123-456-7889222' , 0 , '판매', '신한은행', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500012020000', '세금통장' , '123-456-7889333' , 0 , '세금납부', 'SC은행', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500012010000', '구매통장' , '123-456-7889444' , 0 , '구매', '농협', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500014010000', '급여통장' , '123-456-7889555' , 0 , '급여지급', '하나은행', 'Y', sysdate);
+COMMIT;
+
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(2,'직급','Y');
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(3,'휴가','Y');
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(4,'급여','Y');
@@ -1020,8 +1027,16 @@ WHERE   SALES_ID IN (SELECT SALES_ID
 AND     SALES_STATE = 22213;
 COMMIT;
 INSERT INTO salary_register(SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE)
-VALUES(6000||TO_CHAR(SYSDATE,'yyMMdd'||salary_seq.nextval,500014010000,SYSDATE,'급여',SYSDATE,10000000,5,26450);
+VALUES('6000'||TO_CHAR(SYSDATE,'yyMMdd')||salary_seq.nextval,500014010000,SYSDATE,'급여',SYSDATE,10000000,5,26450);
+COMMIT;
 SELECT	COUNT(*)
 		FROM	salary_register
 		WHERE	salary_register_name = NVL(NULL,salary_register_name)
         AND	    pay_date BETWEEN NVL(NULL,TO_DATE('20000101','yyyyMMdd')) AND NVL(NULL,SYSDATE);
+SELECT	COUNT(*)
+		FROM	salary_register
+		WHERE	salary_register_name = 	CASE '0'
+			                            WHEN '0' THEN salary_register_name
+			                            ELSE '0'
+			                            END
+		AND		pay_date BETWEEN to_date('01/01/2000 00:00:00', 'mm/dd/yyyy hh24:mi:ss') AND to_date('12/12/3000 00:00:00', 'mm/dd/yyyy hh24:mi:ss');

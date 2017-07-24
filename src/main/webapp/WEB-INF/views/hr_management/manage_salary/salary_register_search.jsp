@@ -11,19 +11,19 @@
 <script type="text/javascript">
 function fn_salary_register_search() {
 	var salary_register_name = document.salary_register_search_form1.salary_register_name.value;
-	var search_start_month = document.salary_register_search_form1.search_start_month.value;
-	var search_end_month = document.salary_register_search_form1.search_end_month.value;
-	alert(search_start_month+"/"+search_end_month)
+	var search_start = document.salary_register_search_form1.search_start.value;
+	var search_end = document.salary_register_search_form1.search_end.value;
+	alert(search_start+"/"+search_end);
 	$("#salary_register_nav_div").load(
 			"/hr_management/manage_salary/salary_register_nav"+
 			"?salary_register_name="+salary_register_name+
-			"&search_start_month"+search_start_month+
-			"&search_end_month"+search_end_month);
+			"&search_start"+search_start+
+			"&search_end"+search_end);
 	$("#salary_register_div").load(
 			"/hr_management/manage_salary/salary_register_list"+
 			"?salary_register_name="+salary_register_name+
-			"&search_start_month"+search_start_month+
-			"&search_end_month"+search_end_month);
+			"&search_start"+search_start+
+			"&search_end"+search_end);
 	return false;
 }
 </script>
@@ -43,9 +43,9 @@ onsubmit="return fn_salary_register_search();">
 				</select>
 			</td>
 			<td>
-				<input type="month" name="search_start_month">
+				<input type="date" name="search_start">
 				 &nbsp;~&nbsp;
-				<input type="month" name="search_end_month">
+				<input type="date" name="search_end">
 			</td>
 			<td>
 				<input type="submit" value="검색">

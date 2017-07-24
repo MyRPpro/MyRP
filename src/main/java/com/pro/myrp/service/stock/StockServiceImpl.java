@@ -339,6 +339,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
 				 }
 				cnt = dao.update_order_state(model);
@@ -381,7 +382,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
+					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
 				dao.update_sales_state(model);

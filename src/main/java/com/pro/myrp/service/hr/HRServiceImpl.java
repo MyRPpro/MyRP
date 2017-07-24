@@ -1016,21 +1016,15 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		int currentPage	= 0;
 		
 		String salary_register_name = req.getParameter("salary_register_name");
-		Date search_start_month = null;
-		Date search_end_month = null;
-		if(!req.getParameter("search_start_month").equals("null")) {
-			search_start_month = Date.valueOf(req.getParameter("search_start_month"));
-		}
-		if(!req.getParameter("search_end_month").equals("null")) {
-			search_end_month = Date.valueOf(req.getParameter("search_end_month"));
-		}
-		System.out.println("■■■■■■■■■■"+search_start_month+"/"+search_end_month);
+		String start_day = req.getParameter("search_start") == "" ? "2000-01-01": req.getParameter("search_start");
+		String end_day = req.getParameter("search_end") == "" ? "3000-12-12" : req.getParameter("search_end");
+		Date search_start = Date.valueOf(start_day);
+		Date search_end = Date.valueOf(end_day);
 		Map<String, Object> daoMap = new HashMap<>();
 		daoMap.put("salary_register_name", salary_register_name);
-		daoMap.put("search_start_month", search_start_month);
-		daoMap.put("search_end_month", search_end_month);
+		daoMap.put("search_start", search_start);
+		daoMap.put("search_end", search_end);
 		cnt = dao.select_salary_register_cnt(daoMap);
-		System.out.println("■■■■■■■■■■cnt: "+cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);

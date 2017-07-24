@@ -15,6 +15,7 @@ import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
 import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
 import com.pro.myrp.domain.hr_management.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.Salary_registerVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface HRDAO extends MyRPDAO {
@@ -334,4 +335,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int select_salary_register_cnt(Map<String, Object> daoMap);
+
+	/**
+	 * 검색어를 반영한 급여대장 목록 조회
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<Salary_registerVO> select_salary_register_list(Map<String, Object> daoMap);
 }
