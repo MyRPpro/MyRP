@@ -7,45 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-
-<style>
-    table {
-        table-layout: fixed;
-    }
-    tr td {
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-    table tr:hover {  
-        background: #f3f3f3;
-    }
-</style>
-
 <body>
 	
 	<h3> 판매내역 상세 페이지 : detail_sales.jsp</h3>
 	
-	<c:if test="${cnt > 0}">
-		<script type="text/javascript">
-			setTimeout(function(){
-				alert("상태코드가 정상적으로 변경되었습니다.");
-				window.location="/sales_management/search_sales/sales_list"
-			}, 200);
-		</script>
-	</c:if>
-	
-	<c:if test="${cnt == 0}">
-		<script type="text/javascript">
-			alert("상태코드 변경 오류가 발생했습니다.");
-			window.history.back();
-		</script>
-	</c:if>
-	
-	
-	<form action="#" method="post" name="search_sales_from"   >
+		<form action="#" method="post" name="search_sales_from">
 	
 		<!-- 수정불가 -->
-		<table border="1" width="1500px" >
+		<table border="1" >
 		
 			<tr>
 				<!-- 1  --> <th>sales</th>
@@ -66,13 +35,13 @@
 			<tr>	
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="text" name="sales_id" id="sales_id" value="${dto.sales_id}" maxlength="10" readonly >
+						<input type="text" name="sales_id" value="${dto.sales_id}" maxlength="10" readonly >
 					</c:forEach>
 				</td>
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="hidden" name="account_id" id="account_id" value="${dto.account_id}" readonly >
+						<input type="hidden" name="account_id" value="${dto.account_id}" readonly >
 						<input type="text" name="account_name" value="${dto.account_name} 계정" readonly >
 					</c:forEach>
 				</td>
@@ -149,31 +118,21 @@
 			</tr>
 		</table>
 		<c:if test="${sales_state == 22213 }">
-			<input type="button" value="회계전표 입력하기 " 
+		<input type="button" value="회계전표 입력하기 " 
 			onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
 		</c:if>
-		<c:if test="${sales_state == 22214 and account_id == '500012030000'}">
-			<input type="button" value="출고요청하기" onclick="req_storage_out();">
+		<c:if test="${sales_state == 22214}">
+		<input type="button" value="출고요청" 
+			onclick="window.location='/sales_management/search_sales/detail_sales_pro?req_kind=storage_out'">
 		</c:if>
-
 	</form>
 	
-	
-	<script type="text/javascript">
-	function req_storage_out(){
-		var sales_id = document.getElementById("sales_id").value;
-		console.log( " sned sales_id : " + sales_id );
 
-		window.location="/sales_management/search_sales/detail_sales_pro"
-						+"?req_kind=storage_out&sales_id="+sales_id;
-						
-	}
-	</script>
 	
-	
-	
+		
 </body>
 </html>
+
 
 
 
