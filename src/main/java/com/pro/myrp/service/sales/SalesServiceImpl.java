@@ -698,11 +698,9 @@ public class SalesServiceImpl implements SalesService {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 
-		
 		// 기본키 불러오기
 		String sales_id = dao.select_sales_id();
 		System.out.println("  -> sales_id : " + sales_id);
-		
 		
 		// 입력된 변수 받기 
 		String product_id = req.getParameter("product_id");
@@ -718,7 +716,6 @@ public class SalesServiceImpl implements SalesService {
 		int condition_note_receivable = Integer.parseInt( req.getParameter("condition_note_receivable") );
 		
 		System.out.println("  -> test reg_date : " + reg_date);
-	
 		
 		// 생성자 생성
 		SalesDTO dto = new SalesDTO();
