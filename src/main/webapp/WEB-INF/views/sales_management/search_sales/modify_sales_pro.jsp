@@ -9,18 +9,18 @@
 </head>
 <body>
 
-	<c:if test="${cnt == 1}">
+	<c:if test="${cnt > 0}">
 		<script type="text/javascript">
 			setTimeout(function(){
-				alert("정상적으로 수정되었습니다.");
+				alert("상태코드가 정상적으로 수정되었습니다.");
 				window.location="/sales_management/search_sales/sales_list"
 			}, 500);
 		</script>
 	</c:if>
 	
-	<c:if test="${cnt != 1}">
+	<c:if test="${cnt == 0}">
 		<script type="text/javascript">
-			alert("수정작업중 오류가 발생했습니다.");
+			alert("변경된 내용이 없습니다.");
 			window.history.back();
 			
 		</script>

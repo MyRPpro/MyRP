@@ -166,6 +166,42 @@ function check_input_value(){
 	}
 }
 
+function add_account_dupCheck(){
+	var account_id = document.add_account_form1.account_id.value;
+	if(!document.add_account_form1.account_id.value){
+		alert("account_id 를 먼저 입력해주세요!");
+		document.add_account_form1.account_id.focus();
+		return false;
+	}
+	if(document.add_account_form1.account_id.value.length != 4){
+		alert("4자리의 숫자를 입력해주세요")
+		document.add_account_form1.account_id.focus();
+		return false;
+	}
+	var url="/accounting_management/account_management/add_account_dupCheck?account_id="+account_id;
+	window.open(url, "confirm", "menubar=no, width=400, height=300");
+}
+function set_account_id(account_id){
+	opener.document.add_account_form1.account_id.value = "5000" + account_id + "0000";
+	opener.document.add_account_form1.dupCheck.value = 1;
+	self.close();
+} 
+
+function inputCheck(){
+	if(!document.add_account_form1.account_id.value){
+		alert("계정코드를 입력해주세요!");
+		document.add_account_form1.account_id.focus();
+		return false;
+	}else if(!document.add_account_form1.account_name.value){
+		alert("계정이름를 입력해주세요!");
+		document.add_account_form1.account_name.focus();
+		return false;
+	}else if(document.add_account_form1.dupCheck.value == 0){
+		alert("중복체크를 해주세요!");
+		document.add_account_form1.dupCheckButton.focus();
+		return false;
+	}
+}
 
 
 

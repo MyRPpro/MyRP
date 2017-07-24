@@ -130,7 +130,12 @@ public interface CodeMyRP {
 				public static final int call_bank_account_id = 15220; 		//아이디 불러오기
 				public static final int register_bank_account = 15230;		//계좌 등록
 				public static final int modify_bank_account = 15240; 		//계좌 수정 
-			//현금출납
+			//계정관리
+			public static final int account_management = 15300;		
+				public static final int search_account_list = 15310;		//계정 목록 조회
+				public static final int add_account = 15320;				//계정 추가
+				public static final int add_account_dupCheck = 15321; 		//계정 추가 > 중복확인
+				public static final int modify_account = 15330;				//계정 수정
 			//전표관리
 			public static final int statement_management = 15400;
 				public static final int search_all_statements = 15410;			//전체전표 조회

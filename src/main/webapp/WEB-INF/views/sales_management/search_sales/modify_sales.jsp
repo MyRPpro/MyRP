@@ -7,17 +7,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+
+<style>
+    table {
+        table-layout: fixed;
+    }
+    tr td {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    table tr:hover {  
+        background: #f3f3f3;
+    }
+</style>
+ 
 <body>
 
 	<h3> 판매내역 수정 페이지 : modify_sales.jsp</h3>
-	
-	<!-- <form action="/sales_management/search_sales/modify_sales_pro" -->
-	
+
 	<form action="/sales_management/search_sales/modify_sales_pro"
 		id="modify_sales_form1" method="post">
 		
 		
-		<table id="modify_sales_form2" border="1">
+		<table id="modify_sales_form2" border="1" width="2000px" >
 		
 			<tr>
 				<!-- 1  --> <th>sales</th>
@@ -189,8 +201,8 @@
 					<input type="submit" value="수정하기">
 					<input type="reset"	value="재작성">
 					(
-					<input type="reset"	value="견적승인">
-					<input type="reset"	value="승인취소">
+					<input type="button" value="견적승인">
+					<input type="button" value="승인취소">
 					<- 승인권자 메뉴)
 				</th>
 			</tr>
@@ -201,6 +213,16 @@
 	<script type="text/javascript">
 	
 		// 수정한 값 대입
+		
+		// 사원번호 자리수 제한 
+		function employee_id_check(){
+			var employee_id = document.getElementsByName("employee_id")[0];
+			console.log( "employee_id.value.length : " + employee_id.value.length);
+			if( employee_id.value.length > 4 ){
+				alert("4자리 까지만 입력이 가능합니다.");
+				employee_id.value = employee_id.value.substring(0,4);
+			}
+		}
 		
 		$(function(){
 			var reg_value="";
@@ -296,15 +318,7 @@
 		});
 		 */
 
-		// 사원번호 자리수 제한 
-		function employee_id_check(){
-			var employee_id = document.getElementsByName("employee_id")[0];
-			console.log( "employee_id.value.length : " + employee_id.value.length);
-			if( employee_id.value.length > 4 ){
-				alert("4자리 까지만 입력이 가능합니다.");
-				employee_id.value = employee_id.value.substring(0,4);
-			}
-		}
+
 
 		/* 
 		function load_row(){
@@ -337,9 +351,8 @@
 		
 	</script>
 	
-	
-	
 	<script type="text/javascript">
+	<!-- 
 	
 	var rgx1 = /\D/g;  // /[^0-9]/g 와 같은 표현
 	var rgx2 = /(\d+)(\d{3})/; 
@@ -432,7 +445,7 @@
 	
 	// input 텍스트에 숫자만 콤마 찍어가면서 받기
 	$('#reg_selling_price').on("keypress", "input[type=text].number", function () {
-	    if  ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && (event.keyCode != 8) && (event.keyCode != 46))
+	    if  ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && (event.keyCode != 8) && (event.keyCode != 46));
 	        event.returnValue = false;
 	});
 	 
@@ -444,9 +457,9 @@
 	    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	    $this.val(parts.join("."));
 	});
-	 
+	  -->
 	
-	/*  
+	/* 
 	//천 단위 콤마 찍고 숫자인지 아닌지 검증하는 함수
 	function SetComma3(str){
 	str=str.replace(/,/g,'');
@@ -464,8 +477,8 @@
 	    else
 	    	 alert("숫자만 입력 가능합니다 숫자만 입력 해주세요"); 
 	        return 0;
-	}
-	 */
+	}	 */
+	 /* 
 	 // 0이면 리턴
 	 function checkzero(){
 		 var zero = document.getElementById("selling_price").value;
@@ -474,11 +487,8 @@
 			 return false;
 		 }
 	 }
-
-
-
 	 
-	
+ 	*/
 
 	</script>
 	
