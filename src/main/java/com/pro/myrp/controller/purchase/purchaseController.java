@@ -44,7 +44,6 @@ public interface purchaseController extends MyRPController {
 	public String purchase_list_page(HttpServletRequest req, Model model) throws Exception;
 	
 	
-	
 	/**
 	 * 구매 리스트 -> 세부 페이지
 	 * @author Jang.EC
@@ -65,15 +64,6 @@ public interface purchaseController extends MyRPController {
 	 */
 	public String modify_purchase_pro(HttpServletRequest req, Model model) throws Exception;
 	
-	/**
-	 * 구매 바로 검색
-	 * @author Jang.EC
-	 * @param req
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	public String quick_serch_purchase(HttpServletRequest req, Model model) throws Exception;
 
 	
 	// ---------------------------------------------------

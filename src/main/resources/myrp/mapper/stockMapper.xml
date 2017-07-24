@@ -13,14 +13,14 @@
  	</select>
  	
  	<!-- 재고수불부 검색페이지 -->
- 	<select id = "select_search_stockpile_search" parameterType="java.util.Map" resultType="stockpile_searchDTO">
+ 	<select id = "select_search_stockpile_search" parameterType="java.util.Map" resultType="Stockpile_searchDTO">
 		SELECT	* 
 		FROM	${where}
 		WHERE 	${condition} like '%'||#{search}||'%'
  	</select>
  	
  	<!-- 재고수불부 결과 페이지 -->
- 	<select id = "select_stockpile_search" parameterType="java.util.Map" resultType="select_stockpile_searchDTO">
+ 	<select id = "select_stockpile_search" parameterType="java.util.Map" resultType="Select_stockpile_searchDTO">
  	SELECT  *
 		FROM    ( SELECT  *
 		          FROM  ( SELECT  sales_id AS pro_id, storage_out_date AS sto_date, count_sales AS moving_stock, sales_state AS sto_state, product_id
@@ -89,6 +89,7 @@
  			</foreach>
  		</if>
  	</select>
+
  	<select id = "select_product_id" parameterType="java.util.Map" resultType="ProductVO">
  		SELECT	DISTINCT p.product_id as product_id
  		FROM	product p JOIN stock_information s
@@ -100,4 +101,254 @@
  			</foreach>
  		</if>
  	</select>
+
+	<select id = "select_order_state" parameterType="java.util.Map" resultType="Order_stateVO">
+ 		SELECT	*
+ 		FROM	order_state
+ 		WHERE	order_state in (22222,23204,24202)
+ 	</select> 	
+ 	
+ 	<select id = "Search_distribution_order" parameterType="java.util.Map" resultType="Search_distribution_orderDTO">
+ 		SELECT	*
+ 		FROM	order_state o JOIN sales_order s
+ 		ON		o.order_id = s.sales_id
+ 		WHERE	o.order_state = 24202
+   		AND   	s.sales_state = 24202
+ 	</select>
+ 	
+ 	<select id = "select_in_storage" parameterType="java.util.Map" resultType="In_storageDTO">
+ 		SELECT	*
+ 		FROM	purchase_order p JOIN stock_information s
+ 		ON		p.product_id = s.product_id
+ 		WHERE	p.purchase_state = 23204
+ 		AND		s.warehouse_id = 1001
+ 		AND		p.account_id = 500011050000
+ 		<if test = "opt == 1">
+ 			AND		p.purchase_state != 24102
+ 		</if>
+ 	</select> 
+ 	
+ 	<select id = "select_out_storage" parameterType="java.util.Map" resultType="Out_storageDTO">
+ 		SELECT	*
+ 		FROM	sales_order p JOIN stock_information s
+ 		ON		p.product_id = s.product_id
+ 		WHERE	SALES_STATE = 22222
+ 		AND		s.warehouse_id = 1001
+ 		AND		p.account_id = 500012030000
+ 		<!-- AND		st.stock_state NOT IN (24202,24752,24203) -->
+ 		<if test = "opt == 1">
+ 			AND		SALES_STATE != 24202
+ 			AND		SALES_STATE != 24203
+ 		</if>
+ 	</select> 
+ 	
+ 	<insert id = "insert_out_storage" parameterType="java.util.Map">
+ 		<if test="op == null">
+	 		INSERT INTO STOCK_ORDER(STOCK_ORDER_ID,STOCK_ORDER_TYPE,PRODUCT_ID,WAREHOUSE_ID,EMPLOYEE_ID,REG_DATE,UPDATE_DATE,STOCK_STATE) 
+	 		VALUES(4754||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_OUT_ORDER_SEQ.NEXTVAL,2,0), #{stock_order_type}, #{product_id}, #{warehouse_id}, #{employee_id}, #{reg_date}, sysdate, #{stock_state})
+ 		</if> 
+ 		<if test="op == 1">
+ 			INSERT INTO	STORAGE_OUT_ORDER(STOCK_ORDER_ID, COUNT_SALES, AVAILABLE_STOCK, LACK_STOCK, STORAGE_OUT_DATE)
+ 			VALUES(4754||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_OUT_ORDER_SEQ.CURRVAL,2,0), #{count_sales}, #{available_stock}, #{lack_stock}, #{storage_out_date})
+ 		</if>
+ 	</insert>
+ 	
+ 	<insert id = "insert_in_storage" parameterType="java.util.Map">
+	 	<if test="op == null">	
+	 		INSERT INTO STOCK_ORDER(STOCK_ORDER_ID,STOCK_ORDER_TYPE,PRODUCT_ID,WAREHOUSE_ID,EMPLOYEE_ID,REG_DATE,UPDATE_DATE,STOCK_STATE) 
+	 		VALUES(4755||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.NEXTVAL,2,0), #{stock_order_type}, #{product_id}, #{warehouse_id}, #{employee_id}, #{reg_date}, SYSDATE, #{stock_state})
+	 	</if>
+	 	<if test="op == 1">
+ 			INSERT INTO	STORAGE_IN_ORDER(STOCK_ORDER_ID, COUNT_PURCHASE, STORAGE_IN_DATE)
+ 			VALUES(4755||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{count_purchase}, #{storage_in_date})
+ 		</if>
+ 	</insert>
+ 	
+ 	<update id = "update_stock_out_storage" parameterType="java.util.Map">
+ 		<if test="st_op == null and mv_op == null">	
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount - #{available_stock}
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = 1001
+	 	</if>
+	 	<if test="st_op == 1">
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount + #{available_stock} 
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = 3001
+	 	</if>
+	 	<if test="st_op == 2">
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount + #{count_purchase} 
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = 1001
+	 	</if>
+	 	<if test="st_op == 4">
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount - #{available_stock} 
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = 3001
+	 	</if>
+	 	<if test="st_op == 5">	
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount - #{lack_stock}
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = 1001
+	 	</if>
+	 	<if test = "mv_op == 1">
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount - #{stock_amount}
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = #{warehouse_id}
+	 	</if>
+	 	<if test = "mv_op == 2">
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount + #{stock_amount}
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = #{arrive_warehouse_id}
+	 	</if>
+	 	
+ 	</update>
+ 	
+ 	<select id = "select_product_in_warehouse" parameterType="java.util.Map" resultType="int">
+ 		SELECT	count(*)
+ 		FROM	STOCK_INFORMATION
+ 		WHERE	PRODUCT_ID = #{product_id} 
+ 		AND		warehouse_id = 3001
+ 	</select> 
+ 	
+ 	
+ 	<insert id = "insert_stock_out_storage" parameterType="java.util.Map">
+	 	INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) 
+	 	VALUES	(#{product_id} ,
+	 			<if test = "warehouse_id == null">
+	 				3001,#{available_stock})
+	 			</if>
+	 			<if test = "warehouse_id != null">
+	 				#{warehouse_id},#{stock_amount})
+	 			</if>
+ 	</insert>
+ 	
+ 	<update id = "update_sales_state" parameterType="java.util.Map">
+ 		UPDATE	SALES_ORDER
+ 		SET		SALES_STATE = #{stock_state}
+ 		WHERE	SALES_ID = #{stock_order_type}
+ 		AND		ACCOUNT_ID = 500012030000
+ 	</update>
+ 	
+ 	<update id = "update_purchase_state" parameterType="java.util.Map">
+ 		UPDATE	purchase_order
+ 		SET		purchase_state = #{stock_state}
+ 		WHERE	purchase_id = #{stock_order_type}
+ 		AND		ACCOUNT_ID = 500011050000
+ 	</update>
+ 	
+ 	<update id = "update_order_state" parameterType="java.util.Map">
+ 		UPDATE	stock_order
+ 		SET		stock_state = #{stock_state}
+ 		WHERE	stock_order_type = #{stock_order_type}
+ 	</update>
+ 	
+ 	<select id = "select_stock_order_type" parameterType = "java.util.Map" resultType="String">
+ 		SELECT	stock_order_type
+ 		FROM	stock_order
+ 		WHERE	stock_order_id = #{order_id}
+ 	</select>
+ 	
+ 	<select id = "select_stock_order_out_order" parameterType="java.util.Map" resultType = "Select_stock_order_storageDTO">
+ 		SELECT	*
+ 		FROM	stock_order o  JOIN storage_out_order s
+ 		ON		s.stock_order_id = o.stock_order_id
+ 		WHERE	stock_order_type = #{stock_order_type}
+ 	</select>
+ 
+  	<select id = "select_warehouse_list" parameterType="java.util.Map" resultType = "WarehouseVO">
+ 		SELECT	*
+ 		FROM	warehouse_information
+ 		<if test = "warehouse_id != null">
+ 		WHERE	warehouse_id = #{warehouse_id}
+ 		</if>
+ 	</select>
+ 	
+ 	<insert id="insert_warehouse" parameterType="java.util.Map">
+ 		INSERT INTO warehouse_information
+ 		VALUES	(#{warehouse_id},#{warehouse_name},#{warehouse_location})
+ 	</insert>
+ 	<update id="update_warehouse" parameterType="java.util.Map">
+ 		UPDATE	warehouse_information
+ 		SET		warehouse_name = #{warehouse_name}, warehouse_location = #{warehouse_location}
+ 		WHERE	warehouse_id = #{warehouse_id}
+ 	</update>
+ 	
+ 	<select id = "select_storage_out_order" resultType = "Select_stock_order_storageDTO">
+ 		SELECT	*
+ 		FROM	stock_order s JOIN storage_out_order o
+ 		ON		s.stock_order_id = o.stock_order_id
+ 	</select>
+ 	
+ 	<select id = "select_storage_in_order" resultType = "Select_stock_order_storageDTO">
+ 		SELECT	*
+ 		FROM	stock_order s JOIN storage_in_order o
+ 		ON		s.stock_order_id = o.stock_order_id
+ 	</select>
+ 	
+ 	<select id = "select_movement_warehouse_list"  parameterType="java.util.Map"  resultType = "Select_stock_order_movement_warehouseDTO">
+ 		SELECT	*
+ 		FROM	stock_order s JOIN movement_warehouse m
+ 		ON		s.stock_order_id = m.stock_order_id
+ 		<if test = "stock_order_id != null">
+ 		WHERE	m.stock_order_id = #{stock_order_id}
+ 		</if>
+ 	</select>
+ 	
+ 	<delete id = "delete_movement_stock_order" parameterType = "java.util.Map">
+	 		DELETE FROM stock_order
+	 		WHERE		stock_order_id = #{stock_order_id}
+ 	</delete>
+ 	
+ 	<delete id = "delete_movement_warehouse" parameterType = "java.util.Map">
+	 		DELETE FROM movement_warehouse
+	 		WHERE		stock_order_id = #{stock_order_id}
+ 	</delete>
+ 	
+ 	<select id = "select_product_info" parameterType = "java.util.Map" resultType="ProductVO">
+ 		SELECT	*
+ 		FROM	product p JOIN stock_information s
+ 		ON		p.product_id = s.product_id
+ 		<if test = "warehouse_id != null">
+ 		WHERE	s.warehouse_id = #{warehouse_id}
+ 		</if>
+ 		<if test = "product_id != null">
+ 		AND		s.product_id = #{product_id}
+ 		</if>
+ 	</select>
+ 	
+ 	<insert id = "insert_stock_order" parameterType = "java.util.Map">
+ 	 INSERT INTO 	stock_order(stock_order_id, product_id, warehouse_id, employee_id)
+ 	 VALUES			(${stock_order_id}||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.NEXTVAL,2,0), #{product_id}, #{warehouse_id}, #{employee_id})
+ 	</insert>
+ 	
+ 	<insert id = "insert_movement_warehouse" parameterType = "java.util.Map">
+ 	 INSERT INTO 	movement_warehouse(stock_order_id, ARRIVE_WAREHOUSE, MOVEMENT_AMOUNT)
+ 	 VALUES			(${stock_order_id}||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{arrive_warehouse_id}, #{movement_amount})
+ 	</insert>
+ 	
+ 	<update id = "update_stock_order" parameterType = "java.util.Map">
+ 	 UPDATE	stock_order
+ 	 SET	product_id = #{product_id}, warehouse_id = #{warehouse_id}, employee_id = #{employee_id}
+ 	 WHERE	stock_order_id = #{stock_order_id}
+ 	</update>
+ 	
+ 	<update id = "update_movement_warehouse" parameterType = "java.util.Map">
+ 	 UPDATE 	movement_warehouse
+ 	 SET		arrive_warehouse = #{arrive_warehouse_id}
+			 	<if test = "movement_amount != null">
+			 	 	,movement_amount = #{movement_amount}
+			 	</if>
+			 	<if test = "movement_state != null">
+			 		,movement_state = #{movement_state}
+			 	</if>
+ 	 WHERE		stock_order_id = #{stock_order_id}
+ 	</update>
+ 	
 </mapper>

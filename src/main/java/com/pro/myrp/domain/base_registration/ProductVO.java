@@ -14,8 +14,6 @@ public class ProductVO {
 	private String warehouse_id;
 	private int stock_amount;
 	
-	
-	
 	public String getWarehouse_id() {
 		return warehouse_id;
 	}

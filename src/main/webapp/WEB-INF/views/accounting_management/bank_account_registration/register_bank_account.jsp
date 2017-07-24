@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file ="../../setting.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,12 +11,13 @@
 
 <body>
  register_bank_account.jsp 페이지
-	<form action="/accounting_management/bank_account_registration/register_bank_account_pro" name="register_bank_account_form1" method="post">
+ <button onclick="window.location='/'"> 홈으로 </button>
+	<form action="/accounting_management/bank_account_registration/register_bank_account_pro" name="register_bank_account_form1" method="post" onsubmit ="return check_bank_account();">
 		<table border="1">
 			<tr>
 				<th>bank_account_id</th>
 				<td>
-					<input type="text" name="bank_account_id" readonly="true"><input type="button" value="조회" onclick="call_bank_account_id()">
+					<input type="text" name="bank_account_id" readonly="true"><input type="button" value="조회" name = "calling_button" onclick="call_bank_account_id()">
 				</td>
 			</tr>
 			<tr>
@@ -33,7 +35,7 @@
 			<tr>
 				<th>bank_account_balance</th>
 				<td>
-					<input type="number" name="bank_account_balance" max="999999999999999999" min="0" value="0">
+					<input type="number" name="bank_account_balance" readonly="true"> <!-- max="999999999999999999" min="0" -->
 				</td>
 			</tr>
 			<tr>

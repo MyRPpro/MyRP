@@ -64,11 +64,11 @@ public interface AccountService extends MyRPService {
 	public void search_statement_detail(Model model) throws Exception;
 	
 	/**
-	 * 전표 관리 > 세금 전표 자동 생성 서비스
+	 * 전표 관리 > 전표 생성 서비스
 	 * @param model
 	 * @throws Exception
 	 */
-	/*public void make_statement_service(Model model) throws Exception;*/
+	public void make_statement_service(Model model) throws Exception;
 	
 	/**
 	 * 전표관리 > 전표 승인 서비스
@@ -76,4 +76,87 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void approve_statement_service(Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 전표 승인거절 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void disapprove_statement_service(Model model) throws Exception;
+
+	/**
+	 * 전표관리 > 미승인 전표조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_unapproval_statements_service(Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 승인 전표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_approval_statements_service(Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 전표생성 > connected_id 불러오기 서비스 : 뷰
+	 * @param model
+	 * @throws Exception
+	 */
+	public void call_connected_id_view_service(Model model) throws Exception;
+	/**
+	 * 전표관리 > 전표생성 > connected_id 불러오기 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void call_connected_id_service(Model model) throws Exception;
+	
+	/**
+	 * 전표관리 > 전표생성 > 전표생성처리 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void make_statement_pro_service(Model model) throws Exception;
+	
+	/**
+	 * 계정관리 > 계정 목록 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_account_list_service(Model model) throws Exception;
+	
+	/**
+	 * 계정관리 > 계정 추가서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_account_service(Model model) throws Exception;
+	
+	/**
+	 * 계정관리 > 계정추가 > 계정 중복 확인서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_account_dupCheck_service(Model model) throws Exception;
+
+	/**
+	 * 계정관리 > 계정추가처리서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void add_account_pro_service(Model model) throws Exception;
+	
+	/**
+	 * 계정관리 > 계정 수정 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_account_service(Model model) throws Exception;
+	
+	/** 
+	 * 계정관리 > 계정 수정 처리 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_account_pro_service(Model model) throws Exception;
 }
