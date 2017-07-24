@@ -186,13 +186,13 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 						if(select_product.get(y).getProduct_id().equals(select_stockpile_searchDtos.get(x).getProduct_id())){
 							int stock = select_stockpile_searchDtos.get(x).getStock_amount();
 							
-							if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("2")){
+							if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4754")){
 								select_stockpile_searchDtos.get(x).setStock_amount(stock + select_stockpile_minusDtos.get(i).getMoving_stock());
 								
-							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("3")){
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4755")){
 								select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
 							
-							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("4")){
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4753")){
 								if(select_stockpile_minusDtos.get(i).getMoving_stock() > 0){
 									select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
 								
@@ -334,12 +334,14 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				
 				 dao.update_stock_out_storage(model);
 				 stock_cnt = dao.select_product_in_warehouse(model);
-				 
+				 System.out.println("stock_cnt : " + stock_cnt);
 				 if(stock_cnt >= 1){
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
+					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
 				dao.update_sales_state(model);
@@ -381,7 +383,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
+					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
 				dao.update_sales_state(model);
@@ -514,10 +518,16 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	@Override
 	public void movement_warehouse_list_service(HttpServletRequest req, Model model)  throws Exception{
 		ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
+		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		
 		movement_warehouseDtos = dao.select_movement_warehouse_list(model);
 		model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+		
+		warehouseVos = dao.select_warehouse_list(model);
+		model.addAttribute("warehouseVos",warehouseVos);
 	}
 	
+	//여기서 부터 정리해봅시다
 	@Override
 	public void movement_warehouse_view_service(HttpServletRequest req, Model model)  throws Exception{
 		String id = req.getParameter("id");

@@ -34,13 +34,13 @@
 		<c:set var = "plus_stock" value = "${plus_stock + dto.plus_stock}" />
 		<tr>
 			<td>${dto.sto_date}</td>
-			<c:if test = "${fn:substring(dto.pro_id,0,1) == '2'}">
+			<c:if test = "${fn:substring(dto.pro_id,0,4) == '4754'}">
 			<td><a href = "?pro_id=${dto.pro_id}">판매</a></td>
 			</c:if>
-			<c:if test = "${fn:substring(dto.pro_id,0,1) == '3'}">
+			<c:if test = "${fn:substring(dto.pro_id,0,4) == '4755'}">
 			<td><a href = "?pro_id=${dto.pro_id}">구매</a></td>
 			</c:if>
-			<c:if test = "${fn:substring(dto.pro_id,0,1) == '4'}">
+			<c:if test = "${fn:substring(dto.pro_id,0,4) == '4753'}">
 			<td><a href = "?pro_id=${dto.pro_id}">재고조정</a></td>
 			</c:if>
 			<td>${dto.plus_stock}</td>
