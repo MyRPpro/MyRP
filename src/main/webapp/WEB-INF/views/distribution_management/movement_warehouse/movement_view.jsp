@@ -78,9 +78,12 @@ function chk(){
 					</c:forEach>
 				</select>
 			</th>
-			<th>
+			 <th>
+							<div id = "product"></div>
+			</th> 
+			<!-- <th>
 				<div id = "product"></div>
-			</th>
+			</th> -->
 			<th>
 				<select name = "employee_id">
 					<option value = "0">담당자를 선택하시오.</option>

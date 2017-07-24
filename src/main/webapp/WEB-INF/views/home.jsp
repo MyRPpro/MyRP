@@ -23,6 +23,9 @@
 	<input type="button" value="로그인"
 	onclick="window.location='/user/login';">
 </c:if>
+<h3>알람센터</h3>
+<a href="/state_alarm/state_alarm_main">알람센터</a><br>
+
 
 <h3>기초등록</h3>
 <a href="/base_registration/reg_company/company_list">기초등록-거래처등록</a><br>
@@ -30,7 +33,7 @@
 <hr>
 
 <h3>판매 관리</h3>
-<a href="/sales_management/search_sales/sales_list">판매검색-판매 리스트</a><br>
+<a href="/sales_management/search_sales/sales_list">판매검색</a><br>
 <a href="/sales_management/input_sales/reg_sales">판매입력</a><br>
 <a href="/sales_management/status_sales/search_status_sales">판매현황</a><br>
 
@@ -38,10 +41,7 @@
 
 
 <h3>구매 관리</h3>
-<a href="/purchase_management/search_purchase/purchase_list">구매검색-구매 리스트</a><br>
-<a href="/purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-세부 페이지</a><br>
-<a href="/purchase_management/search_purchase/detail_purchase?company_id=1000000020">구매검색-구매 리스트-수정 페이지</a><br>
-<a href="/purchase_management/search_purchase/purchase_list">구매검색-구매 리스트-검색 페이지</a><br>
+<a href="/purchase_management/search_purchase/purchase_list">구매검색</a><br>
 <a href="/purchase_management/input_purchase/reg_purchase">구매입력</a><br>
 <a href="/purchase_management/">구매현황</a><br>
 <a href="/purchase_management/">거래처별 채무</a><br>
@@ -59,7 +59,7 @@
 <h3>회계 관리</h3>
 <a href="/accounting_management/financial_statements/search_balance_sheet">회계관리-재무상태표 조회</a><br>
 <a href="/accounting_management/bank_account_registration/bank_account_list">회계관리-계좌리스트</a><br>
-<a href="/accounting_management/account_management/account_list">회계관리 - 계정 목록 조회</a><br>
+<a href="/accounting_management/account_management/search_account_list">회계관리 - 계정 목록 조회</a><br>
 <a href="/accounting_management/statement_management/search_all_statements">회계관리-전체전표 조회</a><br>
 <a href="/accounting_management/bond_debt_status/search_bond_debt">회계관리-채권/채무 조회</a><br>
 <a href="/accounting_management/account_management/account_list">회계관리-계정목록 조회</a>

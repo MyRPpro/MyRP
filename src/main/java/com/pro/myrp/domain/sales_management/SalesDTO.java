@@ -39,6 +39,7 @@ public class SalesDTO {
 	
 	
 	
+	
 	public String getSales_id() {
 		return sales_id;
 	}
