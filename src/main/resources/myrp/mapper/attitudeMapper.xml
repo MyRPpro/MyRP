@@ -5,5 +5,12 @@
     
 <mapper namespace="com.pro.myrp.persistence.attitude.AttitudeDAO">
 
+<insert id="insert_attitude"
+	parameterType="AttitudeVO">
+		<![CDATA[
+			INSERT	INTO SERVICE_ATTITUDE (employee_id,attitude_date,hr_code_attitude,attitude_code,hr_code_group_leave,leave_code,attitude_period,hr_code_group_reason,attitude_reason)
+					VALUES(#{employee_id},#{appointment_date},#{hr_code_attitude},#{attitude_code},#{hr_code_group_leave},#{leave_code},#{attitude_period},#{hr_code_group_reason},#{attitude_reason})
+		]]>
+	</insert>
 
 </mapper>

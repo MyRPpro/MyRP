@@ -12,14 +12,34 @@ import com.pro.myrp.persistence.attitude.AttitudeDAO;
 
 @Service
 public class AttitudeServiceImpl implements AttitudeService {
-
+//
 	@Inject
 	private AttitudeDAO dao;
 
 	@Override
 	public void search_attitude_search_service(Model model) throws Exception {
+		//
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+	}
+
+	@Override
+	public void add_attitude_search_service(Model model) throws Exception {
+		//
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		
+	
+	}
+
+	@Override
+	public void add_attitude_search_pro_service(Model model) throws Exception {
+		// 
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 	}
+
+	
 }

@@ -200,10 +200,10 @@ public class CodeHandler {
 	public static final int attitude_management = 17000;
 		public static final int search_attitude = 17100;
 			public static final int search_attitude_search = 17110;
-		
+			
 		public static final int add_attitude = 17200;
-			
-			
+			public static final int add_attitude_search = 17210;
+			public static final int add_attitude_search_pro = 17220;
 	//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
 	
 			
