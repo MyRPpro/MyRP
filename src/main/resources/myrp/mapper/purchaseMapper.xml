@@ -15,7 +15,7 @@
  	
  	<!-- 구매내역 목록 -->
  	<select id="select_purchase_list" parameterType="java.util.Map"
- 	resultType="PurchaseVO">
+ 	resultType="PurchaseDTO">
  		<![CDATA[
 	   SELECT  *
 		FROM    ( SELECT PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, 
@@ -39,7 +39,7 @@
  	
  	<!-- 구매내역 자세히 보기 -->
  	<select id="select_detail_purchase" parameterType="String"
- 	resultType="PurchaseVO">
+ 	resultType="PurchaseDTO">
  		<![CDATA[
 		SELECT  * 
 	    FROM   ( SELECT  P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
@@ -55,7 +55,7 @@
  	
  	
  	<!-- 구매 정보 수정 -->
- 	<update id="update_purchase" parameterType="PurchaseVO">
+ 	<update id="update_purchase" parameterType="PurchaseDTO">
  		<![CDATA[
 		UPDATE	PURCHASE_ORDER 
 		SET		PURCHASE_ID = #{purchase_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
@@ -84,7 +84,7 @@
  	
  	<!-- 구매 바로 검색 -->
  	<select id="select_quick_serch_purchase" parameterType="java.util.Map"
- 	resultType="PurchaseVO">
+ 	resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT  * 
 		FROM (	SELECT   P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
@@ -104,7 +104,7 @@
  	
  	
  	<!-- 상품 테이블 목록 불러오기 -->
- 	<select id="select_product_ids" resultType="PurchaseVO">
+ 	<select id="select_product_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	PRODUCT_ID, PRODUCT_NAME
 		FROM 	PRODUCT
@@ -112,7 +112,7 @@
  	</select>
  	
  	<!-- 거래처 테이블 목록 불러오기 -->
- 	<select id="select_company_ids" resultType="PurchaseVO">
+ 	<select id="select_company_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	COMPANY_ID, COMPANY_NAME
 		FROM 	COMPANY
@@ -120,7 +120,7 @@
  	</select>
  	
  	<!-- 사원 테이블 목록 불러오기 -->
- 	<select id="select_employee_ids" resultType="PurchaseVO">
+ 	<select id="select_employee_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
 		FROM 	EMPLOYEE
@@ -128,7 +128,7 @@
  	</select>
  	
  	<!-- 오더 테이블 목록 불러오기 -->
- 	<select id="select_account_ids" resultType="PurchaseVO">
+ 	<select id="select_account_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	ACCOUNT_ID, ACCOUNT_NAME
 		FROM 	ACCOUNT
@@ -157,7 +157,7 @@
 
  	
  	<!-- 구매 입력  -->
- 	<insert id="insert_reg_purchase" parameterType="PurchaseVO">
+ 	<insert id="insert_reg_purchase" parameterType="PurchaseDTO">
  		
  		INSERT INTO PURCHASE_ORDER (	
 				PURCHASE_ID, ORDER_ID, ACCOUNT_ID, 
@@ -167,7 +167,7 @@
 			    CONDITION_NOTE_PAYABLE)
 		VALUES ( 
 				#{purchase_id},  -- PURCHASE_ID
-			    2000||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
+			    3110||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
 			    	||LPAD(ORDER_SEQ.NEXTVAL,2,0), <!-- ORDER_ID -->
 			    #{account_id}, <!-- ACCOUNT_ID -->
 			    #{product_id}, <!-- PRODUCT_ID -->
@@ -184,7 +184,7 @@
 		
  	</insert>
  	
- 	<insert id="insert_reg_purchase_statement" parameterType="PurchaseVO">
+ 	<insert id="insert_reg_purchase_statement" parameterType="PurchaseDTO">
  		
 		INSERT INTO PURCHASE_STATEMENT
       			  ( STATEMENT_ID, PURCHASE_ID, ACCOUNT_ID )
@@ -197,7 +197,7 @@
  	</insert>
  	
  	<!-- STATEMENT_ID 불러오기 -->
- 	<select id="select_purchase_order" parameterType="String" resultType="PurchaseVO">
+ 	<select id="select_purchase_order" parameterType="String" resultType="PurchaseDTO">
  		<![CDATA[
 		SELECT  *
 		FROM    ( 

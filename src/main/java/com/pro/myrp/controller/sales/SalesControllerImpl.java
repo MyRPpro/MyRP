@@ -85,6 +85,8 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	}
 	
 	
+	
+	
 	@Override
 	@GetMapping(value="input_sales/reg_sales")
 	public String reg_sales(HttpServletRequest req, Model model) throws Exception {
@@ -115,7 +117,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		return code.c(sales_management, status_sales, search_status_sales);
 	
 	}
-	
 
 	@Override
 	@GetMapping(value="status_sales/search_status_sales_table")
@@ -145,7 +146,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		return code.c(sales_management, status_sales, search_status_sales_page);
 	
 	}
-	
 
 	@Override
 	@GetMapping(value="status_sales/search_status_sales_detail")

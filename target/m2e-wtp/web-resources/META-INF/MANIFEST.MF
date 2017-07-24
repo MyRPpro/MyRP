@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: "Jang.EC"
-=======
-Built-By: amaco78
->>>>>>> 30cb6e88e87dae32f8f129f0fd807fc88ac6a40b
 Build-Jdk: 1.8.0_131
 Created-By: Maven Integration for Eclipse
 
