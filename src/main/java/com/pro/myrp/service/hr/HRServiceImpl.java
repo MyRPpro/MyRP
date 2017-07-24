@@ -990,4 +990,11 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("dtos", dtos);
 	}
 
+	@Override
+	public void salary_register_search_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+	}
+
 }

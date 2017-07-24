@@ -180,7 +180,9 @@ public class CodeHandler {
 			public static final int modify_personnel_card_pro = 16331;
 		//급여관리
 		public static final int manage_salary = 16500;
-			public static final int salary_register = 16510;
+			public static final int salary_register_search = 16510;
+			public static final int salary_register_list = 16511;
+			public static final int salary_register_nav = 16512;
 			public static final int reg_salary_info = 16520;
 			public static final int fix_work_record = 16530;
 			public static final int calc_salary = 16540;

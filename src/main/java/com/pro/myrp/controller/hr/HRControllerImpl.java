@@ -283,11 +283,11 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 
 	@Override
 	@GetMapping(value="manage_salary/salary_register")
-	public String salary_register(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(salary_register));
+	public String salary_register_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(salary_register_search));
 		model.addAttribute("req", req);
-		
-		return code.c(hr_management, manage_salary, salary_register);
+		service.salary_register_search_service(model);
+		return code.c(hr_management, manage_salary, salary_register_search);
 	}
 
 	@Override

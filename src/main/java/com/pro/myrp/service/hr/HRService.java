@@ -345,4 +345,12 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void personnel_card_retired_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 조회 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void salary_register_search_service(Model model) throws Exception;
 }
