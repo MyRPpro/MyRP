@@ -29,7 +29,7 @@
 		id="modify_sales_form1" method="post">
 		
 		
-		<table id="modify_sales_form2" border="1" width="130%" >
+		<table id="modify_sales_form2" border="1" width="2000px" >
 		
 			<tr>
 				<!-- 1  --> <th>sales</th>

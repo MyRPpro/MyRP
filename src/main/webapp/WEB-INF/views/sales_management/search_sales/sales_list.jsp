@@ -22,7 +22,12 @@
 		<input type="submit" value="검색">
 		<input type="button" value="전체목록" onclick="return search_list(1,0)">
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
+		<br>
+		<input type="button" value="판매등록" onclick="window.location='/sales_management/input_sales/reg_sales'" >
+		<input type="button" value="판매승인" onclick="return search_list(1,4)">
+		<input type="button" value="전표등록" onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
 		<input type="button" value="전표승인조회" onclick="return search_list(1,2)">
+		<input type="button" value="출고요청" onclick="window.location='/distribution_management/search_distribution_order/statement_list'" >
 		<input type="button" value="출고완료조회" onclick="return search_list(1,3)">
 	</form>
 	<hr>
@@ -65,8 +70,10 @@
 		// 출고완료 검색
 		} else if (check == 3 ){
 			search_str = "stock";
+			
+		} else if (check == 4 ){
+			search_str = "check";
 		}
-	
 		
 		$('#list_table').load('/sales_management/search_sales/sales_list_table?search_str='+search_str+'&pageNum='+pagenum);
 		$('#list_page').load('/sales_management/search_sales/sales_list_page?search_str='+search_str+'&pageNum='+pagenum);

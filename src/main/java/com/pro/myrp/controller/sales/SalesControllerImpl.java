@@ -63,7 +63,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		System.out.println(code.c(detail_sales));
 		model.addAttribute("req", req);
 		service.detail_sales_pro_service(model);
-		return code.c(sales_management, search_sales,sales_list);
+		return code.c(sales_management, search_sales,detail_sales);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	public String modify_sales(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(modify_sales));
 		model.addAttribute("req", req);
-		service.detail_sales_service(model);
+		service.modify_sales_service(model);
 		return code.c(sales_management, search_sales, modify_sales);
 	}
 

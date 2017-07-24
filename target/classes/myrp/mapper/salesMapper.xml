@@ -235,7 +235,36 @@
 	
  	
  	<!-- 판매내역 자세히 보기 -->
- 	<select id="select_detail_sales" parameterType="String"
+ 	<select id="select_detail_sales" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 		<![CDATA[
+			SELECT  * 
+	        FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID,  S.ORDER_ID, S.PRODUCT_ID, 
+	                         S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
+	                         S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
+	                         S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, 
+	                         A.ACCOUNT_NAME, P.PRODUCT_NAME,  C.COMPANY_NAME,
+                        	 E.EMPLOYEE_NAME, ST.KOR_NAME AS STATE_NAME
+	                 FROM    SALES_ORDER S
+	                 JOIN    ACCOUNT A
+	                 ON      S.ACCOUNT_ID = A.ACCOUNT_ID
+	                 JOIN    PRODUCT P
+	                 ON      S.PRODUCT_ID = P.PRODUCT_ID 
+	                 JOIN    COMPANY C
+	                 ON      S.COMPANY_ID = C.COMPANY_ID 
+	                 JOIN    EMPLOYEE E
+	                 ON      S.EMPLOYEE_ID = E.EMPLOYEE_ID
+	                 JOIN    STATE ST
+                 	 ON      S.SALES_STATE = ST.CODE
+	                )
+			WHERE 	SALES_ID = #{sales_id}
+			AND 	ACCOUNT_ID = #{account_id}
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 판매내역 자세히 보기 : 수정 가능 버젼  -->
+ 	<select id="select_modify_sales" parameterType="java.util.Map"
  	resultType="SalesDTO">
  		<![CDATA[
 			SELECT  * 
@@ -944,15 +973,13 @@
 		
 		UPDATE  SALES_ORDER                                 
 		SET     SALES_STATE = 22223                         
-		WHERE   SALES_ID IN (SELECT SALES_ID
-		                    FROM    SALES_STATEMENT
-		                    WHERE   STATEMENT_ID IN (SELECT  ORDER_ID
-		                                            FROM    ORDER_STATE
-		                                            WHERE   ORDER_ID LIKE '5470%'
-		                                            AND     ORDER_STATE = 25452
-		                                            )
+		WHERE   SALES_ID IN (SELECT STOCK_ORDER_TYPE
+		                    FROM    STOCK_ORDER
+		                    WHERE   STOCK_STATE = 24752
 		                    )
 		AND     SALES_STATE = 22222
+		OR		SALES_STATE = 24752
+		AND     ACCOUNT_ID = 500012030000
 		
 	</update>
  	
@@ -1015,6 +1042,75 @@
 		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC
  		]]>
  	</select>
+ 	
+ 	<select id="select_count_checkout_sales" resultType="int">
+ 		<![CDATA[
+ 		SELECT COUNT(SALES_ID)
+		FROM  SALES_ORDER
+		WHERE SALES_STATE = 22213
+ 		]]>
+ 	</select>
+ 	
+ 	<select id="select_checkout_serch_sales" resultType="SalesDTO">
+ 		<![CDATA[
+ 			
+		SELECT  *
+		FROM    ( 
+				SELECT  SALES_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+                COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+                STORAGE_OUT_DATE, COUNT_SALES, SELLING_PRICE, 
+                CONDITION_NOTE_RECEIVABLE, SALES_STATE, STATE_NAME, rownum rNum
+		
+		        FROM    (
+		                SELECT  
+				                S.SALES_ID, 
+                        S.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				                S.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+				                S.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  S.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				                S.REG_DATE, S.UPDATE_DATE, 
+				                S.STORAGE_OUT_DATE, 
+				                S.COUNT_SALES,
+				                S.SELLING_PRICE, 
+				                S.CONDITION_NOTE_RECEIVABLE,
+				                S.SALES_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  S.SALES_STATE = ST.CODE
+				                ),'입력값 오류' ) AS state_name
+		
+			            FROM	SALES_ORDER S 
+	                    WHERE 	S.SALES_STATE IN 22213
+			            ORDER 	BY S.SALES_ID DESC, S.ACCOUNT_ID ASC 
+		                )
+		          )
+		WHERE 	rNum
+			 	BETWEEN #{start} AND #{end}
+		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC
+ 		]]>
+ 	</select>
+ 	
+ 	
  	
  	
 </mapper>

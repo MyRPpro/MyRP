@@ -93,5 +93,11 @@ public interface SalesDAO extends MyRPDAO {
 
 	public int select_count_stock_out_sales();
 
+	public int select_count_checkout_sales();
+
+	public ArrayList<SalesDTO> select_checkout_serch_sales(Map<String, Object> daoMap);
+
+	public ArrayList<SalesDTO> select_modify_sales(Map<String, Object> daoMap);
+
 	
 }

@@ -36,7 +36,7 @@
 		
 			<!-- 판매번호를 눌렀을 때 이동 -->
 			<td>
-				<a href="javascript:detail_page('${dto.sales_id},${dto.sales_state}')">
+				<a href="javascript:detail_page('${dto.sales_id},${dto.sales_state},${dto.account_id}')">
 					${dto.sales_id}
 				</a>
 			</td>
@@ -75,8 +75,10 @@
 		console.log(" param :" + param )
 		
 		param = param.split(',');
-		console.log(" sales_id :" + param[0] )
-		console.log(" sales_state :" + param[1] )
+		console.log(" sales_id :" + param[0] );
+		console.log(" sales_state :" + param[1] ); 
+		console.log(" order_id :" + param[2] ); 
+		
 		var state = param[1];
 		
 		if( state == "22213" ){
@@ -86,7 +88,8 @@
 			
 		} else {
 			$('#list_dateil').load('/sales_management/search_sales/detail_sales?sales_id='+param[0]
-			+'&sales_state='+param[1]);
+			+'&sales_state='+param[1]
+			+'&account_id='+param[2]);
 			return false;
 			
 		}

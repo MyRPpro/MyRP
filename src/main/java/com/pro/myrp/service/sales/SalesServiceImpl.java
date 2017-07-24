@@ -40,6 +40,8 @@ public class SalesServiceImpl implements SalesService {
 			search_check = 2;
 		} else if( req.getParameter("search_str").equals("stock")){
 			search_check = 3;
+		} else if( req.getParameter("search_str").equals("check")){
+			search_check = 4;
 		} else if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
 			search_check = 1;
 		}
@@ -54,7 +56,7 @@ public class SalesServiceImpl implements SalesService {
 		
 		// 전표 조회일 경우
 		} else if (search_check == 2 ){
-			// 일단 승인 내역 업데이트
+			System.out.println("  -> Account_Approve");
 			int update_cnt = dao.update_account_approve_serch_sales();
 			System.out.println("  -> update_cnt : "+ update_cnt);
 			cnt = dao.select_count_approve_sales();
@@ -64,13 +66,20 @@ public class SalesServiceImpl implements SalesService {
 		// 창고 출고 완료 일경우
 		} else if(search_check == 3 ){
 			
-			System.out.println("  -> 테스트!! 출고 완료로 변경합니다.!");
-			
-			// 일단 승인 내역 업데이트
+			System.out.println("  -> Stock_Out");
 			int update_cnt = dao.update_stock_out_serch_sales();
 			System.out.println("  -> update_cnt : "+ update_cnt);
 			
+			
+			
+			
 			cnt = dao.select_count_stock_out_sales();
+			System.out.println("  -> Search Cnt : " + cnt );
+		
+		// 판매 승인 요청일 경우
+		} else if(search_check == 4 ){
+			// 
+			cnt = dao.select_count_checkout_sales();
 			System.out.println("  -> Search Cnt : " + cnt );
 			
 		} else {
@@ -143,6 +152,14 @@ public class SalesServiceImpl implements SalesService {
 				// 출고 완료 목록 표시
 				System.out.println("  -> Stock Out List  ...");
 				dtos = dao.select_stock_out_serch_sales(daoMap);
+				model.addAttribute("dtos", dtos);
+				
+				
+			} else if ( search_check == 4 ){
+				
+				// 출고 완료 목록 표시
+				System.out.println("  -> Checkout Sales List  ...");
+				dtos = dao.select_checkout_serch_sales(daoMap);
 				model.addAttribute("dtos", dtos);
 				
 				
@@ -226,12 +243,15 @@ public class SalesServiceImpl implements SalesService {
 		
 		String sales_id = req.getParameter("sales_id");
 		String sales_state = req.getParameter("sales_state");
+		String account_id = req.getParameter("account_id");
 		
 		System.out.println("  -> sales_id : "  + sales_id);
+		System.out.println("  -> account_id : "  + account_id);
 		System.out.println("  -> sales_state : "  + sales_state);
 		
 		Map<String,Object> daoMap = new HashMap<>();
 		daoMap.put("sales_id", sales_id);
+		daoMap.put("account_id", account_id);
 		
 		ArrayList<SalesDTO> dtos = dao.select_detail_sales(daoMap);
 		/*System.out.println("  -> dtos : " + dtos.toString() );*/
@@ -239,31 +259,13 @@ public class SalesServiceImpl implements SalesService {
 		if( dtos != null ){
 			System.out.println("  -> Complete value import ...");
 			model.addAttribute("dtos", dtos);
+			model.addAttribute("account_id", account_id);
+			System.out.println("  -> account_id : "+ account_id );
+			
 			
 		} else {	// 불러오기 실패
 			System.out.println("  -> Error loading value...");
-			
 		}
-		
-		int Modify = 0;
-		if( sales_state.equals("22213")){
-			System.out.println("  -> Modifiable ...");
-			
-			Modify = 1;
-			ArrayList<ModifySelectDTO> dtos_account  = dao.select_account();	// account_id
-			ArrayList<ModifySelectDTO> dtos_product  = dao.select_product();	// product_id
-			ArrayList<ModifySelectDTO> dtos_company  = dao.select_company();	// company_name
-			ArrayList<ModifySelectDTO> dtos_employee  = dao.select_employee();	// employee_id
-			
-			model.addAttribute("dtos_account", dtos_account);
-			model.addAttribute("dtos_product", dtos_product);
-			model.addAttribute("dtos_company", dtos_company);
-			model.addAttribute("dtos_employee", dtos_employee);
-			
-			System.out.println("  -> Complete Model dtos ...");
-			
-		}
-		model.addAttribute("Modify",Modify);
 		model.addAttribute("sales_id", sales_id);
 		model.addAttribute("sales_state", sales_state);
 
@@ -306,7 +308,7 @@ public class SalesServiceImpl implements SalesService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		String req_kind = req.getParameter("req_kind");
-		
+		int update_cnt = 0;
 		if( req_kind.equals("storage_out") ){
 			System.out.println("  -> Request a Storage Out...");
 			
@@ -317,9 +319,58 @@ public class SalesServiceImpl implements SalesService {
 			daoMap.put("sales_id", sales_id);
 			daoMap.put("account_id", "500012030000");
 			daoMap.put("sales_state", 22222);
-			int update_cnt = dao.update_req_storage_out(daoMap);
+			update_cnt = dao.update_req_storage_out(daoMap);
 			System.out.println("  -> update_cnt : " + update_cnt);
+			
 		}
+		model.addAttribute("cnt", update_cnt);
+		
+	}
+
+	@Override
+	public void modify_sales_service(Model model) {
+
+		System.out.println("  -> modify_sales_service");
+		
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		String sales_id = req.getParameter("sales_id");
+		String sales_state = req.getParameter("sales_state");
+		
+		System.out.println("  -> sales_id : "  + sales_id);
+		System.out.println("  -> sales_state : "  + sales_state);
+		
+		Map<String,Object> daoMap = new HashMap<>();
+		daoMap.put("sales_id", sales_id);
+		
+		ArrayList<SalesDTO> dtos = dao.select_modify_sales(daoMap);
+		/*System.out.println("  -> dtos : " + dtos.toString() );*/
+		
+		if( dtos != null ){
+			System.out.println("  -> Complete value import ...");
+			model.addAttribute("dtos", dtos);
+			
+		} else {	// 불러오기 실패
+			System.out.println("  -> Error loading value...");
+		}
+		
+		System.out.println("  -> Modifiable ...");
+		ArrayList<ModifySelectDTO> dtos_account  = dao.select_account();	// account_id
+		ArrayList<ModifySelectDTO> dtos_product  = dao.select_product();	// product_id
+		ArrayList<ModifySelectDTO> dtos_company  = dao.select_company();	// company_name
+		ArrayList<ModifySelectDTO> dtos_employee  = dao.select_employee();	// employee_id
+		
+		model.addAttribute("dtos_account", dtos_account);
+		model.addAttribute("dtos_product", dtos_product);
+		model.addAttribute("dtos_company", dtos_company);
+		model.addAttribute("dtos_employee", dtos_employee);
+		
+		System.out.println("  -> Complete Model dtos ...");
+	
+		model.addAttribute("Modify",1);
+		model.addAttribute("sales_id", sales_id);
+		model.addAttribute("sales_state", sales_state);
 	}
 	
 	@Override
@@ -1096,7 +1147,6 @@ public class SalesServiceImpl implements SalesService {
 		}
 	}
 
-	
 	
 	
 	
