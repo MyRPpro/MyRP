@@ -3,7 +3,6 @@ package com.pro.myrp.persistence.sales;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.pro.myrp.domain.sales_management.ModifySelectDTO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
@@ -28,13 +27,13 @@ public interface SalesDAO extends MyRPDAO {
 	// modify_sales_service
 	public int update_sales(SalesDTO dto);
 
-	public ArrayList<ModifySelectDTO> select_account();
+	public ArrayList<SalesDTO> select_account();
 
-	public ArrayList<ModifySelectDTO> select_product();
+	public ArrayList<SalesDTO> select_product();
 
-	public ArrayList<ModifySelectDTO> select_company();
+	public ArrayList<SalesDTO> select_company();
 
-	public ArrayList<ModifySelectDTO> select_employee();
+	public ArrayList<SalesDTO> select_employee();
 
 	
 	
@@ -60,6 +59,7 @@ public interface SalesDAO extends MyRPDAO {
 	
 	public int update_req_storage_out(Map<String, Object> daoMap);
 	
+	
 
 	// status_sales_service
 	
@@ -74,6 +74,27 @@ public interface SalesDAO extends MyRPDAO {
 	public int count_option_status_sales(Map<String, Object> optionMap);
 
 	public ArrayList<SalesDTO> select_serch_option_status_sales(Map<String, Object> optionMap);
+	
+	
+	// search_sales_account
+
+	public int select_count_approve_sales();
+
+	public ArrayList<SalesDTO> select_account_approve_serch_sales(Map<String, Object> daoMap);
+
+	public int update_account_approve_serch_sales();
+
+	public int update_stock_out_serch_sales();
+
+	public ArrayList<SalesDTO> select_stock_out_serch_sales(Map<String, Object> daoMap);
+
+	public int select_count_stock_out_sales();
+
+	public int select_count_checkout_sales();
+
+	public ArrayList<SalesDTO> select_checkout_serch_sales(Map<String, Object> daoMap);
+
+	public ArrayList<SalesDTO> select_modify_sales(Map<String, Object> daoMap);
 
 	
 }

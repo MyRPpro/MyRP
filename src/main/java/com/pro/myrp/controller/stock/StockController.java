@@ -132,6 +132,26 @@ public interface StockController extends MyRPController {
 	public String adjustment_inventory(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
+	 * 재고조정 > 재고조정 입력 페이지
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String adjustment_inventory_view(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 재고조정 > 재고조정 처리 
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String adjustment_inventory_pro(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
 	 * 물류주문조회 > 전체 전표 목록 리스트
 	 * @author choidream
 	 * @param req

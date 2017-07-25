@@ -31,14 +31,12 @@
 <%-- <c:forEach var = "pro" items = "${productVos}">
 		<option value = "${pro.product_id}">${pro.product_name}</option>
 </c:forEach> --%>
-<th>
 	<select id = "product_id" name = "product_id">
 		<option value = "0">상품을 선택하시오.</option>
 		<c:forEach var = "pro" items = "${productVos}">
 		<option value = "${pro.product_id}">${pro.product_name}</option>
 	</c:forEach>
 	</select>
-</th>
 </c:if>
 
 <c:if test = "${goes == '2'}">

@@ -50,7 +50,7 @@
 			
 			<tr>
 				<th>${vo.rnum}</th> 			<!-- 1 -->
-				<td>${vo.purchase_id}</td> 		<!-- 2 -->
+				<td id="purchase_id">${vo.purchase_id}</td> 		<!-- 2 -->
 				<td>${vo.account_name}</td> 	<!-- 3 -->
 				<td>${vo.product_name}</td> 	<!-- 4 -->
 				<td>${vo.company_name}</td>		<!-- 5 -->
@@ -73,9 +73,17 @@
 			
 		</table>
 		<br>
-		<input type="button" value="전표입력하기" onclick="window.location='/accounting_management/statement_management/make_statement';" >
-	
+		<input type="button" value="전표입력하기" onclick="sendStatement();">
 	</form>
+	
+	<script type="text/javascript">
+	function sendStatement(){
+		var purchase_id = document.getElementById("purchase_id").innerHTML
+		console.log( " sned purchase_id : " + purchase_id );
+		window.location="/accounting_management/statement_management/make_statement"
+						+"?purchase_id="+purchase_id;
+	}
+	</script>
 
 </body>
 </html>

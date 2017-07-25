@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
  <%@ include file="../../setting.jsp" %>
 <body>
-	
+
+	<c:if test="${cnt==0}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("검색결과가 없습니다. 전체내역을 표시합니다.");
+				search_list(1,0);
+			}, 200);
+		</script>
+	</c:if>
 	
 	<table border="1" style="text-align: center;">
 		
@@ -15,20 +23,20 @@
 			<th>employee</th>
 			<th>reg_date</th>
 			<th>update_date</th>
-			<th>storage_out_date</th>
+			<th>storage_in_date</th>
 			<th>count</th>
-			<th>selling_price</th>
-			<th>sales_state</th>
+			<th>supply_price</th>
+			<th>purchase_state</th>
 			<th>condition</th>
 		</tr>
 		
-		<c:forEach var="dto" items="${SalesDTOs}">
+		<c:forEach var="dto" items="${dtos}">
 		
 		<tr>
 		
 			<!-- 판매번호를 눌렀을 때 이동 -->
 			<td>
-				<a href="javascript:detail_page('${dto.sales_id},${dto.sales_state}')">
+				<a href="javascript:detail_page('${dto.sales_id},${dto.sales_state},${dto.account_id}')">
 					${dto.sales_id}
 				</a>
 			</td>
@@ -67,18 +75,21 @@
 		console.log(" param :" + param )
 		
 		param = param.split(',');
-		console.log(" sales_id :" + param[0] )
-		console.log(" sales_state :" + param[1] )
+		console.log(" sales_id :" + param[0] );
+		console.log(" sales_state :" + param[1] ); 
+		console.log(" order_id :" + param[2] ); 
+		
 		var state = param[1];
 		
-		if( state == "22211" ){
+		if( state == "22213" ){
 			$('#list_dateil').load('/sales_management/search_sales/modify_sales?sales_id='+param[0]
 			+'&sales_state='+param[1]);
 			return false;
 			
 		} else {
 			$('#list_dateil').load('/sales_management/search_sales/detail_sales?sales_id='+param[0]
-			+'&sales_state='+param[1]);
+			+'&sales_state='+param[1]
+			+'&account_id='+param[2]);
 			return false;
 			
 		}

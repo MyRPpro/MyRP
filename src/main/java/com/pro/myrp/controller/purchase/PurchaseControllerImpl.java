@@ -13,7 +13,7 @@ import com.pro.myrp.service.purchase.purchaseService;
 
 @Controller
 @RequestMapping("/purchase_management/*")
-public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
+public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 
 	@Inject
 	private purchaseService service;
@@ -24,7 +24,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	public String purchase_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(purchase_list));
 		model.addAttribute("req", req);
-		/*service.purchase_list_servie(model);*/
 		return code.c(purchase_management,search_purchase,purchase_list);
 	}
 	
@@ -35,6 +34,7 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		System.out.println(code.c(purchase_list_table));
 		model.addAttribute("req", req);
 		service.purchase_list_servie(model);
+		service.purchase_list_table_servie(model);
 		return code.c(purchase_management,search_purchase,purchase_list_table);
 	}
 
@@ -45,6 +45,7 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		System.out.println(code.c(purchase_list_page));
 		model.addAttribute("req", req);
 		service.purchase_list_servie(model);
+		service.purchase_list_page_servie(model);
 		return code.c(purchase_management,search_purchase,purchase_list_page);
 	}
 
@@ -57,17 +58,41 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		service.detail_purchase_service(model);
 		return code.c(purchase_management, search_purchase,detail_purchase);
 	}
-
-
+	
+	
+	@Override
+	@GetMapping(value="search_purchase/detail_purchase_pro")
+	public String detail_purchase_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(detail_purchase));
+		model.addAttribute("req", req);
+		service.detail_purchase_pro_service(model);
+		return code.c(purchase_management, search_purchase,detail_purchase_pro);
+	}
+	
+	
 	@Override
 	@GetMapping(value="search_purchase/modify_purchase")
-	public String modify_purchase_pro(HttpServletRequest req, Model model) throws Exception {
+	public String modify_purchase(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(modify_purchase));
 		model.addAttribute("req", req);
 		service.modify_purchase_service(model);
 		return code.c(purchase_management, search_purchase, modify_purchase);
 	}
+	
+	
+	@Override
+	@GetMapping(value="search_purchase/modify_purchase_pro")
+	public String modify_purchase_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_purchase));
+		model.addAttribute("req", req);
+		service.modify_purchase_pro_service(model);
+		return code.c(purchase_management, search_purchase, modify_purchase_pro);
+	}
+	
+	
 
+	
+	
 	
 	@Override
 	@GetMapping(value="input_purchase/reg_purchase")
@@ -96,6 +121,17 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		model.addAttribute("req", req);
 		return code.c(purchase_management, staus_purchase, search_status_purchase);
 	}
+
+
+	@Override
+	public String reg_purchase_search(HttpServletRequest req, Model model) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
 	
 }
 

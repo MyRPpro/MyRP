@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.pro.myrp.domain.sales_management.ModifySelectDTO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 
 @Repository
@@ -60,28 +59,28 @@ public class SalesDAOImpl implements SalesDAO {
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_account() {
+	public ArrayList<SalesDTO> select_account() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_account();
 	}
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_product() {
+	public ArrayList<SalesDTO> select_product() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_product();
 	}
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_company() {
+	public ArrayList<SalesDTO> select_company() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_company();
 	}
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_employee() {
+	public ArrayList<SalesDTO> select_employee() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_employee();
 	}
@@ -203,6 +202,75 @@ public class SalesDAOImpl implements SalesDAO {
 	public int update_req_storage_out(Map<String, Object> daoMap) {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.update_req_storage_out(daoMap);
+	}
+
+
+	
+
+	
+
+	@Override
+	public int select_count_approve_sales() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_count_approve_sales();
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_account_approve_serch_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_approve_serch_sales(daoMap);
+	}
+
+
+	@Override
+	public int update_account_approve_serch_sales() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_account_approve_serch_sales();
+	}
+
+
+	
+	@Override
+	public int update_stock_out_serch_sales() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_stock_out_serch_sales();
+	}
+
+
+	
+	@Override
+	public ArrayList<SalesDTO> select_stock_out_serch_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_stock_out_serch_sales(daoMap);
+	}
+
+
+	@Override
+	public int select_count_stock_out_sales() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_count_stock_out_sales();
+	}
+
+
+	@Override
+	public int select_count_checkout_sales() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_count_checkout_sales();
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_checkout_serch_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_checkout_serch_sales(daoMap);
+	}
+
+
+	@Override
+	public ArrayList<SalesDTO> select_modify_sales(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_modify_sales(daoMap);
 	}
 	
 
