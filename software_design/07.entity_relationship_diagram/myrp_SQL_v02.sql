@@ -1027,7 +1027,7 @@ WHERE   SALES_ID IN (SELECT SALES_ID
 AND     SALES_STATE = 22213;
 COMMIT;
 INSERT INTO salary_register(SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE)
-VALUES('6000'||TO_CHAR(SYSDATE,'yyMMdd')||salary_seq.nextval,500014010000,SYSDATE,'급여',SYSDATE,10000000,5,26450);
+VALUES('6000'||TO_CHAR(SYSDATE,'yyMMdd')||LPAD(salary_seq.nextval,2,'0'),500014010000,SYSDATE,'상여',SYSDATE-14,10000000,5,26450);
 COMMIT;
 SELECT	COUNT(*)
 		FROM	salary_register
@@ -1040,3 +1040,27 @@ SELECT	COUNT(*)
 			                            ELSE '0'
 			                            END
 		AND		pay_date BETWEEN to_date('01/01/2000 00:00:00', 'mm/dd/yyyy hh24:mi:ss') AND to_date('12/12/3000 00:00:00', 'mm/dd/yyyy hh24:mi:ss');
+        
+SELECT  account_id, SUM(account_value)
+FROM    statement S, sails_statement SS
+WHERE   S.statement_id = SS.statement_id
+AND     account_id = 500011020000
+GROUP BY accout_id;
+SELECT  *
+FROM    (SELECT SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,
+                PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE, rownum rNum
+        FROM    (SELECT *
+                FROM	salary_register
+                WHERE	salary_register_name = 	CASE '0'
+                                                WHEN '0' THEN salary_register_name
+                                                ELSE '0'
+                                                END
+                AND		pay_date    BETWEEN to_date('01/01/2000 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
+                                    AND to_date('12/12/3000 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
+                ORDER BY SALARY_REGISTER_ID DESC)
+        )
+WHERE   rNum >= 1 AND rNum <= 5;
+
+SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
+ 		FROM salary_register s JOIN account a ON s.account_id = a.account_id
+ 		WHERE s.salary_register_id NOT IN (SELECT sr.salary_register_id FROM salary_register sr JOIN salary_register_statement st ON sr.salary_register_id=st.salary_register_id AND sr.account_id=st.account_id);

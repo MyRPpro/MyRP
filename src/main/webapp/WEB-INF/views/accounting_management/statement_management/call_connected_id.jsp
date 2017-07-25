@@ -61,7 +61,7 @@
 		</tr>
 		</c:forEach>
 	</c:if>
-	<c:if test="${select_connection==3}"> <!-- salary -->
+	<c:if test="${param.select_connection==3}"> <!-- salary -->
 		<c:forEach var="dto" items="${salary_dtos}">
 		<tr>
 			<td> ${dto.salary_register_id} </td>

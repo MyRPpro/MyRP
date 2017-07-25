@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.CodeMyRP;
+import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
@@ -1001,7 +1003,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
 		model.addAttribute("hr_codeVos", hr_codeVos);	
 	}
-
 	
 	@Override
 	public void salary_register_list_service(Model model) throws Exception {
@@ -1015,12 +1016,19 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		String pageNum	= null;
 		int currentPage	= 0;
 		
-		String salary_register_name = req.getParameter("salary_register_name");
-		String start_day = req.getParameter("search_start") == "" ? "2000-01-01": req.getParameter("search_start");
+		int salary_register_code = Integer.parseInt(req.getParameter("salary_register_name"));
+		String salary_register_name = "0";
+		String start_day = req.getParameter("search_start") == "" ? "2000-01-01" : req.getParameter("search_start");
 		String end_day = req.getParameter("search_end") == "" ? "3000-12-12" : req.getParameter("search_end");
 		Date search_start = Date.valueOf(start_day);
 		Date search_end = Date.valueOf(end_day);
 		Map<String, Object> daoMap = new HashMap<>();
+		if(salary_register_code != 0) {
+			daoMap.put("hr_code_group_id", 4);
+			daoMap.put("hr_code_id", salary_register_code);
+			salary_register_name = dao.select_hr_code_name(daoMap);			
+		}
+		daoMap.clear();
 		daoMap.put("salary_register_name", salary_register_name);
 		daoMap.put("search_start", search_start);
 		daoMap.put("search_end", search_end);
@@ -1031,13 +1039,187 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		start = (currentPage -1) * pageSize + 1;
 		end = start + pageSize - 1;
 		if(end > cnt) end = cnt;
-		/*if(cnt > 0) {
+		if(cnt > 0) {
 			daoMap.put("start", start);
 			daoMap.put("end", end);
 			List<Salary_registerVO> vos = new ArrayList<>();
 			vos = dao.select_salary_register_list(daoMap);
 			model.addAttribute("salary_registerVos", vos);
-		}*/
+		}
 	}
 
+	
+	@Override
+	public void salary_register_nav_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		int salary_register_code = Integer.parseInt(req.getParameter("salary_register_name"));
+		String salary_register_name = "0";
+		String start_day = req.getParameter("search_start") == "" ? "2000-01-01" : req.getParameter("search_start");
+		String end_day = req.getParameter("search_end") == "" ? "3000-12-12" : req.getParameter("search_end");
+		Date search_start = Date.valueOf(start_day);
+		Date search_end = Date.valueOf(end_day);
+		Map<String, Object> daoMap = new HashMap<>();
+		if(salary_register_code != 0) {
+			daoMap.put("hr_code_group_id", 4);
+			daoMap.put("hr_code_id", salary_register_code);
+			salary_register_name = dao.select_hr_code_name(daoMap);			
+		}
+		daoMap.clear();
+		daoMap.put("salary_register_name", salary_register_name);
+		daoMap.put("search_start", search_start);
+		daoMap.put("search_end", search_end);
+		cnt = dao.select_salary_register_cnt(daoMap);
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("salary_register_name", salary_register_name);
+		model.addAttribute("search_start", search_start);
+		model.addAttribute("search_end", search_end);
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		}
+	}
+
+	
+	@Override
+	public void reg_salary_info_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int hr_code_group_id = 4;
+		String use_state = "Y";
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("use_state", use_state);
+		daoMap.put("hr_code_group_id", hr_code_group_id);
+		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		model.addAttribute("hr_codeVos", hr_codeVos);	
+	}
+
+
+	@Override
+	public void reg_salary_info_pro_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		Date reg_date = Date.valueOf(req.getParameter("reg_date")+"-01");
+		int salary_register_code = Integer.parseInt(req.getParameter("salary_register_name"));
+		String salary_register_name = "0";
+		Map<String, Object> daoMap = new HashMap<>();
+		if(salary_register_code != 0) {
+			daoMap.put("hr_code_group_id", 4);
+			daoMap.put("hr_code_id", salary_register_code);
+			salary_register_name = dao.select_hr_code_name(daoMap);			
+		}
+		Date pay_date = Date.valueOf(req.getParameter("pay_date"));
+		long total_pay = Integer.parseInt(req.getParameter("total_pay"));
+		int total_employee = Integer.parseInt(req.getParameter("total_employee"));
+		int salary_state = request_payments_salary;
+		Salary_registerVO vo = new Salary_registerVO();
+		vo.setAccount_id(account_salary);
+		vo.setReg_date(reg_date);
+		vo.setSalary_register_name(salary_register_name);
+		vo.setPay_date(pay_date);
+		vo.setTotal_pay(total_pay);
+		vo.setTotal_employee(total_employee);
+		vo.setSalary_state(salary_state);
+		int cnt = dao.insert_salary_register(vo);
+		
+		vo.setAccount_id(account_cash);
+		vo.setTotal_pay(-total_pay);
+		int cnt2 = dao.insert_salary_register2(vo);
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("cnt2", cnt2);
+	}
+
+
+	@Override
+	public void salary_statement_search_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		List<Order_stateVO> orderVos = new ArrayList<>();
+		List<Salary_registerVO> salaryVos = new ArrayList<>();
+		orderVos = dao.select_statements_approval();
+		for(int i=0; i<orderVos.size(); i++) {
+			Order_stateVO orderVo = orderVos.get(i);
+			String statement_id = orderVo.getOrder_id();
+			List<Salary_register_statementVO> tempVos = dao.select_salary_statement(statement_id);
+			if(tempVos != null) {
+				for(int j=0; j<tempVos.size(); j++) {
+					Salary_register_statementVO tempVo = tempVos.get(j);
+					String salary_register_id = tempVo.getSalary_register_id();
+					String account_id = tempVo.getAccount_id();
+					Map<String, Object> daoMap = new HashMap<>();
+					daoMap.put("salary_register_id", salary_register_id);
+					daoMap.put("account_id", account_id);
+					Salary_registerVO salaryVo = dao.select_salary_register(daoMap);
+					if(salaryVo.getSalary_state() == request_payments_salary) {
+						daoMap.put("salary_state", wait_payments_salary);
+						int salaryCnt = dao.update_salary_register_state(daoMap);
+						salaryVo.setSalary_state(wait_payments_salary);
+						salaryVos.add(salaryVo);
+					}
+				}
+			}
+		}
+		int cnt = salaryVos.size();
+		if(cnt != 0) {
+			model.addAttribute("vos", salaryVos);
+		}
+		model.addAttribute("cnt", cnt);
+	}
+
+	@Override
+	public void clear_salary_bank_account_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		List<Salary_registerVO> vos = new ArrayList<>();
+		vos = dao.select_salary_register_for_clear();
+		int cnt = vos.size();
+		if(cnt != 0) {
+			model.addAttribute("vos", vos);			
+		}
+		model.addAttribute("cnt", cnt);
+	}
+
+	@Override
+	public void clear_salary_bank_account_pro_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		String salary_register_id = req.getParameter("salary_register_id");
+		String account_id = req.getParameter("account_id");
+		int salary_state = complete_payments_salary;
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("salary_register_id", salary_register_id);
+		daoMap.put("account_id", account_id);
+		daoMap.put("salary_state", salary_state);
+		Salary_registerVO vo = dao.select_salary_register(daoMap);
+		long pay_money = vo.getTotal_pay();
+		int cnt = dao.update_salary_register_state(daoMap);
+		int cnt2 = dao.update_bank_account_balance(pay_money);
+		model.addAttribute("cnt", cnt);
+	}
 }

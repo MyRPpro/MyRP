@@ -281,15 +281,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	}
 
 	@Override
-	@GetMapping(value="manage_salary/salary_register")
-	public String salary_register_search(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(salary_register_search));
-		model.addAttribute("req", req);
-		service.salary_register_search_service(model);
-		return code.c(hr_management, manage_salary, salary_register_search);
-	}
-
-	@Override
 	@GetMapping(value="manage_personnel_card/modify_personnel_card")
 	public String modify_personnel_card(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(modify_personnel_card));
@@ -446,7 +437,15 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.personnel_card_retired_service(model);
 		return code.c(hr_management, manage_retired_employee, personnel_card_retired);
 	}
-
+	
+	@Override
+	@GetMapping(value="manage_salary/salary_register_search")
+	public String salary_register_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(salary_register_search));
+		model.addAttribute("req", req);
+		service.salary_register_search_service(model);
+		return code.c(hr_management, manage_salary, salary_register_search);
+	}
 	
 	@Override
 	@GetMapping(value="manage_salary/salary_register_list")
@@ -456,14 +455,60 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.salary_register_list_service(model);
 		return code.c(hr_management, manage_salary, salary_register_list);
 	}
-	
 
 	@Override
 	@GetMapping(value="manage_salary/salary_register_nav")
 	public String salary_register_nav(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(salary_register_nav));
 		model.addAttribute("req", req);
-		
+		service.salary_register_nav_service(model);
 		return code.c(hr_management, manage_salary, salary_register_nav);
+	}
+
+
+	@Override
+	@GetMapping(value="manage_salary/reg_salary_info")
+	public String reg_salary_info(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_salary_info));
+		model.addAttribute("req", req);
+		service.reg_salary_info_service(model);
+		return code.c(hr_management, manage_salary, reg_salary_info);
+	}
+
+	
+	@Override
+	@PostMapping(value="manage_salary/reg_salary_info_pro")
+	public String reg_salary_info_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(reg_salary_info_pro));
+		model.addAttribute("req", req);
+		service.reg_salary_info_pro_service(model);
+		return code.c(hr_management, manage_salary, reg_salary_info_pro);
+	}
+
+	@Override
+	@GetMapping(value="manage_salary/salary_statement_search")
+	public String salary_statement_search(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(salary_statement_search));
+		model.addAttribute("req", req);
+		service.salary_statement_search_service(model);
+		return code.c(hr_management, manage_salary, salary_statement_search);
+	}
+
+	@Override
+	@GetMapping(value="manage_salary/clear_salary_bank_account")
+	public String clear_salary_bank_account(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(clear_salary_bank_account));
+		model.addAttribute("req", req);
+		service.clear_salary_bank_account_service(model);
+		return code.c(hr_management, manage_salary, clear_salary_bank_account);
+	}
+
+	@Override
+	@GetMapping(value="manage_salary/clear_salary_bank_account_pro")
+	public String clear_salary_bank_account_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(clear_salary_bank_account_pro));
+		model.addAttribute("req", req);
+		service.clear_salary_bank_account_pro_service(model);
+		return code.c(hr_management, manage_salary, clear_salary_bank_account_pro);
 	}
 }

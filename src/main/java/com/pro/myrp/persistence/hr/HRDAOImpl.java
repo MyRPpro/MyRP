@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
@@ -273,5 +275,53 @@ public class HRDAOImpl implements HRDAO {
 	public List<Salary_registerVO> select_salary_register_list(Map<String, Object> daoMap) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_salary_register_list(daoMap);
+	}
+
+	@Override
+	public int insert_salary_register(Salary_registerVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_salary_register(vo);
+	}
+
+	@Override
+	public int insert_salary_register2(Salary_registerVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_salary_register2(vo);
+	}
+
+	@Override
+	public List<Order_stateVO> select_statements_approval() {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_statements_approval();
+	}
+
+	@Override
+	public List<Salary_register_statementVO> select_salary_statement(String statement_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_statement(statement_id);
+	}
+
+	@Override
+	public Salary_registerVO select_salary_register(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_register(daoMap);
+	}
+
+	@Override
+	public int update_salary_register_state(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_salary_register_state(daoMap);
+	}
+
+	@Override
+	public List<Salary_registerVO> select_salary_register_for_clear() {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_register_for_clear();
+	}
+
+	@Override
+	public int update_bank_account_balance(long pay_money) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_bank_account_balance(pay_money);
 	}
 }

@@ -472,4 +472,54 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String salary_register_nav(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여정보 등록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String reg_salary_info(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여정보 등록 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String reg_salary_info_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 전표 조회
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_statement_search(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 지급
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String clear_salary_bank_account(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 지급 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String clear_salary_bank_account_pro(HttpServletRequest req, Model model) throws Exception;
 }

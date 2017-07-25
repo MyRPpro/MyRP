@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.Employee_infoVO;
@@ -343,4 +345,66 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public List<Salary_registerVO> select_salary_register_list(Map<String, Object> daoMap);
+
+	/**
+	 * 급여정보 등록
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_salary_register(Salary_registerVO vo);
+
+	/**
+	 * 급여정보 등록2
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_salary_register2(Salary_registerVO vo);
+
+	/**
+	 * 승인된 회계전표 조회
+	 * @author amaco78
+	 * @return
+	 */
+	public List<Order_stateVO> select_statements_approval();
+
+	/**
+	 * 회계전표번호와 연결된 급여전표 목록 조회
+	 * @author amaco78
+	 * @param salary_register_id
+	 * @return
+	 */
+	public List<Salary_register_statementVO> select_salary_statement(String statement_id);
+
+	/**
+	 * 선택된 급여대장번호의 급여대장 정보를 조회
+	 * @author amaco78
+	 * @param salary_register_id
+	 * @return
+	 */
+	public Salary_registerVO select_salary_register(Map<String, Object> daoMap);
+	
+	/**
+	 * 선택된 급여대장의 급여대장 상태를 변경
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int update_salary_register_state(Map<String, Object> daoMap);
+
+	/**
+	 * 지급대기상태인 급여대장 목록 조회
+	 * @author amaco78
+	 * @return
+	 */
+	public List<Salary_registerVO> select_salary_register_for_clear();
+
+	/**
+	 * 급여통장의 돈을 변경
+	 * @author amaco78
+	 * @param pay_money
+	 * @return
+	 */
+	public int update_bank_account_balance(long pay_money);
 }

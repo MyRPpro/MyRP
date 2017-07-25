@@ -68,7 +68,7 @@
 <a href="/hr_management/manage_personnel_card/personnel_card_search">인사관리-인사카드 관리</a><br>
 <a href="/hr_management/manage_hr_appointment/hr_appointment_search">인사관리-인사발령 관리</a><br>
 <a href="/hr_management/manage_retired_employee/retired_employee_search">인사관리-퇴사자 관리</a><br>
-<a href="/hr_management/manage_salary/salary_register">인사관리-급여 관리</a><br>
+<a href="/hr_management/manage_salary/salary_register_search">인사관리-급여 관리</a><br>
 <hr>
 
 <h3>근태 관리</h3>
