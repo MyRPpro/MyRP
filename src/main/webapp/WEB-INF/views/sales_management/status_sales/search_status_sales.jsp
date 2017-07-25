@@ -62,7 +62,7 @@
 		<select name="account_ids" id="account_ids"  >
 		   <option value="0" selected> 계정선택 </option>
 				<option value="500012020000">부가세예수금</option>
-				<option value="500012030000">상품매출</option>
+				<option value="500014030000">상품매출</option>
 				<option value="500011020000">매출채권</option>
 		</select>  
 	  	

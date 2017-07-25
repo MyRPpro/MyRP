@@ -642,9 +642,9 @@ public class SalesServiceImpl implements SalesService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		// 입력된 변수 받기 
+		String order_id = req.getParameter("order_id");
 		String account_id = req.getParameter("account_id");
 		String product_id = req.getParameter("product_id");
-		
 		String company_id = req.getParameter("company_id");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
 		Date reg_date = req.getParameter("reg_date") == "" ?
@@ -654,10 +654,11 @@ public class SalesServiceImpl implements SalesService {
 		int count_sales = Integer.parseInt( req.getParameter("count_sales") ); 
 		Long selling_price = Long.parseLong( req.getParameter("selling_price") );
 		int condition_note_receivable = Integer.parseInt( req.getParameter("condition_note_receivable") );
-		String order_id = req.getParameter("order_id");
+		
 		
 		// 생성자 생성
 		SalesDTO vo = new SalesDTO();
+		vo.setOrder_id(order_id);
 		vo.setAccount_id(account_id);
 		vo.setProduct_id(product_id);
 		vo.setCompany_id(company_id);
@@ -668,7 +669,7 @@ public class SalesServiceImpl implements SalesService {
 		vo.setSelling_price(selling_price);
 		vo.setCondition_note_receivable(condition_note_receivable);
 		
-		vo.setOrder_id(order_id);
+		
 		
 		System.out.println("  -> vo : "+vo.toString());
 		
@@ -703,6 +704,7 @@ public class SalesServiceImpl implements SalesService {
 		System.out.println("  -> sales_id : " + sales_id);
 		
 		// 입력된 변수 받기 
+		String order_id = req.getParameter("order_id");
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
@@ -719,6 +721,7 @@ public class SalesServiceImpl implements SalesService {
 		
 		// 생성자 생성
 		SalesDTO dto = new SalesDTO();
+		dto.setOrder_id(order_id);
 		dto.setSales_id(sales_id);
 		dto.setProduct_id(product_id);
 		dto.setCompany_id(company_id);
