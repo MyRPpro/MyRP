@@ -32,7 +32,8 @@ public class PurchaseDTO {
 	private String statement_id;
 	private int rnum;
 	private String state_name;
-	
+	private int lack_stock;
+	private int stock_state;
 	
 	
 	
@@ -212,6 +213,22 @@ public class PurchaseDTO {
 				+ product_name + ", company_name=" + company_name + ", employee_name=" + employee_name
 				+ ", account_name=" + account_name + ", statement_id=" + statement_id + ", rnum=" + rnum
 				+ ", state_name=" + state_name + "]";
+	}
+
+	public int getLack_stock() {
+		return lack_stock;
+	}
+
+	public void setLack_stock(int lack_stock) {
+		this.lack_stock = lack_stock;
+	}
+
+	public int getStock_state() {
+		return stock_state;
+	}
+
+	public void setStock_state(int stock_state) {
+		this.stock_state = stock_state;
 	}
 
 	

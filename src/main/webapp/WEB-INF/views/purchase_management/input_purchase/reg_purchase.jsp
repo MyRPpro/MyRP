@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../../setting.jsp" %>
@@ -57,9 +58,14 @@
 						 );	 
 	 return false;
 	 
-	 
 	 }
 	
+	
+	function search_lack_stock(){
+		var url="/purchase_management/input_purchase/search_reg_purchase";
+		window.open(url, "search_lack", "menubar=no, width=800, height=300");
+	return false;
+	}
 	
 	</script>
 	
@@ -68,7 +74,10 @@
 	
 		<input type="submit" value="등록하기" >
 		<input type="reset" value="재설정">
+		<input type="button" value="부족재고조회" onclick="return search_lack_stock()" >
+		&emsp;
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
+		<input type="button" value="검색으로 이동" onclick="window.location='/purchase_management/search_purchase/purchase_list'" >
 		
 		<hr>
 	

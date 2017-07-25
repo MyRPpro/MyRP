@@ -239,5 +239,40 @@
  	</select>
  	
  	
+ 	<select id="select_reg_purchase"  resultType="PurchaseDTO">
+ 	<![CDATA[
+		SELECT 	*
+		FROM 	(
+				SELECT 
+						STOCK_ORDER_TYPE, 
+							NVL(STOCK_ORDER_TYPE ,'입력값 오류' ) AS SALES_ID,
+						PRODUCT_ID,
+							 NVL(( 
+							SELECT  PRODUCT_NAME
+							FROM    PRODUCT
+							WHERE   S.PRODUCT_ID = PRODUCT.PRODUCT_ID )
+							,'입력값 오류' ) AS PRODUCT_NAME,
+						EMPLOYEE_ID,
+							 NVL(( 
+							SELECT  EMPLOYEE_NAME
+							FROM    EMPLOYEE E
+							WHERE   S.EMPLOYEE_ID = E.EMPLOYEE_ID )
+							,'입력값 오류' ) AS EMPLOYEE_NAME,
+							REG_DATE, 
+							STOCK_STATE,
+								 NVL(( 
+								SELECT  KOR_NAME
+								FROM    STATE S
+								WHERE   S.STOCK_STATE = S.CODE )
+								,'입력값 오류' ) AS STATE_NAME,
+						ROWNUM rnum
+				FROM 	STOCK_ORDER S, STORAGE_OUT_ORDER SO
+				WHERE 	S.STOCK_ORDER_ID = SO.STOCK_ORDER_ID
+				AND 	S.STOCK_STATE=24203
+				)
+		ORDER 	BY STOCK_ORDER_TYPE DESC;
+ 	]]>
+ 	</select>
+ 	
  	
 </mapper>

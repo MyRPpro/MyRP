@@ -349,6 +349,7 @@ public class purchaseServiceImpl implements purchaseService {
 			new Date(0) : Date.valueOf(req.getParameter("storage_in_date"));
 		int count_purchase = Integer.parseInt( req.getParameter("count_purchase") ); 
 		Long supply_price = Long.parseLong( req.getParameter("supply_price") );
+		int purchase_state = Integer.parseInt(req.getParameter("purchase_state"));
 		int condition_note_payable = Integer.parseInt( req.getParameter("condition_note_payable") );
 		
 		// 생성자 생성
@@ -361,6 +362,7 @@ public class purchaseServiceImpl implements purchaseService {
 		dto.setStorage_in_date(storage_in_date);
 		dto.setCount_purchase(count_purchase);
 		dto.setSupply_price(supply_price);
+		dto.setPurchase_state(purchase_state);
 		dto.setCondition_note_payable(condition_note_payable);
 
 		// 가격 계산 ( 구매가, 부가세, 총합 )
@@ -421,7 +423,25 @@ public class purchaseServiceImpl implements purchaseService {
 
 		
 	}
+
 	
+	@Override
+	public void search_reg_purchase_service(Model model) {
+		
+		System.out.println("  -> search_reg_purchase_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+		dtos = dao.select_reg_purchase();
+		
+		if(dtos != null ){
+			model.addAttribute("dtos",dtos);
+		} else {
+			System.out.println("  Error Loading Lack_stock");
+		}
+	}
 	
 	
 }

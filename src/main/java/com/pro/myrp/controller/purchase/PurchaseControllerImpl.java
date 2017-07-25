@@ -91,6 +91,15 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		return code.c(purchase_management, input_purchase, reg_purchase_table);
 	}
 	
+	@Override
+	@GetMapping(value="input_purchase/search_reg_purchase")
+	public String search_reg_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_reg_purchase));
+		model.addAttribute("req", req);
+		service.search_reg_purchase_service(model);
+		return code.c(purchase_management, input_purchase, search_reg_purchase);
+	}
+	
 	
 	@Override
 	@GetMapping(value="status_purchase/search_status_purchase")
@@ -99,6 +108,11 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		model.addAttribute("req", req);
 		return code.c(purchase_management, staus_purchase, search_status_purchase);
 	}
+
+
+	
+	
+	
 	
 }
 

@@ -110,6 +110,12 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.select_purchase_order(product_id);
 	}
 
+	@Override
+	public ArrayList<PurchaseDTO> select_reg_purchase() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_reg_purchase();
+	}
+
 	
 	
 

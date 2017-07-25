@@ -39,4 +39,6 @@ public interface purchaseDAO extends MyRPDAO {
 
 	public List<PurchaseDTO> select_purchase_order(String product_id);
 
+	public ArrayList<PurchaseDTO> select_reg_purchase();
+
 }
