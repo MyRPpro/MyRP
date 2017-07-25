@@ -23,16 +23,16 @@
  
 <body>
 
-	<h3> 판매내역 수정 페이지 : modify_sales.jsp</h3>
+	<h3> 판매내역 수정 페이지 : modify_purchase.jsp</h3>
 
-	<form action="/sales_management/search_sales/modify_sales_pro"
-		id="modify_sales_form1" method="post">
+	<form action="/purchase_management/search_purchase/modify_purchase_pro"
+		id="modify_purchase_form1" method="post">
 		
 		
-		<table id="modify_sales_form2" border="1" width="2000px" >
+		<table id="modify_purchase_form2" border="1" width="2000px" >
 		
 			<tr>
-				<!-- 1  --> <th>sales</th>
+				<!-- 1  --> <th>purchase</th>
 				<!-- 2  --> <th>account</th>
 				<!-- 3  --> <th>order</th>
 				<!-- 4  --> <th>product</th>
@@ -40,11 +40,11 @@
 				<!-- 6  --> <th>employee</th>
 				<!-- 7  --> <th>reg_date</th>
 				<!-- 8  --> <th>update_date</th>
-				<!-- 9  --> <th>storage_out_date</th>
-				<!-- 10 --> <th>count_sales</th>
-				<!-- 11 --> <th>selling_price</th>
-				<!-- 12 --> <th>sales_state</th>
-				<!-- 13 --> <th>condition_note_receivable</th>
+				<!-- 9  --> <th>storage_in_date</th>
+				<!-- 10 --> <th>count_purchase</th>
+				<!-- 11 --> <th>supply_price</th>
+				<!-- 12 --> <th>purchase_state</th>
+				<!-- 13 --> <th>condition_note_payable</th>
 			</tr>
 			
 			
@@ -86,20 +86,20 @@
 							</th>
 				<!-- 9  --> <th>
 								<c:set var="now" value="<%= new java.util.Date() %>"/>
-								<input type="date" id="reg_storage_out_date" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>">
+								<input type="date" id="reg_storage_in_date" value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>">
 							</th>
 				<!-- 10 --> <th>
 								<c:set var="reg_dto" value="${dtos[0]}"/>
-								<input type="number" id="reg_count_sales" value="${reg_dto.count_sales}" min="1" max="9999" required >
+								<input type="number" id="reg_count_purchase" value="${reg_dto.count_purchase}" min="1" max="9999" required >
 							</th>
 				<!-- 11 --> <th>
-								<input type="text" id="reg_selling_price" value="${reg_dto.selling_price}" min="1" max="999999999" required>
+								<input type="text" id="reg_supply_price" value="${reg_dto.supply_price}" min="1" max="999999999" required>
 								<!-- onchange="return this.value = SetComma3(this.value)"  -->
 								 
 							</th>
 				<!-- 12 --> <th> </th>
 				<!-- 13 --> <th>
-								<input type="number" id="reg_condition_note_receivable" value="${reg_dto.condition_note_receivable}" min="1" max="12" required>
+								<input type="number" id="reg_condition_note_payable" value="${reg_dto.condition_note_payable}" min="1" max="12" required>
 							</th>
 			</tr>
 			
@@ -108,7 +108,7 @@
 			<tr>	
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="text" name="sales_id" 	value="${dto.sales_id}" maxlength="10" readonly required >
+						<input type="text" name="purchase_id" 	value="${dto.purchase_id}" maxlength="10" readonly required >
 					</c:forEach>
 				</td>
 				
@@ -160,34 +160,34 @@
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="date" name="storage_out_date" value="${dto.storage_out_date}" readonly required >
+						<input type="date" name="storage_in_date" value="${dto.storage_in_date}" readonly required >
 					</c:forEach>
 				</td>
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="number" name="count_sales" value="${dto.count_sales}" readonly required >
+						<input type="number" name="count_purchase" value="${dto.count_purchase}" readonly required >
 					</c:forEach>
 				</td>
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="number" name="selling_price" id="selling_price" 
-						value="${dto.selling_price}" readonly required  >
+						<input type="number" name="supply_price" id="supply_price" 
+						value="${dto.supply_price}" readonly required  >
 					</c:forEach>
-					<%-- <fmt:formatNumber value="${dto.selling_price}" type="currency" currencySymbol="￦" />" --%>
+					<%-- <fmt:formatNumber value="${dto.supply_price}" type="currency" currencySymbol="￦" />" --%>
 				</td>
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="hidden" name="sales_state" value="${dto.sales_state}"  readonly required>
+						<input type="hidden" name="purchase_state" value="${dto.purchase_state}"  readonly required>
 						<input type="text" name="state_name" value="${dto.state_name}"  readonly required>
 					</c:forEach>
 				</td>
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="number" name="condition_note_receivable" value="${dto.condition_note_receivable}" readonly required >
+						<input type="number" name="condition_note_payable" value="${dto.condition_note_payable}" readonly required >
 					</c:forEach>
 				</td>
 				
@@ -250,24 +250,24 @@
 			$('#reg_update_date').change(function(){
 				$('input[name="update_date"]').val($(this).val());
 			})
-			$('#reg_storage_out_date').change(function(){
-				$('input[name="storage_out_date"]').val($(this).val());
+			$('#reg_storage_in_date').change(function(){
+				$('input[name="storage_in_date"]').val($(this).val());
 			})
-			$('#reg_count_sales').change(function(){
-				$('input[name="count_sales"]').val($(this).val());
+			$('#reg_count_purchase').change(function(){
+				$('input[name="count_purchase"]').val($(this).val());
 			})
 			var price, tax, sum = 0;
-			$('#reg_selling_price').change(function(){
+			$('#reg_supply_price').change(function(){
 				price = Number($(this).val());
 				tax = price/10;
 				sum = price + tax;
-				$('input[name="selling_price"]').eq(0).val(tax);
-				$('input[name="selling_price"]').eq(1).val(price);
-				$('input[name="selling_price"]').eq(2).val(sum);
+				$('input[name="supply_price"]').eq(0).val(tax);
+				$('input[name="supply_price"]').eq(1).val(price);
+				$('input[name="supply_price"]').eq(2).val(sum);
 			})
 			
-			$('#reg_condition_note_receivable').change(function(){
-				$('input[name="condition_note_receivable"]').val($(this).val());
+			$('#reg_condition_note_payable').change(function(){
+				$('input[name="condition_note_payable"]').val($(this).val());
 			})
 		});
 		

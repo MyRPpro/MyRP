@@ -14,7 +14,7 @@ public interface purchaseDAO extends MyRPDAO {
 
 	
 
-	public PurchaseDTO select_detail_purchase(String company_id);
+	public ArrayList<PurchaseDTO> select_detail_purchase(Map<String, Object> daoMap);
 
 	public int update_purchase(PurchaseDTO dto);
 
@@ -28,11 +28,11 @@ public interface purchaseDAO extends MyRPDAO {
 
 	public ArrayList<PurchaseDTO> select_employee_ids();
 
-	public int insert_reg_purchase(PurchaseDTO dto);
-
 	public ArrayList<PurchaseDTO> select_account_ids();
+	
+	public int insert_reg_purchase(PurchaseDTO dto);
+	
 
-	public int insert_reg_purchase_statement(PurchaseDTO dto);
 
 	public String select_purchase_id();
 	
@@ -64,8 +64,13 @@ public interface purchaseDAO extends MyRPDAO {
 	
 	public ArrayList<PurchaseDTO> select_purchase_All_list(Map<String, Object> daoMap);
 
-	
-	
+	public ArrayList<PurchaseDTO> select_modify_purchase(Map<String, Object> daoMap);
+
+
+
+	public int update_req_storage_in(Map<String, Object> daoMap);
+
+
 
 
 }

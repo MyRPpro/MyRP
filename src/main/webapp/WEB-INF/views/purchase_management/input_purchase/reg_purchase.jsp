@@ -69,6 +69,7 @@
 		<input type="submit" value="등록하기" >
 		<input type="reset" value="재설정">
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
+		<input type="button" value="구매검색으로 이동" onclick="window.location='/purchase_management/search_purchase/purchase_list'">
 		
 		<hr>
 	

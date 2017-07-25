@@ -30,12 +30,6 @@ public class purchaseDAOImpl implements purchaseDAO {
 	}
 
 	@Override
-	public PurchaseDTO select_detail_purchase(String company_id) {
-		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.select_detail_purchase(company_id);
-	}
-
-	@Override
 	public int update_purchase(PurchaseDTO dto) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.update_purchase(dto);
@@ -84,12 +78,6 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.select_account_ids();
 	}
 
-	
-	@Override
-	public int insert_reg_purchase_statement(PurchaseDTO dto) {
-		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.insert_reg_purchase_statement(dto);
-	}
 
 	@Override
 	public String select_purchase_id() {
@@ -173,7 +161,25 @@ public class purchaseDAOImpl implements purchaseDAO {
 	@Override
 	public ArrayList<PurchaseDTO> select_purchase_All_list(Map<String, Object> daoMap) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.select_checkout_purchase_list(daoMap);
+		return dao.select_purchase_All_list(daoMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_modify_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_modify_purchase(daoMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_detail_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_detail_purchase(daoMap);
+	}
+
+	@Override
+	public int update_req_storage_in(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_req_storage_in(daoMap);
 	}
 
 	

@@ -13,13 +13,13 @@
 
 	<h2> 구매 리스트 페이지 : purchase_list.jsp</h2>
 	
-	<form action="#" name="purchase_list" onsubmit="return quick_search_load(1)" >
+	<form action="#" name="purchase_list" onsubmit="return search_list(1,1)" >
 		<input type="text" name="search_str" placeholder="구매번호를 입력하세요." minlength="1">
 		<input type="submit" value="검색">
 		<input type="button" value="전체목록" onclick="return search_list(1,0)">
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
 		<br>
-		<input type="button" value="구매등록" onclick="window.location='/sales_management/input_sales/reg_sales'" >
+		<input type="button" value="구매등록" onclick="window.location='/purchase_management/input_purchase/reg_purchase'">
 		<input type="button" value="구매승인" onclick="return search_list(1,4)">
 		<input type="button" value="전표등록" onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
 		<input type="button" value="전표승인조회" onclick="return search_list(1,2)">
@@ -41,7 +41,7 @@
 	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script>	
 	
-	function quick_search_load(param){
+	function search_list(pagenum,check){
 
 		var check = check;
 		var pagenum = pagenum;
@@ -54,11 +54,10 @@
 			
 		// 검색어 검색
 		} else if ( check == 1 ){
-			search_str = document.sales_list.search_str.value;
+			search_str = document.purchase_list.search_str.value;
 			if ( !search_str ){
 				search_str = "all";
 			}
-			console.log(" search_str :" + search_str );
 		
 		// 전표승인 검색
 		} else if (check == 2 ){
@@ -72,6 +71,7 @@
 			search_str = "check";
 		}
 		
+		console.log(" search_str :" + search_str );
 		$('#list_table').load('/purchase_management/search_purchase/purchase_list_table?search_str='+search_str+'&pageNum='+pagenum);
 		$('#list_page').load('/purchase_management/search_purchase/purchase_list_page?search_str='+search_str+'&pageNum='+pagenum);
 		

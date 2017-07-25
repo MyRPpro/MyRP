@@ -12,7 +12,7 @@
 	<c:if test="${cnt > 0}">
 		<script type="text/javascript">
 			setTimeout(function(){
-				alert("상태코드가 정상적으로 수정되었습니다.");
+				alert("정상적으로 수정되었습니다.");
 				window.location="/purchase_management/search_purchase/purchase_list"
 			}, 500);
 		</script>

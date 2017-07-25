@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pro.myrp.domain.sales_management.ModifySelectDTO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.sales.SalesDAO;
 
@@ -266,34 +265,6 @@ public class SalesServiceImpl implements SalesService {
 		model.addAttribute("sales_id", sales_id);
 		model.addAttribute("sales_state", sales_state);
 
-		/*	예전코드
-			String company_id = req.getParameter("company_id");
-			String sales_id = req.getParameter("sales_id");
-			String account_id = req.getParameter("account_id");
-			String sales_state = req.getParameter("sales_state");
-			
-			System.out.println("  -> company_id : "  + company_id);
-			System.out.println("  -> sales_id : "  + sales_id);
-			System.out.println("  -> account_id : "  + account_id);
-			System.out.println("  -> sales_state : "  + sales_state);
-			
-			Map<String,Object> daoMap = new HashMap<>();
-			daoMap.put("company_id", company_id);
-			daoMap.put("sales_id", sales_id);
-			daoMap.put("account_id", account_id);
-			
-			SalesDTO dto = dao.select_detail_sales( daoMap );
-			
-			if( dto != null ){
-				System.out.println("  -> Complete value import ...");
-				model.addAttribute("dto", dto);
-				
-			} else {	// 불러오기 실패
-				System.out.println("  -> Error loading value...");
-				
-			}
-			*/
-
 	}
 	
 	@Override
@@ -353,10 +324,10 @@ public class SalesServiceImpl implements SalesService {
 		}
 		
 		System.out.println("  -> Modifiable ...");
-		ArrayList<ModifySelectDTO> dtos_account  = dao.select_account();	// account_id
-		ArrayList<ModifySelectDTO> dtos_product  = dao.select_product();	// product_id
-		ArrayList<ModifySelectDTO> dtos_company  = dao.select_company();	// company_name
-		ArrayList<ModifySelectDTO> dtos_employee  = dao.select_employee();	// employee_id
+		ArrayList<SalesDTO> dtos_account  = dao.select_account();	// account_id
+		ArrayList<SalesDTO> dtos_product  = dao.select_product();	// product_id
+		ArrayList<SalesDTO> dtos_company  = dao.select_company();	// company_name
+		ArrayList<SalesDTO> dtos_employee  = dao.select_employee();	// employee_id
 		
 		model.addAttribute("dtos_account", dtos_account);
 		model.addAttribute("dtos_product", dtos_product);
@@ -390,8 +361,7 @@ public class SalesServiceImpl implements SalesService {
 		
 		// 공통코드
 		String sales_id = req.getParameter("sales_id");
-		/*String order_id = req.getParameter("order_id");*/
-		String order_id = "0";
+		String order_id = req.getParameter("order_id");
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
 		String company_name = req.getParameter("company_name");

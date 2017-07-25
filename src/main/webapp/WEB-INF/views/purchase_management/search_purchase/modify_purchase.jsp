@@ -26,7 +26,7 @@
 	<h3> 구매내역 수정 페이지 : modify_purchase.jsp</h3>
 
 	<form action="/purchase_management/search_purchase/modify_purchase_pro"
-		id="modify_purchase_form1" method="post">
+		id="modify_purchase_form1" method="get	">
 		
 		
 		<table id="modify_purchase_form2" border="1" width="2000px" >
@@ -99,7 +99,7 @@
 							</th>
 				<!-- 12 --> <th> </th>
 				<!-- 13 --> <th>
-								<input type="number" id="CONDITION_NOTE_PAYABLE" value="${reg_dto.condition_note_payable}" min="1" max="12" required>
+								<input type="number" id="reg_condition_note_payable" value="${reg_dto.condition_note_payable}" min="1" max="12" required>
 							</th>
 			</tr>
 			
@@ -209,11 +209,12 @@
 		</table>
 			
 	</form>	
+	
+	
 			
 	<script type="text/javascript">
 	
-		// 수정한 값 대입
-		
+	
 		// 사원번호 자리수 제한 
 		function employee_id_check(){
 			var employee_id = document.getElementsByName("employee_id")[0];
@@ -270,7 +271,9 @@
 				$('input[name="condition_note_payable"]').val($(this).val());
 			})
 		});
-		
+	
+	</script>
+	
 		
 </body>
 </html>
