@@ -23,6 +23,9 @@
 	<input type="button" value="로그인"
 	onclick="window.location='/user/login';">
 </c:if>
+<h3>알람센터</h3>
+<a href="/state_alarm/state_alarm_main">알람센터</a><br>
+
 
 <h3>기초등록</h3>
 <a href="/base_registration/reg_company/company_list">기초등록-거래처등록</a><br>

@@ -3,6 +3,10 @@ package com.pro.myrp.domain;
 public interface CodeMyRP {
 	//기능정의서 기능코드는 [1+module번호+기능번호+commit번호] 5자리로 구성됨
 	
+		//알람 센터
+		public static final int state_alarm = 10100; 
+			public static final int alarm_main =10110;					//알람센터 메인페이지
+			public static final int alarm_pro =10110;					//알람센터 ajax 처리 페이지
 		//기초등록
 		public static final int base_registration = 11000;			
 			//거래처 등록
@@ -223,7 +227,6 @@ public interface CodeMyRP {
 			public static final int add_attitude = 17200;
 		//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
 				
-		
 				
 		//상태코드
 		public static final int statet_transition = 20000;

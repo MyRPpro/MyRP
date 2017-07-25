@@ -22,7 +22,45 @@
  	<!-- 재고수불부 결과 페이지 -->
  	<select id = "select_stockpile_search" parameterType="java.util.Map" resultType="Select_stockpile_searchDTO">
  	SELECT  *
-		FROM    ( SELECT  *
+		FROM	( SELECT  *
+		          FROM  ( SELECT	o.stock_order_id AS pro_id, o.storage_out_date AS sto_date, o.count_sales AS moving_stock,  s.stock_state AS sto_state, s.product_id
+		                  FROM		stock_order s JOIN storage_out_order o
+		                  ON		s.stock_order_id = o.stock_order_id
+	                      WHERE		stock_state = '24752' 
+			              <if test = "product != null">
+						  AND	  product_id in
+							 		 <foreach item="product" collection="product" open="(" separator="," close=")">
+							 		 	#{product}
+							 		 </foreach>
+					 	  </if>    
+		                  
+		                  UNION
+		                  
+		                  SELECT	o.stock_order_id AS pro_id, o.storage_in_date AS sto_date, o.count_purchase AS moving_stock,  s.stock_state AS sto_state, s.product_id
+		                  FROM		stock_order s JOIN storage_in_order o
+		                  ON		s.stock_order_id = o.stock_order_id
+		                  WHERE		s.stock_state = '24102'
+                      	  <if test = "product != null">
+						  AND		product_id in
+							 		<foreach item="product" collection="product" open="(" separator="," close=")">
+							 		 	#{product}
+							 		</foreach>
+				 		   </if>	                 
+                      
+		                  UNION
+		                  
+		                  SELECT	s.stock_order_id AS pro_id, s.update_date AS sto_date, a.delete_stock AS moving_stock, s.stock_state AS sto_state, s.product_id
+		                  FROM		stock_order s JOIN  adjustment_inventory a
+		                  ON		s.stock_order_id = a.stock_order_id
+			 			   <if test = "product != null">
+					 		   WHERE  s.product_id in
+					 		   <foreach item="product" collection="product" open="(" separator="," close=")">
+					 		 	  #{product}
+					 		   </foreach>
+				 		   </if>
+		                )    
+		
+		<!-- ( SELECT  *
 		          FROM  ( SELECT  sales_id AS pro_id, storage_out_date AS sto_date, count_sales AS moving_stock, sales_state AS sto_state, product_id
 		                  FROM    sales_order 
 	                      WHERE   sales_state = '22223' 
@@ -71,7 +109,7 @@
 					 		 	  #{product}
 					 		   </foreach>
 				 		   </if>
-		                )
+		                ) -->
 		          ORDER BY sto_date
 		        )
 	 WHERE	sto_date BETWEEN #{start_day} AND #{end_day} 
@@ -134,7 +172,7 @@
  		ON		p.product_id = s.product_id
  		WHERE	SALES_STATE = 22222
  		AND		s.warehouse_id = 1001
- 		AND		p.account_id = 500012030000
+ 		AND		p.account_id = 500014030000
  		<!-- AND		st.stock_state NOT IN (24202,24752,24203) -->
  		<if test = "opt == 1">
  			AND		SALES_STATE != 24202
@@ -233,7 +271,7 @@
  		UPDATE	SALES_ORDER
  		SET		SALES_STATE = #{stock_state}
  		WHERE	SALES_ID = #{stock_order_type}
- 		AND		ACCOUNT_ID = 500012030000
+ 		AND		ACCOUNT_ID = 500014030000
  	</update>
  	
  	<update id = "update_purchase_state" parameterType="java.util.Map">
