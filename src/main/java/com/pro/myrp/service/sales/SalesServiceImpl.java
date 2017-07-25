@@ -492,63 +492,7 @@ public class SalesServiceImpl implements SalesService {
 		model.addAttribute("account_ids",account_ids);
 		
 	}
-
-	@Override
-	public void reg_sales_service_pro(Model model) {
-		System.out.println("  -> reg_sales_service_pro...");
-		
-		Map<String,Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		
-		// 입력된 변수 받기 
-		String order_id = req.getParameter("order_id");
-		String account_id = req.getParameter("account_id");
-		String product_id = req.getParameter("product_id");
-		String company_id = req.getParameter("company_id");
-		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		Date reg_date = req.getParameter("reg_date") == "" ?
-				new Date(0) : Date.valueOf(req.getParameter("reg_date"));
-		Date setStorage_out_date = req.getParameter("setStorage_out_date") == "" ?
-				new Date(0) : Date.valueOf(req.getParameter("setStorage_out_date"));
-		int count_sales = Integer.parseInt( req.getParameter("count_sales") ); 
-		Long selling_price = Long.parseLong( req.getParameter("selling_price") );
-		int condition_note_receivable = Integer.parseInt( req.getParameter("condition_note_receivable") );
-		
-		
-		// 생성자 생성
-		SalesDTO vo = new SalesDTO();
-		vo.setOrder_id(order_id);
-		vo.setAccount_id(account_id);
-		vo.setProduct_id(product_id);
-		vo.setCompany_id(company_id);
-		vo.setEmployee_id(employee_id);
-		vo.setReg_date(reg_date);
-		vo.setStorage_out_date(setStorage_out_date);
-		vo.setCount_sales(count_sales);
-		vo.setSelling_price(selling_price);
-		vo.setCondition_note_receivable(condition_note_receivable);
-		
-		
-		
-		System.out.println("  -> vo : "+vo.toString());
-		
-		// DB에 값 입력 : INSERT SALES_ORDER
-		int sales_cnt = dao.insert_reg_sales(vo);
-		
-		if( sales_cnt == 1 ){
-			System.out.println("  -> Insert Success...");
-			/*
-			// 전표 처리 : sales_STATEMENT
-			int statement_cnt = dao.insert_reg_sales_statement(vo);
-			if ( statement_cnt == 1 ) cnt = 1;
-			*/
-		} else {
-			System.out.println("  -> Error during Insert...");
-		}
-		
-		model.addAttribute("cnt",sales_cnt);
-		
-	}
+	
 
 	@Override
 	public void reg_sales_table(Model model) {

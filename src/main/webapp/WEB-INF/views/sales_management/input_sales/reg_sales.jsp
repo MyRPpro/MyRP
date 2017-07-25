@@ -110,10 +110,12 @@
 			</tr>
 			
 			<tr>
+<<<<<<< HEAD
 				<th> 판매수량 </th>
 				<th> 판매가 </th>
 				<th> 어음기간  </th>
 				<th colspan="2"> 판매상태 </th>
+
 			</tr>
 			
 			
@@ -130,10 +132,12 @@
 					<input type="number" id="condition_note_receivable" name="condition_note_receivable" 
 					placeholder="기간" min="1" max="12" > 
 				</td>
-				
+
 				<td colspan="2">
 					<input type="hidden" value="22213" name="sales_state" id="sales_state">
 					<input type="text" value="판매전표승인요청" readonly>
+
+
 				</td>	
 				
 					
