@@ -7,30 +7,34 @@
 <title>Insert title here</title>
 <%@ include file = "../setting.jsp" %>
 <script type="text/javascript">
-	/* function state_alarm(){ */
 	$(function(){
-		var timer = setInterval(function(){
+		var role = document.getElementById("role").value;
+		var data = {"role" : role}	
 		$.ajax({ 					
+			data: 	 data,
 			type: 	'post',	 			
 			url: 	"state_alarm_pro",
 			success: function(response) { 	
 				$('#result').html(response);	
 			}
-		}); 
-		}, 3000);
-				
-		
+		});
+		var timer = setInterval(function(){
+			$.ajax({ 					
+				data: 	 data,
+				type: 	'post',	 			
+				url: 	"state_alarm_pro",
+				success: function(response) { 	
+					$('#result').html(response);	
+				}
+			}); 
+		}, 1000);
 	});
 
-	/* } */
 </script>
 </head>
-<body onload= "state_alarm();">
-${UserVO.employee_name}님 어서오세요.
-
-<%-- <c:forEach var = "state" items = "${}"> --%>
-
-<%-- </c:forEach> --%>
+<body >
+<input type = "hidden" id = "role" value = "${ROLE.access_role}">
+${ROLE.employee_name}님 어서오세요.
 <div id = "result"></div>
 
 

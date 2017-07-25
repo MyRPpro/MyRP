@@ -8,8 +8,8 @@ public class CodeHandler {
 	
 	//알람 센터
 	public static final int state_alarm = 10100; 
-		public static final int alarm_main =10110;					//알람센터 메인페이지
-		public static final int alarm_pro =10110;					//알람센터 ajax 처리 페이지
+		public static final int state_alarm_main =10110;					//알람센터 메인페이지
+		public static final int state_alarm_pro =10110;					//알람센터 ajax 처리 페이지
 	
 	//기초등록
 	public static final int base_registration = 11000;			
