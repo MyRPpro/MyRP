@@ -35,6 +35,12 @@ public class PurchaseDTO {
 	private int lack_stock;
 	private int stock_state;
 	
+	private String stock_order_type;
+	private String sales_id;
+	private String lack_id;
+	private String lack_sales_id;
+	private int purchase_unit_price;
+	
 	
 	
 	public int getRnum() {
@@ -229,6 +235,46 @@ public class PurchaseDTO {
 
 	public void setStock_state(int stock_state) {
 		this.stock_state = stock_state;
+	}
+
+	public String getStock_order_type() {
+		return stock_order_type;
+	}
+
+	public void setStock_order_type(String stock_order_type) {
+		this.stock_order_type = stock_order_type;
+	}
+
+	public String getSales_id() {
+		return sales_id;
+	}
+
+	public void setSales_id(String sales_id) {
+		this.sales_id = sales_id;
+	}
+
+	public String getLack_id() {
+		return lack_id;
+	}
+
+	public void setLack_id(String lack_id) {
+		this.lack_id = lack_id;
+	}
+
+	public String getLack_sales_id() {
+		return lack_sales_id;
+	}
+
+	public void setLack_sales_id(String lack_sales_id) {
+		this.lack_sales_id = lack_sales_id;
+	}
+
+	public int getPurchase_unit_price() {
+		return purchase_unit_price;
+	}
+
+	public void setPurchase_unit_price(int purchase_unit_price) {
+		this.purchase_unit_price = purchase_unit_price;
 	}
 
 	

@@ -261,71 +261,17 @@ public class purchaseServiceImpl implements purchaseService {
 		ArrayList<PurchaseDTO> product_ids = new ArrayList<>();
 		ArrayList<PurchaseDTO> company_ids = new ArrayList<>();
 		ArrayList<PurchaseDTO> employee_ids = new ArrayList<>();
-		ArrayList<PurchaseDTO> account_ids = new ArrayList<>();
 		
 		product_ids = dao.select_product_ids();
 		company_ids = dao.select_company_ids();
 		employee_ids = dao.select_employee_ids();
-		account_ids = dao.select_account_ids();
 		
 		model.addAttribute("product_ids",product_ids);
 		model.addAttribute("company_ids",company_ids);
 		model.addAttribute("employee_ids",employee_ids);
-		model.addAttribute("account_ids",account_ids);
 	}
-
-	@Override
-	public void reg_purchase_service_pro(Model model) {
-		
-		System.out.println("  -> reg_purchase_service_pro...");
-		
-		Map<String,Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		
-		// 입력된 변수 받기 
-		String account_id = req.getParameter("account_id");
-		String product_id = req.getParameter("product_id");
-		
-		String company_id = req.getParameter("company_id");
-		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		Date reg_date = req.getParameter("reg_date") == "" ?
-				new Date(0) : Date.valueOf(req.getParameter("reg_date"));
-		Date storage_in_date = req.getParameter("storage_in_date") == "" ?
-				new Date(0) : Date.valueOf(req.getParameter("storage_in_date"));
-		int count_purchase = Integer.parseInt( req.getParameter("count_purchase") ); 
-		Long supply_price = Long.parseLong( req.getParameter("supply_price") );
-		int condition_note_payable = Integer.parseInt( req.getParameter("condition_note_payable") );
-		String order_id = req.getParameter("order_id");
-		
-		// 생성자 생성
-		PurchaseDTO dto = new PurchaseDTO();
-		dto.setAccount_id(account_id);
-		dto.setProduct_id(product_id);
-		dto.setCompany_id(company_id);
-		dto.setEmployee_id(employee_id);
-		dto.setReg_date(reg_date);
-		dto.setStorage_in_date(storage_in_date);
-		dto.setCount_purchase(count_purchase);
-		dto.setSupply_price(supply_price);
-		dto.setCondition_note_payable(condition_note_payable);
-		
-		dto.setOrder_id(order_id);
-		
-		System.out.println("  -> dto : "+dto.toString());
-		
-		// DB에 값 입력 : INSERT PURCHASE_ORDER
-		int purchase_cnt = dao.insert_reg_purchase(dto);
-		
-		if( purchase_cnt == 1 ){
-			System.out.println("  -> Insert Success...");
-
-		} else {
-			System.out.println("  -> Error during Insert...");
-		}
-		
-		model.addAttribute("cnt",purchase_cnt);
 	
-	}
+
 	
 	@Override
 	public void reg_purchase_table(Model model) {
@@ -335,24 +281,17 @@ public class purchaseServiceImpl implements purchaseService {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 
-		// 기본키 불러오기
 		String purchase_id = dao.select_purchase_id();
-		System.out.println("  -> purchase_id : " + purchase_id);
-		
-		// 입력된 변수 받기 
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		Date reg_date = req.getParameter("reg_date") == "" ?
-			new Date(0) : Date.valueOf(req.getParameter("reg_date"));
-		Date storage_in_date = req.getParameter("storage_in_date") == "" ?
-			new Date(0) : Date.valueOf(req.getParameter("storage_in_date"));
+		Date reg_date = req.getParameter("reg_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("reg_date"));
+		Date storage_in_date = req.getParameter("storage_in_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("storage_in_date"));
 		int count_purchase = Integer.parseInt( req.getParameter("count_purchase") ); 
 		Long supply_price = Long.parseLong( req.getParameter("supply_price") );
 		int purchase_state = Integer.parseInt(req.getParameter("purchase_state"));
 		int condition_note_payable = Integer.parseInt( req.getParameter("condition_note_payable") );
 		
-		// 생성자 생성
 		PurchaseDTO dto = new PurchaseDTO();
 		dto.setPurchase_id(purchase_id);
 		dto.setProduct_id(product_id);
@@ -407,21 +346,13 @@ public class purchaseServiceImpl implements purchaseService {
 			System.out.println("  -> setAccount_id insert Complete... ");
 			cnt = 3;
 		}
-		
-		if ( cnt == 3 ){
-			
-			// 리스트를 만들어서 결과값을 담음
-			List<PurchaseDTO> vos = new ArrayList<>();
-			product_id = dto.getPurchase_id();
-			vos = dao.select_purchase_order(product_id);
-			model.addAttribute("vos", vos);
-			
-			// System.out.println( vos.toString() );
-		}
-		
-		model.addAttribute("cnt", cnt);
 
+		// 리스트를 만들어서 결과값을 담음
+		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+		dtos = dao.select_reg_purchases(purchase_id);
 		
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("cnt", cnt);
 	}
 
 	
@@ -429,9 +360,6 @@ public class purchaseServiceImpl implements purchaseService {
 	public void search_reg_purchase_service(Model model) {
 		
 		System.out.println("  -> search_reg_purchase_service...");
-		
-		Map<String,Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
 		dtos = dao.select_reg_purchase();
@@ -441,6 +369,34 @@ public class purchaseServiceImpl implements purchaseService {
 		} else {
 			System.out.println("  Error Loading Lack_stock");
 		}
+	}
+
+	
+	@Override
+	public void search_reg_purchase_pro_service(Model model) {
+		System.out.println("  -> search_reg_purchase_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");	
+		
+		String lack_sales_id = req.getParameter("lack_sales_id");
+		System.out.println("  -> lack_sales_id : " + lack_sales_id);
+		
+		PurchaseDTO dto = dao.select_reg_purchase_pro(lack_sales_id);
+		
+		if( dto != null ){
+			System.out.println("  -> Loadging Complete...");
+			model.addAttribute("dto",dto);
+			model.addAttribute("cnt",1);
+			
+		} else {
+			System.out.println("  -> Loadging Error...");
+			model.addAttribute("cnt",0);
+		}
+		
+		
+		
+
 	}
 	
 	

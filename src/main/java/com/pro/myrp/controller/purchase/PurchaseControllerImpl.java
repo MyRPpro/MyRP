@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -25,7 +24,6 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	public String purchase_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(purchase_list));
 		model.addAttribute("req", req);
-		/*service.purchase_list_servie(model);*/
 		return code.c(purchase_management,search_purchase,purchase_list);
 	}
 	
@@ -100,18 +98,28 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 		return code.c(purchase_management, input_purchase, search_reg_purchase);
 	}
 	
+
+	@Override
+	@GetMapping(value="input_purchase/search_reg_purchase_pro")
+	public String search_reg_purchase_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_reg_purchase_pro));
+		model.addAttribute("req", req);
+		service.search_reg_purchase_pro_service(model);
+		return code.c(purchase_management, input_purchase, reg_purchase);
+	}
+
+
 	
+
 	@Override
 	@GetMapping(value="status_purchase/search_status_purchase")
 	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(search_status_purchase));
 		model.addAttribute("req", req);
+		service.search_reg_purchase_service(model);
 		return code.c(purchase_management, staus_purchase, search_status_purchase);
 	}
 
-
-	
-	
 	
 	
 }

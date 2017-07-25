@@ -123,7 +123,8 @@
  	<select id="select_employee_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
-		FROM 	EMPLOYEE
+		FROM 	EMPLOYEE NATURAL JOIN DEPARTMENT
+		WHERE 	ACCESS_ROLE = 'PU'
 		]]>
  	</select>
  	
@@ -158,7 +159,7 @@
  	
  	<!-- 구매 입력  -->
  	<insert id="insert_reg_purchase" parameterType="PurchaseDTO">
- 		
+ 		<![CDATA[
  		INSERT INTO PURCHASE_ORDER (	
 				PURCHASE_ID, ORDER_ID, ACCOUNT_ID, 
 			    PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID,
@@ -166,22 +167,21 @@
 			    COUNT_PURCHASE, SUPPLY_PRICE, PURCHASE_STATE,
 			    CONDITION_NOTE_PAYABLE)
 		VALUES ( 
-				#{purchase_id},  -- PURCHASE_ID
-			    3110||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
-			    	||LPAD(ORDER_SEQ.NEXTVAL,2,0), <!-- ORDER_ID -->
-			    #{account_id}, <!-- ACCOUNT_ID -->
-			    #{product_id}, <!-- PRODUCT_ID -->
-			    #{company_id}, <!-- COMPANY_ID -->
-			    #{employee_id}, <!-- EMPLOYEE_ID -->
-			    #{reg_date}, <!-- REG_DATE -->
-			    SYSDATE, <!-- UPDATE_DATE -->
-			    #{storage_in_date}, <!-- STORAGE_IN_DATE -->
-			    #{count_purchase}, <!-- COUNT_PURCHASE -->
-			    #{supply_price}, <!-- SUPPLY_PRICE -->
-			    #{purchase_state}, <!-- 전표 미승인 상태 , PURCHASE_STATE -->
-			    #{condition_note_payable} <!-- CONDITION_NOTE_PAYABLE -->
+				'${purchase_id}',  
+			    0000000000000,
+			    '${account_id}', 
+			    '${product_id}', 
+			    '${company_id}', 
+			    '${employee_id}', 
+			    '${reg_date}', 
+			    SYSDATE, 
+			    '${storage_in_date}',
+			    '${count_purchase}', 
+			    '${supply_price}', 
+			    '${purchase_state}',
+			    '${condition_note_payable}' 
 			   )
-		
+		]]>
  	</insert>
  	
  	<insert id="insert_reg_purchase_statement" parameterType="PurchaseDTO">
@@ -197,43 +197,44 @@
  	</insert>
  	
  	<!-- STATEMENT_ID 불러오기 -->
- 	<select id="select_purchase_order" parameterType="String" resultType="PurchaseDTO">
+ 	<select id="select_reg_purchases" parameterType="String" resultType="PurchaseDTO">
  		<![CDATA[
 		SELECT  *
 		FROM    ( 
-		        SELECT
-		        PURCHASE_ID, 
-		        NVL( DECODE
-		            ( ACCOUNT_ID,
-		              '500011050000','상품매입',
-		              '500011030000','부가세예수금',
-		              '500012010000','매입채무' )
-		              ,'입력값 오류' ) AS ACCOUNT_NAME,
-		        ORDER_ID,
-		        NVL(( 
-		          SELECT  PRODUCT_NAME
-		          FROM    PRODUCT
-		          WHERE   PO.PRODUCT_ID = PRODUCT.PRODUCT_ID )
-		         ,'입력값 오류' ) AS PRODUCT_NAME,
-		        NVL(( 
-		          SELECT  COMPANY_NAME
-		          FROM    COMPANY
-		          WHERE   PO.COMPANY_ID = COMPANY.COMPANY_ID )
-		         ,'입력값 오류' ) AS COMPANY_NAME,
-		        NVL(( 
-		          SELECT  EMPLOYEE_NAME
-		          FROM    EMPLOYEE
-		          WHERE   PO.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID )
-		         ,'입력값 오류' ) AS EMPLOYEE_NAME,
-		        REG_DATE, UPDATE_DATE, 
-		        STORAGE_IN_DATE, COUNT_PURCHASE,
-		        SUPPLY_PRICE, 
-		        PURCHASE_STATE,
-		        CONDITION_NOTE_PAYABLE,
-		        ROWNUM rnum
-		        FROM PURCHASE_ORDER PO 
+		        SELECT	PURCHASE_ID, 
+		              	ACCOUNT_ID,
+			              NVL(( 
+					          SELECT  KOR_NAME
+					          FROM    STATE ST
+					          WHERE   PO.PURCHASE_STATE = ST.CODE )
+					         ,'입력값 오류' ) AS STATE_NAME,
+		             	PRODUCT_ID,
+					         NVL(( 
+					          SELECT  PRODUCT_NAME
+					          FROM    PRODUCT
+					          WHERE   PO.PRODUCT_ID = PRODUCT.PRODUCT_ID )      
+			             	 ,'입력값 오류' ) AS PRODUCT_NAME,
+				        ORDER_ID,
+					        NVL(( 
+					          SELECT  COMPANY_NAME
+					          FROM    COMPANY
+					          WHERE   PO.COMPANY_ID = COMPANY.COMPANY_ID )
+					         ,'입력값 오류' ) AS COMPANY_NAME,
+					        NVL(( 
+					          SELECT  EMPLOYEE_NAME
+					          FROM    EMPLOYEE
+					          WHERE   PO.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID )
+					         ,'입력값 오류' ) AS EMPLOYEE_NAME,
+				        REG_DATE, UPDATE_DATE, 
+				        STORAGE_IN_DATE, COUNT_PURCHASE,
+				        SUPPLY_PRICE, 
+				        PURCHASE_STATE,
+				        CONDITION_NOTE_PAYABLE,
+				        ROWNUM rnum
+				        
+		        FROM 	PURCHASE_ORDER PO 
 		        WHERE   PO.PURCHASE_ID = #{purchase_id}
-			     )
+					     )
 		ORDER 	BY rnum
 		]]>
  	</select>
@@ -246,6 +247,7 @@
 				SELECT 
 						STOCK_ORDER_TYPE, 
 							NVL(STOCK_ORDER_TYPE ,'입력값 오류' ) AS SALES_ID,
+						SO.LACK_STOCK,	
 						PRODUCT_ID,
 							 NVL(( 
 							SELECT  PRODUCT_NAME
@@ -270,9 +272,77 @@
 				WHERE 	S.STOCK_ORDER_ID = SO.STOCK_ORDER_ID
 				AND 	S.STOCK_STATE=24203
 				)
-		ORDER 	BY STOCK_ORDER_TYPE DESC;
+		ORDER 	BY STOCK_ORDER_TYPE DESC
  	]]>
  	</select>
  	
  	
+ 	<select id="select_reg_purchase_pro" parameterType="String" resultType="PurchaseDTO">
+ 	<![CDATA[
+	 	SELECT 	*
+		FROM 	(
+		  		SELECT  
+				        S.SALES_ID, 
+				        S.SALES_ID AS LACK_ID, 
+			            (
+			            SELECT	LACK_STOCK
+			            FROM   	STORAGE_OUT_ORDER
+			            WHERE 	STOCK_ORDER_ID = 
+			              		( 
+					             SELECT STOCK_ORDER_ID  
+					             FROM  	STOCK_ORDER
+					             WHERE  STOCK_STATE = 24203
+					             AND 	STOCK_ORDER_TYPE = #{lack_sales_id}
+			              		)
+			            ) AS LACK_STOCK ,
+				        S.ACCOUNT_ID,
+				        NVL((
+				        SELECT ACCOUNT_NAME 
+				        FROM   ACCOUNT A
+				        WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
+				        ),'입력값 오류' ) AS ACCOUNT_NAME ,
+				        S.ORDER_ID,   
+				        S.PRODUCT_ID, 
+				        NVL((
+				        SELECT PRODUCT_NAME 
+				        FROM   PRODUCT P
+				        WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				        ),'입력값 오류' ) AS PRODUCT_NAME ,
+		            	(
+				        SELECT  PURCHASE_UNIT_PRICE 
+				        FROM   PRODUCT P
+				        WHERE  S.PRODUCT_ID = P.PRODUCT_ID
+				        ) AS PURCHASE_UNIT_PRICE ,
+				        S.COMPANY_ID,  
+				        NVL((
+				        SELECT COMPANY_NAME 
+				        FROM   COMPANY C
+				        WHERE  S.COMPANY_ID = C.COMPANY_ID
+				        ),'입력값 오류' ) AS COMPANY_NAME ,
+				        NVL((
+				        SELECT EMPLOYEE_NAME 
+				        FROM   EMPLOYEE E
+				        WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				        ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+				        S.REG_DATE, S.UPDATE_DATE, 
+				        S.STORAGE_OUT_DATE, 
+				        S.COUNT_SALES,
+				        S.SELLING_PRICE, 
+				        S.CONDITION_NOTE_RECEIVABLE,
+				        S.SALES_STATE,
+				        NVL((
+				        SELECT KOR_NAME 
+				        FROM   STATE ST
+				        WHERE  S.SALES_STATE = ST.CODE
+				        ),'입력값 오류' ) AS state_name
+				 FROM	SALES_ORDER S 
+				 WHERE 	S.SALES_ID = #{lack_sales_id}
+				 AND	S.ACCOUNT_ID = 500014020000
+				 )
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	
+ 	 <!-- AND 	ACCOUNT_ID = 500014030000 -->
 </mapper>

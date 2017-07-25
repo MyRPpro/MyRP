@@ -1064,7 +1064,7 @@
 		        FROM    (
 		                SELECT  
 				                S.SALES_ID, 
-                        S.ACCOUNT_ID,
+                        		S.ACCOUNT_ID,
 				                NVL((
 				                SELECT ACCOUNT_NAME 
 				                FROM   ACCOUNT A
