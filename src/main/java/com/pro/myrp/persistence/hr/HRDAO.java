@@ -407,4 +407,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_bank_account_balance(long pay_money);
+
+	/**
+	 * 선택된 주문의 주문상태를 초기화
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int update_order_state(Map<String, Object> daoMap);
 }

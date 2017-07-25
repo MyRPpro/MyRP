@@ -647,8 +647,17 @@
 	<update id="update_bank_account_balance" parameterType="long">
 		<![CDATA[
 		UPDATE	bank_account
-		SET		bank_account_balnace = bank_account_balnace-#{bank_account_balnace}
+		SET		bank_account_balance = bank_account_balance - #{pay_money}
 		WHERE	bank_account_id = 500014010000
+		]]>
+	</update>
+	
+	<!-- 선택된 주문의 주문상태를 초기화 -->
+	<update id="update_order_state" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	order_state
+		SET		order_state = 0
+		WHERE	order_id = #{statement_id}
 		]]>
 	</update>
 	

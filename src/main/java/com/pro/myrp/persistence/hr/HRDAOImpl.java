@@ -324,4 +324,10 @@ public class HRDAOImpl implements HRDAO {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.update_bank_account_balance(pay_money);
 	}
+
+	@Override
+	public int update_order_state(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_order_state(daoMap);
+	}
 }
