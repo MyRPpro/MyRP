@@ -8,7 +8,16 @@
 </head>
 <%@ include file = "../../setting.jsp" %>
 <script type="text/javascript">
-function storage_go(id, goes){
+function storage_go(id, goes,storage_in_date){
+	var now = new Date();
+	var year= now.getFullYear();
+    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+	var today = year + mon + "-" +  (now.getDate());
+
+	if(storage_in_date.replace("-","") > today){
+		alert("입고예정일이 안되었습니다.");
+		return false;
+	}
 	window.location = "/distribution_management/search_distribution_order/request_in_out_storage_pro?id="+id+"&goes="+goes
 }
 function storage_comp_go(id, goes,storage_out_date){
@@ -26,7 +35,7 @@ function storage_comp_go(id, goes,storage_out_date){
 </script>
 <body>
 <c:if test = "${goes == 'out'}">
-물류 출고요청 ${out_storageDtos}
+물류 출고요청
 <table border = "1">
 	<tr>
 		<th>STOCK_ORDER_TYPE</th>
@@ -98,7 +107,7 @@ function storage_comp_go(id, goes,storage_out_date){
 		<th>${dto.count_purchase}</th>		<!-- 구매 테이블에서 불러오기 -->
 		<th>${dto.storage_in_date}</th>		<!-- 구매 테이블에서 불러오기 -->
 		<th>
-			<button onclick = "storage_go('${dto.purchase_id}','in_storage')">입고완료</button>
+			<button onclick = "storage_go('${dto.purchase_id}','in_storage','${dto.storage_in_date}')">입고완료</button>
 		</th>
 	</tr>
 	</c:forEach>
