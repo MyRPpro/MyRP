@@ -13,7 +13,7 @@ import com.pro.myrp.service.purchase.purchaseService;
 
 @Controller
 @RequestMapping("/purchase_management/*")
-public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
+public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 
 	@Inject
 	private purchaseService service;
@@ -123,7 +123,15 @@ public class PurchaseControllerImpl implements purchaseController,CodeMyRP {
 	}
 
 
-	
+	@Override
+	public String reg_purchase_search(HttpServletRequest req, Model model) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
 	
 }
 

@@ -56,11 +56,7 @@
 							+'&condition_note_payable='+condition_note_payable.value
 						 );	 
 	 return false;
-	 
-	 
 	 }
-	
-	
 	</script>
 	
 	<form action="#" name="reg_table_form" method="get" 
@@ -68,8 +64,11 @@
 	
 		<input type="submit" value="등록하기" >
 		<input type="reset" value="재설정">
+		<input type="button" value="구매목록조회" onclick="window.location='/purchase_management/search_purchase/purchase_list'" >
+		
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
 		<input type="button" value="구매검색으로 이동" onclick="window.location='/purchase_management/search_purchase/purchase_list'">
+
 		
 		<hr>
 	
