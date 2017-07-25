@@ -5,8 +5,8 @@ public interface CodeMyRP {
 	
 		//알람 센터
 		public static final int state_alarm = 10100; 
-			public static final int alarm_main =10110;					//알람센터 메인페이지
-			public static final int alarm_pro =10110;					//알람센터 ajax 처리 페이지
+			public static final int state_alarm_main =10110;					//알람센터 메인페이지
+			public static final int state_alarm_pro =10110;					//알람센터 ajax 처리 페이지
 		//기초등록
 		public static final int base_registration = 11000;			
 			//거래처 등록
@@ -60,13 +60,18 @@ public interface CodeMyRP {
 
 		//구매관리
 		public static final int purchase_management = 13000;
+
+
 			// 구매검색
-			public static final int search_purchase 		 	= 13100;	// 구매 검색
-				public static final int purchase_list 		 	= 13110;	// 구매 리스트
-				public static final int purchase_list_table  	= 13120;	// 구매 리스트 테이블 내용
-				public static final int purchase_list_page 	 	= 13130;	// 구매 리스트 테이블 페이지 번호
-				public static final int detail_purchase 		= 13140;	// 구매 상세
-				public static final int modify_purchase 		= 13150;	// 구매 수정
+			public static final int search_purchase 		 = 13100;	// 구매 검색
+				public static final int purchase_list 		 = 13110;	// 구매 리스트
+				public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
+				public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
+				public static final int detail_purchase 	 = 13140;	// 구매 상세
+				public static final int detail_purchase_pro  = 13150;	// 구매 상세 처이
+				public static final int modify_purchase 	 = 13160;	// 구매 수정
+				public static final int modify_purchase_pro  = 13170;	// 구매 수정 처리
+
 				
 			// 구매입력
 			public static final int input_purchase = 13200;
@@ -115,7 +120,8 @@ public interface CodeMyRP {
 						
 					public static final int adjustment_inventory  = 14500;								//재고 조정
 						public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
-						public static final int registraion_adjustment_inventory = 14520;				//재고 조정 등록
+						public static final int adjustment_inventory_view = 14520;						//재고 조정 등록
+						public static final int adjustment_inventory_pro = 14530;						//재고 조정 처리
 						
 					public static final int search_distribution_order = 14600;							//물류 주문 조회
 						public static final int statement_list = 14610; 								//전체 전표 리스트

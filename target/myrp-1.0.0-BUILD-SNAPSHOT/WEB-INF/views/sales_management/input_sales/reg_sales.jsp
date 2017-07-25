@@ -27,8 +27,6 @@
 	 var selling_price = document.getElementById("selling_price");
 	 var sales_state = document.getElementById("sales_state");
 	 var condition_note_receivable = document.getElementById("condition_note_receivable");
-	
-
 	 
 	 if( product_id.value == 0 ){
 		 alert("상품이 선택되지 않았습니다. 원하는 상품을 선택해주세요.");		product_id.focus();		return false;
@@ -46,7 +44,6 @@
 		 alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");		condition_note_receivable.focus();		return false;
 	 }
 	 
-	 
 	 $('#reg_table').load('/sales_management/input_sales/reg_sales_table?product_id='+product_id.value
 							+'&company_id='+company_id.value
 							+'&employee_id='+employee_id.value 
@@ -58,11 +55,7 @@
 							+'&condition_note_receivable='+condition_note_receivable.value
 						 );	 
 	 return false;
-	 
-	 
 	 }
-	 
-		 
 	</script>
 	
 	<form action="#" name="reg_table_form" method="get" 
@@ -71,6 +64,7 @@
 		<input type="submit" value="등록하기" >
 		<input type="reset" value="재설정">
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
+		
 		
 		<hr>
 	
@@ -90,7 +84,6 @@
 			
 			<tr>
 				<!-- 1 purchase_id : 시퀀스로 입력 -->
-				
 				
 				<!-- 2 account_id 12자리 : 반복되므로 계산해서 입력 -->
 				

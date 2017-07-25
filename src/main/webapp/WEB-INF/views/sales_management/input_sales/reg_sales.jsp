@@ -19,6 +19,7 @@
 	<script>	
 	function reg_sales(){
 	 var sales_id = document.getElementById("sales_id");
+	 var order_id = 0;
 	 var company_id = document.getElementById("company_id");
 	 var employee_id = document.getElementById("employee_id");
 	 var reg_date = document.getElementById("reg_date");
@@ -45,6 +46,7 @@
 	 }
 	 
 	 $('#reg_table').load('/sales_management/input_sales/reg_sales_table?product_id='+product_id.value
+			 				+'&order_id='+order_id
 							+'&company_id='+company_id.value
 							+'&employee_id='+employee_id.value 
 							+'&reg_date='+reg_date.value
@@ -141,7 +143,7 @@
 				<th>count_sales</th>
 				<th>selling_price</th>
 				<th>sales_state</th>
-				<th>condition_note_receivable</th>
+				<th colspan="2"> condition_note_receivable</th>
 			</tr>
 			
 			
@@ -160,7 +162,7 @@
 				
 			
 				<!-- 13 condition_note_receivable -->
-				<td colsapn="2"> 
+				<td colspan="2"> 
 				<input type="number" id="condition_note_receivable" name="condition_note_receivable" 
 				placeholder="채무 기간" min="1" max="12" > 
 				</td>	

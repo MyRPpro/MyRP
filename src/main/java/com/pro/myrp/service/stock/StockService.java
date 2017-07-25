@@ -107,6 +107,35 @@ public interface StockService extends MyRPService {
 	 * @param model
 	 */
 	public void movement_warehouse_product_service(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 제고조정 > 제고조정 리스트 페이지
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void adjustment_inventory_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 제고조정 > 제고조정 입력 페이지
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void adjustment_inventory_view_service(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 제고조정 > 제고조정 처리
+	 * @author choidream
+	 * @param req
+	 * @param model
+	 * @throws Exception
+	 */
+	public void adjustment_inventory_pro_service(HttpServletRequest req, Model model) throws Exception;
+
+	
 	
 
 }

@@ -1,8 +1,6 @@
 package com.pro.myrp.persistence.sales;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -10,7 +8,6 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.pro.myrp.domain.sales_management.ModifySelectDTO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 
 @Repository
@@ -62,28 +59,28 @@ public class SalesDAOImpl implements SalesDAO {
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_account() {
+	public ArrayList<SalesDTO> select_account() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_account();
 	}
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_product() {
+	public ArrayList<SalesDTO> select_product() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_product();
 	}
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_company() {
+	public ArrayList<SalesDTO> select_company() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_company();
 	}
 
 
 	@Override
-	public ArrayList<ModifySelectDTO> select_employee() {
+	public ArrayList<SalesDTO> select_employee() {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_employee();
 	}

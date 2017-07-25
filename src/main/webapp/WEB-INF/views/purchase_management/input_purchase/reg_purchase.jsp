@@ -45,7 +45,6 @@
 		 alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");		condition_note_payable.focus();		return false;
 	 }
 	 
-	 
 	 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table?product_id='+product_id.value
 							+'&company_id='+company_id.value
 							+'&employee_id='+employee_id.value 
@@ -57,7 +56,6 @@
 							+'&condition_note_payable='+condition_note_payable.value
 						 );	 
 	 return false;
-	 
 	 }
 	
 	
@@ -85,7 +83,6 @@
 			document.getElementById("storage_in_date").valueAsDate = new Date();
 		} 
 	}
-	
 	</script>
 	
 	
@@ -94,11 +91,14 @@
 	
 		<input type="submit" value="등록하기" >
 		<input type="reset" value="재설정">
+
 		<input type="button" value="부족재고조회" onclick="return search_lack_stock()" >
 		<input type="button" value="새로입력하기" onclick="window.location='/purchase_management/input_purchase/reg_purchase'" >
 		&emsp;
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
 		<input type="button" value="검색으로 이동" onclick="window.location='/purchase_management/search_purchase/purchase_list'" >
+
+	
 		
 		<hr>
 		
@@ -148,7 +148,7 @@
 					value="<fmt:formatDate value='${now}' pattern='yyy-MM-dd'/>" >
 				</td>
 					
-				</td>
+				
 			</tr>
 			
 			<tr>
@@ -158,6 +158,7 @@
 				<th>condition_note_payable</th>
 			</tr>
 			
+			<tr>
 				<td>
 					<input type="number" id="count_purchase" value="${dto.lack_stock}" min="1" max="${dto.lack_stock}" placeholder="구매 수량" requiered  >
 				</td>
@@ -244,7 +245,7 @@
 				<th>count_purchase</th>
 				<th>supply_price</th>
 				<th>purchase_state</th>
-				<th>condition_note_payable</th>
+				<th colspan="2"> condition_note_payable</th>
 			</tr>
 			
 			
@@ -264,7 +265,7 @@
 				</td>	
 			
 				<!-- 13 condition_note_payable -->
-				<td colsapn="2"> 
+				<td colspan="2"> 
 				<input type="number" id="condition_note_payable" name="condition_note_payable" 
 				placeholder="채무 기간" min="1" max="12" > 
 				</td>	

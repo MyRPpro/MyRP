@@ -1,11 +1,8 @@
 package com.pro.myrp.persistence.sales;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import com.pro.myrp.domain.sales_management.ModifySelectDTO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
@@ -30,13 +27,13 @@ public interface SalesDAO extends MyRPDAO {
 	// modify_sales_service
 	public int update_sales(SalesDTO dto);
 
-	public ArrayList<ModifySelectDTO> select_account();
+	public ArrayList<SalesDTO> select_account();
 
-	public ArrayList<ModifySelectDTO> select_product();
+	public ArrayList<SalesDTO> select_product();
 
-	public ArrayList<ModifySelectDTO> select_company();
+	public ArrayList<SalesDTO> select_company();
 
-	public ArrayList<ModifySelectDTO> select_employee();
+	public ArrayList<SalesDTO> select_employee();
 
 	
 	
