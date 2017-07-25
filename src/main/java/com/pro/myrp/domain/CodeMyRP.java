@@ -115,7 +115,8 @@ public interface CodeMyRP {
 						
 					public static final int adjustment_inventory  = 14500;								//재고 조정
 						public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
-						public static final int registraion_adjustment_inventory = 14520;				//재고 조정 등록
+						public static final int adjustment_inventory_view = 14520;						//재고 조정 등록
+						public static final int adjustment_inventory_pro = 14530;						//재고 조정 처리
 						
 					public static final int search_distribution_order = 14600;							//물류 주문 조회
 						public static final int statement_list = 14610; 								//전체 전표 리스트

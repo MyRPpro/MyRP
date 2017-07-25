@@ -60,56 +60,6 @@
 				 		   </if>
 		                )    
 		
-		<!-- ( SELECT  *
-		          FROM  ( SELECT  sales_id AS pro_id, storage_out_date AS sto_date, count_sales AS moving_stock, sales_state AS sto_state, product_id
-		                  FROM    sales_order 
-	                      WHERE   sales_state = '22223' 
-	                      OR      sales_state = '24621' 
-			              <if test = "product != null">
-						  AND	  product_id in
-							 		 <foreach item="product" collection="product" open="(" separator="," close=")">
-							 		 	#{product}
-							 		 </foreach>
-					 	  </if>    
-		                  
-		                  UNION
-		                  
-		                  SELECT  sales_id AS pro_id, storage_out_date AS sto_date, count_sales AS moving_stock, sales_state AS sto_state, product_id
-		                  FROM    sales_order 
-	                      WHERE   sales_state = '0' 
-			              <if test = "product != null">
-						  AND	  product_id in
-							 		 <foreach item="product" collection="product" open="(" separator="," close=")">
-							 		 	#{product}
-							 		 </foreach>
-					 	  </if>    
-		                  
-		                  UNION
-		                  
-		                  SELECT	purchase_id AS pro_id, storage_in_date AS sto_date, count_purchase AS moving_stock, purchase_state AS sto_state, product_id
-		                  FROM		purchase_order
-		                  WHERE		purchase_state = '23205'
-	                      OR	  	purchase_state = '22411'		                
-	                      OR		  purchase_state = '22412'	
-                      	  <if test = "product != null">
-						  AND		product_id in
-							 		<foreach item="product" collection="product" open="(" separator="," close=")">
-							 		 	#{product}
-							 		</foreach>
-				 		   </if>	                 
-                      
-		                  UNION
-		                  
-		                  SELECT  s.stock_order_id AS pro_id, s.update_date AS sto_date, a.delete_stock AS moving_stock, s.stock_state AS sto_state, s.product_id
-		                  FROM    stock_order s JOIN  adjustment_inventory a
-		                  ON      s.stock_order_id = a.stock_order_id
-			 			   <if test = "product != null">
-					 		   WHERE  s.product_id in
-					 		   <foreach item="product" collection="product" open="(" separator="," close=")">
-					 		 	  #{product}
-					 		   </foreach>
-				 		   </if>
-		                ) -->
 		          ORDER BY sto_date
 		        )
 	 WHERE	sto_date BETWEEN #{start_day} AND #{end_day} 
@@ -203,7 +153,7 @@
  	</insert>
  	
  	<update id = "update_stock_out_storage" parameterType="java.util.Map">
- 		<if test="st_op == null and mv_op == null">	
+ 		<if test="st_op == null and mv_op == null and ad_op == null">	
 	 		UPDATE 	stock_information 
 	 		SET 	stock_amount = stock_amount - #{available_stock}
 	 		WHERE 	product_id = #{product_id} 
@@ -245,7 +195,12 @@
 	 		WHERE 	product_id = #{product_id} 
 	 		AND 	warehouse_id = #{arrive_warehouse_id}
 	 	</if>
-	 	
+	 	<if test = "ad_op == 1">
+	 		UPDATE 	stock_information 
+	 		SET 	stock_amount = stock_amount + #{delete_stock}
+	 		WHERE 	product_id = #{product_id} 
+	 		AND 	warehouse_id = #{warehouse_id}
+	 	</if> 
  	</update>
  	
  	<select id = "select_product_in_warehouse" parameterType="java.util.Map" resultType="int">
@@ -389,4 +344,27 @@
  	 WHERE		stock_order_id = #{stock_order_id}
  	</update>
  	
+ 	<select id = "select_stock_information" parameterType="java.util.Map" resultType="Stock_informationVO">
+ 		SELECT	*
+ 		FROM	stock_information
+ 		WHERE	product_id = #{product_id}
+ 		AND		warehouse_id = #{warehouse_id}
+ 	</select>
+ 	
+ 	<insert id = "insert_adjustment_inventory" parameterType="java.util.Map">
+ 		INSERT INTO adjustment_inventory(stock_order_id, taked_stock, delete_stock)
+ 		VALUES		(${stock_order_id}||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{taked_stock}, #{delete_stock})
+ 	</insert> 
+ 	
+ 	<select id = "select_only_product_id_name" resultType="ProductVO">
+ 		SELECT	product_id, product_name
+ 		FROM	product
+ 	</select>
+ 	
+ 	<select id = "select_adjustment_inventory" parameterType="java.util.Map" resultType="Adjustment_inventoryDTO">
+ 		SELECT	*
+ 		FROM	stock_order s JOIN adjustment_inventory a
+ 		ON		s.stock_order_id = a.stock_order_id
+ 		ORDER BY	s.reg_date DESC
+ 	</select>
 </mapper>
