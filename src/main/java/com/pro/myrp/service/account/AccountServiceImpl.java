@@ -15,7 +15,6 @@ import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
 import com.pro.myrp.domain.accounting_management.StatementVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
 import com.pro.myrp.persistence.account.AccountDAO;
 
 @Service
@@ -780,4 +779,82 @@ public class AccountServiceImpl implements AccountService {
 		int cnt = dao.update_modify_account(vo);
 		model.addAttribute("cnt",cnt);		
 	}
+	@Override
+	public void search_balance_sheet_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		ArrayList<JoinStatementDTO> yearDto = new ArrayList<JoinStatementDTO>();
+		yearDto = dao.get_statement_year();
+		model.addAttribute("yearDto",yearDto);
+	}
+	@Override
+	public void show_balance_sheet_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		int year = Integer.parseInt(req.getParameter("year"));
+		int quarter_end = Integer.parseInt(req.getParameter("quarter"));
+		int quarter_start = quarter_end -3;
+		if(quarter_end ==3) {
+			quarter_start = quarter_end -2;
+		}
+		
+		
+		Map<Object, Object> daoMap = new HashMap<>();
+		daoMap.put("year", year);
+		daoMap.put("quarter_start", quarter_start);
+		daoMap.put("quarter_end", quarter_end);
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		
+		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+		vos = dao.select_accounts();
+		int assetsCnt = 0;
+		int liabilitiesCnt = 0;
+		int capitalCnt = 0;
+		for(int i=0; i<vos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			AccountVO tempVO = vos.get(i);
+			String account_id = tempVO.getAccount_id();
+			String account_name = tempVO.getAccount_name();
+			daoMap.put("account_id", account_id);
+			Long sum = (long) 0;
+				if(dao.select_accounts_for_quarter_sales(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_sales(daoMap);
+				}
+				if(dao.select_accounts_for_quarter_purchase(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_purchase(daoMap);
+				}
+				if(dao.select_accounts_for_quarter_salary(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_salary(daoMap);
+				}
+				if(dao.select_accounts_for_quarter_tax(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_tax(daoMap);
+				}
+			
+			String account_class = "";
+			if(account_id.substring(4,6).equals("11")){ // 자산
+				account_class = "assets";
+				assetsCnt = assetsCnt + 1;
+			}else if(account_id.substring(4,6).equals("12")) { //부채
+				account_class = "liabilities";
+				liabilitiesCnt = liabilitiesCnt + 1;
+			}else if(account_id.substring(4,6).equals("13")) {
+				account_class = "capital";
+				capitalCnt = capitalCnt+1;
+			}
+			dto.setAccount_id(account_id);
+			dto.setAccount_name(account_name);
+			dto.setSum(sum);
+			dto.setAccount_class(account_class);
+			dtos.add(dto);
+		}
+		
+		
+		model.addAttribute("vos", vos);
+		model.addAttribute("dtos",dtos);
+		model.addAttribute("assetsCnt",assetsCnt);
+		model.addAttribute("liabilitiesCnt",liabilitiesCnt);
+		model.addAttribute("capitalCnt",capitalCnt);
+		
+	}
+	
 }

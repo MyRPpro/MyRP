@@ -1,5 +1,6 @@
 package com.pro.myrp.persistence.account;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -215,6 +216,39 @@ public class AccountDAOImpl implements AccountDAO {
 	public int update_modify_account(AccountVO vo) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.update_modify_account(vo);
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> get_statement_year() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.get_statement_year();
+	}
+	/**
+	 * 분기별 조회를 위한 계정 불러오기
+	 */
+	@Override
+	public Long select_accounts_for_quarter_sales(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts_for_quarter_sales(daoMap);
+	}
+	@Override
+	public Long select_accounts_for_quarter_purchase(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts_for_quarter_purchase(daoMap);
+	}
+	@Override
+	public Long select_accounts_for_quarter_salary(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts_for_quarter_salary(daoMap);
+	}
+	@Override
+	public Long select_accounts_for_quarter_tax(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts_for_quarter_tax(daoMap);
+	}
+	@Override
+	public ArrayList<AccountVO> select_accounts() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts();
 	}
 	
 	

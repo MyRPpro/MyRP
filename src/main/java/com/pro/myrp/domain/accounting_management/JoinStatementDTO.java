@@ -7,7 +7,6 @@ public class JoinStatementDTO {
 	public String statement_id;
 	public String purchase_id;
 	public String account_id;
-	
 	public String salary_register_id;
 	
 	public String sales_id;
@@ -27,7 +26,29 @@ public class JoinStatementDTO {
     
     public String account_balance;
     
-    public String getAccount_balance() {
+    public int year;
+    public long sum;
+    String account_class;
+    
+    public String getAccount_class() {
+		return account_class;
+	}
+	public void setAccount_class(String account_class) {
+		this.account_class = account_class;
+	}
+	public long getSum() {
+		return sum;
+	}
+	public void setSum(long sum) {
+		this.sum = sum;
+	}
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	public String getAccount_balance() {
 		return account_balance;
 	}
 	public void setAccount_balance(String account_balance) {

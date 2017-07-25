@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3> 상세 전표 조회 </h3>
-
+<button onclick="window.location='/'"> 홈으로 </button>
 <table border="1">
 	<tr>
 		<th> 

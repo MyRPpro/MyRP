@@ -1,5 +1,6 @@
 package com.pro.myrp.persistence.account;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -220,4 +221,22 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_modify_account(AccountVO vo);
+	
+	/**
+	 * 회계보고서 > 회사가 가진 전표의 모든 년  가져오기
+	 */
+	public ArrayList<JoinStatementDTO> get_statement_year();
+	
+	/**
+	 * 회계보고서 > 재무상태표 관리
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<AccountVO> select_accounts();
+	public Long select_accounts_for_quarter_sales(Map<Object, Object> daoMap);
+	public Long select_accounts_for_quarter_purchase(Map<Object, Object> daoMap);
+	public Long select_accounts_for_quarter_salary(Map<Object, Object> daoMap);
+	public Long select_accounts_for_quarter_tax(Map<Object, Object> daoMap);
+	
+	
 }

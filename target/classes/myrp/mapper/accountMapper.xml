@@ -150,9 +150,7 @@
  		</if>
  		<if test="typeCnt == 3">
  		<![CDATA[
- 		SELECT DISTINCT c.company_name
- 		  FROM company c JOIN (SELECT company_id FROM salary_register WHERE salary_register_id = #{salary_register_id}) p 
- 		                 ON c.company_id = p.company_id 
+ 		SELECT '급여' FROM dual
  		]]>
  		</if>
  		<if test="typeCnt == 4">
@@ -302,7 +300,7 @@
  		]]>
  	</select>
  	<!-- connected_id 불러오기 : salary -->
- 	<select id="select_salary_statement" resultType="AccountVO">
+ 	<select id="select_salary_statement" resultType="JoinStatementDTO">
  		<![CDATA[
  		SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
  		FROM salary_register s JOIN account a ON s.account_id = a.account_id
@@ -538,4 +536,55 @@
 		WHERE account_id = #{account_id}
 		]]>
 	</update>
+	
+	<!-- 회사가 가진 전표의 년도 모두 가져오기 -->
+	<select id="get_statement_year" resultType="JoinStatementDTO">
+		SELECT DISTINCT to_number(to_char(reg_date, 'yyyy')) year  FROM statement
+	</select>
+	<!-- 분기별 계정 가져오기 - account_id, account_name 가져오기 -->
+	<select id="select_accounts" resultType="AccountVO">
+		<![CDATA[
+		 SELECT account_id, account_name FROM account
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - sales-->
+	<select id="select_accounts_for_quarter_sales" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN sales_statement ss ON s.statement_id = ss.statement_id 
+     	WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND ss.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ss.account_id
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - purchase-->
+	<select id="select_accounts_for_quarter_purchase" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN purchase_statement ps ON s.statement_id = ps.statement_id
+		WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND ps.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ps.account_id
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - salary-->
+	<select id="select_accounts_for_quarter_salary" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN salary_register_statement srs ON s.statement_id = srs.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND srs.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY srs.account_id
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - tax-->
+	<select id="select_accounts_for_quarter_tax" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN tax_statement tax ON s.statement_id = tax.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND tax.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY tax.account_id
+		]]>
+	</select>
 </mapper>

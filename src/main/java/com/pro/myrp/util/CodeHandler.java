@@ -118,6 +118,15 @@ public class CodeHandler {
 			
 	//회계관리
 	public static final int accounting_management = 15000;
+		//회계보고서
+		public static final int financial_statements = 15100; 
+			public static final int search_balance_sheet = 15110;				//재무상태표 조회
+			public static final int show_balance_sheet = 15111; 
+			public static final int search_profit_and_loss_statement = 15120; 	// 손익계산서 조회
+			public static final int show_profit_and_loss_statement = 15121;
+			public static final int search_statement_of_cash_flows = 15130; 	//현금흐름표 조회
+			public static final int show_statement_of_cash_flows = 15131;
+		//계좌관리
 		public static final int bank_account_registration = 15200;
 			public static final int bank_account_list = 15210;			//계좌 리스트
 			public static final int call_bank_account_id = 15220; 		//아이디 불러오기

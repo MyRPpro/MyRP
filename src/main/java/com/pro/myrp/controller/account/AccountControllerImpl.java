@@ -223,5 +223,24 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.modify_account_pro_service(model);
 		return "redirect:"+ code.c(accounting_management, account_management, search_account_list);
 	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_balance_sheet")
+	public String search_balance_sheet(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_balance_sheet));
+		model.addAttribute("req",req);
+		service.search_balance_sheet_service(model);
+		return code.c(accounting_management, financial_statements, search_balance_sheet);
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_balance_sheet")
+	public String show_balance_sheet(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_balance_sheet));
+		model.addAttribute("req",req);
+		service.show_balance_sheet_service(model);
+		return code.c(accounting_management, financial_statements, show_balance_sheet);
+	}
+	
 	
 }
