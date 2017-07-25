@@ -364,6 +364,7 @@
  	<select id = "select_adjustment_inventory" parameterType="java.util.Map" resultType="Adjustment_inventoryDTO">
  		SELECT	*
  		FROM	stock_order s JOIN adjustment_inventory a
- 		ON		a.stock_order_id = a.stock_order_id
+ 		ON		s.stock_order_id = a.stock_order_id
+ 		ORDER BY	s.reg_date DESC
  	</select>
 </mapper>
