@@ -421,7 +421,19 @@ public class purchaseServiceImpl implements purchaseService {
 
 		
 	}
+
 	
+	@Override
+	public void reg_purchase_search_service(Model model) {
+		
+		System.out.println("  -> reg_purchase_search_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		
+		
+	}
 	
 	
 }

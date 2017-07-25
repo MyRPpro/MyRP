@@ -776,7 +776,7 @@ INSERT INTO account (account_id, account_balance, account_name) VALUES ('5000110
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011030000', '0', '부가세대급금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011040000', '0', '재고자산');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011050000', '0', '상품매입');
-INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012030000', '0', '상품매출');
+INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014030000', '0', '상품매출');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012010000', '0', '매입채무');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012020000', '0', '부가세예수금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500013010000', '0', '이익잉여금');
