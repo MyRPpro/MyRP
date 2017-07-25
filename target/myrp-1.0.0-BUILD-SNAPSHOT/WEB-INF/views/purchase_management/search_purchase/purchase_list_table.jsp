@@ -2,6 +2,15 @@
     pageEncoding="UTF-8"%>
  <%@ include file="../../setting.jsp" %>
 <body>
+
+	<c:if test="${cnt==0}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("검색결과가 없습니다. 전체내역을 표시합니다.");
+				search_list(1,0);
+			}, 200);
+		</script>
+	</c:if>
 	
 	
 	<table border="1">
@@ -25,17 +34,16 @@
 		<c:forEach var="vo" items="${purchaseVOs}">
 		
 		<tr>
-			<td>${vo.purchase_id}</td>
+			<!-- 구매번호를 눌렀을 때 이동 -->
+			<td>
+				<a href="javascript:detail_page('${dto.purchase_id},${dto.sales_state},${dto.account_id}')">
+					${dto.purchase_id}
+				</a>
+			</td>
 			<td>${vo.account_id}</td>
 			<td>${vo.order_id}</td>
 			<td>${vo.product_id}</td>
-			
-			<td>
-				<a href="javascript:detail_page('${vo.company_id}')">
-					${vo.company_name}
-				</a>
-			</td>
-			
+			<td>${vo.company_name}</td>
 			<td>${vo.employee_id}</td>
 			<td>${vo.reg_date}</td>
 			<td>${vo.update_date}</td>
@@ -50,7 +58,38 @@
 		
 	</table>
 	
-	<script src="//code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript">	
+	
+	function detail_page(param){
+		
+		console.log(" param :" + param )
+		
+		param = param.split(',');
+		console.log(" sales_id :" + param[0] );
+		console.log(" sales_state :" + param[1] ); 
+		console.log(" order_id :" + param[2] ); 
+		
+		var state = param[1];
+		
+		if( state == "23202" ){
+			$('#list_dateil').load('/purchase_management/search_purchase/modify_purchase?purchase_id='+param[0]
+			+'&purchase_state='+param[1]);
+			return false;
+			
+		} else {
+			$('#list_dateil').load('/purchase_management/search_purchase/detail_purchase?purchase_id='+param[0]
+			+'&purchase_state='+param[1]
+			+'&account_id='+param[2]);
+			return false;
+			
+		}
+		
+	}
+	
+	</script>
+	
+	
+	
 	<script>	
 	
 	function detail_page(company_id){

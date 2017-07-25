@@ -28,7 +28,8 @@
 		</td>
 		<th> connected_id </th>
 		<td colspan="2">
-			<input type="text" name="connected_id"> 
+			
+			<input type="text" name="connected_id" >  
 			<input type="button" value="조회" onclick="call_connected_id()" name="calling_button">
 		</td>
 	</tr>
