@@ -102,5 +102,7 @@ public interface SalesDAO extends MyRPDAO {
 
 	public String select_account_sum();
 
+	public int select_strage_out();
+
 	
 }

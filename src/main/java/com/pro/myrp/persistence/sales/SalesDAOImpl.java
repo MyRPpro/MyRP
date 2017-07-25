@@ -293,6 +293,13 @@ public class SalesDAOImpl implements SalesDAO {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_account_sum();
 	}
+
+
+	@Override
+	public int select_strage_out() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_strage_out();
+	}
 	
 
 	

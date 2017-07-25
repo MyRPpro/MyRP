@@ -322,77 +322,54 @@
  	</select>
  	
  	
- 	
- 	
- 	<!-- 판매내역 자세히 보기 v2
- 	<select id="select_detail_sales" parameterType="String"
- 	resultType="SalesDTO">
- 		<![CDATA[
-			SELECT  * 
-		    FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID,  S.ORDER_ID, S.PRODUCT_ID, 
-		                     S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
-		                     S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
-		                     S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, 
-                        	 C.COMPANY_NAME, A.ACCOUNT_NAME
-				     FROM    SALES_ORDER S
-			         JOIN    COMPANY C
-			         ON      S.COMPANY_ID = C.COMPANY_ID 
-			         JOIN    ACCOUNT A
-			         ON      S.ACCOUNT_ID = A.ACCOUNT_ID
-			        )
-			WHERE 	SALES_ID = #{sales_id}
- 		]]>
- 	</select>
- 	 -->
- 	
- 	<!-- 판매내역 자세히 보기
- 	<select id="select_detail_sales" parameterType="String"
- 	resultType="SalesDTO">
- 		<![CDATA[
-		SELECT  * 
-	    FROM   ( SELECT  S.SALES_ID, S.ACCOUNT_ID, S.ORDER_ID, S.PRODUCT_ID, 
-		                    S.COMPANY_ID, S.EMPLOYEE_ID, S.REG_DATE, S.UPDATE_DATE, 
-		                    S.STORAGE_OUT_DATE, S.COUNT_SALES, S.SELLING_PRICE, 
-		                    S.CONDITION_NOTE_RECEIVABLE, S.SALES_STATE, C.COMPANY_NAME
-			     FROM    SALES_ORDER S , COMPANY C
-	             WHERE   S.COMPANY_ID = C.COMPANY_ID )
-		WHERE 	COMPANY_ID = #{company_id}
-		AND		SALES_ID = #{sales_id}
- 		]]>
- 	</select>
- 	 -->
+
  	
  	<!-- 판매 정보 수정 -->
  	<update id="update_sales" parameterType="SalesDTO">
  		<![CDATA[
 		UPDATE	SALES_ORDER 
-		SET		SALES_ID = #{sales_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
-				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id},  EMPLOYEE_ID = #{employee_id}, 
-				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_OUT_DATE = #{storage_out_date},
-				COUNT_SALES = #{count_sales}, SELLING_PRICE = #{selling_price}, 
-				SALES_STATE = #{sales_state}, CONDITION_NOTE_RECEIVABLE = #{condition_note_receivable}
-		WHERE	SALES_ID = #{sales_id}
-		AND		ACCOUNT_ID = #{account_id}
+		SET		SALES_ID = '${sales_id}', ACCOUNT_ID = '${account_id}', ORDER_ID = '${order_id}',
+				PRODUCT_ID = '${product_id}', COMPANY_ID = '${company_id}',  EMPLOYEE_ID = '${employee_id}', 
+				REG_DATE = '${reg_date}', UPDATE_DATE = '${update_date}', STORAGE_OUT_DATE = '${storage_out_date}',
+				COUNT_SALES = '${count_sales}', SELLING_PRICE = '${selling_price}', 
+				SALES_STATE = '${sales_state}', CONDITION_NOTE_RECEIVABLE = '${condition_note_receivable}'
+		WHERE	SALES_ID = '${sales_id}'
+		AND		ACCOUNT_ID = '${account_id}'
  		]]>
  	</update>
  	
  	
  	
- 	<!-- 판매 정보 수정 
- 	<update id="update_sales" parameterType="SalesDTO">
- 		<![CDATA[
-		UPDATE	SALES_ORDER 
-		SET		SALES_ID = #{sales_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
-				PRODUCT_ID = #{product_id}, COMPANY_ID = #{company_id},  EMPLOYEE_ID = #{employee_id}, 
-				REG_DATE = #{reg_date}, UPDATE_DATE = #{update_date}, STORAGE_OUT_DATE = #{storage_out_date},
-				COUNT_SALES = #{count_sales}, SELLING_PRICE = #{selling_price}, 
-				SALES_STATE = #{sales_state}, CONDITION_NOTE_RECEIVABLE = #{condition_note_receivable}
-		WHERE	COMPANY_ID = #{company_id}
-		AND		SALES_ID = #{sales_id}
- 		]]>
- 	</update>
- 	-->
  	
+ 	
+ 	 	<!-- 판매 입력  -->
+ 	<insert id="insert_reg_sales" parameterType="salesDTO">
+ 		
+ 		INSERT INTO SALES_ORDER (	
+				SALES_ID, ORDER_ID, ACCOUNT_ID, 
+			    PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID,
+			    REG_DATE, UPDATE_DATE,  STORAGE_OUT_DATE,
+			    COUNT_SALES, SELLING_PRICE, SALES_STATE,
+			    CONDITION_NOTE_RECEIVABLE)
+		VALUES ( 
+				'${sales_id}',  
+			    0,
+			    '${account_id}', 
+			    '${product_id}', 
+			    '${company_id}', 
+			    '${employee_id}', 
+			    '${reg_date}', 
+			    SYSDATE, 
+			    '${storage_out_date}', 
+			    '${count_sales}', 
+			    '${selling_price}', 
+			    '${sales_state}', 
+			    '${condition_note_receivable}' 
+			   )
+		
+ 	</insert>
+ 	
+ 
  	
  	
  	<select id="select_account" resultType="SalesDTO">
@@ -400,15 +377,22 @@
 	</select>
 		
 	<select id="select_product" resultType="SalesDTO">
-		SELECT PRODUCT_ID, PRODUCT_NAME FROM PRODUCT
+		SELECT PRODUCT_ID, PRODUCT_NAME 
+		FROM PRODUCT
+		WHERE USE_STATE = 'Y'
 	</select>
 	
 	<select id="select_company" resultType="SalesDTO">
-		SELECT COMPANY_ID, COMPANY_NAME FROM COMPANY
+		SELECT COMPANY_ID, COMPANY_NAME 
+		FROM COMPANY
+	    WHERE USE_STATE = 'Y'
+	    AND COMPANY_TYPE = 'C'
 	</select>
 		
 	<select id="select_employee" resultType="SalesDTO">	
-		SELECT EMPLOYEE_ID, EMPLOYEE_NAME FROM EMPLOYEE
+		SELECT EMPLOYEE_ID, EMPLOYEE_NAME 
+	    FROM EMPLOYEE NATURAL JOIN DEPARTMENT
+	    WHERE ACCESS_ROLE = 'SA'
 	</select>	 	
  	
  	
@@ -502,32 +486,7 @@
 	
 	
  	
- 	<!-- 판매 입력  -->
- 	<insert id="insert_reg_sales" parameterType="salesDTO">
- 		
- 		INSERT INTO SALES_ORDER (	
-				SALES_ID, ORDER_ID, ACCOUNT_ID, 
-			    PRODUCT_ID, COMPANY_ID, EMPLOYEE_ID,
-			    REG_DATE, UPDATE_DATE,  STORAGE_OUT_DATE,
-			    COUNT_SALES, SELLING_PRICE, SALES_STATE,
-			    CONDITION_NOTE_RECEIVABLE)
-		VALUES ( 
-				'${sales_id}',  
-			    0,
-			    '${account_id}', 
-			    '${product_id}', 
-			    '${company_id}', 
-			    '${employee_id}', 
-			    '${reg_date}', 
-			    SYSDATE, 
-			    '${storage_out_date}', 
-			    '${count_sales}', 
-			    '${selling_price}', 
-			    '${sales_state}', 
-			    '${condition_note_receivable}' 
-			   )
-		
- 	</insert>
+
  	
  	<insert id="insert_reg_sales_statement" parameterType="salesDTO">
  		
@@ -896,9 +855,9 @@
  	<update id="update_req_storage_out" parameterType="java.util.Map">
  		<![CDATA[
  			UPDATE	sales_order
- 			SET		sales_state = #{sales_state}
- 			WHERE	sales_id = #{sales_id}
- 			AND		account_id = #{account_id}
+ 			SET		sales_state = '${sales_state}'
+ 			WHERE	sales_id = '${sales_id}'
+ 			AND		account_id = '${account_id}'
  		]]>
  	</update>
  	
@@ -911,6 +870,16 @@
 			
  		]]>
  	</select>
+
+
+	<select id="select_strage_out" resultType="int">
+ 		<![CDATA[
+ 			SELECT CODE
+		    FROM  STATE
+		    WHERE KOR_NAME = '영업출고요청'
+ 		]]>
+ 	</select>
+
 
 
 	<update id="update_account_approve_serch_sales" >
@@ -1011,8 +980,9 @@
 		                    WHERE   STOCK_STATE = 24752
 		                    )
 		AND     SALES_STATE = 22222
-		OR		SALES_STATE = 24752
 		AND     ACCOUNT_ID = 500014030000
+		OR		SALES_STATE = 24752
+		
 		
 	</update>
  	
