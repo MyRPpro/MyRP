@@ -13,10 +13,6 @@
 
 	<h3> 판매 리스트 페이지 : sales_list.jsp</h3>
 	
-	<script type="text/javascript">
-	
-	</script>
-	
 	<form action="#" name="sales_list" method="post" onsubmit="return search_list(1,1)" >
 		<input type="text" name="search_str" placeholder="판매번호을 입력하세요." minlength="1">
 		<input type="submit" value="검색">

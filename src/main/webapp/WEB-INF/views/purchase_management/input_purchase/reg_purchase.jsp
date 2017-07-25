@@ -67,7 +67,8 @@
 		<input type="button" value="구매목록조회" onclick="window.location='/purchase_management/search_purchase/purchase_list'" >
 		
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
-		<input type="button" value="검색으로 이동" onclick="window.location='/purchase_management/search_purchase/purchase_list'" >
+		<input type="button" value="구매검색으로 이동" onclick="window.location='/purchase_management/search_purchase/purchase_list'">
+
 		
 		<hr>
 	

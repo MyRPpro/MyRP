@@ -60,36 +60,7 @@
 	 
 	 }
 	
-	 /* 
-	 var product_id = document.getElementById("product_id");
-	 var product_id_value = product_id.options[select.selectedIndex].value;
-	 
-	 
-	 var product_id = document.getElementsByName("product_id")[0].selected;
-	 console.log(product_id);
-	 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table?product_id='+product_id
-				);	 
-		 */ 
-		 /* 	var date='';
-			$.each( $('#reg_purchase').serializeArray(),function(key,val) ){
-				date += ","+val['name']+":"+val['value'];
-			}); */
-			
-		/* 
-			$.ajax{
-				url : "/purchase_management/input_purchase/reg_purchase_table"
-						+"?product_id="+product_id
-				,data : date
-				,type: 'get'
-				,success : fuction(reg_purchase){
-					$('#reg_table').html(reg_purchase);
-				}
-				
-			}
-		 */
-			 
-	 
-		 
+	
 	</script>
 	
 	<form action="#" name="reg_table_form" method="get" 
@@ -117,36 +88,8 @@
 			
 			<tr>
 				<!-- 1 purchase_id : 시퀀스로 입력 -->
-				
-				
 				<!-- 2 account_id 12자리 : 반복되므로 계산해서 입력 -->
-				 <%-- <td> 
-					<select name="account_id">
-					  <datalist id="account_id">
-					  	<option value="500012010000">1.매입채무</option>
-					  	<option value="500011030000">2.부가세대급금</option>
-					  	<option value="500011050000">3.상품매입</option>
-					  	
-					  </datalist>
-					 
-					  <datalist id="account_id">
-					    <c:forEach var="account" items="${account_ids}">
-					  		<option value="${account.account_id}">${account.account_name} </option>
-					  	</c:forEach>
-					  </datalist>
-					   
-				</td>--%>
-				
 				<!-- 3 order_id : 타부서에서 입력함 -->
-				<%-- <td> 
-					<select name="order_id">
-					  <datalist id="order_id">
-					    <c:forEach var="order" items="${order_ids}">
-					  		<option value="${order.order_id}">${order.order_id} </option>
-					  	</c:forEach>
-					  </datalist>
-				</td> --%>
-				
 				<!-- 4 product_id -->
 				<td> 
 					<select name="product_id" id="product_id">
@@ -233,79 +176,6 @@
 		<p> 해당란에 없는 칼럼은 시퀀스 또는 기본값으로 입력됩니다. </p>
 		<p> 입력이 완료된 내용은 검색페이지에서 확인할 수 있습니다. </p>
 	</div>
-	
-	
-	
-	
-	
-	<!-- ----------------------------------------------------------------------- -->
-	
-	
-	<!-- 
-	<table border="1">
-		
-		<tr>
-			<th>purchase_id</th>
-			<th>account_id</th>
-			<th>order_id</th>
-			<th>product_id</th>
-			<th>company_name</th>
-			<th>employee_id</th>
-			<th>reg_date</th>
-			<th>update_date</th>
-			<th>storage_in_date</th>
-			<th>count_purchase</th>
-			<th>supply_price</th>
-			<th>purchase_state</th>
-			<th>condition_note_payable</th>
-		</tr>
-		
-		<tr>
-			1 purchase_id
-			<td> <input type="text" name="purchase_id"  maxlength="10" required > </td>
-			
-			2 account_id
-			<td> <input type="text" name="account_id" maxlength="12" required> </td>
-			
-			3 order_id
-			<td> <input type="text" name="order_id" maxlength="12" required > </td>
-			
-			4 product_id
-			<td> <input type="text" name="product_id" maxlength="10" required > </td>
-			
-			5 company_name
-			<td> <input type="text" name="company_id" maxlength="10" required > </td>
-			
-			6 employee_id
-			<td> <input type="number" name="employee_id" maxlength="2" required > </td>
-			
-			7  reg_date
-			<td> <input type="date" name="reg_date" required > </td>
-			
-			8 update_date	
-			<td> <input type="date" name="update_date" readonly > </td>
-			
-			9 storage_in_date
-			<td> <input type="date" name="storage_in_date" > </td>
-			
-			10 count_purchase
-			<td> <input type="number" name="count_purchase" min="1" max="9999" requiered > </td>
-			
-			11 supply_price
-			<td> <input type="number" name="supply_price" min="1" max="9999999999" requiered ></td>
-			
-			12 purchase_state
-			<td> <input type="number" name="purchase_state" value="25451"> </td>	미승인 상태 
-			
-			13 condition_note_payable
-			<td> <input type="number" name="condition_note_payable" min="1" max="12"> </td>	
-		</tr>
-		
-	</table>
-	 -->
-	
-	
-	
 	
 	
 </body>

@@ -60,13 +60,16 @@ public interface CodeMyRP {
 
 		//구매관리
 		public static final int purchase_management = 13000;
-			// 구매검색
-			public static final int search_purchase 		 = 13100;	// 구매 검색
-				public static final int purchase_list 		 = 13110;	// 구매 리스트
-				public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
-				public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
-				public static final int detail_purchase 	 = 13140;	// 구매 상세
-				public static final int modify_purchase 	 = 13150;	// 구매 수정
+			
+		// 구매검색
+		public static final int search_purchase 		 = 13100;	// 구매 검색
+			public static final int purchase_list 		 = 13110;	// 구매 리스트
+			public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
+			public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
+			public static final int detail_purchase 	 = 13140;	// 구매 상세
+			public static final int detail_purchase_pro  = 13150;	// 구매 상세 처이
+			public static final int modify_purchase 	 = 13160;	// 구매 수정
+			public static final int modify_purchase_pro  = 13170;	// 구매 수정 처리
 				
 			// 구매입력
 			public static final int input_purchase = 13200;
