@@ -15,7 +15,7 @@
  	
  	<!-- 구매내역 목록 -->
  	<select id="select_purchase_list" parameterType="java.util.Map"
- 	resultType="PurchaseVO">
+ 	resultType="PurchaseDTO">
  		<![CDATA[
 	   SELECT  *
 		FROM    ( SELECT PURCHASE_ID, ACCOUNT_ID, ORDER_ID, PRODUCT_ID, 
@@ -39,7 +39,7 @@
  	
  	<!-- 구매내역 자세히 보기 -->
  	<select id="select_detail_purchase" parameterType="String"
- 	resultType="PurchaseVO">
+ 	resultType="PurchaseDTO">
  		<![CDATA[
 		SELECT  * 
 	    FROM   ( SELECT  P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
@@ -55,7 +55,7 @@
  	
  	
  	<!-- 구매 정보 수정 -->
- 	<update id="update_purchase" parameterType="PurchaseVO">
+ 	<update id="update_purchase" parameterType="PurchaseDTO">
  		<![CDATA[
 		UPDATE	PURCHASE_ORDER 
 		SET		PURCHASE_ID = #{purchase_id}, ACCOUNT_ID = #{account_id}, ORDER_ID = #{order_id},
@@ -69,42 +69,429 @@
  	
  	
  	
- 	<!-- 구매 바로 검색 개수 -->
- 	<select id="count_quick_serch_purchase" parameterType="String"
+ 	<!-- 구매 리스트 : 검색 개수 -->
+ 	<select id="select_search_purchase_cnt" parameterType="String"
  	resultType="int">
  		<![CDATA[
-		SELECT  COUNT(P.PURCHASE_ID) 
-	    FROM	PURCHASE_ORDER P
-	    JOIN	COMPANY C
-	    ON		P.COMPANY_ID = C.COMPANY_ID
-		WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%'
+		SELECT COUNT(PURCHASE_ID)  
+	    FROM	PURCHASE_ORDER
+		WHERE 	PURCHASE_ID LIKE '%'||#{search_str}||'%'
+ 		]]>
+ 	</select>
+
+ 	
+ 	<!-- 구매 리스트 : 상태 업데이트 : 구매전표승인요청 23202 -> 구매전표승인완료 23203  -->
+ 	<update id="update_account_approve_purchase" >
+		<![CDATA[
+		UPDATE  PURCHASE_ORDER                                 
+		SET     PURCHASE_STATE = 23203                         
+		WHERE   PURCHASE_ID IN (SELECT PURCHASE_ID
+			                    FROM    SALES_STATEMENT
+			                    WHERE   STATEMENT_ID IN (SELECT  ORDER_ID
+			                                            FROM    ORDER_STATE
+			                                            WHERE   ORDER_ID LIKE '5470%'
+			                                            AND     ORDER_STATE = 25452
+			                                            )
+		                    )
+		AND     PURCHASE_STATE = 23202
+		]]>
+	</update>
+ 	
+ 	
+ 	<!-- 구매 리스트 : 전표승인 개수 조회 -->
+ 	<select id="select_account_approve_purchase_cnt" resultType="int">>
+ 		<![CDATA[
+		SELECT 	COUNT(PURCHASE_ID)  
+	    FROM	PURCHASE_ORDER
+		WHERE 	PURCHASE_STATE = 23203	
  		]]>
  	</select>
  	
  	
- 	<!-- 구매 바로 검색 -->
- 	<select id="select_quick_serch_purchase" parameterType="java.util.Map"
- 	resultType="PurchaseVO">
+ 	<!-- 구매 리스트 : 상태 업데이트 : 구매입고요청 23204 -> 구매입고완료 23205  -->
+ 	<update id="update_stock_in_purchase" >
  		<![CDATA[
- 		SELECT  * 
-		FROM (	SELECT   P.PURCHASE_ID, P.ACCOUNT_ID, P.ORDER_ID, P.PRODUCT_ID, 
-		                 P.COMPANY_ID, P.EMPLOYEE_ID, P.REG_DATE, P.UPDATE_DATE, 
-		                 P.STORAGE_IN_DATE, P.COUNT_PURCHASE, P.SUPPLY_PRICE, 
-		                 P.PURCHASE_STATE, P.CONDITION_NOTE_PAYABLE, C.COMPANY_NAME, rownum rNum
-			    FROM	PURCHASE_ORDER P
-			    JOIN	COMPANY C
-			    ON		P.COMPANY_ID = C.COMPANY_ID
-				WHERE 	C.COMPANY_NAME LIKE '%'||#{search_str}||'%' )
-		WHERE rNum >= #{start} AND rNUM <= #{end}
-		ORDER BY PURCHASE_ID
+		UPDATE  PURCHASE_ORDER                                 
+		SET     PURCHASE_STATE = 23205                         
+		WHERE   PURCHASE_ID IN (SELECT STOCK_ORDER_TYPE
+		                    FROM    STOCK_ORDER
+		                    WHERE   STOCK_STATE = 24203
+		                    )
+		AND     PURCHASE_STATE = 23204
+		AND     ACCOUNT_ID = 500011050000
 		
  		]]>
+ 	</update>
+ 	
+ 	
+ 	<!-- 구매 리스트 : 입고완료 개수  -->
+ 	<select id="select_stock_in_purchase_cnt" resultType="int">>
+ 		<![CDATA[
+ 		SELECT 	COUNT(PURCHASE_ID)  
+	    FROM	PURCHASE_ORDER
+		WHERE 	PURCHASE_STATE = 23205		
+ 		]]>
  	</select>
+ 	
+ 	
+ 	<!-- 구매 리스트 : 구매전표승인 요청 개수 -->
+ 	<select id="select_checkout_purchase_cnt" resultType="int">>
+ 		<![CDATA[
+ 		SELECT 	COUNT(PURCHASE_ID)  
+	    FROM	PURCHASE_ORDER
+		WHERE 	PURCHASE_STATE = 23202		
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 구매 리스트 : 구매전표승인 요청 내용 -->
+ 	<select id="select_all_purchase_cnt" resultType="int">>
+ 		<![CDATA[
+ 		SELECT 	COUNT(PURCHASE_ID)  
+	    FROM	PURCHASE_ORDER
+ 		]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 구매리스트 : 검색 내역 목록 -->
+ 	<select id="select_purchase_list" parameterType="java.util.Map" 
+ 	resultType="SalesDTO">
+ 	<![CDATA[
+ 	SELECT  	*
+	FROM    ( 
+			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+	
+	     	FROM   (  SELECT 
+			                PO.PURCHASE_ID,
+                       		PO.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  PO.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+			                PO.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  PO.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+			                PO.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  PO.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  PO.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			                PO.REG_DATE, 
+                       		PO.UPDATE_DATE, 
+			                PO.STORAGE_IN_DATE, 
+			                PO.COUNT_PURCHASE,
+			                PO.SUPPLY_PRICE, 
+			                PO.CONDITION_NOTE_PAYABLE,
+			                PO.PURCHASE_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  PO.PURCHASE_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+
+	                FROM	PURCHASE_ORDER PO
+	                WHERE 	PO.PURCHASE_ID LIKE '%'||#{search_str}||'%'
+	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
+	                )
+	          )
+	WHERE 	rNum BETWEEN #{start} AND #{end}
+	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 구매리스트 : 전표 조회 목록  -->
+ 	<select id="select_account_approve_purchase_list" parameterType="java.util.Map" 
+ 	resultType="SalesDTO">
+ 	<![CDATA[
+ 	SELECT  	*
+	FROM    ( 
+			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+	
+	     	FROM   (  SELECT 
+			                PO.PURCHASE_ID,
+                       		PO.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  PO.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+			                PO.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  PO.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+			                PO.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  PO.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  PO.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			                PO.REG_DATE, 
+                       		PO.UPDATE_DATE, 
+			                PO.STORAGE_IN_DATE, 
+			                PO.COUNT_PURCHASE,
+			                PO.SUPPLY_PRICE, 
+			                PO.CONDITION_NOTE_PAYABLE,
+			                PO.PURCHASE_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  PO.PURCHASE_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+
+	                FROM	PURCHASE_ORDER PO
+	                WHERE 	PO.PURCHASE_STATE IN 23203
+	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
+	                )
+	          )
+	WHERE 	rNum BETWEEN #{start} AND #{end}
+	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 구매리스트 : 입고요청 목록 -->
+ 	<select id="select_stock_in_purchase_list" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 	<![CDATA[
+ 	SELECT  	*
+	FROM    ( 
+			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+	
+	     	FROM   (  
+	     			SELECT 
+			                PO.PURCHASE_ID,
+                       		PO.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  PO.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+			                PO.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  PO.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+			                PO.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  PO.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  PO.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			                PO.REG_DATE, 
+                       		PO.UPDATE_DATE, 
+			                PO.STORAGE_IN_DATE, 
+			                PO.COUNT_PURCHASE,
+			                PO.SUPPLY_PRICE, 
+			                PO.CONDITION_NOTE_PAYABLE,
+			                PO.PURCHASE_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  PO.PURCHASE_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+
+	                FROM	PURCHASE_ORDER PO
+	                WHERE 	PO.PURCHASE_STATE IN 23205
+	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
+	                )
+	          )
+	WHERE 	rNum BETWEEN #{start} AND #{end}
+	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
+ 	]]>
+ 	</select>
+ 	
+ 	<!-- 구매리스트 : 수정 가능 전표  목록 -->
+ 	<select id="select_checkout_purchase_list" parameterType="java.util.Map"
+ 	resultType="SalesDTO">
+ 	<![CDATA[
+ 	SELECT  	*
+	FROM    ( 
+			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+	
+	     	FROM   (  
+	     			SELECT 
+			                PO.PURCHASE_ID,
+                       		PO.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  PO.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+			                PO.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  PO.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+			                PO.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  PO.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  PO.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			                PO.REG_DATE, 
+                       		PO.UPDATE_DATE, 
+			                PO.STORAGE_IN_DATE, 
+			                PO.COUNT_PURCHASE,
+			                PO.SUPPLY_PRICE, 
+			                PO.CONDITION_NOTE_PAYABLE,
+			                PO.PURCHASE_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  PO.PURCHASE_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+
+	                FROM	PURCHASE_ORDER PO
+	                WHERE 	PO.PURCHASE_STATE IN 23202
+	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
+	                )
+	          )
+	WHERE 	rNum BETWEEN #{start} AND #{end}
+	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 구매리스트 : 전체 목록 -->
+ 	<select id="select_purchase_All_list" parameterType="java.util.Map" 
+ 	resultType="SalesDTO">
+ 	<![CDATA[
+ 	SELECT  	*
+	FROM    ( 
+			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+	
+	     	FROM   (  
+	     			SELECT 
+			                PO.PURCHASE_ID,
+                       		PO.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  PO.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+			                PO.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  PO.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+			                PO.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  PO.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  PO.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			                PO.REG_DATE, 
+                       		PO.UPDATE_DATE, 
+			                PO.STORAGE_IN_DATE, 
+			                PO.COUNT_PURCHASE,
+			                PO.SUPPLY_PRICE, 
+			                PO.CONDITION_NOTE_PAYABLE,
+			                PO.PURCHASE_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  PO.PURCHASE_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
+
+	                FROM	PURCHASE_ORDER PO
+	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
+	                )
+	          )
+	WHERE 	rNum BETWEEN #{start} AND #{end}
+	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
+ 	]]>
+ 	</select>
+
+ 	
+ 		 
+
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  	
  	
  	
  	<!-- 상품 테이블 목록 불러오기 -->
- 	<select id="select_product_ids" resultType="PurchaseVO">
+ 	<select id="select_product_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	PRODUCT_ID, PRODUCT_NAME
 		FROM 	PRODUCT
@@ -112,7 +499,7 @@
  	</select>
  	
  	<!-- 거래처 테이블 목록 불러오기 -->
- 	<select id="select_company_ids" resultType="PurchaseVO">
+ 	<select id="select_company_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	COMPANY_ID, COMPANY_NAME
 		FROM 	COMPANY
@@ -120,7 +507,7 @@
  	</select>
  	
  	<!-- 사원 테이블 목록 불러오기 -->
- 	<select id="select_employee_ids" resultType="PurchaseVO">
+ 	<select id="select_employee_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
 		FROM 	EMPLOYEE
@@ -128,7 +515,7 @@
  	</select>
  	
  	<!-- 오더 테이블 목록 불러오기 -->
- 	<select id="select_account_ids" resultType="PurchaseVO">
+ 	<select id="select_account_ids" resultType="PurchaseDTO">
  		<![CDATA[
  		SELECT 	ACCOUNT_ID, ACCOUNT_NAME
 		FROM 	ACCOUNT
@@ -157,7 +544,7 @@
 
  	
  	<!-- 구매 입력  -->
- 	<insert id="insert_reg_purchase" parameterType="PurchaseVO">
+ 	<insert id="insert_reg_purchase" parameterType="PurchaseDTO">
  		
  		INSERT INTO PURCHASE_ORDER (	
 				PURCHASE_ID, ORDER_ID, ACCOUNT_ID, 
@@ -167,7 +554,7 @@
 			    CONDITION_NOTE_PAYABLE)
 		VALUES ( 
 				#{purchase_id},  -- PURCHASE_ID
-			    2000||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
+			    3110||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
 			    	||LPAD(ORDER_SEQ.NEXTVAL,2,0), <!-- ORDER_ID -->
 			    #{account_id}, <!-- ACCOUNT_ID -->
 			    #{product_id}, <!-- PRODUCT_ID -->
@@ -184,7 +571,7 @@
 		
  	</insert>
  	
- 	<insert id="insert_reg_purchase_statement" parameterType="PurchaseVO">
+ 	<insert id="insert_reg_purchase_statement" parameterType="PurchaseDTO">
  		
 		INSERT INTO PURCHASE_STATEMENT
       			  ( STATEMENT_ID, PURCHASE_ID, ACCOUNT_ID )
@@ -197,7 +584,7 @@
  	</insert>
  	
  	<!-- STATEMENT_ID 불러오기 -->
- 	<select id="select_purchase_order" parameterType="String" resultType="PurchaseVO">
+ 	<select id="select_purchase_order" parameterType="String" resultType="PurchaseDTO">
  		<![CDATA[
 		SELECT  *
 		FROM    ( 

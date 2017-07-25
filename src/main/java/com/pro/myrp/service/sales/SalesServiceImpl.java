@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.pro.myrp.domain.sales_management.ModifySelectDTO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.sales.SalesDAO;
 
@@ -69,9 +68,6 @@ public class SalesServiceImpl implements SalesService {
 			System.out.println("  -> Stock_Out");
 			int update_cnt = dao.update_stock_out_serch_sales();
 			System.out.println("  -> update_cnt : "+ update_cnt);
-			
-			
-			
 			
 			cnt = dao.select_count_stock_out_sales();
 			System.out.println("  -> Search Cnt : " + cnt );
@@ -269,34 +265,6 @@ public class SalesServiceImpl implements SalesService {
 		model.addAttribute("sales_id", sales_id);
 		model.addAttribute("sales_state", sales_state);
 
-		/*	예전코드
-			String company_id = req.getParameter("company_id");
-			String sales_id = req.getParameter("sales_id");
-			String account_id = req.getParameter("account_id");
-			String sales_state = req.getParameter("sales_state");
-			
-			System.out.println("  -> company_id : "  + company_id);
-			System.out.println("  -> sales_id : "  + sales_id);
-			System.out.println("  -> account_id : "  + account_id);
-			System.out.println("  -> sales_state : "  + sales_state);
-			
-			Map<String,Object> daoMap = new HashMap<>();
-			daoMap.put("company_id", company_id);
-			daoMap.put("sales_id", sales_id);
-			daoMap.put("account_id", account_id);
-			
-			SalesDTO dto = dao.select_detail_sales( daoMap );
-			
-			if( dto != null ){
-				System.out.println("  -> Complete value import ...");
-				model.addAttribute("dto", dto);
-				
-			} else {	// 불러오기 실패
-				System.out.println("  -> Error loading value...");
-				
-			}
-			*/
-
 	}
 	
 	@Override
@@ -356,10 +324,10 @@ public class SalesServiceImpl implements SalesService {
 		}
 		
 		System.out.println("  -> Modifiable ...");
-		ArrayList<ModifySelectDTO> dtos_account  = dao.select_account();	// account_id
-		ArrayList<ModifySelectDTO> dtos_product  = dao.select_product();	// product_id
-		ArrayList<ModifySelectDTO> dtos_company  = dao.select_company();	// company_name
-		ArrayList<ModifySelectDTO> dtos_employee  = dao.select_employee();	// employee_id
+		ArrayList<SalesDTO> dtos_account  = dao.select_account();	// account_id
+		ArrayList<SalesDTO> dtos_product  = dao.select_product();	// product_id
+		ArrayList<SalesDTO> dtos_company  = dao.select_company();	// company_name
+		ArrayList<SalesDTO> dtos_employee  = dao.select_employee();	// employee_id
 		
 		model.addAttribute("dtos_account", dtos_account);
 		model.addAttribute("dtos_product", dtos_product);
@@ -393,8 +361,7 @@ public class SalesServiceImpl implements SalesService {
 		
 		// 공통코드
 		String sales_id = req.getParameter("sales_id");
-		/*String order_id = req.getParameter("order_id");*/
-		String order_id = "0";
+		String order_id = req.getParameter("order_id");
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
 		String company_name = req.getParameter("company_name");
@@ -508,105 +475,6 @@ public class SalesServiceImpl implements SalesService {
 		
 		
 		
-		
-		
-		/*// 예전코드
-		// 계좌별로 분기
-		while( modify_cnt != 0 ){
-			
-			if ( modify_cnt == 3 ){
-				System.out.println("  -> 부가세 예수금 수정");
-				dto = new SalesDTO();
-				dto.setAccount_id("500012020000");
-				dto.setSelling_price(tax);
-				modify_cnt = 1 ;
-				
-			} else if ( modify_cnt == 1 ){
-				System.out.println("  -> 상품매출 수정");
-				dto = new SalesDTO();
-				dto.setAccount_id("500012030000");
-				dto.setSelling_price(price);
-				modify_cnt = 2;
-				
-			} else if ( modify_cnt == 2 ){
-				System.out.println("  -> 매출채권 수정");
-				dto = new SalesDTO();
-				dto.setAccount_id("500011020000");
-				dto.setSelling_price(sum);
-				modify_cnt = 0;
-				
-			} else {
-				System.out.println("  -> 입력값 오류");
-			}
-			
-			dto.setSales_id(sales_id);
-			dto.setOrder_id(order_id);
-			dto.setProduct_id(product_id);
-			dto.setCompany_id(company_id);
-			dto.setCompany_name(company_name);
-			dto.setEmployee_id(employee_id);
-			dto.setReg_date(reg_date);
-			dto.setUpdate_date(update_date);
-			dto.setStorage_out_date(storage_out_date);
-			dto.setCount_sales(count_sales);
-			dto.setSales_state(sales_state);
-			dto.setCondition_note_receivable(condition_note_receivable);
-			
-			cnt = dao.update_sales(dto);
-			
-			System.out.println("  -> dto: "+dto.toString());
-			System.out.println("  -> cnt: "+cnt);
-			model.addAttribute("cnt", cnt);
-			
-		}
-				
-		*/
-		
-		
-		/* 예전코드
-		String sales_id = req.getParameter("sales_id");
-		String account_id = req.getParameter("account_id");
-		String order_id = req.getParameter("order_id");
-		String product_id = req.getParameter("product_id");
-		String company_id = req.getParameter("company_id");
-		String company_name = req.getParameter("company_name");
-		int employee_id =  Integer.parseInt( req.getParameter("employee_id"));
-		Date reg_date = req.getParameter("reg_date") == ""  ? new Date(0):Date.valueOf(req.getParameter("reg_date")); 
-		Date update_date = req.getParameter("update_date") == ""  ? new Date(0):Date.valueOf(req.getParameter("update_date"));
-		Date storage_out_date = req.getParameter("storage_out_date") == ""  ? new Date(0):Date.valueOf(req.getParameter("storage_out_date"));
-		int count_sales = Integer.parseInt(req.getParameter("count_sales") );
-		long selling_price = Long.parseLong(req.getParameter("selling_price") );
-		int sales_state = Integer.parseInt(req.getParameter("sales_state") );
-		int condition_note_receivable = Integer.parseInt(req.getParameter("condition_note_receivable") );
-		
-		SalesDTO dto = new SalesDTO();
-		
-		dto.setSales_id(sales_id);
-		dto.setAccount_id(account_id);
-		dto.setOrder_id(order_id);
-		dto.setProduct_id(product_id);
-		dto.setCompany_id(company_id);
-		dto.setCompany_name(company_name);
-		dto.setEmployee_id(employee_id);
-		dto.setReg_date(reg_date);
-		dto.setUpdate_date(update_date);
-		dto.setStorage_out_date(storage_out_date);
-		dto.setCount_sales(count_sales);
-		dto.setSelling_price(selling_price);
-		dto.setSales_state(sales_state);
-		dto.setCondition_note_receivable(condition_note_receivable);
-		
-		System.out.println("  -> Sales_id : " + dto.getSales_id() );
-		
-		System.out.println("  -> Company_id : " + dto.getCompany_id() );
-		System.out.println("  -> Company_name : " + dto.getCompany_name() );
-		System.out.println("  -> dto : " + dto.toString() );
-		
-		int cnt = dao.update_sales(dto);
-		
-		System.out.println("  -> cnt: "+cnt);
-		model.addAttribute("cnt", cnt);
-		*/
 	}
 	
 	@Override
@@ -642,9 +510,9 @@ public class SalesServiceImpl implements SalesService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		// 입력된 변수 받기 
+		String order_id = req.getParameter("order_id");
 		String account_id = req.getParameter("account_id");
 		String product_id = req.getParameter("product_id");
-		
 		String company_id = req.getParameter("company_id");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
 		Date reg_date = req.getParameter("reg_date") == "" ?
@@ -654,10 +522,11 @@ public class SalesServiceImpl implements SalesService {
 		int count_sales = Integer.parseInt( req.getParameter("count_sales") ); 
 		Long selling_price = Long.parseLong( req.getParameter("selling_price") );
 		int condition_note_receivable = Integer.parseInt( req.getParameter("condition_note_receivable") );
-		String order_id = req.getParameter("order_id");
+		
 		
 		// 생성자 생성
 		SalesDTO vo = new SalesDTO();
+		vo.setOrder_id(order_id);
 		vo.setAccount_id(account_id);
 		vo.setProduct_id(product_id);
 		vo.setCompany_id(company_id);
@@ -668,7 +537,7 @@ public class SalesServiceImpl implements SalesService {
 		vo.setSelling_price(selling_price);
 		vo.setCondition_note_receivable(condition_note_receivable);
 		
-		vo.setOrder_id(order_id);
+		
 		
 		System.out.println("  -> vo : "+vo.toString());
 		
@@ -703,6 +572,7 @@ public class SalesServiceImpl implements SalesService {
 		System.out.println("  -> sales_id : " + sales_id);
 		
 		// 입력된 변수 받기 
+		String order_id = req.getParameter("order_id");
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
@@ -719,6 +589,7 @@ public class SalesServiceImpl implements SalesService {
 		
 		// 생성자 생성
 		SalesDTO dto = new SalesDTO();
+		dto.setOrder_id(order_id);
 		dto.setSales_id(sales_id);
 		dto.setProduct_id(product_id);
 		dto.setCompany_id(company_id);
