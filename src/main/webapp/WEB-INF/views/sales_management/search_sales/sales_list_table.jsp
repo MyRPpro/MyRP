@@ -23,10 +23,10 @@
 			<th>employee</th>
 			<th>reg_date</th>
 			<th>update_date</th>
-			<th>storage_out_date</th>
+			<th>storage_in_date</th>
 			<th>count</th>
-			<th>selling_price</th>
-			<th>sales_state</th>
+			<th>supply_price</th>
+			<th>purchase_state</th>
 			<th>condition</th>
 		</tr>
 		

@@ -395,19 +395,19 @@
  	
  	
  	
- 	<select id="select_account" resultType="ModifySelectDTO">
+ 	<select id="select_account" resultType="SalesDTO">
 		SELECT ACCOUNT_ID, ACCOUNT_NAME FROM ACCOUNT
 	</select>
 		
-	<select id="select_product" resultType="ModifySelectDTO">
+	<select id="select_product" resultType="SalesDTO">
 		SELECT PRODUCT_ID, PRODUCT_NAME FROM PRODUCT
 	</select>
 	
-	<select id="select_company" resultType="ModifySelectDTO">
+	<select id="select_company" resultType="SalesDTO">
 		SELECT COMPANY_ID, COMPANY_NAME FROM COMPANY
 	</select>
 		
-	<select id="select_employee" resultType="ModifySelectDTO">	
+	<select id="select_employee" resultType="SalesDTO">	
 		SELECT EMPLOYEE_ID, EMPLOYEE_NAME FROM EMPLOYEE
 	</select>	 	
  	
@@ -479,19 +479,19 @@
 			    COUNT_SALES, SELLING_PRICE, SALES_STATE,
 			    CONDITION_NOTE_RECEIVABLE)
 		VALUES ( 
-				#{sales_id},  
-			    0,
-			    #{account_id}, 
-			    #{product_id}, 
-			    #{company_id}, 
-			    #{employee_id}, 
-			    #{reg_date}, 
+				'${sales_id}',  
+			    '${order_id}', 
+			    '${account_id}', 
+			    '${product_id}', 
+			    '${company_id}', 
+			    '${employee_id}', 
+			    '${reg_date}', 
 			    SYSDATE, 
-			    #{storage_out_date}, 
-			    #{count_sales}, 
-			    #{selling_price}, 
-			    #{sales_state}, 
-			    #{condition_note_receivable} 
+			    '${storage_out_date}', 
+			    '${count_sales}', 
+			    '${selling_price}', 
+			    '${sales_state}', 
+			    '${condition_note_receivable}' 
 			   )
 		
  	</insert>
@@ -517,7 +517,7 @@
 			        sales_ID, 
 			        NVL( DECODE
 			            ( ACCOUNT_ID,
-			              '500012030000','상품매출',
+			              '500014030000','상품매출',
 			              '500012020000','부가세예수금',
 			              '500011020000','매출채권' )
 			              ,'입력값 오류' ) as ACCOUNT_NAME,
@@ -881,7 +881,7 @@
 
 
 	<update id="update_account_approve_serch_sales" >
-		
+		<![CDATA[
 		UPDATE  SALES_ORDER                                 
 		SET     SALES_STATE = 22214                         
 		WHERE   SALES_ID IN (SELECT SALES_ID
@@ -893,7 +893,7 @@
 		                                            )
 		                    )
 		AND     SALES_STATE = 22213
-		
+		]]>
 	</update>
 
 
@@ -979,7 +979,7 @@
 		                    )
 		AND     SALES_STATE = 22222
 		OR		SALES_STATE = 24752
-		AND     ACCOUNT_ID = 500012030000
+		AND     ACCOUNT_ID = 500014030000
 		
 	</update>
  	
