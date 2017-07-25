@@ -411,7 +411,7 @@ public class SalesServiceImpl implements SalesService {
 		
 		// 계좌별로 분기
 		do{
-			String account_id = req.getParameter("account_id");
+			
 			
 			if ( modify_cnt == 0 ){
 				System.out.println("  -> 부가세 예수금 수정");
@@ -424,7 +424,7 @@ public class SalesServiceImpl implements SalesService {
 			} else if ( modify_cnt == 1 ){
 				System.out.println("  -> 상품매출 수정");
 				dto = new SalesDTO();
-				dto.setAccount_id("500011020000");
+				dto.setAccount_id("500014030000");
 				dto.setSelling_price(price);
 				modify_cnt = 2;
 				
@@ -432,7 +432,7 @@ public class SalesServiceImpl implements SalesService {
 			} else if ( modify_cnt == 2 ){
 				System.out.println("  -> 매출채권 수정");
 				dto = new SalesDTO();
-				dto.setAccount_id("500011060000");
+				dto.setAccount_id("500011020000");
 				dto.setSelling_price(sum);
 				modify_cnt = 0;
 				
@@ -578,7 +578,6 @@ public class SalesServiceImpl implements SalesService {
 		// DB에 값 입력 : INSERT SALES_ORDER
 		int sales_cnt = dao.insert_reg_sales(vo);
 		
-		int cnt =0;
 		if( sales_cnt == 1 ){
 			System.out.println("  -> Insert Success...");
 			/*
@@ -722,7 +721,7 @@ public class SalesServiceImpl implements SalesService {
 		daoMap.put("sales_id", sales_id);
 		daoMap.put("account_id", "500012030000");
 		daoMap.put("sales_state", 22222);
-		int cnt = dao.update_req_storage_out(daoMap);
+		dao.update_req_storage_out(daoMap);
 	}
 
 	
@@ -731,9 +730,6 @@ public class SalesServiceImpl implements SalesService {
 	public void search_status_sales_service(Model model) {
 		
 		System.out.println("  -> search_status_sales_service " );
-		
-		Map<String, Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
 
 		ArrayList<SalesDTO> product_ids = new ArrayList<>();
 		ArrayList<SalesDTO> company_ids = new ArrayList<>();
