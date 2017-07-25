@@ -272,6 +272,27 @@ public class SalesDAOImpl implements SalesDAO {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_modify_sales(daoMap);
 	}
+
+
+	@Override
+	public String select_account_price() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_price();
+	}
+
+
+	@Override
+	public String select_account_tax() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_tax();
+	}
+
+
+	@Override
+	public String select_account_sum() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_sum();
+	}
 	
 
 	

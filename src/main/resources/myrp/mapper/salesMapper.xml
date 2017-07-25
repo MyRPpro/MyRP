@@ -421,6 +421,7 @@
  		<![CDATA[
  		SELECT 	PRODUCT_ID, PRODUCT_NAME
 		FROM 	PRODUCT
+		WHERE USE_STATE = 'Y'
 		]]>
  	</select>
  	
@@ -429,6 +430,8 @@
  		<![CDATA[
  		SELECT 	COMPANY_ID, COMPANY_NAME
 		FROM 	COMPANY
+		WHERE 	USE_STATE = 'Y'
+		AND 	COMPANY_TYPE = 'C'
 		]]>
  	</select>
  	
@@ -436,7 +439,8 @@
  	<select id="select_employee_ids" resultType="SalesDTO">
  		<![CDATA[
  		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
-		FROM 	EMPLOYEE
+		FROM 	EMPLOYEE NATURAL JOIN DEPARTMENT
+		WHERE 	ACCESS_ROLE = 'SA'
 		]]>
  	</select>
  	
@@ -467,7 +471,36 @@
  		]]>
  	</select>
 
-
+	
+	<!-- Account_id 호출 : 상품매출 -->
+	<select id="select_account_price" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID
+		FROM  	ACCOUNT
+		WHERE 	ACCOUNT_NAME = '상품매출'
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- Account_id 호출 : 부가세 예수금ㅁ -->
+	<select id="select_account_tax" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID
+		FROM  	ACCOUNT
+		WHERE 	ACCOUNT_NAME = '부가세예수금'
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- Account_id 호출 : 매출채권 -->
+	<select id="select_account_sum" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID
+		FROM  	ACCOUNT
+		WHERE 	ACCOUNT_NAME = '매출채권'
+ 		]]>
+ 	</select>
+	
+	
+	
  	
  	<!-- 판매 입력  -->
  	<insert id="insert_reg_sales" parameterType="salesDTO">
@@ -480,7 +513,7 @@
 			    CONDITION_NOTE_RECEIVABLE)
 		VALUES ( 
 				'${sales_id}',  
-			    '${order_id}', 
+			    0,
 			    '${account_id}', 
 			    '${product_id}', 
 			    '${company_id}', 

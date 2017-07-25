@@ -474,9 +474,6 @@ public class SalesServiceImpl implements SalesService {
 	@Override
 	public void reg_sales_service(Model model) {
 		System.out.println("  -> reg_sales_service");
-		
-		Map<String,Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
 	
 		ArrayList<SalesDTO> product_ids = new ArrayList<>();
 		ArrayList<SalesDTO> company_ids = new ArrayList<>();
@@ -560,29 +557,19 @@ public class SalesServiceImpl implements SalesService {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 
-		// 기본키 불러오기
 		String sales_id = dao.select_sales_id();
-		System.out.println("  -> sales_id : " + sales_id);
-		
-		// 입력된 변수 받기 
-		String order_id = req.getParameter("order_id");
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		Date reg_date = req.getParameter("reg_date") == "" ?
-			new Date(0) : Date.valueOf(req.getParameter("reg_date"));
-		Date storage_out_date = req.getParameter("storage_out_date") == "" ?
-			new Date(0) : Date.valueOf(req.getParameter("storage_out_date"));
+		Date reg_date = req.getParameter("reg_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("reg_date"));
+		Date storage_out_date = req.getParameter("storage_out_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("storage_out_date"));
 		int count_sales = Integer.parseInt( req.getParameter("count_sales") ); 
 		Long supply_price = Long.parseLong( req.getParameter("selling_price") );
 		int sales_state = Integer.parseInt( req.getParameter("sales_state") );
 		int condition_note_receivable = Integer.parseInt( req.getParameter("condition_note_receivable") );
 		
-		System.out.println("  -> test reg_date : " + reg_date);
-		
 		// 생성자 생성
 		SalesDTO dto = new SalesDTO();
-		dto.setOrder_id(order_id);
 		dto.setSales_id(sales_id);
 		dto.setProduct_id(product_id);
 		dto.setCompany_id(company_id);
@@ -598,11 +585,6 @@ public class SalesServiceImpl implements SalesService {
 		System.out.println("  -> sales_state : " + dto.getSales_state());
 		System.out.println("  -> test dto get : " + dto.toString());
 		
-		
-		// order_id 불러오기(임시값 : null값도 괜춘)
-		/*String order_id = req.getParameter("order_id");*/
-
-		
 		// 가격 계산 ( 구매가, 부가세, 총합 )
 		int cnt = 0;	
 		long price = supply_price;
@@ -610,42 +592,39 @@ public class SalesServiceImpl implements SalesService {
 		long sum = price + tax;
 	
 		// 상품매출 insert , 가격 x 수량
-		dto.setAccount_id("500012030000");
-		System.out.println(" 상품매출 : " + dto.getAccount_id());
-		dto.setSelling_price(price);
+		String price_code = dao.select_account_price();
+		dto.setAccount_id(price_code);
+		System.out.println("  -> 상품매출 : " + dto.getAccount_id());
 		System.out.println("  -> price : " + price );
-		
-		// sales_order insert 구매 내역 입력
+		dto.setSelling_price(price);
 		int product_cnt = dao.insert_reg_sales(dto);	
 		if( product_cnt > 0 ){
 			System.out.println("  -> product_cnt insert Complete... ");
-			cnt = 1;
+			cnt++;
 		}
 		
 		// 부가세예수금 insert , 부가세 10%
-		dto.setAccount_id("500012020000");
-		System.out.println(" 부가세예수금 : " + dto.getAccount_id());
-		dto.setSelling_price(tax);
+		String tax_code = dao.select_account_tax();
+		dto.setAccount_id(tax_code);
+		System.out.println("  -> 부가세예수금 : " + dto.getAccount_id());
 		System.out.println("  -> tax : " + tax );
-		
-		// sales_order insert 구매 내역 입력
+		dto.setSelling_price(tax);
 		int tax_cnt = dao.insert_reg_sales(dto);
 		if( tax_cnt > 0 ){
 			System.out.println("  -> tax_cnt insert Complete... ");
-			cnt = 2;
-			
+			cnt++;
 		}
 		
 		// 매출채권 insert , 상품매출 + 부가세
-		dto.setAccount_id("500011020000");
-		dto.setSelling_price(sum);
+		String sum_code = dao.select_account_sum();
+		dto.setAccount_id(sum_code);
+		System.out.println("  -> 매출채권 : " + dto.getAccount_id());
 		System.out.println("  -> sum : " + sum );
-		
-		// sales_order insert 구매 내역 입력
+		dto.setSelling_price(sum);
 		int debt_cnt = dao.insert_reg_sales(dto);
 		if( debt_cnt > 0 ){
 			System.out.println("  -> setAccount_id insert Complete... ");
-			cnt = 3;
+			cnt++;
 		}
 		
 		if ( cnt == 3 ){
@@ -657,14 +636,9 @@ public class SalesServiceImpl implements SalesService {
 			model.addAttribute("dtos", dtos);
 			System.out.println("  ->  dtos : " + dtos.toString());
 			
-		}
+		} else System.out.println("  -> Insert Error... ");
 		
 		model.addAttribute("cnt", cnt);
-		
-		// sales_order 입력 
-		// 500011050000 : 상품매입 
-		// 500011030000 : 부가세대급금(10%)
-		// 500012010000 : 매입채무 
 		
 	}
 

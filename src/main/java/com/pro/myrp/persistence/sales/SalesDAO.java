@@ -96,5 +96,11 @@ public interface SalesDAO extends MyRPDAO {
 
 	public ArrayList<SalesDTO> select_modify_sales(Map<String, Object> daoMap);
 
+	public String select_account_price();
+
+	public String select_account_tax();
+
+	public String select_account_sum();
+
 	
 }
