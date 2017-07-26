@@ -63,7 +63,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 		System.out.println(code.c(detail_sales));
 		model.addAttribute("req", req);
 		service.detail_sales_pro_service(model);
-		return code.c(sales_management, search_sales,detail_sales);
+		return code.c(sales_management, search_sales,detail_sales_pro);
 	}
 
 	@Override

@@ -113,26 +113,40 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		return code.c(purchase_management, input_purchase, reg_purchase_table);
 	}
 	
+	@Override
+	@GetMapping(value="input_purchase/search_reg_purchase")
+	public String search_reg_purchase(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_reg_purchase));
+		model.addAttribute("req", req);
+		service.search_reg_purchase_service(model);
+		return code.c(purchase_management, input_purchase, search_reg_purchase);
+	}
 	
+
+	@Override
+	@GetMapping(value="input_purchase/search_reg_purchase_pro")
+	public String search_reg_purchase_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_reg_purchase_pro));
+		model.addAttribute("req", req);
+		service.search_reg_purchase_pro_service(model);
+		return code.c(purchase_management, input_purchase, reg_purchase);
+	}
+
+
+	
+
 	@Override
 	@GetMapping(value="status_purchase/search_status_purchase")
 	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(search_status_purchase));
 		model.addAttribute("req", req);
+		service.search_reg_purchase_service(model);
 		return code.c(purchase_management, staus_purchase, search_status_purchase);
 	}
 
 
-	@Override
-	public String reg_purchase_search(HttpServletRequest req, Model model) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
-
-
-	
 }
 
 
