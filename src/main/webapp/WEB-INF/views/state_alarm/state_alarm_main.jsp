@@ -13,7 +13,7 @@
 		$.ajax({ 					
 			data: 	 data,
 			type: 	'post',	 			
-			url: 	"state_alarm_pro",
+			url: 	"/state_alarm/state_alarm_pro",
 			success: function(response) { 	
 				$('#result').html(response);	
 			}
@@ -22,7 +22,7 @@
 			$.ajax({ 					
 				data: 	 data,
 				type: 	'post',	 			
-				url: 	"state_alarm_pro",
+				url: 	"/state_alarm/state_alarm_pro",
 				success: function(response) { 	
 					$('#result').html(response);	
 				}
@@ -36,7 +36,5 @@
 <input type = "hidden" id = "role" value = "${ROLE.access_role}">
 ${ROLE.employee_name}님 어서오세요.
 <div id = "result"></div>
-
-
 </body>
 </html>

@@ -14,7 +14,7 @@ function storage_go(id, goes,storage_in_date){
     var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 	var today = year + mon + "-" +  (now.getDate());
 
-	if(storage_in_date.replace("-","") > today){
+	if((storage_in_date+"").replace("-","")*1 > today){
 		alert("입고예정일이 안되었습니다.");
 		return false;
 	}

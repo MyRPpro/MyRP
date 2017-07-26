@@ -9,7 +9,7 @@ public class State_alarmDTO {
 	private String eng_name;
 	private String state_addr;
 	private String state_msg;
-	
+	private String from_dept;
 	
 	
 	
@@ -54,6 +54,12 @@ public class State_alarmDTO {
 	}
 	public void setEng_name(String eng_name) {
 		this.eng_name = eng_name;
+	}
+	public String getFrom_dept() {
+		return from_dept;
+	}
+	public void setFrom_dept(String from_dept) {
+		this.from_dept = from_dept;
 	}
 
 }
