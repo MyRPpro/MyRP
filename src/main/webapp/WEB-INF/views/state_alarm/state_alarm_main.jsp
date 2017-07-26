@@ -36,7 +36,5 @@
 <input type = "hidden" id = "role" value = "${ROLE.access_role}">
 ${ROLE.employee_name}님 어서오세요.
 <div id = "result"></div>
-
-
 </body>
 </html>

@@ -94,6 +94,5 @@
 			<beans:ref bean="authInterceptor_HR"/>
 		</interceptor>
 	</interceptors>
-	
-	
+
 </beans:beans>
