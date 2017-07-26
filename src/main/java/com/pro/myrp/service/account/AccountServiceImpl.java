@@ -15,7 +15,7 @@ import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
 import com.pro.myrp.domain.accounting_management.StatementVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
 import com.pro.myrp.persistence.account.AccountDAO;
 
 @Service

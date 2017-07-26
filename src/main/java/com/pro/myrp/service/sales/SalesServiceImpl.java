@@ -296,6 +296,7 @@ public class SalesServiceImpl implements SalesService {
 			daoMap.put("sales_id", sales_id);
 			daoMap.put("account_id", account_id );
 			daoMap.put("sales_state", req_out_strage );
+
 			update_cnt = dao.update_req_storage_out(daoMap);
 			System.out.println("  -> update_cnt : " + update_cnt);
 			
@@ -380,6 +381,7 @@ public class SalesServiceImpl implements SalesService {
 		Long price	=  Math.round(Double.parseDouble(req.getParameter("selling_price"))); 
 		Long tax	=  (price/10);
 		Long sum	= (price + tax);
+
 		
 		System.out.println("  -> price : " + price);
 		System.out.println("  -> tax : " + tax);
@@ -491,6 +493,7 @@ public class SalesServiceImpl implements SalesService {
 		long sum = price + tax;
 	
 		// 상품매출 insert , 가격 x 수량
+
 		String price_code = dao.select_account_price();
 		dto.setAccount_id(price_code);
 		System.out.println("  -> 상품매출 : " + dto.getAccount_id());
@@ -556,6 +559,7 @@ public class SalesServiceImpl implements SalesService {
 		daoMap.put("account_id", account_id);
 		daoMap.put("sales_state", req_strage_out );
 		dao.update_req_storage_out(daoMap);
+
 	}
 
 	

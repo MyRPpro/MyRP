@@ -150,9 +150,7 @@
  		</if>
  		<if test="typeCnt == 3">
  		<![CDATA[
- 		SELECT DISTINCT c.company_name
- 		  FROM company c JOIN (SELECT company_id FROM salary_register WHERE salary_register_id = #{salary_register_id}) p 
- 		                 ON c.company_id = p.company_id 
+ 		SELECT '급여' FROM dual
  		]]>
  		</if>
  		<if test="typeCnt == 4">
@@ -302,7 +300,7 @@
  		]]>
  	</select>
  	<!-- connected_id 불러오기 : salary -->
- 	<select id="select_salary_statement" resultType="AccountVO">
+ 	<select id="select_salary_statement" resultType="JoinStatementDTO">
  		<![CDATA[
  		SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
  		FROM salary_register s JOIN account a ON s.account_id = a.account_id
