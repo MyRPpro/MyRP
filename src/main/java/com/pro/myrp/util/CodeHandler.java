@@ -36,8 +36,9 @@ public class CodeHandler {
 			public static final int sales_list_table  	= 12120;	// 판매 리스트 테이블 내용
 			public static final int sales_list_page 	= 12130;	// 판매 리스트 테이블 페이지 번호
 			public static final int detail_sales 		= 12140;	// 판매 상세
-			public static final int modify_sales 		= 12150;	// 판매 상세 + 수정
-			public static final int modify_sales_pro 	= 12160;	// 판매 수정 처리
+			public static final int detail_sales_pro 	= 12150;	// 판매 상세 처리
+			public static final int modify_sales 		= 12160;	// 판매 상세 + 수정
+			public static final int modify_sales_pro 	= 12170;	// 판매 수정 처리
 			
 		// 판매입력
 		public static final int input_sales 			= 12200;
@@ -75,8 +76,12 @@ public class CodeHandler {
 			
 		// 구매입력
 		public static final int input_purchase = 13200;
-			public static final int reg_purchase 		= 13210;	// 구매 입력 양식
-			public static final int reg_purchase_table 	= 13220;	// 구매 입력 테이블
+			public static final int reg_purchase 			= 13210;	// 구매 입력 양식
+			public static final int reg_purchase_table 		= 13220;	// 구매 입력 테이블
+			public static final int search_reg_purchase 	= 13230;	// 부족 재고 조회
+			public static final int search_reg_purchase_pro = 13240;	// 부족 재고 조회 처리
+			
+			
 		// 구매 현황
 		public static final int staus_purchase 						= 13300;	// 구매 현황	
 			public static final int search_status_purchase 			= 13310;	// 구매 현황 검색

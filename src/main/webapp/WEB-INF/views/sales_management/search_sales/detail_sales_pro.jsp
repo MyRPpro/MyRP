@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<c:if test="${cnt > 0}">
+		<c:if test="${cnt > 0}">
 		<script type="text/javascript">
 			var cnt = '${cnt}';
 			setTimeout(function(){
@@ -25,6 +25,9 @@
 			window.history.back();
 		</script>
 	</c:if>
+
+
+
 
 
 </body>

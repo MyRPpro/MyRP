@@ -1,11 +1,9 @@
 package com.pro.myrp.persistence.purchase;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
-import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface purchaseDAO extends MyRPDAO {
@@ -38,7 +36,13 @@ public interface purchaseDAO extends MyRPDAO {
 	
 	public String select_statement_id();
 
-	public List<PurchaseDTO> select_purchase_order(String product_id);
+
+	public ArrayList<PurchaseDTO> select_reg_purchases(String purchase_id);
+
+	public ArrayList<PurchaseDTO> select_reg_purchase();
+
+	public PurchaseDTO select_reg_purchase_pro(String lack_sales_id);
+
 	
 	public int select_search_purchase_cnt(String search_str);
 
@@ -65,7 +69,6 @@ public interface purchaseDAO extends MyRPDAO {
 	public ArrayList<PurchaseDTO> select_purchase_All_list(Map<String, Object> daoMap);
 
 	public ArrayList<PurchaseDTO> select_modify_purchase(Map<String, Object> daoMap);
-
 
 
 	public int update_req_storage_in(Map<String, Object> daoMap);
