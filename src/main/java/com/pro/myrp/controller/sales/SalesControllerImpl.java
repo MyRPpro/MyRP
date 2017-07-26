@@ -25,7 +25,6 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	public String sales_list(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(sales_list));
 		model.addAttribute("req", req);
-		
 		return code.c(sales_management,search_sales,sales_list);
 	}
 	
