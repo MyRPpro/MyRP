@@ -540,12 +540,16 @@ public class SalesServiceImpl implements SalesService {
 	public void req_storage_out_service(Model model) {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
 		String sales_id = req.getParameter("sales_id");
+		String account_id = dao.select_account_price();
+		int req_strage_out = dao.select_req_storage_out();
+		
 		Map<String, Object> daoMap = new HashMap<>();
-		System.out.println("■■■■■■■■■■■■sales_id" + sales_id);
+		System.out.println("  -> sales_id" + sales_id);
 		daoMap.put("sales_id", sales_id);
-		daoMap.put("account_id", "500012030000");
-		daoMap.put("sales_state", 22222);
+		daoMap.put("account_id", account_id);
+		daoMap.put("sales_state", req_strage_out );
 		dao.update_req_storage_out(daoMap);
 	}
 

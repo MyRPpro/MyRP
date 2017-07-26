@@ -483,7 +483,14 @@
  		]]>
  	</select>
 	
-	
+	<!-- 창고출고 요청 코드 : 22222 -->
+	<select id="select_req_storage_out" resultType="String">
+ 		<![CDATA[
+ 		 SELECT CODE
+		 FROM STATE
+		 WHERE KOR_NAME = '영업출고요청'
+ 		]]>
+ 	</select>
 	
  	
 
@@ -982,8 +989,6 @@
 		AND     SALES_STATE = 22222
 		AND     ACCOUNT_ID = 500014030000
 		OR		SALES_STATE = 24752
-		
-		
 	</update>
  	
  	

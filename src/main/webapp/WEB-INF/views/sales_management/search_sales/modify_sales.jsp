@@ -253,6 +253,8 @@
 		function check_date(){
 			
 			var now = new Date();
+			now.setDate(now.getDate()-1);
+			
 			var out_date = new Date(document.getElementById("reg_storage_out_date").value);
 			var reg_date = new Date(document.getElementById("reg_reg_date").value);
 			
@@ -263,9 +265,15 @@
 			
 			if( reg_date > out_date ){
 				alert("등록일은 출고일 이전으로 선택가능합니다.");
+				out_date = new Date(document.getElementById("reg_storage_out_date").value)
+				reg_date.setDate(out_date.getDate()-1);
+				document.getElementById("reg_reg_date").value = date_format(reg_date);
+				
+				/* 
 				reg_date = new Date(document.getElementById("reg_reg_date").value);
-				out_date.setDate(reg_date.getDate()+7);
+				out_date.setDate(reg_date.getDate()+1);
 				document.getElementById("reg_storage_out_date").value = date_format( out_date );
+				 */
 			}
 		}
 		
