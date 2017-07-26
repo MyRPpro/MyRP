@@ -13,7 +13,7 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("상태코드가 정상적으로 수정되었습니다.");
-				window.location="/sales_management/search_sales/sales_list"
+				window.location="/purchase_management/search_purchase/purchase_list"
 			}, 500);
 		</script>
 	</c:if>

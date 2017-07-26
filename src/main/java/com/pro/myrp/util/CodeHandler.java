@@ -6,6 +6,11 @@ import java.lang.reflect.Field;
 public class CodeHandler {
 //기능정의서 기능코드는 [1+module번호+기능번호+commit번호] 5자리로 구성됨
 	
+	//알람 센터
+	public static final int state_alarm = 10100; 
+		public static final int state_alarm_main =10110;					//알람센터 메인페이지
+		public static final int state_alarm_pro =10110;					//알람센터 ajax 처리 페이지
+	
 	//기초등록
 	public static final int base_registration = 11000;			
 		//거래처 등록
@@ -57,14 +62,17 @@ public class CodeHandler {
 			
 	//구매관리
 	public static final int purchase_management = 13000;
+	
 		// 구매검색
 		public static final int search_purchase 		 = 13100;	// 구매 검색
 			public static final int purchase_list 		 = 13110;	// 구매 리스트
 			public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
 			public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
 			public static final int detail_purchase 	 = 13140;	// 구매 상세
-			public static final int modify_purchase 	 = 13150;	// 구매 수정
-			public static final int quick_serch_purchase = 13160;	// 구매 바로검색
+			public static final int detail_purchase_pro  = 13150;	// 구매 상세 처이
+			public static final int modify_purchase 	 = 13160;	// 구매 수정
+			public static final int modify_purchase_pro  = 13170;	// 구매 수정 처리
+			
 		// 구매입력
 		public static final int input_purchase = 13200;
 			public static final int reg_purchase 		= 13210;	// 구매 입력 양식
@@ -109,7 +117,8 @@ public class CodeHandler {
 					
 				public static final int adjustment_inventory  = 14500;								//재고 조정
 					public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
-					public static final int registraion_adjustment_inventory = 14520;				//재고 조정 등록
+					public static final int adjustment_inventory_view = 14520;						//재고 조정 등록
+					public static final int adjustment_inventory_pro = 14530;						//재고 조정 처리
 					
 				public static final int search_distribution_order = 14600;							//물류 주문 조회
 					public static final int statement_list = 14610; 								//전체 전표 리스트
@@ -180,10 +189,17 @@ public class CodeHandler {
 			public static final int modify_personnel_card_pro = 16331;
 		//급여관리
 		public static final int manage_salary = 16500;
-			public static final int salary_register = 16510;
+			public static final int salary_register_search = 16510;
+			public static final int salary_register_list = 16511;
+			public static final int salary_register_nav = 16512;
+			public static final int salary_statement_search = 16513;
+			public static final int clear_salary_bank_account = 16514;
+			public static final int clear_salary_bank_account_pro = 16515;
 			public static final int reg_salary_info = 16520;
+			public static final int reg_salary_info_pro = 16521;
+			public static final int modify_salary_info = 16522;
+			public static final int modify_salary_info_pro = 16523;
 			public static final int fix_work_record = 16530;
-			public static final int calc_salary = 16540;
 			public static final int fix_salary = 16550;
 			public static final int search_salary_history = 16560;
 		//인사발령 관리
@@ -228,9 +244,10 @@ public class CodeHandler {
 		public static final int denial_approval_statement 	= 25453;	// 전표 승인 거절	
 		
 		//인사
-		public static final int request_payments_salary 	= 26451;	// 급여지급요청						
-		public static final int wait_payments_salary 		= 26452;	// 급여지급대기
-		public static final int complete_payments_salary 	= 26453;	// 급여지급완료
+		public static final int state_request_calc_salary		= 26450;	// 급여계산요청
+		public static final int state_request_payments_salary 	= 26451;	// 급여지급요청						
+		public static final int state_wait_payments_salary 		= 26452;	// 급여지급대기
+		public static final int state_complete_payments_salary 	= 26453;	// 급여지급완료
 		
 		//물류
 		public static final int receive_request_storage_in_warehouse 	= 24101;	// 입고요청접수						
@@ -262,9 +279,19 @@ public class CodeHandler {
 		public static final int wait_payments 							= 23206;	// 지급대기
 		public static final int complete_payments 						= 23207;	// 지급완료						
 
+	// 계정 코드
+		public static final String account_cash = "500011010000"; //현금
+		public static final String account_trade_receivables = "500011020000"; //매출채권
+		public static final String account_prepaid_value_added_tax = "500011030000"; //부가세대급금
+		public static final String account_inventories = "500011040000"; //재고자산
+		public static final String account_purchase_of_product = "500011050000"; //상품매입
+		public static final String account_sales_of_product = "500014030000"; //상품매출
+		public static final String account_debt_of_sales = "500012010000"; //매입채무
+		public static final String account_other_accrued_liabilities = "500012020000"; //부가세예수금
+		public static final String account_retained_earnings = "500013010000"; //이익잉여금
+		public static final String account_salary = "500014010000"; //급여
 
-		
-		
+
 		
 			
 	public CodeHandler() {

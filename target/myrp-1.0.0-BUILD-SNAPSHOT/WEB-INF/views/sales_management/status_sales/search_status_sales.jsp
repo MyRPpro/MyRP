@@ -81,7 +81,7 @@
 	  	</select>
 	  	
 	  	<select name="employee_ids" id="employee_ids"  >
-		   <option value="0" selected> 거래처선택 </option>
+		   <option value="0" selected> 담당자선택 </option>
 		   <c:forEach var="employee" items="${employee_ids}">
 		  		<option value="${employee.employee_id}">${employee.employee_name} </option>
 		  	</c:forEach>

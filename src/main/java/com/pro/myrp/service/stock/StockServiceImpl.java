@@ -16,12 +16,14 @@ import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_movement_warehouseDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
+import com.pro.myrp.domain.distribution_manage.Stock_informationVO;
+import com.pro.myrp.domain.distribution_manage.Adjustment_inventoryDTO;
 import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.WarehouseVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
 import com.pro.myrp.persistence.hr.HRDAO;
 import com.pro.myrp.persistence.stock.StockDAO;
 
@@ -186,13 +188,13 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 						if(select_product.get(y).getProduct_id().equals(select_stockpile_searchDtos.get(x).getProduct_id())){
 							int stock = select_stockpile_searchDtos.get(x).getStock_amount();
 							
-							if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("2")){
+							if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4754")){
 								select_stockpile_searchDtos.get(x).setStock_amount(stock + select_stockpile_minusDtos.get(i).getMoving_stock());
 								
-							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("3")){
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4755")){
 								select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
 							
-							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("4")){
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4753")){
 								if(select_stockpile_minusDtos.get(i).getMoving_stock() > 0){
 									select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
 								
@@ -334,12 +336,14 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				
 				 dao.update_stock_out_storage(model);
 				 stock_cnt = dao.select_product_in_warehouse(model);
-				 
+				 System.out.println("stock_cnt : " + stock_cnt);
 				 if(stock_cnt >= 1){
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
+					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
 				dao.update_sales_state(model);
@@ -381,7 +385,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
+					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
 				dao.update_sales_state(model);
@@ -514,10 +520,16 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	@Override
 	public void movement_warehouse_list_service(HttpServletRequest req, Model model)  throws Exception{
 		ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
+		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		
 		movement_warehouseDtos = dao.select_movement_warehouse_list(model);
 		model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+		
+		warehouseVos = dao.select_warehouse_list(model);
+		model.addAttribute("warehouseVos",warehouseVos);
 	}
 	
+	//여기서 부터 정리해봅시다
 	@Override
 	public void movement_warehouse_view_service(HttpServletRequest req, Model model)  throws Exception{
 		String id = req.getParameter("id");
@@ -525,7 +537,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		
 		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
 		List<EmployeeVO> employeeVos = new ArrayList<EmployeeVO>();
-		
+
 		warehouseVos = dao.select_warehouse_list(model);
 		employeeVos = hdao.select_employees();
 		
@@ -638,6 +650,68 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		
 		
 	}
+
+	@Override
+	public void adjustment_inventory_list(HttpServletRequest req, Model model) throws Exception {
+		ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
+		productVos = dao.select_only_product_id_name(model);
+		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		warehouseVos = dao.select_warehouse_list(model);
+		ArrayList<Adjustment_inventoryDTO> Adjustment_inventoryDtos = new ArrayList<Adjustment_inventoryDTO>();
+		Adjustment_inventoryDtos = dao.select_adjustment_inventory(model);
+		
+		model.addAttribute("Adjustment_inventoryDtos",Adjustment_inventoryDtos);
+		model.addAttribute("productVos",productVos);
+		model.addAttribute("warehouseVos",warehouseVos);
+	}
+	
+	@Override
+	public void adjustment_inventory_view_service(HttpServletRequest req, Model model) throws Exception {
+		String product_id = req.getParameter("product_id");
+		String product_name = req.getParameter("product_name");
+		String warehouse_id = req.getParameter("warehouse_id");
+		String warehouse_name = req.getParameter("warehouse_name");
+		
+		
+		List<EmployeeVO> employeeVos = new ArrayList<EmployeeVO>();
+		employeeVos = hdao.select_employees();
+		
+		Stock_informationVO stockVo = new Stock_informationVO();
+		model.addAttribute("product_id",product_id);
+		model.addAttribute("warehouse_id",warehouse_id);
+		stockVo = dao.select_stock_information(model);
+		
+		
+		
+		model.addAttribute("product_name",product_name);
+		model.addAttribute("warehouse_id",warehouse_id);
+		model.addAttribute("warehouse_name",warehouse_name);
+		model.addAttribute("employeeVos",employeeVos);
+		model.addAttribute("stockVo",stockVo);
+	}
+
+	@Override
+	public void adjustment_inventory_pro_service(HttpServletRequest req, Model model) throws Exception {
+		String product_id = req.getParameter("product_id"); 
+		int warehouse_id = Integer.parseInt(req.getParameter("warehouse_id")); 
+		int employee_id = Integer.parseInt(req.getParameter("employee_id")); 
+		int taked_stock = Integer.parseInt(req.getParameter("taked_stock")); 
+		int delete_stock = Integer.parseInt(req.getParameter("delete_stock"));
+		
+		model.addAttribute("stock_order_id", "4753");
+		model.addAttribute("product_id",product_id);
+		model.addAttribute("warehouse_id",warehouse_id);
+		model.addAttribute("employee_id",employee_id);
+		model.addAttribute("taked_stock",taked_stock);
+		model.addAttribute("delete_stock",delete_stock);
+		model.addAttribute("ad_op","1");
+		dao.insert_stock_order(model);
+		dao.insert_adjustment_inventory(model);
+		dao.update_stock_out_storage(model);
+		
+	}
+
+	
 }
 
 
