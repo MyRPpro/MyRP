@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../../setting.jsp" %>
@@ -44,7 +45,6 @@
 		 alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");		condition_note_payable.focus();		return false;
 	 }
 	 
-	 
 	 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table?product_id='+product_id.value
 							+'&company_id='+company_id.value
 							+'&employee_id='+employee_id.value 
@@ -56,99 +56,145 @@
 							+'&condition_note_payable='+condition_note_payable.value
 						 );	 
 	 return false;
-	 
-	 
 	 }
 	
-	 /* 
-	 var product_id = document.getElementById("product_id");
-	 var product_id_value = product_id.options[select.selectedIndex].value;
-	 
-	 
-	 var product_id = document.getElementsByName("product_id")[0].selected;
-	 console.log(product_id);
-	 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table?product_id='+product_id
-				);	 
-		 */ 
-		 /* 	var date='';
-			$.each( $('#reg_purchase').serializeArray(),function(key,val) ){
-				date += ","+val['name']+":"+val['value'];
-			}); */
-			
-		/* 
-			$.ajax{
-				url : "/purchase_management/input_purchase/reg_purchase_table"
-						+"?product_id="+product_id
-				,data : date
-				,type: 'get'
-				,success : fuction(reg_purchase){
-					$('#reg_table').html(reg_purchase);
-				}
-				
-			}
-		 */
-			 
-	 
-		 
+	
+	function search_lack_stock(){
+		 $('#reg_table').load('/purchase_management/input_purchase/search_reg_purchase');
+		return false;
+	}
+	
+	
+	function date_format(date){
+		var year = date.getFullYear();                
+		var month = (1 + date.getMonth());           
+		month = month >= 10 ? month : '0' + month;    
+		var day = date.getDate();                     
+		day = day >= 10 ? day : '0' + day;            
+		return  year + '-' + month + '-' + day;
+	}
+	
+	function check_date(){
+		
+		var now = new Date();
+		var in_date = new Date(document.getElementById("storage_in_date").value);
+		if( in_date < now  ){
+			alert("입고일은 오늘날짜부터 입력할 수 잇습니다.");
+			document.getElementById("storage_in_date").valueAsDate = new Date();
+		} 
+	}
 	</script>
+	
 	
 	<form action="#" name="reg_table_form" method="get" 
 		onsubmit="return reg_purchase();">
 	
 		<input type="submit" value="등록하기" >
 		<input type="reset" value="재설정">
+
+		<input type="button" value="부족재고조회" onclick="return search_lack_stock()" >
+		<input type="button" value="새로입력하기" onclick="window.location='/purchase_management/input_purchase/reg_purchase'" >
+		&emsp;
 		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
+		<input type="button" value="검색으로 이동" onclick="window.location='/purchase_management/search_purchase/purchase_list'" >
+
+	
 		
 		<hr>
-	
-		<table border="1" >
-			
+		
+		<c:if test="${cnt == 0 }">
+			<script type="text/javascript">
+				setTimeout(function(){
+					alert("재고부족 목록이 없습니다.");
+					window.location="window.location='/purchase_management/input_purchase/reg_purchase";
+				},200);
+			</script>
+		</c:if>
+		
+		
+		<c:if test="${dto != null }">
+		<table border="1" id="lack_stock_table" >
 			<tr>
-				<!-- <th>purchase_id</th> -->
-				<!-- <th>account_id</th> -->
-				<!-- <th>order_id</th> -->
 				<th>product_id</th>
 				<th>company_name</th>
 				<th>employee_id</th>
 				<th>reg_date</th>
-				<!-- <th>update_date</th> -->
 				<th>storage_in_date</th>
 			</tr>
 			
 			<tr>
-				<!-- 1 purchase_id : 시퀀스로 입력 -->
+				<td>
+					<input type="hidden" value="${dto.product_id}" id="product_id" >
+					<input type="text" value="${dto.product_name}" readonly>
+				</td>
 				
+				<td>
+					<input type="hidden" value="${dto.company_id}" id="product_id" >
+					<input type="text" value="${dto.company_name}" readonly>
+				</td>
 				
-				<!-- 2 account_id 12자리 : 반복되므로 계산해서 입력 -->
-				 <%-- <td> 
-					<select name="account_id">
-					  <datalist id="account_id">
-					  	<option value="500012010000">1.매입채무</option>
-					  	<option value="500011030000">2.부가세대급금</option>
-					  	<option value="500011050000">3.상품매입</option>
-					  	
-					  </datalist>
-					 
-					  <datalist id="account_id">
-					    <c:forEach var="account" items="${account_ids}">
-					  		<option value="${account.account_id}">${account.account_name} </option>
-					  	</c:forEach>
-					  </datalist>
-					   
-				</td>--%>
+				<td>
+					<input type="hidden" value="${dto.employee_id}" id="product_id" >
+					<input type="text" value="${dto.employee_name}" readonly>
+				</td>
 				
-				<!-- 3 order_id : 타부서에서 입력함 -->
-				<%-- <td> 
-					<select name="order_id">
-					  <datalist id="order_id">
-					    <c:forEach var="order" items="${order_ids}">
-					  		<option value="${order.order_id}">${order.order_id} </option>
-					  	</c:forEach>
-					  </datalist>
-				</td> --%>
+				<td>
+					<input type="date" value="${dto.reg_date}" readonly>
+				</td>
 				
-				<!-- 4 product_id -->
+				<td>
+					<c:set var="now" value="<%= new java.util.Date() %>"/>
+					<input type="date" id="storage_in_date" onchange="return check_date()"
+					value="<fmt:formatDate value='${now}' pattern='yyy-MM-dd'/>" >
+				</td>
+					
+				
+			</tr>
+			
+			<tr>
+				<th>count_purchase</th>
+				<th>supply_price</th>
+				<th>purchase_state</th>
+				<th>condition_note_payable</th>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="number" id="count_purchase" value="${dto.lack_stock}" min="1" max="${dto.lack_stock}" placeholder="구매 수량" requiered  >
+				</td>
+				
+				<td>
+					<input type="number" id="supply_price" value="${dto.purchase_unit_price}" min="1" max="999999999" placeholder="구매단가" requiered   >
+				</td>
+				
+				<td>
+					<input type="hidden" name="purchase_state" id="purchase_state" value="23203">
+					<input type="text" value="구매전표승인요청" requiered >
+				</td>
+				
+				<td>
+					<input type="number" id="condition_note_payable" placeholder="채무 기간" min="1" max="12" >
+				</td>
+				
+			</tr>
+		</table>
+		</c:if>
+		
+		
+		<c:if test="${dto == null}">
+		<table border="1" id="reg_table"  >
+			
+			<tr>
+				<th>product_id</th>
+				<th>company_name</th>
+				<th>employee_id</th>
+				<th>reg_date</th>
+				<th>storage_in_date</th>
+			</tr>
+			
+			<tr>
 				<td> 
+					<!-- 1 product_name -->
 					<select name="product_id" id="product_id">
 					  	<option value="0" selected> 상품선택 </option>
 					  	<c:forEach var="product" items="${product_ids}">
@@ -189,7 +235,7 @@
 				
 				
 				<!-- 9 storage_in_date -->
-				<td> <input type="date" id="storage_in_date" name="storage_in_date" 
+				<td> <input type="date" id="storage_in_date" name="storage_in_date" onchange="return check_date()" 
 					placeholder="입고일" value="<fmt:formatDate value='${now}' pattern='yyy-MM-dd'/>" > 
 				</td>
 				
@@ -199,7 +245,7 @@
 				<th>count_purchase</th>
 				<th>supply_price</th>
 				<th>purchase_state</th>
-				<th>condition_note_payable</th>
+				<th colspan="2"> condition_note_payable</th>
 			</tr>
 			
 			
@@ -213,18 +259,21 @@
 				placeholder="구매단가" requiered  ></td>
 				
 				<!-- 12 purchase_state : 입력할 때는 미승인 상태로 -->
-					<td> <input type="number" name="purchase_state" id="purchase_state"  min="1" max="99999" 
-				placeholder="상태코드" requiered value="23202"></td>	<!-- 구매전표승인요청 -->
-				
+				<td> 
+					<input type="hidden" name="purchase_state" id="purchase_state" value="23203">
+					<input type="text" name="purchase_state_name" id="purchase_state_name" value="구매전표승인요청" requiered >
+				</td>	
 			
 				<!-- 13 condition_note_payable -->
-				<td colsapn="2"> 
+				<td colspan="2"> 
 				<input type="number" id="condition_note_payable" name="condition_note_payable" 
 				placeholder="채무 기간" min="1" max="12" > 
 				</td>	
 			</tr>
 			
 		</table>
+		</c:if>
+		
 	</form>
 	
 	<div id="reg_table" >
@@ -233,79 +282,6 @@
 		<p> 해당란에 없는 칼럼은 시퀀스 또는 기본값으로 입력됩니다. </p>
 		<p> 입력이 완료된 내용은 검색페이지에서 확인할 수 있습니다. </p>
 	</div>
-	
-	
-	
-	
-	
-	<!-- ----------------------------------------------------------------------- -->
-	
-	
-	<!-- 
-	<table border="1">
-		
-		<tr>
-			<th>purchase_id</th>
-			<th>account_id</th>
-			<th>order_id</th>
-			<th>product_id</th>
-			<th>company_name</th>
-			<th>employee_id</th>
-			<th>reg_date</th>
-			<th>update_date</th>
-			<th>storage_in_date</th>
-			<th>count_purchase</th>
-			<th>supply_price</th>
-			<th>purchase_state</th>
-			<th>condition_note_payable</th>
-		</tr>
-		
-		<tr>
-			1 purchase_id
-			<td> <input type="text" name="purchase_id"  maxlength="10" required > </td>
-			
-			2 account_id
-			<td> <input type="text" name="account_id" maxlength="12" required> </td>
-			
-			3 order_id
-			<td> <input type="text" name="order_id" maxlength="12" required > </td>
-			
-			4 product_id
-			<td> <input type="text" name="product_id" maxlength="10" required > </td>
-			
-			5 company_name
-			<td> <input type="text" name="company_id" maxlength="10" required > </td>
-			
-			6 employee_id
-			<td> <input type="number" name="employee_id" maxlength="2" required > </td>
-			
-			7  reg_date
-			<td> <input type="date" name="reg_date" required > </td>
-			
-			8 update_date	
-			<td> <input type="date" name="update_date" readonly > </td>
-			
-			9 storage_in_date
-			<td> <input type="date" name="storage_in_date" > </td>
-			
-			10 count_purchase
-			<td> <input type="number" name="count_purchase" min="1" max="9999" requiered > </td>
-			
-			11 supply_price
-			<td> <input type="number" name="supply_price" min="1" max="9999999999" requiered ></td>
-			
-			12 purchase_state
-			<td> <input type="number" name="purchase_state" value="25451"> </td>	미승인 상태 
-			
-			13 condition_note_payable
-			<td> <input type="number" name="condition_note_payable" min="1" max="12"> </td>	
-		</tr>
-		
-	</table>
-	 -->
-	
-	
-	
 	
 	
 </body>

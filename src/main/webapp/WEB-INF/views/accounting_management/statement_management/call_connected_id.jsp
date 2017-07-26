@@ -75,6 +75,7 @@
 		</tr>
 		</c:forEach>
 	</c:if>
+
 	<c:if test="${param.access_role.equals('HR')}"> <!-- salary -->
 		<c:forEach var="dto" items="${salary_dtos}">
 		<tr>

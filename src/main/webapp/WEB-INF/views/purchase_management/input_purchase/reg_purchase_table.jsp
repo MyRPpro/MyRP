@@ -46,26 +46,26 @@
 				<th>condition</th>	<!-- 10 -->
 			</tr>
 			
-			<c:forEach var="vo" items="${vos}">
+			<c:forEach var="dto" items="${dtos}">
 			
 			<tr>
-				<th>${vo.rnum}</th> 			<!-- 1 -->
-				<td>${vo.purchase_id}</td> 		<!-- 2 -->
-				<td>${vo.account_name}</td> 	<!-- 3 -->
-				<td>${vo.product_name}</td> 	<!-- 4 -->
-				<td>${vo.company_name}</td>		<!-- 5 -->
-				<td>${vo.employee_name}</td>	<!-- 6 -->
+				<th>${dto.rnum}</th> 			<!-- 1 -->
+				<td id="purchase_id">${dto.purchase_id}</td> 		<!-- 2 -->
+				<td>${dto.account_name}</td> 	<!-- 3 -->
+				<td>${dto.product_name}</td> 	<!-- 4 -->
+				<td>${dto.company_name}</td>		<!-- 5 -->
+				<td>${dto.employee_name}</td>	<!-- 6 -->
 				<td>							<!-- 7 -->
-				<fmt:formatDate value="${vo.reg_date}" pattern="MM-dd"/>
+				<fmt:formatDate value="${dto.reg_date}" pattern="MM-dd"/>
 				</td>	
 				<td>							<!-- 11 -->
-				<fmt:formatNumber value="${vo.count_purchase}" type="number" />
+				<fmt:formatNumber value="${dto.count_purchase}" type="number" />
 				</td>	
 				<td>							<!-- 8 -->
-				<fmt:formatNumber value="${vo.supply_price}" type="currency" />
+				<fmt:formatNumber value="${dto.supply_price}" type="currency" />
 				</td>	
-				<td>${vo.purchase_state}</td>	<!-- 9 -->
-				<td>${vo.condition_note_payable}</td>	<!-- 10 -->
+				<td>${dto.purchase_state}</td>	<!-- 9 -->
+				<td>${dto.condition_note_payable}</td>	<!-- 10 -->
 
 			</tr>
 
@@ -73,9 +73,17 @@
 			
 		</table>
 		<br>
-		<input type="button" value="전표입력하기" onclick="window.location='/accounting_management/statement_management/make_statement';" >
-	
+		<input type="button" value="전표입력하기" onclick="sendStatement();">
 	</form>
+	
+	<script type="text/javascript">
+	function sendStatement(){
+		var purchase_id = document.getElementById("purchase_id").innerHTML
+		console.log( " sned purchase_id : " + purchase_id );
+		window.location="/accounting_management/statement_management/make_statement";
+						/* +"?purchase_id="+purchase_id; */
+	}
+	</script>
 
 </body>
 </html>

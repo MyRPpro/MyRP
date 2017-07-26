@@ -1,0 +1,22 @@
+
+Insert into PRODUCT values ('1200000001','상품이름 01',10000,20000,'Y',to_date('17/07/13','RR/MM/DD'));
+Insert into PRODUCT values ('1200000002','상품이름 02',20000,40000,'N',to_date('17/07/12','RR/MM/DD'));
+Insert into PRODUCT values ('1200000003','상품이름 03',30000,60000,'Y',to_date('17/07/11','RR/MM/DD'));
+Insert into PRODUCT values ('1200000004','상품이름 04',40000,80000,'N',to_date('17/07/23','RR/MM/DD'));
+Insert into PRODUCT values ('1200000005','상품이름 05',50000,100000,'Y',to_date('17/07/22','RR/MM/DD'));
+Insert into PRODUCT values ('1200000006','상품이름 06',60000,120000,'N',to_date('17/07/21','RR/MM/DD'));
+Insert into PRODUCT values ('1200000007','상품이름 07',70000,140000,'Y',to_date('17/07/20','RR/MM/DD'));
+Insert into PRODUCT values ('1200000008','상품이름 08',80000,160000,'N',to_date('17/07/19','RR/MM/DD'));
+Insert into PRODUCT values ('1200000009','상품이름 09',90000,180000,'Y',to_date('17/07/18','RR/MM/DD'));
+Insert into PRODUCT values ('1200000010','상품이름 10',100000,200000,'N',to_date('17/07/17','RR/MM/DD'));
+Insert into PRODUCT values ('1200000011','상품이름 11',110000,220000,'Y',to_date('17/07/16','RR/MM/DD'));
+Insert into PRODUCT values ('1200000012','상품이름 12',120000,240000,'N',to_date('17/07/15','RR/MM/DD'));
+Insert into PRODUCT values ('1200000013','상품이름 13',130000,260000,'Y',to_date('17/07/14','RR/MM/DD'));
+Insert into PRODUCT values ('1200000014','상품이름 14',140000,280000,'N',to_date('17/07/13','RR/MM/DD'));
+Insert into PRODUCT values ('1200000015','상품이름 15',150000,300000,'Y',to_date('17/07/12','RR/MM/DD'));
+Insert into PRODUCT values ('1200000016','상품이름 16',160000,320000,'Y',to_date('17/07/11','RR/MM/DD'));
+Insert into PRODUCT values ('1200000017','상품이름 17',170000,340000,'N',to_date('17/07/10','RR/MM/DD'));
+Insert into PRODUCT values ('1200000018','상품이름 18',180000,360000,'Y',to_date('17/07/09','RR/MM/DD'));
+Insert into PRODUCT values ('1200000019','상품이름 19',190000,380000,'Y',to_date('17/07/08','RR/MM/DD'));
+Insert into PRODUCT values ('1200000020','상품이름 20',200000,400000,'N',to_date('17/07/07','RR/MM/DD'));
+COMMIT;

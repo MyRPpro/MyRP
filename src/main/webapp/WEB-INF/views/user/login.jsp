@@ -28,6 +28,7 @@
 	}
 </script>
 <body onload="autofocus();">
+
 login.jsp
 <form action="/user/loginPost" method="post" name="login_form1"
 onsubmit="return fn_login_check();">

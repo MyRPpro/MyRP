@@ -9,20 +9,20 @@
 </head>
 <body>
 
-	<c:if test="${cnt == 1}">
+	<c:if test="${cnt > 0}">
 		<script type="text/javascript">
+			var cnt = '${cnt}';
 			setTimeout(function(){
-				alert("정상적으로 수정되었습니다.");
+				alert( cnt+"건이 정상적으로 수정되었습니다.");
 				window.location="/sales_management/search_sales/sales_list"
-			}, 500);
+			}, 200);
 		</script>
 	</c:if>
 	
-	<c:if test="${cnt != 1}">
+	<c:if test="${cnt == 0}">
 		<script type="text/javascript">
-			alert("수정작업중 오류가 발생했습니다.");
+			alert("수정 중 오류가 발생하였습니다. ");
 			window.history.back();
-			
 		</script>
 	</c:if>
 

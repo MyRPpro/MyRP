@@ -20,8 +20,6 @@ public interface SalesService extends MyRPService {
 	
 	public void reg_sales_service(Model model);
 
-	public void reg_sales_service_pro(Model model);
-
 	public void reg_sales_table(Model model);
 
 
@@ -37,6 +35,10 @@ public interface SalesService extends MyRPService {
 
 
 	public void req_storage_out_service(Model model);
+
+	public void detail_sales_pro_service(Model model);
+
+	public void modify_sales_service(Model model);
 
 	
 }

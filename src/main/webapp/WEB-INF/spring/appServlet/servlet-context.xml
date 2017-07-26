@@ -90,9 +90,9 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/hr_management/**/*"/>
+			<mapping path="/attitude_management/**/*"/>
 			<beans:ref bean="authInterceptor_HR"/>
 		</interceptor>
 	</interceptors>
-	
-	
+
 </beans:beans>
