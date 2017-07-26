@@ -77,9 +77,14 @@ public class SalesServiceImpl implements SalesService {
 			// 
 			cnt = dao.select_count_checkout_sales();
 			System.out.println("  -> Search Cnt : " + cnt );
-			
+		
+		// 전체 조회일 경우
 		} else {
 			cnt = dao.select_sales_cnt();
+			if(cnt == 0){
+				System.out.println("  -> Not Exist Value...");
+				cnt = -1;
+			}
 		}
 		
 		req.setAttribute("cnt",cnt);

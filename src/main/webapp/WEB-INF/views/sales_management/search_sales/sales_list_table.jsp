@@ -30,6 +30,15 @@
 		</script>
 	</c:if>
 	
+	<c:if test="${cnt==-1}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("등록된 내역이 없습니다. 판매등록을 해주세요.");
+				window.location="/sales_management/input_sales/reg_sales";
+			}, 200);
+		</script>
+	</c:if>
+	
 	<table border="1" style="text-align: center;">
 		
 		<tr>
