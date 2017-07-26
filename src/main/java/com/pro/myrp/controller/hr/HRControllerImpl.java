@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.pro.myrp.domain.CodeMyRP;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.FileDTO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
 import com.pro.myrp.service.hr.HRService;
 
 @Controller
@@ -465,7 +465,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		return code.c(hr_management, manage_salary, salary_register_nav);
 	}
 
-
 	@Override
 	@GetMapping(value="manage_salary/reg_salary_info")
 	public String reg_salary_info(HttpServletRequest req, Model model) throws Exception {
@@ -474,7 +473,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.reg_salary_info_service(model);
 		return code.c(hr_management, manage_salary, reg_salary_info);
 	}
-
 	
 	@Override
 	@PostMapping(value="manage_salary/reg_salary_info_pro")
@@ -511,4 +509,24 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.clear_salary_bank_account_pro_service(model);
 		return code.c(hr_management, manage_salary, clear_salary_bank_account_pro);
 	}
+
+	
+	@Override
+	@GetMapping(value="manage_salary/modify_salary_info")
+	public String modify_salary_info(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_salary_info));
+		model.addAttribute("req", req);
+		service.modify_salary_info_service(model);
+		return code.c(hr_management, manage_salary, modify_salary_info);
+	}
+
+	@Override
+	@PostMapping(value="manage_salary/modify_salary_info_pro")
+	public String modify_salary_info_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(modify_salary_info_pro));
+		model.addAttribute("req", req);
+		service.modify_salary_info_pro_service(model);
+		return code.c(hr_management, manage_salary, modify_salary_info_pro);
+	}
+	
 }

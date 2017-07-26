@@ -6,18 +6,18 @@ import java.util.Map;
 
 import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.domain.hr_management.Employee_infoVO;
-import com.pro.myrp.domain.hr_management.Hr_appointment_listDTO;
-import com.pro.myrp.domain.hr_management.Hr_codeVO;
-import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
-import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
-import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
-import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
-import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
-import com.pro.myrp.domain.hr_management.Retired_employeeVO;
-import com.pro.myrp.domain.hr_management.Salary_registerVO;
+import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_cardDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.Employee_infoVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.vo.Personnel_appointmentVO;
+import com.pro.myrp.domain.hr_management.vo.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.vo.Salary_registerVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface HRDAO extends MyRPDAO {
@@ -56,9 +56,8 @@ public interface HRDAO extends MyRPDAO {
 	/**
 	 * 사용상태를 조건으로 한 선택그룹의 인사코드 목록보기
 	 * @author amaco78
-	 * @param use_state
-	 * @param hr_code_group_id
-	 * @return
+	 * @param daoMap [use_state, hr_code_group_id]
+	 * @return List [Hr_codeVO]
 	 */
 	public List<Hr_codeVO> select_used_hr_codes(Map<String, Object> daoMap);
 	
@@ -380,8 +379,8 @@ public interface HRDAO extends MyRPDAO {
 	/**
 	 * 선택된 급여대장번호의 급여대장 정보를 조회
 	 * @author amaco78
-	 * @param salary_register_id
-	 * @return
+	 * @param daoMap [salary_register_id, account_id]
+	 * @return Salary_registerVO
 	 */
 	public Salary_registerVO select_salary_register(Map<String, Object> daoMap);
 	
@@ -415,4 +414,12 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_order_state(Map<String, Object> daoMap);
+
+	/**
+	 * 급여대장 정보 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_salary_register(Salary_registerVO vo);
 }

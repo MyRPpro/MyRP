@@ -661,4 +661,19 @@
 		]]>
 	</update>
 	
+	<!-- 급여대장 정보 수정 -->
+	<update id="update_salary_register" parameterType="Salary_registerVO">
+		UPDATE	salary_register
+		<set>
+			<if test="reg_date != null">reg_date = #{reg_date},</if>
+			<if test="salary_register_name != null">salary_register_name = #{salary_register_name},</if>
+			<if test="pay_date != null">pay_date = #{pay_date},</if>
+			<if test="total_pay != null">total_pay = #{total_pay},</if>
+			<if test="total_employee != null">total_employee = #{total_employee},</if>
+			<if test="salary_state != null">salary_state = #{salary_state}</if>
+		</set>	
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+	</update>
+	
 </mapper>

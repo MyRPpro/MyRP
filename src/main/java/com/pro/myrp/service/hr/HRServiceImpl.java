@@ -17,18 +17,18 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.CodeMyRP;
 import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.domain.hr_management.Employee_infoVO;
-import com.pro.myrp.domain.hr_management.Hr_appointment_listDTO;
-import com.pro.myrp.domain.hr_management.Hr_codeVO;
-import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
-import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
-import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
-import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
-import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
-import com.pro.myrp.domain.hr_management.Retired_employeeVO;
-import com.pro.myrp.domain.hr_management.Salary_registerVO;
+import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_cardDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.Employee_infoVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.vo.Personnel_appointmentVO;
+import com.pro.myrp.domain.hr_management.vo.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.vo.Salary_registerVO;
 import com.pro.myrp.persistence.hr.HRDAO;
 
 @Service
@@ -1047,7 +1047,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			model.addAttribute("salary_registerVos", vos);
 		}
 	}
-
 	
 	@Override
 	public void salary_register_nav_service(Model model) throws Exception {
@@ -1102,7 +1101,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
-
 	
 	@Override
 	public void reg_salary_info_service(Model model) throws Exception {
@@ -1116,7 +1114,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
 		model.addAttribute("hr_codeVos", hr_codeVos);	
 	}
-
 
 	@Override
 	public void reg_salary_info_pro_service(Model model) throws Exception {
@@ -1133,9 +1130,9 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			salary_register_name = dao.select_hr_code_name(daoMap);			
 		}
 		Date pay_date = Date.valueOf(req.getParameter("pay_date"));
+		int salary_state = state_request_payments_salary;
 		long total_pay = Integer.parseInt(req.getParameter("total_pay"));
-		int total_employee = Integer.parseInt(req.getParameter("total_employee"));
-		int salary_state = request_payments_salary;
+		int	total_employee = Integer.parseInt(req.getParameter("total_employee"));
 		Salary_registerVO vo = new Salary_registerVO();
 		vo.setAccount_id(account_salary);
 		vo.setReg_date(reg_date);
@@ -1152,7 +1149,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("cnt2", cnt2);
 	}
-
 
 	@Override
 	public void salary_statement_search_service(Model model) throws Exception {
@@ -1174,10 +1170,10 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 					daoMap.put("salary_register_id", salary_register_id);
 					daoMap.put("account_id", account_id);
 					Salary_registerVO salaryVo = dao.select_salary_register(daoMap);
-					if(salaryVo.getSalary_state() == request_payments_salary) {
-						daoMap.put("salary_state", wait_payments_salary);
+					if(salaryVo.getSalary_state() == state_request_payments_salary) {
+						daoMap.put("salary_state", state_wait_payments_salary);
 						dao.update_salary_register_state(daoMap);
-						salaryVo.setSalary_state(wait_payments_salary);
+						salaryVo.setSalary_state(state_wait_payments_salary);
 						salaryVos.add(salaryVo);
 						daoMap.clear();
 						daoMap.put("statement_id", statement_id);
@@ -1215,7 +1211,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		
 		String salary_register_id = req.getParameter("salary_register_id");
 		String account_id = req.getParameter("account_id");
-		int salary_state = complete_payments_salary;
+		int salary_state = state_complete_payments_salary;
 		Map<String, Object> daoMap = new HashMap<>();
 		daoMap.put("salary_register_id", salary_register_id);
 		daoMap.put("account_id", account_id);
@@ -1226,4 +1222,67 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		int cnt2 = dao.update_bank_account_balance(pay_money);
 		model.addAttribute("cnt", cnt);
 	}
+
+
+	@Override
+	public void modify_salary_info_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		//급여대장 정보 조회
+		String salary_register_id = req.getParameter("salary_register_id");
+		String account_id = req.getParameter("account_id");
+		Map<String,Object> daoMap = new HashMap<>();
+		daoMap.put("salary_register_id", salary_register_id);
+		daoMap.put("account_id", account_id);
+		Salary_registerVO vo = dao.select_salary_register(daoMap);
+		
+		//급여코드 정보 조회
+		int hr_code_group_id = 4;
+		String use_state = "Y";
+		daoMap.clear();
+		daoMap.put("use_state", use_state);
+		daoMap.put("hr_code_group_id", hr_code_group_id);
+		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		
+		model.addAttribute("salary_registerVo", vo);
+		model.addAttribute("hr_codeVos", hr_codeVos);	
+		
+	}
+
+	@Override
+	public void modify_salary_info_pro_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		//폼의 정보 획득
+		String salary_register_id = req.getParameter("salary_register_id");
+		String account_id = req.getParameter("account_id");
+		Date reg_date = Date.valueOf(req.getParameter("reg_date")+"-01");
+		String salary_register_name = req.getParameter("salary_register_name");
+		Date pay_date = Date.valueOf(req.getParameter("pay_date"));
+		long total_pay = Long.parseLong(req.getParameter("total_pay"));
+		int total_employee = Integer.parseInt(req.getParameter("total_employee"));
+		int salary_state = Integer.parseInt(req.getParameter("salary_state"));
+		
+		Salary_registerVO vo = new Salary_registerVO();
+		//급여계정에 추가될 금액 만큼 급여 주문 발생
+		vo.setSalary_register_id(salary_register_id);
+		vo.setAccount_id(account_salary);
+		vo.setReg_date(reg_date);
+		vo.setSalary_register_name(salary_register_name);
+		vo.setPay_date(pay_date);
+		vo.setTotal_pay(total_pay);
+		vo.setTotal_employee(total_employee);
+		vo.setSalary_state(state_request_payments_salary);
+		int cnt = dao.update_salary_register(vo);
+		
+		if(cnt == 1) {
+			//현금계정에서 급여계정으로 빠질 금액 만큼 차감 주문 발행
+			vo.setAccount_id(account_cash);
+			vo.setTotal_pay(-total_pay);
+			cnt = dao.update_salary_register(vo);
+		}
+		
+		model.addAttribute("cnt", cnt);
+	}
+	
 }

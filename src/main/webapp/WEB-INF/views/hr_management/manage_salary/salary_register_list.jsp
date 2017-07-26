@@ -31,7 +31,7 @@ salary_register_list.jsp
 		<td>${vo.account_id}</td>
 		<td>${vo.reg_date}</td>
 		<td>
-			<a href="/hr_management/manage_salary/salary_register_info?salary_register_id=${vo.salary_register_id}">
+			<a href="/hr_management/manage_salary/modify_salary_info?salary_register_id=${vo.salary_register_id}&account_id=${vo.account_id}">
 				${vo.salary_register_name}
 			</a>
 		</td>

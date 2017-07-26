@@ -1,4 +1,4 @@
-package com.pro.myrp.domain.hr_management;
+package com.pro.myrp.domain.hr_management.dto;
 
 import java.sql.Date;
 

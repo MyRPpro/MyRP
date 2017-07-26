@@ -280,12 +280,12 @@ public class SalesServiceImpl implements SalesService {
 		if( req_kind.equals("storage_out") ){
 			System.out.println("  -> Request a Storage Out...");
 			
-			// 상품매출(500012030000)만 22214(전표승인)에서 22222(엽업출고 요청으로 바꿈)
+			// 상품매출(500014030000)만 22214(전표승인)에서 22222(엽업출고 요청으로 바꿈)
 			String sales_id = req.getParameter("sales_id");
 			Map<String, Object> daoMap = new HashMap<>();
 			System.out.println("  -> sales_id : " + sales_id);
 			daoMap.put("sales_id", sales_id);
-			daoMap.put("account_id", "500012030000");
+			daoMap.put("account_id", "500014030000");
 			daoMap.put("sales_state", 22222);
 			update_cnt = dao.update_req_storage_out(daoMap);
 			System.out.println("  -> update_cnt : " + update_cnt);
@@ -427,7 +427,7 @@ public class SalesServiceImpl implements SalesService {
 
 		System.out.println("  -> 상품매출 수정");
 		dto = new SalesDTO();
-		dto.setAccount_id("500012030000");
+		dto.setAccount_id("500014030000");
 		dto.setSelling_price(price);
 		
 		dto.setSales_id(sales_id);
@@ -617,7 +617,7 @@ public class SalesServiceImpl implements SalesService {
 		long sum = price + tax;
 	
 		// 상품매출 insert , 가격 x 수량
-		dto.setAccount_id("500012030000");
+		dto.setAccount_id("500014030000");
 		System.out.println(" 상품매출 : " + dto.getAccount_id());
 		dto.setSelling_price(price);
 		System.out.println("  -> price : " + price );
@@ -683,7 +683,7 @@ public class SalesServiceImpl implements SalesService {
 		Map<String, Object> daoMap = new HashMap<>();
 		System.out.println("■■■■■■■■■■■■sales_id" + sales_id);
 		daoMap.put("sales_id", sales_id);
-		daoMap.put("account_id", "500012030000");
+		daoMap.put("account_id", "500014030000");
 		daoMap.put("sales_state", 22222);
 		int cnt = dao.update_req_storage_out(daoMap);
 	}

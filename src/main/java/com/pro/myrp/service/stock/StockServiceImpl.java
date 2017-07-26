@@ -23,7 +23,7 @@ import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.WarehouseVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
 import com.pro.myrp.persistence.hr.HRDAO;
 import com.pro.myrp.persistence.stock.StockDAO;
 

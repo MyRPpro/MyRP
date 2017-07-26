@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.ui.Model;
 
-import com.pro.myrp.domain.hr_management.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
 import com.pro.myrp.service.MyRPService;
 
 public interface HRService extends MyRPService {
@@ -409,4 +409,20 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void clear_salary_bank_account_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 수정 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_salary_info_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 수정 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_salary_info_pro_service(Model model) throws Exception;
 }

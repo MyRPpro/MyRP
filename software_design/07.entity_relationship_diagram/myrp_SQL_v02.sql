@@ -714,6 +714,29 @@ END;
 /
 ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:ALL';
 --------------------------------------------------------------------------------
+ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:NONE';
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER trigger_stock_info_insert
+    AFTER INSERT
+    ON product
+    FOR EACH ROW
+BEGIN
+    dbms_output.put_line('Trigger running');
+    INSERT INTO stock_information(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT)
+    VALUES(:NEW.product_id, 1001, 0);
+    INSERT INTO stock_information(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT)
+    VALUES(:NEW.product_id, 2001, 0);
+    INSERT INTO stock_information(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT)
+    VALUES(:NEW.product_id, 3001, 0);
+    dbms_output.put_line('Trigger operation successed');
+    EXCEPTION
+        WHEN OTHERS THEN
+            dbms_output.put_line('ERR CODE'||TO_CHAR(SQLCODE));
+            dbms_output.put_line('ERR MESSAGE'||SQLERRM);
+END;
+/
+ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:ALL';
+--------------------------------------------------------------------------------
 -- 기초 데이터 (2017-07-23)
 --------------------------------------------------------------------------------
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25451,'전표미승인','disapproval_statement');
@@ -776,7 +799,7 @@ INSERT INTO account (account_id, account_balance, account_name) VALUES ('5000110
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011030000', '0', '부가세대급금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011040000', '0', '재고자산');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011050000', '0', '상품매입');
-INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012030000', '0', '상품매출');
+INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014030000', '0', '상품매출');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012010000', '0', '매입채무');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012020000', '0', '부가세예수금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500013010000', '0', '이익잉여금');
@@ -1064,3 +1087,14 @@ WHERE   rNum >= 1 AND rNum <= 5;
 SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
  		FROM salary_register s JOIN account a ON s.account_id = a.account_id
  		WHERE s.salary_register_id NOT IN (SELECT sr.salary_register_id FROM salary_register sr JOIN salary_register_statement st ON sr.salary_register_id=st.salary_register_id AND sr.account_id=st.account_id);
+        
+SELECT	*
+ 		FROM	sales_order p JOIN stock_information s
+ 		ON		p.product_id = s.product_id
+ 		WHERE	SALES_STATE = 22222
+ 		AND		s.warehouse_id = 1001
+ 		AND		p.account_id = 500014030000
+ 		
+ 		 
+ 			AND		SALES_STATE != 24202
+ 			AND		SALES_STATE != 24203;

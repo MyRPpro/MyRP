@@ -1,4 +1,4 @@
-package com.pro.myrp.domain.hr_management;
+package com.pro.myrp.domain.hr_management.vo;
 
 public class Hr_codeVO {
 
