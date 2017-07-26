@@ -7,18 +7,35 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+
 <script type="text/javascript">
-function control_code() {
-	$("#modify_base_code_group_div").load("/hr_management/manage_hr_code/modify_base_code_group?hr_code_group_id=${hr_code_groupVo.hr_code_group_id}");
-}
+	$(document).ready(function(){
+		$("#modify_base_code_group_div").load(
+		"/hr_management/manage_hr_code/modify_base_code_group?hr_code_group_id=${hr_code_groupVo.hr_code_group_id}");
+	});
+	
+	$("#base_code_list_table2 a").bind("click", function(event) {
+		$("#hr_code_group_div2").hide();
+		$("#hr_code_div").load($(this).attr("href"));
+		return false;
+	});
+	
+	function fn_base_code_list_form1() {
+		var hr_code_group_id = document.base_code_list_form1.hr_code_group_id;
+		$("#hr_code_group_div2").hide();
+		$("#hr_code_div").load("/hr_management/manage_hr_code/add_base_code?hr_code_group_id="+hr_code_group_id.value);
+		return false;
+	}
+	
 </script>
-<body onload="control_code();">
+
+<body>
 base_code_list.jsp
 <div id="modify_base_code_group_div">
 
 </div>
 <c:if test="${hr_code_groupVo.use_state == 'Y'}">
-	<table border="1">
+	<table border="1" id="base_code_list_table2">
 		<tr>
 			<th colspan="5">${hr_code_groupVo.hr_code_group_name}</th>
 		</tr>
@@ -40,7 +57,9 @@ base_code_list.jsp
 			<td>${vo.use_state}</td>
 		</c:forEach>
 	</table>
-	<form action="/hr_management/manage_hr_code/add_base_code" method="get" name="base_code_list_form1">
+	<form action="/hr_management/manage_hr_code/add_base_code"
+	method="get" name="base_code_list_form1"
+	onsubmit="return fn_base_code_list_form1();">
 		<input type="hidden" name="hr_code_group_id" value="${hr_code_groupVo.hr_code_group_id}">
 		<input type="submit" value="인사코드  등록">
 		<input type="button" value="돌아가기" onclick="window.location='/hr_management/manage_hr_code/base_code_group_list';">
@@ -52,9 +71,8 @@ base_code_list.jsp
 			<th>${hr_code_groupVo.hr_code_group_name} 는 비사용 상태입니다.</th>
 		</tr>
 	</table>
-	<form action="/hr_management/manage_hr_code/add_base_code" method="get" name="base_code_list_form1">
-		<input type="button" value="돌아가기" onclick="window.location='/hr_management/manage_hr_code/base_code_group_list';">
-	</form>
+	<input type="button" value="돌아가기" onclick="window.location='/hr_management/manage_hr_code/base_code_group_list';">
 </c:if>
+<div id="hr_code_div"></div>
 </body>
 </html>

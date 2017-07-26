@@ -7,9 +7,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	$("#base_code_list_table1 a").bind("click", function(event) {
+		$("#hr_code_group_div").load($(this).attr("href"));
+		return false;
+	});
+	
+	function fn_validate_form() {
+		$("#hr_code_group_div").load("/hr_management/manage_hr_code/add_base_code_group");
+		return false;
+	}
+</script>
 <body>
-base_code_list.jsp
-<table border="1">
+<a id="toggle_page">base_codegroup_list.jsp</a>
+<div id="hr_code_group_div2">
+<table border="1" id="base_code_list_table1">
 	<tr>
 		<th>hr_code_group_id</th>
 		<th>hr_code_group_name</th>
@@ -27,9 +39,13 @@ base_code_list.jsp
 	</tr>
 	</c:forEach>
 </table>
-<form action="/hr_management/manage_hr_code/add_base_code_group" method="get" name="base_code_group_list_form1">
+<form action="#" method="get" name="base_code_group_list_form1"
+onsubmit="return fn_validate_form();">
 	<input type="submit" value="인사코드 그룹 등록">
 	<input type="button" value="돌아가기" onclick="window.location='/';">
 </form>
+</div>
+<hr>
+<div id="hr_code_group_div"></div>
 </body>
 </html>

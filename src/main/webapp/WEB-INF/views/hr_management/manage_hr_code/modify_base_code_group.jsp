@@ -7,11 +7,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	function fn_submit() {
+		var hr_code_group_id = document.modify_base_code_group_form1.hr_code_group_id;
+		var use_state = document.modify_base_code_group_form1.use_state;
+		$("#hr_code_group_div").load(
+				"/hr_management/manage_hr_code/modify_base_code_group_pro"+
+				"?hr_code_group_id="+hr_code_group_id.value+
+				"&use_state="+use_state.value
+				);
+		return false;
+	}
+</script>
 <body>
 modify_base_code_group.jsp
-
-<form action="/hr_management/manage_hr_code/modify_base_code_group_pro"
-method="get" name="modify_base_code_group_form1">
+<form action="#" method="get" name="modify_base_code_group_form1"
+onsubmit="return fn_submit();">
 	<table border="1">
 		<tr>
 			<th>hr_code_group_id</th>
