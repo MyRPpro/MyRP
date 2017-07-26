@@ -55,5 +55,11 @@ public class State_alarmDTO {
 	public void setEng_name(String eng_name) {
 		this.eng_name = eng_name;
 	}
+	public String getFrom_dept() {
+		return from_dept;
+	}
+	public void setFrom_dept(String from_dept) {
+		this.from_dept = from_dept;
+	}
 
 }

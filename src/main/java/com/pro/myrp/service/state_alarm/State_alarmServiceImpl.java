@@ -36,6 +36,7 @@ public class State_alarmServiceImpl implements State_alarmService {
 
 				switch(state.getOrder_state()){
 					case 25451 : state.setState_addr("/accounting_management/statement_management/search_unapproval_statements"); state.setState_msg("전표 승인 요청이 도착했습니다.");break;
+								
 				}
 			}
 		}else if(role.equals("DT")){
@@ -48,8 +49,14 @@ public class State_alarmServiceImpl implements State_alarmService {
 				state =state_alarmDtos.get(i); 
 
 				switch(state.getOrder_state()){
-					case 23204 :state.setState_addr("/distribution_management/search_distribution_order/statement_list"); state.setState_msg("구매팀에서 구매입고 요청이 도착했습니다.");break;
-					case 22222 :state.setState_addr("/distribution_management/search_distribution_order/statement_list"); state.setState_msg("영업팀에서 영업출고 요청이 도착했습니다.");break;
+					case 23204 :state.setState_addr("/distribution_management/search_distribution_order/statement_list");
+					state.setState_msg("구매팀에서 구매입고 요청이 도착했습니다.");
+					state.setFrom_dept("구매팀");
+					break;
+					case 22222 :state.setState_addr("/distribution_management/search_distribution_order/statement_list");
+					state.setState_msg("영업팀에서 영업출고 요청이 도착했습니다.");
+					state.setFrom_dept("영업팀");
+					break;
 				}
 			}
 		}else if(role.equals("HR")){
@@ -137,13 +144,20 @@ public class State_alarmServiceImpl implements State_alarmService {
 				
 				if(state.getOrder_state() == 24752){
 					state.setState_addr("/sales_management/search_sales/sales_list"); 
-					state.setState_msg("물류팀에서 출고완료 알림이 도착했습니다.");
+					state.setState_msg("출고완료 알림");
+					state.setFrom_dept("물류");
 					continue;
 				}
 				
 				switch(sa_state){
-					case 25452 :state.setState_addr("/sales_management/search_sales/sales_list"); state.setState_msg("회계팀에서 전표 승인 알림이 도착했습니다."); break;
-					case 25453 :state.setState_addr("/sales_management/search_sales/sales_list"); state.setState_msg("회계에서 전표 승인 거절 알림이 도착했습니다."); break;
+					case 25452 :state.setState_addr("/sales_management/search_sales/sales_list");
+					state.setState_msg("전표승인 알림");
+					state.setFrom_dept("회계");
+					break;
+					case 25453 :state.setState_addr("/sales_management/search_sales/sales_list");
+					state.setState_msg("전표승인거절 알림");
+					state.setFrom_dept("회계");
+					break;
 					default : state_alarmDtos.remove(i); i-=1; break;
 				}
 				
