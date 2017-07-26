@@ -116,9 +116,9 @@ function reload(){
 }
 
 // connected_id => sales_id, purchase_id, salary_register_id 불러오기
-function call_connected_id(){
+function call_connected_id(access_role){
 	var statement_type = document.make_statement_form1.statement_type.value;
-	var url="/accounting_management/statement_management/call_connected_id_view?statement_type="+statement_type;
+	var url="/accounting_management/statement_management/call_connected_id?access_role="+access_role;
 	window.open(url, "confirm", "menubar=no, width=800, height=300");
 }
 
@@ -132,7 +132,7 @@ function set_connected_id(connected_id, account_id, account_name, account_value,
 	self.close();
 }
 
-function set_account_id(account_id, account_name, account_value, typeCnt){
+function set_statement_account_id(account_id, account_name, account_value, typeCnt){
 	opener.document.make_statement_form1.account_id.value = account_id;
 	opener.document.make_statement_form1.account_name.value = account_name;
 	opener.document.make_statement_form1.account_value.value = account_value;
@@ -201,40 +201,6 @@ function inputCheck(){
 		document.add_account_form1.dupCheckButton.focus();
 		return false;
 	}
-}
-
-function quick_date_select(){
-	var url = "/accounting_management/financial_statements/show_profit_and_loss_statement";
-	
-	
-	
-	/*var d = new Date();
-	var year = d.getFullYear();
-	var month = d.getMonth() + 1;
-	var date = d.getDate();
-	var day = d.getDay();
-	
-	var today_start = year +"-"+ month +"-"+ date;
-	var yesterday_start = year +"-"+ month +"-"+ date-1;
-		
-		if((date-1)<1) {
-			if((month-1)<1){ 
-				year = year-1; month = 12;
-			}else{
-				month=month-1;
-			}
-			if(month==4||month==6||month==9||month==11){
-				date = 30;
-			}else if(month==2){
-				date = 28;
-			}else{
-				date = 31;
-			}
-		}
-	
-	var this_week_start = year +"-"+ month +"-"+ date;
-	if(date+(6-day)>)
-	var this_week_end = year + "-" + month + "-" + date+(6-day);*/
 }
 
 function formatDate(date) {

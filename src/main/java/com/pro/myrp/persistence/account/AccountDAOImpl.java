@@ -290,6 +290,22 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_accounts_for_date_tax(daoMap);
 	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_cash_values(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_cash_values(daoMap);
+	}
+	@Override
+	public String select_account_name_for_tax(String statement_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_account_name_for_tax(statement_id);
+	}
+	@Override
+	public String select_account_name_for_all(String statement_id) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_account_name_for_all(statement_id);
+	}
+
 	
 	
 	

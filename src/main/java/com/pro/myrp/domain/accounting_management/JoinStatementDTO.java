@@ -12,7 +12,7 @@ public class JoinStatementDTO {
 	public String sales_id;
 	
     public Date reg_date; 				//등록일자
-    public int account_value;			//계정금액
+    public Long account_value;			//계정금액
     public int approval_state;			//주문상태
     public String statement_type; 		//전표타입	
 	
@@ -143,10 +143,10 @@ public class JoinStatementDTO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	public int getAccount_value() {
+	public long getAccount_value() {
 		return account_value;
 	}
-	public void setAccount_value(int account_value) {
+	public void setAccount_value(long account_value) {
 		this.account_value = account_value;
 	}
 	public int getApproval_state() {

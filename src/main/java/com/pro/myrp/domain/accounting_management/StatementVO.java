@@ -6,7 +6,7 @@ public class StatementVO {
 	public String statement_id; 		//전표번호
     public String account_id; 			//계정코드
     public Date reg_date; 				//등록일자
-    public int account_value;			//계정금액
+    public long account_value;			//계정금액
     public int approval_state;			//주문상태
     public String statement_type; 		//전표타입
     
@@ -28,10 +28,10 @@ public class StatementVO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	public int getAccount_value() {
+	public long getAccount_value() {
 		return account_value;
 	}
-	public void setAccount_value(int account_value) {
+	public void setAccount_value(long account_value) {
 		this.account_value = account_value;
 	}
 	public int getApproval_state() {

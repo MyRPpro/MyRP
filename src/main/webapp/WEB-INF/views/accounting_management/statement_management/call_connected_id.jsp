@@ -9,13 +9,9 @@
 <script src = "/resources/accounting_management/accounting_management_script.js"></script>
 </head>
 <body>
-	<input type="button" value="sales" onclick="window.location='/accounting_management/statement_management/call_connected_id?select_connection=1'">
-	<input type="button" value="purchase" onclick="window.location='/accounting_management/statement_management/call_connected_id?select_connection=2'">
-	<input type="button" value="salary" onclick="window.location='/accounting_management/statement_management/call_connected_id?select_connection=3'">
-	<input type="button" value="tax" onclick="window.location='/accounting_management/statement_management/call_connected_id?select_connection=4'">
 	
 	<table border="1">
-		<c:if test="${param.select_connection==1}">
+		<c:if test="${param.access_role.equals('SA')}">
 		<tr>
 				<th> sales_id </th>
 				<th> account_id </th>
@@ -24,7 +20,7 @@
 				<th> reg_date </th>
 		</tr>
 		</c:if>
-		<c:if test="${param.select_connection==2}">
+		<c:if test="${param.access_role.equals('PU')}">
 		<tr>
 				<th> purchase_id </th>
 				<th> account_id </th>
@@ -33,7 +29,7 @@
 				<th> reg_date </th>
 		</tr>
 		</c:if>
-		<c:if test="${param.select_connection==3}">
+		<c:if test="${param.access_role.equals('HR')}">
 		<tr>
 				<th> salary_register </th>
 				<th> account_id </th>
@@ -42,14 +38,14 @@
 				<th> reg_date </th>
 		</tr>
 		</c:if>
-		<c:if test="${param.select_connection==4}">
+		<c:if test="${param.access_role.equals('FI')}">
 		<tr>
 			<th> account_id </th>
 			<th> account_name </th>
 			<th> account_balance </th>
 		</tr>
 		</c:if>
-	<c:if test="${param.select_connection==1}"> <!-- sales -->
+	<c:if test="${param.access_role.equals('SA')}"> <!-- sales -->
 		<c:forEach var="dto" items="${sales_dtos}">
 		<tr>
 			<td> ${dto.sales_id} </td>
@@ -64,7 +60,7 @@
 		</tr>
 		</c:forEach>	
 	</c:if>
-	<c:if test="${param.select_connection==2}"> <!-- purchase -->
+	<c:if test="${param.access_role.equals('PU')}"> <!-- purchase -->
 		<c:forEach var="dto" items="${purchase_dtos}">
 		<tr>
 			<td> ${dto.purchase_id} </td>
@@ -79,7 +75,7 @@
 		</tr>
 		</c:forEach>
 	</c:if>
-	<c:if test="${param.select_connection==3}"> <!-- salary -->
+	<c:if test="${param.access_role.equals('HR')}"> <!-- salary -->
 		<c:forEach var="dto" items="${salary_dtos}">
 		<tr>
 			<td> ${dto.salary_register_id} </td>
@@ -94,11 +90,11 @@
 		</tr>
 		</c:forEach>
 	</c:if>
-	<c:if test="${param.select_connection==4}">  <!-- tax -->
+	<c:if test="${param.access_role.equals('FI')}"> <!-- tax -->
 		<c:forEach var="dto" items="${tax_dtos}">
 		<tr>
 			<td>
-				<a href="javascript:void(0);" onclick="set_account_id(${dto.account_id},'${dto.account_name}', ${dto.account_value},4)">
+				<a href="javascript:void(0);" onclick="set_statement_account_id(${dto.account_id},'${dto.account_name}', ${dto.account_value},4)">
 				${dto.account_id}
 				</a>
 			</td>

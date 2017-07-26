@@ -655,4 +655,47 @@
         AND s.APPROVAL_STATE='25452' AND ss.account_id = '500014030000'
 		]]>
 	</select>
+	
+	<!-- 현금흐름표 > account_values 가져오기(시간 순서대로) -->
+	<select id="select_cash_values" parameterType="java.util.Map" resultType="JoinStatementDTO">
+		<![CDATA[
+		 SELECT s.account_value, s.reg_date, s.statement_id, tax.account_id
+	      FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
+	     	  			  left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+	     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
+	     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
+         WHERE  s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+          	     AND  tax.account_id = '500011010000' OR sales.account_id = '500011010000' OR purc.account_id= '500011010000' OR salary.account_id= '500011010000'
+          	     AND s.APPROVAL_STATE='25452'
+	     ORDER BY s.reg_date
+		]]>
+	</select>
+	
+	<!-- 현금흐름표 > account_name 가져오기 -->
+	<select id="select_account_name_for_tax" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT account_name FROM account WHERE account_id = (
+	       SELECT tax.account_id FROM statement s JOIN tax_statement tax ON s.statement_id = tax.statement_id
+	       	WHERE s.reg_date = (SELECT reg_date FROM statement WHERE statement_id = #{statement_id})
+	         AND tax.statement_id <> #{statement_id})
+		]]>
+	</select>
+	<select id="select_account_name_for_all" parameterType="String" resultType="String">
+		<![CDATA[
+		 SELECT account_name FROM account WHERE account_id = (SELECT account_id FROM sales_statement WHERE sales_id= (SELECT sales_id FROM sales_statement WHERE account_id=500011010000)
+                                                                                                          AND account_id <> '500011010000'
+                                                                                                          AND statement_Id = #{statement_id}
+                                                             UNION 
+                                                             SELECT account_id FROM purchase_statement WHERE purchase_id= (SELECT purchase_id FROM sales_statement WHERE account_id=500011010000)
+                                                                                                          AND account_id <> '500011010000'
+                                                                                                          AND statement_Id = #{statement_id}
+                                                             UNION 
+                                                             SELECT account_id FROM salary_register_statement WHERE salary_register_id= (SELECT salary_register_id FROM salary_register_statement WHERE account_id=500011010000)
+                                                                                                          AND account_id <> '500011010000'
+                                                                                                          AND statement_Id = #{statement_id}
+                                                            )
+		]]>
+	</select>
+	
+
 </mapper>

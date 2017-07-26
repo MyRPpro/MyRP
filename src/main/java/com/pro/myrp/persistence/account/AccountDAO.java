@@ -258,4 +258,13 @@ public interface AccountDAO extends MyRPDAO {
 	public Long select_accounts_for_date_purchase(Map<Object, Object> daoMap);
 	public Long select_accounts_for_date_salary(Map<Object, Object> daoMap);
 	public Long select_accounts_for_date_tax(Map<Object, Object> daoMap);
+
+	/**
+	 * 회계보고서 >
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_cash_values(Map<Object,Object> daoMap);
+	public String select_account_name_for_tax(String statement_id);
+	public String select_account_name_for_all(String statement_id);
 }
