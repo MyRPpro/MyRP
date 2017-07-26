@@ -104,5 +104,7 @@ public interface SalesDAO extends MyRPDAO {
 
 	public int select_strage_out();
 
+	public int select_req_storage_out();
+
 	
 }

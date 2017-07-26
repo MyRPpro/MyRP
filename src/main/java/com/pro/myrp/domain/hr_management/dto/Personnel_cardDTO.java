@@ -1,8 +1,18 @@
-package com.pro.myrp.domain.hr_management;
+package com.pro.myrp.domain.hr_management.dto;
 
 import java.sql.Date;
 
-public class Personnel_card_listDTO {
+/**
+ * 인사카드DTO<br>
+ * hr_code_group (hr_code_group_id)
+ * hr_code (hr_code_group_id,hr_code_id)<br>
+ * dept (dept_id)<br>
+ * employee (employee_id)<br>
+ * employee_info (employee_id)<br>
+ * @author amaco78
+ *
+ */
+public class Personnel_cardDTO {
 
 	private int employee_id;
 	private int dept_id;
@@ -14,6 +24,14 @@ public class Personnel_card_listDTO {
 	private String employee_name;
 	private String residence_reg_no;
 	private Date join_date;
+	
+	private String tel;
+	private String mobile_tel;
+	private String passport_no;
+	private String email;
+	private String address;
+	private int hourly_wage;
+	private String salary_account;
 	
 	public int getEmployee_id() {
 		return employee_id;
@@ -75,5 +93,46 @@ public class Personnel_card_listDTO {
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
-	
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getMobile_tel() {
+		return mobile_tel;
+	}
+	public void setMobile_tel(String mobile_tel) {
+		this.mobile_tel = mobile_tel;
+	}
+	public String getPassport_no() {
+		return passport_no;
+	}
+	public void setPassport_no(String passport_no) {
+		this.passport_no = passport_no;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public int getHourly_wage() {
+		return hourly_wage;
+	}
+	public void setHourly_wage(int hourly_wage) {
+		this.hourly_wage = hourly_wage;
+	}
+	public String getSalary_account() {
+		return salary_account;
+	}
+	public void setSalary_account(String salary_account) {
+		this.salary_account = salary_account;
+	}
 }

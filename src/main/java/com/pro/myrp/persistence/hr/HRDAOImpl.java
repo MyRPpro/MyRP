@@ -9,17 +9,20 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.pro.myrp.domain.hr_management.DeptVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.domain.hr_management.Employee_infoVO;
-import com.pro.myrp.domain.hr_management.Hr_appointment_listDTO;
-import com.pro.myrp.domain.hr_management.Hr_codeVO;
-import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
-import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
-import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
-import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
-import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
-import com.pro.myrp.domain.hr_management.Retired_employeeVO;
+import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_cardDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.Employee_infoVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.vo.Personnel_appointmentVO;
+import com.pro.myrp.domain.hr_management.vo.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.vo.Salary_registerVO;
 
 @Repository
 public class HRDAOImpl implements HRDAO {
@@ -259,5 +262,79 @@ public class HRDAOImpl implements HRDAO {
 	public List<Retired_EmployeeDTO> select_retired_employee_history(int employee_id) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_retired_employee_history(employee_id);
+	}
+
+	@Override
+	public int select_salary_register_cnt(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_register_cnt(daoMap);
+	}
+
+	
+	@Override
+	public List<Salary_registerVO> select_salary_register_list(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_register_list(daoMap);
+	}
+
+	@Override
+	public int insert_salary_register(Salary_registerVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_salary_register(vo);
+	}
+
+	@Override
+	public int insert_salary_register2(Salary_registerVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_salary_register2(vo);
+	}
+
+	@Override
+	public List<Order_stateVO> select_statements_approval() {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_statements_approval();
+	}
+
+	@Override
+	public List<Salary_register_statementVO> select_salary_statement(String statement_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_statement(statement_id);
+	}
+
+	@Override
+	public Salary_registerVO select_salary_register(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_register(daoMap);
+	}
+
+	@Override
+	public int update_salary_register_state(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_salary_register_state(daoMap);
+	}
+
+	@Override
+	public List<Salary_registerVO> select_salary_register_for_clear() {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary_register_for_clear();
+	}
+
+	@Override
+	public int update_bank_account_balance(long pay_money) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_bank_account_balance(pay_money);
+	}
+
+	@Override
+	public int update_order_state(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_order_state(daoMap);
+	}
+
+	
+	@Override
+	public int update_salary_register(Salary_registerVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_salary_register(vo);
 	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.ui.Model;
 
-import com.pro.myrp.domain.hr_management.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
 import com.pro.myrp.service.MyRPService;
 
 public interface HRService extends MyRPService {
@@ -345,4 +345,84 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void personnel_card_retired_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 조회 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void salary_register_search_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 목록 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void salary_register_list_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 페이지 네비게이션
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void salary_register_nav_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여정보 등록 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void reg_salary_info_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여정보 등록 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void reg_salary_info_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여전표 조회 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void salary_statement_search_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 지급 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void clear_salary_bank_account_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 지급 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void clear_salary_bank_account_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 수정 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_salary_info_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 수정 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void modify_salary_info_pro_service(Model model) throws Exception;
 }

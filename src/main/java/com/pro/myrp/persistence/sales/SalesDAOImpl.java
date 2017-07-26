@@ -300,6 +300,13 @@ public class SalesDAOImpl implements SalesDAO {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_strage_out();
 	}
+
+
+	@Override
+	public int select_req_storage_out() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_req_storage_out();
+	}
 	
 
 	

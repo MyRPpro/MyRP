@@ -3,7 +3,8 @@
 <%@ include file="../../setting.jsp" %>
 
 검색개수 : ${cnt}
-<br>검색종류 : 
+&nbsp;
+검색종류 : 
 <c:choose>
 
 	<c:when test="${check==1}">
@@ -28,7 +29,7 @@
 	</c:otherwise>
 
 </c:choose>
-
+&nbsp;
 <body>
 
 	<c:if test="${startPage > pageBlock}">

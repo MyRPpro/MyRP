@@ -77,9 +77,14 @@ public class SalesServiceImpl implements SalesService {
 			// 
 			cnt = dao.select_count_checkout_sales();
 			System.out.println("  -> Search Cnt : " + cnt );
-			
+		
+		// 전체 조회일 경우
 		} else {
 			cnt = dao.select_sales_cnt();
+			if(cnt == 0){
+				System.out.println("  -> Not Exist Value...");
+				cnt = -1;
+			}
 		}
 		
 		req.setAttribute("cnt",cnt);
@@ -291,6 +296,7 @@ public class SalesServiceImpl implements SalesService {
 			daoMap.put("sales_id", sales_id);
 			daoMap.put("account_id", account_id );
 			daoMap.put("sales_state", req_out_strage );
+
 			update_cnt = dao.update_req_storage_out(daoMap);
 			System.out.println("  -> update_cnt : " + update_cnt);
 			
@@ -375,6 +381,7 @@ public class SalesServiceImpl implements SalesService {
 		Long price	=  Math.round(Double.parseDouble(req.getParameter("selling_price"))); 
 		Long tax	=  (price/10);
 		Long sum	= (price + tax);
+
 		
 		System.out.println("  -> price : " + price);
 		System.out.println("  -> tax : " + tax);
@@ -486,6 +493,7 @@ public class SalesServiceImpl implements SalesService {
 		long sum = price + tax;
 	
 		// 상품매출 insert , 가격 x 수량
+
 		String price_code = dao.select_account_price();
 		dto.setAccount_id(price_code);
 		System.out.println("  -> 상품매출 : " + dto.getAccount_id());
@@ -540,13 +548,18 @@ public class SalesServiceImpl implements SalesService {
 	public void req_storage_out_service(Model model) {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
 		String sales_id = req.getParameter("sales_id");
+		String account_id = dao.select_account_price();
+		int req_strage_out = dao.select_req_storage_out();
+		
 		Map<String, Object> daoMap = new HashMap<>();
-		System.out.println("■■■■■■■■■■■■sales_id" + sales_id);
+		System.out.println("  -> sales_id" + sales_id);
 		daoMap.put("sales_id", sales_id);
-		daoMap.put("account_id", "500012030000");
-		daoMap.put("sales_state", 22222);
+		daoMap.put("account_id", account_id);
+		daoMap.put("sales_state", req_strage_out );
 		dao.update_req_storage_out(daoMap);
+
 	}
 
 	
