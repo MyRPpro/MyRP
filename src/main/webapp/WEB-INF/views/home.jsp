@@ -13,6 +13,7 @@ function fn_login_form() {
 }
 </script>
 <body>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -188,6 +189,7 @@ function fn_login_form() {
 		</div>
 	</div>
 </div>
+>>>>>>> c81e9a2b910ec3ed91cac812dd490d7c3328e810
 </body>
 <script type="text/javascript">
 	

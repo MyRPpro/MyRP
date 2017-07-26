@@ -30,7 +30,7 @@
 		<td colspan="2">
 			
 			<input type="text" name="connected_id" >  
-			<input type="button" value="조회" onclick="call_connected_id()" name="calling_button">
+			<input type="button" value="조회" onclick="call_connected_id('${ROLE.access_role}')" name="calling_button">
 		</td>
 	</tr>
 	<tr>

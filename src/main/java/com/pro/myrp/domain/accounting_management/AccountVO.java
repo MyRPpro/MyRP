@@ -4,7 +4,7 @@ public class AccountVO {
 	
 	private String account_id; 			//계정코드
 	private String account_name; 		//계정이름
-	private int account_balance;		//잔액
+	private long account_balance;		//잔액
 	
 	public String getAccount_id() {
 		return account_id;
@@ -18,10 +18,10 @@ public class AccountVO {
 	public void setAccount_name(String account_name) {
 		this.account_name = account_name;
 	}
-	public int getAccount_balance() {
+	public long getAccount_balance() {
 		return account_balance;
 	}
-	public void setAccount_balance(int account_balance) {
+	public void setAccount_balance(long account_balance) {
 		this.account_balance = account_balance;
 	}
 	

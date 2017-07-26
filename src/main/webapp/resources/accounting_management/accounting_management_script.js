@@ -116,9 +116,9 @@ function reload(){
 }
 
 // connected_id => sales_id, purchase_id, salary_register_id 불러오기
-function call_connected_id(){
+function call_connected_id(access_role){
 	var statement_type = document.make_statement_form1.statement_type.value;
-	var url="/accounting_management/statement_management/call_connected_id_view?statement_type="+statement_type;
+	var url="/accounting_management/statement_management/call_connected_id?access_role="+access_role;
 	window.open(url, "confirm", "menubar=no, width=800, height=300");
 }
 
@@ -132,7 +132,7 @@ function set_connected_id(connected_id, account_id, account_name, account_value,
 	self.close();
 }
 
-function set_account_id(account_id, account_name, account_value, typeCnt){
+function set_statement_account_id(account_id, account_name, account_value, typeCnt){
 	opener.document.make_statement_form1.account_id.value = account_id;
 	opener.document.make_statement_form1.account_name.value = account_name;
 	opener.document.make_statement_form1.account_value.value = account_value;
@@ -203,10 +203,194 @@ function inputCheck(){
 	}
 }
 
+function formatDate(date) {
+    var mymonth = date.getMonth() + 1;
+    var myweekday = date.getDate();
+    return (date.getFullYear() + "-" + ((mymonth < 10) ? "0" : "") + mymonth + "-" + ((myweekday < 10) ? "0" : "") + myweekday);
+}
+// 오늘
+function SetToday(begin, end) {
+    var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var mydate = new Date();
+    mydate.setDate(mydate.getDate());
+    obj1.value = formatDate(mydate);
+    if (obj2 != null) {
+        obj2.value = obj1.value;
+    }
+}
 
+// 어제
+function SetYesterday(begin, end) {
+    var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var mydate = new Date();
+    mydate.setDate(mydate.getDate() - 1);
+    obj1.value = formatDate(mydate);
+    if (obj2 != null) {
+        obj2.value = obj1.value;
+    }
+}
+// 이번주
+function SetWeek(begin, end) {
+	var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var now = new Date();
+    var nowDayOfWeek = now.getDay();
+    var nowDay = now.getDate();
+    var nowMonth = now.getMonth();
+    var nowYear = now.getYear();
+    nowYear += (nowYear < 2000) ? 1900 : 0;
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek));
+    obj1.value = formatDate(weekStartDate);
+    obj2.value = formatDate(weekEndDate);
+}
+//전 주
+function SetPrevWeek(begin, end) {
+	var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var now = new Date();
+    var nowDayOfWeek = now.getDay();
+    var nowDay = now.getDate();
+    var nowMonth = now.getMonth();
+    var nowYear = now.getYear();
+    nowYear += (nowYear < 2000) ? 1900 : 0;
+    var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek);
+    var weekEndDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek-1);
+    weekStartDate.setDate(weekStartDate.getDate() - 7);
+    obj1.value = formatDate(weekStartDate);
+    obj2.value = formatDate(weekEndDate);
+}
+// 이번달
+function SetCurrentMonthDays(begin, end) {
+    var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var d2, d22;
+    d2 = new Date();
+    d22 = new Date(d2.getFullYear(), d2.getMonth());
+    var d3, d33;
+    d3 = new Date();
+    d33 = new Date(d3.getFullYear(), d3.getMonth() + 1, "");
+    obj1.value = formatDate(d22);
+    obj1.focus();
+    obj2.value = formatDate(d33);
+    obj2.focus();
+}
+// 이전달
+function SetPrevMonthDays(begin, end) {
+    var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var d2, d22;
+    d2 = new Date();
+    d22 = new Date(d2.getFullYear(), d2.getMonth() -1);
+    var d3, d33;
+    d3 = new Date();
+    d33 = new Date(d3.getFullYear(), d3.getMonth(), "");
+    obj1.value = formatDate(d22);
+    obj1.focus();
+    obj2.value = formatDate(d33);
+    obj2.focus();
+}
+//금 분기 
+function SetCurrentQuarter(begin, end) {
+	 var obj1 = document.getElementById(begin);
+	 var obj2 = document.getElementById(end);
+	 var quarter;
+	 var d2, d22;
+	    d2 = new Date();
+	    switch(d2.getMonth()){
+	    	case 1 : case 2 : case 3 : 
+	    		quarter = 3; break;
+	    	case 4 : case 5 : case 6 : 
+	    		quarter = 6; break;
+	    	case 7 : case 8 : case 9 : 
+	    		quarter = 9; break;
+	    	case 10 : case 11 : case 12 : 
+	    		quarter = 12; break;
+	    }
+	    d22 = new Date(d2.getFullYear(), quarter);
+	    var d3, d33;
+	    d3 = new Date();
+	    d33 = new Date(d3.getFullYear(), quarter+3, "");
+	    obj1.value = formatDate(d22);
+	    obj1.focus();
+	    obj2.value = formatDate(d33);
+	    obj2.focus();
+}
 
+// 전 분기
+function SetPrevQuarter(begin, end) {
+	 var obj1 = document.getElementById(begin);
+	 var obj2 = document.getElementById(end);
+	 var quarter;
+	 var d2, d22;
+	    d2 = new Date();
+	    switch(d2.getMonth()){
+	    	case 1 : case 2 : case 3 : 
+	    		quarter = 0; break;
+	    	case 4 : case 5 : case 6 : 
+	    		quarter = 3; break;
+	    	case 7 : case 8 : case 9 : 
+	    		quarter = 6; break;
+	    	case 10 : case 11 : case 12 : 
+	    		quarter = 9; break;
+	    }
+	    d22 = new Date(d2.getFullYear(), quarter);
+	    var d3, d33;
+	    d3 = new Date();
+	    d33 = new Date(d3.getFullYear(), quarter+3, "");
+	    obj1.value = formatDate(d22);
+	    obj1.focus();
+	    obj2.value = formatDate(d33);
+	    obj2.focus();
+}
 
-
+// 올해
+function SetCurrentYearDays(begin, end) {
+    var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var d2, d22;
+    d2 = new Date();
+    d22 = new Date(d2.getFullYear() ,"0","1");
+    var d3, d33;
+    d3 = new Date();
+    d33 = new Date(d3.getFullYear() + 1,"", "");
+    obj1.value = formatDate(d22);
+    obj1.focus();
+    obj2.value = formatDate(d33);
+    obj2.focus();
+}
+// 전년
+function SetPrevYearDays(begin, end) {
+    var obj1 = document.getElementById(begin);
+    var obj2 = document.getElementById(end);
+    var d2, d22;
+    d2 = new Date();
+    d22 = new Date(d2.getFullYear() - 1 ,"0","1");
+    var d3, d33;
+    d3 = new Date();
+    d33 = new Date(d3.getFullYear(),"", "");
+    obj1.value = formatDate(d22);
+    obj1.focus();
+    obj2.value = formatDate(d33);
+    obj2.focus();
+}
+//start 보다 end 가 앞서지는 않는지 비교
+function check_date_order(){
+	 var obj1 = document.financial_statements_form2.startDate.value;
+	 var obj2 = document.financial_statements_form2.endDate.value;
+	if(!obj1||!obj2){
+		alert("날짜를 입력해주세요!");
+		document.financial_statements_form2.startDate.focus();
+		return false;
+	}
+	if(obj1>obj2){
+		alert("검색 시작날짜가 끝날짜보다 앞서야합니다!");
+		return false;
+	}
+	
+}
 
 
 
