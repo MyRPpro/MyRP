@@ -30,6 +30,15 @@
 		</script>
 	</c:if>
 	
+	<c:if test="${cnt==-1}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("등록된 내역이 없습니다. 판매등록을 해주세요.");
+				window.location="/sales_management/input_sales/reg_sales";
+			}, 200);
+		</script>
+	</c:if>
+	
 	<table border="1" style="text-align: center;">
 		
 		<tr>
@@ -45,8 +54,8 @@
 			<th>수량</th>
 			<th>가격</th>
 			<th>총합</th>
+			<th>판매상태 </th>
 			<th>어음기간</th>
-			<th>판매상태</th>
 		</tr>
 		
 		<c:forEach var="dto" items="${dtos}">
@@ -64,14 +73,6 @@
 			<%-- <td>${dto.order_id}</td> --%>
 			<td>${dto.product_name}</td>
 			<td>${dto.company_name}</td>
-			
-			<%-- 수정 전 버젼 : 회사이름으로 이동하면 곂친다.
-			<td>
-				<a href="javascript:detail_page('${dto.company_id},${dto.sales_id},${dto.account_id},${dto.sales_state}')">
-					${dto.company_name}
-				</a>
-			</td>
-			 --%>
 			<td>${dto.employee_name}</td>
 			<td>${dto.reg_date}</td>
 			<td>${dto.update_date}</td>

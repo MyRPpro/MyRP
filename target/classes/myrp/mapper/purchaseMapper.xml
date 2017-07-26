@@ -561,6 +561,7 @@
 			    '${supply_price}', 
 			    '${purchase_state}',
 			    '${condition_note_payable}' 
+
 			   )
 		]]>
  	</insert>

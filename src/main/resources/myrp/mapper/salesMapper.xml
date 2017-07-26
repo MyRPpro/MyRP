@@ -390,9 +390,10 @@
 	</select>
 		
 	<select id="select_employee" resultType="SalesDTO">	
-		SELECT EMPLOYEE_ID, EMPLOYEE_NAME 
-	    FROM EMPLOYEE NATURAL JOIN DEPARTMENT
-	    WHERE ACCESS_ROLE = 'SA'
+		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
+		FROM 	EMPLOYEE NATURAL JOIN DEPARTMENT
+    	WHERE	ACCESS_ROLE = 'SA'
+		AND  	EMPLOYEE_ID NOT IN ( SELECT EMPLOYEE_ID FROM RETIRED_EMPLOYEE )
 	</select>	 	
  	
  	
@@ -424,7 +425,8 @@
  		<![CDATA[
  		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
 		FROM 	EMPLOYEE NATURAL JOIN DEPARTMENT
-		WHERE 	ACCESS_ROLE = 'SA'
+    	WHERE	ACCESS_ROLE = 'SA'
+		AND  	EMPLOYEE_ID NOT IN ( SELECT EMPLOYEE_ID FROM RETIRED_EMPLOYEE )
 		]]>
  	</select>
  	
@@ -483,7 +485,14 @@
  		]]>
  	</select>
 	
-	
+	<!-- 창고출고 요청 코드 : 22222 -->
+	<select id="select_req_storage_out" resultType="String">
+ 		<![CDATA[
+ 		 SELECT CODE
+		 FROM STATE
+		 WHERE KOR_NAME = '영업출고요청'
+ 		]]>
+ 	</select>
 	
  	
 
@@ -982,8 +991,6 @@
 		AND     SALES_STATE = 22222
 		AND     ACCOUNT_ID = 500014030000
 		OR		SALES_STATE = 24752
-		
-		
 	</update>
  	
  	
