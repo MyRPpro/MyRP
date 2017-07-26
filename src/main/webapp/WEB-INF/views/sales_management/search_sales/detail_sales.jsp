@@ -6,13 +6,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-</head>
-
 <style>
     table {
         table-layout: fixed;
     }
-    tr td {
+    th{
+    	background: LightGrey;
+    }
+    th tr td {
+    	text-align: center;
         text-overflow: ellipsis;
         overflow: hidden;
     }
@@ -21,48 +23,29 @@
     }
 </style>
 
+</head>
+
 <body>
 	
 	<h3> 판매내역 상세 페이지 : detail_sales.jsp</h3>
-	
-	<c:if test="${cnt > 0}">
-		<script type="text/javascript">
-			setTimeout(function(){
-				alert("상태코드가 정상적으로 변경되었습니다.");
-				window.location="/sales_management/search_sales/sales_list"
-			}, 200);
-		</script>
-	</c:if>
-	
-	<c:if test="${cnt == 0}">
-		<script type="text/javascript">
-			alert("상태코드 변경 오류가 발생했습니다.");
-			window.history.back();
-		</script>
-	</c:if>
+
 	
 	
 	<form action="#" method="post" name="search_sales_from"   >
 	
 		<!-- 수정불가 -->
-		<table border="1" width="1500px" >
+		<table border="1">
 		
 			<tr>
-				<!-- 1  --> <th>sales</th>
-				<!-- 2  --> <th>account</th>
-				<!-- 3  --> <th>order</th>
-				<!-- 4  --> <th>product</th>
-				<!-- 5  --> <th>company</th>
-				<!-- 6  --> <th>employee</th>
-				<!-- 7  --> <th>reg_date</th>
-				<!-- 8  --> <th>update_date</th>
-				<!-- 9  --> <th>storage_out_date</th>
-				<!-- 10 --> <th>count_sales</th>
-				<!-- 11 --> <th>selling_price</th>
-				<!-- 12 --> <th>sales_state</th>
-				<!-- 13 --> <th>condition_note_receivable</th>
+				<!-- 1  --> <th>판매번호</th>
+				<!-- 2  --> <th>계정</th>
+				<!-- 3  --> <th>주문번호</th>
+				<!-- 4  --> <th>상품</th>
+				<!-- 5  --> <th>거래처</th>
+				<!-- 6  --> <th>담당자</th>
+				<!-- 7  --> <th>등록일</th>
 			</tr>
-				
+			
 			<tr>	
 				<td>
 					<c:forEach var="dto" items="${dtos}">
@@ -80,6 +63,7 @@
 				<td>
 					<c:forEach var="dto" items="${dtos}">
 						<input type="text" name="order_id" value="${dto.order_id}" readonly >
+						
 					</c:forEach>
 				</td>
 				
@@ -109,7 +93,20 @@
 						<input type="date" name="reg_date" value="${dto.reg_date}"  readonly>
 					</c:forEach>
 				</td>
+			</tr>
+			
+			<tr>
 				
+				<!-- 8  --> <th>최근수정일</th>
+				<!-- 9  --> <th>출고일</th>
+				<!-- 10 --> <th>수량</th>
+				<!-- 11 --> <th>가격</th>
+				<!-- 14 --> <th>총합</th>
+				<!-- 12 --> <th>어음기간</th>
+				<!-- 13 --> <th>판매상태</th>
+			</tr>
+			
+			<tr>	
 				<td>
 					<c:forEach var="dto" items="${dtos}">
 						<input type="date" name="update_date" value="${dto.update_date}" readonly>
@@ -124,13 +121,28 @@
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="number" name="count_sales" value="${dto.count_sales}" max="9999" readonly>
+						<input type="number" name="count_sales" max="9999" readonly
+						value="<fmt:formatNumber value="${dto.count_sales}" type="number" />" >
 					</c:forEach>
 				</td>
 				
 				<td>
 					<c:forEach var="dto" items="${dtos}">
-						<input type="number" name="selling_price" value="${dto.selling_price}" max="9999999999" readonly>
+						<input type="text" name="selling_price"  max="9999999999" readonly
+						value="<fmt:formatNumber value="${dto.selling_price}" type="currency" />" >
+					</c:forEach>
+				</td>
+				
+				<td>
+					<c:forEach var="dto" items="${dtos}">
+						<input type="text" name="sum_price" max="9999999999" readonly
+						value="<fmt:formatNumber value="${dto.selling_price * dto.count_sales}" type="currency" />" >
+					</c:forEach>
+				</td>
+				
+				<td>
+					<c:forEach var="dto" items="${dtos}">
+						<input type="number" name="condition_note_receivable" value="${dto.condition_note_receivable}" max="12" required>
 					</c:forEach>
 				</td>
 				
@@ -140,11 +152,7 @@
 					</c:forEach>
 				</td>
 				
-				<td>
-					<c:forEach var="dto" items="${dtos}">
-						<input type="number" name="condition_note_receivable" value="${dto.condition_note_receivable}" max="12" required>
-					</c:forEach>
-				</td>
+				
 				
 			</tr>
 		</table>
@@ -158,7 +166,6 @@
 
 	</form>
 	
-	
 	<script type="text/javascript">
 	function req_storage_out(){
 		var sales_id = document.getElementById("sales_id").value;
@@ -168,6 +175,9 @@
 						+"?req_kind=storage_out&sales_id="+sales_id;
 						
 	}
+	
+
+	
 	</script>
 	
 	
@@ -176,115 +186,3 @@
 </html>
 
 
-
-
-<%-- 	예전 버젼
-		<form action="#" method="post" name="search_sales_from">
-	
-		<!-- 수정불가 -->
-		<table border="1">
-			<tr>
-				<th>sales</th>
-				<td>
-					<input type="text" name="sales_id" 	value="${dto.sales_id}" maxlength="10" readonly >
-				</td>
-			</tr>
-			<tr>
-				<th>account</th>
-				<td>
-					<input type="hidden" name="account_id" value="${dto.account_id}" readonly >
-					<input type="text" name="account_name" id="account_name" value="${dto.account_name} 계정" readonly >
-					
-				</td>
-			</tr>
-			<tr>
-				<th>order</th>
-				<td>
-					<input type="text" name="order_id" value="${dto.order_id}" maxlength="12" readonly >
-				</td>
-			</tr>
-			<tr>
-				<th>product</th>
-				<td>
-					<input type="hidden" name="product_id" value="${dto.product_id}"  readonly >
-					<input type="text" name="product_name" value="${dto.product_name}"  readonly >
-				</td>
-			</tr>
-			<tr>
-				<th>company</th>
-				<td>
-					<input type="hidden" name="company_id" value="${dto.company_id}">
-					<input type="text" name="company_name" value="${dto.company_name}" readonly  >
-				</td>
-			</tr>
-			<tr>
-				<th>employee</th>
-				<td>
-					<input type="hidden" name="employee_id" value="${dto.employee_id}">
-					<input type="text" name="employee_name" value="${dto.employee_name}" readonly >
-					
-				</td>
-			</tr>
-			<tr>
-				<th>reg_date</th>
-				<td>
-					<input type="date" name="reg_date" value="${dto.reg_date}"  readonly>
-				</td>
-			</tr>
-			
-			<tr>
-				<th>update_date</th>
-				<td>
-					<input type="date" name="update_date" value="${dto.update_date}" readonly>
-				</td>
-			</tr>
-			<tr>
-				<th>storage_out_date</th>
-				<td>
-					<input type="date" name="storage_out_date" value="${dto.storage_out_date}"readonly >
-				</td>
-			</tr>
-			<tr>
-				<th>count_sales</th>
-				<td>
-					<input type="number" name="count_sales" value="${dto.count_sales}"  readonly>
-				</td>
-			</tr>
-			<tr>
-				<th>selling_price</th>
-				<td>
-					<input type="number" name="selling_price" value="${dto.selling_price}" readonly>
-				</td>
-			</tr>
-			<tr>
-				<th>sales_state</th>
-				<td>
-					<input type="number" name="sales_state" value="${dto.sales_state}"  readonly>
-				</td>
-			</tr>
-			<tr>
-				<th>condition_note_receivable</th>
-				<td>
-					<input type="number" name="condition_note_receivable" value="${dto.condition_note_receivable}" required>
-				</td>
-			</tr>
-			
-			
-		</table>
-		<input type="button" value="회계전표 입력하기 " onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
-	
-		</form>
-		
-		
-	<script type="text/javascript">
-		// 사원번호 자리수 제한 
-		function employee_id_check(){
-			var employee_id = document.getElementsByName("employee_id")[0];
-			console.log( "employee_id.value.length : " + employee_id.value.length);
-			if( employee_id.value.length > 4 ){
-				alert("4자리 까지만 입력이 가능합니다.");
-				employee_id.value = employee_id.value.substring(0,4);
-			}
-		}
-	</script>
- --%>
