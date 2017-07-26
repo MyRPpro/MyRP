@@ -153,8 +153,8 @@
 		<p> 입력이 완료된 내용은 검색페이지에서 확인할 수 있습니다. </p>
 	</div>
 	
-	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script>	
+	
 	function reg_sales(){
 	 var sales_id = document.getElementById("sales_id");
 	 var company_id = document.getElementById("company_id");
@@ -193,7 +193,7 @@
 							+'&condition_note_receivable='+condition_note_receivable.value
 						 );	 
 	 return false;
-	 }
+	}
 	
 	function date_format(date){
 		var year = date.getFullYear();               
@@ -207,17 +207,19 @@
 	function check_date(){
 		
 		var now = new Date();
+		now.setDate(now.getDate()-1);
 		var out_date = new Date(document.getElementById("storage_out_date").value);
 		var reg_date = new Date(document.getElementById("reg_date").value);
 		
 		if( out_date < now ){
 			alert("출고일은 오늘부터 선택 가능합니다.");
+			now.setDate(now.getDate()+1);
 			document.getElementById("storage_out_date").value = date_format(now);
 		}
 		
 		if( reg_date > out_date ){
 			alert("등록일은 출고일 이전으로 선택가능합니다.");
-			var out_date = new Date(document.getElementById("storage_out_date").value);
+			out_date = new Date(document.getElementById("storage_out_date").value);
 			reg_date.setDate(out_date.getDate()-1);
 			document.getElementById("reg_date").value = date_format( reg_date );
 		}
