@@ -33,27 +33,27 @@
 		<table border="1">
 			
 			<tr>
-				<th>List</th>		<!-- 1 -->
-				<th>purchase</th>	<!-- 2 -->
-				<th>account</th>	<!-- 3 -->
-				<th>product</th>	<!-- 4 -->
-				<th>company</th>	<!-- 5 -->
-				<th>employee</th>	<!-- 6 -->
-				<th>reg_date</th>	<!-- 7 -->
-				<th>count</th>	<!-- 11 -->
-				<th>price</th>		<!-- 8 -->
-				<th>state</th>		<!-- 9 -->
-				<th>condition</th>	<!-- 10 -->
+				<th>순서</th>		<!-- 1 -->
+				<th>구매번호</th>	<!-- 2 -->
+				<th>계정</th>	<!-- 3 -->
+				<th>제품</th>	<!-- 4 -->
+				<th>공급처</th>	<!-- 5 -->
+				<th>담당자</th>	<!-- 6 -->
+				<th>등록일</th>	<!-- 7 -->
+				<th>수량</th>	<!-- 11 -->
+				<th>공급가</th>		<!-- 8 -->
+				<th>구매상태</th>		<!-- 9 -->
+				<th>지급기간</th>	<!-- 10 -->
 			</tr>
 			
 			<c:forEach var="dto" items="${dtos}">
 			
 			<tr>
-				<th>${dto.rnum}</th> 			<!-- 1 -->
+				<td>${dto.rnum}</td> 			<!-- 1 -->
 				<td id="purchase_id">${dto.purchase_id}</td> 		<!-- 2 -->
-				<td>${dto.account_name}</td> 	<!-- 3 -->
+				<td>${dto.state_name}</td> 		<!-- 3 -->
 				<td>${dto.product_name}</td> 	<!-- 4 -->
-				<td>${dto.company_name}</td>		<!-- 5 -->
+				<td>${dto.company_name}</td>	<!-- 5 -->
 				<td>${dto.employee_name}</td>	<!-- 6 -->
 				<td>							<!-- 7 -->
 				<fmt:formatDate value="${dto.reg_date}" pattern="MM-dd"/>

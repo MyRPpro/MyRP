@@ -9,11 +9,14 @@
 <%@ include file = "../../setting.jsp" %>
 <script type="text/javascript">
 function storage_go(id, goes,storage_in_date){
+	
 	var now = new Date();
+	
 	var year= now.getFullYear();
     var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 	var today = year + mon + "-" +  (now.getDate());
-
+	
+	+
 	if(storage_in_date.replace("-","") > today){
 		alert("입고예정일이 안되었습니다.");
 		return false;
