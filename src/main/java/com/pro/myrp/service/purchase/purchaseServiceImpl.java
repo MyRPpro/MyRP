@@ -499,7 +499,6 @@ public class purchaseServiceImpl implements purchaseService {
 		long price = supply_price;
 		long tax = price/10;
 		long sum = price + tax;
-	
 		
 		// 상품매입 insert , 가격 x 수량
 		dto.setAccount_id("500011050000");

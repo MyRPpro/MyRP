@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.pro.myrp.controller.MyRPController;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
 import com.pro.myrp.domain.hr_management.FileDTO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
 
 public interface HRController extends MyRPController {
 
@@ -374,16 +374,6 @@ public interface HRController extends MyRPController {
 	public String personnel_card_appointment(HttpServletRequest req, Model model) throws Exception;
 
 	/**
-	 * 인사관리 > 급여 관리 > 급여대장
-	 * @author amaco78
-	 * @param req
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	public String salary_register(HttpServletRequest req, Model model) throws Exception;
-
-	/**
 	 * 인사관리 > 퇴사자 관리 > 퇴사자 조회
 	 * @author amaco78
 	 * @param req
@@ -452,4 +442,104 @@ public interface HRController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String personnel_card_retired(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 검색
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_register_search(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 목록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_register_list(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 인사관리 > 급여 관리 > 급여 대장 페이지 네비게이션
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_register_nav(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여정보 등록
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String reg_salary_info(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여정보 등록 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String reg_salary_info_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 전표 조회
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String salary_statement_search(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 지급
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String clear_salary_bank_account(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여 지급 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String clear_salary_bank_account_pro(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 수정
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_salary_info(HttpServletRequest req, Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여대장 수정 처리
+	 * @author amaco78
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String modify_salary_info_pro(HttpServletRequest req, Model model) throws Exception;
 }
