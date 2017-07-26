@@ -250,6 +250,46 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_accounts();
 	}
+	@Override
+	public int select_count_sales(Map<String, Object> oriPriceMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_count_sales(oriPriceMap);
+	}
+	@Override
+	public int select_purchase_unit_price(Map<String, Object> oriPriceMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_purchase_unit_price(oriPriceMap);
+	}
+	@Override
+	public int update_costs_of_goods_sold_account(Map<String, Object> oriPriceMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.update_costs_of_goods_sold_account(oriPriceMap);
+	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_sales_id(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_sales_id(daoMap);
+	}
+	@Override
+	public Long select_accounts_for_date_sales(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts_for_date_sales(daoMap);
+	}
+	@Override
+	public Long select_accounts_for_date_purchase(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return  dao.select_accounts_for_date_purchase(daoMap);
+	}
+	@Override
+	public Long select_accounts_for_date_salary(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts_for_date_salary(daoMap);
+	}
+	@Override
+	public Long select_accounts_for_date_tax(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_accounts_for_date_tax(daoMap);
+	}
 	
 	
 	

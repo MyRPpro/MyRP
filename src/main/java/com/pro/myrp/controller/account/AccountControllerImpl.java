@@ -241,6 +241,24 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.show_balance_sheet_service(model);
 		return code.c(accounting_management, financial_statements, show_balance_sheet);
 	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_profit_and_loss_statement")
+	public String search_profit_and_loss_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_profit_and_loss_statement));
+		model.addAttribute("req",req);
+		service.search_profit_and_loss_statement_service(model);
+		return code.c(accounting_management, financial_statements, search_profit_and_loss_statement);
+	}
+	
+	@Override
+	@RequestMapping(value="financial_statements/show_profit_and_loss_statement", method = {RequestMethod.GET, RequestMethod.POST})
+	public String show_profit_and_loss_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_profit_and_loss_statement));
+		model.addAttribute("req",req);
+		service.show_profit_and_loss_statement_service(model);
+		return code.c(accounting_management, financial_statements, show_profit_and_loss_statement);
+	}
 	
 	
 }

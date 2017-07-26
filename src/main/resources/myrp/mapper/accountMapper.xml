@@ -587,4 +587,72 @@
      	GROUP BY tax.account_id
 		]]>
 	</select>
+	<!-- 매출원가 : 판매량 가져오기 -->
+	<select id="select_count_sales" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+		SELECT count_sales FROM sales_order WHERE sales_id = #{sales_id} AND account_id = #{account_id}
+		]]>
+	</select>
+	<!-- 매출원가 : 구입원가 가져오기  -->
+	<select id="select_purchase_unit_price" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+		SELECT purchase_unit_price FROM product WHERE product_id = (SELECT product_id FROM sales_order WHERE sales_id = #{sales_id} AND account_id = #{account_id})
+		]]>
+	</select>
+	<!-- 매출원가 : 매출원가계정 업데이트  -->
+	<update id="update_costs_of_goods_sold_account" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE account SET account_balance = #{account_value} WHERE account_id = #{account_id} 
+		]]>
+	</update>
+	
+	<!-- 날짜별 계정 가져오기  - sales-->
+	<select id="select_accounts_for_date_sales" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN sales_statement ss ON s.statement_id = ss.statement_id 
+     	WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND ss.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ss.account_id
+		]]>
+	</select>
+	<!-- 날짜별 계정 가져오기  - purchase-->
+	<select id="select_accounts_for_date_purchase" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN purchase_statement ps ON s.statement_id = ps.statement_id
+		WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND ps.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ps.account_id
+		]]>
+	</select>
+	<!-- 날짜별 계정 가져오기  - salary-->
+	<select id="select_accounts_for_date_salary" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN salary_register_statement srs ON s.statement_id = srs.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND srs.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY srs.account_id
+		]]>
+	</select>
+	<!-- 날별 계정 가져오기  - tax-->
+	<select id="select_accounts_for_date_tax" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN tax_statement tax ON s.statement_id = tax.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND tax.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY tax.account_id
+		]]>
+	</select>
+	
+	<!-- 손익계산서 > 매출원가  : sales_id 가져오기  -->
+	<select id="select_sales_id" parameterType="java.util.Map" resultType="JoinStatementDTO">
+		<![CDATA[
+		SELECT ss.sales_id  FROM statement s JOIN sales_statement ss ON s.statement_id = ss.statement_id
+    	WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+        AND s.APPROVAL_STATE='25452' AND ss.account_id = '500014030000'
+		]]>
+	</select>
 </mapper>

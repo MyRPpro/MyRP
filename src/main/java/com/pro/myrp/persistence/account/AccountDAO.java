@@ -238,5 +238,24 @@ public interface AccountDAO extends MyRPDAO {
 	public Long select_accounts_for_quarter_salary(Map<Object, Object> daoMap);
 	public Long select_accounts_for_quarter_tax(Map<Object, Object> daoMap);
 	
+	/**
+	 * 전표승인 > 매출원가 해주기
+	 * @param oriPriceMap
+	 * @return
+	 */
+	public int select_count_sales(Map<String, Object> oriPriceMap);
+	public int select_purchase_unit_price(Map<String, Object> oriPriceMap);
+	public int update_costs_of_goods_sold_account(Map<String, Object> oriPriceMap);
+
+	public ArrayList<JoinStatementDTO> select_sales_id(Map<Object, Object> daoMap);
 	
+	/**
+	 * 회계보고서 > 손익계산서 관리 
+	 * @param daoMap
+	 * @return
+	 */
+	public Long select_accounts_for_date_sales(Map<Object, Object> daoMap);
+	public Long select_accounts_for_date_purchase(Map<Object, Object> daoMap);
+	public Long select_accounts_for_date_salary(Map<Object, Object> daoMap);
+	public Long select_accounts_for_date_tax(Map<Object, Object> daoMap);
 }

@@ -211,5 +211,15 @@ public interface AccountController extends MyRPController{
 	 */
 	public String search_balance_sheet(HttpServletRequest req, Model model) throws Exception;
 	public String show_balance_sheet(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 회계보고서 > 손익계산서 조회
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_profit_and_loss_statement(HttpServletRequest req, Model model)throws Exception;
+	public String show_profit_and_loss_statement(HttpServletRequest req, Model model)throws Exception;
 }
 

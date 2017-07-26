@@ -30,7 +30,23 @@ public class JoinStatementDTO {
     public long sum;
     String account_class;
     
-    public String getAccount_class() {
+    public String product_id;
+    public int count_sales;
+    
+    
+    public String getProduct_id() {
+		return product_id;
+	}
+	public void setProduct_id(String product_id) {
+		this.product_id = product_id;
+	}
+	public int getCount_sales() {
+		return count_sales;
+	}
+	public void setCount_sales(int count_sales) {
+		this.count_sales = count_sales;
+	}
+	public String getAccount_class() {
 		return account_class;
 	}
 	public void setAccount_class(String account_class) {
