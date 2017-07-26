@@ -548,8 +548,7 @@
 			    CONDITION_NOTE_PAYABLE)
 		VALUES ( 
 				#{purchase_id},  -- PURCHASE_ID
-			    3110||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')
-			    	||LPAD(ORDER_SEQ.NEXTVAL,2,0), <!-- ORDER_ID -->
+			    000000000000, <!-- ORDER_ID -->
 			    #{account_id}, <!-- ACCOUNT_ID -->
 			    #{product_id}, <!-- PRODUCT_ID -->
 			    #{company_id}, <!-- COMPANY_ID -->
