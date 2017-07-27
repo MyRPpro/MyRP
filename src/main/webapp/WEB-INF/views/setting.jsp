@@ -22,9 +22,9 @@
 	font-size: x-small;
 	text-align: center;
 	}
-	td{
-	font-size: medium;
-	text-align: left;
+	td,th{
+	font-size: x-small;
+	text-align: center;
 	}
 	
 </style>

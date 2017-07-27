@@ -7,53 +7,76 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	
+	$("#page16160_btn01").bind("click", function(event) {
+		$("#page16160").slideUp();
+		$("#page16140_div01").slideDown();
+		return false;		
+	});
+	
+	$("form[name='page16160_form01']").on("submit", function(event) {
+		var data = $(this).serialize();
+		$.ajax({
+			data:	data,
+			type:	'post',
+			url:	'/hr_management/manage_hr_code/modify_base_code_pro',
+			success: function(response) {
+				$("#page16160").html(response);
+				$("#page16160").slideUp();
+			}
+		});
+		return false;
+	});
+	
+</script>
 <body>
-modify_base_code.jsp
-<form action="/hr_management/manage_hr_code/modify_base_code_pro"
-name="modify_base_code_form1" method="post">
-	<table border="1">
-		<tr>
-			<th>hr_code_group_id</th>
-			<td>
-				<input type="number" name="hr_code_group_id"
-				value="${hr_codeVo.hr_code_group_id}" readonly>
-			</td>
-		</tr>
-		<tr>
-			<th>hr_code_id</th>
-			<td>
-				<input type="number" name="hr_code_id"
-				value="${hr_codeVo.hr_code_id}" readonly>
-			</td>
-		</tr>
-		<tr>
-		<tr>
-			<th>hr_code_name</th>
-			<td>
-				<input type="text" name="hr_code_name"
-				value="${hr_codeVo.hr_code_name}" required>
-			</td>
-		</tr>
-		<tr>
-			<th>use_state</th>
-			<td>
-				<label for="used">사용</label>
-				<input type="radio" name="use_state" id="used" value="Y"
-				<c:if test="${hr_codeVo.use_state == 'Y'}">checked</c:if>>
-				<label for="unused">비사용</label>
-				<input type="radio" name="use_state" id="unused" value="N"
-				<c:if test="${hr_codeVo.use_state == 'N'}">checked</c:if>>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<input type="submit" value="수정하기">
-				<input type="reset"	value="재작성">
-				<input type="button" value="돌아가기"
-				onclick="window.history.back();">
-			</th>
-		</tr>
-	</table>
-</form>
+<div id="page16160">
+	[16160]modify_base_code.jsp
+	<form action="#" name="page16160_form01">
+		<table class="table">
+			<tr>
+				<th>hr_code_group_id</th>
+				<td>
+					<input type="number" name="hr_code_group_id"
+					value="${hr_codeVo.hr_code_group_id}" readonly>
+				</td>
+			</tr>
+			<tr>
+				<th>hr_code_id</th>
+				<td>
+					<input type="number" name="hr_code_id"
+					value="${hr_codeVo.hr_code_id}" readonly>
+				</td>
+			</tr>
+			<tr>
+			<tr>
+				<th>hr_code_name</th>
+				<td>
+					<input type="text" name="hr_code_name"
+					value="${hr_codeVo.hr_code_name}" required>
+				</td>
+			</tr>
+			<tr>
+				<th>use_state</th>
+				<td>
+					<label for="used">사용</label>
+					<input type="radio" name="use_state" id="used" value="Y"
+					<c:if test="${hr_codeVo.use_state == 'Y'}">checked</c:if>>
+					<label for="unused">비사용</label>
+					<input type="radio" name="use_state" id="unused" value="N"
+					<c:if test="${hr_codeVo.use_state == 'N'}">checked</c:if>>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">
+					<input class="btn btn-default btn-xs" type="submit" value="수정하기">
+					<input class="btn btn-default btn-xs" type="reset"	value="재작성">
+					<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16160_btn01">
+				</th>
+			</tr>
+		</table>
+	</form>
+</div>
 </body>
 </html>
