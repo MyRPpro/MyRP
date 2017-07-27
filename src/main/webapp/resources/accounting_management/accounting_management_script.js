@@ -4,12 +4,11 @@
 
 //bank_account_id 조회
 function call_bank_account_id(){
-	var url="/accounting_management/bank_account_registration/call_bank_account_id";
-	window.open(url, "confirm", "menubar=no, width=400, height=300");
+	
 }
 
 // 은행 account_id 설정
-function set_bank_account_id(bank_account_id, account_name, account_balance){
+/*function set_bank_account_id(bank_account_id, account_name, account_balance){
 	opener.document.register_bank_account_form1.bank_account_id.value = bank_account_id;
 	switch(account_name){
 		case "현금" : account_name = "주 계좌"; break;
@@ -22,12 +21,12 @@ function set_bank_account_id(bank_account_id, account_name, account_balance){
 	opener.document.register_bank_account_form1.bank_account_type.value = account_name;
 	opener.document.register_bank_account_form1.bank_account_balance.value = account_balance;
 	self.close();
-}
+}*/
 
 //bank_account_register 정보가 올바른지 체크
 function check_bank_account(){
 	if(!document.register_bank_account_form1.bank_account_id.value){
-		alert("'조회' 버튼을 통해 계좌코드를 입력해주세요!");
+		alert("개설 목적을 선택해 계좌코드를 입력해주세요!");
 		document.register_bank_account_form1.calling_button.focus();
 		return false;
 	}else if(!document.register_bank_account_form1.bank_account_name.value){

@@ -83,6 +83,9 @@ public class AccountServiceImpl implements AccountService {
 	public void register_bank_account_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+		vos = dao.select_bank_account_id();
+		model.addAttribute("vos", vos);
 		
 	}
 	
@@ -91,9 +94,7 @@ public class AccountServiceImpl implements AccountService {
 	public void call_bank_account_id_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
-		vos = dao.select_bank_account_id();
-		model.addAttribute("vos", vos);
+		
 	}
 	
 	// 계좌등록 : 등록처리
