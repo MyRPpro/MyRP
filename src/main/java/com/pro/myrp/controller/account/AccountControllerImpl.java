@@ -232,6 +232,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.search_balance_sheet_service(model);
 		return code.c(accounting_management, financial_statements, search_balance_sheet);
 	}
+	@Override
+	@GetMapping(value="financial_statements/search_balance_sheet2")
+	public String search_balnace_sheet2(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_balance_sheet));
+		model.addAttribute("req",req);
+		service.search_balance_sheet_service(model);
+		return "accounting_management/financial_statements/search_balance_sheet2";
+	}
 
 	@Override
 	@PostMapping(value="financial_statements/show_balance_sheet")
@@ -277,6 +285,8 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.show_statement_of_cash_flows_service(model);
 		return code.c(accounting_management, financial_statements, show_statement_of_cash_flows);
 	}
+
+	
 	
 	
 }
