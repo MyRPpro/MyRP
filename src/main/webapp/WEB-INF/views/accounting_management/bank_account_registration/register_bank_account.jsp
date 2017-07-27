@@ -59,7 +59,7 @@
 	<form name="register_bank_account_form1">
 		<table border="1">
 			<tr>
-				<th>bank_account_id</th>
+				<th>개설목적</th>
 				<td>
 					<c:if test="${vos != null}">
 						<c:forEach var="vo" items="${vos}">
@@ -77,40 +77,35 @@
 						모든 계좌가 개설되었습니다
 					</c:if>
 					<input type="hidden" name="bank_account_id" id="bank_account_id" readonly="true">
+					<input type="hidden" id="bank_account_type" name="bank_account_type" readonly="true">
 				</td>
 			</tr>
 			<tr>
-				<th>bank_account_name</th>
+				<th>계좌명</th>
 				<td>
 					<input type="text" name="bank_account_name" maxlength="20">
 				</td>
 			</tr>
 			<tr>
-				<th>bank_account_number</th>
+				<th>계좌번호</th>
 				<td>
 					<input type="text" name="bank_account_number" maxlength="20">
 				</td>
 			</tr>
 			<tr>
-				<th>bank_account_balance</th>
+				<th>잔액</th>
 				<td>
 					<input type="number" id="bank_account_balance" name="bank_account_balance" readonly="true"> <!-- max="999999999999999999" min="0" -->
 				</td>
 			</tr>
 			<tr>
-				<th>bank_account_type</th>
-				<td>
-					<input type="text" id="bank_account_type" name="bank_account_type" readonly="true">
-				</td>
-			</tr>
-			<tr>
-				<th>bank_name</th>
+				<th>은행</th>
 				<td>
 					<input type="text" name="bank_name" maxlength="12">
 				</td>
 			</tr>
 			<tr>
-				<th>use_state</th>
+				<th>사용상태</th>
 				<td>
 					<label for="used">사용</label>
 					<input type="radio" name="use_state" id="used" value="Y" checked>
@@ -119,7 +114,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>reg_date</th>
+				<th>등록일</th>
 				<td>
 					<input type="Date" name="reg_date"> 
 				</td>

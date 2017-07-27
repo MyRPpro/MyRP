@@ -198,7 +198,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	}
 
 	@Override
-	@GetMapping(value="account_management/add_account_pro")
+	@PostMapping(value="account_management/add_account_pro")
 	public String add_account_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_account));
 		model.addAttribute("req",req);
