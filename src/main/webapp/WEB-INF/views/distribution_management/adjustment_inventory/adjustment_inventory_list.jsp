@@ -48,29 +48,23 @@ adjustment_inventory_list.jsp
 <h3>재고조정 리스트</h3>
 <table border = "1">
 		<tr>
-			<th>STOCK_ORDER_ID</th>
-			<th>PRODUCT_ID</th>
-			<th>PRODUCT_NAME</th>
-			<th>WAREHOUSE_ID</th>
-			<th>EMPLOYEE_ID</th>
-			<th>REG_DATE</th>
-			<th>SEARCH_DATE</th>
-			<th>TAKED_STOCK</th>
-			<th>MOVING_STOCK</th>
-			
-						
+			<th>주문번호</th>
+			<th>상품명</th>
+			<th>창고명</th>
+			<th>담당자명</th>
+			<th>등록일</th>
+			<th>조정 재고</th>
+			<th>조정 후 재고</th>
 		</tr>
 		<c:forEach var = "dto" items = "${Adjustment_inventoryDtos}">
 		<tr>
 			<th>${dto.stock_order_id}</th>
-			<th>${dto.product_id}</th>
 			<th>${dto.product_name}</th>
-			<th>${dto.warehouse_id}</th>
-			<th>${dto.employee_id}</th>
+			<th>${dto.warehouse_name}</th>
+			<th>${dto.employee_name}</th>
 			<th>${dto.reg_date}</th>
-			<th>${dto.search_date}</th>
-			<th>${dto.taked_stock}</th>
 			<th>${dto.delete_stock}</th>
+			<th>${dto.taked_stock}</th>
 		</tr>
 		</c:forEach>
 	</table>
