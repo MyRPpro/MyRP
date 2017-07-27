@@ -7,9 +7,10 @@ public class Stock_conditionDTO {
 
 	
 private String product_id;
-private String warehouse_id;
-private int stock_amount; 
 private String product_name;
+private String warehouse_id;
+private String warehouse_name;
+private int stock_amount; 
 private int purchase_unit_price;
 private int sale_unit_price;
 private String use_state;
@@ -17,6 +18,20 @@ private Date reg_date;
 
 private int count_sales;
 
+
+
+public String getWarehouse_name() {
+	return warehouse_name;
+}
+public void setWarehouse_name(String warehouse_name) {
+	this.warehouse_name = warehouse_name;
+}
+public int getCount_sales() {
+	return count_sales;
+}
+public void setCount_sales(int count_sales) {
+	this.count_sales = count_sales;
+}
 public String getProduct_id() {
 	return product_id;
 }
