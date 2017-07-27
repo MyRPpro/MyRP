@@ -50,6 +50,14 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 	public void add_base_code_group_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		if(req.getParameter("hr_code_group_id") != null) {
+			int hr_code_group_id = Integer.parseInt(req.getParameter("hr_code_group_id"));
+			model.addAttribute("hr_code_group_id", hr_code_group_id);
+		}
+		if(req.getParameter("dupcheck") != null) {
+			int dupcheck = Integer.parseInt(req.getParameter("dupcheck"));
+			model.addAttribute("dupcheck", dupcheck);
+		}
 	}
 
 	@Override
@@ -144,6 +152,14 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			int hr_code_group_id =
 					Integer.parseInt(req.getParameter("hr_code_group_id"));
 			model.addAttribute("hr_code_group_id", hr_code_group_id);
+		}
+		if(req.getParameter("hr_code_id") != null) {
+			int hr_code_id = Integer.parseInt(req.getParameter("hr_code_id"));
+			model.addAttribute("hr_code_id", hr_code_id);
+		}
+		if(req.getParameter("dupcheck") != null) {
+			int dupcheck = Integer.parseInt(req.getParameter("dupcheck"));
+			model.addAttribute("dupcheck", dupcheck);
 		}
 	}
 
