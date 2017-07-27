@@ -11,3 +11,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<style>
+	table, table.table-condensed{
+	margin: 0 auto;
+	}
+	div.row{
+	margin-bottom: 0px;
+	}
+	tr{
+	font-size: x-small;
+	text-align: center;
+	}
+	td{
+	font-size: medium;
+	text-align: left;
+	}
+	
+</style>

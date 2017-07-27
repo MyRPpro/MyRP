@@ -9,12 +9,20 @@
 <%@ include file = "../../setting.jsp" %>
 <script type="text/javascript">
 function storage_go(id, goes,storage_in_date){
+	
 	var now = new Date();
+	
 	var year= now.getFullYear();
     var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 	var today = year + mon + "-" +  (now.getDate());
+<<<<<<< HEAD
+	
+	+
+	if(storage_in_date.replace("-","") > today){
+=======
 
 	if((storage_in_date+"").replace("-","")*1 > today){
+>>>>>>> c81e9a2b910ec3ed91cac812dd490d7c3328e810
 		alert("입고예정일이 안되었습니다.");
 		return false;
 	}

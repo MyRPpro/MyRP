@@ -9,7 +9,7 @@ public class State_alarmDTO {
 	private String eng_name;
 	private String state_addr;
 	private String state_msg;
-	private String from_dept;
+	
 	
 	
 	
