@@ -6,6 +6,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+    table {
+        table-layout: fixed;
+        
+    }
+    th{
+    	background: LightGrey;
+    }
+    th tr td {
+    	text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    table tr:hover {  
+        background: #f3f3f3;
+    }
+</style>
 </head>
 <body>
 	
@@ -15,7 +32,8 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("정상적으로 입력되었습니다.");
-			}, 500);
+				 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table');
+			}, 200);
 		</script>
 	</c:if>
 	
@@ -25,30 +43,31 @@
 			window.history.back();
 		</script>
 	</c:if>
-	
+
 	
 	<form action="#" name="reg_sales_table_form" method="get">
 	
 		<table border="1">
 			
 			<tr>
-				<th>List</th>		<!-- 1 -->
-				<th>sales</th>	<!-- 2 -->
-				<th>account</th>	<!-- 3 -->
-				<th>product</th>	<!-- 4 -->
-				<th>company</th>	<!-- 5 -->
-				<th>employee</th>	<!-- 6 -->
-				<th>reg_date</th>	<!-- 7 -->
-				<th>count</th>	<!-- 11 -->
-				<th>price</th>		<!-- 8 -->
-				<th>state</th>		<!-- 9 -->
-				<th>condition</th>	<!-- 10 -->
+				<th>번호</th>		<!-- 1 -->
+				<th>판매번호</th>	<!-- 2 -->
+				<th>계정</th>	<!-- 3 -->
+				<th>상품</th>	<!-- 4 -->
+				<th>거래처</th>	<!-- 5 -->
+				<th>담당자</th>	<!-- 6 -->
+				<th>등록일</th>	<!-- 7 -->
+				<th>수량</th>	<!-- 11 -->
+				<th>가격</th>		<!-- 8 -->
+				<th>총합</th>		<!-- 12 -->
+				<th>판매상태</th>		<!-- 9 -->
+				<th>어음기간</th>	<!-- 10 -->
 			</tr>
 			
 			<c:forEach var="dto" items="${dtos}">
 			
 			<tr>
-				<th>${dto.rnum}</th> 			<!-- 1 -->
+				<td>${dto.rnum}</td> 			<!-- 1 -->
 				<td id="sales_id">${dto.sales_id}</td> 		<!-- 2 -->
 				<td>${dto.account_name}</td> 	<!-- 3 -->
 				<td>${dto.product_name}</td> 	<!-- 4 -->
@@ -63,6 +82,9 @@
 				<td>							<!-- 8 -->
 				<fmt:formatNumber value="${dto.selling_price}" type="currency" />
 				</td>	
+				<td>							<!-- 12 -->
+				<fmt:formatNumber value="${dto.selling_price * dto.count_sales}" type="currency" /> 
+				</td>
 				<td>${dto.state_name}</td>	<!-- 9 -->
 				<td>${dto.condition_note_receivable}</td>	<!-- 10 -->
 

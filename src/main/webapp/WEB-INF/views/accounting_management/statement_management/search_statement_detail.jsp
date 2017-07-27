@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3> 상세 전표 조회 </h3>
-
+<button onclick="window.location='/'"> 홈으로 </button>
 <table border="1">
 	<tr>
 		<th> 
@@ -183,7 +183,7 @@
 	<c:if test="${salary_register_id!=null}">
 		<c:set var="connected_id" value="${salary_register_id}" />
 	</c:if>
-<button <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/approve_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}';"> <!-- 승인된 상태이면 승인버튼 비활성 -->
+<button <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/approve_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}&statement_type=${statement_type}';"> <!-- 승인된 상태이면 승인버튼 비활성 -->
 	승인
 </button>
 <button<c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/disapprove_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}';"> <!--  승인되지않은 상태이면 승인거절버튼 비활성-->

@@ -159,4 +159,28 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_account_pro_service(Model model) throws Exception;
+	
+	/**
+	 * 회계보고서 > 재무상태표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_balance_sheet_service(Model model) throws Exception;
+	public void show_balance_sheet_service(Model model) throws Exception;
+	
+	/**
+	 * 회계보고서 > 손익계산서 조회 서비스 
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_profit_and_loss_statement_service(Model model) throws Exception;
+	public void show_profit_and_loss_statement_service(Model model) throws Exception;
+	
+	/**
+	 * 회계보고서 > 현금흐름표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_statement_of_cash_flows_service(Model model) throws Exception;
+	public void show_statement_of_cash_flows_service(Model model) throws Exception;
 }

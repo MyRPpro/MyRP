@@ -1,6 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ include file="../../setting.jsp" %>
+ 
+ <style>
+    table {
+        table-layout: fixed;
+        
+    }
+    th{
+    	background: LightGrey;
+    }
+    th tr td {
+    	text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    table tr:hover {  
+        background: #f3f3f3;
+    }
+</style>
 <body>
 
 	<c:if test="${cnt==0}">
@@ -12,22 +30,32 @@
 		</script>
 	</c:if>
 	
+	<c:if test="${cnt==-1}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("등록된 내역이 없습니다. 판매등록을 해주세요.");
+				window.location="/sales_management/input_sales/reg_sales";
+			}, 200);
+		</script>
+	</c:if>
+	
 	<table border="1" style="text-align: center;">
 		
 		<tr>
-			<th>sales_id</th>
-			<th>account</th>
+			<th>판매번호</th>
+			<th>계정</th>
 			<!-- <th>order_id</th> -->
-			<th>product</th>
-			<th>company</th>
-			<th>employee</th>
-			<th>reg_date</th>
-			<th>update_date</th>
-			<th>storage_in_date</th>
-			<th>count</th>
-			<th>supply_price</th>
-			<th>purchase_state</th>
-			<th>condition</th>
+			<th>상품</th>
+			<th>거래처</th>
+			<th>담당자</th>
+			<th>등록일</th>
+			<th>최근수정일</th>
+			<th>출고일</th>
+			<th>수량</th>
+			<th>가격</th>
+			<th>총합</th>
+			<th>판매상태 </th>
+			<th>어음기간</th>
 		</tr>
 		
 		<c:forEach var="dto" items="${dtos}">
@@ -45,20 +73,13 @@
 			<%-- <td>${dto.order_id}</td> --%>
 			<td>${dto.product_name}</td>
 			<td>${dto.company_name}</td>
-			
-			<%-- 수정 전 버젼 : 회사이름으로 이동하면 곂친다.
-			<td>
-				<a href="javascript:detail_page('${dto.company_id},${dto.sales_id},${dto.account_id},${dto.sales_state}')">
-					${dto.company_name}
-				</a>
-			</td>
-			 --%>
 			<td>${dto.employee_name}</td>
 			<td>${dto.reg_date}</td>
 			<td>${dto.update_date}</td>
 			<td>${dto.storage_out_date}</td>
 			<td> <fmt:formatNumber value="${dto.count_sales}" type="number"/> </td>
 			<td> <fmt:formatNumber value="${dto.selling_price}" type="currency"/> </td>
+			<td> <fmt:formatNumber value="${dto.selling_price*dto.count_sales}" type="currency"/> </td>
 			<td>${dto.state_name} </td>
 			<td>${dto.condition_note_receivable}</td>
 			
@@ -99,7 +120,6 @@
 	</script>
 	<hr>
 	<div id="list_dateil"></div>
-	
 	
 	
 	

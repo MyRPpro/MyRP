@@ -1,8 +1,6 @@
 package com.pro.myrp.persistence.sales;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -273,6 +271,41 @@ public class SalesDAOImpl implements SalesDAO {
 	public ArrayList<SalesDTO> select_modify_sales(Map<String, Object> daoMap) {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_modify_sales(daoMap);
+	}
+
+
+	@Override
+	public String select_account_price() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_price();
+	}
+
+
+	@Override
+	public String select_account_tax() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_tax();
+	}
+
+
+	@Override
+	public String select_account_sum() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_account_sum();
+	}
+
+
+	@Override
+	public int select_strage_out() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_strage_out();
+	}
+
+
+	@Override
+	public int select_req_storage_out() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_req_storage_out();
 	}
 	
 

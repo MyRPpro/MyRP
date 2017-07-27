@@ -35,9 +35,10 @@ public interface CodeMyRP {
 				public static final int sales_list_table  	= 12120;	// 판매 리스트 테이블 내용
 				public static final int sales_list_page 	= 12130;	// 판매 리스트 테이블 페이지 번호
 				public static final int detail_sales 		= 12140;	// 판매 상세
-				public static final int modify_sales 		= 12150;	// 판매 상세 + 수정
-				public static final int modify_sales_pro 	= 12160;	// 판매 수정 처리
-				
+				public static final int detail_sales_pro 	= 12150;	// 판매 상세 처리
+				public static final int modify_sales 		= 12160;	// 판매 상세 + 수정
+				public static final int modify_sales_pro 	= 12170;	// 판매 수정 처리
+					
 			// 판매입력
 			public static final int input_sales = 12200;
 				public static final int reg_sales = 12210;			//판매 입력
@@ -60,21 +61,26 @@ public interface CodeMyRP {
 
 		//구매관리
 		public static final int purchase_management = 13000;
-			
-		// 구매검색
-		public static final int search_purchase 		 = 13100;	// 구매 검색
-			public static final int purchase_list 		 = 13110;	// 구매 리스트
-			public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
-			public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
-			public static final int detail_purchase 	 = 13140;	// 구매 상세
-			public static final int detail_purchase_pro  = 13150;	// 구매 상세 처이
-			public static final int modify_purchase 	 = 13160;	// 구매 수정
-			public static final int modify_purchase_pro  = 13170;	// 구매 수정 처리
+
+
+			// 구매검색
+			public static final int search_purchase 		 = 13100;	// 구매 검색
+				public static final int purchase_list 		 = 13110;	// 구매 리스트
+				public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
+				public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
+				public static final int detail_purchase 	 = 13140;	// 구매 상세
+				public static final int detail_purchase_pro  = 13150;	// 구매 상세 처이
+				public static final int modify_purchase 	 = 13160;	// 구매 수정
+				public static final int modify_purchase_pro  = 13170;	// 구매 수정 처리
+
 				
 			// 구매입력
 			public static final int input_purchase = 13200;
-				public static final int reg_purchase 		= 13210;	// 구매 입력 양식
-				public static final int reg_purchase_table 	= 13220;	// 구매 입력 테이블
+				public static final int reg_purchase 			= 13210;	// 구매 입력 양식
+				public static final int reg_purchase_table 		= 13220;	// 구매 입력 테이블
+				public static final int search_reg_purchase 	= 13230;	// 부족 재고 조회
+				public static final int search_reg_purchase_pro = 13240;	// 부족 재고 조회 처리
+				
 				
 			// 구매 현황
 			public static final int staus_purchase = 13300;			
@@ -128,6 +134,13 @@ public interface CodeMyRP {
 			//회계관리
 		public static final int accounting_management = 15000;
 			//회계보고서
+			public static final int financial_statements = 15100; 
+				public static final int search_balance_sheet = 15110;				//재무상태표 조회
+				public static final int show_balance_sheet = 15111; 
+				public static final int search_profit_and_loss_statement = 15120; 	// 손익계산서 조회
+				public static final int show_profit_and_loss_statement = 15121;
+				public static final int search_statement_of_cash_flows = 15130; 	//현금흐름표 조회
+				public static final int show_statement_of_cash_flows = 15131;
 			//계좌등록
 			public static final int bank_account_registration = 15200;
 				public static final int bank_account_list = 15210;			//계좌 리스트
@@ -190,13 +203,19 @@ public interface CodeMyRP {
 				public static final int add_personnel_card_pro = 16324;
 				public static final int modify_personnel_card = 16330;
 				public static final int modify_personnel_card_pro = 16331;
-			
 			//급여관리
 			public static final int manage_salary = 16500;
-				public static final int salary_register = 16510;
+				public static final int salary_register_search = 16510;
+				public static final int salary_register_list = 16511;
+				public static final int salary_register_nav = 16512;
+				public static final int salary_statement_search = 16513;
+				public static final int clear_salary_bank_account = 16514;
+				public static final int clear_salary_bank_account_pro = 16515;
 				public static final int reg_salary_info = 16520;
+				public static final int reg_salary_info_pro = 16521;
+				public static final int modify_salary_info = 16522;
+				public static final int modify_salary_info_pro = 16523;
 				public static final int fix_work_record = 16530;
-				public static final int calc_salary = 16540;
 				public static final int fix_salary = 16550;
 				public static final int search_salary_history = 16560;
 			//인사발령 관리
@@ -236,9 +255,10 @@ public interface CodeMyRP {
 			public static final int denial_approval_statement 	= 25453;	// 전표 승인 거절	
 			
 			//인사
-			public static final int request_payments_salary 	= 26451;	// 급여지급요청						
-			public static final int wait_payments_salary 		= 26452;	// 급여지급대기
-			public static final int complete_payments_salary 	= 26453;	// 급여지급완료
+			public static final int state_request_calc_salary 		= 26450;	// 급여확정
+			public static final int state_request_payments_salary 	= 26451;	// 급여지급요청						
+			public static final int state_wait_payments_salary 		= 26452;	// 급여지급대기
+			public static final int state_complete_payments_salary 	= 26453;	// 급여지급완료
 			
 			//물류
 			public static final int receive_request_storage_in_warehouse 	= 24101;	// 입고요청접수						
@@ -270,7 +290,16 @@ public interface CodeMyRP {
 			public static final int wait_payments 							= 23206;	// 지급대기
 			public static final int complete_payments 						= 23207;	// 지급완료						
 
-
-							
+		// 계정 코드
+			public static final String account_cash = "500011010000"; //현금
+			public static final String account_trade_receivables = "500011020000"; //매출채권
+			public static final String account_prepaid_value_added_tax = "500011030000"; //부가세대급금
+			public static final String account_inventories = "500011040000"; //재고자산
+			public static final String account_purchase_of_product = "500011050000"; //상품매입
+			public static final String account_sales_of_product = "500014030000"; //상품매출
+			public static final String account_debt_of_sales = "500012010000"; //매입채무
+			public static final String account_other_accrued_liabilities = "500012020000"; //부가세예수금
+			public static final String account_retained_earnings = "500013010000"; //이익잉여금
+			public static final String account_salary = "500014010000"; //급여
 				
 }

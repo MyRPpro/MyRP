@@ -228,7 +228,6 @@ public class State_alarmServiceImpl implements State_alarmService {
 					sa_state = 25453;
 				}
 				
-				
 				switch(state.getOrder_state()){
 					case 24752 : 	state.setState_addr("/sales_management/search_sales/sales_list"); 
 									state.setState_msg("출고완료 알림");
@@ -242,7 +241,7 @@ public class State_alarmServiceImpl implements State_alarmService {
 					case 25453 :	state.setState_addr("/sales_management/search_sales/sales_list"); 
 									state.setState_msg("전표 승인 거절 알림"); 
 									state.setFrom_dept("회계"); break;
-					default : 		state_alarmDtos.remove(i); i-=1; break;
+					case 0     : 	state_alarmDtos.remove(i); i-=1; break;
 				}
 				
 			}

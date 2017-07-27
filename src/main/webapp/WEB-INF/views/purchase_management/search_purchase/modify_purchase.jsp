@@ -203,7 +203,7 @@
 					(
 					<input type="button" value="견적승인">
 					<input type="button" value="승인취소">
-					<- 승인권자 메뉴)
+					: 승인권자 메뉴)
 				</th>
 			</tr>
 		</table>

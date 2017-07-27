@@ -62,7 +62,7 @@
 			<tr>
 				<th>reg_date</th>
 				<td>
-					<input type="date" name="reg_date">
+					<input type="month"> 
 				</td>
 			</tr>
 			<tr>

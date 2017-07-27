@@ -11,6 +11,7 @@ DROP TRIGGER trigger_statement_insert;
 DROP TRIGGER trigger_statement_update;
 DROP TRIGGER trigger_stock_insert;
 DROP TRIGGER trigger_stock_update;
+DROP TRIGGER trigger_stock_info_insert;
 DROP SEQUENCE purchase_seq;
 DROP SEQUENCE sales_seq;
 DROP SEQUENCE statement_seq;
@@ -714,6 +715,29 @@ END;
 /
 ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:ALL';
 --------------------------------------------------------------------------------
+ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:NONE';
+SET SERVEROUTPUT ON
+CREATE OR REPLACE TRIGGER trigger_stock_info_insert
+    AFTER INSERT
+    ON product
+    FOR EACH ROW
+BEGIN
+    dbms_output.put_line('Trigger running');
+    INSERT INTO stock_information(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT)
+    VALUES(:NEW.product_id, 1001, 0);
+    INSERT INTO stock_information(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT)
+    VALUES(:NEW.product_id, 2001, 0);
+    INSERT INTO stock_information(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT)
+    VALUES(:NEW.product_id, 3001, 0);
+    dbms_output.put_line('Trigger operation successed');
+    EXCEPTION
+        WHEN OTHERS THEN
+            dbms_output.put_line('ERR CODE'||TO_CHAR(SQLCODE));
+            dbms_output.put_line('ERR MESSAGE'||SQLERRM);
+END;
+/
+ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:ALL';
+--------------------------------------------------------------------------------
 -- 기초 데이터 (2017-07-23)
 --------------------------------------------------------------------------------
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25451,'전표미승인','disapproval_statement');
@@ -753,22 +777,22 @@ INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO
 INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000003','회사이름 03','0030300003','이름03','0003030000033','사업자 주소입니다. 03','업테 03','종목 03','N','S',to_date('07/11/2017', 'mm-dd-yyyy'));
 commit;
 
-Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000001','상품이름 01',5555555,11111110,'Y',to_date('17/07/13','RR/MM/DD'));
-Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000002','상품이름 02',5554555,11109110,'N',to_date('17/07/12','RR/MM/DD'));
-Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000003','상품이름 03',5553555,11107110,'Y',to_date('17/07/11','RR/MM/DD'));
-commit;
-
 INSERT INTO WAREHOUSE_INFORMATION(WAREHOUSE_ID,WAREHOUSE_NAME,WAREHOUSE_LOCATION) VALUES(1001,'양품창고','경기도 화성시 팔탄면');
 INSERT INTO WAREHOUSE_INFORMATION(WAREHOUSE_ID,WAREHOUSE_NAME,WAREHOUSE_LOCATION) VALUES(2001,'불량품창고','경기도 화성시 팔탄면');
 INSERT INTO WAREHOUSE_INFORMATION(WAREHOUSE_ID,WAREHOUSE_NAME,WAREHOUSE_LOCATION) VALUES(3001,'출고대기창고','경기도 화성시 팔탄면');
 commit;
 
-INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) VALUES(1200000001,1001,100);
-INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) VALUES(1200000001,2001,10);
-INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) VALUES(1200000002,1001,100);
-INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) VALUES(1200000002,2001,10);
-INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) VALUES(1200000003,1001,100);
-INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) VALUES(1200000003,2001,10);
+Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000001','상품이름 01',5555555,11111110,'Y',to_date('17/07/13','RR/MM/DD'));
+Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000002','상품이름 02',5554555,11109110,'N',to_date('17/07/12','RR/MM/DD'));
+Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000003','상품이름 03',5553555,11107110,'Y',to_date('17/07/11','RR/MM/DD'));
+commit;
+
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 100 WHERE PRODUCT_ID = 1200000001 AND WAREHOUSE_ID = 1001;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 100 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 1001;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 100 WHERE PRODUCT_ID = 1200000003 AND WAREHOUSE_ID = 1001;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 10 WHERE PRODUCT_ID = 1200000001 AND WAREHOUSE_ID = 2001;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 10 WHERE PRODUCT_ID = 1200000002 AND WAREHOUSE_ID = 2001;
+UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 10 WHERE PRODUCT_ID = 1200000003 AND WAREHOUSE_ID = 2001;
 commit;
 
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011010000', '0', '현금');
@@ -776,12 +800,19 @@ INSERT INTO account (account_id, account_balance, account_name) VALUES ('5000110
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011030000', '0', '부가세대급금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011040000', '0', '재고자산');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011050000', '0', '상품매입');
-INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012030000', '0', '상품매출');
+INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014030000', '0', '상품매출');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012010000', '0', '매입채무');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012020000', '0', '부가세예수금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500013010000', '0', '이익잉여금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014010000', '0', '급여');
 commit;
+
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011010000', '자산통장' , '123-456-7889111' , 0 , '주 계좌', '국민은행', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011020000', '판매통장' , '123-456-7889222' , 0 , '판매', '신한은행', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500012020000', '세금통장' , '123-456-7889333' , 0 , '세금납부', 'SC은행', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500012010000', '구매통장' , '123-456-7889444' , 0 , '구매', '농협', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500014010000', '급여통장' , '123-456-7889555' , 0 , '급여지급', '하나은행', 'Y', sysdate);
+COMMIT;
 
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(2,'직급','Y');
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(3,'휴가','Y');
@@ -1019,3 +1050,52 @@ WHERE   SALES_ID IN (SELECT SALES_ID
                     )
 AND     SALES_STATE = 22213;
 COMMIT;
+INSERT INTO salary_register(SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE)
+VALUES('6000'||TO_CHAR(SYSDATE,'yyMMdd')||LPAD(salary_seq.nextval,2,'0'),500014010000,SYSDATE,'상여',SYSDATE-14,10000000,5,26450);
+COMMIT;
+SELECT	COUNT(*)
+		FROM	salary_register
+		WHERE	salary_register_name = NVL(NULL,salary_register_name)
+        AND	    pay_date BETWEEN NVL(NULL,TO_DATE('20000101','yyyyMMdd')) AND NVL(NULL,SYSDATE);
+SELECT	COUNT(*)
+		FROM	salary_register
+		WHERE	salary_register_name = 	CASE '0'
+			                            WHEN '0' THEN salary_register_name
+			                            ELSE '0'
+			                            END
+		AND		pay_date BETWEEN to_date('01/01/2000 00:00:00', 'mm/dd/yyyy hh24:mi:ss') AND to_date('12/12/3000 00:00:00', 'mm/dd/yyyy hh24:mi:ss');
+        
+SELECT  account_id, SUM(account_value)
+FROM    statement S, sails_statement SS
+WHERE   S.statement_id = SS.statement_id
+AND     account_id = 500011020000
+GROUP BY accout_id;
+SELECT  *
+FROM    (SELECT SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,
+                PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE, rownum rNum
+        FROM    (SELECT *
+                FROM	salary_register
+                WHERE	salary_register_name = 	CASE '0'
+                                                WHEN '0' THEN salary_register_name
+                                                ELSE '0'
+                                                END
+                AND		pay_date    BETWEEN to_date('01/01/2000 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
+                                    AND to_date('12/12/3000 00:00:00', 'mm/dd/yyyy hh24:mi:ss')
+                ORDER BY SALARY_REGISTER_ID DESC)
+        )
+WHERE   rNum >= 1 AND rNum <= 5;
+
+SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
+ 		FROM salary_register s JOIN account a ON s.account_id = a.account_id
+ 		WHERE s.salary_register_id NOT IN (SELECT sr.salary_register_id FROM salary_register sr JOIN salary_register_statement st ON sr.salary_register_id=st.salary_register_id AND sr.account_id=st.account_id);
+        
+SELECT	*
+ 		FROM	sales_order p JOIN stock_information s
+ 		ON		p.product_id = s.product_id
+ 		WHERE	SALES_STATE = 22222
+ 		AND		s.warehouse_id = 1001
+ 		AND		p.account_id = 500014030000
+ 		
+ 		 
+ 			AND		SALES_STATE != 24202
+ 			AND		SALES_STATE != 24203;
