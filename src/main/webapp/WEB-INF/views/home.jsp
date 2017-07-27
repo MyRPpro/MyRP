@@ -189,10 +189,6 @@ function fn_login_form() {
 		</div>
 	</div>
 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> b02fe99631d5be4825050fc118976473e6b84955
 </body>
 <script type="text/javascript">
 	
