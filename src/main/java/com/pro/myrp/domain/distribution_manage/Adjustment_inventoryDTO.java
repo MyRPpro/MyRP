@@ -10,6 +10,7 @@ public class Adjustment_inventoryDTO {
 	private int warehouse_id;
 	private String warehouse_name;
 	private int employee_id;
+	private String employee_name;
 	private int stock_amount;
 	private Date reg_date;
 	private Date search_date;
@@ -18,6 +19,12 @@ public class Adjustment_inventoryDTO {
 	
 	
 	
+	public String getEmployee_name() {
+		return employee_name;
+	}
+	public void setEmployee_name(String employee_name) {
+		this.employee_name = employee_name;
+	}
 	public String getWarehouse_name() {
 		return warehouse_name;
 	}

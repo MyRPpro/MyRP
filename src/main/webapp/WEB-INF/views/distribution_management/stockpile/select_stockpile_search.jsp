@@ -41,7 +41,7 @@
 			<td><a href = "?pro_id=${dto.pro_id}">구매</a></td>
 			</c:if>
 			<c:if test = "${fn:substring(dto.pro_id,0,4) == '4753'}">
-			<td><a href = "?pro_id=${dto.pro_id}">재고조정</a></td>
+			<td><a href = "adjustment_inventory/adjustment_inventory_list?pro_id=${dto.pro_id}">재고조정</a></td>
 			</c:if>
 			<td>${dto.plus_stock}</td>
 			<td>${dto.minus_stock}</td>
