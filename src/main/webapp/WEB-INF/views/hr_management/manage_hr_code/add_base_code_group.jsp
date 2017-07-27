@@ -20,14 +20,12 @@
 <script type="text/javascript">
 	
 	$("#page16120_div01_toggle").bind("click", function(event) {
-		$("#page16120 div").slideUp();
-		$("#page16120_div01").slideDown();
+		$("#page16120_div01").slideToggle();
 		return false;
 	});
 	
 	$("#page16120_div03_toggle").bind("click", function(event) {
-		$("#page16120 div").slideUp();
-		$("#page16120_div03").slideDown();
+		$("#page16120_div03").slideToggle();
 		return false;
 	});
 	
@@ -60,22 +58,21 @@
 			$hr_code_group_id.focus();
 			return false;
 		}
-		$("#page16120_div02").slideDown();
 		var url = "/hr_management/manage_hr_code/add_base_code_group_dupCheck?hr_code_group_id="+$hr_code_group_id.val();
-		$("#page16120_div02").load(url);	
+		$("#page16120_div02").load(url);
+		$("#page16120_div02").slideDown();
 	});
 	
 	$("#page16120_btn01").bind("click", function(event) {
-		$("#page16120 div").slideUp();
+		$("#page16120").slideUp();
 		$("#page16110_div01").slideDown();
-		$("#page16110_div02").html("");
 		return false;		
 	});
 	
 </script>
 <body>
 <div id="page16120">
-	<a id="page16120_div01_toggle">add_base_code_group.jsp</a>
+	<a id="page16120_div01_toggle">[16120]add_base_code_group.jsp</a>
 	<div id="page16120_div01">
 		<form action="#">
 			<table class="table text-center">
@@ -83,8 +80,8 @@
 					<th>인사코드 그룹번호</th>
 					<td>
 						<input type="number" name="hr_code_group_id"
-						min="1" max="9" step="1" value="${hr_code_group_id}" required>
-						<input type="button" name="dup_check_btn" value="중복확인">
+						min="1" max="9" step="1" value="${hr_code_group_id}" required autofocus>
+						<input class="btn btn-default btn-xs" type="button" name="dup_check_btn" value="중복확인">
 					</td>
 				</tr>
 				<tr>
@@ -107,15 +104,14 @@
 						<input type="hidden" name="dupcheck" 
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<input class="btn btn-default" type="submit" value="등록하기">
-						<input class="btn btn-default" type="reset"	value="재작성">
-						<input class="btn btn-default" type="button" value="닫기" id="page16120_btn01">
+						<input class="btn btn-default btn-xs" type="submit" value="등록하기">
+						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
+						<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16120_btn01">
 					</th>
 				</tr>
 			</table>
 		</form>
 	</div>
-	<hr>
 	<div id="page16120_div02"></div>
 </div>
 </body>

@@ -41,7 +41,7 @@ function fn_login_form() {
 						</c:if>
 						<c:if test="${ROLE == null}">
 							<input class="btn btn-success" type="button" value="로그인"
-							onclick="window.location='/user/login';">
+							onclick="fn_login_form();">
 						</c:if>
 						<input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
 						<input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">

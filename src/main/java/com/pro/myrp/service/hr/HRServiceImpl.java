@@ -153,6 +153,14 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 					Integer.parseInt(req.getParameter("hr_code_group_id"));
 			model.addAttribute("hr_code_group_id", hr_code_group_id);
 		}
+		if(req.getParameter("hr_code_id") != null) {
+			int hr_code_id = Integer.parseInt(req.getParameter("hr_code_id"));
+			model.addAttribute("hr_code_id", hr_code_id);
+		}
+		if(req.getParameter("dupcheck") != null) {
+			int dupcheck = Integer.parseInt(req.getParameter("dupcheck"));
+			model.addAttribute("dupcheck", dupcheck);
+		}
 	}
 
 	@Override

@@ -18,8 +18,7 @@
 <script type="text/javascript">
 	
 	$("#page16110_div01_toggle").bind("click", function(event) {
-		$("#page16110 div").slideUp();
-		$("#page16110_div01").slideDown();
+		$("#page16110_div01").slideToggle();
 		return false;
 	});
 	
@@ -44,9 +43,9 @@
 </script>
 <body>
 <div id="page16110">
-	<a id="page16110_div01_toggle">base_codegroup_list.jsp</a>
+	<a id="page16110_div01_toggle">[16110]base_code_group_list.jsp</a>
 	<div id="page16110_div01">
-		<table class="table text-center">
+		<table class="table">
 			<tr>
 				<td>인사코드 그룹번호</td>
 				<td>인사코드 그룹명</td>
@@ -64,15 +63,13 @@
 			</tr>
 			</c:forEach>
 			<tr>
-				<th colspan="3">
-					<input class="btn btn-default" type="button" value="등록하기" id="page16110_btn01">
-					<input class="btn btn-default" type="button" value="홈페이지" id="page16110_btn02">
-				</th>
+				<td colspan="3">
+					<input class="btn btn-default btn-xs" type="button" value="등록하기" id="page16110_btn01">
+					<input class="btn btn-default btn-xs" type="button" value="홈페이지" id="page16110_btn02">	
+				</td>
 			</tr>
 		</table>
-			
 	</div>
-	<hr>
 	<div id="page16110_div02"></div>
 </div>
 </body>
