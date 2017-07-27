@@ -8,28 +8,29 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function fn_submit() {
-		var hr_code_group_id = document.modify_base_code_group_form1.hr_code_group_id;
-		var use_state = document.modify_base_code_group_form1.use_state;
-		$("#hr_code_group_div").load(
-				"/hr_management/manage_hr_code/modify_base_code_group_pro"+
-				"?hr_code_group_id="+hr_code_group_id.value+
-				"&use_state="+use_state.value
-				);
+	$("form[name='page16130_form01']").on("submit", function(event) {
+		var data = $(this).serialize();
+		$.ajax({
+			data:	data,
+			type:	'get',
+			url:	"/hr_management/manage_hr_code/modify_base_code_group_pro",
+			success: function(response) {
+				$("#page16110_div02").html(response);
+			}
+		});
 		return false;
-	}
+	});
 </script>
 <body>
 modify_base_code_group.jsp
-<form action="#" method="get" name="modify_base_code_group_form1"
-onsubmit="return fn_submit();">
-	<table border="1">
+<form action="#" name="page16130_form01">
+	<table class="table">
 		<tr>
-			<th>hr_code_group_id</th>
-			<th>hr_code_group_name</th>
-			<th>use_state</th>
+			<th>인사코드 그룹번호</th>
+			<th>인사코드 그룹명</th>
+			<th>사용 상태</th>
 			<th>toggle</th>
-			<th>update</th>
+			<th>갱신</th>
 		</tr>
 		<tr>
 			<td>${hr_code_groupVo.hr_code_group_id}</td>

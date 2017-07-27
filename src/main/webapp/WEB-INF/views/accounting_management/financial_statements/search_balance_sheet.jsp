@@ -11,8 +11,8 @@
 <body>
 <h3> 재무상태표 조회 </h3>
  <button onclick="window.location='/'"> 홈으로 </button>
- <button onclick="window.location='./search_profit_and_loss_statement'"> 손익계산서 조회 </button>
- <button onclick="window.location='./search_statement_of_cash_flows'"> 현금흐름표 조회 </button>
+ <button onclick="window.location='/accounting_management/financial_statements/search_profit_and_loss_statement'"> 손익계산서 조회 </button>
+ <button onclick="window.location='/accounting_management/financial_statements/search_statement_of_cash_flows'"> 현금흐름표 조회 </button>
 <form action="/accounting_management/financial_statements/show_balance_sheet" name="financial_statements_form1" method="post">
 <table border="1">
 	<tr>

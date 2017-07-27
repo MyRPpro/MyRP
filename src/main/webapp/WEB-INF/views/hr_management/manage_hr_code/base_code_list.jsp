@@ -10,12 +10,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#modify_base_code_group_div").load(
+		$("#page16140_div02").load(
 		"/hr_management/manage_hr_code/modify_base_code_group?hr_code_group_id=${hr_code_groupVo.hr_code_group_id}");
 	});
 	
-	$("#base_code_list_table2 a").bind("click", function(event) {
-		$("#hr_code_group_div2").hide();
+	$("#page16140_table01 a").bind("click", function(event) {
+		$("#hr_code_group_div2").slideUp();
 		$("#hr_code_div").load($(this).attr("href"));
 		return false;
 	});
@@ -27,23 +27,28 @@
 		return false;
 	}
 	
+	$("#page16140_div01_toggle").bind("click", function(event) {
+		$("#page16110 div").slideUp();
+		$("#page16110_div02").slideDown();
+		$("#page16140_div01").slideDown();
+		return false;
+	});
 </script>
 
 <body>
-base_code_list.jsp
-<div id="modify_base_code_group_div">
-
-</div>
+<a id="page16140_div01_toggle">base_code_list.jsp</a>
+<div id="page16140_div01">
+<div id="page16140_div02"></div>
 <c:if test="${hr_code_groupVo.use_state == 'Y'}">
-	<table border="1" id="base_code_list_table2">
+	<table class="table" id="page16140_table01">
 		<tr>
 			<th colspan="5">${hr_code_groupVo.hr_code_group_name}</th>
 		</tr>
 		<tr>
-			<th>hr_code_group_id</th>
-			<th>hr_code_id</th>
-			<th>hr_code_name</th>
-			<th>use_state</th>
+			<th>인사코드 그룹번호</th>
+			<th>인사코드 번호</th>
+			<th>인사코드 명</th>
+			<th>사용 상태</th>
 		</tr>
 		<c:forEach var="vo" items="${hr_codeVos}">
 		<tr>
@@ -73,6 +78,9 @@ base_code_list.jsp
 	</table>
 	<input type="button" value="돌아가기" onclick="window.location='/hr_management/manage_hr_code/base_code_group_list';">
 </c:if>
+</div>
+<hr>
 <div id="hr_code_div"></div>
+
 </body>
 </html>
