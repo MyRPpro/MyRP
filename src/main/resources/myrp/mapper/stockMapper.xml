@@ -32,8 +32,8 @@
 		                WHERE	stock_state = '24752' 
 				        <if test = "product != null">
 						AND	product_id in
-							<foreach item="product" collection="product" open="(" separator="," close=")">
-							#{product}
+							<foreach item="pro" collection="product" open="(" separator="," close=")">
+							#{pro}
 							</foreach>
 						 </if>    
 			                  
@@ -45,8 +45,8 @@
 						WHERE	s.stock_state = '24102'
 						<if test = "product != null">
 						AND		product_id in
-								<foreach item="product" collection="product" open="(" separator="," close=")">
-								#{product}
+								<foreach item="pro" collection="product" open="(" separator="," close=")">
+								#{pro}
 								</foreach>
 						</if>	                 
 	                      
@@ -57,8 +57,8 @@
 						ON		s.stock_order_id = a.stock_order_id
 						<if test = "product != null">
 						WHERE	s.product_id in
-								<foreach item="product" collection="product" open="(" separator="," close=")">
-								#{product}
+								<foreach item="pro" collection="product" open="(" separator="," close=")">
+								#{pro}
 								</foreach>
 						</if>
 						)    

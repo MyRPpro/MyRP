@@ -2,7 +2,9 @@ package com.pro.myrp.service.stock;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +93,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		int add_stock= 0;
 		
 		String[] product = pro == null ? null : pro.split("-");
-		
+
 		ArrayList<Select_stockpile_searchDTO> select_stockpile_searchDtos = new ArrayList<Select_stockpile_searchDTO>();
 		ArrayList<ProductVO> product_name_list = new ArrayList<ProductVO>();
 		ArrayList<ProductVO> select_product = new ArrayList<ProductVO>();
