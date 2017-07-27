@@ -34,11 +34,11 @@
 onsubmit="return fn_login_check();">
 	<div class="form-group">
 		<label for="employee_name">NAME</label>
-		<input type="text" class="form-control" id="employee_name" name="employee_name" placeholder="성명">
+		<input type="text" class="form-control" id="employee_name" name="employee_name" placeholder="성명" autofocus required>
 	</div>
 	<div class="form-group">
 		<label for="employee_id">EMPLOYEE ID</label>
-		<input type="number" class="form-control" id="employee_id" name="employee_id" placeholder="사원번호">
+		<input type="number" class="form-control" id="employee_id" name="employee_id" placeholder="사원번호" required>
 	</div>
 	<button type="submit" class="btn btn-default">LOGIN</button>
 	<button type="reset" class="btn btn-default">RESET</button>

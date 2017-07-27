@@ -7,9 +7,12 @@
  
  	<!-- 재고현황 -->
 	<select id = "select_stock_condition" resultType="Stock_conditionDTO">
- 		SELECT *
- 		FROM stock_information s join product p 
- 		ON s.product_id = p.product_id
+ 		SELECT		*
+ 		FROM		stock_information s join product p 
+ 		ON			s.product_id = p.product_id
+ 		JOIN		warehouse_information w
+ 		ON			s.warehouse_id = w.warehouse_id
+ 		ORDER BY 	p.product_id ASC, w.warehouse_id ASC
  	</select>
  	
  	<!-- 재고수불부 검색페이지 -->
@@ -21,48 +24,47 @@
  	
  	<!-- 재고수불부 결과 페이지 -->
  	<select id = "select_stockpile_search" parameterType="java.util.Map" resultType="Select_stockpile_searchDTO">
- 	SELECT  *
+	 	SELECT	*
 		FROM	( SELECT  *
-		          FROM  ( SELECT	o.stock_order_id AS pro_id, o.storage_out_date AS sto_date, o.count_sales AS moving_stock,  s.stock_state AS sto_state, s.product_id
-		                  FROM		stock_order s JOIN storage_out_order o
-		                  ON		s.stock_order_id = o.stock_order_id
-	                      WHERE		stock_state = '24752' 
-			              <if test = "product != null">
-						  AND	  product_id in
-							 		 <foreach item="product" collection="product" open="(" separator="," close=")">
-							 		 	#{product}
-							 		 </foreach>
-					 	  </if>    
-		                  
-		                  UNION
-		                  
-		                  SELECT	o.stock_order_id AS pro_id, o.storage_in_date AS sto_date, o.count_purchase AS moving_stock,  s.stock_state AS sto_state, s.product_id
-		                  FROM		stock_order s JOIN storage_in_order o
-		                  ON		s.stock_order_id = o.stock_order_id
-		                  WHERE		s.stock_state = '24102'
-                      	  <if test = "product != null">
-						  AND		product_id in
-							 		<foreach item="product" collection="product" open="(" separator="," close=")">
-							 		 	#{product}
-							 		</foreach>
-				 		   </if>	                 
-                      
-		                  UNION
-		                  
-		                  SELECT	s.stock_order_id AS pro_id, s.update_date AS sto_date, a.delete_stock AS moving_stock, s.stock_state AS sto_state, s.product_id
-		                  FROM		stock_order s JOIN  adjustment_inventory a
-		                  ON		s.stock_order_id = a.stock_order_id
-			 			   <if test = "product != null">
-					 		   WHERE  s.product_id in
-					 		   <foreach item="product" collection="product" open="(" separator="," close=")">
-					 		 	  #{product}
-					 		   </foreach>
-				 		   </if>
-		                )    
-		
-		          ORDER BY sto_date
-		        )
-	 WHERE	sto_date BETWEEN #{start_day} AND #{end_day} 
+				FROM  ( SELECT	o.stock_order_id AS pro_id, o.storage_out_date AS sto_date, o.count_sales AS moving_stock,  s.stock_state AS sto_state, s.product_id
+						FROM	stock_order s JOIN storage_out_order o
+			            ON		s.stock_order_id = o.stock_order_id
+		                WHERE	stock_state = '24752' 
+				        <if test = "product != null">
+						AND	product_id in
+							<foreach item="product" collection="product" open="(" separator="," close=")">
+							#{product}
+							</foreach>
+						 </if>    
+			                  
+						UNION
+			                  
+						SELECT	o.stock_order_id AS pro_id, o.storage_in_date AS sto_date, o.count_purchase AS moving_stock,  s.stock_state AS sto_state, s.product_id
+						FROM	stock_order s JOIN storage_in_order o
+					    ON		s.stock_order_id = o.stock_order_id
+						WHERE	s.stock_state = '24102'
+						<if test = "product != null">
+						AND		product_id in
+								<foreach item="product" collection="product" open="(" separator="," close=")">
+								#{product}
+								</foreach>
+						</if>	                 
+	                      
+						UNION
+			                  
+						SELECT	s.stock_order_id AS pro_id, s.update_date AS sto_date, a.delete_stock AS moving_stock, s.stock_state AS sto_state, s.product_id
+						FROM	stock_order s JOIN  adjustment_inventory a
+						ON		s.stock_order_id = a.stock_order_id
+						<if test = "product != null">
+						WHERE	s.product_id in
+								<foreach item="product" collection="product" open="(" separator="," close=")">
+								#{product}
+								</foreach>
+						</if>
+						)    
+			ORDER BY sto_date
+	        )
+		WHERE	sto_date BETWEEN #{start_day} AND #{end_day} 
  	</select>
  	
  	<!-- product id로 name stock amount 가져오기 -->
@@ -71,10 +73,10 @@
  		FROM	product p JOIN stock_information s
  		ON		s.product_id = p.product_id
  		<if test = "product_id != null">
- 			WHERE	p.product_id in
- 			<foreach collection="product_id" item="product_id" open="(" separator="," close=")">
+ 		WHERE	p.product_id in
+ 				<foreach collection="product_id" item="product_id" open="(" separator="," close=")">
  				 #{product_id}
- 			</foreach>
+ 				</foreach>
  		</if>
  	</select>
 
@@ -83,10 +85,10 @@
  		FROM	product p JOIN stock_information s
  		ON		s.product_id = p.product_id
  		<if test = "product_id != null">
- 			WHERE	p.product_id in
- 			<foreach collection="product_id" item="product_id" open="(" separator="," close=")">
+ 		WHERE	p.product_id in
+ 				<foreach collection="product_id" item="product_id" open="(" separator="," close=")">
  				 #{product_id}
- 			</foreach>
+ 				</foreach>
  		</if>
  	</select>
 
@@ -120,35 +122,35 @@
  		SELECT	*
  		FROM	sales_order p JOIN stock_information s
  		ON		p.product_id = s.product_id
- 		WHERE	SALES_STATE = 22222
+ 		WHERE	sales_state = 22222
  		AND		s.warehouse_id = 1001
  		AND		p.account_id = 500014030000
  		<!-- AND		st.stock_state NOT IN (24202,24752,24203) -->
  		<if test = "opt == 1">
- 			AND		SALES_STATE != 24202
- 			AND		SALES_STATE != 24203
+ 			AND		sales_state != 24202
+ 			AND		sales_state != 24203
  		</if>
  	</select> 
  	
  	<insert id = "insert_out_storage" parameterType="java.util.Map">
  		<if test="op == null">
-	 		INSERT INTO STOCK_ORDER(STOCK_ORDER_ID,STOCK_ORDER_TYPE,PRODUCT_ID,WAREHOUSE_ID,EMPLOYEE_ID,REG_DATE,UPDATE_DATE,STOCK_STATE) 
-	 		VALUES(4754||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_OUT_ORDER_SEQ.NEXTVAL,2,0), #{stock_order_type}, #{product_id}, #{warehouse_id}, #{employee_id}, #{reg_date}, sysdate, #{stock_state})
+	 		INSERT INTO STOCK_ORDER(stock_order_id,stock_order_type,product_id,warehouse_id,employee_id,reg_date,update_date,stock_state) 
+	 		VALUES(4754||TO_CHAR(( SELECT sysdate FROM dual ),'YYMMDD')||LPAD(STRAGE_OUT_ORDER_SEQ.NEXTVAL,2,0), #{stock_order_type}, #{product_id}, #{warehouse_id}, #{employee_id}, #{reg_date}, sysdate, #{stock_state})
  		</if> 
  		<if test="op == 1">
- 			INSERT INTO	STORAGE_OUT_ORDER(STOCK_ORDER_ID, COUNT_SALES, AVAILABLE_STOCK, LACK_STOCK, STORAGE_OUT_DATE)
- 			VALUES(4754||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_OUT_ORDER_SEQ.CURRVAL,2,0), #{count_sales}, #{available_stock}, #{lack_stock}, #{storage_out_date})
+ 			INSERT INTO	STORAGE_OUT_ORDER(stock_order_id, count_sales, available_stock, lack_stock, storage_out_date)
+ 			VALUES(4754||TO_CHAR(( SELECT sysdate FROM dual ),'YYMMDD')||LPAD(STRAGE_OUT_ORDER_SEQ.CURRVAL,2,0), #{count_sales}, #{available_stock}, #{lack_stock}, #{storage_out_date})
  		</if>
  	</insert>
  	
  	<insert id = "insert_in_storage" parameterType="java.util.Map">
 	 	<if test="op == null">	
-	 		INSERT INTO STOCK_ORDER(STOCK_ORDER_ID,STOCK_ORDER_TYPE,PRODUCT_ID,WAREHOUSE_ID,EMPLOYEE_ID,REG_DATE,UPDATE_DATE,STOCK_STATE) 
-	 		VALUES(4755||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.NEXTVAL,2,0), #{stock_order_type}, #{product_id}, #{warehouse_id}, #{employee_id}, #{reg_date}, SYSDATE, #{stock_state})
+	 		INSERT INTO STOCK_ORDER(stock_order_id,stock_order_type,product_id,warehouse_id,employee_id,reg_date,update_date,stock_state) 
+	 		VALUES(4755||TO_CHAR(( SELECT sysdate FROM dual ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.NEXTVAL,2,0), #{stock_order_type}, #{product_id}, #{warehouse_id}, #{employee_id}, #{reg_date}, SYSDATE, #{stock_state})
 	 	</if>
 	 	<if test="op == 1">
- 			INSERT INTO	STORAGE_IN_ORDER(STOCK_ORDER_ID, COUNT_PURCHASE, STORAGE_IN_DATE)
- 			VALUES(4755||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{count_purchase}, #{storage_in_date})
+ 			INSERT INTO	STORAGE_IN_ORDER(stock_order_id, count_purchase, storage_in_date)
+ 			VALUES(4755||TO_CHAR(( SELECT sysdate FROM dual ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{count_purchase}, #{storage_in_date})
  		</if>
  	</insert>
  	
@@ -205,14 +207,14 @@
  	
  	<select id = "select_product_in_warehouse" parameterType="java.util.Map" resultType="int">
  		SELECT	count(*)
- 		FROM	STOCK_INFORMATION
- 		WHERE	PRODUCT_ID = #{product_id} 
+ 		FROM	stock_information
+ 		WHERE	product_id = #{product_id} 
  		AND		warehouse_id = 3001
  	</select> 
  	
  	
  	<insert id = "insert_stock_out_storage" parameterType="java.util.Map">
-	 	INSERT INTO STOCK_INFORMATION(PRODUCT_ID,WAREHOUSE_ID,STOCK_AMOUNT) 
+	 	INSERT INTO STOCK_INFORMATION(product_id,warehouse_id,stock_amount) 
 	 	VALUES	(#{product_id} ,
 	 			<if test = "warehouse_id == null">
 	 				3001,#{available_stock})
@@ -223,10 +225,10 @@
  	</insert>
  	
  	<update id = "update_sales_state" parameterType="java.util.Map">
- 		UPDATE	SALES_ORDER
- 		SET		SALES_STATE = #{stock_state}
- 		WHERE	SALES_ID = #{stock_order_type}
- 		AND		ACCOUNT_ID = 500014030000
+ 		UPDATE	sales_order
+ 		SET		sales_state = #{stock_state}
+ 		WHERE	sales_id = #{stock_order_type}
+ 		AND		account_id = 500014030000
  	</update>
  	
  	<update id = "update_purchase_state" parameterType="java.util.Map">
@@ -289,6 +291,12 @@
  		SELECT	*
  		FROM	stock_order s JOIN movement_warehouse m
  		ON		s.stock_order_id = m.stock_order_id
+ 		JOIN	product p
+ 		ON		s.product_id = p.product_id
+ 		JOIN	warehouse_information w
+ 		ON		s.warehouse_id = w.warehouse_id
+ 		JOIN	employee e
+ 		ON		s.employee_id = e.employee_id
  		<if test = "stock_order_id != null">
  		WHERE	m.stock_order_id = #{stock_order_id}
  		</if>
@@ -308,8 +316,9 @@
  		SELECT	*
  		FROM	product p JOIN stock_information s
  		ON		p.product_id = s.product_id
+ 		WHERE	use_state != 'N'
  		<if test = "warehouse_id != null">
- 		WHERE	s.warehouse_id = #{warehouse_id}
+ 		AND	s.warehouse_id = #{warehouse_id}
  		</if>
  		<if test = "product_id != null">
  		AND		s.product_id = #{product_id}
@@ -318,12 +327,12 @@
  	
  	<insert id = "insert_stock_order" parameterType = "java.util.Map">
  	 INSERT INTO 	stock_order(stock_order_id, product_id, warehouse_id, employee_id)
- 	 VALUES			(${stock_order_id}||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.NEXTVAL,2,0), #{product_id}, #{warehouse_id}, #{employee_id})
+ 	 VALUES			(${stock_order_id}||TO_CHAR(( SELECT sysdate FROM dual ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.NEXTVAL,2,0), #{product_id}, #{warehouse_id}, #{employee_id})
  	</insert>
  	
  	<insert id = "insert_movement_warehouse" parameterType = "java.util.Map">
  	 INSERT INTO 	movement_warehouse(stock_order_id, ARRIVE_WAREHOUSE, MOVEMENT_AMOUNT)
- 	 VALUES			(${stock_order_id}||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{arrive_warehouse_id}, #{movement_amount})
+ 	 VALUES			(${stock_order_id}||TO_CHAR(( SELECT sysdate FROM dual ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{arrive_warehouse_id}, #{movement_amount})
  	</insert>
  	
  	<update id = "update_stock_order" parameterType = "java.util.Map">
@@ -353,18 +362,25 @@
  	
  	<insert id = "insert_adjustment_inventory" parameterType="java.util.Map">
  		INSERT INTO adjustment_inventory(stock_order_id, taked_stock, delete_stock)
- 		VALUES		(${stock_order_id}||TO_CHAR(( SELECT SYSDATE FROM DUAL ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{taked_stock}, #{delete_stock})
+ 		VALUES		(${stock_order_id}||TO_CHAR(( SELECT sysdate FROM dual ),'YYMMDD')||LPAD(STRAGE_IN_ORDER_SEQ.CURRVAL,2,0), #{taked_stock}, #{delete_stock})
  	</insert> 
  	
  	<select id = "select_only_product_id_name" resultType="ProductVO">
  		SELECT	product_id, product_name
  		FROM	product
+ 		WHERE	use_state != 'N'
  	</select>
  	
  	<select id = "select_adjustment_inventory" parameterType="java.util.Map" resultType="Adjustment_inventoryDTO">
- 		SELECT	*
- 		FROM	stock_order s JOIN adjustment_inventory a
- 		ON		s.stock_order_id = a.stock_order_id
+ 		SELECT		*
+ 		FROM		stock_order s JOIN adjustment_inventory a
+ 		ON			s.stock_order_id = a.stock_order_id
+ 		JOIN		product p
+ 		ON			s.product_id = p.product_id
+ 		JOIN		warehouse_information w
+ 		ON			s.warehouse_id = w.warehouse_id
+ 		JOIN		employee e
+ 		ON			s.employee_id = e.employee_id
  		ORDER BY	s.reg_date DESC
  	</select>
 </mapper>
