@@ -223,5 +223,70 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.modify_account_pro_service(model);
 		return "redirect:"+ code.c(accounting_management, account_management, search_account_list);
 	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_balance_sheet")
+	public String search_balance_sheet(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_balance_sheet));
+		model.addAttribute("req",req);
+		service.search_balance_sheet_service(model);
+		return code.c(accounting_management, financial_statements, search_balance_sheet);
+	}
+	@Override
+	@GetMapping(value="financial_statements/search_balance_sheet2")
+	public String search_balnace_sheet2(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_balance_sheet));
+		model.addAttribute("req",req);
+		service.search_balance_sheet_service(model);
+		return "accounting_management/financial_statements/search_balance_sheet2";
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_balance_sheet")
+	public String show_balance_sheet(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_balance_sheet));
+		model.addAttribute("req",req);
+		service.show_balance_sheet_service(model);
+		return code.c(accounting_management, financial_statements, show_balance_sheet);
+	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_profit_and_loss_statement")
+	public String search_profit_and_loss_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_profit_and_loss_statement));
+		model.addAttribute("req",req);
+		service.search_profit_and_loss_statement_service(model);
+		return code.c(accounting_management, financial_statements, search_profit_and_loss_statement);
+	}
+	
+	@Override
+	@RequestMapping(value="financial_statements/show_profit_and_loss_statement", method = {RequestMethod.GET, RequestMethod.POST})
+	public String show_profit_and_loss_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_profit_and_loss_statement));
+		model.addAttribute("req",req);
+		service.show_profit_and_loss_statement_service(model);
+		return code.c(accounting_management, financial_statements, show_profit_and_loss_statement);
+	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_statement_of_cash_flows")
+	public String search_statement_of_cash_flows(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_statement_of_cash_flows));
+		model.addAttribute("req",req);
+		service.search_statement_of_cash_flows_service(model);
+		return code.c(accounting_management, financial_statements, search_statement_of_cash_flows);
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_statement_of_cash_flows")
+	public String show_statement_of_cash_flows(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_statement_of_cash_flows));
+		model.addAttribute("req",req);
+		service.show_statement_of_cash_flows_service(model);
+		return code.c(accounting_management, financial_statements, show_statement_of_cash_flows);
+	}
+
+	
+	
 	
 }
