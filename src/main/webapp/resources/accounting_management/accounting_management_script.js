@@ -351,7 +351,7 @@ function SetCurrentYearDays(begin, end) {
     var obj1 = document.getElementById(begin);
     var obj2 = document.getElementById(end);
     var d2, d22;
-    d2 = new Date();
+    d2 = new Date(); 
     d22 = new Date(d2.getFullYear() ,"0","1");
     var d3, d33;
     d3 = new Date();
@@ -376,23 +376,6 @@ function SetPrevYearDays(begin, end) {
     obj2.value = formatDate(d33);
     obj2.focus();
 }
-//start 보다 end 가 앞서지는 않는지 비교
-function check_date_order(){
-	 var obj1 = document.financial_statements_form2.startDate.value;
-	 var obj2 = document.financial_statements_form2.endDate.value;
-	if(!obj1||!obj2){
-		alert("날짜를 입력해주세요!");
-		document.financial_statements_form2.startDate.focus();
-		return false;
-	}
-	if(obj1>obj2){
-		alert("검색 시작날짜가 끝날짜보다 앞서야합니다!");
-		return false;
-	}
-	
-}
-
-
 
 
 
