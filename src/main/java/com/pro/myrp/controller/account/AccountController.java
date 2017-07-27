@@ -210,6 +210,7 @@ public interface AccountController extends MyRPController{
 	 * @throws Exception
 	 */
 	public String search_balance_sheet(HttpServletRequest req, Model model) throws Exception;
+	public String search_balnace_sheet2(HttpServletRequest req, Model model) throws Exception;
 	public String show_balance_sheet(HttpServletRequest req, Model model) throws Exception;
 	
 	/**

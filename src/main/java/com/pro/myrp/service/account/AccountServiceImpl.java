@@ -800,6 +800,7 @@ public class AccountServiceImpl implements AccountService {
 		ArrayList<JoinStatementDTO> yearDto = new ArrayList<JoinStatementDTO>();
 		yearDto = dao.get_statement_year();
 		model.addAttribute("yearDto",yearDto);
+		model.addAttribute("yearValuable", yearDto.size());
 	}
 	@Override
 	public void show_balance_sheet_service(Model model) throws Exception {
@@ -811,8 +812,6 @@ public class AccountServiceImpl implements AccountService {
 		if(quarter_end ==3) {
 			quarter_start = quarter_end -2;
 		}
-		
-		
 		Map<Object, Object> daoMap = new HashMap<>();
 		daoMap.put("year", year);
 		daoMap.put("quarter_start", quarter_start);
@@ -867,12 +866,20 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("assetsCnt",assetsCnt);
 		model.addAttribute("liabilitiesCnt",liabilitiesCnt);
 		model.addAttribute("capitalCnt",capitalCnt);
+		model.addAttribute("year", year);
+		String quarter="";
+		if(quarter_end==3) quarter="1분기";
+		else if(quarter_end==6) quarter="2분기";
+		else if(quarter_end==9) quarter="3분기";
+		else if(quarter_end==12) quarter="4분기";
+		model.addAttribute("quarter", quarter);
 		
 	}
 	@Override
 	public void search_profit_and_loss_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		model.addAttribute("yearValuable", 999);
 	}
 	//손익계산서 조회
 	@Override
@@ -936,11 +943,16 @@ public class AccountServiceImpl implements AccountService {
 		}
 		model.addAttribute("vos", vos);
 		model.addAttribute("dtos",dtos);
+		Date sDate = Date.valueOf(startDate);
+		Date eDate = Date.valueOf(endDate);
+		model.addAttribute("startDate",sDate);
+		model.addAttribute("endDate",eDate);
 	}
 	@Override
 	public void search_statement_of_cash_flows_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		model.addAttribute("yearValuable", 999);
 	}
 	@Override
 	public void show_statement_of_cash_flows_service(Model model) throws Exception {
@@ -985,6 +997,10 @@ public class AccountServiceImpl implements AccountService {
 		}
 		model.addAttribute("dtos", dtos);
 		model.addAttribute("cnt",dtos.size());
+		Date sDate = Date.valueOf(startDate);
+		Date eDate = Date.valueOf(endDate);
+		model.addAttribute("startDate",sDate);
+		model.addAttribute("endDate",eDate);
 		
 	}
 	
