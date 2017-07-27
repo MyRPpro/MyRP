@@ -7,57 +7,32 @@
 <head>
 	<title>MyRP</title>
 </head>
-<script type="text/javascript">
-function fn_login_form() {
-	$("#main_screen").load("/user/login");
-}
-</script>
 <body>
 <div class="container-fluid">
-
-	<form class="form-inline">
-	
-	<div class="row " style="height: 100px; vertical-align: center;  " >
-		
-		<div class="page-header " style="height: 80px; margin: 0; margin-top: 10px; margin-bottom:10px; vertical-align: center; " >
-			<div class="col-md-12">
-				<h1 style="margin:0 auto; padding:0;">
-					<a href="/">
-					<img 
-					style="height: 50px; margin: 0; margin-top: 10px;"
-					src="/resources/images/design/logo_v4.png" 
-					onmouseover="this.src='/resources/images/design/logo_v5.png'" 
-					onmouseout="this.src='/resources/images/design/logo_v4.png'" border="0"></a>
-					
-					<small class="text-right" style="vertical-align: center;">
-						<%
-							request.getSession().setAttribute("dest", null);
-						%>
-						&emsp;
-						<c:if test="${ROLE != null}">
-							${ROLE.employee_name}
-							<input class="btn btn-primary" type="button" value="로그아웃" 
-							onclick="window.location='/user/logout';" >
-						</c:if>
-						<c:if test="${ROLE == null}">
-							<input class="btn btn-success" type="button" value="로그인"
-							onclick="window.location='/user/login';">
-						</c:if>
-						<input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
-						<input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">
-						
-					</small>
-				</h1>	
-			</div>	
-			
-		</div>	<!-- // page-header -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>MyRP
+				<small class="text-right">
+					<%
+						request.getSession().setAttribute("dest", null);
+					%>
+					<c:if test="${ROLE != null}">
+						${ROLE.employee_name}
+						<input class="btn btn-primary" type="button" value="로그아웃" 
+						onclick="window.location='/user/logout';">
+					</c:if>
+					<c:if test="${ROLE == null}">
+						<input class="btn btn-success" type="button" value="로그인"
+						onclick="window.location='/user/login';">
+					</c:if>
+					<input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
+					<input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">
+				</small>
+				</h1>
+			</div>
+		</div>
 	</div>
-		
-	</form>
-</div>
-	
-	
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
@@ -66,7 +41,7 @@ function fn_login_form() {
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="headingOne">
 								<h4 class="panel-title">
-									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 										기초등록
 									</a>
 								</h4>
@@ -183,16 +158,7 @@ function fn_login_form() {
 						</div>
 					</div> <!-- panel-group -->
 				</div>
-				
-				<div class="col-md-8" id="main_screen">
-					<div class="img-responsive" align="center" >   
-						<img class="img-reponsive " src="/resources/images/design/back_03.png" 
-						style="max-width: 100%; margin-top: 3% "  > 
-					</div>
-				</div>
-				
-				<!-- style="width:100%; margin:0 auto;" -->
-				
+				<div class="col-md-8" id="main_screen">메인화면</div>
 				<div class="col-md-2" id="alrim_center">
 					<div class="panel panel-warning">
 						<div class="panel-heading"><span class="text-center">알림센터</span></div>
@@ -205,6 +171,8 @@ function fn_login_form() {
 								<span class="text-center">로그인이 필요합니다.</span>
 							</c:if>
 						</div>
+						
+
 						<div id = "result"> </div>
 					</div>
 				</div>
@@ -217,6 +185,10 @@ function fn_login_form() {
 		</div>
 	</div>
 </div>
+
+
+
+
 </body>
 <script type="text/javascript">
 	
@@ -241,7 +213,7 @@ function fn_login_form() {
 						$('#result').html(response);	
 					}
 				}); 
-			}, 100000);
+			}, 10000);
 		}
 	});
 	

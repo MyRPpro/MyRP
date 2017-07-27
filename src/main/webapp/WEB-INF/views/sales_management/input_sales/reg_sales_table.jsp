@@ -32,6 +32,7 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("정상적으로 입력되었습니다.");
+				 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table');
 			}, 200);
 		</script>
 	</c:if>
@@ -42,7 +43,7 @@
 			window.history.back();
 		</script>
 	</c:if>
-	
+
 	
 	<form action="#" name="reg_sales_table_form" method="get">
 	
