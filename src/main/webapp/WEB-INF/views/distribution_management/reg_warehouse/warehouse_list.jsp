@@ -13,7 +13,7 @@ $(function(){
 		var togo = $('#modify');
 		var id = $(this).val();
 
-		var warehouse = document.getElementsByName("warehouse_id");
+		var warehouse = document.getElementsByName("ware_id");
 		var nomal = 0;
 		var bad = 0;
 		var wait = 0;
@@ -38,7 +38,7 @@ $(function(){
 		$.ajax({ 					
 			data: 	data,
 			type: 	'post',	 			
-			url: 	"warehouse_view",
+			url: 	"/distribution_management/reg_warehouse/warehouse_view",
 			success: function(response) { 	
 				togo.html(response);	
 			}
@@ -58,7 +58,7 @@ warehouse_list.jsp
 			<th>수정</th>
 		</tr>
 		<c:forEach var = "vo" items = "${reg_warehouse_listVos}" >	
-		<input type = "hidden" value = "${vo.warehouse_id}" name = "warehouse_id">
+		<input type = "hidden" value = "${vo.warehouse_id}" name = "ware_id">
 			<tr>
 				<th>${vo.warehouse_id}</th>
 				<th>${vo.warehouse_name}</th>

@@ -8,6 +8,7 @@
 <%@ include file = "../setting.jsp" %>
 <script type="text/javascript">
 	$(function(){
+	 
 		var role = document.getElementById("role").value;
 		var data = {"role" : role}	
 		$.ajax({ 					
@@ -19,6 +20,7 @@
 			}
 		});
 		var timer = setInterval(function(){
+			
 			$.ajax({ 					
 				data: 	 data,
 				type: 	'post',	 			
@@ -26,14 +28,16 @@
 				success: function(response) { 	
 					$('#result').html(response);	
 				}
-			}); 
-		}, 1000);
+			});
+			}
+		}, 10);
 	});
 
 </script>
 </head>
-<body >
+<body>
 <input type = "hidden" id = "role" value = "${ROLE.access_role}">
+
 ${ROLE.employee_name}님 어서오세요.
 <div id = "result"></div>
 </body>
