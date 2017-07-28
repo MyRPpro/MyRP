@@ -1,16 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	modify_bank_account.jsp 페이지
-	<button onclick="window.location='/'"> 홈으로 </button>
-	<form action="/accounting_management/bank_account_registration/modify_bank_account_pro" name="modify_bank_account_form1" method="post">
+<script type="text/javascript">
+$(function(){
+	$("form[name='modify_bank_account_form1']").on("submit",function(){
+		//bank_account_register 정보가 올바른지 체크
+			if(!document.modify_bank_account_form1.bank_account_name.value){
+				alert("계좌이름을 입력해주세요!");
+				document.modify_bank_account_form1.bank_account_name.focus();
+				return false;
+			}else if(!document.modify_bank_account_form1.bank_account_number.value){
+				alert("계좌번호를 입력해주세요!");
+				document.modify_bank_account_form1.bank_account_number.focus();
+				return false;
+			}else if(!document.modify_bank_account_form1.bank_name.value){
+				alert("은행이름을 입력해주세요!");
+				document.modify_bank_account_form1.bank_name.focus();
+				return false;
+			}	
+		togo = $('#bank_account_list');
+		var data = $(this).serialize(); 
+		$.ajax({ 	
+			data:    data,
+			type: 	'post',
+			url: 	"/accounting_management/bank_account_registration/modify_bank_account_pro",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});
+		return false;
+	});
+});
+</script>
+	<form action="#" name="modify_bank_account_form1" method="post">
 	 	<table border="1">
 	 		<tr>
 				<th>bank_account_id</th>

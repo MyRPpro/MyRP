@@ -1,24 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<script src = "/resources/accounting_management/accounting_management_script.js"></script>
-<body>
+<script type="text/javascript">
+$(function(){
+	$('.page_nav a').bind("click",function(){
+		$("#search_statements_list").load($(this).attr("href"));
+		return false;
+	});
+});
+
+//전표 상세페이지 띄우기
+function search_statement_detail(statement_id, connected_id, typeCnt){
+	var url="";
+	if(typeCnt==1){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
+	}
+	if(typeCnt==2){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&purchase_id="+connected_id;
+	}
+	if(typeCnt==3){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
+	}
+	if(typeCnt==null){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
+	}
+	togo = $('#search_statement_detail');
+	
+	$.ajax({ 		
+		type: 	'get',	 			
+		url: 	url,
+		success: function(response) { 	
+			togo.html(response);	
+		}
+	});
+}
+</script>
+
 <h3> 전체 전표 조회 </h3>
 총 전표 개수 : ${cnt}
-<button onclick="window.location='/'"> 홈으로 </button>
-<form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
-	<input type="submit" value="전표 등록">	
-</form>
-
-<button onclick = "window.location='/accounting_management/statement_management/search_unapproval_statements'"> 미승인 전표 조회</button>
-<button onclick = "window.location='/accounting_management/statement_management/search_approval_statements'"> 승인 전표 조회</button>
-
 <table border="1">
 	<tr>
 		<th> statement_id </th>
@@ -128,5 +147,3 @@
 			</tr>
 		</table>
 	</div>
-</body>
-</html>

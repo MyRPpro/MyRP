@@ -69,8 +69,8 @@ public interface AccountController extends MyRPController{
 	  * @return
 	  * @throws Exception
 	  */
+	 public String search_statements(HttpServletRequest req, Model model) throws Exception;
 	 public String search_all_statements(HttpServletRequest req, Model model) throws Exception;
-	 
 	 /**
 	  * 전표관리 > 상세전표 조회
 	  * @param req
@@ -232,5 +232,14 @@ public interface AccountController extends MyRPController{
 	 */
 	public String search_statement_of_cash_flows(HttpServletRequest req, Model model)throws Exception;
 	public String show_statement_of_cash_flows(HttpServletRequest req, Model model)throws Exception;
+	
+	/**
+	 * 채권/채무 조회
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_bond_debt(HttpServletRequest req, Model model)throws Exception;
 }
 

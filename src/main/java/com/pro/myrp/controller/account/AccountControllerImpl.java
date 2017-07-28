@@ -73,7 +73,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.modify_bank_account_pro_service(model);
 		return "redirect:"+code.c(accounting_management, bank_account_registration, bank_account_list);
 	}
-
+	@Override
+	@GetMapping(value="statement_management/search_statements")
+	public String search_statements(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("search_statements");
+		model.addAttribute("req", req);
+		service.search_statements_service(model);
+		return "accounting_management/statement_management/search_statements";
+	}
 	@Override
 	@GetMapping(value="statement_management/search_all_statements")
 	public String search_all_statements(HttpServletRequest req, Model model) throws Exception {
@@ -165,7 +172,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		if(typeCnt==4) {
 			url=code.c(accounting_management, statement_management, approve_statement);
 		}else {
-			url=code.c(accounting_management, statement_management, search_all_statements);
+			url= "/accounting_management/statement_management/search_statements";
 		}
 		return "redirect:"+ url;
 	}
@@ -198,7 +205,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	}
 
 	@Override
-	@GetMapping(value="account_management/add_account_pro")
+	@PostMapping(value="account_management/add_account_pro")
 	public String add_account_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_account));
 		model.addAttribute("req",req);
@@ -285,6 +292,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.show_statement_of_cash_flows_service(model);
 		return code.c(accounting_management, financial_statements, show_statement_of_cash_flows);
 	}
+
+	@Override
+	public String search_bond_debt(HttpServletRequest req, Model model) throws Exception {
+		System.out.println();
+		return null;
+	}
+
+	
 
 	
 	

@@ -1,30 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src = "/resources/accounting_management/accounting_management_script.js"></script>
-</head>
-<body>
-<form action="/accounting_management/account_management/modify_account_pro" name="modify_account_form1" method="POST">
+<script type="text/javascript">
+$(function(){
+	$("form[name='modify_account_form1']").on("submit",function(){
+		//bank_account_register 정보가 올바른지 체크
+			if(!document.modify_account_form1.account_id.value){
+				alert("계정번호를 입력해주세요!");
+				document.modify_account_form1.account_id.focus();
+				return false;
+			}else if(!document.modify_account_form1.account_name.value){
+				alert("계정이름을 입력해주세요!");
+				document.modify_account_form1.account_name.focus();
+				return false;
+			}else if(!document.modify_account_form1.account_balance.value){
+				alert("계정금액을 입력해주세요!");
+				document.modify_account_form1.account_balance.focus();
+				return false;
+			}	
+		togo = $('#search_account_list');
+		var data = $(this).serialize(); 
+		$.ajax({ 	
+			data:    data,
+			type: 	'post',
+			url: 	"/accounting_management/account_management/modify_account_pro",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});
+		$("#account_list_stage").slideUp();
+		return false;
+	});
+});
+</script>
+<form action="#" name="modify_account_form1" method="POST">
 <table border="1">
 	<tr>
-		<th> account_id </th>
+		<th> 계정번호 </th>
 		<td>
 			<input type="text" name="account_id" value="${vo.account_id}" readonly="true"> 
 		</td>
 	</tr>
 	<tr>
-		<th> account_name </th>
+		<th> 계정명 </th>
 		<td> 
 			<input type="text" name="account_name" value="${vo.account_name}">
 		</td>
 	</tr>
 	<tr>
-		<th> account_balance </th>
+		<th> 계정금액 </th>
 		<td> 
 			<input type ="number" value = "${vo.account_balance}" name="account_balance" readonly="true">
 		</td>
