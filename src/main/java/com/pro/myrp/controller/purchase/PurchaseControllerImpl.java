@@ -90,9 +90,6 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 	}
 	
 	
-
-	
-	
 	
 	@Override
 	@GetMapping(value="input_purchase/reg_purchase")
@@ -113,15 +110,29 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		return code.c(purchase_management, input_purchase, reg_purchase_table);
 	}
 	
+	
 	@Override
-	@GetMapping(value="input_purchase/search_reg_purchase")
-	public String search_reg_purchase(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(search_reg_purchase));
+	@GetMapping(value="input_purchase/search_reg_purchase_table")
+	public String search_reg_purchase_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_reg_purchase_table));
 		model.addAttribute("req", req);
 		service.search_reg_purchase_service(model);
-		return code.c(purchase_management, input_purchase, search_reg_purchase);
+		service.search_reg_purchase_table_service(model);
+		return code.c(purchase_management, input_purchase, search_reg_purchase_table);
 	}
-	
+
+
+	@Override
+	@GetMapping(value="input_purchase/search_reg_purchase_page")
+	public String search_reg_purchase_page(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_reg_purchase_page));
+		model.addAttribute("req", req);
+		service.search_reg_purchase_service(model);
+		service.search_reg_purchase_page_service(model);
+		return code.c(purchase_management, input_purchase, search_reg_purchase_page);
+	}
+
+
 
 	@Override
 	@GetMapping(value="input_purchase/search_reg_purchase_pro")
@@ -131,8 +142,6 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		service.search_reg_purchase_pro_service(model);
 		return code.c(purchase_management, input_purchase, reg_purchase);
 	}
-
-
 	
 
 	@Override
@@ -144,6 +153,10 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		return code.c(purchase_management, staus_purchase, search_status_purchase);
 	}
 
+
+	
+	
+	
 
 
 

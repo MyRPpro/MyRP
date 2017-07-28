@@ -471,6 +471,8 @@ public class purchaseServiceImpl implements purchaseService {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 
+		
+		
 		String purchase_id = dao.select_purchase_id();
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
@@ -493,6 +495,16 @@ public class purchaseServiceImpl implements purchaseService {
 		dto.setSupply_price(supply_price);
 		dto.setPurchase_state(purchase_state);
 		dto.setCondition_note_payable(condition_note_payable);
+		
+		// 오더 아이디가 있을 경우
+		if( req.getParameter("order_id") != null ){
+			String order_id = req.getParameter("order_id");
+			dto.setOrder_id(order_id);
+			
+		} else {
+			dto.setOrder_id("0");
+		}
+		
 
 		// 가격 계산 ( 구매가, 부가세, 총합 )
 		int cnt = 0;	
@@ -550,17 +562,118 @@ public class purchaseServiceImpl implements purchaseService {
 		
 		System.out.println("  -> search_reg_purchase_service...");
 		
-		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
-		dtos = dao.select_reg_purchase();
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
-		if(dtos != null ){
-			model.addAttribute("dtos",dtos);
-		} else {
-			System.out.println("  Error Loading Lack_stock");
-		}
+		int cnt =0;
+		cnt = dao.select_lack_reg_purchase_cnt();
+		
+		req.setAttribute("cnt",cnt);
 	}
 
 	
+	@Override
+	public void search_reg_purchase_table_service(Model model) {
+	System.out.println("  -> search_reg_purchase_table_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+
+		int start = 0;
+		int end	= 0;
+		int cnt	= 0;
+		int pageSize	= 5;
+		String pageNum	= null;
+		int currentPage	= 0;
+		
+		cnt = (Integer) req.getAttribute("cnt");
+		System.out.println(" -> table cnt : " + cnt );
+
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		
+		System.out.println("  -> start & end page : " + start +"/ "+ end);
+		
+		if(cnt > 0) {
+			
+			System.out.println("  -> Complete import cnt ...");
+			
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			
+			ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+			dtos = dao.select_lack_reg_purchase(daoMap);
+			model.addAttribute("dtos",dtos);
+
+		}
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("pageNum",pageNum);
+			
+	}
+
+	
+	@Override
+	public void search_reg_purchase_page_service(Model model) {
+	System.out.println("  -> search_reg_purchase_page_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 5;
+		int start		= 0;
+		int end			= 0;
+		int cnt 		= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		cnt = (Integer) req.getAttribute("cnt");
+		System.out.println(" -> page cnt : " + cnt );
+		
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		
+		System.out.println("  -> page pageNum : " + pageNum);
+		
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		
+		} 
+		
+	}
+
+		
+		
 	@Override
 
 	public void search_reg_purchase_pro_service(Model model) {
@@ -569,30 +682,24 @@ public class purchaseServiceImpl implements purchaseService {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");	
 		
-		String lack_sales_id = req.getParameter("lack_sales_id");
-		System.out.println("  -> lack_sales_id : " + lack_sales_id);
+		String stock_order_id = req.getParameter("stock_order_id");
+		System.out.println("  -> stock_order_id : " + stock_order_id);
 		
-		PurchaseDTO dto = dao.select_reg_purchase_pro(lack_sales_id);
+		PurchaseDTO dto = dao.select_reg_purchase_pro(stock_order_id);
 		
 		if( dto != null ){
 			System.out.println("  -> Loadging Complete...");
 			model.addAttribute("dto",dto);
-			model.addAttribute("cnt",1);
+			model.addAttribute("leck_cnt",1);
 			
 		} else {
 			System.out.println("  -> Loadging Error...");
-			model.addAttribute("cnt",0);
+			model.addAttribute("leck_cnt",0);
 		}
-		
-		
-
 
 	}
 
-	
-	
 
-	
 	
 }
 		

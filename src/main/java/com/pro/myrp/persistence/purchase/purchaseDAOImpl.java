@@ -97,11 +97,7 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.select_reg_purchases(purchase_id);
 	}
 
-	@Override
-	public ArrayList<PurchaseDTO> select_reg_purchase() {
-		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.select_reg_purchase();
-	}
+
 
 	@Override
 	public PurchaseDTO select_reg_purchase_pro(String lack_sales_id) {
@@ -193,7 +189,17 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.update_req_storage_in(daoMap);
 	}
 
-	
+	@Override
+	public int select_lack_reg_purchase_cnt() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_lack_reg_purchase_cnt();
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_lack_reg_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_lack_reg_purchase(daoMap);
+	}
 
 	
 	

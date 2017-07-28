@@ -117,6 +117,7 @@ public interface purchaseController extends MyRPController {
 	 */
 	public String reg_purchase_table(HttpServletRequest req, Model model) throws Exception;
 
+	
 	/**
 	 * 구매 입력 테이블 : 부족 재고 조회
 	 * @author Jang.EC
@@ -125,8 +126,20 @@ public interface purchaseController extends MyRPController {
 	 * @return
 	 * @throws Exception
 	 */
-	public String search_reg_purchase(HttpServletRequest req, Model model) throws Exception;
+	public String search_reg_purchase_table(HttpServletRequest req, Model model) throws Exception;
 
+	/**
+	 * 구매 입력 테이블 : 부족 재고 조회
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_reg_purchase_page(HttpServletRequest req, Model model) throws Exception;
+
+	
+	
 
 	/**
 	 * 구매 입력 테이블 : 부족 재고 조회 후 처리

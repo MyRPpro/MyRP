@@ -79,7 +79,9 @@ public interface CodeMyRP {
 				public static final int reg_purchase 			= 13210;	// 구매 입력 양식
 				public static final int reg_purchase_table 		= 13220;	// 구매 입력 테이블
 				public static final int search_reg_purchase 	= 13230;	// 부족 재고 조회
-				public static final int search_reg_purchase_pro = 13240;	// 부족 재고 조회 처리
+				public static final int search_reg_purchase_table 	= 13240;	// 부족 재고 조회-테이블
+				public static final int search_reg_purchase_page 	= 13250;	// 부족 재고 조회-페이지
+				public static final int search_reg_purchase_pro 	= 13260;	// 부족 재고 조회 처리
 				
 				
 			// 구매 현황

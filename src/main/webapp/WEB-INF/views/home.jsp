@@ -7,12 +7,9 @@
 <head>
 	<title>MyRP</title>
 </head>
-<<<<<<< HEAD
-<body >
-=======
-<body>
 
->>>>>>> b02fe99631d5be4825050fc118976473e6b84955
+<body >
+
 <div class="container-fluid">
 	<form class="form-inline">
 	
@@ -217,13 +214,7 @@
 		</div>
 	</div>
 </div>
-<<<<<<< HEAD
-	
-	
-	
 
-=======
->>>>>>> b02fe99631d5be4825050fc118976473e6b84955
 
 </body>
 <script type="text/javascript">

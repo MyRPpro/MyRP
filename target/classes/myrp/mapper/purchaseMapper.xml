@@ -594,7 +594,7 @@
 			    CONDITION_NOTE_PAYABLE)
 		VALUES ( 
 				'${purchase_id}',  
-			    0000000000000,
+			    '${order_id}',  
 			    '${account_id}', 
 			    '${product_id}', 
 			    '${company_id}', 
@@ -676,12 +676,24 @@
  	</select>
  	
  	
-
- 	<select id="select_reg_purchase"  resultType="PurchaseDTO">
+	<select id="select_lack_reg_purchase_cnt" resultType="int">
+	<![CDATA[
+	SELECT 	COUNT(LACK_STOCK) 
+	FROM 	STORAGE_OUT_ORDER 
+	JOIN 	STOCK_ORDER 
+	USING	(STOCK_ORDER_ID)
+	WHERE  	STOCK_STATE = 24203
+	]]>
+	</select>
+	
+	
+ 	<select id="select_lack_reg_purchase" parameterType="java.util.Map"  
+ 	resultType="PurchaseDTO">
  	<![CDATA[
 		SELECT 	*
 		FROM 	(
 				SELECT 
+           				S.STOCK_ORDER_ID,
 						STOCK_ORDER_TYPE, 
 							NVL(STOCK_ORDER_TYPE ,'입력값 오류' ) AS SALES_ID,
 						SO.LACK_STOCK,	
@@ -697,85 +709,92 @@
 							FROM    EMPLOYEE E
 							WHERE   S.EMPLOYEE_ID = E.EMPLOYEE_ID )
 							,'입력값 오류' ) AS EMPLOYEE_NAME,
-							REG_DATE, 
-							STOCK_STATE,
-								 NVL(( 
-								SELECT  KOR_NAME
-								FROM    STATE S
-								WHERE   S.STOCK_STATE = S.CODE )
-								,'입력값 오류' ) AS STATE_NAME,
+						REG_DATE, 
+						STOCK_STATE,
+							 NVL(( 
+							SELECT  KOR_NAME
+							FROM    STATE S
+							WHERE   S.STOCK_STATE = S.CODE )
+							,'입력값 오류' ) AS STATE_NAME,
 						ROWNUM rnum
 				FROM 	STOCK_ORDER S, STORAGE_OUT_ORDER SO
 				WHERE 	S.STOCK_ORDER_ID = SO.STOCK_ORDER_ID
 				AND 	S.STOCK_STATE=24203
-				)
-		ORDER 	BY STOCK_ORDER_TYPE DESC
+				AND  	LACK_STOCK != 0
+		        AND   	S.STOCK_ORDER_ID  NOT IN   
+				        ( SELECT ORDER_ID
+				          FROM  PURCHASE_ORDER P
+				          WHERE P.ORDER_ID = S.STOCK_ORDER_ID )
+				ORDER 	BY STOCK_ORDER_ID DESC          
+						)
+		WHERE 	rnum BETWEEN '${start}' AND '${end}'
+   		ORDER 	BY rnum ASC
  	]]>
  	</select>
  	
  	
  	<select id="select_reg_purchase_pro" parameterType="String" resultType="PurchaseDTO">
  	<![CDATA[
-	 	SELECT 	*
-		FROM 	(
-		  		SELECT  
-				        S.SALES_ID, 
-				        S.SALES_ID AS LACK_ID, 
-			            (
-			            SELECT	LACK_STOCK
-			            FROM   	STORAGE_OUT_ORDER
-			            WHERE 	STOCK_ORDER_ID = 
-			              		( 
-					             SELECT STOCK_ORDER_ID  
-					             FROM  	STOCK_ORDER
-					             WHERE  STOCK_STATE = 24203
-					             AND 	STOCK_ORDER_TYPE = #{lack_sales_id}
-			              		)
-			            ) AS LACK_STOCK ,
-				        S.ACCOUNT_ID,
-				        NVL((
-				        SELECT ACCOUNT_NAME 
-				        FROM   ACCOUNT A
-				        WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
-				        ),'입력값 오류' ) AS ACCOUNT_NAME ,
-				        S.ORDER_ID,   
-				        S.PRODUCT_ID, 
-				        NVL((
-				        SELECT PRODUCT_NAME 
-				        FROM   PRODUCT P
-				        WHERE  S.PRODUCT_ID = P.PRODUCT_ID
-				        ),'입력값 오류' ) AS PRODUCT_NAME ,
-		            	(
-				        SELECT  PURCHASE_UNIT_PRICE 
-				        FROM   PRODUCT P
-				        WHERE  S.PRODUCT_ID = P.PRODUCT_ID
-				        ) AS PURCHASE_UNIT_PRICE ,
-				        S.COMPANY_ID,  
-				        NVL((
-				        SELECT COMPANY_NAME 
-				        FROM   COMPANY C
-				        WHERE  S.COMPANY_ID = C.COMPANY_ID
-				        ),'입력값 오류' ) AS COMPANY_NAME ,
-				        NVL((
-				        SELECT EMPLOYEE_NAME 
-				        FROM   EMPLOYEE E
-				        WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
-				        ),'입력값 오류' ) AS EMPLOYEE_NAME ,
-				        S.REG_DATE, S.UPDATE_DATE, 
-				        S.STORAGE_OUT_DATE, 
-				        S.COUNT_SALES,
-				        S.SELLING_PRICE, 
-				        S.CONDITION_NOTE_RECEIVABLE,
-				        S.SALES_STATE,
-				        NVL((
-				        SELECT KOR_NAME 
-				        FROM   STATE ST
-				        WHERE  S.SALES_STATE = ST.CODE
-				        ),'입력값 오류' ) AS state_name
-				 FROM	SALES_ORDER S 
-				 WHERE 	S.SALES_ID = #{lack_sales_id}
-				 AND	S.ACCOUNT_ID = 500014020000
-				 )
+	 	    
+		SELECT 	*
+		FROM (
+		  
+			  SELECT 
+			  S.STOCK_ORDER_ID,
+			  SOR.ACCOUNT_ID, 
+			  
+			  SOR.PRODUCT_ID, 
+				  NVL((
+				  SELECT PRODUCT_NAME 
+				  FROM   PRODUCT P
+				  WHERE  SOR.PRODUCT_ID = P.PRODUCT_ID
+				  ),'입력값 오류' ) AS PRODUCT_NAME ,
+			  
+			  SOR.COMPANY_ID, 
+				  NVL((
+				  SELECT COMPANY_NAME 
+				  FROM   COMPANY C
+				  WHERE  SOR.COMPANY_ID = C.COMPANY_ID
+				  ),'입력값 오류' ) AS COMPANY_NAME ,
+			  
+			  SOR.EMPLOYEE_ID, 
+				  NVL((
+				  SELECT EMPLOYEE_NAME 
+				  FROM   EMPLOYEE E
+				  WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				  ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			  
+			  (
+			  SELECT REG_DATE 
+			  FROM   STOCK_ORDER 
+			  WHERE  STOCK_ORDER_ID = #{stock_order_id}
+			  ) AS REG_DATE ,
+			  
+			  NVL(
+				  (SELECT	SO.LACK_STOCK
+				    FROM   	STOCK_ORDER NATURAL JOIN STORAGE_OUT_ORDER
+				    WHERE   STOCK_ORDER_ID = #{stock_order_id}
+				    AND     S.STOCK_STATE = 24203
+				  ),'0') AS LACK_STOCK,
+			  
+			  NVL((
+				  SELECT P.PURCHASE_UNIT_PRICE 
+				  FROM   PRODUCT P
+				  WHERE  SOR.PRODUCT_ID = P.PRODUCT_ID
+				  ),'0' ) AS PURCHASE_UNIT_PRICE ,
+			  
+			  SOR.CONDITION_NOTE_RECEIVABLE AS CONDITION_NOTE_PAYABLE
+			  
+			  FROM	STOCK_ORDER S
+			  JOIN 	STORAGE_OUT_ORDER SO
+			  ON   	S.STOCK_ORDER_ID = SO.STOCK_ORDER_ID
+			  JOIN 	SALES_ORDER SOR
+			  ON   	S.STOCK_ORDER_TYPE = SOR.SALES_ID
+			  JOIN 	COMPANY C
+			  ON   	SOR.COMPANY_ID = C.COMPANY_ID
+			)
+		WHERE STOCK_ORDER_ID = #{stock_order_id}
+		AND ACCOUNT_ID = 500014030000
  	]]>
  	</select>
  	
