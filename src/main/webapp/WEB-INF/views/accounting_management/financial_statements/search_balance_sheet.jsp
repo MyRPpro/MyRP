@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 
 <script type="text/javascript">
@@ -36,21 +36,21 @@ $(function(){
 
 
 <table>
-	<tr>
-		<th>
-			보고서 선택
-		</th>
-	</tr>
-	<tr>
-		<td>
-			<input type="radio" name="fi_statements" id="balance_sheet" value="balance_sheet" checked>
-			<label for="fi_statements"> 재무상태표 </label>
-			<input type="radio" name="fi_statements" id="profit_and_loss_statement" value="profit_and_loss">
-			<label for="profit_and_loss_statement"> 손익계산서 </label>
-			<input type="radio" name="fi_statements" id="statement_of_cash_flows" value="cash_flows">
-			<label for="statement_of_cash_flows"> 현금흐름표 </label>
-		</td>
-	</tr>
+<tr>
+<th>
+보고서 선택
+</th>
+</tr>
+<tr>
+<td>
+<input type="radio" name="fi_statements" id="balance_sheet" value="balance_sheet" checked>
+<label for="fi_statements"> 재무상태표 </label>
+<input type="radio" name="fi_statements" id="profit_and_loss_statement" value="profit_and_loss">
+<label for="profit_and_loss_statement"> 손익계산서 </label>
+<input type="radio" name="fi_statements" id="statement_of_cash_flows" value="cash_flows">
+<label for="statement_of_cash_flows"> 현금흐름표 </label>
+</td>
+</tr>
 </table>
 <div id="select_date">
 

@@ -701,24 +701,28 @@
 	<select id="select_account_name_for_all" parameterType="String" resultType="String">
 		<![CDATA[
 		 SELECT account_name FROM account WHERE account_id = (SELECT account_id FROM sales_statement 
-		 													  WHERE sales_id= (SELECT sales_id FROM sales_statement 
-		 																	   WHERE account_id=500011010000
-		 																		 AND statement_Id = #{statement_id})
-                                                                AND account_id <> '500011010000'
+		 													 WHERE sales_id= 	(SELECT sales_id 
+		 													 					FROM sales_statement 
+		 													 					WHERE account_id=500011010000
+		 													 					AND statement_Id = #{statement_id})
+                                                             AND account_id <> '500011010000'
                                                                                                           
                                                              UNION 
                                                              SELECT account_id FROM purchase_statement 
-                                                             WHERE purchase_id= (SELECT purchase_id FROM sales_statement 
-                                                              					 WHERE account_id=500011010000
-                                                              					 AND statement_Id = #{statement_id})
+                                                             WHERE purchase_id = 	(SELECT purchase_id 
+                                                             						FROM sales_statement 
+                                                             						WHERE account_id=500011010000
+                                                             						AND statement_Id = #{statement_id})
                                                              AND account_id <> '500011010000'
                                                                                                           
                                                              UNION 
                                                              SELECT account_id FROM salary_register_statement 
-                                                             WHERE salary_register_id= (SELECT salary_register_id FROM salary_register_statement 
+                                                             WHERE salary_register_id= (SELECT salary_register_id 
+                                                             							FROM salary_register_statement 
                                                              							WHERE account_id=500011010000
-                                                             							  AND statement_Id = #{statement_id})
-                                                             AND account_id <> '500011010000'                           
+                                                             							AND statement_Id = #{statement_id})
+                                                             AND account_id <> '500011010000'
+                                                                                                          
                                                             )
 		]]>
 	</select>

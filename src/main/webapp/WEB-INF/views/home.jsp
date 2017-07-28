@@ -9,55 +9,45 @@
 </head>
 <script type="text/javascript">
 function fn_login_form() {
-   $("#main_screen").load("/user/login");
+	$("#main_screen").load("/user/login");
 }
 </script>
 <body>
 <div class="container-fluid">
-
-   <form class="form-inline">
-   
-   <div class="row " style="height: 100px; vertical-align: center;  " >
-      
-      <div class="page-header " style="height: 80px; margin: 0; margin-top: 10px; margin-bottom:10px; vertical-align: center; " >
-         <div class="col-md-12">
-            <h1 style="margin:0 auto; padding:0;">
-               <a href="/">
-               <img 
-               style="height: 50px; margin: 0; margin-top: 10px;"
-               src="/resources/images/design/logo_v4.png" 
-               onmouseover="this.src='/resources/images/design/logo_v5.png'" 
-               onmouseout="this.src='/resources/images/design/logo_v4.png'" border="0"></a>
-               
-               <small class="text-right" style="vertical-align: center;">
-                  <%
-                     request.getSession().setAttribute("dest", null);
-                  %>
-                  &emsp;
-                  <c:if test="${ROLE != null}">
-                     ${ROLE.employee_name}
-                     <input class="btn btn-primary" type="button" value="로그아웃" 
-                     onclick="window.location='/user/logout';" >
-                  </c:if>
-                  <c:if test="${ROLE == null}">
-                     <input class="btn btn-success" type="button" value="로그인"
-                     onclick="fn_login_form();">
-                  </c:if>
-                  <input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
-                  <input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">
-                  
-               </small>
-            </h1>   
-         </div>   
-         
-      </div>   <!-- // page-header -->
-   </div>
-      
-   </form>
-</div>
-   
-   
-   
+	<form class="form-inline">
+		<div class="row " style="height: 100px; vertical-align: center;  " >
+			<div class="page-header " style="height: 80px; margin: 0; margin-top: 10px; margin-bottom:10px; vertical-align: center; " >
+				<div class="col-md-12">
+					<h1 style="margin:0 auto; padding:0;">
+						<a href="/">
+						<img 
+						style="height: 50px; margin: 0; margin-top: 10px;"
+						src="/resources/images/design/logo_v4.png" 
+						onmouseover="this.src='/resources/images/design/logo_v5.png'" 
+						onmouseout="this.src='/resources/images/design/logo_v4.png'" border="0"></a>
+						
+						<small class="text-right" style="vertical-align: center;">
+							<%
+								request.getSession().setAttribute("dest", null);
+							%>
+							&emsp;
+							<c:if test="${ROLE != null}">
+								${ROLE.employee_name}
+								<input class="btn btn-primary" type="button" value="로그아웃" 
+								onclick="window.location='/user/logout';" >
+							</c:if>
+							<c:if test="${ROLE == null}">
+								<input class="btn btn-success" type="button" value="로그인"
+								onclick="fn_login_form();">
+							</c:if>
+							<input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
+							<input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">
+						</small>
+					</h1>	
+				</div>	
+			</div>	<!-- // page-header -->
+		</div>	
+	</form>
    <div class="row">
       <div class="col-md-12">
          <div class="row">
@@ -219,37 +209,35 @@ function fn_login_form() {
 </div>
 </body>
 <script type="text/javascript">
-   
-   $(function(){
-      if(document.getElementById('role') != null) {
-         var role = document.getElementById("role").value;
-         var data = {"role" : role}   
-         $.ajax({                
-            data:     data,
-            type:    'post',             
-            url:    "/state_alarm/state_alarm_pro",
-            success: function(response) {    
-               $('#result').html(response);   
-            }
-         });
-         var timer = setInterval(function(){
-            $.ajax({                
-               data:     data,
-               type:    'post',             
-               url:    "/state_alarm/state_alarm_pro",
-               success: function(response) {    
-                  $('#result').html(response);   
-               }
-            }); 
-         }, 100000);
-      }
-   });
-   
-   //메뉴의 a 태그 클릭시 메인페이지 화면에 해당 화면을 출력한다.
-   $(".panel-body a").bind("click", function(event) {
-      $("#main_screen").load($(this).attr("href"));
-      return false;
-   });
-
+	$(function(){
+		if(document.getElementById('role') != null) {
+			var role = document.getElementById("role").value;
+			var data = {"role" : role}	
+			$.ajax({ 					
+				data: 	 data,
+				type: 	'post',	 			
+				url: 	"/state_alarm/state_alarm_pro",
+				success: function(response) { 	
+					$('#result').html(response);	
+				}
+			});
+			var timer = setInterval(function(){
+				$.ajax({ 					
+					data: 	 data,
+					type: 	'post',	 			
+					url: 	"/state_alarm/state_alarm_pro",
+					success: function(response) { 	
+						$('#result').html(response);	
+					}
+				}); 
+			}, 100000);
+		}
+	});
+	
+	//메뉴의 a 태그 클릭시 메인페이지 화면에 해당 화면을 출력한다.
+	$(".panel-body a").bind("click", function(event) {
+		$("#main_screen").load($(this).attr("href"));
+		return false;
+	});
 </script>
 </html>
