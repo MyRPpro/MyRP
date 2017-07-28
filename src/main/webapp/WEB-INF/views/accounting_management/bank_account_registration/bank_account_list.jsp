@@ -2,6 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
+$(document).ready(function onload_function(){
+	var bank_account_reg_on = "<c:out value='${bank_account_reg_on}' />";
+	if(bank_account_reg_on==1){ //계좌등록페이지 띄우기
+		togo = $('#bank_account_list_stage');
+		
+		$.ajax({ 		
+			type: 	'get',	 			
+			url: 	"/accounting_management/bank_account_registration/register_bank_account",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});
+	}else{
+		return false;
+	}
+});
 $(function(){
 	$('#bank_account_list_form_for_register form').on("submit",function(){
 		togo = $('#bank_account_list_stage');
