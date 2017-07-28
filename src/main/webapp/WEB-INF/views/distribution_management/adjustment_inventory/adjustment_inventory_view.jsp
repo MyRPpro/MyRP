@@ -11,15 +11,26 @@ function chk(){
 	var taked_stock = document.getElementById("taked_stock").value
 	
 	if(taked_stock < 0){
-		alert("TAKED_STOCK은 0보다 작을 수 없습니다.");
+		alert("조정 후 재고는 0보다 작을 수 없습니다.");
 		return false;
 	}else if(delete_stock == null || delete_stock ==  0){
-		alert("MOVING_STOCK을 입력하시오.");
+		alert("조정 재고를 입력하시오.");
 		return false;
 	}
+
+	var data = this.form.serialize();
+		
+	$.ajax({ 					
+		data:	data,
+		type: 	'post',	 			
+		url: 	"/distribution_management/adjustment_inventory/adjustment_inventory_pro",
+		success: function(response) { 	
+			$('#reg').html(response);	
+		}
+	});
 }
 </script>
-<form action = "adjustment_inventory_pro" method = "post" onsubmit = "return chk();">
+<form action = "" method = "post" onsubmit = "return chk();" >
 <table border = "1">
 	<tr>
 		<th>상품명</th>
@@ -44,7 +55,7 @@ function chk(){
 		
 	</tr>
 	<tr>
-		<th><input type = "submit" value = "확인"></th>
+		<th><input type = "submit" value = "확인" ></th>
 	</tr>
 </table>
 <br><br>

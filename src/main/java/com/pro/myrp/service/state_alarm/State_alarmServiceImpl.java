@@ -26,7 +26,6 @@ public class State_alarmServiceImpl implements State_alarmService {
 		String role = req.getParameter("role");
 		String order_id = null;
 		
-		
 		if(role.equals("FI")){
 		//화계팀 입력 시작============================================================================================================================================================
 			/*
@@ -247,6 +246,8 @@ public class State_alarmServiceImpl implements State_alarmService {
 			}
 		}
 		//판매팀 입력 끝============================================================================================================================================================
+		String goes = req.getParameter("goes");
+		model.addAttribute("goes", goes);
 		model.addAttribute("state_alarmDtos", state_alarmDtos);
 		model.addAttribute("size", state_alarmDtos.size());
 		return null;

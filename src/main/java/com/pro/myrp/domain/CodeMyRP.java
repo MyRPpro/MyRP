@@ -166,6 +166,10 @@ public interface CodeMyRP {
 				public static final int call_connected_id = 15490;				//연결주문id불러오기
 				
 			//재권/채무 현황
+			public static final int bond_debt_status = 15500;					
+				public static final int search_bond_debt = 15510;				//채권채무 조회
+				public static final int search_all_bond_debt = 15520;			//전체 채권/채무조회
+				public static final int search_bond_debt_by_company = 15530; 	//거래처별 채권/채무조회
 
 		//인사관리
 		public static final int hr_management = 16000;

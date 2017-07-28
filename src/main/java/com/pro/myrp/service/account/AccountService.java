@@ -69,7 +69,12 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void make_statement_service(Model model) throws Exception;
-	
+	/**
+	 * 전표조회 맨 처음 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_statements_service(Model model) throws Exception;
 	/**
 	 * 전표관리 > 전표 승인 서비스
 	 * @param model

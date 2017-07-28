@@ -11,8 +11,18 @@
 function fn_login_form() {
 	$("#main_screen").load("/user/login");
 }
+
+function onoff(){
+	if(document.getElementById("alarmonoff").value == "on"){
+		document.getElementById("alarmonoff").value = "off";
+	}else{
+		document.getElementById("alarmonoff").value = "on";
+	}
+}
 </script>
 <body>
+<input type = "hidden" id = "alarmonoff" value = "on">
+<input type = "hidden" id = "role" value = "${ROLE.access_role}">
 <div class="container-fluid">
 	<form class="form-inline">
 		<div class="row " style="height: 100px; vertical-align: center;  " >
@@ -41,7 +51,9 @@ function fn_login_form() {
 								onclick="fn_login_form();">
 							</c:if>
 							<input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
-							<input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">
+							
+							<button class="btn btn-default" id="alrim_center_btn" onclick = "onoff();">알림&nbsp;<span id = "size"></span></button>
+							<!-- <input class="btn btn-default" data-toggle="button" aria-pressed="true" autocomplete="off" type="button" id="alrim_center_btn" value="알림" onclick = "onoff();"> -->
 						</small>
 					</h1>	
 				</div>	
@@ -133,7 +145,7 @@ function fn_login_form() {
                            <a href="/accounting_management/financial_statements/search_balance_sheet">재무상태표 조회</a><br>
                            <a href="/accounting_management/bank_account_registration/bank_account_list">계좌리스트</a><br>
                            <a href="/accounting_management/account_management/search_account_list">계정 목록 조회</a><br>
-                           <a href="/accounting_management/statement_management/search_all_statements">전체전표 조회</a><br>
+                           <a href="/accounting_management/statement_management/search_statements">전체전표 조회</a><br>
                            <a href="/accounting_management/bond_debt_status/search_bond_debt">채권/채무 조회</a><br>
                         </div>
                      </div>
@@ -188,7 +200,7 @@ function fn_login_form() {
                   <div class="panel-heading"><span class="text-center">알림센터</span></div>
                   <div class="panel-body">
                      <c:if test="${ROLE != null}">
-                        <input type = "hidden" id = "role" value = "${ROLE.access_role}">
+                     	<input type = "hidden" id = "role" value = "${ROLE.access_role}">
                         <span class="text-center">${ROLE.employee_name}님 어서오세요.</span>
                      </c:if>
                      <c:if test="${ROLE == null}">
@@ -215,25 +227,50 @@ function fn_login_form() {
 	$(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;
-			var data = {"role" : role}	
+			var data = {"role" : role}
+			data["goes"] = "1";
 			$.ajax({ 					
 				data: 	 data,
 				type: 	'post',	 			
 				url: 	"/state_alarm/state_alarm_pro",
 				success: function(response) { 	
-					$('#result').html(response);	
+					$('#result').html(response);
+					
+				}
+			});
+			data["goes"] = "2";
+			$.ajax({ 					
+				data: 	 data,
+				type: 	'post',	 			
+				url: 	"/state_alarm/state_alarm_pro",
+				success: function(response) { 	
+					$('#size').html(response);
+					
 				}
 			});
 			var timer = setInterval(function(){
+				if(document.getElementById("alarmonoff").value == "on"){
+					data["goes"] = "1";
 				$.ajax({ 					
 					data: 	 data,
 					type: 	'post',	 			
 					url: 	"/state_alarm/state_alarm_pro",
 					success: function(response) { 	
-						$('#result').html(response);	
+						$('#result').html(response);
 					}
-				}); 
-			}, 100000000);
+				});
+				data["goes"] = "2";
+				$.ajax({ 					
+					data: 	 data,
+					type: 	'post',	 			
+					url: 	"/state_alarm/state_alarm_pro",
+					success: function(response) { 	
+						$('#size').html(response);
+						
+					}
+				});
+				}
+			}, 10000);
 		}
 	});
 	

@@ -33,7 +33,7 @@ $(function(){
 		$.ajax({ 					
 			data:	data,
 			type: 	'post',	 			
-			url: 	"adjustment_inventory_view",
+			url: 	"/distribution_management/adjustment_inventory/adjustment_inventory_view",
 			success: function(response) { 	
 				togo.html(response);	
 			}
@@ -43,8 +43,6 @@ $(function(){
 </script>
 <body>
 adjustment_inventory_list.jsp
-<a href="/">홈으로</a>
-<br><br>
 <h3>재고조정 리스트</h3>
 <table border = "1">
 		<tr>

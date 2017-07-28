@@ -109,7 +109,7 @@ $(function(){
 		<tr>
 			<th><input type = "text" name = "stock_order_id" value = "${dto.stock_order_id}"></th>
 			<th>
-				<input type = "text" value = "${warehouse_id}" name = "warehouse_id" readonly>
+				<input type = "text" value = "${dto.warehouse_id}" name = "warehouse_id" readonly>
 			</th>
 			<th>
 				<select name = "arrive_warehouse_id">
