@@ -2,7 +2,6 @@ package com.pro.myrp.service.stock;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +22,6 @@ import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.WarehouseVO;
-import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
-import com.pro.myrp.persistence.hr.HRDAO;
 import com.pro.myrp.persistence.stock.StockDAO;
 
 @Service
@@ -91,7 +88,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		int add_stock= 0;
 		
 		String[] product = pro == null ? null : pro.split("-");
-		
+
 		ArrayList<Select_stockpile_searchDTO> select_stockpile_searchDtos = new ArrayList<Select_stockpile_searchDTO>();
 		ArrayList<ProductVO> product_name_list = new ArrayList<ProductVO>();
 		ArrayList<ProductVO> select_product = new ArrayList<ProductVO>();
@@ -102,7 +99,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("end_day",end_day);
 		
 		select_stockpile_searchDtos = dao.select_stockpile_search(model);
-		
 		search_product.add(select_stockpile_searchDtos.get(0).getProduct_id());
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
 				for(int a = 0; a < search_product.size(); a++ ){
@@ -524,6 +520,76 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		
 		warehouseVos = dao.select_warehouse_list(model);
 		model.addAttribute("warehouseVos",warehouseVos);
+		
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int cnt = 0;
+		int start = 0;
+		int end = 0;
+		
+		int number = 0;
+		String pageNum = null; 	
+		int currentPage = 0; 	
+		
+		int pageCount = 0; 		
+		int startPage = 0; 		
+		int endPage = 0; 
+		
+		cnt = movement_warehouseDtos.size();
+				
+		pageNum = req.getParameter("pageNum");
+		
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
+		currentPage = (Integer.parseInt(pageNum));
+		pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+		
+		start = (currentPage - 1) * pageSize + 1;
+		end = start + pageSize - 1;
+		
+		if(end > cnt){
+			end = cnt;
+		}
+		
+		number = cnt - (currentPage - 1) * pageSize; 
+		
+		System.out.println("start : " + start);
+		System.out.println("end : " + end);
+		
+		if(cnt > 0){
+			model.addAttribute("start",start);
+			model.addAttribute("end",end);
+			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
+			model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+			
+		}
+		
+		startPage = (currentPage / pageBlock) * pageBlock + 1;
+		if(currentPage % pageBlock == 0){
+			startPage -= pageBlock;
+		}
+		
+		endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("cnt", cnt); 			
+		model.addAttribute("number", number); 	
+		model.addAttribute("pageNum", pageNum); 	
+		
+		if(cnt > 0){
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);	
+			model.addAttribute("endPage", endPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("pageCount", pageCount);	
+			model.addAttribute("currentPage", currentPage);
+		}
+		
 	}
 	
 	@Override

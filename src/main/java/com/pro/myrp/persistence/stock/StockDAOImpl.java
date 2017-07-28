@@ -28,6 +28,7 @@ public class StockDAOImpl implements StockDAO {
 	@Inject
 	private SqlSession sqlSession;
 
+
 	@Override
 	public ArrayList<Stock_conditionDTO> select_stock_condition() {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);

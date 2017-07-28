@@ -9,21 +9,7 @@
 <%@ include file = "../../setting.jsp" %>
 <script type="text/javascript">
 
-function modify(id,warehouse_id){
-		var data = {
-					"id" 	: id,
-					"warehouse_id" : warehouse_id,
-					"doit" : "1"
-					};
-		$.ajax({ 					
-			data: 	data,
-			type: 	'post',	 			
-			url: 	"movement_view",
-			success: function(response) { 	
-				$('#modify').html(response);	
-			}
-		});  
-}
+
 
 $(function(){
 	 $('.movement_modify').unbind("click").bind("click",function(){
@@ -37,27 +23,52 @@ $(function(){
 		$.ajax({ 					
 			data: 	data,
 			type: 	'post',	 			
-			url: 	"movement_view",
+			url: 	"/distribution_management/movement_warehouse/movement_view",
 			success: function(response) { 	
 				$('#modify').html(response);	
 			}
 		});  
 	});
-});
+
 
 function movement_del(id){
 	var con = confirm("삭제하시겠습니까?");
 	if(con){
-		window.location = "movement_pro?id="+id+"&opt=del";
+		window.location = "/distribution_management/movement_warehouse/movement_pro?id="+id+"&opt=del";
 	}
 }
 
 function movement_movement_confirm(id){
 	var con = confirm("승인하시겠습니까?");
 	if(con){
-		window.location = "movement_pro?id="+id+"&opt=confirm";
+		window.location = "/distribution_management/movement_warehouse/movement_pro?id="+id+"&opt=confirm";
 	}
 }
+
+$(".modify").click(function(){
+	var pageNum = document.getElementById("currentPage").value;
+	var obj =  $(this).val().split("-");
+	var data = {
+					"id" 	: obj[0],
+					"pageNum" : pageNum,
+					"warehouse_id" : obj[1],
+					"doit" : "1"
+					};
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/movement_warehouse/movement_view",
+			success: function(response) { 	
+				$('#modify').html(response);	
+			}
+		});  
+});
+
+$(".page").bind("click", function(event) {
+	$("#main_screen").load($(this).attr("href"));
+	return false;
+});
+});
 </script>
 <body>
 	<a href="/">홈으로</a>
@@ -66,6 +77,8 @@ function movement_movement_confirm(id){
 	<br>
 	<br>
 	<h3>창고이동 리스트</h3>
+	<br>
+	<button class = "movement_modify" value = "new">신규등록</button>
 	<table border = "1">
 		<tr>
 			<th>주문번호</th>
@@ -103,14 +116,35 @@ function movement_movement_confirm(id){
 					이동 완료
 				</c:if>
 			</th>
-			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_modify" onclick = "modify('${dto.stock_order_id}','${dto.warehouse_id}')">수정</button></c:if></th>
-			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_del" onclick = "movement_del('${dto.stock_order_id}')">삭제</button></c:if></th>
-			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_movement_confirm" onclick = "movement_movement_confirm('${dto.stock_order_id}')">이동승인</button></c:if></th>
+			<th><c:if test = "${dto.movement_state == 0}"><button class = "modify" value = "${dto.stock_order_id}-${dto.warehouse_id}">수정</button></c:if></th>
+			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_del" value = "${dto.stock_order_id}">삭제</button></c:if></th>
+			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_movement_confirm" value = "${dto.stock_order_id}">이동승인</button></c:if></th>
 		</tr>
 		</c:forEach>
 		<tr>
 			<th colspan = "13">
-				<button class = "movement_modify" value = "new">신규등록</button>
+				<div class="text-center">
+            <ul class="pagination">
+            <input type = "hidden" value = "${currentPage}" id = "currentPage">
+               <c:if test="${startPage > pageBlock}">
+                  <li><a class = "page" href="/distribution_management/movement_warehouse/movement_list">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+                  <li><a class = "page" href="/distribution_management/movement_warehouse/movement_list?pageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+               </c:if>
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                  <c:if test="${i == currentPage}">
+                     <li><span>${i}</span></li>
+                  </c:if>
+                  <c:if test="${i != currentPage}">
+                     <li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${i}">${i}</a></li>
+                  </c:if>
+                  
+               </c:forEach>
+               <c:if test="${pageCount > endPage}">
+                  <li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+                  <li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+               </c:if>
+            </ul>
+         </div>
 			</th>
 		</tr>
 	</table>

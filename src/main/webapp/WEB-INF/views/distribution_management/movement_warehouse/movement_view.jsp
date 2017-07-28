@@ -22,7 +22,7 @@
 		$.ajax({ 					
 			data: 	data,
 			type: 	'post',	 			
-			url: 	"movement_product",
+			url: 	"/distribution_management/movement_warehouse/movement_product",
 			success: function(response) { 	
 				$('#product').html(response);	
 			}
@@ -42,7 +42,7 @@
 			$.ajax({ 					
 				data: 	data,
 				type: 	'post',	 			
-				url: 	"movement_product",
+				url: 	"/distribution_management/movement_warehouse/movement_product",
 				success: function(response) { 	
 					$('#product').html(response);	
 				}
@@ -54,7 +54,7 @@
 </script>
 <body>
 <c:if test = "${id == 'new'}">
-<form name = "" action = "movement_pro">
+<form name = "" action = "/distribution_management/movement_warehouse/movement_pro">
 <input type = "hidden" id = "id" value = "${id}">
 <h3>신규등록</h3>
 	<select id = "warehouse_id"  class = "warehouse_id">
@@ -70,7 +70,7 @@
 
 
 <c:if test = "${id != 'new'}">
-<form name = "" action = "movement_pro">
+<form name = "" action = "/distribution_management/movement_warehouse/movement_pro">
 <input type = "hidden" id = "id" value = "${id}">
 <h3>수정</h3>
 	<br><br>
