@@ -3,45 +3,24 @@
 <%@ include file ="../../setting.jsp"%>
 
 <script type="text/javascript">
+$(document).ready(function onload_function(){
+	$("#select_date").load("/accounting_management/financial_statements/search_balance_sheet2");
+});
 $(function(){
 	$('#balance_sheet').unbind("click").bind("click",function(){
-		togo = $('#select_date');
-	
-		$.ajax({ 		
-			type: 	'get',	 			
-			url: 	"/accounting_management/financial_statements/search_balance_sheet2",
-			success: function(response) { 	
-				togo.html(response);	
-			}
-		});
+		$("#select_date").load("/accounting_management/financial_statements/search_balance_sheet2");
 	});
 });
 
 $(function(){
 	$('#profit_and_loss_statement').unbind("click").bind("click",function(){
-		togo = $('#select_date');
-	
-		$.ajax({ 		
-			type: 	'get',	 			
-			url: 	"/accounting_management/financial_statements/search_profit_and_loss_statement",
-			success: function(response) { 	
-				togo.html(response);	
-			}
-		});
+		$("#select_date").load("/accounting_management/financial_statements/search_profit_and_loss_statement");
 	});
 });
 
 $(function(){
 	 $('#statement_of_cash_flows').unbind("click").bind("click",function(){
-		 var togo = $('#select_date');
-		
-		$.ajax({ 		
-			type: 	'get',	 			
-			url: 	"/accounting_management/financial_statements/search_statement_of_cash_flows",
-			success: function(response) { 	
-				togo.html(response);	
-			}
-		});  
+		 $("#select_date").load("/accounting_management/financial_statements/search_statement_of_cash_flows");
 	});
 });
 </script>
