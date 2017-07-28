@@ -41,6 +41,12 @@ public class AccountServiceImpl implements AccountService {
 		int pageCount	= 0;
 		int	startPage	= 0;
 		int endPage		= 0;
+		int bank_account_reg_on = 0;
+		
+		if(req.getParameter("bank_account_reg_on")!=null) {
+		bank_account_reg_on = Integer.parseInt(req.getParameter("bank_account_reg_on"));
+		}
+		model.addAttribute("bank_account_reg_on", bank_account_reg_on);
 		
 		cnt = dao.select_bank_account_cnt();
 		pageNum = req.getParameter("pageNum");
@@ -65,7 +71,6 @@ public class AccountServiceImpl implements AccountService {
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -83,6 +88,9 @@ public class AccountServiceImpl implements AccountService {
 	public void register_bank_account_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+		vos = dao.select_bank_account_id();
+		model.addAttribute("vos", vos);
 		
 	}
 	
@@ -91,9 +99,7 @@ public class AccountServiceImpl implements AccountService {
 	public void call_bank_account_id_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
-		vos = dao.select_bank_account_id();
-		model.addAttribute("vos", vos);
+		
 	}
 	
 	// 계좌등록 : 등록처리
@@ -121,7 +127,6 @@ public class AccountServiceImpl implements AccountService {
 		vo.setReg_date(reg_date);
 		
 		int cnt = dao.insert_bank_account(vo);
-		System.out.println("cnt: " + cnt);
 		model.addAttribute("cnt", cnt);
 	}
 	//계좌 수정
@@ -155,7 +160,6 @@ public class AccountServiceImpl implements AccountService {
 		vo.setReg_date(reg_date);
 		
 		int cnt = dao.update_bank_account(vo);
-		System.out.println("cnt: " +cnt);
 		model.addAttribute("cnt", cnt);
 	}
 	
@@ -178,7 +182,6 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		
 		cnt = dao.select_statements_cnt();
-		System.out.println("cnt: " +  cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -220,7 +223,6 @@ public class AccountServiceImpl implements AccountService {
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -288,8 +290,6 @@ public class AccountServiceImpl implements AccountService {
 	public void make_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
-		
-		
 	}
 	
 	// 전표 승인 처리 
@@ -311,7 +311,6 @@ public class AccountServiceImpl implements AccountService {
 			daoMap.put("typeCnt", typeCnt);
 			//매출원가 넣어주기
 			if(statement_type.equals("54101")) { //매출전표일경우
-				System.out.println("statement_type: " + statement_type);
 				Map<String, Object> oriPriceMap = new HashMap<>();
 				oriPriceMap.put("sales_id", connected_id);
 				oriPriceMap.put("account_id", "500014030000");
@@ -320,7 +319,6 @@ public class AccountServiceImpl implements AccountService {
 				oriPriceMap.put("account_value", count_sales*purchase_unit_price);
 				oriPriceMap.put("account_id", "500014020000");
 				dao.update_costs_of_goods_sold_account(oriPriceMap); // 매출원가계정 업데이트
-				System.out.println("이거타는건아니지..?");
 			}	
 			
 		for(int i=1; i<cnt+1; i++) {
@@ -337,7 +335,6 @@ public class AccountServiceImpl implements AccountService {
 				checkCnt=0;
 			}
 		}
-		System.out.println("checkCnt는??"+checkCnt);
 		if(checkCnt==0) { //계좌 가져야하는 계정의 전표가 아닌경우
 			for(int i= 1; i<cnt+1; i++){	
 				daoMap.put("statement_id", statement_ids[i]);
@@ -363,9 +360,6 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("bcnt", bcnt);
 		model.addAttribute("checkCnt", checkCnt);
 
-		System.out.println("cnt = " + cnt);
-		System.out.println("scnt = " + scnt);
-		System.out.println("acnt = " + acnt);
 	}
 	// 전표 승인 거절
 	@Override
@@ -411,7 +405,6 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		
 		cnt = dao.select_unapproval_statements_cnt();
-		System.out.println("cnt: " +  cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -462,13 +455,11 @@ public class AccountServiceImpl implements AccountService {
 				model.addAttribute("purchaseCnt", purchaseCnt);
 				model.addAttribute("salaryCnt", salaryCnt);
 				model.addAttribute("taxCnt", taxCnt);
-				System.out.println("sales, purchase, salary, tax CNT : "+ salesCnt+","+ purchaseCnt +","+ salaryCnt +","+ taxCnt);
 		}
 		startPage = (currentPage/pageBlock)*pageBlock+1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -501,7 +492,6 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		
 		cnt = dao.select_approval_statements_cnt();
-		System.out.println("cnt: " +  cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -552,13 +542,11 @@ public class AccountServiceImpl implements AccountService {
 				model.addAttribute("purchaseCnt", purchaseCnt);
 				model.addAttribute("salaryCnt", salaryCnt);
 				model.addAttribute("taxCnt", taxCnt);
-				System.out.println("sales, purchase, salary, tax CNT : "+ salesCnt+","+ purchaseCnt +","+ salaryCnt +","+ taxCnt);
 		}
 		startPage = (currentPage/pageBlock)*pageBlock+1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -582,16 +570,21 @@ public class AccountServiceImpl implements AccountService {
 		if(access_role.equals("SA")) { //sales 
 			dtos = dao.select_sales_statement();
 			model.addAttribute("sales_dtos",dtos);
+			model.addAttribute("sales_Cnt", dtos.size());
 		}else if(access_role.equals("PU")) { //purchase
 			dtos = dao.select_purchase_statement();
 			model.addAttribute("purchase_dtos",dtos);
+			model.addAttribute("purchase_Cnt", dtos.size());
 		}else if(access_role.equals("HR")) { //salary
 			dtos = dao.select_salary_statement();
 			model.addAttribute("salary_dtos",dtos);
+			model.addAttribute("salary_Cnt", dtos.size());
 		}else if(access_role.equals("FI")) { //tax
 			dtos = dao.select_tax_statement();
 			model.addAttribute("tax_dtos",dtos);
+			model.addAttribute("tax_Cnt", dtos.size());
 		}
+		model.addAttribute("access_role", access_role);
 	}
 	@Override
 	public void call_connected_id_view_service(Model model) throws Exception {
@@ -607,6 +600,7 @@ public class AccountServiceImpl implements AccountService {
 		String connected_id = req.getParameter("connected_id");
 		String statement_type = req.getParameter("statement_type");
 		String account_id = req.getParameter("account_id");
+		int search_statements_list_type = 0;
 		int scnt = 0;
 		int ccnt = 0;
 		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
@@ -644,6 +638,7 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("statement_type", statement_type);
 		}
 		if(typeCnt!=4) {
+			search_statements_list_type = 2;
 			for(int i=0; i<dtos.size(); i++) {
 				JoinStatementDTO tempDTO = dtos.get(i);
 				
@@ -667,14 +662,16 @@ public class AccountServiceImpl implements AccountService {
 					String salary_register_id = connected_id;
 					dto.setSalary_register_id(salary_register_id);
 				}
+				
 				account_id = tempDTO.getAccount_id();
 				dto.setAccount_id(account_id);
 				ccnt = dao.insert_connected_statement(dto); //연결전표 생성처리
 			}
+		
 		model.addAttribute("addStatementCnt", scnt);
 		model.addAttribute("addConnectedCnt", ccnt);
 		}
-		
+		model.addAttribute("search_statements_list_type", search_statements_list_type);
 	}
 	
 	//////////////////////////// 계정 관리 ///////////////////////////////////////
@@ -718,7 +715,6 @@ public class AccountServiceImpl implements AccountService {
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -919,7 +915,6 @@ public class AccountServiceImpl implements AccountService {
 				if(account_id.equals("500014020000")) { //매출원가 계정
 					ArrayList<JoinStatementDTO> sales_ids = new ArrayList<JoinStatementDTO>();
 					sales_ids = dao.select_sales_id(daoMap);
-					System.out.println("sales_ids 크기!!: " + sales_ids.size());
 					for(int j=0; j<sales_ids.size(); j++) {
 						JoinStatementDTO tempDto = sales_ids.get(j);
 						String sales_id = tempDto.getSales_id();
@@ -1002,6 +997,18 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("startDate",sDate);
 		model.addAttribute("endDate",eDate);
 		
+	}
+	@Override
+	public void search_statements_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		int search_statements_list_type = 0;
+		if(req.getParameter("search_statements_list_type")!=null) {
+			search_statements_list_type = Integer.parseInt(req.getParameter("search_statements_list_type"));
+		}else {
+			search_statements_list_type = 1;
+		}
+		model.addAttribute("search_statements_list_type", search_statements_list_type);
 	}
 	
 }

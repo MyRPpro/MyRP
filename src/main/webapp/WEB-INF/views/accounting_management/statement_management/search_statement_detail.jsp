@@ -1,15 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<script type="text/javascript">
+$(function(){
+	$('#statement_approve_and_disapprove a').bind("click",function(){
+		var approval_state = "<c:out value='${approval_state}' />";
+		if(approval_state!=25451){ //미승인 상태가 아니면!
+			alert("이미 처리완료된 전표입니다");
+			return false;
+		}
+		$("#search_statement_detail").load($(this).attr("href"));
+		return false;
+	});
+});
+
+</script>
 <h3> 상세 전표 조회 </h3>
-<button onclick="window.location='/'"> 홈으로 </button>
 <table border="1">
 	<tr>
 		<th> 
@@ -183,11 +189,13 @@
 	<c:if test="${salary_register_id!=null}">
 		<c:set var="connected_id" value="${salary_register_id}" />
 	</c:if>
-<button <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/approve_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}&statement_type=${statement_type}';"> <!-- 승인된 상태이면 승인버튼 비활성 -->
-	승인
-</button>
-<button<c:if test="${approval_state != 25451}"> disabled="disabled" </c:if> onclick="window.location.href='/accounting_management/statement_management/disapprove_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}';"> <!--  승인되지않은 상태이면 승인거절버튼 비활성-->
- 	승인거절
-</button>
+<c:if test="${ROLE.access_role.equals('FI')}">
+<div id="statement_approve_and_disapprove">
+ <a href="/accounting_management/statement_management/approve_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}&statement_type=${statement_type}" 
+ class="btn btn-info" role="button" <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if>> 승인 </a>
+<a href="/accounting_management/statement_management/disapprove_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}" 
+ class="btn btn-info" role="button" <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if>> 승인거절 </a>
+</div>
+</c:if>
 </body>
 </html>
