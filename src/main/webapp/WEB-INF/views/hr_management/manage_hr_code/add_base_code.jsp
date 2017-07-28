@@ -65,14 +65,14 @@
 			<form action="#" name="page16150_form01">
 				<table class="table">
 					<tr>
-						<th>hr_code_group_id</th>
+						<th>인사코드 그룹번호</th>
 						<td>
 							<input type="number" name="hr_code_group_id"
 							value="${hr_code_group_id}" readonly>
 						</td>
 					</tr>
 					<tr>
-						<th>hr_code_id</th>
+						<th>인사코드 번호</th>
 						<td>
 							<input type="number" name="hr_code_id" value="${hr_code_id}"
 							min="1" max="999" step="1" required autofocus>
@@ -81,13 +81,13 @@
 					</tr>
 					<tr>
 					<tr>
-						<th>hr_code_name</th>
+						<th>인사코드명</th>
 						<td>
 							<input type="text" name="hr_code_name" required>
 						</td>
 					</tr>
 					<tr>
-						<th>use_state</th>
+						<th>사용 상태</th>
 						<td>
 							<label for="used">사용</label>
 							<input type="radio" name="use_state" id="used"

@@ -201,12 +201,15 @@ function fn_login_form() {
          </div>
       </div>
    </div>
-   <div class="footer navbar-fixed-bottom">
-      <div class="col-xs-12 col-sm-12">
-         <div class="well well-sm" id="help_console">도움말</div>
-      </div>
-   </div>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+	<div class="col-md-12" id="help_center">
+		<p class="text-center" id="help_console">도움말 센터</p>
+	</div>
+</nav>
+	<div class="footer navbar-fixed-bottom">
+      
+   </div>
 </body>
 <script type="text/javascript">
 	$(function(){
@@ -230,7 +233,7 @@ function fn_login_form() {
 						$('#result').html(response);	
 					}
 				}); 
-			}, 100000);
+			}, 100000000);
 		}
 	});
 	

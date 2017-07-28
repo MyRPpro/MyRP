@@ -56,7 +56,7 @@
 						</th>
 					</tr>
 					<tr>
-						<th>hr_code_id</th>
+						<th>인사코드 번호</th>
 						<td>
 							<input type="hidden" name="hr_code_group_id"
 							value="${hr_code_group_id}">

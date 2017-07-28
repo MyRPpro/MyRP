@@ -36,14 +36,14 @@
 	<form action="#" name="page16160_form01">
 		<table class="table">
 			<tr>
-				<th>hr_code_group_id</th>
+				<th>인사코드 그룹번호</th>
 				<td>
 					<input type="number" name="hr_code_group_id"
 					value="${hr_codeVo.hr_code_group_id}" readonly>
 				</td>
 			</tr>
 			<tr>
-				<th>hr_code_id</th>
+				<th>인사코드 번호</th>
 				<td>
 					<input type="number" name="hr_code_id"
 					value="${hr_codeVo.hr_code_id}" readonly>
@@ -51,14 +51,14 @@
 			</tr>
 			<tr>
 			<tr>
-				<th>hr_code_name</th>
+				<th>인사코드명</th>
 				<td>
 					<input type="text" name="hr_code_name"
 					value="${hr_codeVo.hr_code_name}" required>
 				</td>
 			</tr>
 			<tr>
-				<th>use_state</th>
+				<th>사용 상태</th>
 				<td>
 					<label for="used">사용</label>
 					<input type="radio" name="use_state" id="used" value="Y"
@@ -72,7 +72,8 @@
 				<th colspan="2">
 					<input class="btn btn-default btn-xs" type="submit" value="수정하기">
 					<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-					<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16160_btn01">
+					<input class="btn btn-default btn-xs" type="button"
+					value="닫기" id="page16160_btn01">
 				</th>
 			</tr>
 		</table>
