@@ -15,18 +15,12 @@ function storage_go(id, goes,storage_in_date){
 	var year= now.getFullYear();
     var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 	var today = year + mon + "-" +  (now.getDate());
-<<<<<<< HEAD
-	
-	+
-	if(storage_in_date.replace("-","") > today){
-=======
 
-	if((storage_in_date+"").replace("-","")*1 > today){
->>>>>>> c81e9a2b910ec3ed91cac812dd490d7c3328e810
+	if((storage_in_date+"").replace("-","") > today){
 		alert("입고예정일이 안되었습니다.");
 		return false;
 	}
-	window.location = "/distribution_management/search_distribution_order/request_in_out_storage_pro?id="+id+"&goes="+goes
+	window.location = "/distribution_management/search_distribution_order/request_in_out_storage_pro?id="+id+"&goes="+goes;
 }
 function storage_comp_go(id, goes,storage_out_date){
 	var now = new Date();
@@ -46,37 +40,35 @@ function storage_comp_go(id, goes,storage_out_date){
 물류 출고요청
 <table border = "1">
 	<tr>
-		<th>STOCK_ORDER_TYPE</th>
-		<th>PRODUCT_ID</th>
-		<th>WAREHOUSE_ID</th>
-		<th>EMPLOYEE_ID</th>
-		<th>REG_DATE</th>
-		<th>UPDATE_DATE</th>
-		<th>COUNT_SALES</th>
-		<th>STOCK_AMOUNT</th>
-		<th>AVAILABLE_STOCK</th>
-		<th>LACK_STOCK</th>
-		<th>STORAGE_OUT_DATE</th>
+		<th>판매번호</th>
+		<th>상품명</th>
+		<th>판매 수량</th>
+		<th>출고 가능 수량</th>
+		<th>부족 수량</th>
+		<th>창고명</th>
+		<th>출고일</th>
+		<th>담당자명</th>
+		<th>승인버튼</th>
 	</tr>
 	<c:forEach var = "dto" items = "${out_storageDtos}">
 	<tr>
-		<th>${dto.sales_id}</th>	<!-- 영업번호 -->
-		<th>${dto.product_id}</th>		<!-- 영업 테이블에서 불러오기 -->
-		<th>${dto.warehouse_id}</th>		<!-- 재고정보 테이블에서 불러오기 -->
-		<th>${dto.employee_id}</th>		<!-- 영업 테이블에서 불러오기 -->
-		<th>${dto.reg_date}</th>			<!-- 영업 테이블에서 불러오기 -->
-		<th>${dto.update_date}</th>		<!-- sysdate -->
-		<th>${dto.count_sales}</th>		<!-- 영업 테이블에서 불러오기 -->
-		<th>${dto.stock_amount}</th>		<!-- 재고정보 테이블에서 불러오기 -->
+		<th>${dto.sales_id}</th>	
+		<th>${dto.product_id}</th>		
+		<th>${dto.warehouse_id}</th>	
+		<th>${dto.employee_id}</th>		
+		<th>${dto.reg_date}</th>			
+		<th>${dto.update_date}</th>		
+		<th>${dto.count_sales}</th>		
+		<th>${dto.stock_amount}</th>		 
 		<c:if test = "${(dto.stock_amount - dto.count_sales) >= 0 }">
-			<th>${dto.count_sales}</th>	<!-- 재고 - 판매수량  >= 0 -> 판매수량  재고 - 판매수량 < 0 재고-->
+			<th>${dto.count_sales}</th>	 
 			<th>0</th>
 		</c:if>
 		<c:if test = "${(dto.stock_amount - dto.count_sales) < 0 }">
-			<th>${dto.stock_amount}</th>	<!-- 재고 - 판매수량  >= 0 -> 판매수량  재고 - 판매수량 < 0 재고-->
+			<th>${dto.stock_amount}</th>	 
 			<th>${ dto.count_sales - dto.stock_amount}</th>
 		</c:if>
-		<th>${dto.storage_out_date}</th>	<!-- 영업 테이블에서 불러오기 -->
+		<th>${dto.storage_out_date}</th>	
 		<th>
 			<c:if test = "${(dto.stock_amount - dto.count_sales) >= 0 }">
 				<button onclick = "storage_go('${dto.sales_id}','out_storage')">출고대기</button>
@@ -95,25 +87,22 @@ function storage_comp_go(id, goes,storage_out_date){
 물류 입고요청
 <table border = "1">
 	<tr>
-		<th>STOCK_ORDER_TYPE</th>
-		<th>PRODUCT_ID</th>
-		<th>WAREHOUSE_ID</th>
-		<th>EMPLOYEE_ID</th>
-		<th>REG_DATE</th>
-		<th>UPDATE_DATE</th>
-		<th>COUNT_PURCHASE</th>
-		<th>STORAGE_IN_DATE</th>
+		<th>구매번호</th>
+		<th>상품명</th>
+		<th>구매 수량</th>
+		<th>창고명</th>
+		<th>입고일</th>
+		<th>담당자명</th>
+		<th>승인버튼</th>
 	</tr>
 	<c:forEach var = "dto" items = "${in_storageDtos}">
 	<tr>
-		<th>${dto.purchase_id}</th>	<!-- 구매번호 -->
-		<th>${dto.product_id}</th>		<!-- 구매 테이블에서 불러오기 -->
-		<th>${dto.warehouse_id}</th>		<!-- 재고정보 테이블에서 불러오기 -->
-		<th>${dto.employee_id}</th>		<!-- 구매 테이블에서 불러오기 -->
-		<th>${dto.reg_date}</th>			<!-- 구매 테이블에서 불러오기 -->
-		<th>${dto.update_date}</th>		<!-- sysdate -->
-		<th>${dto.count_purchase}</th>		<!-- 구매 테이블에서 불러오기 -->
-		<th>${dto.storage_in_date}</th>		<!-- 구매 테이블에서 불러오기 -->
+		<th>${dto.purchase_id}</th>	 
+		<th>${dto.product_id}</th>	 
+		<th>${dto.count_purchase}</th>
+		<th>${dto.warehouse_id}</th> 
+		<th>${dto.storage_in_date}</th>
+		<th>${dto.employee_id}</th>	 
 		<th>
 			<button onclick = "storage_go('${dto.purchase_id}','in_storage','${dto.storage_in_date}')">입고완료</button>
 		</th>
@@ -128,7 +117,6 @@ function storage_comp_go(id, goes,storage_out_date){
 <table border = "1">
 		<tr>
 			<th>전표번호</th>
-			<th>상태코드</th>
 			<th>상태</th>
 			<th>출고예정일</th>
 			<th>승인버튼</th>

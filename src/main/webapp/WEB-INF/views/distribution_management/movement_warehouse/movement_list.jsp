@@ -8,13 +8,30 @@
 </head>
 <%@ include file = "../../setting.jsp" %>
 <script type="text/javascript">
+
+function modify(id,warehouse_id){
+		var data = {
+					"id" 	: id,
+					"warehouse_id" : warehouse_id,
+					"doit" : "1"
+					};
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"movement_view",
+			success: function(response) { 	
+				$('#modify').html(response);	
+			}
+		});  
+}
+
 $(function(){
 	 $('.movement_modify').unbind("click").bind("click",function(){
-		var togo = $('#modify');
 		var id = $(this).val();
 
 		var data = {
-					"id" 	: id
+					"id" 	: id,
+					"warehouse_id" : "0"
 					};
 		
 		$.ajax({ 					
@@ -22,12 +39,11 @@ $(function(){
 			type: 	'post',	 			
 			url: 	"movement_view",
 			success: function(response) { 	
-				togo.html(response);	
+				$('#modify').html(response);	
 			}
 		});  
 	});
 });
-
 
 function movement_del(id){
 	var con = confirm("삭제하시겠습니까?");
@@ -52,15 +68,15 @@ function movement_movement_confirm(id){
 	<h3>창고이동 리스트</h3>
 	<table border = "1">
 		<tr>
-			<th>STOCK_ORDER_ID</th>
-			<th>PRODUCT_ID</th>
-			<th>출발 WAREHOUSE_ID</th>
-			<th>EMPLOYEE_ID</th>
-			<th>REG_DATE</th>
-			<th>UPDATE_DATE</th>
-			<th>ARRIVE_WAREHOUSE</th>
-			<th>MOVEMENT_AMOUNT</th>
-			<th>MOVEMENT_STATE</th>
+			<th>주문번호</th>
+			<th>상품명</th>
+			<th>수량</th>
+			<th>출발 창고명</th>
+			<th>도착 창고명</th>
+			<th>담당자명</th>
+			<th>등록일</th>
+			<th>수정일</th>
+			<th>상태</th>
 			<th>수정</th>
 			<th>삭제</th>
 			<th>승인</th>
@@ -68,13 +84,17 @@ function movement_movement_confirm(id){
 		<c:forEach var = "dto" items = "${movement_warehouseDtos}">
 		<tr>
 			<th>${dto.stock_order_id}</th>
-			<th>${dto.product_id}</th>
-			<th>${dto.warehouse_id}</th>
-			<th>${dto.employee_id}</th>
+			<th>${dto.product_name}</th>
+			<th>${dto.movement_amount}</th>
+			<th>${dto.warehouse_name}</th>
+			<c:forEach var = "ware" items = "${warehouseVos}">
+				<c:if test = "${ware.warehouse_id ==  dto.arrive_warehouse}">
+					<th>${ware.warehouse_name}</th>
+				</c:if>
+			</c:forEach>
+			<th>${dto.employee_name}</th>
 			<th>${dto.reg_date}</th>
 			<th>${dto.update_date}</th>
-			<th>${dto.arrive_warehouse}</th>
-			<th>${dto.movement_amount}</th>
 			<th>
 				<c:if test = "${dto.movement_state == 0}">
 					승인 대기중
@@ -83,13 +103,9 @@ function movement_movement_confirm(id){
 					이동 완료
 				</c:if>
 			</th>
-			<th>
-			<c:if test = "${dto.movement_state == 0}">
-				<button class = "movement_modify" value = "${dto.stock_order_id}">수정</button></th>
-				<th><button class = "movement_del" onclick = "movement_del('${dto.stock_order_id}')">삭제</button></th>
-				<th><button class = "movement_movement_confirm" onclick = "movement_movement_confirm('${dto.stock_order_id}')">이동승인</button>
-			</c:if>
-			</th>
+			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_modify" onclick = "modify('${dto.stock_order_id}','${dto.warehouse_id}')">수정</button></c:if></th>
+			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_del" onclick = "movement_del('${dto.stock_order_id}')">삭제</button></c:if></th>
+			<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_movement_confirm" onclick = "movement_movement_confirm('${dto.stock_order_id}')">이동승인</button></c:if></th>
 		</tr>
 		</c:forEach>
 		<tr>

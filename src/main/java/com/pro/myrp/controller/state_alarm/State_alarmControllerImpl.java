@@ -23,6 +23,7 @@ public class State_alarmControllerImpl implements CodeMyRP, State_alarmControlle
 	@Override
 	@RequestMapping(value="state_alarm_main", method = {RequestMethod.GET,RequestMethod.POST})
 	public String state_alarm_main(ServletRequest req, Model model) throws Exception{
+		
 		return "state_alarm/state_alarm_main";
 		/*return code.c(state_alarm,state_alarm_main);*/
 		

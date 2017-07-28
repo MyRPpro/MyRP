@@ -7,28 +7,27 @@
 <head>
 	<title>MyRP</title>
 </head>
-
-<body >
-
+<script type="text/javascript">
+function fn_login_form() {
+	$("#main_screen").load("/user/login");
+}
+</script>
+<body>
 <div class="container-fluid">
 	<form class="form-inline">
-	
-	<div class="row " style="height: 100px; vertical-align: center;  " >
-		
-		<div class="page-header " style="height: 80px; margin: 0; margin-top: 10px; margin-bottom:10px; vertical-align: center; " >
-			<div class="col-md-12">
-				<h1 style="margin:0 auto; padding:0;">
-					<a href="/">
-					<img 
-					style="height: 50px; margin: 0; margin-top: 10px;"
-					src="/resources/images/design/logo_v4.png" 
-					onmouseover="this.src='/resources/images/design/logo_v5.png'" 
-					onmouseout="this.src='/resources/images/design/logo_v4.png'" border="0"></a>
-					
-					<small class="text-right" style="vertical-align: center;">
-						<%
-							request.getSession().setAttribute("dest", null);
-						%>
+		<div class="row " style="height: 100px; vertical-align: center; " >
+			<div class="page-header " style="height: 80px; margin: 0; margin-top: 10px; margin-bottom:10px; vertical-align: center; " >
+				<div class="col-md-12">
+					<h1 style="margin:0 auto; padding:0;">
+						<a href="/">
+						<img 
+						style="height: 50px; margin: 0; margin-top: 10px;"
+						src="/resources/images/design/logo_v4.png" 
+						onmouseover="this.src='/resources/images/design/logo_v5.png'" 
+						onmouseout="this.src='/resources/images/design/logo_v4.png'" border="0"></a>
+						
+						<small class="text-right" style="vertical-align: center;">
+						<%request.getSession().setAttribute("dest", null);%>
 						&emsp;
 						<c:if test="${ROLE != null}">
 							${ROLE.employee_name}
@@ -41,20 +40,12 @@
 						</c:if>
 						<input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
 						<input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">
-						
-					</small>
-				</h1>	
-			</div>	
-			
-		</div>	<!-- // page-header -->
-			
-	</div>
-		
+						</small>
+					</h1>	
+				</div>	
+			</div>	<!-- // page-header -->
+		</div>	<!-- // row -->
 	</form>
-</div>
-	
-	
-	
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
@@ -180,16 +171,12 @@
 						</div>
 					</div> <!-- panel-group -->
 				</div>
-				
 				<div class="col-md-8" id="main_screen">
 					<div class="img-responsive" align="center" >   
 						<img class="img-reponsive " src="/resources/images/design/back_03.png" 
 						style="max-width: 100%; margin-top: 3% "  > 
 					</div>
 				</div>
-				
-				<!-- style="width:100%; margin:0 auto;" -->
-				
 				<div class="col-md-2" id="alrim_center">
 					<div class="panel panel-warning">
 						<div class="panel-heading"><span class="text-center">알림센터</span></div>
@@ -213,8 +200,7 @@
 			<div class="well well-sm" id="help_console">도움말</div>
 		</div>
 	</div>
-</div>
-
+</div>	<!-- // container -->
 
 </body>
 <script type="text/javascript">
