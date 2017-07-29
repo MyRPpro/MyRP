@@ -240,9 +240,134 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	public void search_distribution_order_service(HttpServletRequest req, Model model) throws Exception {
 		ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
 		ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
-		in_storageDtos = dao.select_storage_in_order(); 
-		out_storageDtos = dao.select_storage_out_order(); 
+		in_storageDtos = dao.select_storage_in_order(model); 
+		out_storageDtos = dao.select_storage_out_order(model); 
 
+		
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int istart = 0;
+		int iend = 0;
+		int ostart = 0;
+		int oend = 0;
+		
+		int inumber = 0;
+		int onumber = 0;
+		
+		String ipageNum = null;
+		String opageNum = null;
+		int icurrentPage = 0; 
+		int ocurrentPage = 0; 
+		
+		int ipageCount = 0;
+		int opageCount = 0;
+		
+		int istartPage = 0; 		
+		int iendPage = 0; 
+		int ostartPage = 0; 		
+		int oendPage = 0;
+		
+		
+		int icnt = in_storageDtos.size();
+		int ocnt = out_storageDtos.size();
+				
+		ipageNum = req.getParameter("ipageNum");
+		opageNum = req.getParameter("opageNum");
+		
+		if(ipageNum == null){
+			ipageNum = "1";
+		}
+		
+		if(opageNum == null){
+			opageNum = "1";
+		}
+		
+		icurrentPage = (Integer.parseInt(ipageNum));
+		ocurrentPage = (Integer.parseInt(opageNum));
+		
+		ipageCount = (icnt/pageSize) + (icnt%pageSize > 0 ? 1 : 0);
+		opageCount = (ocnt/pageSize) + (ocnt%pageSize > 0 ? 1 : 0);
+		
+		istart = (icurrentPage - 1) * pageSize + 1;
+		iend = istart + pageSize - 1;
+		ostart = (ocurrentPage - 1) * pageSize + 1;
+		oend = ostart + pageSize - 1;
+		
+		
+		if(iend > icnt){
+			iend = icnt;
+		}
+		
+		if(oend > ocnt){
+			oend = ocnt;
+		}
+		
+		inumber = icnt - (icurrentPage - 1) * pageSize; 
+		onumber = ocnt - (ocurrentPage - 1) * pageSize;
+		
+		if(icnt > 0){
+			model.addAttribute("start",istart);
+			model.addAttribute("end",iend);
+			in_storageDtos = dao.select_storage_in_order(model);
+			model.addAttribute("in_storageDtos",in_storageDtos);
+			
+		}
+		
+		if(ocnt > 0){
+			model.addAttribute("start",ostart);
+			model.addAttribute("end",oend);
+			out_storageDtos = dao.select_storage_out_order(model);
+			model.addAttribute("Adjustment_inventoryDtos",out_storageDtos);
+			
+		}
+		
+		istartPage = (icurrentPage / pageBlock) * pageBlock + 1;
+		if(icurrentPage % pageBlock == 0){
+			istartPage -= pageBlock;
+		}
+		
+		iendPage = istartPage + pageBlock - 1;
+		if(iendPage > ipageCount){
+			iendPage = ipageCount;
+		}
+		
+		ostartPage = (ocurrentPage / pageBlock) * pageBlock + 1;
+		if(ocurrentPage % pageBlock == 0){
+			ostartPage -= pageBlock;
+		}
+		
+		
+		oendPage = ostartPage + pageBlock - 1;
+		if(oendPage > opageCount){
+			oendPage = opageCount;
+		}
+		
+		model.addAttribute("icnt", icnt); 			
+		model.addAttribute("inumber", inumber); 	
+		model.addAttribute("ipageNum", ipageNum); 	
+		model.addAttribute("ocnt", ocnt); 			
+		model.addAttribute("onumber", onumber); 	
+		model.addAttribute("opageNum", opageNum);
+		
+		if(icnt > 0){
+			model.addAttribute("icnt", icnt);
+			model.addAttribute("istartPage", istartPage);	
+			model.addAttribute("iendPage", iendPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("ipageCount", ipageCount);	
+			model.addAttribute("icurrentPage", icurrentPage);
+		}
+		
+		if(ocnt > 0){
+			model.addAttribute("ocnt", ocnt);
+			model.addAttribute("ostartPage", ostartPage);	
+			model.addAttribute("oendPage", oendPage);		
+			model.addAttribute("opageBlock", pageBlock);	
+			model.addAttribute("opageCount", opageCount);	
+			model.addAttribute("ocurrentPage", ocurrentPage);
+		}
+		
 		model.addAttribute("in_storageDtos", in_storageDtos);
 		model.addAttribute("out_storageDtos", out_storageDtos);
 	}
@@ -250,26 +375,153 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	@Override
 	public void request_in_out_storage_service(HttpServletRequest req, Model model) throws Exception {
 		String goes = req.getParameter("goes");
-		
 		model.addAttribute("goes",goes);
+
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int cnt = 0;
+		int start = 0;
+		int end = 0;
+		
+		int number = 0;
+		String pageNum = null; 	
+		int currentPage = 0; 	
+		
+		int pageCount = 0; 		
+		int startPage = 0; 		
+		int endPage = 0; 
+		
+		pageNum = req.getParameter("pageNum");
+		
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
+		currentPage = (Integer.parseInt(pageNum));
 		
 		if(goes.equals("in")){
 			ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
 			model.addAttribute("opt", 1);
 			in_storageDtos = dao.select_in_storage(model);
-			model.addAttribute("in_storageDtos", in_storageDtos);
-		
+			
+			cnt = in_storageDtos.size();
+			
+			pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+			
+			start = (currentPage - 1) * pageSize + 1;
+			end = start + pageSize - 1;
+			
+			if(end > cnt){
+				end = cnt;
+			}
+			
+			number = cnt - (currentPage - 1) * pageSize; 
+			
+			if(cnt > 0){
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				in_storageDtos = dao.select_in_storage(model);
+				model.addAttribute("in_storageDtos",in_storageDtos);
+				
+			}
+			
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+			if(currentPage % pageBlock == 0){
+				startPage -= pageBlock;
+			}
+			
+			endPage = startPage + pageBlock - 1;
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
+			
 		}else if(goes.equals("out")){
 			ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
 			model.addAttribute("opt", 1);
 			out_storageDtos = dao.select_out_storage(model);
-			model.addAttribute("out_storageDtos", out_storageDtos);
+			
+			cnt = out_storageDtos.size();
+			
+			pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+			
+			start = (currentPage - 1) * pageSize + 1;
+			end = start + pageSize - 1;
+			
+			if(end > cnt){
+				end = cnt;
+			}
+			
+			number = cnt - (currentPage - 1) * pageSize; 
+			
+			if(cnt > 0){
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				out_storageDtos = dao.select_out_storage(model);
+				model.addAttribute("out_storageDtos",out_storageDtos);
+				
+			}
+			
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+			if(currentPage % pageBlock == 0){
+				startPage -= pageBlock;
+			}
+			
+			endPage = startPage + pageBlock - 1;
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
 		
+			
 		}else if(goes.equals("storage_out_complete")){
 			ArrayList<Search_distribution_orderDTO> order_stateDto = new ArrayList<Search_distribution_orderDTO>();
 			order_stateDto = dao.Search_distribution_order(model);
-			model.addAttribute("order_stateDto", order_stateDto);
+			
+			cnt = order_stateDto.size();
+			
+			pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+			
+			start = (currentPage - 1) * pageSize + 1;
+			end = start + pageSize - 1;
+			
+			if(end > cnt){
+				end = cnt;
+			}
+			
+			number = cnt - (currentPage - 1) * pageSize; 
+			
+			if(cnt > 0){
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				order_stateDto = dao.Search_distribution_order(model);
+				model.addAttribute("order_stateDto",order_stateDto);
+			}
+			
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+			if(currentPage % pageBlock == 0){
+				startPage -= pageBlock;
+			}
+			
+			endPage = startPage + pageBlock - 1;
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
+			
 		}
+		
+		model.addAttribute("cnt", cnt); 			
+		model.addAttribute("number", number); 	
+		model.addAttribute("pageNum", pageNum); 	
+		
+		if(cnt > 0){
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);	
+			model.addAttribute("endPage", endPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("pageCount", pageCount);	
+			model.addAttribute("currentPage", currentPage);
+		}
+		
 	}
 
 	@Override
@@ -474,7 +726,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	@Override
 	public void reg_warehouse_view_service(HttpServletRequest req, Model model) throws Exception {
 		String warehouse_id = req.getParameter("id") == null ? null : req.getParameter("id");
-		
+		model.addAttribute("id", warehouse_id);
 		if(!warehouse_id.equals("new")){
 			ArrayList<WarehouseVO> reg_warehouse_listVos = new ArrayList<WarehouseVO>();
 			model.addAttribute("warehouse_id",warehouse_id);
@@ -529,6 +781,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		int end = 0;
 		
 		int number = 0;
+		
 		String pageNum = null; 	
 		int currentPage = 0; 	
 		
@@ -728,7 +981,77 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		ArrayList<Adjustment_inventoryDTO> Adjustment_inventoryDtos = new ArrayList<Adjustment_inventoryDTO>();
 		Adjustment_inventoryDtos = dao.select_adjustment_inventory(model);
 		
-		model.addAttribute("Adjustment_inventoryDtos",Adjustment_inventoryDtos);
+		
+		
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int cnt = 0;
+		int start = 0;
+		int end = 0;
+		
+		int number = 0;
+		String pageNum = null; 	
+		int currentPage = 0; 	
+		
+		int pageCount = 0; 		
+		int startPage = 0; 		
+		int endPage = 0; 
+		
+		cnt = Adjustment_inventoryDtos.size();
+				
+		pageNum = req.getParameter("pageNum");
+		
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
+		currentPage = (Integer.parseInt(pageNum));
+		pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+		
+		start = (currentPage - 1) * pageSize + 1;
+		end = start + pageSize - 1;
+		
+		if(end > cnt){
+			end = cnt;
+		}
+		
+		number = cnt - (currentPage - 1) * pageSize; 
+		
+		System.out.println("start : " + start);
+		System.out.println("end : " + end);
+		
+		if(cnt > 0){
+			model.addAttribute("start",start);
+			model.addAttribute("end",end);
+			Adjustment_inventoryDtos = dao.select_adjustment_inventory(model);
+			model.addAttribute("Adjustment_inventoryDtos",Adjustment_inventoryDtos);
+			
+		}
+		
+		startPage = (currentPage / pageBlock) * pageBlock + 1;
+		if(currentPage % pageBlock == 0){
+			startPage -= pageBlock;
+		}
+		
+		endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("cnt", cnt); 			
+		model.addAttribute("number", number); 	
+		model.addAttribute("pageNum", pageNum); 	
+		
+		if(cnt > 0){
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);	
+			model.addAttribute("endPage", endPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("pageCount", pageCount);	
+			model.addAttribute("currentPage", currentPage);
+		}
+		
 		model.addAttribute("productVos",productVos);
 		model.addAttribute("warehouseVos",warehouseVos);
 	}

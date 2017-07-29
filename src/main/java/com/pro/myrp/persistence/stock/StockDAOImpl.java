@@ -163,15 +163,15 @@ public class StockDAOImpl implements StockDAO {
 	}
 
 	@Override
-	public ArrayList<In_storageDTO> select_storage_in_order() {
+	public ArrayList<In_storageDTO> select_storage_in_order(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
-		return dao.select_storage_in_order();
+		return dao.select_storage_in_order(model);
 	}
 
 	@Override
-	public ArrayList<Out_storageDTO> select_storage_out_order() {
+	public ArrayList<Out_storageDTO> select_storage_out_order(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
-		return dao.select_storage_out_order();
+		return dao.select_storage_out_order(model);
 	}
 
 	@Override

@@ -2,27 +2,7 @@
 <%@ include file = "../../setting.jsp" %>
 <script type="text/javascript">
 $(function(){
-	$('#movement_amount').change(function(){
-		var pro = document.getElementById("product_id").value;
-		var movement_amount = document.getElementById("movement_amount"); 
-		
-		if(pro == 0){
-			alert("상품을 선택하시오.");
-			return false;
-		}
-		
-		var stock = document.getElementById(pro).value;
-		
-		if(movement_amount.value*1 > stock*1){
-			alert("입력값은 재고수량 보다 클 수 없습니다.");
-			movement_amount.focus();
-			return false;
-		} 
-		
-		
-	});
-	
-	$('#sub').click(function(){
+	$('#movement_button').click(function(){
 		var pro = document.getElementById("product_id").value;
 		var movement_amount = document.getElementById("movement_amount"); 
 		var warehouse_id = document.getElementById("warehouse_id").value;
@@ -33,27 +13,40 @@ $(function(){
 			return false;
 		}
 		
-		var stock = document.getElementById(pro).value;
-		
+		var stock = document.getElementById(pro+"").value;
 		if(warehouse_id == arrive_warehouse_id.value){
 			alert("출발 창고는 도착 창고와 같을 수 없습니다.");
 			arrive_warehouse_id.focus();
 			return false;
 		}
+		
 		if(movement_amount.value*1 > stock*1){
 			alert("입력값은 재고수량 보다 클 수 없습니다.");
 			movement_amount.focus();
 			return false;
 		}
+		
+		var togo = $('#main_screen');
+		var data = $('#movement_form').serialize();
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/movement_warehouse/movement_pro",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});  
 	});
 });
 </script>
+
+<c:if test = "${id == 'new'}">
+<form id = "movement_form" action = "/distribution_management/movement_warehouse/movement_pro">
 <c:forEach var = "pro" items = "${productVos}">
 	<input type = "hidden" id = "${pro.product_id}" value = "${pro.stock_amount}">
 </c:forEach>
-<c:if test = "${id == 'new'}">
-<input type = "hidden" value = "${id}" name = "id">
 <table border = "1">
+<input type = "hidden" name = "id" value = "${id}">
 		<tr>
 			<th>출발 창고명</th>
 			<th>도착 창고명</th>
@@ -76,7 +69,7 @@ $(function(){
 			<th>
 				<select id = "product_id" name = "product_id">
 				<option value = "0">상품을 선택하시오.</option>
-				<c:forEach var = "pro" items = "${productVos}">
+				<c:forEach var = "pro" items = "${productVos}"> 
 				<option value = "${pro.product_id}">${pro.product_name}</option>
 				</c:forEach>
 				</select>
@@ -89,14 +82,20 @@ $(function(){
 		</tr>
 		<tr>
 			<th colspan = "6">
-				<input type = "submit" id = "sub" value = "확인">
+				<input type = "button" id = "movement_button" value = "확인">
 				<input type = "reset" value = "리셋">
 			</th>
 		</tr>
 	</table>
+</form>
 </c:if>
 <c:if test = "${id != 'new'}">
+<form id = "movement_form" action = "/distribution_management/movement_warehouse/movement_pro">
 <table border = "1">
+<c:forEach var = "pro" items = "${productVos}">
+	<input type = "hidden" id = "${pro.product_id}" value = "${pro.stock_amount}">
+</c:forEach>
+<input type = "hidden" name = "id" value = "${id}">
 		<tr>
 			<th>주문번호</th>
 			<th>출발 창고명</th>
@@ -107,12 +106,13 @@ $(function(){
 		</tr>
 		<c:forEach var = "dto" items = "${movement_warehouseDtos}">
 		<tr>
-			<th><input type = "text" name = "stock_order_id" value = "${dto.stock_order_id}"></th>
 			<th>
-				<input type = "text" value = "${dto.warehouse_id}" name = "warehouse_id" readonly>
+				<input type = "text" name = "stock_order_id" value = "${dto.stock_order_id}">
+			<th>
+				<input type = "text" value = "${dto.warehouse_id}" id = "warehouse_id" name = "warehouse_id" readonly>
 			</th>
 			<th>
-				<select name = "arrive_warehouse_id">
+				<select name = "arrive_warehouse_id" id = "arrive_warehouse_id">
 					<c:forEach var = "ware" items = "${warehouseVos}">
 						<option value = "${ware.warehouse_id}"<c:if test = "${ware.warehouse_id == dto.arrive_warehouse}">selected</c:if>>${ware.warehouse_name}</option>
 					</c:forEach>
@@ -135,11 +135,12 @@ $(function(){
 		</c:forEach>
 		<tr>
 			<th colspan = "6">
-				<input type = "submit" id = "sub" value = "확인">
+				<input type = "button" id = "movement_button" value = "확인">
 				<input type = "reset" value = "리셋">
 			</th>
 		</tr>
 	</table>
+	</form>
 </c:if>
 
 

@@ -6,31 +6,33 @@ $('#delete_stock').change(function(){
 	document.getElementById("taked_stock").value = 1*document.getElementById("stock_amount").value + 1*document.getElementById("delete_stock").value;
 });
 
-function chk(){
-	var delete_stock = document.getElementById("delete_stock").value
-	var taked_stock = document.getElementById("taked_stock").value
-	
-	if(taked_stock < 0){
-		alert("조정 후 재고는 0보다 작을 수 없습니다.");
-		return false;
-	}else if(delete_stock == null || delete_stock ==  0){
-		alert("조정 재고를 입력하시오.");
-		return false;
-	}
-
-	var data = this.form.serialize();
+$(function(){
+	$('#sub').click(function(){
+		var delete_stock = document.getElementById("delete_stock").value
+		var taked_stock = document.getElementById("taked_stock").value
 		
-	$.ajax({ 					
-		data:	data,
-		type: 	'post',	 			
-		url: 	"/distribution_management/adjustment_inventory/adjustment_inventory_pro",
-		success: function(response) { 	
-			$('#reg').html(response);	
+		if(taked_stock < 0){
+			alert("조정 후 재고는 0보다 작을 수 없습니다.");
+			return false;
+		}else if(delete_stock == null || delete_stock ==  0){
+			alert("조정 재고를 입력하시오.");
+			return false;
 		}
+	
+		var data = $('#adjust_form').serialize();
+			
+		$.ajax({ 					
+			data:	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/adjustment_inventory/adjustment_inventory_pro",
+			success: function(response) { 	
+				$('#main_screen').html(response);	
+			}
+		});
 	});
-}
+});
 </script>
-<form action = "" method = "post" onsubmit = "return chk();" >
+<form action = "" method = "post" id = "adjust_form">
 <table border = "1">
 	<tr>
 		<th>상품명</th>
@@ -54,8 +56,9 @@ function chk(){
 		<th><input type = "number" name = "taked_stock" id = "taked_stock" min = "0" readonly></th>
 		
 	</tr>
+	
 	<tr>
-		<th><input type = "submit" value = "확인" ></th>
+		<th><input type = "button" id = "sub" value = "확인" ></th>
 	</tr>
 </table>
 <br><br>
