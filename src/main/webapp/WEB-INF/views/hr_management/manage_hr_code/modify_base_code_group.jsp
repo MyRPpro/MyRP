@@ -23,7 +23,6 @@
 </script>
 <body>
 	<div id="page16130">
-		[16130]modify_base_code_group.jsp
 		<form action="#" name="page16130_form01">
 			<table class="table">
 				<tr>

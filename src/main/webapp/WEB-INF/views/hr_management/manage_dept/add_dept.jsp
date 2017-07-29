@@ -46,8 +46,10 @@
 			return false;
 		}
 		var url ="/hr_management/manage_dept/add_dept_dupCheck?dept_id="+$dept_id.val();
-		$("#page16220_div02").load(url);
+		$("#page16220_div01").slideUp();
 		$("#page16220_div02").slideDown();
+		$("#page16220_div02").load(url);
+		
 	});
 	
 	$("#page16220_btn02").bind("click", function(event) {
@@ -58,9 +60,11 @@
 	
 </script>
 <body>
-<div id="page16220">
-	<a id="page16220_div01_toggle">[16220]add_dept.jsp</a>
-	<div id="page16220_div01">
+<div class="panel panel-default" id="page16220">
+	<div class="panel-heading">
+		<a id="page16220_div01_toggle">[16220]add_dept.jsp</a>
+	</div>
+	<div class="panel-body" id="page16220_div01">
 		<form action="#" name="page16220_form01">
 			<table class="table">
 				<tr>

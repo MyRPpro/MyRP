@@ -23,54 +23,51 @@
 	});
 	
 	$("#page16110_btn01").bind("click", function(event) {
-		$("#page16110 div").slideUp();
+		$("#page16110_div01").slideUp();
 		$("#page16110_div02").slideDown();
 		$("#page16110_div02").load("/hr_management/manage_hr_code/add_base_code_group");
 		return false;		
 	});
 	
 	$("#page16110_div01 a").bind("click", function(event) {
-		$("#page16110 div").slideUp();
+		$("#page16110_div01").slideUp();
 		$("#page16110_div02").slideDown();
 		$("#page16110_div02").load($(this).attr("href"));
 		return false;
 	});
 	
-	$("#page16110_btn02").bind("click", function(event) {
-		window.location="/";
-		return false;
-	});
 </script>
 <body>
-<div id="page16110">
-	<a id="page16110_div01_toggle">[16110]base_code_group_list.jsp</a>
-	<div id="page16110_div01">
-		<table class="table">
-			<tr>
-				<td>인사코드 그룹번호</td>
-				<td>인사코드 그룹명</td>
-				<td>사용 상태</td>
-			</tr>
-			<c:forEach var="vo" items="${hr_code_groupVos}">
-			<tr>
-				<td>${vo.hr_code_group_id}</td>
-				<td>
-					<a href="/hr_management/manage_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
-						${vo.hr_code_group_name}
-					</a>
-				</td>
-				<td>${vo.use_state}</td>
-			</tr>
-			</c:forEach>
-			<tr>
-				<td colspan="3">
-					<input class="btn btn-default btn-xs" type="button" value="등록하기" id="page16110_btn01">
-					<input class="btn btn-default btn-xs" type="button" value="홈페이지" id="page16110_btn02">	
-				</td>
-			</tr>
-		</table>
+	<div class="panel panel-default" id="page16110">
+		<div class="panel-heading">
+			<a id="page16110_div01_toggle">[16110]base_code_group_list.jsp</a>
+		</div>
+		<div class="panel-body" id="page16110_div01">
+			<table class="table">
+				<tr>
+					<td>인사코드 그룹번호</td>
+					<td>인사코드 그룹명</td>
+					<td>사용 상태</td>
+				</tr>
+				<c:forEach var="vo" items="${hr_code_groupVos}">
+				<tr>
+					<td>${vo.hr_code_group_id}</td>
+					<td>
+						<a href="/hr_management/manage_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
+							${vo.hr_code_group_name}
+						</a>
+					</td>
+					<td>${vo.use_state}</td>
+				</tr>
+				</c:forEach>
+				<tr>
+					<td colspan="3">
+						<input class="btn btn-default btn-xs" type="button" value="등록하기" id="page16110_btn01">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="panel-body" id="page16110_div02"></div>
 	</div>
-	<div id="page16110_div02"></div>
-</div>
 </body>
 </html>

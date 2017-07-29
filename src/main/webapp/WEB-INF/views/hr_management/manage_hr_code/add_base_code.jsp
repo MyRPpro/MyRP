@@ -47,8 +47,9 @@
 		var url =	"/hr_management/manage_hr_code/add_base_code_dupCheck"+
 					"?hr_code_group_id="+$hr_code_group_id.val()+
 					"&hr_code_id="+$hr_code_id.val();
-		$("#page16150_div02").load(url);
+		$("#page16150_div01").slideUp();
 		$("#page16150_div02").slideDown();
+		$("#page16150_div02").load(url);
 	});
 	
 	$("#page16150_btn01").bind("click", function(event) {
@@ -59,9 +60,11 @@
 	
 </script>
 <body>
-	<div id="page16150">
-		<a id="page16150_div01_toggle">[16150]add_base_code.jsp</a>
-		<div id="page16150_div01">
+	<div class="panel panel-default" id="page16150">
+		<div class="panel-heading">
+			<a id="page16150_div01_toggle">[16150]add_base_code.jsp</a>
+		</div>		
+		<div class="panel-body" id="page16150_div01">
 			<form action="#" name="page16150_form01">
 				<table class="table">
 					<tr>

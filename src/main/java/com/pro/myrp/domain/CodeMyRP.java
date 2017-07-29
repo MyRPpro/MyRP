@@ -207,6 +207,7 @@ public interface CodeMyRP {
 				public static final int add_personnel_card_pro = 16324;
 				public static final int modify_personnel_card = 16330;
 				public static final int modify_personnel_card_pro = 16331;
+				public static final int personnel_card_info = 16332;
 			//급여관리
 			public static final int manage_salary = 16500;
 				public static final int salary_register_search = 16510;

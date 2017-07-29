@@ -245,7 +245,7 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		if (file != null) {
 			String fileName = dto.getName();
 			try {
-				String path = "C:/Users/amaco78/Documents/project/MyRP/src/main/webapp/resources/images/";
+				String path = "C:/Users/amaco78/Documents/project/MyRP/src/main/webapp/resources/images/picture_employee/";
 				File file2 = new File(path + fileName + ".jpg");
 				file.transferTo(file2);
 				model.addAttribute("employee_id", fileName);
@@ -298,6 +298,15 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		return code.c(hr_management, manage_personnel_card, modify_personnel_card_pro);
 	}
 
+	@Override
+	@GetMapping(value="manage_personnel_card/personnel_card_info")
+	public String personnel_card_info(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_info));
+		model.addAttribute("req", req);
+		service.personnel_card_info_service(model);
+		return code.c(hr_management, manage_personnel_card, personnel_card_info);
+	}
+	
 	@Override
 	@GetMapping(value="manage_hr_appointment/hr_appointment_search")
 	public String hr_appointment_search(HttpServletRequest req, Model model) throws Exception {
@@ -509,7 +518,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.clear_salary_bank_account_pro_service(model);
 		return code.c(hr_management, manage_salary, clear_salary_bank_account_pro);
 	}
-
 	
 	@Override
 	@GetMapping(value="manage_salary/modify_salary_info")
@@ -528,5 +536,6 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		service.modify_salary_info_pro_service(model);
 		return code.c(hr_management, manage_salary, modify_salary_info_pro);
 	}
+
 	
 }

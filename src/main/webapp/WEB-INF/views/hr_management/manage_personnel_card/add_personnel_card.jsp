@@ -9,8 +9,65 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
+
+	function emailChk(formId) {
+		var form = document.page16320_form01;
+		if(form.email3.value != 0) {
+			form.email2.value = form.email3.value;
+			form.email2.setAttribute("readonly",true);
+		} else if(form.email3.value == 0) {
+			form.email2.value = "";
+			form.email2.removeAttribute("readonly");
+			form.email2.focus();
+		}	
+	}
 	
-	function validate_form() {
+	$("#page16320_btn02").bind("click", function() {
+		var dupcheck = $("form[name='page16320_form01'] input[name='dupcheck']");
+		if(dupcheck.val() == 0) {
+			alert("사원번호 중복확인을 완료 후 사진 등록이 가능합니다.");
+			$("#page16320_btn01").focus();
+			return false;
+		}
+		var $employee_id = $("form[name='page16320_form01'] input[name='employee_id']");
+		var url = "/hr_management/manage_personnel_card/add_personnel_card_picture?employee_id="+$employee_id.val();
+		$("#page16320_div01").slideUp();
+		$("#page16320_div02").slideDown();
+		$("#page16320_div02").load(url);
+		return false;
+	});
+	
+	
+	$("#page16320_div01_toggle").bind("click", function() {
+		$("#page16320_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16320_btn03").bind("click", function() {
+		$("#page16320").slideUp();
+		$("#page16310_div01").slideDown();
+		return false;
+	});
+	
+	$("#page16320_btn01").bind("click", function() {
+		var $employee_id = $("form[name='page16320_form01'] input[name='employee_id']");
+		if(!$employee_id.val()) {
+			alert("먼저 사원 번호에 값을 입력하세요.");
+			$employee_id.focus();
+			return false;
+		}
+		var url = "/hr_management/manage_personnel_card/add_personnel_card_dupCheck?employee_id="+$employee_id.val();
+		$("#page16320_div01").slideUp();
+		$("#page16320_div02").load(url);
+		return false;
+	});
+
+	$("form[name='page16320_form01'] input[name='employee_id']").on("change", function() {
+		$("form[name='page16320_form01'] input[name='dupcheck']").val(0);
+		return false;
+	});
+	
+	$("form[name='page16320_form01']").on("submit", function() {
 		if(document.page16320_form01.dupcheck.value == 0) {
 			alert("사원 번호의 중복체크가 필요합니다.");			
 			document.page16320_form01.dup_check_btn.focus();
@@ -52,88 +109,46 @@
 			residence_reg_no2.focus();
 			return false;
 		}
-	}
-	
-	function emailChk(formId) {
-		var form = document.page16320_form01;
-		if(form.email3.value != 0) {
-			form.email2.value = form.email3.value;
-			form.email2.setAttribute("disabled",true);
-		} else if(form.email3.value == 0) {
-			form.email2.value = "";
-			form.email2.removeAttribute("disabled");
-			form.email2.focus();
-		}	
-	}
-	
-	function addPicture() {
-		if(document.page16320_form01.dupcheck.value == 0) {
-			alert("사원번호 중복확인을 완료 후 사진 등록이 가능합니다.");
-			document.page16320_form01.dup_check_btn.focus();
-			return false;
-		}
-		var employee_id = document.page16320_form01.employee_id.value;
-		var url = "/hr_management/manage_personnel_card/add_personnel_card_picture?employee_id="+employee_id;
-		window.open(url, "addPicture", "menubar=no, width=500, height=300");
-	}
-	
-	$("#page16320_div01_toggle").bind("click", function() {
-		$("#page16320_div01").slideToggle();
+		var data = $(this).serialize();
+		$.ajax({
+			data:	data,
+			type:	'post',
+			url:	'/hr_management/manage_personnel_card/add_personnel_card_pro',
+			success: function(response) {
+				$("#page16320_div02").html(response);
+			} 
+		});
 		return false;
 	});
-	
-	$("#page16320_btn03").bind("click", function() {
-		$("#page16320").slideUp();
-		$("#page16310_div01").slideDown();
-		return false;
-	});
-	
-	$("#page16320_btn01").bind("click", function() {
-		var $employee_id = $("form[name='page16320_form01'] input[name='employee_id']");
-		if(!$employee_id.val()) {
-			alert("먼저 사원 번호에 값을 입력하세요.");
-			$employee_id.focus();
-			return false;
-		}
-		var url = "/hr_management/manage_personnel_card/add_personnel_card_dupCheck?employee_id="+$employee_id.val();
-		$("#page16320_div01").slideUp();
-		$("#page16320_div02").load(url);
-		return false;
-	});
-
-	$("form[name='page16320_form01'] input[name='employee_id']").on("change", function() {
-		$("form[name='page16320_form01'] input[name='dupcheck']").val(0);
-	});
-	
 </script>
 <body>
-<div id="page16320">
-	<a id="page16320_div01_toggle">[16320]add_personnel_card.jsp</a>
-	<div id="page16320_div01">
-		<form action="/hr_management/manage_personnel_card/add_personnel_card_pro"
-		method="post" name="page16320_form01"
-		onsubmit="return validate_form();">
+<div class="panel panel-default" id="page16320">
+	<div class="panel-heading">
+		<a id="page16320_div01_toggle">[16320]add_personnel_card.jsp</a>
+	</div>
+	<div  class="panel-body" id="page16320_div01">
+		<form action="#" name="page16320_form01">
 			<div id="employee_picture_div">
 			</div>
 			<table class="table">
 				<tr>
-					<th>employee_id</th>
+					<th>사원번호</th>
 					<td>
-						<input type="number" name="employee_id"
-						min="1" max="9999" required autofocus onchange="return check_change();">
+						<input type="number" name="employee_id" value="${employee_id}"
+						min="1" max="9999" required autofocus>
 						<input class="btn btn-default btn-xs" type="button"
 						value="중복확인" id="page16320_btn01">
 					</td>
 				</tr>
 				<tr>
-					<th>employee_name</th>
+					<th>사원명</th>
 					<td>
 						<input type="text" name="employee_name"
 						maxlength="50" required>
 					</td>
 				</tr>
 				<tr>
-					<th>dept_name</th>
+					<th>부서명</th>
 					<td>
 						<select name="dept_id">
 							<option value=0 selected>부서 선택</option>
@@ -146,7 +161,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>hr_code_name</th>
+					<th>직급</th>
 					<td>
 						<select name="hr_code_id">
 							<option value=0 selected>직급 선택</option>
@@ -159,7 +174,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>residence_reg_no</th>
+					<th>주민등록번호</th>
 					<td>
 						<input type="text" name="residence_reg_no1"
 						maxlength="6" required>
@@ -169,7 +184,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>join_date</th>
+					<th>입사일</th>
 					<td>
 						<c:set var="now" value="<%= new java.util.Date() %>"/>
 						<input type="date" name="join_date" 
@@ -178,25 +193,25 @@
 					</td>
 				</tr>
 				<tr>
-					<th>tel</th>
+					<th>전화번호</th>
 					<td>
 						<input type="text" name="tel" maxlength="30">
 					</td>
 				</tr>
 				<tr>
-					<th>mobile_tel</th>
+					<th>휴대전화</th>
 					<td>
 						<input type="text" name="mobile_tel" maxlength="30">
 					</td>
 				</tr>
 				<tr>
-					<th>passport_no</th>
+					<th>여권번호</th>
 					<td>
 						<input type="text" name="passport_no" maxlength="9">
 					</td>
 				</tr>
 				<tr>
-					<td>email</td>
+					<td>이메일</td>
 					<td>
 						<input type="text" name="email1"
 						maxlength="20">
@@ -214,28 +229,30 @@
 					</td>
 				</tr>
 				<tr>
-					<th>address</th>
+					<th>주소</th>
 					<td>
 						<input type="text" name="address">
 					</td>
 				</tr>
 				<tr>
-					<th>hourly_wage</th>
+					<th>시급</th>
 					<td>
 						<input type="number" name="hourly_wage"
 						min="0" max="999999" required>
 					</td>
 				</tr>
 				<tr>
-					<th>salary_account</th>
+					<th>급여계좌</th>
 					<td>
 						<input type="text" name="salary_account"
-						value="0" maxlength="20" required>
+						maxlength="20">
 					</td>
 				</tr>
 				<tr>
 					<th colspan="2">
-						<input type="hidden" name="dupcheck" value="0">
+						<input type="hidden" name="dupcheck"
+						<c:if test="${dupcheck == null}">value="0"</c:if>
+						<c:if test="${dupcheck == 1}">value="1"</c:if>>
 						<input class="btn btn-default btn-xs" type="submit" value="등록하기">
 						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
 						<input class="btn btn-default btn-xs" type="button" value="사진추가" id="page16320_btn02">

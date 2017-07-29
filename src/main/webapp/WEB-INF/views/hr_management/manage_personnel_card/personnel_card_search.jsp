@@ -53,9 +53,11 @@
 	
 </script>
 <body>
-	<div id="page16310">
-		<a id="page16310_div01_toggle">[16310]personnel_card_search.jsp</a>
-		<div id="page16310_div01">
+	<div class="panel panel-default" id="page16310">
+		<div class="panel-heading">
+	  		<a id="page16310_div01_toggle">[16310]personnel_card_search.jsp</a>
+		</div>
+		<div class="panel-body" id="page16310_div01">
 			<form class="form-inline" action="#" name="page16310_form01">
 				<div class="input-group">
 					<input type="text" class="form-control" name="searchStr" placeholder="사번,이름 검색">
@@ -67,15 +69,15 @@
 				</div>
 			</form>
 		</div>
-		<div id="page16310_div02"></div>
-		<div id="page16310_div03">
+		<div class="panel-body" id="page16310_div02"></div>
+		<div class="panel-body" id="page16310_div03">
 			<table class="table">
 				<tr>
 					<th>검색하실 인사카드의 사번이나 사원명을 검색창에 입력하세요.</th>
 				</tr>
 			</table>
 		</div>
-		<div id="page16310_div04"></div>
+		<div class="panel-body" id="page16310_div04"></div>
 	</div>
 </body>
 </html>

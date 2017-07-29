@@ -8,31 +8,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-retired_employee_nav.jsp
-<c:if test="${pageCount > 1}">
-	<div class="page_nav">
-	<table>
-		<tr>
-			<th>
-				<c:if test="${startPage > pageBlock}">
-					<a href="javascript:fn_retired_employee_nav('1')">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-					<a href="javascript:fn_retired_employee_nav('${startPage - pageBlock}')">[◀]</a> <!-- 이전 블록으로 이동 -->
-				</c:if>
-				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<c:if test="${i == currentPage}">
-						<span>[${i}]</span>
+	<div id="page16712">
+		<c:if test="${pageCount > 1}">
+			<div class="text-center">
+				<ul class="pagination pagination-sm" style="margin: 0px;">
+					<c:if test="${startPage > pageBlock}">
+						<li><a href="javascript:fn_retired_employee_nav('1')">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+						<li><a href="javascript:fn_retired_employee_nav('${startPage - pageBlock}')">◀</a></li> <!-- 이전 블록으로 이동 -->
 					</c:if>
-					<c:if test="${i != currentPage}">
-						<a href="javascript:fn_retired_employee_nav('${i}')">[${i}]</a>
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<c:if test="${i == currentPage}">
+							<li><span>${i}</span></li>
+						</c:if>
+						<c:if test="${i != currentPage}">
+							<li><a href="javascript:fn_retired_employee_nav('${i}')">${i}</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pageCount > endPage}">
+						<li><a href="javascript:fn_retired_employee_nav('${startPage + pageBlock}')">▶</a></li> <!-- 다음 블록으로 이동 -->
+						<li><a href="javascript:fn_retired_employee_nav('${pageCount}')">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
 					</c:if>
-				</c:forEach>
-				<c:if test="${pageCount > endPage}">
-					<a href="javascript:fn_retired_employee_nav('${startPage + pageBlock}')">[▶]</a> <!-- 다음 블록으로 이동 -->
-					<a href="javascript:fn_retired_employee_nav('${pageCount}')">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
-				</c:if>
-			</th>
-		</tr>
-	</table>
-</c:if>
+				</ul>
+			</div>
+		</c:if>
+	</div>
 </body>
 </html>
