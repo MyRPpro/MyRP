@@ -30,44 +30,75 @@ $(function(){
 		});  
 	});
 
+	 $('.movement_del').unbind("click").bind("click",function(){
+		 var con = confirm("삭제하시겠습니까?");
+		
+		 if(con){
+			 var id = $(this).val();
+	
+				var data = {
+							"id" 	: id,
+							"opt" : "del"
+							};
+				
+				$.ajax({ 					
+					data: 	data,
+					type: 	'post',	 			
+					url: 	"/distribution_management/movement_warehouse/movement_pro",
+					success: function(response) { 	
+						$('#main_screen').html(response);	
+					}
+				});  
+		 }
+	});
+	 
+	 $('.movement_movement_confirm').unbind("click").bind("click",function(){
+		 var con = confirm("승인하시겠습니까?");
+		
+		 if(con){
+			 var id = $(this).val();
+	
+				var data = {
+							"id" 	: id,
+							"opt" : "confirm"
+							};
+				
+				$.ajax({ 					
+					data: 	data,
+					type: 	'post',	 			
+					url: 	"/distribution_management/movement_warehouse/movement_pro",
+					success: function(response) { 	
+						$('#main_screen').html(response);	
+					}
+				});  
+		 }
+	});
 
-function movement_del(id){
-	var con = confirm("삭제하시겠습니까?");
-	if(con){
-		window.location = "/distribution_management/movement_warehouse/movement_pro?id="+id+"&opt=del";
-	}
-}
 
-function movement_movement_confirm(id){
-	var con = confirm("승인하시겠습니까?");
-	if(con){
-		window.location = "/distribution_management/movement_warehouse/movement_pro?id="+id+"&opt=confirm";
-	}
-}
 
-$(".modify").click(function(){
-	var pageNum = document.getElementById("currentPage").value;
-	var obj =  $(this).val().split("-");
-	var data = {
-					"id" 	: obj[0],
-					"pageNum" : pageNum,
-					"warehouse_id" : obj[1],
-					"doit" : "1"
-					};
-		$.ajax({ 					
-			data: 	data,
-			type: 	'post',	 			
-			url: 	"/distribution_management/movement_warehouse/movement_view",
-			success: function(response) { 	
-				$('#modify').html(response);	
-			}
-		});  
-});
-
-$(".page").bind("click", function(event) {
-	$("#main_screen").load($(this).attr("href"));
-	return false;
-});
+	$(".modify").click(function(){
+		var pageNum = document.getElementById("currentPage").value;
+		var obj =  $(this).val().split("-");
+		var data = {
+						"id" 	: obj[0],
+						"pageNum" : pageNum,
+						"warehouse_id" : obj[1],
+						"doit" : "1"
+						};
+			$.ajax({ 					
+				data: 	data,
+				type: 	'post',	 			
+				url: 	"/distribution_management/movement_warehouse/movement_view",
+				success: function(response) { 	
+					$('#modify').html(response);	
+				}
+			});  
+	});
+	
+	$(".page").bind("click", function(event) {
+		$("#main_screen").load($(this).attr("href"));
+		return false;
+	});
 });
 </script>
 <body>
