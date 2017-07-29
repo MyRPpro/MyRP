@@ -1099,3 +1099,25 @@ SELECT	*
  		 
  			AND		SALES_STATE != 24202
  			AND		SALES_STATE != 24203;
+            
+SELECT	*
+FROM	(SELECT employee_id, dept_id, hr_code_group_rank,
+        rank_code, residence_reg_no, join_date,
+        rownum rNum
+        FROM    (SELECT *
+                FROM    (SELECT employee_id, dept_id, hr_code_group_rank,
+                                rank_code, employee_name, residence_reg_no,
+                                join_date
+                        FROM    employee
+                        WHERE	employee_id like '%'||NVL(null,employee_id)||'%'
+                        UNION
+                        SELECT  employee_id, dept_id, hr_code_group_rank,
+                                rank_code, employee_name, residence_reg_no,
+                                join_date
+                        FROM    employee
+                        WHERE	employee_name like '%'||NVL(null,employee_name)||'%'
+                        )
+                ORDER BY employee_name
+                )
+        )
+WHERE rNum >= 1 AND rNum <= 5;

@@ -17,91 +17,104 @@
 			return false;
 		}
 	}
+	
+	$("#page16522_div01_toggle").bind("click", function(event) {
+		$("#page16522_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16522_btn01").bind("click", function(event) {
+		$("#page16522").slideUp();
+		$("#page16510_div01").slideDown();
+		$("#page16510_div02").slideDown();
+		$("#page16510_div03").slideDown();
+		return false;
+	});
 </script>
 <body>
-modify_salary_info.jsp
-<form action="/hr_management/manage_salary/modify_salary_info_pro"
-method="post" name="modify_salary_info_form1"
-onsubmit="return fn_validate_form();">
-	<table border="1">
-		<tr>
-			<th colspan="8">Salary_registerVO</th>
-		</tr>
-		<tr>
-			<th>salary_register_id</th>
-			<td><input type="text" name="salary_register_id"
-			value="${salary_registerVo.salary_register_id}" readonly></td>
-		</tr>
-		<tr>
-			<th>account_id</th>
-			<td><input type="text" name="account_id"
-			value="${salary_registerVo.account_id}" readonly></td>
-		</tr>
-		<tr>
-			<th>reg_date</th>
-			<td>
-				<input type="month" name="reg_date" 
-				value="<fmt:formatDate value='${salary_registerVo.reg_date}' pattern='yyyy-MM'/>" 
-				required
-				<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
-			</td>
-		</tr>
-		<tr>
-			<th>salary_register_name</th>
-			<td>
-				<c:if test="${salary_registerVo.salary_state == 26450}">
-					<select name="salary_register_name">
-						<option value=0>급여구분 선택</option>
-						<c:forEach var="vo" items="${hr_codeVos}">
-							<option value="${vo.hr_code_name}">
-								${vo.hr_code_name}
-							</option>
-						</c:forEach>
-					</select>
-				</c:if>
-				<c:if test="${salary_registerVo.salary_state != 26450}">
-					<input type="text" name="salary_register_name"
-					value="${salary_registerVo.salary_register_name}" readonly>
-				</c:if>
-			</td>
-		</tr>
-		<tr>
-			<th>pay_date</th>
-			<td>
-				<input type="date" name="pay_date" 
-				value="<fmt:formatDate value='${salary_registerVo.pay_date}' pattern='yyyy-MM-dd'/>" 
-				required
-				<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
-			</td>
-		</tr>
-		<tr>
-			<th>total_pay</th>
-			<td>
-				<input type="number" name="total_pay"
-				min="0" value="${salary_registerVo.total_pay}" required
-				<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
-			</td>
-		</tr>
-		<tr>
-			<th>total_employee</th>
-			<td>
-				<input type="number" name="total_employee"
-				min="0" value="${salary_registerVo.total_employee}" required
-				<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<c:if test="${salary_registerVo.salary_state == 26450}">
-					<input type="submit" value="수정하기">
-					<input type="reset"	value="재작성">
-				</c:if>
-				<input type="button" value="돌아가기"
-				onclick="window.history.back();">
-			</th>
-		</tr>
-	</table>
-	<input type="hidden" name="salary_state" value="${salary_registerVo.salary_state}">
-</form>
+	<div class="panel panel-default" id="page16522">
+		<div class="panel-heading">
+			<a id="page16522_div01_toggle">[16522]modify_salary_info.jsp</a>
+		</div>
+		<div class="panel-body" id="page16522_div01">
+			<form action="/hr_management/manage_salary/modify_salary_info_pro" name="page16522_form01">
+				<table class="table">
+					<tr>
+						<th>salary_register_id</th>
+						<td><input type="text" name="salary_register_id"
+						value="${salary_registerVo.salary_register_id}" readonly></td>
+					</tr>
+					<tr>
+						<th>account_id</th>
+						<td><input type="text" name="account_id"
+						value="${salary_registerVo.account_id}" readonly></td>
+					</tr>
+					<tr>
+						<th>reg_date</th>
+						<td>
+							<input type="month" name="reg_date" 
+							value="<fmt:formatDate value='${salary_registerVo.reg_date}' pattern='yyyy-MM'/>" 
+							required
+							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+						</td>
+					</tr>
+					<tr>
+						<th>salary_register_name</th>
+						<td>
+							<c:if test="${salary_registerVo.salary_state == 26450}">
+								<select name="salary_register_name">
+									<option value=0>급여구분 선택</option>
+									<c:forEach var="vo" items="${hr_codeVos}">
+										<option value="${vo.hr_code_name}">
+											${vo.hr_code_name}
+										</option>
+									</c:forEach>
+								</select>
+							</c:if>
+							<c:if test="${salary_registerVo.salary_state != 26450}">
+								<input type="text" name="salary_register_name"
+								value="${salary_registerVo.salary_register_name}" readonly>
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<th>pay_date</th>
+						<td>
+							<input type="date" name="pay_date" 
+							value="<fmt:formatDate value='${salary_registerVo.pay_date}' pattern='yyyy-MM-dd'/>" 
+							required
+							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+						</td>
+					</tr>
+					<tr>
+						<th>total_pay</th>
+						<td>
+							<input type="number" name="total_pay"
+							min="0" value="${salary_registerVo.total_pay}" required
+							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+						</td>
+					</tr>
+					<tr>
+						<th>total_employee</th>
+						<td>
+							<input type="number" name="total_employee"
+							min="0" value="${salary_registerVo.total_employee}" required
+							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<c:if test="${salary_registerVo.salary_state == 26450}">
+								<input class="btn btn-defaut btn-xs" type="submit" value="수정하기">
+								<input class="btn btn-defaut btn-xs" type="reset"	value="재작성">
+							</c:if>
+							<input type="hidden" name="salary_state" value="${salary_registerVo.salary_state}">
+							<input class="btn btn-defaut btn-xs" type="button" value="닫기" id="page16522_btn01">
+						</th>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

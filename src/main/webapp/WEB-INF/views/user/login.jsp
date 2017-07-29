@@ -33,11 +33,11 @@
 <form class="form-horizontal" action="/user/loginPost" method="post" name="login_form1"
 onsubmit="return fn_login_check();">
 	<div class="form-group">
-		<label for="employee_name">NAME</label>
+		<label for="employee_name">사원명</label>
 		<input type="text" class="form-control" id="employee_name" name="employee_name" placeholder="성명" autofocus required>
 	</div>
 	<div class="form-group">
-		<label for="employee_id">EMPLOYEE ID</label>
+		<label for="employee_id">사원번호</label>
 		<input type="number" class="form-control" id="employee_id" name="employee_id" placeholder="사원번호" required>
 	</div>
 	<button type="submit" class="btn btn-default">LOGIN</button>

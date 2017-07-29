@@ -9,76 +9,101 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-function fn_clear_payment(salary_register_id,account_id,pay_date) {
-	var now = new Date();
-	var year= now.getFullYear();
-    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-	var today = year + mon + "-" +  (now.getDate());
-	
-	if(pay_date.replace("-","") > today) {
-		alert("지급예정일 이후로만 급여지급이 가능합니다.");
-		return false;
-	}
-	window.location="/hr_management/manage_salary/clear_salary_bank_account_pro"+
+	function fn_clear_payment(salary_register_id,account_id,pay_date) {
+		var now = new Date();
+		var year= now.getFullYear();
+	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+		var today = year + mon + "-" +  (now.getDate());
+		if(pay_date.replace("-","") > today) {
+			alert("지급예정일 이후로만 급여지급이 가능합니다.");
+			return false;
+		}
+		var url	=	"/hr_management/manage_salary/clear_salary_bank_account_pro"+
 					"?salary_register_id="+salary_register_id+
 					"&account_id="+account_id;
-}
+		$("#page16514_div02").load(url);
+		return false;
+		
+	}
+	
+	$("#page16514_div01_toggle").bind("click", function(event) {
+		$("#page16514_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16514_btn01").bind("click", function(event) {
+		$("#page16514").slideUp();
+		$("#page16510_div01").slideDown();
+		$("#page16510_div02").slideDown();
+		$("#page16510_div03").slideDown();
+		return false;
+	});
+	
+	$("#page16514_btn02").bind("click", function(event) {
+		$("#page16514").slideUp();
+		$("#page16510_div01").slideDown();
+		$("#page16510_div02").slideDown();
+		$("#page16510_div03").slideDown();
+		return false;
+	});
+	
 </script>
 <body>
-clear_salary_bank_account.jsp
-<c:if test="${cnt == 0}">
-	<table border="1">
-		<tr>
-			<th>지급대기 중인 급여가 없습니다.</th>
-		</tr>
-		<tr>
-			<td>
-				<input type="button" value="돌아가기"
-				onclick="window.location='/hr_management/manage_salary/salary_register_search';">			
-			</td>
-		</tr>
-	</table>
-</c:if>
-<c:if test="${cnt != 0}">
-	<table border="1">
-		<tr>
-			<th colspan="9">Salary_registerVO</th>
-		</tr>
-		<tr>
-			<th>salary_register_id</th>
-			<th>account_id</th>
-			<th>reg_date</th>
-			<th>salary_register_name</th>
-			<th>pay_date</th>
-			<th>total_pay</th>
-			<th>total_employee</th>
-			<th>salary_state</th>
-			<th>clear_payment</th>
-		</tr>
-		<c:forEach var="vo" items="${vos}">
-			<tr>
-				<td>${vo.salary_register_id}</td>
-				<td>${vo.account_id}</td>
-				<td>${vo.reg_date}</td>
-				<td>${vo.salary_register_name}</td>
-				<td>${vo.pay_date}</td>
-				<td>${vo.total_pay}</td>
-				<td>${vo.total_employee}</td>
-				<td>${vo.salary_state}</td>
-				<td>
-					<input type="button" value="급여지급"
-					onclick="return fn_clear_payment(${vo.salary_register_id},${vo.account_id},'${vo.pay_date}');">
-				</td>
-			</tr>
-		</c:forEach>
-		<tr>
-			<td colspan="9">
-				<input type="button" value="돌아가기"
-				onclick="window.location='/hr_management/manage_salary/salary_register_search';">			
-			</td>
-		</tr>
-	</table>
-</c:if>
-
+	<div class="panel panel-default" id="page16514">
+		<div class="panel-heading">
+			<a id="page16514_div01_toggle">[16514]clear_salary_bank_account.jsp</a>
+		</div>
+		<div class="panel-body" id="page16514_div01">
+			<c:if test="${cnt == 0}">
+				<table class="table">
+					<tr>
+						<th>지급대기 중인 급여가 없습니다.</th>
+					</tr>
+					<tr>
+						<td>
+							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16514_btn01">			
+						</td>
+					</tr>
+				</table>
+			</c:if>
+			<c:if test="${cnt != 0}">
+				<table class="table">
+					<tr>
+						<th>급여대장 번호</th>
+						<th>계정</th>
+						<th>등록일</th>
+						<th>급여대장명</th>
+						<th>지급일</th>
+						<th>총 지급액</th>
+						<th>총 지급인원</th>
+						<th>급여상태</th>
+						<th>급여지급</th>
+					</tr>
+					<c:forEach var="vo" items="${vos}">
+						<tr>
+							<td>${vo.salary_register_id}</td>
+							<td>${vo.account_id}</td>
+							<td>${vo.reg_date}</td>
+							<td>${vo.salary_register_name}</td>
+							<td>${vo.pay_date}</td>
+							<td>${vo.total_pay}</td>
+							<td>${vo.total_employee}</td>
+							<td>${vo.salary_state}</td>
+							<td>
+								<input class="btn btn-default btn-xs" type="button" value="급여지급"
+								onclick="return fn_clear_payment(${vo.salary_register_id},${vo.account_id},'${vo.pay_date}');">
+							</td>
+						</tr>
+					</c:forEach>
+					<tr>
+						<td colspan="9">
+							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16514_btn02">			
+						</td>
+					</tr>
+				</table>
+			</c:if>		
+		</div>
+		<div id="page16514_div02"></div>
+	</div>
 </body>
 </html>

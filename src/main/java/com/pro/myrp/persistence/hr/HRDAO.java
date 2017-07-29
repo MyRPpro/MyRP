@@ -306,6 +306,14 @@ public interface HRDAO extends MyRPDAO {
 	public List<Retired_EmployeeDTO> select_retired_employee_list(Map<String, Object> daoMap);
 
 	/**
+	 * 퇴사자 조회
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
+	public Retired_EmployeeDTO select_retired_employee(int employee_id);
+	
+	/**
 	 * 퇴사자 등록
 	 * @author amaco78
 	 * @param vo

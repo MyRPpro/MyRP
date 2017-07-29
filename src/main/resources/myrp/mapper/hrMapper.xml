@@ -250,33 +250,21 @@
 	resultType="Personnel_card_listDTO">
 		<![CDATA[
 		SELECT	*
-		FROM	(SELECT employee_id, dept_id, dept_name,
-		        hr_code_group_rank, hr_code_group_name,
-		        rank_code, hr_code_name,
-		        employee_name, residence_reg_no, join_date,
+		FROM	(SELECT employee_id, dept_id, hr_code_group_rank, employee_name,
+		        rank_code, residence_reg_no, join_date,
 		        rownum rNum
 		        FROM    (SELECT *
-		                FROM    (SELECT E.employee_id, E.dept_id, D.dept_name,
-		                                E.hr_code_group_rank, G.hr_code_group_name,
-		                                E.rank_code, C.hr_code_name,
-		                                E.employee_name, E.residence_reg_no,
-		                                E.join_date
-		                        FROM    employee E, department D, hr_code C, hr_code_group G
-		                        WHERE	E.dept_id = D.dept_id
-		                        AND		E.hr_code_group_rank = G.hr_code_group_id
-		                        AND		E.rank_code = C.hr_code_id
-		                        AND     E.employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+		                FROM    (SELECT employee_id, dept_id, hr_code_group_rank,
+		                                rank_code, employee_name, residence_reg_no,
+		                                join_date
+		                        FROM    employee
+		                        WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
 		                        UNION
-		                        SELECT E.employee_id, E.dept_id, D.dept_name,
-		                                E.hr_code_group_rank, G.hr_code_group_name,
-		                                E.rank_code, C.hr_code_name,
-		                                E.employee_name, E.residence_reg_no,
-		                                E.join_date
-		                        FROM    employee E, department D, hr_code C, hr_code_group G
-		                        WHERE	E.dept_id = D.dept_id
-		                        AND		E.hr_code_group_rank = G.hr_code_group_id
-		                        AND		E.rank_code = C.hr_code_id
-		                        AND     E.employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
+		                        SELECT  employee_id, dept_id, hr_code_group_rank,
+		                                rank_code, employee_name, residence_reg_no,
+		                                join_date
+		                        FROM    employee
+		                        WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
 		                        )
 		                ORDER BY employee_name
 		                )
@@ -521,6 +509,19 @@
 
 	<!-- 선택된 사원의 퇴사정보 이력 보기 -->
 	<select id="select_retired_employee_history" parameterType="int"
+	resultType="Retired_EmployeeDTO">
+		<![CDATA[
+		SELECT	E.employee_id, E.employee_name, E.dept_id,
+				E.hr_code_group_rank, E.rank_code, 
+				E.join_date, RE.retired_date, RE.retired_reason
+		FROM	retired_employee RE , employee E
+		WHERE	RE.employee_id = E.employee_id
+		AND		E.employee_id = #{employee_id}
+		ORDER BY RE.retired_date DESC
+		]]>
+	</select>
+	
+	<select id="select_retired_employee" parameterType="int"
 	resultType="Retired_EmployeeDTO">
 		<![CDATA[
 		SELECT	E.employee_id, E.employee_name, E.dept_id,

@@ -9,59 +9,80 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function autofocus() {
-		document.add_dept_dupCheck_form1.dept_id.focus();
-	}
+
+	$("form[name='page16221_form01']").on("submit", function(event) {
+		$("#page16221").slideUp();
+		var $dept_id = $("form[name='page16221_form01'] input[name='dept_id']");
+		$("#page16210_div02").load("/hr_management/manage_dept/add_dept"+
+								"?dept_id="+$dept_id.val()+
+								"&dupcheck=1");
+		return false;
+	});
 	
-	function setId(id) {
-		opener.document.add_dept_form1.dept_id.value = id;
-		opener.document.add_dept_form1.dupcheck.value = 1;
-		self.close();
-	}
+	$("form[name='page16221_form02']").on("submit", function(event) {
+		var $dept_id = $("form[name='page16221_form02'] input[name='dept_id']");
+		$("#page16220_div02").load("/hr_management/manage_dept/add_dept_dupCheck"+
+								"?dept_id="+$dept_id.val());
+		return false;
+	});
+	
+	$("#page16221_btn01").bind("click", function(event) {
+		$("#page16221").slideUp();
+		$("#page16220_div01").slideDown();
+		return false;		
+	});
+	
 </script>
-<body onload="autofocus();">
-add_dept_dupCheck.jsp
-<c:if test="${cnt == 0}">
-	<table border="1">
-		<tr>
-			<th>선택하신 [${dept_id}]는 사용가능합니다.</th>
-		</tr>
-		<tr>
-			<th>
-				<input type="button" value="확인"
-				onclick="setId('${dept_id}');">
-			</th>
-		</tr>
-	</table>
-</c:if>
-<c:if test="${cnt == 1}">
-	<form action="/hr_management/manage_dept/add_dept_dupCheck" 
-	name="add_dept_dupCheck_form1" method="get">
-		<table border="1">
-			<tr>
-				<th colspan="2">
-					선택하신 [${dept_id}]는<br>
-					[${dup_dept_name}]에 사용중입니다.<br>
-					새로운 부서번호를 선택하세요.
-				</th>
-			</tr>
-			<tr>
-				<th>dept_id</th>
-				<td>
-					<input type="number" name="dept_id" 
-					min="1" max="9999" step="1" required>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="submit" value="중복확인">
-					<input type="reset" value="재작성">
-					<input type="button" value="닫기"
-					onclick="self.close()">
-				</th>
-			</tr>
-		</table>
-	</form>
-</c:if>
+<body>
+	<div class="panel panel-default" id="page16221">
+		<div class="panel-heading">
+			[16221]add_dept_dupCheck.jsp
+		</div>
+		<div class="panel-body">
+			<c:if test="${cnt == 0}">
+				<form action="#" name="page16221_form01">
+					<table class="table">
+						<tr>
+							<th>선택하신 [${dept_id}]는 사용가능합니다.</th>
+						</tr>
+						<tr>
+							<td>
+								<input type="hidden" name="dept_id" value="${dept_id}">
+								<input class="btn btn-default btn-xs" type="submit" value="확인">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</c:if>
+			<c:if test="${cnt == 1}">
+				<form action="#" name="page16221_form02">
+					<table class="table">
+						<tr>
+							<th colspan="2">
+								선택하신 [${dept_id}]는<br>
+								[${dup_dept_name}]에 사용중입니다.<br>
+								새로운 부서번호를 선택하세요.
+							</th>
+						</tr>
+						<tr>
+							<th>부서번호</th>
+							<td>
+								<input type="number" name="dept_id" 
+								min="1" max="9999" step="1" required autofocus>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2">
+								<input class="btn btn-default btn-xs" type="submit" value="중복확인">
+								<input class="btn btn-default btn-xs" type="reset" value="재작성">
+								<input class="btn btn-default btn-xs" type="button" value="닫기"
+								id="page16221_btn01">
+							</th>
+						</tr>
+					</table>
+				</form>
+			</c:if>
+		</div>
+	</div>
 </body>
 </html>
