@@ -46,30 +46,23 @@ $(function(){
 			data: 	data,
 			type: 	'post',	 			
 			url: 	"/distribution_management/stockpile/select_stockpile_search",
-			success: function(response) { 	
+			success: function(response) {
 				togo.html(response);	
 			}
 		});
 	});
 
 	$('#search_button_product').unbind("click").bind("click",function(){
-		var togo = null;
+		var togo = $('#product_search_select');
 
-		var condition = null;
-		var search = null;
-		var where = null;
-		
 		var product_id = document.getElementById("product_id");
 		var product_name = document.getElementById("product_name");
 		var product_search = document.getElementById("product_search") == null ? null : warehounse_search = document.getElementById("product_search");
-		
-		if($(product_id).prop("checked") || $(product_name).prop("checked")){
-			condition = $(product_id).prop("checked") ? product_id.value : product_name.value;
-			search = product_search.value;
-			where = 'product';
-			togo = $('#product_result');
-		}
-		
+
+		var condition = $(product_id).prop("checked") ? product_id.value : product_name.value;
+		var search = product_search.value;
+		var where = 'product';
+
 		var data = {
 					"condition" 	: condition,
 					"search" 	: search,
@@ -96,18 +89,10 @@ function go(goes){
 			search_value.push(values[i].value);
 		}
 	}
-	if(goes == 'warehouse'){
-		$("#warehouse_search_result").html("");
-		for(var i = 0; i < search_value.length; i++){
-			$("#warehouse_search_result").append("<input type = 'checkbox' name = 'checke_warehouse' value = '" + search_value[i] + "'>" + search_value[i]);
-		}
-	}
 	
-	if(goes == 'product'){
-		$("#product_search_result").html("");
-		for(var i = 0; i < search_value.length; i++){
-			$("#product_search_result").append("<input type = 'checkbox' name = 'checke_product' value = '" + search_value[i] + "'>" + search_value[i]);
-		}
+	$("#product_search_result").html("");
+	for(var i = 0; i < search_value.length; i++){
+		$("#product_search_result").append("<input type = 'checkbox' name = 'checke_product' value = '" + search_value[i] + "'>" + search_value[i]);
 	}
 	$('input[name=checked]').prop('checked', false);
 }
@@ -125,7 +110,11 @@ function search_stockpile(date){
 	
 	if(date == 'today'){
 		start_day.value = year + "-" + mon + "-" + (now.getDate());
-		end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+		if((now.getDate()+1) >= 31){
+			end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
+		}else{
+			end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+		}
 		return false;
 	
 	}else if(date == 'week'){
@@ -134,7 +123,12 @@ function search_stockpile(date){
 			aa = 1 - i;
 			start_day.value =  year + "-" + mon + "-" + (now.getDate() + aa);
 		}
-		end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+		
+		if((now.getDate()+1) >= 31){
+			end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
+		}else{
+			end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+		}
 	
 		if(start_day.value == end_day.value){
 			end_day.value = year + "-" + mon + "-" + (now.getDate()+2);
@@ -187,6 +181,10 @@ function search_stockpile(date){
 		return false;
 	}
 }
+
+$('.distribution_list_heading').bind("click",function(){  
+	$('.distribution_list_content').slideToggle();
+});
 </script>	
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -196,10 +194,10 @@ function search_stockpile(date){
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_list_heading">
 			<h3 class="panel-title"> 재고수불부 검색</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
 				<table class="table table-condensed">
 					
@@ -255,6 +253,7 @@ function search_stockpile(date){
 </div>
 </div>
 	
+<div id = "search_result"></div>
 
 <div class = "modal" id = "product_modal" tabindex = "-1">	
 	<div class = "modal-dialog">
@@ -275,6 +274,11 @@ function search_stockpile(date){
 							<button id = "search_button_product" class="btn btn-primary"">확인</button>
 						</div>
 						</th>
+					</tr>
+					<tr>
+						<td>
+							<div id = "product_search_select"></div>
+						</td>
 					</tr>
 				</table>
 			</div>

@@ -66,6 +66,10 @@ $(".page").bind("click", function(event) {
 	$("#request").load($(this).attr("href"));
 	return false;
 });
+
+$('.distribution_view_heading').bind("click",function(){  
+	$('.distribution_view_content').slideToggle();
+});
 </script>
 <body>
 <c:if test = "${goes == 'out'}">
@@ -73,10 +77,10 @@ $(".page").bind("click", function(event) {
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_view_heading">
 			<h3 class="panel-title">물류 출고요청</h3>
 		</div>
-<div class="panel-body">
+<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
 <table class="table table-condensed">
 	<tr>
@@ -152,10 +156,10 @@ $(".page").bind("click", function(event) {
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_view_heading">
 			<h3 class="panel-title">물류 입고요청</h3>
 		</div>
-<div class="panel-body">
+<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
 <table class="table table-condensed">
 	<tr>
@@ -215,10 +219,10 @@ $(".page").bind("click", function(event) {
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_view_heading">
 			<h3 class="panel-title">출고완료요청</h3>
 		</div>
-<div class="panel-body">
+<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
 <table class="table table-condensed">
 		<tr>

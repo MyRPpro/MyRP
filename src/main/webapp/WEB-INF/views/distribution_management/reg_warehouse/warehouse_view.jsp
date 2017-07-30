@@ -30,16 +30,20 @@ $(function(){
 		});  
 	});
 });
- </script>
+
+$('.distribution_view_heading').bind("click",function(){  
+	$('.distribution_view_content').slideToggle();
+});
+</script>
 
 <c:if test = "${newmodify == 'new'}">
 <div class="row">
 	<div class="col-xs-12">
 		<div class="panel panel-primary">
-			<div class="panel-heading">
+			<div class="panel-heading distribution_view_heading">
 				<h3 class="panel-title"> 신규 등록</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body distribution_view_content">
 				<div class="table-responsive">
 					<form action="warehouse_pro" id = "new_form" method = "post">
 					<input type = "hidden" value = "new" name = "opt">
@@ -75,10 +79,10 @@ $(function(){
 <div class="row">
 	<div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_view_heading">
 			<h3 class="panel-title">창고 수정</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
 				<form action="warehouse_pro" id = "modify_form" method = "post">
 				<input type = "hidden" value = "modify" name = "opt">

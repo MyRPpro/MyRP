@@ -45,15 +45,19 @@ $(function(){
 		});  
 	});
 });
+
+$('.distribution_list_heading').bind("click",function(){  
+	$('.distribution_list_content').slideToggle();
+});
 </script>
 <body>
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_list_heading">
 			<h3 class="panel-title">창고 리스트</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
 				<table class="table table-condensed">
 					<tr>

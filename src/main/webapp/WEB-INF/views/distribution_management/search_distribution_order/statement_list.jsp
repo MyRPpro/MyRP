@@ -58,6 +58,14 @@ $(function(){
 		$("#main_screen").load($(this).attr("href"));
 		return false;
 	});
+	
+	$('.distribution_in_list_heading').bind("click",function(){  
+		$('.distribution_in_list_content').slideToggle();
+	});
+
+	$('.distribution_out_list_heading').bind("click",function(){  
+		$('.distribution_out_list_content').slideToggle();
+	});
 });
 </script>
 <button class="btn btn-default" id = "storage_out">출고요청</button>
@@ -67,10 +75,10 @@ $(function(){
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_in_list_heading">
 			<h3 class="panel-title">입고요청 처리내역</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_in_list_content">
 			<div class="table-responsive">
 				<table class="table table-condensed">
 					<tr>
@@ -135,10 +143,10 @@ $(function(){
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_out_list_heading">
 			<h3 class="panel-title">출고요청 처리내역</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_out_list_content">
 			<div class="table-responsive">
 				<table class="table table-condensed">
 					<tr>
@@ -203,6 +211,5 @@ $(function(){
 	</div>
 </div>
 </div>
-<br>
 <div id = "request"></div>
 </html>

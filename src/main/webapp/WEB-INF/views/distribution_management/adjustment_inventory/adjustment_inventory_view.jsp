@@ -31,6 +31,7 @@ $(function(){
 		});
 	});
 });
+
 </script>
 <form action = "" method = "post" id = "adjust_form">
 <table class="table table-condensed">
@@ -61,5 +62,4 @@ $(function(){
 		<th colspan = "6"><input class="btn btn-primary" type = "button" id = "sub" value = "확인" ><input class="btn btn-info" type = "reset" value = "취소" ></th>
 	</tr>
 </table>
-<br>
 </form>

@@ -58,6 +58,10 @@ if("${doit}" != null && "${doit}" == '1'){
 				}
 			});  
 		});
+	 
+	 $('.distribution_view_heading').bind("click",function(){  
+			$('.distribution_view_content').slideToggle();
+		});
 
 </script>
 <body>
@@ -66,10 +70,10 @@ if("${doit}" != null && "${doit}" == '1'){
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading">
+				<div class="panel-heading distribution_view_heading">
 					<h3 class="panel-title"> 신규등록</h3>
 				</div>
-			<div class="panel-body">
+			<div class="panel-body distribution_view_content">
 				<div class="table-responsive">
 					<select id = "warehouse_id"  class = "warehouse_id form-control input-sm">
 						<option value = "0">창고를 선택하시오.</option>
@@ -92,10 +96,10 @@ if("${doit}" != null && "${doit}" == '1'){
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading">
+				<div class="panel-heading distribution_view_heading">
 					<h3 class="panel-title">수정</h3>
 				</div>
-				<div class="panel-body">
+				<div class="panel-body distribution_view_content">
 					<div class="table-responsive">
 					<div id = "product"></div>
 				</div>

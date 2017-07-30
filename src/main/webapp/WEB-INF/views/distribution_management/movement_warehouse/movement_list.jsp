@@ -99,16 +99,25 @@ $(function(){
 		$("#main_screen").load($(this).attr("href"));
 		return false;
 	});
+	
+	$('.distribution_list_heading').bind("click",function(){  
+		$('.distribution_list_content').slideToggle();
+	});
+	
+	$('.distribution_list_heading_close').bind("click",function(){  
+		$('.distribution_list_content_close').remove('#modify');
+	});
+	
 });
 </script>
 <body>
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_list_heading">
 			<h3 class="panel-title">창고이동 리스트</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
 			<table class="table table-condensed">
 				<tr>

@@ -8,7 +8,11 @@
 </head>
 <body>
 <%@ include file = "../../setting.jsp" %>
-
+<script type="text/javascript">
+$('.distribution_view_heading').bind("click",function(){  
+	$('.distribution_view_content').slideToggle();
+});
+</script>
 <c:if test = "${null eq product_name_list[0].product_id}">
 <h3>상품 정보가 없습니다.</h3>
 </c:if>
@@ -17,18 +21,18 @@
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3 class="panel-title">재고수불부</h3>
+		<div class="panel-heading distribution_view_heading">
+			<h3 class="panel-title">재고수불부 검색 결과</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
 				<c:forEach var = "pro" items ="${select_product}">
 					<table class="table table-condensed">
 						<tr>
-							<td>기간 : ${start_day} ~ ${end_day}</td>
+							<td colspan = "5">기간 : ${start_day} ~ ${end_day}</td>
 						</tr>
 						<tr>
-							<td>물품명 : ${pro.product_name}(${pro.product_id})</td>
+							<td colspan = "5">물품명 : ${pro.product_name}(${pro.product_id})</td>
 						</tr>
 						<tr>
 							<th>날짜</th>
@@ -64,7 +68,7 @@
 			</div>
 		</div>
 		<br>
-		<div class="panel-body">
+		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
 				<table class="table table-condensed">
 					<tr>

@@ -40,20 +40,27 @@ $(function(){
 		});  
 	});
 	 
-	 $(".page").bind("click", function(event) {
-			$("#main_screen").load($(this).attr("href"));
-			return false;
-		});
+	$(".page").bind("click", function(event) {
+		$("#main_screen").load($(this).attr("href"));
+		return false;
+	});
+	 
+	$('.distribution_list_heading').bind("click",function(){  
+		$('.distribution_list_content').slideToggle();
+	});
+	$('.distribution_view_heading').bind("click",function(){  
+		$('.distribution_view_content').slideToggle();
+	});
 });
 </script>
 <body>
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_list_heading">
 			<h3 class="panel-title">재고조정 리스트</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
 				<table class="table table-condensed">
 					<tr>
@@ -108,14 +115,13 @@ $(function(){
 	</div>
 </div>
 </div>
-<br>
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
-		<div class="panel-heading">
+		<div class="panel-heading distribution_view_heading">
 			<h3 class="panel-title">신규등록</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
 				<select class="form-control input-sm" id = "product_id" name = "product_id">
 					<option value = "0">상품을 선택하시오.</option>
