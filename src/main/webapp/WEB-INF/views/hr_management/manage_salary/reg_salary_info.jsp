@@ -36,6 +36,15 @@
 		return false;	
 	});
 	
+	$("#page16520_btn02").bind("click", function(event) {
+		$("form[name='page16520_form01'] input[name='salary_state']").val("26450");
+		$("form[name='page16520_form01'] input[name='total_pay']").val("0");
+		$("form[name='page16520_form01'] input[name='total_employee']").val("0");
+		$("form[name='page16520_form01'] input[name='total_pay']").attr("readonly", true);
+		$("form[name='page16520_form01'] input[name='total_employee']").attr("readonly", true);
+		return false;
+	});
+	
 </script>
 <body>
 	<div class="panel panel-default" id="page16520">
@@ -49,7 +58,7 @@
 						<th>등록일</th>
 						<td>
 							<c:set var="now" value="<%= new java.util.Date() %>"/>
-							<input type="month" name="reg_date" 
+							<input class="form-control input-sm" type="month" name="reg_date" 
 							value="<fmt:formatDate value='${now}' pattern='yyyy-MM'/>" 
 							required>
 						</td>
@@ -57,7 +66,7 @@
 					<tr>
 						<th>급여대장명</th>
 						<td>
-							<select name="salary_register_name">
+							<select class="form-control input-sm" name="salary_register_name">
 								<option value=0>급여구분 선택</option>
 								<c:forEach var="vo" items="${hr_codeVos}">
 									<option value="${vo.hr_code_id}">${vo.hr_code_name}</option>
@@ -69,7 +78,7 @@
 						<th>지급일</th>
 						<td>
 							<c:set var="now" value="<%= new java.util.Date() %>"/>
-							<input type="date" name="pay_date" 
+							<input class="form-control input-sm" type="date" name="pay_date" 
 							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
 							required>
 						</td>
@@ -77,19 +86,25 @@
 					<tr>
 						<th>총 지급액</th>
 						<td>
-							<input type="number" name="total_pay"
-							min="0" required>
+							<div class="input-group">
+								<input class="form-control input-sm" type="number" name="total_pay"
+								min="0" required>
+								<span class="input-group-btn">
+									<button class="btn btn-default btn-sm" id="page16520_btn02">급여 계산</button>							
+								</span>
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<th>총 지급인원</th>
 						<td>
-							<input type="number" name="total_employee"
+							<input class="form-control" type="number" name="total_employee"
 							min="0" required>
 						</td>
 					</tr>
 					<tr>
 						<th colspan="2">
+							<input type="hidden" name="salary_state" value="26451">
 							<input class="btn btn-default btn-xs" type="submit" value="등록하기">
 							<input class="btn btn-default btn-xs" type="reset"	value="재작성">
 							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16520_btn01">

@@ -6,9 +6,11 @@ import java.util.Map;
 
 import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.hr_management.dto.Calc_salaryDTO;
 import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
 import com.pro.myrp.domain.hr_management.dto.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.dto.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_salaryDTO;
 import com.pro.myrp.domain.hr_management.dto.Retired_EmployeeDTO;
 import com.pro.myrp.domain.hr_management.vo.DeptVO;
 import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
@@ -17,6 +19,7 @@ import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.vo.Hr_code_groupVO;
 import com.pro.myrp.domain.hr_management.vo.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.vo.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.vo.SalaryVO;
 import com.pro.myrp.domain.hr_management.vo.Salary_registerVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
@@ -430,4 +433,43 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_salary_register(Salary_registerVO vo);
+
+	/**
+	 * 급여계산용 인사정보
+	 * @author amaco78
+	 * @return
+	 */
+	public List<Calc_salaryDTO> select_calc_salary();
+
+	/**
+	 * 개인급여정보 등록
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_salary(SalaryVO vo);
+
+	/**
+	 * 급여확정유무 확인
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int select_fixed_salary(Map<String, Object> daoMap);
+
+	/**
+	 * 개인급여정보 조회
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public SalaryVO select_salary(Map<String, Object> daoMap);
+
+	/**
+	 * 인사카드 급여이력 조회
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
+	public List<Personnel_card_salaryDTO> select_personnel_card_salary(int employee_id);
 }

@@ -677,4 +677,66 @@
 		AND		account_id = #{account_id}
 	</update>
 	
+	<!-- 급여계산용 인사정보 -->
+	<select id="select_calc_salary" resultType="Calc_salaryDTO">
+		<![CDATA[
+		SELECT	*
+		FROM	(SELECT	D.dept_id, D.dept_name, E.employee_id, E.employee_name
+				FROM	employee E, department D
+				WHERE	E.dept_id = D.dept_id
+				AND		E.employee_id NOT IN	(SELECT employee_id
+												FROM	retired_employee)
+				AND		D.use_state = 'Y'
+				ORDER BY dept_id ASC)
+		]]>
+	</select>
+	
+	<!-- 개인급여정보 등록 -->
+	<insert id="insert_salary" parameterType="SalaryVO">
+		<![CDATA[
+		INSERT INTO salary(salary_register_id,account_id,employee_id,
+					base_pay,bonus,benefit,cost,total_pay,deduction_cost,takehome_pay)
+		VALUES(#{salary_register_id},#{account_id},#{employee_id},#{base_pay},#{bonus},
+		#{benefit},#{cost},#{total_pay},#{deduction_cost},#{takehome_pay})
+		]]>
+	</insert>
+	
+	<!-- 급여확정유무 확인 -->
+	<select id="select_fixed_salary" parameterType="java.util.Map"
+	resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	salary
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		AND		employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 개인급여정보 조회 -->
+	<select id="select_salary" parameterType="java.util.Map"
+	resultType="SalaryVO">
+		<![CDATA[
+		SELECT	*
+		FROM	salary
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		AND		employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 개인별 인사카드 급여이럭 조회 -->
+	<select id="select_personnel_card_salary" parameterType="int"
+	resultType="Personnel_card_salaryDTO">
+		<![CDATA[
+		SELECT	SR.salary_register_id,SR.reg_date,SR.salary_register_name,
+				S.employee_id,S.base_pay,S.bonus,S.benefit,S.cost,S.total_pay,
+				S.deduction_cost,S.takehome_pay
+		FROM	salary S, salary_register SR
+		WHERE	S.salary_register_id = SR.salary_register_id
+		AND		S.account_id = SR.account_id
+		AND		S.employee_id = #{employee_id}
+		ORDER BY SR.reg_date DESC
+		]]>
+	</select>
 </mapper>

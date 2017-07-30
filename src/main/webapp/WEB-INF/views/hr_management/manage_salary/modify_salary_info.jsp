@@ -9,14 +9,6 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function fn_validate_form() {
-		var salary_register_name = document.modify_salary_info_form1.salary_register_name;
-		if(salary_register_name.value == 0) {
-			alert("급여종류를 선택하세요.");
-			salary_register_name.focus();
-			return false;
-		}
-	}
 	
 	$("#page16522_div01_toggle").bind("click", function(event) {
 		$("#page16522_div01").slideToggle();
@@ -30,6 +22,32 @@
 		$("#page16510_div03").slideDown();
 		return false;
 	});
+	
+	$("#page16522_btn02").bind("click", function(event) {
+		var $salary_register_id = $("form[name='page16522_form01'] input[name='salary_register_id']");
+		$("#page16522_div01").slideUp();
+		$("#page16522_div02").slideDown();
+		$("#page16522_div02").load("/hr_management/manage_salary/calc_salary?salary_register_id="+$salary_register_id.val());
+	});
+	
+	$("form[name='page16522_form01']").on("submit", function(event) {
+		if($("form[name='page16522_form01'] input[name='total_pay']").val() == 0) {
+			alert("급여계산이 필요합니다.");
+			$("#page16522_btn02").focus();
+			return false;
+		}
+		var data = $(this).serialize();
+		$.ajax({
+			data:		data,
+			type:		'post',
+			url:		'/hr_management/manage_salary/modify_salary_info_pro',
+			success: function(response) {
+				$("#page16522_div02").html(response);
+			}
+		});
+		return false;
+	});
+	
 </script>
 <body>
 	<div class="panel panel-default" id="page16522">
@@ -40,72 +58,61 @@
 			<form action="/hr_management/manage_salary/modify_salary_info_pro" name="page16522_form01">
 				<table class="table">
 					<tr>
-						<th>salary_register_id</th>
-						<td><input type="text" name="salary_register_id"
+						<th>급여대장 번호</th>
+						<td><input class="form-control" type="text" name="salary_register_id"
 						value="${salary_registerVo.salary_register_id}" readonly></td>
 					</tr>
 					<tr>
-						<th>account_id</th>
-						<td><input type="text" name="account_id"
+						<th>계정</th>
+						<td><input class="form-control" type="text" name="account_id"
 						value="${salary_registerVo.account_id}" readonly></td>
 					</tr>
 					<tr>
-						<th>reg_date</th>
+						<th>등록일</th>
 						<td>
-							<input type="month" name="reg_date" 
+							<input class="form-control" type="month" name="reg_date" 
 							value="<fmt:formatDate value='${salary_registerVo.reg_date}' pattern='yyyy-MM'/>" 
-							required
-							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+							required readonly>
 						</td>
 					</tr>
 					<tr>
-						<th>salary_register_name</th>
+						<th>급여대장명</th>
 						<td>
-							<c:if test="${salary_registerVo.salary_state == 26450}">
-								<select name="salary_register_name">
-									<option value=0>급여구분 선택</option>
-									<c:forEach var="vo" items="${hr_codeVos}">
-										<option value="${vo.hr_code_name}">
-											${vo.hr_code_name}
-										</option>
-									</c:forEach>
-								</select>
-							</c:if>
-							<c:if test="${salary_registerVo.salary_state != 26450}">
-								<input type="text" name="salary_register_name"
-								value="${salary_registerVo.salary_register_name}" readonly>
-							</c:if>
+							<input class="form-control" type="text" name="salary_register_name"
+							value="${salary_registerVo.salary_register_name}" readonly>
 						</td>
 					</tr>
 					<tr>
-						<th>pay_date</th>
+						<th>지급일</th>
 						<td>
-							<input type="date" name="pay_date" 
+							<input class="form-control" type="date" name="pay_date" 
 							value="<fmt:formatDate value='${salary_registerVo.pay_date}' pattern='yyyy-MM-dd'/>" 
-							required
-							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+							required readonly>
 						</td>
 					</tr>
 					<tr>
-						<th>total_pay</th>
+						<th>총 지급액</th>
 						<td>
-							<input type="number" name="total_pay"
-							min="0" value="${salary_registerVo.total_pay}" required
-							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+							<div class="input-group">
+								<input class="form-control" type="number" name="total_pay"
+								min="0" value="${salary_registerVo.total_pay}" required readonly>
+								<span class="input-group-btn">
+									<input class="btn btn-default" type="button" value="급여계산" id="page16522_btn02">
+								</span>
+							</div>
 						</td>
 					</tr>
 					<tr>
-						<th>total_employee</th>
+						<th>총 지급인원</th>
 						<td>
-							<input type="number" name="total_employee"
-							min="0" value="${salary_registerVo.total_employee}" required
-							<c:if test="${salary_registerVo.salary_state != 26450}">readonly</c:if>>
+							<input class="form-control" type="number" name="total_employee"
+							min="0" value="${salary_registerVo.total_employee}" required readonly>
 						</td>
 					</tr>
 					<tr>
 						<th colspan="2">
 							<c:if test="${salary_registerVo.salary_state == 26450}">
-								<input class="btn btn-defaut btn-xs" type="submit" value="수정하기">
+								<input class="btn btn-defaut btn-xs" type="submit" value="지급요청">
 								<input class="btn btn-defaut btn-xs" type="reset"	value="재작성">
 							</c:if>
 							<input type="hidden" name="salary_state" value="${salary_registerVo.salary_state}">
@@ -115,6 +122,7 @@
 				</table>
 			</form>
 		</div>
+		<div id="page16522_div02"></div>
 	</div>
 </body>
 </html>

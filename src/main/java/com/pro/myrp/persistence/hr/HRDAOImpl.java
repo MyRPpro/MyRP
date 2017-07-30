@@ -11,9 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.hr_management.dto.Calc_salaryDTO;
 import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
 import com.pro.myrp.domain.hr_management.dto.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.dto.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_salaryDTO;
 import com.pro.myrp.domain.hr_management.dto.Retired_EmployeeDTO;
 import com.pro.myrp.domain.hr_management.vo.DeptVO;
 import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
@@ -22,6 +24,7 @@ import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.vo.Hr_code_groupVO;
 import com.pro.myrp.domain.hr_management.vo.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.vo.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.vo.SalaryVO;
 import com.pro.myrp.domain.hr_management.vo.Salary_registerVO;
 
 @Repository
@@ -340,6 +343,36 @@ public class HRDAOImpl implements HRDAO {
 	public int update_salary_register(Salary_registerVO vo) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.update_salary_register(vo);
+	}
+
+	@Override
+	public List<Calc_salaryDTO> select_calc_salary() {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_calc_salary();
+	}
+
+	@Override
+	public int insert_salary(SalaryVO vo) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_salary(vo);
+	}
+
+	@Override
+	public int select_fixed_salary(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_fixed_salary(daoMap);
+	}
+
+	@Override
+	public SalaryVO select_salary(Map<String, Object> daoMap) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_salary(daoMap);
+	}
+
+	@Override
+	public List<Personnel_card_salaryDTO> select_personnel_card_salary(int employee_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_personnel_card_salary(employee_id);
 	}
 	
 }
