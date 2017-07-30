@@ -27,7 +27,44 @@ var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 /**
  * 구매 관리
  */
-
+// reg_purchase_table
+var reg_state 				= "전표 입력 페이지로 이동";
+// reg_purchase
+var reg_date				= "등록일 : YYYY-MM-DD 형식";
+var storage_in_date 		= "입고일 : YYYY-MM-DD 형식";
+var count_purchase 			= "수량 : 숫자 | 4자리";
+var supply_price 			= "가격 : 숫자 | 9자리";
+var condition_note_payable 	= "어음기간 : 숫자 | 12이하";
+var purchase_state 			= "구매상태코드";
+var purchase_state_name 	= "구매 상태 이름 ";
+var product_id 				= "상품번호 : 1200 + 6자리 숫자 ";
+var company_id 				= "거래처번호 : 1100 + 6자리 숫자 ";
+var employee_id 			= "담당자 번호: 4자리 숫자 ";
+var reg_date 				= "구매 상태 코드 ";
+var order_id 				= "주문번호 ";
+var btn_submit 				= "전송 버튼 ";
+var btn_reset 				= "재설정 버튼 ";
+var btn_search_lack 		= "부족재고 조회 ";
+var btn_reg_purchase 		= "구매 입력 ";
+//detail_purchase
+var account_name 			= "계정 이름 ";
+var order_id 				= "구매 상태 코드 ";
+var product_name 			= "상품이름 ";
+var company_name 			= "거래처 이름 ";
+var employee_name 			= "담당자 이름";
+var update_date 			= "최근수정일";
+var req_storage_in 			= "입고요청하기";
+var req_repay 				= "지급기간까지 남은 일자";
+var btn_confirm 			= "확인하고 창을 닫음";
+// modify_purchase
+var state_name 				= "상태명";
+var btn_modify 				= "수정하기";
+var input_search 			= "검색어를 입력";
+var btn_list_all 			= "전체목록";
+var btn_reg_purchasel 		= "구매등록";
+var btn_search_state 		= "전표승인조회";
+var btn_search_storage_in 	= "입고완료조회";
+var btn_search_repay 		= "지급안료조회";
 
 /**
  * 물류관리

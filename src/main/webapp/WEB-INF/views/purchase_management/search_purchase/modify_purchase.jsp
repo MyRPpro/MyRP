@@ -225,9 +225,9 @@
 								<br>
 								<input type="hidden" name="purchase_id" id="purchase_id" value="${dtos.get(0).purchase_id}">
 								<center>
-									<input type="button" class="btn btn-primary" id="btn-confirm" value="확인" >
-									<input type=button class="btn btn-info"  id="btn-modify" value="수정하기" onclick="return modify_purchase();" >
-									<input type="reset" class="btn btn-default" value="재작성">
+									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
+									<input type=button name="btn_modify" class="btn btn-info"  id="btn-modify" value="수정하기" onclick="return modify_purchase();" >
+									<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
 								</center>
 								<div id="alert_pro">
 								</div>
@@ -293,7 +293,7 @@
 	// 사원번호 자리수 제한 
 	function employee_id_check(){
 		var employee_id = document.getElementsByName("employee_id")[0];
-		console.log( "employee_id.value.length : " + employee_id.value.length);
+		/* console.log( "employee_id.value.length : " + employee_id.value.length); */
 		if( employee_id.value.length > 4 ){
 			alert("4자리 까지만 입력이 가능합니다.");
 			employee_id.value = employee_id.value.substring(0,4);
@@ -302,7 +302,7 @@
 	
 	function condition_check(){
 		var condition = document.getElementById("reg_condition_note_payable");
-		console.log( "reg_condition_note_payable.value : " + reg_condition_note_payable.value);
+		/* console.log( "reg_condition_note_payable.value : " + reg_condition_note_payable.value); */
 		if( reg_condition_note_payable.value > 12 ){
 			alert("12개월 이하로만 가능 합니다.");
 			condition.value = 0;
