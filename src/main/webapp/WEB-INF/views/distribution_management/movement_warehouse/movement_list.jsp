@@ -102,15 +102,17 @@ $(function(){
 });
 </script>
 <body>
-	<a href="/">홈으로</a>
-	
-	<br>
-	<br>
-	<br>
-	<h3>창고이동 리스트</h3>
-	<br>
+	<div class="row">
+<div class="col-xs-12">
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">창고이동 리스트</h3>
+	</div>
+	<div class="panel-body">
+	<div class="table-responsive">
 	<button class = "movement_modify" value = "new">신규등록</button>
-	<table border = "1">
+	<table class="table table-condensed">
 		<tr>
 			<th>주문번호</th>
 			<th>상품명</th>
@@ -179,7 +181,7 @@ $(function(){
 			</th>
 		</tr>
 	</table>
-	
+	</div></div></div></div></div>
 	<br><br>
 	<div id = "modify"></div>
 	<br>

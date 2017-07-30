@@ -44,9 +44,37 @@ $(function(){
 			$("#main_screen").load($(this).attr("href"));
 			return false;
 		});
+	 
+	 $("#page16140_div01_toggle").bind("click", function(event) {
+			$("#page16140_div01").slideToggle();
+			return false;
+		});
+		
+		$("#page16140_div01 a").bind("click", function(event) {
+			$("#page16140_div01").slideUp();
+			$("#page16140_div03").slideDown();
+			$("#page16140_div03").load($(this).attr("href"));
+			return false;
+		});
+		
+		$("form[name='page16140_form01']").on("submit", function(event) {
+			var hr_code_group_id = $("form[name='page16140_form01'] input[name='hr_code_group_id']");
+			$("#page16140_div01").slideUp();
+			$("#page16140_div03").slideDown();
+			$("#page16140_div03").load("/hr_management/manage_hr_code/add_base_code?hr_code_group_id="+hr_code_group_id.val());
+			return false;		
+		});
+		
+		$("#page16140_btn01").bind("click", function(event) {
+			$("#page16140").slideUp();
+			$("#page16110_div01").slideDown();
+			
+			return false;		
+		});
 });
 </script>
 <body>
+<div id = "page16140_div01_toggle">
 adjustment_inventory_list.jsp
 <h3>재고조정 리스트</h3>
 <table border = "1">
@@ -97,7 +125,7 @@ adjustment_inventory_list.jsp
 			</th>
 		</tr>
 	</table>
-	
+</div>	
 	<br><br>
 	<h3>신규등록</h3>
 	<br>

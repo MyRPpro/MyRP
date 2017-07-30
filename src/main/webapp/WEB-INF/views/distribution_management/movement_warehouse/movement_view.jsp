@@ -9,8 +9,6 @@
 </head>
 <script type="text/javascript">
 
-	console.log("${id}");
-	
 	if("${doit}" != null && "${doit}" == '1'){
 		var data = {
 				"warehouse_id" 	: "${warehouse_id}",
@@ -65,25 +63,47 @@
 </script>
 <body>
 <c:if test = "${id == 'new'}">
-
 <input type = "hidden" id = "id" value = "${id}">
-<h3>신규등록</h3>
-	<select id = "warehouse_id"  class = "warehouse_id">
-		<option value = "0">창고를 선택하시오.</option>
-		<c:forEach var = "ware" items = "${warehouseVos}">
-			<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
-		</c:forEach>
-	</select>
-	<br><br>
-	<div id = "product"></div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title"> 신규등록</h3>
+				</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<select id = "warehouse_id"  class = "warehouse_id">
+						<option value = "0">창고를 선택하시오.</option>
+						<c:forEach var = "ware" items = "${warehouseVos}">
+							<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
+						</c:forEach>
+					</select>
+					<br><br>
+				<div id = "product"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 </c:if>
 
 
 <c:if test = "${id != 'new'}">
 <input type = "hidden" id = "id" value = "${id}">
-<h3>수정</h3>
-	<br><br>
-	<div id = "product"></div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">>수정</h3>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+					<div id = "product"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 </c:if>
 
 </body>

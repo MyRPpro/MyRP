@@ -48,31 +48,41 @@ $(function(){
 </script>
 <body>
 warehouse_list.jsp
-<a href="/">홈으로</a>
-	
-	<table border = "1">
-		<tr>
-			<th>창고ID</th>
-			<th>창고명</th>
-			<th>창고주소</th>
-			<th>수정</th>
-		</tr>
-		<c:forEach var = "vo" items = "${reg_warehouse_listVos}" >	
-		<input type = "hidden" value = "${vo.warehouse_id}" name = "ware_id">
-			<tr>
-				<th>${vo.warehouse_id}</th>
-				<th>${vo.warehouse_name}</th>
-				<th>${vo.warehouse_location}</th>
-				<th><button class = "menege" value = "${vo.warehouse_id}">수정</button></th>
-			</tr>
-		</c:forEach>
-		<tr>
-			<th colspan = "4">
-				<button class = "menege" value = "new">신규등록</button>
-			</th>
-		</tr>
-	</table>
-	
+<div class="row">
+<div class="col-xs-12">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">창고 리스트</h3>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-condensed">
+					<tr>
+						<th>창고ID</th>
+						<th>창고명</th>
+						<th>창고주소</th>
+						<th>수정</th>
+					</tr>
+					<c:forEach var = "vo" items = "${reg_warehouse_listVos}" >	
+					<input type = "hidden" value = "${vo.warehouse_id}" name = "ware_id">
+						<tr>
+							<th>${vo.warehouse_id}</th>
+							<th>${vo.warehouse_name}</th>
+							<th>${vo.warehouse_location}</th>
+							<th><button class = "menege" value = "${vo.warehouse_id}">수정</button></th>
+						</tr>
+					</c:forEach>
+					<tr>
+						<th colspan = "4">
+							<button class = "menege" value = "new">신규등록</button>
+						</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
 	<br><br><br>
 	<div id = "modify"></div>
 </body>

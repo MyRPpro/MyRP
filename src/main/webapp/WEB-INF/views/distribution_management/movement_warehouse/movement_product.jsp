@@ -45,7 +45,7 @@ $(function(){
 <c:forEach var = "pro" items = "${productVos}">
 	<input type = "hidden" id = "${pro.product_id}" value = "${pro.stock_amount}">
 </c:forEach>
-<table border = "1">
+<table class="table table-condensed">
 <input type = "hidden" name = "id" value = "${id}">
 		<tr>
 			<th>출발 창고명</th>
@@ -82,8 +82,8 @@ $(function(){
 		</tr>
 		<tr>
 			<th colspan = "6">
-				<input type = "button" id = "movement_button" value = "확인">
-				<input type = "reset" value = "리셋">
+				<input type = "button" class="btn btn-primary" id = "movement_button" value = "확인">
+				<input type = "reset" class="btn btn-info" value = "리셋">
 			</th>
 		</tr>
 	</table>
@@ -91,7 +91,7 @@ $(function(){
 </c:if>
 <c:if test = "${id != 'new'}">
 <form id = "movement_form" action = "/distribution_management/movement_warehouse/movement_pro">
-<table border = "1">
+<table class="table table-condensed">
 <c:forEach var = "pro" items = "${productVos}">
 	<input type = "hidden" id = "${pro.product_id}" value = "${pro.stock_amount}">
 </c:forEach>
@@ -135,8 +135,8 @@ $(function(){
 		</c:forEach>
 		<tr>
 			<th colspan = "6">
-				<input type = "button" id = "movement_button" value = "확인">
-				<input type = "reset" value = "리셋">
+				<input type = "button" class="btn btn-primary" id = "movement_button" value = "확인">
+				<input type = "reset" class="btn btn-info" value = "리셋">
 			</th>
 		</tr>
 	</table>
@@ -144,8 +144,10 @@ $(function(){
 </c:if>
 
 
-<h3>재고현황</h3>
-<table border = "1">
+		<div class="panel-heading">
+			<h3 class="panel-title"> 재고현황</h3>
+			</div>
+<table class="table table-condensed">
 	<tr>
 		<th>상품명</th>
 		<th>창고명</th>

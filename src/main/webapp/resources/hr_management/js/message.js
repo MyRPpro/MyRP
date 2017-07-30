@@ -32,6 +32,17 @@ var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 /**
  * 물류관리
  */
+//재고조정
+var product_name = "선택한 상품명.";
+var warehouse_name = "창고명";
+var stock_amount = "선택한 상품과 창고의 현재 재고";
+var delete_stock = "조정할 재고 수량 |  +와 - 모두 입력 가능";
+var taked_stock = "조정 된 재고수량 | 창고에 있는 재고보다 적을 수 없음.";
+var employee_name = "선택한 담당자명";
+//창고이동
+var movement_amount = "창고이동 재고 수량 | 창고에 있는 재고보다 많을 수 없음.";
+//창고 등록
+var warehouse_location = "창고 위치 주소";
 
 
 /**
