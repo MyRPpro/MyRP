@@ -82,17 +82,22 @@
  	<select id="select_statements" parameterType="java.util.Map"
  	resultType="JoinStatementDTO">
  		<![CDATA[
- 			SELECT *
+ 		SELECT * 
+ 		FROM (
+ 			SELECT statement_id, sales_id, salary_register_id, purchase_id, 
+ 						  tax_account_id, sales_account_id, purchase_account_id, salary_account_id,
+						  reg_date, account_value, approval_state, statement_type, rownum rNum
  			FROM ( SELECT s.statement_id, sales.sales_id, salary.salary_register_id, purc.purchase_id, 
  						  tax.account_id as tax_account_id, sales.account_id as sales_account_id, purc.account_id as purchase_account_id, salary.account_id as salary_account_id,
-						  s.reg_date, s.account_value, s.approval_state, s.statement_type, rownum rNum
+						  s.reg_date, s.account_value, s.approval_state, s.statement_type
  				     FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
  				     	  			  left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
  				     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
  				     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
- 				     ORDER BY s.reg_date
+ 				     ORDER BY s.reg_date DESC
  				  )
- 			WHERE rNum >= #{start} AND rNum <= #{end}
+ 			)
+ 		WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
  	
@@ -241,18 +246,23 @@
  	<select id="select_unapproval_statements" parameterType="java.util.Map"
  	resultType="JoinStatementDTO">
  		<![CDATA[
- 			SELECT *
+ 		SELECT * 
+ 		FROM (
+ 			SELECT statement_id, sales_id, salary_register_id, purchase_id, 
+ 						  tax_account_id, sales_account_id, purchase_account_id, salary_account_id,
+						  reg_date, account_value, approval_state, statement_type, rownum rNum
  			FROM ( SELECT s.statement_id, sales.sales_id, salary.salary_register_id, purc.purchase_id, 
  						  tax.account_id as tax_account_id, sales.account_id as sales_account_id, purc.account_id as purchase_account_id, salary.account_id as salary_account_id,
-						  s.reg_date, s.account_value, s.approval_state, s.statement_type, rownum rNum
+						  s.reg_date, s.account_value, s.approval_state, s.statement_type
  				     FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
  				     	  			  left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
  				     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
  				     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
-         			 WHERE s.approval_state = '25451'
- 				     ORDER BY s.reg_date
+ 				     WHERE s.approval_state = '25451'
+ 				     ORDER BY s.reg_date DESC
  				  )
- 			WHERE rNum >= #{start} AND rNum <= #{end}
+ 			)
+ 		 WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
  	
@@ -269,18 +279,23 @@
  	<select id="select_approval_statements" parameterType="java.util.Map"
  	resultType="JoinStatementDTO">
  		<![CDATA[
- 			SELECT *
+ 		SELECT * 
+ 		FROM (
+ 			SELECT statement_id, sales_id, salary_register_id, purchase_id, 
+ 						  tax_account_id, sales_account_id, purchase_account_id, salary_account_id,
+						  reg_date, account_value, approval_state, statement_type, rownum rNum
  			FROM ( SELECT s.statement_id, sales.sales_id, salary.salary_register_id, purc.purchase_id, 
  						  tax.account_id as tax_account_id, sales.account_id as sales_account_id, purc.account_id as purchase_account_id, salary.account_id as salary_account_id,
-						  s.reg_date, s.account_value, s.approval_state, s.statement_type, rownum rNum
+						  s.reg_date, s.account_value, s.approval_state, s.statement_type
  				     FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
  				     	  			  left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
  				     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
  				     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
-         			 WHERE s.approval_state = '25452'
- 				     ORDER BY s.reg_date
+ 				     WHERE s.approval_state = '25452'
+ 				     ORDER BY s.reg_date DESC
  				  )
- 			WHERE rNum >= #{start} AND rNum <= #{end}
+ 			)
+ 		 WHERE rNum >= #{start} AND rNum <= #{end}
  		]]>
  	</select>
  	<!-- connected_id 불러오기 : sales -->
@@ -289,6 +304,7 @@
  		SELECT s.sales_id, s.account_id, a.account_name, (s.count_sales*s.selling_price)as account_value, s.reg_date
  		  FROM sales_order s JOIN account a ON s.account_id = a.account_id
  		  WHERE s.sales_id NOT IN (SELECT so.sales_id FROM sales_order so JOIN sales_statement st ON so.sales_id=st.sales_id AND so.account_id=st.account_id)
+ 		  ORDER BY s.sales_id
  		]]>
  	</select>
  	<!-- connected_id 불러오기 : purchase-->
@@ -297,6 +313,7 @@
  		 SELECT p.purchase_id, p.account_id, a.account_name,(p.count_purchase*p.supply_price)as account_value, p.reg_date
  		  FROM purchase_order p JOIN account a ON p.account_id = a.account_id
  		  WHERE p.purchase_id NOT IN (SELECT po.purchase_id FROM purchase_order po JOIN purchase_statement pt ON po.purchase_id=pt.purchase_id AND po.account_id=pt.account_id)
+ 		  ORDER BY p.purchase_id
  		]]>
  	</select>
  	<!-- connected_id 불러오기 : salary -->
@@ -305,6 +322,7 @@
  		SELECT s.salary_register_id, s.account_id, a.account_name, s.total_pay as account_value, s.reg_date
  		FROM salary_register s JOIN account a ON s.account_id = a.account_id
  		WHERE s.salary_register_id NOT IN (SELECT sr.salary_register_id FROM salary_register sr JOIN salary_register_statement st ON sr.salary_register_id=st.salary_register_id AND sr.account_id=st.account_id)
+ 		ORDER BY s.salary_register_id
  		]]>
  	</select>
  	<!-- connected_id 불러오기 : tax - tax의 경우 account_id 만 받아온다 -->
@@ -536,4 +554,178 @@
 		WHERE account_id = #{account_id}
 		]]>
 	</update>
+	
+	<!-- 회사가 가진 전표의 년도 모두 가져오기 -->
+	<select id="get_statement_year" resultType="JoinStatementDTO">
+		SELECT DISTINCT to_number(to_char(reg_date, 'yyyy')) year  FROM statement
+	</select>
+	<!-- 분기별 계정 가져오기 - account_id, account_name 가져오기 -->
+	<select id="select_accounts" resultType="AccountVO">
+		<![CDATA[
+		 SELECT account_id, account_name FROM account
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - sales-->
+	<select id="select_accounts_for_quarter_sales" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN sales_statement ss ON s.statement_id = ss.statement_id 
+     	WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND ss.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ss.account_id
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - purchase-->
+	<select id="select_accounts_for_quarter_purchase" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN purchase_statement ps ON s.statement_id = ps.statement_id
+		WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND ps.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ps.account_id
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - salary-->
+	<select id="select_accounts_for_quarter_salary" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN salary_register_statement srs ON s.statement_id = srs.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND srs.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY srs.account_id
+		]]>
+	</select>
+	<!-- 분기별 계정 가져오기  - tax-->
+	<select id="select_accounts_for_quarter_tax" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN tax_statement tax ON s.statement_id = tax.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{year}||'-'||#{quarter_start},'YYYY-MM') AND s.reg_date <= TO_DATE(#{year}||'-'||#{quarter_end},'YYYY-MM')
+     	AND tax.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY tax.account_id
+		]]>
+	</select>
+	<!-- 매출원가 : 판매량 가져오기 -->
+	<select id="select_count_sales" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+		SELECT count_sales FROM sales_order WHERE sales_id = #{sales_id} AND account_id = #{account_id}
+		]]>
+	</select>
+	<!-- 매출원가 : 구입원가 가져오기  -->
+	<select id="select_purchase_unit_price" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+		SELECT purchase_unit_price FROM product WHERE product_id = (SELECT product_id FROM sales_order WHERE sales_id = #{sales_id} AND account_id = #{account_id})
+		]]>
+	</select>
+	<!-- 매출원가 : 매출원가계정 업데이트  -->
+	<update id="update_costs_of_goods_sold_account" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE account SET account_balance = #{account_value} WHERE account_id = #{account_id} 
+		]]>
+	</update>
+	
+	<!-- 날짜별 계정 가져오기  - sales-->
+	<select id="select_accounts_for_date_sales" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN sales_statement ss ON s.statement_id = ss.statement_id 
+     	WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND ss.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ss.account_id
+		]]>
+	</select>
+	<!-- 날짜별 계정 가져오기  - purchase-->
+	<select id="select_accounts_for_date_purchase" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum  FROM statement s JOIN purchase_statement ps ON s.statement_id = ps.statement_id
+		WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND ps.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY ps.account_id
+		]]>
+	</select>
+	<!-- 날짜별 계정 가져오기  - salary-->
+	<select id="select_accounts_for_date_salary" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN salary_register_statement srs ON s.statement_id = srs.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND srs.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY srs.account_id
+		]]>
+	</select>
+	<!-- 날별 계정 가져오기  - tax-->
+	<select id="select_accounts_for_date_tax" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT SUM(NVL(s.account_value,0)) as sum FROM statement s JOIN tax_statement tax ON s.statement_id = tax.statement_id 
+		WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     	AND tax.account_id = #{account_id}
+     	AND s.APPROVAL_STATE='25452'
+     	GROUP BY tax.account_id
+		]]>
+	</select>
+	
+	<!-- 손익계산서 > 매출원가  : sales_id 가져오기  -->
+	<select id="select_sales_id" parameterType="java.util.Map" resultType="JoinStatementDTO">
+		<![CDATA[
+		SELECT ss.sales_id  FROM statement s JOIN sales_statement ss ON s.statement_id = ss.statement_id
+    	WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+        AND s.APPROVAL_STATE='25452' AND ss.account_id = '500014030000'
+		]]>
+	</select>
+	
+	<!-- 현금흐름표 > account_values 가져오기(시간 순서대로) -->
+	<select id="select_cash_values" parameterType="java.util.Map" resultType="JoinStatementDTO">
+		<![CDATA[
+		 SELECT s.account_value, s.reg_date, s.statement_id, tax.account_id
+	      FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id 
+	     	  			  left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+	     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
+	     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
+         WHERE  s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+          	     AND  tax.account_id = '500011010000' OR sales.account_id = '500011010000' OR purc.account_id= '500011010000' OR salary.account_id= '500011010000'
+          	     AND s.APPROVAL_STATE='25452'
+	     ORDER BY s.reg_date
+		]]>
+	</select>
+	
+	<!-- 현금흐름표 > account_name 가져오기 -->
+	<select id="select_account_name_for_tax" parameterType="String" resultType="String">
+		<![CDATA[
+		SELECT account_name FROM account WHERE account_id = (
+	       SELECT tax.account_id FROM statement s JOIN tax_statement tax ON s.statement_id = tax.statement_id
+	       	WHERE s.reg_date = (SELECT reg_date FROM statement WHERE statement_id = #{statement_id})
+	         AND tax.statement_id <> #{statement_id})
+		]]>
+	</select>
+	<select id="select_account_name_for_all" parameterType="String" resultType="String">
+		<![CDATA[
+		 SELECT account_name FROM account WHERE account_id = (SELECT account_id FROM sales_statement 
+		 													 WHERE sales_id= 	(SELECT sales_id 
+		 													 					FROM sales_statement 
+		 													 					WHERE account_id=500011010000
+		 													 					AND statement_Id = #{statement_id})
+                                                             AND account_id <> '500011010000'
+                                                                                                          
+                                                             UNION 
+                                                             SELECT account_id FROM purchase_statement 
+                                                             WHERE purchase_id = 	(SELECT purchase_id 
+                                                             						FROM sales_statement 
+                                                             						WHERE account_id=500011010000
+                                                             						AND statement_Id = #{statement_id})
+                                                             AND account_id <> '500011010000'
+                                                                                                          
+                                                             UNION 
+                                                             SELECT account_id FROM salary_register_statement 
+                                                             WHERE salary_register_id= (SELECT salary_register_id 
+                                                             							FROM salary_register_statement 
+                                                             							WHERE account_id=500011010000
+                                                             							AND statement_Id = #{statement_id})
+                                                             AND account_id <> '500011010000'
+                                                                                                          
+                                                            )
+		]]>
+	</select>
+	
+
 </mapper>

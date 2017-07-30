@@ -5,7 +5,7 @@
 <head>
 </head>
 <body>
-<img src="/resources/images/${employee_id}.jsp">
+<img src="/resources/images/picture_employee/${employee_id}.jpg">
 <script type="text/javascript">
 	var msg = "${msg}";
 	parent.showPicture(msg);

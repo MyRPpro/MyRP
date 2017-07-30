@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-    PUBLIC "-//mybatiPO.org//DTD Mapper 3.0//EN"
-    "http://mybatiPO.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.pro.myrp.persistence.purchase.purchaseDAO">
  	
@@ -124,7 +124,6 @@
 		OR		PURCHASE_STATE = 24102
  		]]>
  	</update>
- 	
  	
  	<!-- 구매 리스트 : 입고완료 개수  -->
  	<select id="select_stock_in_purchase_cnt" resultType="int">
@@ -405,7 +404,7 @@
 			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
 		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
 		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
-		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rnum
 	
 	     	FROM   (  
 	     			SELECT 
@@ -450,7 +449,7 @@
 	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
 	                )
 	          )
-	WHERE 	rNum BETWEEN #{start} AND #{end}
+	WHERE 	rnum BETWEEN '${start}' AND '${end}'
 	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
  	]]>
  	</select>
@@ -462,6 +461,7 @@
  		<![CDATA[
  		SELECT 	PRODUCT_ID, PRODUCT_NAME
 		FROM 	PRODUCT
+		WHERE USE_STATE = 'Y'
 		]]>
  	</select>
  	
@@ -470,6 +470,8 @@
  		<![CDATA[
  		SELECT 	COMPANY_ID, COMPANY_NAME
 		FROM 	COMPANY
+		WHERE 	USE_STATE = 'Y'
+		AND 	COMPANY_TYPE = 'C'
 		]]>
  	</select>
  	
@@ -478,7 +480,8 @@
  		<![CDATA[
  		SELECT 	EMPLOYEE_ID, EMPLOYEE_NAME
 		FROM 	EMPLOYEE NATURAL JOIN DEPARTMENT
-		WHERE 	ACCESS_ROLE = 'PU'
+    	WHERE	ACCESS_ROLE = 'PU'
+		AND  	EMPLOYEE_ID NOT IN ( SELECT EMPLOYEE_ID FROM RETIRED_EMPLOYEE )
 		]]>
  	</select>
  	
@@ -508,6 +511,47 @@
  		FROM 	DUAL
  		]]>
  	</select>
+ 	
+ 	
+ 	
+	<!-- Account_id 호출 : 상품매출 -->
+	<select id="select_account_price" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID
+		FROM  	ACCOUNT
+		WHERE 	ACCOUNT_NAME = '상품매입'
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- Account_id 호출 : 부가세 예수금ㅁ -->
+	<select id="select_account_tax" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID
+		FROM  	ACCOUNT
+		WHERE 	ACCOUNT_NAME = '부가세대급금'
+ 		]]>
+ 	</select>
+ 	
+ 	<!-- Account_id 호출 : 매출채권 -->
+	<select id="select_account_sum" resultType="String">
+ 		<![CDATA[
+ 		SELECT 	ACCOUNT_ID
+		FROM  	ACCOUNT
+		WHERE 	ACCOUNT_NAME = '매입채무'
+ 		]]>
+ 	</select>
+	
+	<!-- 창고출고 요청 코드 : 22222 -->
+	<select id="select_req_storage_in" resultType="String">
+ 		<![CDATA[
+ 		 SELECT CODE
+		 FROM STATE
+		 WHERE KOR_NAME = '구매입고요청'
+ 		]]>
+ 	</select>
+	
+ 	
+ 	
  	
 	
  	<!-- 구매내역 자세히 보기 : 수정 가능 버젼  -->
@@ -549,7 +593,7 @@
 			    CONDITION_NOTE_PAYABLE)
 		VALUES ( 
 				'${purchase_id}',  
-			    0000000000000,
+			    '${order_id}',  
 			    '${account_id}', 
 			    '${product_id}', 
 			    '${company_id}', 
@@ -631,12 +675,24 @@
  	</select>
  	
  	
-
- 	<select id="select_reg_purchase"  resultType="PurchaseDTO">
+	<select id="select_lack_reg_purchase_cnt" resultType="int">
+	<![CDATA[
+	SELECT 	COUNT(LACK_STOCK) 
+	FROM 	STORAGE_OUT_ORDER 
+	JOIN 	STOCK_ORDER 
+	USING	(STOCK_ORDER_ID)
+	WHERE  	STOCK_STATE = 24203
+	]]>
+	</select>
+	
+	
+ 	<select id="select_lack_reg_purchase" parameterType="java.util.Map"  
+ 	resultType="PurchaseDTO">
  	<![CDATA[
 		SELECT 	*
 		FROM 	(
 				SELECT 
+           				S.STOCK_ORDER_ID,
 						STOCK_ORDER_TYPE, 
 							NVL(STOCK_ORDER_TYPE ,'입력값 오류' ) AS SALES_ID,
 						SO.LACK_STOCK,	
@@ -652,85 +708,92 @@
 							FROM    EMPLOYEE E
 							WHERE   S.EMPLOYEE_ID = E.EMPLOYEE_ID )
 							,'입력값 오류' ) AS EMPLOYEE_NAME,
-							REG_DATE, 
-							STOCK_STATE,
-								 NVL(( 
-								SELECT  KOR_NAME
-								FROM    STATE S
-								WHERE   S.STOCK_STATE = S.CODE )
-								,'입력값 오류' ) AS STATE_NAME,
+						REG_DATE, 
+						STOCK_STATE,
+							 NVL(( 
+							SELECT  KOR_NAME
+							FROM    STATE S
+							WHERE   S.STOCK_STATE = S.CODE )
+							,'입력값 오류' ) AS STATE_NAME,
 						ROWNUM rnum
 				FROM 	STOCK_ORDER S, STORAGE_OUT_ORDER SO
 				WHERE 	S.STOCK_ORDER_ID = SO.STOCK_ORDER_ID
 				AND 	S.STOCK_STATE=24203
-				)
-		ORDER 	BY STOCK_ORDER_TYPE DESC
+				AND  	LACK_STOCK != 0
+		        AND   	S.STOCK_ORDER_ID  NOT IN   
+				        ( SELECT ORDER_ID
+				          FROM  PURCHASE_ORDER P
+				          WHERE P.ORDER_ID = S.STOCK_ORDER_ID )
+				ORDER 	BY STOCK_ORDER_ID DESC          
+						)
+		WHERE 	rnum BETWEEN '${start}' AND '${end}'
+   		ORDER 	BY rnum ASC
  	]]>
  	</select>
  	
  	
  	<select id="select_reg_purchase_pro" parameterType="String" resultType="PurchaseDTO">
  	<![CDATA[
-	 	SELECT 	*
-		FROM 	(
-		  		SELECT  
-				        S.SALES_ID, 
-				        S.SALES_ID AS LACK_ID, 
-			            (
-			            SELECT	LACK_STOCK
-			            FROM   	STORAGE_OUT_ORDER
-			            WHERE 	STOCK_ORDER_ID = 
-			              		( 
-					             SELECT STOCK_ORDER_ID  
-					             FROM  	STOCK_ORDER
-					             WHERE  STOCK_STATE = 24203
-					             AND 	STOCK_ORDER_TYPE = #{lack_sales_id}
-			              		)
-			            ) AS LACK_STOCK ,
-				        S.ACCOUNT_ID,
-				        NVL((
-				        SELECT ACCOUNT_NAME 
-				        FROM   ACCOUNT A
-				        WHERE  S.ACCOUNT_ID = A.ACCOUNT_ID
-				        ),'입력값 오류' ) AS ACCOUNT_NAME ,
-				        S.ORDER_ID,   
-				        S.PRODUCT_ID, 
-				        NVL((
-				        SELECT PRODUCT_NAME 
-				        FROM   PRODUCT P
-				        WHERE  S.PRODUCT_ID = P.PRODUCT_ID
-				        ),'입력값 오류' ) AS PRODUCT_NAME ,
-		            	(
-				        SELECT  PURCHASE_UNIT_PRICE 
-				        FROM   PRODUCT P
-				        WHERE  S.PRODUCT_ID = P.PRODUCT_ID
-				        ) AS PURCHASE_UNIT_PRICE ,
-				        S.COMPANY_ID,  
-				        NVL((
-				        SELECT COMPANY_NAME 
-				        FROM   COMPANY C
-				        WHERE  S.COMPANY_ID = C.COMPANY_ID
-				        ),'입력값 오류' ) AS COMPANY_NAME ,
-				        NVL((
-				        SELECT EMPLOYEE_NAME 
-				        FROM   EMPLOYEE E
-				        WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
-				        ),'입력값 오류' ) AS EMPLOYEE_NAME ,
-				        S.REG_DATE, S.UPDATE_DATE, 
-				        S.STORAGE_OUT_DATE, 
-				        S.COUNT_SALES,
-				        S.SELLING_PRICE, 
-				        S.CONDITION_NOTE_RECEIVABLE,
-				        S.SALES_STATE,
-				        NVL((
-				        SELECT KOR_NAME 
-				        FROM   STATE ST
-				        WHERE  S.SALES_STATE = ST.CODE
-				        ),'입력값 오류' ) AS state_name
-				 FROM	SALES_ORDER S 
-				 WHERE 	S.SALES_ID = #{lack_sales_id}
-				 AND	S.ACCOUNT_ID = 500014020000
-				 )
+	 	    
+		SELECT 	*
+		FROM (
+		  
+			  SELECT 
+			  S.STOCK_ORDER_ID,
+			  SOR.ACCOUNT_ID, 
+			  
+			  SOR.PRODUCT_ID, 
+				  NVL((
+				  SELECT PRODUCT_NAME 
+				  FROM   PRODUCT P
+				  WHERE  SOR.PRODUCT_ID = P.PRODUCT_ID
+				  ),'입력값 오류' ) AS PRODUCT_NAME ,
+			  
+			  SOR.COMPANY_ID, 
+				  NVL((
+				  SELECT COMPANY_NAME 
+				  FROM   COMPANY C
+				  WHERE  SOR.COMPANY_ID = C.COMPANY_ID
+				  ),'입력값 오류' ) AS COMPANY_NAME ,
+			  
+			  SOR.EMPLOYEE_ID, 
+				  NVL((
+				  SELECT EMPLOYEE_NAME 
+				  FROM   EMPLOYEE E
+				  WHERE  S.EMPLOYEE_ID = E.EMPLOYEE_ID
+				  ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			  
+			  (
+			  SELECT REG_DATE 
+			  FROM   STOCK_ORDER 
+			  WHERE  STOCK_ORDER_ID = #{stock_order_id}
+			  ) AS REG_DATE ,
+			  
+			  NVL(
+				  (SELECT	SO.LACK_STOCK
+				    FROM   	STOCK_ORDER NATURAL JOIN STORAGE_OUT_ORDER
+				    WHERE   STOCK_ORDER_ID = #{stock_order_id}
+				    AND     S.STOCK_STATE = 24203
+				  ),'0') AS LACK_STOCK,
+			  
+			  NVL((
+				  SELECT P.PURCHASE_UNIT_PRICE 
+				  FROM   PRODUCT P
+				  WHERE  SOR.PRODUCT_ID = P.PRODUCT_ID
+				  ),'0' ) AS PURCHASE_UNIT_PRICE ,
+			  
+			  SOR.CONDITION_NOTE_RECEIVABLE AS CONDITION_NOTE_PAYABLE
+			  
+			  FROM	STOCK_ORDER S
+			  JOIN 	STORAGE_OUT_ORDER SO
+			  ON   	S.STOCK_ORDER_ID = SO.STOCK_ORDER_ID
+			  JOIN 	SALES_ORDER SOR
+			  ON   	S.STOCK_ORDER_TYPE = SOR.SALES_ID
+			  JOIN 	COMPANY C
+			  ON   	SOR.COMPANY_ID = C.COMPANY_ID
+			)
+		WHERE STOCK_ORDER_ID = #{stock_order_id}
+		AND ACCOUNT_ID = 500014030000
  	]]>
  	</select>
  	
@@ -771,5 +834,63 @@
 		AND		ACCOUNT_ID = #{account_id}
  	]]>
  	</update>
+ 	
+ 	
+ 	<!-- 지급날짜  불러오기 -->
+ 	<select id="select_purchase_pay_date" parameterType="java.util.Map" resultType="java.sql.Date">
+ 	<![CDATA[
+	 	SELECT	ADD_MONTHS( STORAGE_IN_DATE, CONDITION_NOTE_PAYABLE)
+		FROM	PURCHASE_ORDER
+		WHERE	PURCHASE_ID	= '${purchase_id}'
+		AND		ACCOUNT_ID	= '${account_id}'
+		AND		PURCHASE_STATE = '${after_state}'
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 남은날짜  불러오기 -->
+ 	<select id="select_purchase_pay_diff" parameterType="java.util.Map" resultType="int">
+ 	<![CDATA[
+	 	SELECT TRUNC(ADD_MONTHS(STORAGE_IN_DATE,CONDITION_NOTE_PAYABLE)) - TRUNC(SYSDATE)
+		FROM	PURCHASE_ORDER
+		WHERE	PURCHASE_ID	= '${purchase_id}'
+		AND		ACCOUNT_ID	= '${account_id}'
+		AND		PURCHASE_STATE = '${after_state}'
+ 	]]>
+ 	</select>
+ 	
+ 	<update id="update_state" parameterType="java.util.Map" >
+ 	<![CDATA[
+		UPDATE	PURCHASE_ORDER
+		SET		PURCHASE_STATE 	= '${after_state}'
+		WHERE	PURCHASE_ID 	= '${purchase_id}'
+		AND		ACCOUNT_ID 		= '${account_id}'
+		AND		PURCHASE_STATE 	= '${before_state}'
+ 	]]>
+ 	</update>
+ 	
+ 	
+ 	<update id="update_state_force" parameterType="java.util.Map" >
+ 	<![CDATA[
+		UPDATE	PURCHASE_ORDER
+		SET		PURCHASE_STATE 	= '${after_state}'
+		WHERE	PURCHASE_ID 	= '${purchase_id}'
+		AND		ACCOUNT_ID 		= '${account_id}'
+ 	]]>
+ 	</update>
+ 	
+ 	
+	<select id="select_purchase" parameterType="String" resultType="PurchaseDTO">
+	<![CDATA[
+		SELECT 	P.* , KOR_NAME AS state_name
+		FROM 	PURCHASE_ORDER P
+		JOIN    STATE ST
+		ON      P.PURCHASE_STATE = ST.CODE
+		WHERE	PURCHASE_ID	= #{purchase_id}
+		AND	 	ACCOUNT_ID = 500011050000
+	]]>
+ 	</select>
 
+
+	
 </mapper>

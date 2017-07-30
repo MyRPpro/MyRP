@@ -9,64 +9,75 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function fn_select_dept() {
-		var dept_id = document.add_retired_employee_form1.dept_id.value; 
-		$.getJSON("/hr_management/manage_hr_appointment/select_dept/"+dept_id, function(data) {
+	
+	$("#page16720_div01_toggle").bind("click", function(event) {
+		$("#page16720_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16720_btn01").bind("click", function(event) {
+		$("#page16720").slideUp();
+		$("#page16710_div01").slideDown();
+		$("#page16710_div02").slideDown();
+		$("#page16710_div03").slideDown();
+		return false;
+	});
+	
+	$("form[name='page16720_form01'] select[name='dept_id']").on("change", function(event) {
+		var $dept_id = $("form[name='page16720_form01'] select[name='dept_id']"); 
+		$.getJSON("/hr_management/manage_hr_appointment/select_dept/"+$dept_id.val(), function(data) {
 			var str = "<option value=0>사원 선택</option>";
 			$(data).each(function() {
 				if(this.employee_name != "") {
 					str += "<option value='" +this.employee_id+ "'>" + this.employee_name + "</option>"					
 				}
 			});
-			document.add_retired_employee_form1.employee_id.innerHTML = str;
+			$("form[name='page16720_form01'] select[name='employee_id']").html(str);
 		});
-	}
+		return false;
+	});
 	
-	function fn_add_retired_employee_regform() {
-		
-		var dept_id = add_retired_employee_form1.dept_id;
-		var employee_id = add_retired_employee_form1.employee_id;
-		if(dept_id.value == 0 || employee_id.value == 0) {
+	$("form[name='page16720_form01']").on("submit", function(event) {
+		var $dept_id = $("form[name='page16720_form01'] select[name='dept_id']"); 
+		var $employee_id = $("form[name='page16720_form01'] select[name='employee_id']"); 
+		if($dept_id.val() == 0 || $employee_id.val() == 0) {
 			alert("부서와 사원을 선택해 주세요.");
+			$dept_id.focus();
 			return false;
 		}
-		
-		var employee_id = document.add_retired_employee_form1.employee_id.value;
-		$("#add_retired_employee_regform_div").load("/hr_management/manage_retired_employee/retired_employee_regform"
-				+"?employee_id="+employee_id);
+		$("#page16720_div01").slideUp();
+		$("#page16720_div02").load("/hr_management/manage_retired_employee/retired_employee_regform"
+				+"?employee_id="+$employee_id.val());
 		return false;
-	}
+	});
+	
 </script>
 <body>
-add_retired_employee.jsp
-<div>
-<form action="" name="add_retired_employee_form1"
-onsubmit="return fn_add_retired_employee_regform()">
-	<table>
-		<tr>
-			<td>
-				<select name="dept_id" onchange="fn_select_dept();">
+	<div class="panel panel-default" id="page16720">
+		<div class="panel-heading">
+			<a id="page16720_div01_toggle">[16720]add_retired_employee.jsp</a>
+		</div>
+		<div class="panel-body" id="page16720_div01">
+			<form class="form-inline" action="#" name="page16720_form01">
+				<select class="form-control" name="dept_id">
 					<option value=0>부서 선택</option>
 					<c:forEach var="vo" items="${deptVos}">
 						<option value="${vo.dept_id}">${vo.dept_name}</option>
 					</c:forEach>
 				</select>
-			</td>
-			<td>
-				<select name="employee_id">
-					<option value=0>사원 선택</option>
-				</select>
-			</td>
-			<td>
-				<input type="submit" value="확인">
-				<input type="reset" value="재작성">
-				<input type="button" value="돌아가기" onclick="window.location='/';">
-			</td>
-		</tr>
-	</table>
-</form>
-</div>
-<div id="add_retired_employee_regform_div">
-</div>
+				<div class="input-group">
+					<select class="form-control" name="employee_id">
+						<option value=0>사원 선택</option>
+					</select>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">확인</button>
+						<button class="btn btn-default" type="reset">재작성</button>
+						<button class="btn btn-default" type="button" id="page16720_btn01">닫기</button>
+					</span>
+				</div>
+			</form>
+		</div>
+		<div id="page16720_div02"></div>
+	</div>
 </body>
 </html>

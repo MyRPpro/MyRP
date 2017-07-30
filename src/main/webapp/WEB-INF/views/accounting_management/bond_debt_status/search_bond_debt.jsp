@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-search_self_information.jsp
+
 </body>
 </html>

@@ -9,11 +9,15 @@
  		<!-- SELECT	*
  		FROM	order_state
  		WHERE	order_state in  <foreach item="order_state" collection="order_state" open="(" separator="," close=")">#{order_state}</foreach> --> 
- 		
  		SELECT	*
- 		FROM	order_state o JOIN state s
- 		ON		o.order_state = s.code
- 		WHERE	o.order_state in  <foreach item="order_state" collection="order_state" open="(" separator="," close=")">#{order_state}</foreach>
+	 	FROM	(
+		 			SELECT	o.*, rownum as rnum
+		 			FROM	order_state o JOIN state s
+		 			ON		o.order_state = s.code
+		 			WHERE	o.order_state in  <foreach item="order_state" collection="order_state" open="(" separator="," close=")">#{order_state}</foreach>
+	 			)
+	 	<!-- WHERE	rnum in (1,2,3,4,5) -->
+	 	
  	</select>
  	
  	<select id="select_sales_statement" resultType="int">
@@ -40,3 +44,5 @@
 		AND		s.approval_state = #{order_state}
  	</select>
 </mapper>
+
+

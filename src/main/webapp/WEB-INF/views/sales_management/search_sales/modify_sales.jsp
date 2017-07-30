@@ -131,7 +131,7 @@
 							
 				<!-- 6  --> <th>
 							<c:set var="now" value="<%= new java.util.Date() %>"/>
-								<input type="date" id="reg_reg_date" onchange="return check_date();" 
+								<input type="date" id="reg_reg_date" name="reg_reg_date" onchange="return check_date();" 
 								value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>">
 							</th>
 				<%-- 
@@ -143,20 +143,20 @@
 							 
 				<!-- 8  --> <th>
 								<c:set var="now" value="<%= new java.util.Date() %>"/>
-								<input type="date" id="reg_storage_out_date" onchange="return check_date();" 
+								<input type="date" id="reg_storage_out_date" name="reg_storage_out_date" onchange="return check_date();" 
 								value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>">
 							</th>
 				<!-- 9 --> <th>
 								<c:set var="reg_dto" value="${dtos[0]}"/>
-								<input type="number" id="reg_count_sales" value="${reg_dto.count_sales}" min="1" max="9999" required >
+								<input type="number" id="reg_count_sales" name="reg_count_sales" value="${reg_dto.count_sales}" min="1" max="9999" required >
 							</th>
 				<!-- 10 --> <th>
-								<input type="number" id="reg_selling_price" value="${reg_dto.selling_price}" min="1" max="999999999" required>
+								<input type="number" id="reg_selling_price" name="reg_selling_price" value="${reg_dto.selling_price}" min="1" max="999999999" required>
 								<!-- onchange="return this.value = SetComma3(this.value)"  -->
 								 
 							</th>
 				<!-- 11 --> <th>
-								<input type="number" id="reg_condition_note_receivable" value="${reg_dto.condition_note_receivable}" min="1" max="12" required>
+								<input type="number" id="reg_condition_note_receivable" name="reg_condition_note_receivable" value="${reg_dto.condition_note_receivable}" min="1" max="12" required>
 							</th>
 							
 			</tr>
@@ -214,11 +214,9 @@
 			
 		</table>
 		
-		<input type="submit" value="수정하기">
-		<input type="reset"	value="재작성">
-		(
-		<input type="button" value="견적승인">
-		<input type="button" value="승인취소"> : 승인권자 메뉴)
+		<input type="submit" name="btn_submit" value="수정하기">
+		<input type="reset"	name="btn_reset" value="재작성">
+		
 		
 		
 			

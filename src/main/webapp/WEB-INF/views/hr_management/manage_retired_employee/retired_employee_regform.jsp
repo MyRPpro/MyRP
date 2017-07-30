@@ -9,14 +9,20 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function fn_retired_reg() {
-		var employee_state = document.retired_employee_regform1.employee_state;
-		if(employee_state.value == 0) {
-			alert("직원 상태를 선택하세요.");
-			employee_state.focus();
-			return false;
-		}
-		var retired_date = document.retired_employee_regform1.retired_date;
+	
+	$("#page16721_div01_toggle").bind("click", function(event) {
+		$("#page16721_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16721_btn01").bind("click", function(event) {
+		$("#page16721").slideUp();
+		$("#page16720_div01").slideDown();
+		return false;
+	});
+	
+	$("form[name='page16721_form01']").on("submit", function(event) {
+		var retired_date = document.page16721_form01.retired_date;
 		var now = new Date();
 		var select_date = new Date(retired_date.value); 
 		if(select_date < now) {
@@ -24,71 +30,75 @@
 			retired_date.focus();
 			return false;			
 		}
-	}
+		
+		var data = $(this).serialize();
+		$.ajax({
+			data:	data,
+			type:	'post',
+			url:	'/hr_management/manage_retired_employee/add_retired_employee_pro',
+			success: function(response) {
+				$("#page16721_div02").html(response);
+			}
+		});
+		return false;
+	});
+
 </script>
 <body>
-add_retired_employee_regform.jsp
-<form action="/hr_management/manage_retired_employee/add_retired_employee_pro"
-method="post" name="retired_employee_regform1"
-onsubmit="return fn_retired_reg();">
-	<table border="1">
-		<tr>
-			<th>employee_id</th>
-			<td>${dto.employee_id}</td>
-		</tr>
-		<tr>
-			<th>employee_name</th>
-			<td>${dto.employee_name}</td>
-		</tr>
-		<tr>
-			<th>dept_id</th>
-			<td>${dto.dept_id}</td>
-		</tr>
-		<tr>
-			<th>dept_name</th>
-			<td>${dto.dept_name}</td>
-		</tr>
-		<tr>
-			<th>hr_code_group_rank</th>
-			<td>${dto.hr_code_group_rank}</td>
-		</tr>
-		<tr>
-			<th>rank_code</th>
-			<td>${dto.rank_code}</td>
-		</tr>
-		<tr>
-			<th>hr_code_name</th>
-			<td>${dto.hr_code_name}</td>
-		</tr>
-		<tr>
-			<th>join_date</th>
-			<td>${dto.join_date}</td>
-		</tr>
-		<tr>
-			<th>retired_date</th>
-			<td>
-				<c:set var="now" value="<%= new java.util.Date() %>"/>
-				<input type="date" name="retired_date"
-				value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>"
-				required>
-			</td>
-		</tr>
-		<tr>
-			<th>retired_reason</th>
-			<td>
-				<textarea rows="5" name="retired_reason">사유를 작성하세요.</textarea>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<input type="submit" value="퇴사자 등록">
-				<input type="reset" value="재작성">
-				<input type="button" value="돌아가기"
-				onclick="window.history.back();">
-			</th>
-		</tr>
-	</table>
-	<input type="hidden" name="employee_id" value="${dto.employee_id}">
-</form>
+	<div class="panel panel-default" id="page16721">
+		<div class="panel-heading">
+			<a id="page16721_div01_toggle">[16721]retired_employee_regform.jsp</a>
+		</div>
+		<div class="panel-body" id="page16721_div01">
+			<form action="#" name="page16721_form01">
+				<table class="table">
+					<tr>
+						<th>사원번호</th>
+						<td>${dto.employee_id}</td>
+					</tr>
+					<tr>
+						<th>사원명</th>
+						<td>${dto.employee_name}</td>
+					</tr>
+					<tr>
+						<th>부서명</th>
+						<td>${dto.dept_name}</td>
+					</tr>
+					<tr>
+						<th>직급</th>
+						<td>${dto.hr_code_name}</td>
+					</tr>
+					<tr>
+						<th>입사일</th>
+						<td>${dto.join_date}</td>
+					</tr>
+					<tr>
+						<th>퇴직일</th>
+						<td>
+							<c:set var="now" value="<%= new java.util.Date() %>"/>
+							<input class="form-control input-sm" type="date" name="retired_date"
+							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>"
+							required>
+						</td>
+					</tr>
+					<tr>
+						<th>퇴직사유</th>
+						<td>
+							<textarea class="form-control input-sm" rows="5" name="retired_reason">사유를 작성하세요.</textarea>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<input type="hidden" name="employee_id" value="${dto.employee_id}">
+							<input class="btn btn-default btn-xs" type="submit" value="퇴사자 등록">
+							<input class="btn btn-default btn-xs" type="reset" value="재작성">
+							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16721_btn01">
+						</th>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="page16721_div02"></div>
+	</div>
 </body>
 </html>

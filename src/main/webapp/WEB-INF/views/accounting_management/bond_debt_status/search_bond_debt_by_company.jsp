@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-search_and_modification_movement_information.jsp
+
 </body>
 </html>

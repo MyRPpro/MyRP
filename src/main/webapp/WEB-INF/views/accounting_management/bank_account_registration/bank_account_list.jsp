@@ -1,29 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+<script type="text/javascript">
+$(document).ready(function onload_function(){
+	var bank_account_reg_on = "<c:out value='${bank_account_reg_on}' />";
+	if(bank_account_reg_on==1){ //계좌등록페이지 띄우기
+		$("#bank_account_list_stage").load("/accounting_management/bank_account_registration/register_bank_account");
+	}else{
+		return false;
+	}
+});
+$(function(){
+	$('#bank_account_list_form_for_register form').on("submit",function(){
+		$("#bank_account_list_stage").load("/accounting_management/bank_account_registration/register_bank_account");
+	});
+});
+
+$(function(){
+	$('#bank_account_list_table a').bind("click",function(){
+		$("#bank_account_list_stage").load($(this).attr("href"));
+		return false;
+	});
+});
+</script>
 <body>
-bank_account.jsp
-<button onclick="window.location='/'"> 홈으로 </button>
-<table border="1">
+<div id="bank_account_list">
+<table border="1" id="bank_account_list_table">
 	<tr>
-		<th>bank_account_id</th>
-		<th>bank_account_name</th>
-		<th>bank_account_number</th>
-		<th>bank_account_balance</th>
-		<th>bank_account_type</th>
-		<th>bank_name</th>
-		<th>use_state</th>
-		<th>reg_date</th>
+		<th>계좌명</th>
+		<th>계좌번호</th>
+		<th>잔액</th>
+		<th>개설목적</th>
+		<th>은행</th>
+		<th>사용상태</th>
+		<th>등록일</th>
 	</tr>
 	<c:forEach var="vo" items="${bankAccountVos}">
 	<tr>
-		<td>${vo.bank_account_id}</td>
 		<td>
 			<a href="/accounting_management/bank_account_registration/modify_bank_account?bank_account_id=${vo.bank_account_id}">
 				${vo.bank_account_name}
@@ -40,33 +53,40 @@ bank_account.jsp
 </table>
 
 <!-- 페이지 내비게이션  -->
-<div class="page_nav">
-<table border="1">
-	<tr>
-		<th>
-			<c:if test="${startPage > pageBlock}">
-				<a href="/accounting_management/bank_account_registration/bank_account_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-				<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
-			</c:if>
-			<c:forEach var="i" begin="${startPage}" end="${endPage}">
-				<c:if test="${i == currentPage}">
-					<span>[${i}]</span>
+<c:if test="${cnt>5}">
+	<div class="page_nav">
+	<table border="1">
+		<tr>
+			<th>
+				<c:if test="${startPage > pageBlock}">
+					<a href="/accounting_management/bank_account_registration/bank_account_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
+					<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
 				</c:if>
-				<c:if test="${i != currentPage}">
-					<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${i}">[${i}]</a>
+				<c:forEach var="i" begin="${startPage}" end="${endPage}">
+					<c:if test="${i == currentPage}">
+						<span>[${i}]</span>
+					</c:if>
+					<c:if test="${i != currentPage}">
+						<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${i}">[${i}]</a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageCount > endPage}">
+					<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
+					<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
 				</c:if>
-			</c:forEach>
-			<c:if test="${pageCount > endPage}">
-				<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-				<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
-			</c:if>
-		</th>
-	</tr>
-</table>
+			</th>
+		</tr>
+	</table>
+	</div>
+</c:if>
+	<div id="bank_account_list_form_for_register">
+	<form action="#" method="get" name="bank_account_list_form1">
+		<input type="submit" value="계좌 등록">
+	</form>
+	</div>
 </div>
-<form action="/accounting_management/bank_account_registration/register_bank_account" method="get" name="bank_account_list_form1">
-	<input type="submit" value="계좌 등록">
-</form>
+<div id="bank_account_list_stage">
 
+</div>
 </body>
 </html>

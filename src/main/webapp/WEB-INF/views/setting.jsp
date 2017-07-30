@@ -5,9 +5,37 @@
 <script type="text/javascript" src = "/resources/assest/jquery-1.11.3.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/assest/bootstrap.min.css">
 <script type="text/javascript" src = "/resources/assest/bootstrap.js"></script>
-
+<script type="text/javascript" src="/resources/hr_management/js/script.js"></script>
+<script type="text/javascript" src="/resources/hr_management/js/message.js"></script>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
+
+<style>
+	table, table.table-condensed{
+	margin: 0 auto;
+	}
+	div.row{
+	margin-bottom: 0px;
+	}
+	tr{
+	font-size: x-small;
+	text-align: center;
+	}
+	td,th{
+	font-size: x-small;
+	text-align: center;
+	}
+	body > .container-fluid{
+	padding-bottom: 60px;
+	}
+	#help_center{
+	font-size: x-small;
+	}
+	#help_console{
+	margin-top: 15px;
+	}
+</style>

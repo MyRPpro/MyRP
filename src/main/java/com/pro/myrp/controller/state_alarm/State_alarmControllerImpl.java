@@ -23,7 +23,7 @@ public class State_alarmControllerImpl implements CodeMyRP, State_alarmControlle
 	@Override
 	@RequestMapping(value="state_alarm_main", method = {RequestMethod.GET,RequestMethod.POST})
 	public String state_alarm_main(ServletRequest req, Model model) throws Exception{
-		System.out.println("state_alarm_main");
+		
 		return "state_alarm/state_alarm_main";
 		/*return code.c(state_alarm,state_alarm_main);*/
 		
@@ -32,7 +32,8 @@ public class State_alarmControllerImpl implements CodeMyRP, State_alarmControlle
 	@Override
 	@RequestMapping(value="state_alarm_pro", method = {RequestMethod.GET,RequestMethod.POST})
 	public String state_alarm_pro(ServletRequest req, Model model) throws Exception {
-		System.out.println("state_alarm_pro");
+		
+		
 		service.state_alarm_pro_service(req, model);
 		return "state_alarm/state_alarm_pro";
 		/*return code.c(state_alarm,state_alarm_pro);*/

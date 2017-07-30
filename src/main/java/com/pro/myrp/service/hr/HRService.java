@@ -226,6 +226,14 @@ public interface HRService extends MyRPService {
 	public void modify_personnel_card_pro_service(Model model) throws Exception;
 
 	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 사원정보 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void personnel_card_info_service(Model model) throws Exception;
+	
+	/**
 	 * 인사관리 > 인사발령 관리 > 인사발령 검색 서비스
 	 * @author amaco78
 	 * @param model
@@ -425,4 +433,34 @@ public interface HRService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_salary_info_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여계산 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void calc_salary_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여 관리 > 급여계산 처리 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void calc_salary_pro_service(Model model) throws Exception;
+
+	/**
+	 * 인사관리 > 급여관리 > 급여확정 서비스
+	 * @author amaco78
+	 * @param model
+	 */
+	public void fix_salary(Model model);
+
+	/**
+	 * 인사관리 > 급여관리 > 인사카드 급여이력 서비스
+	 * @author amaco78
+	 * @param model
+	 */
+	public void personnel_card_salary_service(Model model);
 }

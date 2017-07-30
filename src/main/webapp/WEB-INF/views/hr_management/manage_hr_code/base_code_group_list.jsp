@@ -7,29 +7,67 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<!-- 
+	page16110		:	base_code_group_list.jsp
+	_div01			:	기본 코드 그룹 목록
+	_div02			:	하위 항목 [기본 코드 그룹 등록 화면, 기본 코드 그룹 수정 및 하부 코드 목록]
+	_div01_toggle 	:	div01을 슬라이드 업/다운할 수 있는 토글
+	_btn01			:	기본 코드 그룹 등록 버튼
+	_btn02			:	메인으로 돌아가기 버튼
+ -->
+<script type="text/javascript">
+	
+	$("#page16110_div01_toggle").bind("click", function(event) {
+		$("#page16110_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16110_btn01").bind("click", function(event) {
+		$("#page16110_div01").slideUp();
+		$("#page16110_div02").slideDown();
+		$("#page16110_div02").load("/hr_management/manage_hr_code/add_base_code_group");
+		return false;		
+	});
+	
+	$("#page16110_div01 a").bind("click", function(event) {
+		$("#page16110_div01").slideUp();
+		$("#page16110_div02").slideDown();
+		$("#page16110_div02").load($(this).attr("href"));
+		return false;
+	});
+	
+</script>
 <body>
-base_code_list.jsp
-<table border="1">
-	<tr>
-		<th>hr_code_group_id</th>
-		<th>hr_code_group_name</th>
-		<th>use_state</th>
-	</tr>
-	<c:forEach var="vo" items="${hr_code_groupVos}">
-	<tr>
-		<td>${vo.hr_code_group_id}</td>
-		<td>
-			<a href="/hr_management/manage_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
-				${vo.hr_code_group_name}
-			</a>
-		</td>
-		<td>${vo.use_state}</td>
-	</tr>
-	</c:forEach>
-</table>
-<form action="/hr_management/manage_hr_code/add_base_code_group" method="get" name="base_code_group_list_form1">
-	<input type="submit" value="인사코드 그룹 등록">
-	<input type="button" value="돌아가기" onclick="window.location='/';">
-</form>
+	<div class="panel panel-default" id="page16110">
+		<div class="panel-heading">
+			<a id="page16110_div01_toggle">[16110]base_code_group_list.jsp</a>
+		</div>
+		<div class="panel-body" id="page16110_div01">
+			<table class="table">
+				<tr>
+					<td>인사코드 그룹번호</td>
+					<td>인사코드 그룹명</td>
+					<td>사용 상태</td>
+				</tr>
+				<c:forEach var="vo" items="${hr_code_groupVos}">
+				<tr>
+					<td>${vo.hr_code_group_id}</td>
+					<td>
+						<a href="/hr_management/manage_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
+							${vo.hr_code_group_name}
+						</a>
+					</td>
+					<td>${vo.use_state}</td>
+				</tr>
+				</c:forEach>
+				<tr>
+					<td colspan="3">
+						<input class="btn btn-default btn-xs" type="button" value="등록하기" id="page16110_btn01">
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="panel-body" id="page16110_div02"></div>
+	</div>
 </body>
 </html>

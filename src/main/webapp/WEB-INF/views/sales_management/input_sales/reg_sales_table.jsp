@@ -32,6 +32,7 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("정상적으로 입력되었습니다.");
+				 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table');
 			}, 200);
 		</script>
 	</c:if>
@@ -42,7 +43,7 @@
 			window.history.back();
 		</script>
 	</c:if>
-	
+
 	
 	<form action="#" name="reg_sales_table_form" method="get">
 	
@@ -93,13 +94,13 @@
 		</table>
 		<br>
 	
-		<input type="button" value="전표입력하기" onclick="sendStatement();">
+		<input type="button" name="reg_sales_statement" value="전표입력하기" onclick="sendStatement();">
 	</form>
 	
 	<script type="text/javascript">
 	function sendStatement(){
 		var sales_id = document.getElementById("sales_id").innerHTML
-		console.log( " sned sales_id : " + sales_id );
+		/* console.log( " sned sales_id : " + sales_id ); */
 		window.location="/accounting_management/statement_management/make_statement"
 						+"?sales_id="+sales_id;
 	}
