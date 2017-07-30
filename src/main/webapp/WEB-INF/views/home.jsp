@@ -224,7 +224,6 @@ function onoff(){
 	<div class="footer navbar-fixed-bottom">
       
    </div>
->>>>>>> 696462b3715a20a287b5e29d9157003ca37a2e50
 </body>
 <script type="text/javascript">
 	

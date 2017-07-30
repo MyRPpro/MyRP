@@ -163,22 +163,22 @@
 									
 									
 									<c:if test="${purchase_state == 22213 }">
-										<input type="button" id="button_reg_state" class="btn btn-primary" value="회계전표 입력하기 " >	
+										<input type="button" name="reg_state" id="button_reg_state" class="btn btn-primary" value="회계전표 입력하기 " >	
 									</c:if>
 									<c:if test="${purchase_state == 23203 and account_id == 500011050000 }"> <!-- 상품매입시 -->
-										<input type="button" id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
+										<input type="button" name="req_storage_in"  id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
 									</c:if>
 									<c:if test="${purchase_state == 23203 and account_id == 500012010000 }"> <!-- 상품매입시 -->
 										<div class="col-xs-9" style="display: inline;" >
 											<div class="input-group">
-												<input type="text" id="text_req_repay"  class="form-control" value="" placeholder="남은 기간" disabled="true" >
+												<input type="text" id="text_req_repay" name="req_repay" class="form-control" value="" placeholder="남은 기간" disabled="true" >
 												<span class="input-group-btn">
 													<button id="btn_req_repay" class="btn btn-info" type="button" disabled="true">채무 상환 하기</button>
 												</span>
 											</div>
 										</div>
 									</c:if>
-									<input type="button" class="btn btn-primary" id="btn-confirm" value="확인" >
+									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
 								</center>
 								<br>
 								<div id="alert_pro">
@@ -222,7 +222,7 @@
 		var purchase_id = $('#purchase_id').val();
 		var price = $('#supply_price').val();
 		price = price.replace(/[^0-9]/g,'');
-		console.log("supply_price : " + price);
+		/* console.log("supply_price : " + price); */
 		$('#alert_pro').slideDown(500);
 		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_pay&purchase_id="+purchase_id+"&supply_price="+price);
 	});
@@ -238,7 +238,7 @@
 	
 	function req_storage_in(){
 		var purchase_id = document.getElementById("purchase_id").value;
-		console.log( " sned purchase_id : " + purchase_id );
+		/* console.log( " sned purchase_id : " + purchase_id ); */
 
 		window.location="/purchase_management/search_purchase/detail_purchase_pro"
 						+"?req_kind=storage_in&purchase_id="+purchase_id;

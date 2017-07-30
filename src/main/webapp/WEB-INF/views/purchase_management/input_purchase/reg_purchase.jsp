@@ -57,7 +57,7 @@
 			<tr>
 				<td>
 					<div class="form-group">
-						<select name="product_id" id="product_id" class="form-control input-sm">
+						<select name="product_id" id="product_id" class="form-control input-sm" required>
 							<option value="0" selected>상품선택</option>
 							<c:forEach var="product" items="${product_ids}">
 								<option value="${product.product_id}">${product.product_name}</option>
@@ -68,8 +68,7 @@
 
 				<td>
 					<div class="form-group">
-						<select name="company_id" id="company_id" class="form-control input-sm"
-							required>
+						<select name="company_id" id="company_id" class="form-control input-sm"required>
 							<option value="0" selected>거래처선택</option>
 							<c:forEach var="company" items="${company_ids}">
 								<option value="${company.company_id}">${company.company_name}
@@ -81,8 +80,7 @@
 
 				<td>
 					<div class="form-group">
-						<select name="employee_id" id="employee_id"
-							class="form-control input-sm" required>
+						<select name="employee_id" id="employee_id" class="form-control input-sm" required>
 							<option value="0" selected>담당자선택</option>
 							<c:forEach var="employee" items="${employee_ids}">
 								<option value="${employee.employee_id}">${employee.employee_name}
@@ -264,16 +262,16 @@
 			</tr>
 
 		</table>
-		<input type="hidden" id="order_id" value="${dto.stock_order_id}">
+		<input type="hidden" name="order_id" id="order_id" value="${dto.stock_order_id}">
 		
 		</c:if>
 		<br>
 		<center>
-		<input type="submit" value="등록하기" class="btn btn-primary" >
-		<input type="reset" value="재설정" class="btn btn-default ">
+		<input type="submit" name="btn_submit" value="등록하기" class="btn btn-primary" >
+		<input type="reset" name="btn_reset" value="재설정" class="btn btn-default ">
 		&emsp;
-		<input type="button" value="부족재고조회" class="btn btn-info" onclick="return search_lack_stock(1)" >
-		<input type="button" value="새로입력하기" class="btn btn-info" onclick="return reg_purchase_new()" >  
+		<input type="button" name="btn_search_lack" value="부족재고조회" class="btn btn-info" onclick="return search_lack_stock(1)" >
+		<input type="button" name="btn_reg_purchase" value="새로입력하기" class="btn btn-info" onclick="return reg_purchase_new()" >  
 		</div>	<!-- // table-responsive -->	
 		</center>
 		<br>
@@ -339,7 +337,7 @@
 		
 		/* this.pagenum = pagenum; */
 		var pagenum = pagenum;
-		console.log(" 선택한 pagenum :" + pagenum);
+		/* console.log(" 선택한 pagenum :" + pagenum); */
 		$('#reg_table').load("/purchase_management/input_purchase/search_reg_purchase_table"
 			+"?pageNum="+pagenum );
 		$('#reg_page').load("/purchase_management/input_purchase/search_reg_purchase_page"

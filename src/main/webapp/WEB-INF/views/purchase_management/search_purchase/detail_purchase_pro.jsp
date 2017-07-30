@@ -76,7 +76,7 @@
 						</div>
 						<!-- // form-group -->
 	
-						<input type="button" value="전표입력하기" class="btn btn-primary"
+						<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary"
 							onclick="sendStatement();">
 					</div>
 					<!-- // table-responsive -->

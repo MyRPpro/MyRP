@@ -95,9 +95,8 @@
 	
 	/* 
 	$(document).ready(function() {
-		
 		var pagenum = '${pageNum}';
-		console.log("pageNum : " + pagenum);
+		
 		$.ajax({
 			data : pagenum,
 			type : 'get',
@@ -112,7 +111,7 @@
 	function reg_purchase(num){
 		
 		var stock_order_id = document.getElementById(num).value;
-		console.log("선택한 오더 번호 :" + stock_order_id);
+		/* console.log("선택한 오더 번호 :" + stock_order_id); */
 		/* alert(stock_order_id); */
 		$('#main_screen').load("/purchase_management/input_purchase/search_reg_purchase_pro?stock_order_id="+stock_order_id);
 		
