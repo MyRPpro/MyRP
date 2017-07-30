@@ -70,23 +70,27 @@
 					<tr>
 						<th>인사코드 그룹번호</th>
 						<td>
-							<input type="number" name="hr_code_group_id"
+							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 							value="${hr_code_group_id}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<th>인사코드 번호</th>
 						<td>
-							<input type="number" name="hr_code_id" value="${hr_code_id}"
-							min="1" max="999" step="1" required autofocus>
-							<input class="btn btn-default btn-xs"  type="button" name="dup_check_btn" value="중복확인">
+							<div class="input-group">
+								<input class="form-control input-sm" type="number" name="hr_code_id" value="${hr_code_id}"
+								min="1" max="999" step="1" required autofocus>
+								<span class="input-group-btn">
+									<input class="btn btn-default btn-sm"  type="button" name="dup_check_btn" value="중복확인">
+								</span>
+							</div>
 						</td>
 					</tr>
 					<tr>
 					<tr>
 						<th>인사코드명</th>
 						<td>
-							<input type="text" name="hr_code_name" required>
+							<input class="form-control input-sm" type="text" name="hr_code_name" required>
 						</td>
 					</tr>
 					<tr>

@@ -75,12 +75,12 @@ public class CodeHandler {
 			public static final int modify_purchase_pro  = 13170;	// 구매 수정 처리
 			
 		// 구매입력
-		public static final int input_purchase = 13200;
-			public static final int reg_purchase 			= 13210;	// 구매 입력 양식
-			public static final int reg_purchase_table 		= 13220;	// 구매 입력 테이블
-			public static final int search_reg_purchase 	= 13230;	// 부족 재고 조회
-			public static final int search_reg_purchase_pro = 13240;	// 부족 재고 조회 처리
-			
+		public static final int input_purchase 					= 13200;
+			public static final int reg_purchase 				= 13210;	// 구매 입력 양식
+			public static final int reg_purchase_table 			= 13220;	// 구매 입력 테이블
+			public static final int search_reg_purchase_table 	= 13230;	// 부족 재고 조회-테이블
+			public static final int search_reg_purchase_page 	= 13240;	// 부족 재고 조회-페이지
+			public static final int search_reg_purchase_pro 	= 13250;	// 부족 재고 조회 처리
 			
 		// 구매 현황
 		public static final int staus_purchase 						= 13300;	// 구매 현황	
@@ -94,41 +94,41 @@ public class CodeHandler {
 			public static final int debt_by_company_list = 13420;			//판매현황
 			public static final int transaction_company_register = 13430;	//거래처별채권
 	
-			//물류관리
-			public static final int distribution_management = 14000;								//물류 관리
-				public static final int stock_condition = 14100;									//재고현황 검색
-					public static final int search_stock_condition = 14110;							//재고현황 검색
-					
-				public static final int stockpile = 14200;											//재고 수불부
-					public static final int search_stockpile = 14210;								//재고수불부 검색 페이지
-						public static final int search_stockpile_search = 14211;					//재고수불부 검색 Ajax 결과 페이지
-						public static final int select_stockpile_search = 14212;					//재고수불부 검색 Ajax 결과 페이지
-					public static final int search_adjust_information = 14220;						//조정 정보 조회
-					public static final int search_selling_information = 14230;						//판매 정보 조회
-					public static final int search_self_information = 14240;						//자가 정보 조회
-					public static final int search_defective_information = 14250;					//불량 정보 조회
-					public static final int search_and_modification_movement_information = 14260;	//이동 정보 조회 및 수정
-					
-				public static final int reg_warehouse = 14300;										//창고등록
-					public static final int warehouse_list = 14310; 								//창고 리스트
-					public static final int warehouse_view = 14320; 								//창고 등록 / 수정 입력
-					public static final int warehouse_pro = 14330;									//창고 등록 / 수정 처리
-					
-					public static final int movement_warehouse = 14400;								//창고 이동
-					public static final int movement_list = 14410; 									//전체 리스트
-					public static final int movement_view = 14420;									//창고이동 등록 / 수정 입력		
-					public static final int movement_pro = 14430;									//창고이동 등록 / 수정 처리
-					public static final int movement_product = 14440;								//창고이동 등록 / 수정 입력 페이지에 창고 선택시 상품 뿌려주는
-					
-				public static final int adjustment_inventory  = 14500;								//재고 조정
-					public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
-					public static final int adjustment_inventory_view = 14520;						//재고 조정 등록
-					public static final int adjustment_inventory_pro = 14530;						//재고 조정 처리
-					
-				public static final int search_distribution_order = 14600;							//물류 주문 조회
-					public static final int statement_list = 14610; 								//전체 전표 리스트
-					public static final int request_in_out_storage = 14620;							//전표 내용 조회
-					public static final int approval_statement = 14650;								//전표 내용 승인
+	//물류관리
+	public static final int distribution_management = 14000;								//물류 관리
+		public static final int stock_condition = 14100;									//재고현황 검색
+			public static final int search_stock_condition = 14110;							//재고현황 검색
+			
+		public static final int stockpile = 14200;											//재고 수불부
+			public static final int search_stockpile = 14210;								//재고수불부 검색 페이지
+				public static final int search_stockpile_search = 14211;					//재고수불부 검색 Ajax 결과 페이지
+				public static final int select_stockpile_search = 14212;					//재고수불부 검색 Ajax 결과 페이지
+			public static final int search_adjust_information = 14220;						//조정 정보 조회
+			public static final int search_selling_information = 14230;						//판매 정보 조회
+			public static final int search_self_information = 14240;						//자가 정보 조회
+			public static final int search_defective_information = 14250;					//불량 정보 조회
+			public static final int search_and_modification_movement_information = 14260;	//이동 정보 조회 및 수정
+			
+		public static final int reg_warehouse = 14300;										//창고등록
+			public static final int warehouse_list = 14310; 								//창고 리스트
+			public static final int warehouse_view = 14320; 								//창고 등록 / 수정 입력
+			public static final int warehouse_pro = 14330;									//창고 등록 / 수정 처리
+			
+			public static final int movement_warehouse = 14400;								//창고 이동
+			public static final int movement_list = 14410; 									//전체 리스트
+			public static final int movement_view = 14420;									//창고이동 등록 / 수정 입력		
+			public static final int movement_pro = 14430;									//창고이동 등록 / 수정 처리
+			public static final int movement_product = 14440;								//창고이동 등록 / 수정 입력 페이지에 창고 선택시 상품 뿌려주는
+			
+		public static final int adjustment_inventory  = 14500;								//재고 조정
+			public static final int adjustment_inventory_list = 14510; 						//재고 조정 조회
+			public static final int adjustment_inventory_view = 14520;						//재고 조정 등록
+			public static final int adjustment_inventory_pro = 14530;						//재고 조정 처리
+			
+		public static final int search_distribution_order = 14600;							//물류 주문 조회
+			public static final int statement_list = 14610; 								//전체 전표 리스트
+			public static final int request_in_out_storage = 14620;							//전표 내용 조회
+			public static final int approval_statement = 14650;								//전표 내용 승인
 			
 	//회계관리
 	public static final int accounting_management = 15000;
@@ -220,8 +220,10 @@ public class CodeHandler {
 			public static final int modify_salary_info = 16522;
 			public static final int modify_salary_info_pro = 16523;
 			public static final int fix_work_record = 16530;
+			public static final int calc_salary = 16540;
+			public static final int calc_salary_pro = 16541;
 			public static final int fix_salary = 16550;
-			public static final int search_salary_history = 16560;
+			public static final int personnel_card_salary = 16560;
 		//인사발령 관리
 		public static final int manage_hr_appointment = 16600;
 			public static final int hr_appointment_search = 16610;

@@ -206,9 +206,11 @@ function search_stockpile(date){
 					<tr>
 						<th>기준일자</th>
 						<th>
+						<div class="form-inline">
 							<input class="form-control input-sm" type = "date" name = "" id = "start_date">
 							~
 							<input class="form-control input-sm" type = "date" name = "" id = "end_date">
+						</div>
 						</th>
 					</tr>
 					
@@ -224,20 +226,20 @@ function search_stockpile(date){
 					<tr>
 						<th colspan = "2">
 						<div class="form-group">
-							<button class="btn btn-success" onclick = "search_stockpile('today')">금일</button>
-							<button class="btn btn-success" onclick = "search_stockpile('week')">금주</button>
-							<button class="btn btn-success" onclick = "search_stockpile('month')">금월</button>
-							<button class="btn btn-success" onclick = "search_stockpile('year')">금년</button>
+							<button class="btn btn-default" onclick = "search_stockpile('today')">금일</button>
+							<button class="btn btn-default" onclick = "search_stockpile('week')">금주</button>
+							<button class="btn btn-default" onclick = "search_stockpile('month')">금월</button>
+							<button class="btn btn-default" onclick = "search_stockpile('year')">금년</button>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-success" onclick = "search_stockpile('1_quarter')">1분기</button>
-							<button class="btn btn-success" onclick = "search_stockpile('2_quarter')">2분기</button>
-							<button class="btn btn-success" onclick = "search_stockpile('3_quarter')">3분기</button>
-							<button class="btn btn-success" onclick = "search_stockpile('4_quarter')">4분기</button>
+							<button class="btn btn-default" onclick = "search_stockpile('1_quarter')">1분기</button>
+							<button class="btn btn-default" onclick = "search_stockpile('2_quarter')">2분기</button>
+							<button class="btn btn-default" onclick = "search_stockpile('3_quarter')">3분기</button>
+							<button class="btn btn-default" onclick = "search_stockpile('4_quarter')">4분기</button>
 						</div>
 						<div class="form-group">
-							<button class="btn btn-success" onclick = "search_stockpile('first_half')">전반기</button>
-							<button class="btn btn-success" onclick = "search_stockpile('second_half')">후반기</button>
+							<button class="btn btn-default" onclick = "search_stockpile('first_half')">전반기</button>
+							<button class="btn btn-default" onclick = "search_stockpile('second_half')">후반기</button>
 						</div>
 						</th>
 					</tr>
@@ -254,31 +256,33 @@ function search_stockpile(date){
 </div>
 	
 
-	<div class = "modal" id = "product_modal" tabindex = "-1">	
-			<div class = "modal-dialog">
-				<div class = "modal-content">
-					<div class = "modal-body">
-					<button type = "button" class = "close" data-dismiss = "modal">&times;</button>
-						<h4>상품 검색하기</h4>
-						<table>
-							<tr>
-								<th>
-									<input type = "radio" name = "selected" id = "product_id" value = "product_id" checked>상품코드&nbsp;
-									<input type = "radio" name = "selected" id = "product_name" value = "product_name">상품이름&nbsp;
-									<input type = "text" id = "product_search">&nbsp;
-									<button id = "search_button_product" class = "button">확인</button>
-								</th>
-							</tr>
-							<tr>
-								<td>
-									<div id = "product_result"></div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
+<div class = "modal" id = "product_modal" tabindex = "-1">	
+	<div class = "modal-dialog">
+		<div class = "modal-content">
+			<div class = "modal-body">
+			<button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+				<h4>상품 검색하기</h4>
+				<table class="table-responsive">
+					<tr>
+						<th>
+						<div class="radio">
+								<label>
+							<input type = "radio" name = "selected" id = "product_id" value = "product_id" checked>상품코드</label>&nbsp;&nbsp;
+							<label><input type = "radio" name = "selected" id = "product_name" value = "product_name">상품이름</label>
+						</div>
+						<div class="form-inline">
+							<input class="form-control" type = "text" id = "product_search" placeholder = "검색어를 입력하시오.">
+							<button id = "search_button_product" class="btn btn-primary"">확인</button>
+						</div>
+						</th>
+					</tr>
+				</table>
 			</div>
-	</div> 
+		</div>
+	</div>
+</div> 
+	
+<div id = "product_result"></div>
 	
 </body>
 </html>

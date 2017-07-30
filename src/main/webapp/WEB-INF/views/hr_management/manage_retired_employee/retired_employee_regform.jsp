@@ -47,7 +47,7 @@
 <body>
 	<div class="panel panel-default" id="page16721">
 		<div class="panel-heading">
-			<a id="page16721_div01_toggle">[16721]add_retired_employee_regform.jsp</a>
+			<a id="page16721_div01_toggle">[16721]retired_employee_regform.jsp</a>
 		</div>
 		<div class="panel-body" id="page16721_div01">
 			<form action="#" name="page16721_form01">
@@ -76,7 +76,7 @@
 						<th>퇴직일</th>
 						<td>
 							<c:set var="now" value="<%= new java.util.Date() %>"/>
-							<input type="date" name="retired_date"
+							<input class="form-control input-sm" type="date" name="retired_date"
 							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>"
 							required>
 						</td>
@@ -84,7 +84,7 @@
 					<tr>
 						<th>퇴직사유</th>
 						<td>
-							<textarea rows="5" name="retired_reason">사유를 작성하세요.</textarea>
+							<textarea class="form-control input-sm" rows="5" name="retired_reason">사유를 작성하세요.</textarea>
 						</td>
 					</tr>
 					<tr>

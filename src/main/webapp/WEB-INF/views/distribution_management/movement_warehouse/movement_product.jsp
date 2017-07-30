@@ -57,27 +57,27 @@ $(function(){
 		<tr>
 			<th>
 				<input type = "hidden" value = "${warehouse_id}" name = "warehouse_id" readonly>
-				<input type = "text" value = "${warehouse_name}" readonly>
+				<input class="form-control" type = "text" name = "warehouse_name" value = "${warehouse_name}" readonly>
 			</th>
 			<th>
-				<select name = "arrive_warehouse_id" id = "arrive_warehouse_id">
+				<select class="form-control input-sm"  name = "arrive_warehouse_id" id = "arrive_warehouse_id">
 					<c:forEach var = "ware" items = "${warehouseVos}">
 						<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
 					</c:forEach>
 				</select>
 			</th>
 			<th>
-				<select id = "product_id" name = "product_id">
+				<select class="form-control input-sm" id = "product_id" name = "product_id">
 				<option value = "0">상품을 선택하시오.</option>
 				<c:forEach var = "pro" items = "${productVos}"> 
 				<option value = "${pro.product_id}">${pro.product_name}</option>
 				</c:forEach>
 				</select>
 			</th>
-			<th><input type = "number" id = "movement_amount" name = "movement_amount" min = "1" required></th>
+			<th><input class="form-control" type = "number" id = "movement_amount" name = "movement_amount" min = "1" required></th>
 			<th>
 				<input type = "hidden" name = "employee_id" value = "${ROLE.employee_id}"> 
-				<input type = "text" value = "${ROLE.employee_name}" readonly>
+				<input class="form-control" type = "text" value = "${ROLE.employee_name}" readonly>
 			</th>
 		</tr>
 		<tr>
@@ -107,29 +107,34 @@ $(function(){
 		<c:forEach var = "dto" items = "${movement_warehouseDtos}">
 		<tr>
 			<th>
-				<input type = "text" name = "stock_order_id" value = "${dto.stock_order_id}">
+				<input class="form-control" type = "text" name = "stock_order_id" value = "${dto.stock_order_id}" readonly>
 			<th>
-				<input type = "text" value = "${dto.warehouse_id}" id = "warehouse_id" name = "warehouse_id" readonly>
+				<input type = "hidden" value = "${warehouse_id}"  id = "warehouse_id name = "warehouse_id" readonly>
+				<c:forEach var = "ware" items = "${warehouseVos}">
+					<c:if test = "${ware.warehouse_id == warehouse_id}">
+						<input class="form-control" type = "text" name = "warehouse_name" value = "${ware.warehouse_name}" readonly>
+					</c:if>
+				</c:forEach>
 			</th>
 			<th>
-				<select name = "arrive_warehouse_id" id = "arrive_warehouse_id">
+				<select class="form-control input-sm" name = "arrive_warehouse_id" id = "arrive_warehouse_id">
 					<c:forEach var = "ware" items = "${warehouseVos}">
 						<option value = "${ware.warehouse_id}"<c:if test = "${ware.warehouse_id == dto.arrive_warehouse}">selected</c:if>>${ware.warehouse_name}</option>
 					</c:forEach>
 				</select>
 			</th>
 			<th>
-				<select id = "product_id" name = "product_id">
+				<select class="form-control input-sm" id = "product_id" name = "product_id">
 				<option value = "0">상품을 선택하시오.</option>
 				<c:forEach var = "pro" items = "${productVos}">
 				<option value = "${pro.product_id }" <c:if test = "${pro.product_id == dto.product_id}">selected</c:if>>${pro.product_name}</option>
 				</c:forEach>
 				</select>
 			</th>
-			<th><input type = "number" id = "movement_amount" name = "movement_amount" min = "1" value = "${dto.movement_amount}"></th>
+			<th><input class="form-control" type = "number" id = "movement_amount" name = "movement_amount" min = "1" value = "${dto.movement_amount}"></th>
 			<th>
 				<input type = "hidden" name = "employee_id" value = "${ROLE.employee_id}"> 
-				<input type = "text" value = "${ROLE.employee_name}" readonly>
+				<input class="form-control" type = "text" value = "${ROLE.employee_name}" readonly>
 			</th>
 		</tr>
 		</c:forEach>

@@ -47,7 +47,6 @@ $(function(){
 });
 </script>
 <body>
-warehouse_list.jsp
 <div class="row">
 <div class="col-xs-12">
 	<div class="panel panel-primary">
@@ -69,12 +68,12 @@ warehouse_list.jsp
 							<th>${vo.warehouse_id}</th>
 							<th>${vo.warehouse_name}</th>
 							<th>${vo.warehouse_location}</th>
-							<th><button class = "menege" value = "${vo.warehouse_id}">수정</button></th>
+							<th><button class = "menege btn btn-default" value = "${vo.warehouse_id}">수정</button></th>
 						</tr>
 					</c:forEach>
 					<tr>
 						<th colspan = "4">
-							<button class = "menege" value = "new">신규등록</button>
+							<button class = "menege btn btn-default" value = "new">신규등록</button>
 						</th>
 					</tr>
 				</table>
@@ -83,7 +82,7 @@ warehouse_list.jsp
 	</div>
 </div>
 </div>
-	<br><br><br>
+	<br>
 	<div id = "modify"></div>
 </body>
 </html>

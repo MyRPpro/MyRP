@@ -41,14 +41,14 @@
 					<tr>
 						<th>인사코드 그룹번호</th>
 						<td>
-							<input type="number" name="hr_code_group_id"
+							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 							value="${hr_codeVo.hr_code_group_id}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<th>인사코드 번호</th>
 						<td>
-							<input type="number" name="hr_code_id"
+							<input class="form-control input-sm" type="number" name="hr_code_id"
 							value="${hr_codeVo.hr_code_id}" readonly>
 						</td>
 					</tr>
@@ -56,7 +56,7 @@
 					<tr>
 						<th>인사코드명</th>
 						<td>
-							<input type="text" name="hr_code_name"
+							<input class="form-control input-sm" type="text" name="hr_code_name"
 							value="${hr_codeVo.hr_code_name}" required>
 						</td>
 					</tr>

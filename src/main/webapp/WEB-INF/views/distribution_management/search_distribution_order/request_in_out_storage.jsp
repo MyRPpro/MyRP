@@ -69,8 +69,16 @@ $(".page").bind("click", function(event) {
 </script>
 <body>
 <c:if test = "${goes == 'out'}">
-물류 출고요청
-<table border = "1">
+
+<div class="row">
+<div class="col-xs-12">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">물류 출고요청</h3>
+		</div>
+<div class="panel-body">
+			<div class="table-responsive">
+<table class="table table-condensed">
 	<tr>
 		<th>판매번호</th>
 		<th>상품명</th>
@@ -102,10 +110,10 @@ $(".page").bind("click", function(event) {
 		<th>${dto.storage_out_date}</th>	
 		<th>
 			<c:if test = "${(dto.stock_amount - dto.count_sales) >= 0 }">
-				<button onclick = "storage_comp_go('${dto.sales_id}','out_storage','${storage_out_date}')">출고대기</button>
+				<butto class="btn btn-primary"n onclick = "storage_comp_go('${dto.sales_id}','out_storage','${storage_out_date}')">출고대기</button>
 			</c:if>
 			<c:if test = "${(dto.stock_amount - dto.count_sales) < 0 }">
-				<button onclick = "storage_comp_go('${dto.sales_id}','out_storage_wait','${storage_out_date}')">재고준비중</button>
+				<button class="btn btn-primary" onclick = "storage_comp_go('${dto.sales_id}','out_storage_wait','${storage_out_date}')">재고준비중</button>
 			</c:if>
 		</th>
 	</tr>
@@ -137,12 +145,19 @@ $(".page").bind("click", function(event) {
 			</th>
 		</tr>
 </table>
-
+</div></div></div></div></div>
 </c:if>
 
 <c:if test = "${goes == 'in'}">
-물류 입고요청
-<table border = "1">
+<div class="row">
+<div class="col-xs-12">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">물류 입고요청</h3>
+		</div>
+<div class="panel-body">
+			<div class="table-responsive">
+<table class="table table-condensed">
 	<tr>
 		<th>구매번호</th>
 		<th>상품명</th>
@@ -161,7 +176,7 @@ $(".page").bind("click", function(event) {
 		<th>${dto.storage_in_date}</th>
 		<th>${dto.employee_id}</th>	 
 		<th>
-			<button onclick = "storage_go('${dto.purchase_id}','in_storage','${dto.storage_in_date}')">입고완료</button>
+			<button class="btn btn-primary" onclick = "storage_go('${dto.purchase_id}','in_storage','${dto.storage_in_date}')">입고완료</button>
 		</th>
 	</tr>
 	</c:forEach>
@@ -192,12 +207,20 @@ $(".page").bind("click", function(event) {
 			</th>
 		</tr>
 </table>
+</div></div></div></div></div>
 </c:if>
 
 
 <c:if test = "${goes == 'storage_out_complete'}">
-출고완료요청
-<table border = "1">
+<div class="row">
+<div class="col-xs-12">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">출고완료요청</h3>
+		</div>
+<div class="panel-body">
+			<div class="table-responsive">
+<table class="table table-condensed">
 		<tr>
 			<th>전표번호</th>
 			<th>상태</th>
@@ -208,10 +231,9 @@ $(".page").bind("click", function(event) {
 			<c:if test = "${dto.order_state == 24202}">
 			<tr>
 				<th>${dto.order_id}</th>
-				<th>${dto.order_state}</th>
 				<th>출고 대기</th>
 				<th>${dto.storage_out_date}</th>
-				<th><button onclick = "storage_comp_go('${dto.order_id}','storage_out_complete','${dto.storage_out_date}')">버튼</button></th>
+				<th><button class="btn btn-primary" onclick = "storage_comp_go('${dto.order_id}','storage_out_complete','${dto.storage_out_date}')">출고완료</button></th>
 			</tr>
 			</c:if>
 		</c:forEach>
@@ -242,6 +264,7 @@ $(".page").bind("click", function(event) {
 			</th>
 		</tr>
 	</table>
+</div></div></div></div></div>
 </c:if>
 </body>
 </html>

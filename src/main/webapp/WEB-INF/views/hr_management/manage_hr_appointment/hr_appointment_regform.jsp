@@ -70,38 +70,38 @@
 		<form action="#" name="page16621_form01">
 			<table class="table">
 				<tr>
-					<th>employee_id</th>
-					<td><input type="text" name="employee_id"
+					<th>사원번호</th>
+					<td><input class="form-control input-sm" type="text" name="employee_id"
 					value="${employeeVo.employee_id}" readonly></td>
 				</tr>
 				<tr>
-					<th>employee_name</th>
-					<td><input type="text" name="employee_name"
+					<th>사원명</th>
+					<td><input class="form-control input-sm" type="text" name="employee_name"
 					value="${employeeVo.employee_name}" readonly></td>
 				</tr>
 				<tr>
-					<th>appointment_date</th>
+					<th>발령일</th>
 					<td>
-						<input type="date" name="appointment_date"
+						<input class="form-control input-sm" type="date" name="appointment_date"
 						value="<fmt:formatDate value='${appointment_date}' pattern='yyyy-MM-dd'/>"
 						required>
 					</td>
 				</tr>
 				<tr>
-					<th>pre_rank</th>
+					<th>이전직급명</th>
 					<td>
 						<input type="hidden" name="hr_code_group_rank"
 						value="2">
 						<input type="hidden" name="pre_rank" 
 						value="${hr_code_id}">
-						<input type="text" name="pre_rank_name"
+						<input class="form-control input-sm" type="text" name="pre_rank_name"
 						value="${rank_name}" readonly>
 					</td>
 				</tr>
 				<tr>
-					<th>post_rank</th>
+					<th>발령직급명</th>
 					<td>
-						<select name="post_rank">
+						<select class="form-control input-sm" name="post_rank">
 							<option value=0>발령 직급 선택</option>
 							<c:forEach var="vo" items="${hr_codeVos}">
 								<option value="${vo.hr_code_id}">
@@ -112,18 +112,18 @@
 					</td>
 				</tr>
 				<tr>
-					<th>pre_dept</th>
+					<th>이전부서명</th>
 					<td>
 						<input type="hidden" name="pre_dept" 
 						value="${dept_id}">
-						<input type="text" name="pre_dept_name"
+						<input class="form-control input-sm" type="text" name="pre_dept_name"
 						value="${dept_name}" readonly>
 					</td>
 				</tr>
 				<tr>
-					<th>post_dept</th>
+					<th>발령부서명</th>
 					<td>
-						<select name="post_dept">
+						<select class="form-control input-sm" name="post_dept">
 							<option value=0>발령 부서 선택</option>
 							<c:forEach var="vo" items="${deptVos}">
 								<option value="${vo.dept_id}">

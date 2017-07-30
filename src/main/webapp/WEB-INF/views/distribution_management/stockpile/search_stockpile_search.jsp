@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../../setting.jsp" %>
+<br>
+<table class="table table-condensed">
+<tr>
+	<td>선택</td><td>상품번호</td><td>상품명</td>
+</tr>
 <c:forEach var = "dto" items = "${search_stockpile_searchDtos}">
-<input name = "checked" type = "checkbox" value = "${dto.product_id}">${dto.product_id}&nbsp;${dto.product_name}<br>
+	<tr>
+		<td><input name = "checked" type = "checkbox" value = "${dto.product_id}"></td>
+		<td>${dto.product_id}</td>
+		<td>${dto.product_name}</td>
+	</tr>
 </c:forEach>
-
-<button onclick = "go('product')" class="btn btn-success" data-dismiss = "modal">확인</button>
+<tr>
+	<td colspan = "3">
+		<button onclick = "go('product')" class="btn btn-primary"" data-dismiss = "modal">확인</button>
+	</td>
+</tr>
+</table>

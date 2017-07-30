@@ -51,17 +51,17 @@ $(function(){
 						</tr>
 						<tr>
 							<th>
-								<select name = "warehouse_id">
+								<select class="form-control input-sm" name = "warehouse_id">
 									<option value = "${nomal}">일반창고 / ${nomal}</option>
 									<option value = "${bad}">불량창고 / ${bad}</option>
 									<option value = "${wait}">대기창고 / ${wait}</option>
 								</select>
 							</th>
-							<th><input type = "text" id = "name" name = "warehouse_name" required></th>
-							<th><input type = "text" id = "location" name = "warehouse_location" required></th>
+							<th><input class="form-control" type = "text" id = "name" name = "warehouse_name" required></th>
+							<th><input class="form-control" type = "text" id = "location" name = "warehouse_location" required></th>
 						</tr>
 						<tr>
-							<th colspan = "3"><input type = "button" value = "확인" id = "new_sub"></th>
+							<th colspan = "3"><input type = "button" class="btn btn-primary" value = "확인" id = "new_sub">&nbsp;<input type = "reset" class="btn btn-info" value = "취소"></th>
 						</tr>
 					</table>
 					</form>
@@ -90,13 +90,13 @@ $(function(){
 					</tr>
 					<c:forEach var = "vo" items = "${reg_warehouse_listVos}" >	
 							<tr>
-								<th><input type = "text" value = "${vo.warehouse_id}" name = "warehouse_id" readonly></th>
-								<th><input type = "text" id = "name" value = "${vo.warehouse_name}" name = "warehouse_name" required></th>
-								<th><input type = "text" id = "location" value = "${vo.warehouse_location}" name = "warehouse_location" required></th>
+								<th><input class="form-control" type = "text" value = "${vo.warehouse_id}" name = "warehouse_id" readonly></th>
+								<th><input class="form-control" type = "text" id = "name" value = "${vo.warehouse_name}" name = "warehouse_name" required></th>
+								<th><input class="form-control" type = "text" id = "location" value = "${vo.warehouse_location}" name = "warehouse_location" required></th>
 							</tr>
 						</c:forEach>
 					<tr>
-						<th colspan = "3"><input type = "button" value = "확인" id = "modify_sub"><input type = "reset" value = "취소"></th>
+						<th colspan = "3"><input type = "button" class="btn btn-primary" value = "확인" id = "modify_sub">&nbsp;<input type = "reset" class="btn btn-info" value = "취소"></th>
 					</tr>
 				</table>
 				</form>

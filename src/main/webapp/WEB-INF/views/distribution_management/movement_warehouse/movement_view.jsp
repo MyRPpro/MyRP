@@ -8,13 +8,12 @@
 <%@ include file = "../../setting.jsp" %>
 </head>
 <script type="text/javascript">
+if("${doit}" != null && "${doit}" == '1'){
+	var data = {
+			"warehouse_id" 	: "${warehouse_id}",
+			"id" :  "${id}"
+			};
 
-	if("${doit}" != null && "${doit}" == '1'){
-		var data = {
-				"warehouse_id" 	: "${warehouse_id}",
-				"id" :  "${id}"
-				};
-	
 		$.ajax({ 					
 			data: 	data,
 			type: 	'post',	 			
@@ -72,13 +71,13 @@
 				</div>
 			<div class="panel-body">
 				<div class="table-responsive">
-					<select id = "warehouse_id"  class = "warehouse_id">
+					<select id = "warehouse_id"  class = "warehouse_id form-control input-sm">
 						<option value = "0">창고를 선택하시오.</option>
 						<c:forEach var = "ware" items = "${warehouseVos}">
 							<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
 						</c:forEach>
 					</select>
-					<br><br>
+					<br>
 				<div id = "product"></div>
 				</div>
 			</div>
@@ -94,7 +93,7 @@
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title">>수정</h3>
+					<h3 class="panel-title">수정</h3>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">

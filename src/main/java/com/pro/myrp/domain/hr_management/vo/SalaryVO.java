@@ -6,7 +6,7 @@ public class SalaryVO {
 	private String account_id;
 	private int employee_id;
 	private long base_pay;
-	private long bouns;
+	private long bonus;
 	private long benefit;
 	private long cost;
 	private long total_pay;
@@ -37,11 +37,11 @@ public class SalaryVO {
 	public void setBase_pay(long base_pay) {
 		this.base_pay = base_pay;
 	}
-	public long getBouns() {
-		return bouns;
+	public long getBonus() {
+		return bonus;
 	}
-	public void setBouns(long bouns) {
-		this.bouns = bouns;
+	public void setBonus(long bonus) {
+		this.bonus = bonus;
 	}
 	public long getBenefit() {
 		return benefit;

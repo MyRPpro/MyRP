@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../setting.jsp" %>
@@ -40,7 +41,7 @@
 		<div class="table-responsive">
 		<div class="form-group" >
 		
-		<div class="table-responsive">
+		
 		<table class="table table-condensed table-striped">
 			<tr>
 				<th>구매번호</th>	<!-- 1 -->
@@ -76,11 +77,14 @@
 			</tr>
 			</c:forEach>
 		</table>
-		</div> <!-- // table-responsive -->
 		</div>	<!-- // form-group -->
-		</div>	<!-- // form-control -->
 		
-		<input type="button" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		
+		</div> <!-- // table-responsive -->
+	</div>	<!-- // panel-body -->
+		
+		
 		
 	</div>	<!-- // panel-body -->
 	</div>	<!-- // panel panel-primary -->
@@ -89,7 +93,7 @@
 	<script type="text/javascript">
 	function sendStatement(){
 		var purchase_id = document.getElementById("purchase_id").innerHTML
-		console.log( " sned purchase_id : " + purchase_id );
+		/* console.log( " sned purchase_id : " + purchase_id ); */
 		$('#main_screen').load("/accounting_management/statement_management/make_statement");
 		
 		/* window.location="/accounting_management/statement_management/make_statement"; */

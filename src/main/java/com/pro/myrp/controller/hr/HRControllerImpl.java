@@ -537,5 +537,40 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 		return code.c(hr_management, manage_salary, modify_salary_info_pro);
 	}
 
+	@Override
+	@GetMapping(value="manage_salary/calc_salary")
+	public String calc_salary(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(calc_salary));
+		model.addAttribute("req", req);
+		service.calc_salary_service(model);
+		return code.c(hr_management, manage_salary, calc_salary);
+	}
+
+	@Override
+	@PostMapping(value="manage_salary/calc_salary_pro")
+	public String calc_salary_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(calc_salary_pro));
+		model.addAttribute("req", req);
+		service.calc_salary_pro_service(model);
+		return code.c(hr_management, manage_salary, calc_salary_pro);
+	}
+
+	@Override
+	@GetMapping(value="manage_salary/fix_salary")
+	public String fix_salary(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(fix_salary));
+		model.addAttribute("req", req);
+		service.fix_salary(model);
+		return code.c(hr_management, manage_salary, fix_salary);
+	}
+
+	@Override
+	@GetMapping(value="manage_salary/personnel_card_salary")
+	public String personnel_card_salary(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(personnel_card_salary));
+		model.addAttribute("req", req);
+		service.personnel_card_salary_service(model);
+		return code.c(hr_management, manage_salary, personnel_card_salary);
+	}
 	
 }

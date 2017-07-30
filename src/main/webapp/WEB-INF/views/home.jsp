@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <html>
 <head>
-   <title>MyRP</title>
+	<title>MyRP</title>
 </head>
 <script type="text/javascript">
 function fn_login_form() {
@@ -24,7 +24,7 @@ function onoff(){
 <input type = "hidden" id = "alarmonoff" value = "on">
 <div class="container-fluid">
 	<form class="form-inline">
-		<div class="row " style="height: 100px; vertical-align: center;  " >
+		<div class="row " style="height: 100px; vertical-align: center; " >
 			<div class="page-header " style="height: 80px; margin: 0; margin-top: 10px; margin-bottom:10px; vertical-align: center; " >
 				<div class="col-md-12">
 					<h1 style="margin:0 auto; padding:0;">
@@ -36,6 +36,7 @@ function onoff(){
 						onmouseout="this.src='/resources/images/design/logo_v4.png'" border="0"></a>
 						
 						<small class="text-right" style="vertical-align: center;">
+
 							<%
 								request.getSession().setAttribute("dest", null);
 							%>
@@ -57,8 +58,9 @@ function onoff(){
 					</h1>	
 				</div>	
 			</div>	<!-- // page-header -->
-		</div>	
+		</div>	<!-- // row -->
 	</form>
+
    <div class="row">
       <div class="col-md-12">
          <div class="row">
@@ -257,6 +259,7 @@ function onoff(){
 					success: function(response) { 	
 						$('#result').html(response);
 					}
+
 				});
 				data["goes"] = "2";
 				$.ajax({ 					
@@ -269,7 +272,7 @@ function onoff(){
 					}
 				});
 				}
-			}, 3000);
+			}, 10000);
 		}
 	}); */
 	
@@ -278,5 +281,6 @@ function onoff(){
 		$("#main_screen").load($(this).attr("href"));
 		return false;
 	});
+
 </script>
 </html>

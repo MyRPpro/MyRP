@@ -133,24 +133,28 @@
 			<table class="table">
 				<tr>
 					<th>사원번호</th>
-					<td>
-						<input type="number" name="employee_id" value="${employee_id}"
-						min="1" max="9999" required autofocus>
-						<input class="btn btn-default btn-xs" type="button"
-						value="중복확인" id="page16320_btn01">
+					<td colspan="3">
+						<div class="input-group">
+							<input class="form-control input-sm" type="number" name="employee_id" value="${employee_id}"
+							min="1" max="9999" required autofocus>
+							<span class="input-group-btn">
+								<input class="btn btn-default btn-sm" type="button"
+								value="중복확인" id="page16320_btn01">
+							</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<th>사원명</th>
-					<td>
-						<input type="text" name="employee_name"
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="employee_name"
 						maxlength="50" required>
 					</td>
 				</tr>
 				<tr>
 					<th>부서명</th>
-					<td>
-						<select name="dept_id">
+					<td colspan="3">
+						<select class="form-control input-sm" name="dept_id">
 							<option value=0 selected>부서 선택</option>
 							<c:forEach var="dept" items="${deptVos}">
 								<option value="${dept.dept_id}">
@@ -162,8 +166,8 @@
 				</tr>
 				<tr>
 					<th>직급</th>
-					<td>
-						<select name="hr_code_id">
+					<td colspan="3">
+						<select class="form-control input-sm" name="hr_code_id">
 							<option value=0 selected>직급 선택</option>
 							<c:forEach var="hr_code" items="${hr_codeVos}">
 								<option value="${hr_code.hr_code_id}">
@@ -176,80 +180,84 @@
 				<tr>
 					<th>주민등록번호</th>
 					<td>
-						<input type="text" name="residence_reg_no1"
-						maxlength="6" required>
-						-
-						<input type="text" name="residence_reg_no2"
+						<input class="form-control input-sm" type="text" name="residence_reg_no1" maxlength="6" required>
+					</td>
+					<td>-</td>
+					<td>
+						<input class="form-control input-sm" type="text" name="residence_reg_no2"
 						maxlength="7" required>
 					</td>
 				</tr>
 				<tr>
 					<th>입사일</th>
-					<td>
+					<td colspan="3">
 						<c:set var="now" value="<%= new java.util.Date() %>"/>
-						<input type="date" name="join_date" 
+						<input class="form-control input-sm" type="date" name="join_date" 
 						value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
 						required>
 					</td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td>
-						<input type="text" name="tel" maxlength="30">
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="tel" maxlength="30">
 					</td>
 				</tr>
 				<tr>
 					<th>휴대전화</th>
-					<td>
-						<input type="text" name="mobile_tel" maxlength="30">
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="mobile_tel" maxlength="30">
 					</td>
 				</tr>
 				<tr>
 					<th>여권번호</th>
-					<td>
-						<input type="text" name="passport_no" maxlength="9">
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="passport_no" maxlength="9">
 					</td>
 				</tr>
 				<tr>
 					<td>이메일</td>
 					<td>
-						<input type="text" name="email1"
-						maxlength="20">
-						@
-						<input type="text" name="email2"
-						maxlength="19">
-						<select name="email3"
-						onchange="emailChk();">
-							<option value="0" selected>직접 입력</option>
-							<option value="gmail.com">gmail.com</option>
-							<option value="naver.com">naver.com</option>
-							<option value="daum.net">daum.net</option>
-							<option value="nate.com">nate.com</option>
-						</select>
+						<input class="form-control input-sm" type="text" name="email1" maxlength="20">
+					</td>
+					<td>@</td>
+					<td>
+						<div class="input-group">
+							<input class="form-control input-sm" type="text" name="email2" maxlength="19">
+							<span class="input-group-btn">
+								<select class="btn btn-default btn-sm" name="email3" onchange="emailChk();">
+									<option value="0" selected>직접 입력</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="naver.com">naver.com</option>
+									<option value="daum.net">daum.net</option>
+									<option value="nate.com">nate.com</option>
+								</select>
+							</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td>
-						<input type="text" name="address">
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="address">
 					</td>
 				</tr>
 				<tr>
 					<th>시급</th>
-					<td>
-						<input type="number" name="hourly_wage"
+					<td colspan="3">
+						<input class="form-control input-sm" type="number" name="hourly_wage"
 						min="0" max="999999" required>
 					</td>
 				</tr>
 				<tr>
 					<th>급여계좌</th>
-					<td>
-						<input type="text" name="salary_account"
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="salary_account"
 						maxlength="20">
 					</td>
 				</tr>
 				<tr>
-					<th colspan="2">
+					<th colspan="4">
 						<input type="hidden" name="dupcheck"
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
