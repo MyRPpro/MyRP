@@ -54,62 +54,64 @@
 		<form action="#" name="page16332_form01">
 			<table class="table">
 				<tr>
-					<th colspan="2" style="width:100px; height:130px;">
+					<th colspan="4" style="width:100px; height:130px;">
 						<img alt="사진 이미지" src="/resources/images/picture_employee/${employee_id}.jpg"
 						width="100" height="125">
 					</th>
 				</tr>
 				<tr>
 					<th>사원번호</th>
-					<td>
-						<input type="number" name="employee_id"
+					<td colspan="3">
+						<input class="form-control input-sm" type="number" name="employee_id"
 						value="${personnel_cardDto.employee_id}" readonly>
 					</td>
 				</tr>
 				<tr>
 					<th>사원명</th>
-					<td>
-						<input type="text" name="employee_name"
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="employee_name"
 						value="${personnel_cardDto.employee_name}"
 						maxlength="50" required>
 					</td>
 				</tr>
 				<tr>
 					<th>부서명</th>
-					<td>
+					<td colspan="3">
 						<input type="hidden" name="dept_id"
 						value="${personnel_cardDto.dept_id}">
-						<input type="text" name="dept_name"
+						<input class="form-control input-sm" type="text" name="dept_name"
 						value="${personnel_cardDto.dept_name}" readonly>
 					</td>
 				</tr>
 				<tr>
 					<th>직급</th>
-					<td>
+					<td colspan="3">
 						<input type="hidden" name="hr_code_group_rank"
 						value="${personnel_cardDto.hr_code_group_rank}">
 						<input type="hidden" name="rank_code"
 						value="${personnel_cardDto.rank_code}">
-						<input type="text" name="hr_code_name"
+						<input class="form-control input-sm" type="text" name="hr_code_name"
 						value="${personnel_cardDto.hr_code_name}" readonly>
 					</td>
 				</tr>
 				<tr>
 					<th>주민등록번호</th>
 					<td>
-						<input type="text" name="residence_reg_no1"
+						<input class="form-control input-sm" type="text" name="residence_reg_no1"
 						value="${fn:substring(personnel_cardDto.residence_reg_no,0,6)}"
 						maxlength="6" required>
-						-
-						<input type="text" name="residence_reg_no2"
+					</td>
+					<td>-</td>
+					<td>
+						<input class="form-control input-sm" type="text" name="residence_reg_no2"
 						value="${fn:substring(personnel_cardDto.residence_reg_no,6,13)}"
 						maxlength="7" required>
 					</td>
 				</tr>
 				<tr>
 					<th>입사일</th>
-					<td>
-						<input type="date" name="join_date" 
+					<td colspan="3">
+						<input class="form-control input-sm" type="date" name="join_date" 
 						value="<fmt:formatDate 
 								value='${personnel_cardDto.join_date}'
 								pattern='yyyy-MM-dd'/>" 
@@ -118,24 +120,24 @@
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td>
-						<input type="text" name="tel" 
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="tel" 
 						value="${personnel_cardDto.tel}"
 						maxlength="30">
 					</td>
 				</tr>
 				<tr>
 					<th>휴대전화</th>
-					<td>
-						<input type="text" name="mobile_tel"
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="mobile_tel"
 						value="${personnel_cardDto.mobile_tel}"
 						maxlength="30">
 					</td>
 				</tr>
 				<tr>
 					<th>여권번호</th>
-					<td>
-						<input type="text" name="passport_no"
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="passport_no"
 						value="${personnel_cardDto.passport_no}"
 						maxlength="9">
 					</td>
@@ -143,48 +145,52 @@
 				<tr>
 					<td>이메일</td>
 					<td>
-						<input type="text" name="email1"
+						<input class="form-control input-sm" type="text" name="email1"
 						value="${fn:split(personnel_cardDto.email,'@')[0]}"
 						maxlength="20">
-						@
-						<input type="text" name="email2"
-						value="${fn:split(personnel_cardDto.email,'@')[1]}"
-						maxlength="19">
-						<select name="email3"
-						onchange="emailChk();">
-							<option value="0" selected>직접 입력</option>
-							<option value="gmail.com">gmail.com</option>
-							<option value="naver.com">naver.com</option>
-							<option value="daum.net">daum.net</option>
-							<option value="nate.com">nate.com</option>
-						</select>
+					</td>
+					<td>@</td>
+					<td>
+						<div class="input-group">
+							<input class="form-control input-sm" type="text" name="email2"
+							value="${fn:split(personnel_cardDto.email,'@')[1]}"	maxlength="19">
+							<span class="input-group-btn">
+								<select class="btn btn-default btn-sm" name="email3" onchange="emailChk();">
+									<option value="0" selected>직접 입력</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="naver.com">naver.com</option>
+									<option value="daum.net">daum.net</option>
+									<option value="nate.com">nate.com</option>
+								</select>
+							</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td>
-						<input type="text" name="address"
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="address"
 						value="${personnel_cardDto.address}">
 					</td>
 				</tr>
 				<tr>
 					<th>시급</th>
-					<td>
-						<input type="number" name="hourly_wage"
+					<td colspan="3">
+						<input class="form-control input-sm" type="number" name="hourly_wage"
 						value="${personnel_cardDto.hourly_wage}"
 						min="0" max="999999" required>
 					</td>
 				</tr>
 				<tr>
 					<th>급여계좌</th>
-					<td>
-						<input type="text" name="salary_account"
+					<td colspan="3">
+						<input class="form-control input-sm" type="text" name="salary_account"
 						value="${personnel_cardDto.salary_account}"
 						maxlength="20" required>
 					</td>
 				</tr>
 				<tr>
-					<th colspan="2">
+					<th colspan="4">
 						<input class="btn btn-default btn-xs" type="submit" value="수정하기">
 						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
 						<input class="btn btn-default btn-xs" type="button" value="사진추가" id="page16332_btn01">

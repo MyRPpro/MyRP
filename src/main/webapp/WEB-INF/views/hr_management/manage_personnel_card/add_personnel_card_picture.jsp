@@ -59,7 +59,7 @@
 					<tr>
 						<th>파일</th>
 						<td>
-						<input type="file" name="file" required="required">
+						<input class="form-control input-sm" type="file" name="file" required="required">
 						<input type="hidden" name="name" value="${employee_id}">
 						<input type="hidden" name="pwd" value="1">
 						<input type="hidden" name="title" value="1">

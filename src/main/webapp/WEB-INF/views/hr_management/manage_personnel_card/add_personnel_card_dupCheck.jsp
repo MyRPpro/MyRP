@@ -69,7 +69,7 @@
 						<tr>
 							<th>부서번호</th>
 							<td>
-								<input type="number" name="employee_id" 
+								<input class="form-control input-sm" type="number" name="employee_id" 
 								min="1" max="9999" step="1" required autofocus>
 							</td>
 						</tr>

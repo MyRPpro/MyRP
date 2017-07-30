@@ -1,9 +1,13 @@
-package com.pro.myrp.domain.hr_management.vo;
+package com.pro.myrp.domain.hr_management.dto;
 
-public class SalaryVO {
+import java.sql.Date;
+
+public class Personnel_card_salaryDTO {
 
 	private String salary_register_id;
-	private String account_id;
+	private Date reg_date;
+	private String salary_register_name;
+	
 	private int employee_id;
 	private long base_pay;
 	private long bonus;
@@ -12,18 +16,24 @@ public class SalaryVO {
 	private long total_pay;
 	private long deduction_cost;
 	private long takehome_pay;
-
+	
 	public String getSalary_register_id() {
 		return salary_register_id;
 	}
 	public void setSalary_register_id(String salary_register_id) {
 		this.salary_register_id = salary_register_id;
 	}
-	public String getAccount_id() {
-		return account_id;
+	public Date getReg_date() {
+		return reg_date;
 	}
-	public void setAccount_id(String account_id) {
-		this.account_id = account_id;
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
+	}
+	public String getSalary_register_name() {
+		return salary_register_name;
+	}
+	public void setSalary_register_name(String salary_register_name) {
+		this.salary_register_name = salary_register_name;
 	}
 	public int getEmployee_id() {
 		return employee_id;

@@ -42,21 +42,21 @@
 					<tr>
 						<th>부서번호</th>
 						<td>
-							<input type="text" name="dept_id"
+							<input class="form-control input-sm" type="text" name="dept_id"
 							value="${deptVo.dept_id}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<th>부서명</th>
 						<td>
-							<input type="text" name="dept_name"
+							<input class="form-control input-sm" type="text" name="dept_name"
 							value="${deptVo.dept_name}" required>
 						</td>
 					</tr>
 					<tr>
 						<th>접근권한</th>
 						<td>
-							<input type="text" name="access_role"
+							<input class="form-control input-sm" type="text" name="access_role"
 							value="${deptVo.access_role}" required>
 						</td>
 					</tr>

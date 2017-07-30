@@ -70,22 +70,25 @@
 				<tr>
 					<th>부서번호</th>
 					<td>
-						<input type="number" name="dept_id" value="${dept_id}"
-						min="1" max="9999" step="1" required autofocus>
-						<input class="btn btn-default btn-xs" type="button"
-						value="중복확인" id="page16220_btn01">
+						<div class="input-group">
+							<input class="form-control input-sm" type="number" name="dept_id" value="${dept_id}"
+							min="1" max="9999" step="1" required autofocus>
+							<span class="input-group-btn">
+								<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page16220_btn01">
+							</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<th>부서명</th>
 					<td>
-						<input type="text" name="dept_name" maxlength="255" required>
+						<input class="form-control input-sm" type="text" name="dept_name" maxlength="255" required>
 					</td>
 				</tr>
 				<tr>
 					<th>접근권한</th>
 					<td>
-						<input type="text" name="access_role" maxlength="255" required>
+						<input class="form-control input-sm" type="text" name="access_role" maxlength="255" required>
 					</td>
 				</tr>
 				<tr>
