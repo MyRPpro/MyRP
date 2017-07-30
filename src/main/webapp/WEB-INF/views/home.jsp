@@ -22,7 +22,6 @@ function onoff(){
 </script>
 <body>
 <input type = "hidden" id = "alarmonoff" value = "on">
-<input type = "hidden" id = "role" value = "${ROLE.access_role}">
 <div class="container-fluid">
 	<form class="form-inline">
 		<div class="row " style="height: 100px; vertical-align: center; " >
@@ -226,8 +225,7 @@ function onoff(){
    </div>
 </body>
 <script type="text/javascript">
-	
-	$(function(){
+	/* $(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;
 			var data = {"role" : role}
@@ -276,7 +274,7 @@ function onoff(){
 				}
 			}, 10000);
 		}
-	});
+	}); */
 	
 	//메뉴의 a 태그 클릭시 메인페이지 화면에 해당 화면을 출력한다.
 	$(".panel-body a").bind("click", function(event) {
