@@ -228,6 +228,9 @@
 									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
 									<input type=button name="btn_modify" class="btn btn-info"  id="btn-modify" value="수정하기" onclick="return modify_purchase();" >
 									<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
+									<c:if test="${dtos.get(0).purchase_state == 23202 }">	<!-- 전표 승인 요청일 경우 --> 
+										<input type="button" name="reg_state" id="button_reg_state" class="btn btn-primary" value="회계전표 입력하기 " >	
+									</c:if>
 								</center>
 								<div id="alert_pro">
 								</div>
@@ -243,6 +246,9 @@
 
 	<script type="text/javascript">
 	
+	$('#button_reg_state').click(function(){
+		$('#main_screen').load('/accounting_management/statement_management/search_statements');
+	});
 	
 	function modify_purchase(){
 		

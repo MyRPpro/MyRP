@@ -110,8 +110,8 @@ function onoff(){
                         <div class="panel-body">
                            <a href="/purchase_management/search_purchase/purchase_list">구매검색</a><br>
                            <a href="/purchase_management/input_purchase/reg_purchase">구매입력</a><br>
-                           <a href="/purchase_management/">구매현황</a><br>
-                           <a href="/purchase_management/">거래처별 채무</a><br>
+                           <a href="/purchase_management/status_purchase/search_status_purchase">구매현황</a><br>
+                           <!-- <a href="/purchase_management/">거래처별 채무</a><br> -->
                         </div>
                      </div>
                   </div>

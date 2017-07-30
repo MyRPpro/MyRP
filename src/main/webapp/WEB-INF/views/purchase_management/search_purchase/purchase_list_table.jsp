@@ -31,13 +31,16 @@
 						출고완료 조회
 					</c:when>
 					<c:when test="${check==4}">
-						미승인 판매 조회
+						마감 주문 조회
+					</c:when>
+					<c:when test="${check==5}">
+						채무상환 조회
 					</c:when>
 					<c:otherwise>
 						입력값 오류
 					</c:otherwise>
 				</c:choose>
-				검색 목록 조회 search_reg_purchase &emsp;  검색개수 : 총 ${cnt} 개 
+				목록 조회 search_reg_purchase &emsp;  검색개수 : 총 ${cnt} 개 
 			</h3> 
 			
 			

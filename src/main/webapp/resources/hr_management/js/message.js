@@ -56,6 +56,8 @@ var update_date 			= "최근수정일";
 var req_storage_in 			= "입고요청하기";
 var req_repay 				= "지급기간까지 남은 일자";
 var btn_confirm 			= "확인하고 창을 닫음";
+var req_dead_line 			= "마감 조회 하기";
+var btn_form_reset			= "폼 리로드";
 // modify_purchase
 var state_name 				= "상태명";
 var btn_modify 				= "수정하기";
@@ -64,7 +66,12 @@ var btn_list_all 			= "전체목록";
 var btn_reg_purchasel 		= "구매등록";
 var btn_search_state 		= "전표승인조회";
 var btn_search_storage_in 	= "입고완료조회";
-var btn_search_repay 		= "지급안료조회";
+var btn_req_payed 			= "지급완료조회";
+
+// purchase_list
+var btn_payable				= "채무상환 가능 내역 조회";
+
+
 
 /**
  * 물류관리

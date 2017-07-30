@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
+import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.purchase.purchaseDAO;
 
 @Service
@@ -270,7 +271,6 @@ public class purchaseServiceImpl implements purchaseService {
 		}
 
 	}
-
 	
 	// 구매 검색
 	@Override
@@ -284,7 +284,7 @@ public class purchaseServiceImpl implements purchaseService {
 		String search_str = null;	// 판매번호 검색
 		int search_check = 0;		// 검색 종류	
 		int cnt = 0;				// 검색 개
-
+		int update_cnt = 0;
 		System.out.println("  -> search_str :" + req.getParameter("search_str") );
 
 		// 검색 종류 설정
@@ -295,9 +295,15 @@ public class purchaseServiceImpl implements purchaseService {
 			search_check = 2;
 		} else if (search_str.equals ("stock")) {
 			search_check = 3;
-		} else if (search_str.equals ("check")) {
+		} else if (search_str.equals ("req_payed")) {
 			search_check = 4;
-		} else if (search_str != null && search_str != "") {
+		} else if (search_str.equals ("paydate")) {
+			search_check = 5;
+		}
+		
+		
+		
+		else if (search_str != null && search_str != "") {
 			search_check = 1;
 		}
 		
@@ -315,7 +321,7 @@ public class purchaseServiceImpl implements purchaseService {
 		// 전표 조회일 경우
 		} else if (search_check == 2) {
 			System.out.println("  -> Account_Approve...");
-			int update_cnt = dao.update_account_approve_purchase();
+			update_cnt = dao.update_account_approve_purchase();
 			System.out.println("  -> update_cnt : " + update_cnt);
 			cnt = dao.select_account_approve_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
@@ -324,19 +330,43 @@ public class purchaseServiceImpl implements purchaseService {
 		} else if (search_check == 3) {
 
 			System.out.println("  -> Stock_Out...");
-			int update_cnt = dao.update_stock_in_purchase();
+			update_cnt = dao.update_stock_in_purchase();
 			System.out.println("  -> update_cnt : " + update_cnt);
 
 			cnt = dao.select_stock_in_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
 
-		// 구매 승인 요청일 경우
+		// 지급완료 조회
 		} else if (search_check == 4) {
-			System.out.println("  -> Search_Checkout...");
-			cnt = dao.select_checkout_purchase_cnt();
+			System.out.println("  -> Request_Payed...");
+			update_cnt=dao.update_payed_purchase();
+			// 현금 , 매출 채권 계쩡도 승인 완료시 마감 처리
+			update_cnt=dao.update_payed_cash_purchase();
+			cnt = dao.select_payed_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
-
-		} else {
+		
+		// 채쿠 상환 조회 : 전표 승인 완료를 지급대기로 수정
+		} else if (search_check == 5) {
+			System.out.println("  -> Search_Payable...");
+			update_cnt = dao.update_pay_date_purchase();
+			
+			cnt = dao.select_pay_date_purchase_cnt();
+			System.out.println("  -> Search Cnt : " + cnt);
+		}
+		
+		// 채무상환 조회
+		else if (search_check == 6) {
+			System.out.println("  -> Search_Payable...");
+			update_cnt = dao.update_pay_date_purchase();
+			
+			cnt = dao.select_pay_date_purchase_cnt();
+			System.out.println("  -> Search Cnt : " + cnt);
+	
+		}
+		
+		
+		
+		else {
 			System.out.println("  -> Search_All...");
 			cnt = dao.select_all_purchase_cnt();
 		}
@@ -345,7 +375,7 @@ public class purchaseServiceImpl implements purchaseService {
 		req.setAttribute("search_check", search_check);
 		
 	}
-
+	
 	@Override
 	public void purchase_list_table_servie(Model model) {
 		
@@ -359,7 +389,7 @@ public class purchaseServiceImpl implements purchaseService {
 		int cnt	= 0;
 		int search_check = 0;
 		String search_str = "";
-		ArrayList<PurchaseDTO> dtos = null;
+		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
 
 		cnt = (Integer) req.getAttribute("cnt");
 		search_check = (Integer) req.getAttribute("search_check");
@@ -413,12 +443,33 @@ public class purchaseServiceImpl implements purchaseService {
 			} else if ( search_check == 4 ){
 				
 				// 출고 완료 목록 표시
+				System.out.println("  -> Payed purchase List  ...");
+				dtos = dao.select_payed_purchase_list(daoMap);
+				model.addAttribute("dtos", dtos);
+				
+				
+			} else if ( search_check == 5 ){
+				
+				// 채무상환 목록 출력
+				System.out.println("  -> Payable purchase List  ...");
+				dtos = dao.select_Payable_purchase_list(daoMap);
+				model.addAttribute("dtos", dtos);
+				
+				
+			} else if ( search_check == 6 ){
+				
+				// 출고 완료 목록 표시
 				System.out.println("  -> Checkout purchase List  ...");
 				dtos = dao.select_checkout_purchase_list(daoMap);
 				model.addAttribute("dtos", dtos);
 				
-				
-			} else {
+			} 
+			
+			
+			
+			
+			
+			else {
 				System.out.println("  -> Print All List  ...");
 				
 				// 전체 목록 불러오기
@@ -658,7 +709,12 @@ public class purchaseServiceImpl implements purchaseService {
 		daoMap.put("purchase_id", purchase_id);
 		daoMap.put("account_id", account_id);
 		
+		/*
+		// 기존 꺼 : 하나만 불러옴
 		ArrayList<PurchaseDTO> dtos = dao.select_detail_purchase(daoMap);
+		*/
+		
+		ArrayList<PurchaseDTO> dtos = dao.select_modify_purchase(daoMap);	// 3개 다 불러옴
 		/*System.out.println("  -> dtos : " + dtos.toString() );*/
 		
 		if( dtos != null ){
@@ -693,7 +749,7 @@ public class purchaseServiceImpl implements purchaseService {
 		PurchaseDTO dto = null;
 		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
 		
-		// 창고 입고 확인
+		// 창고 입고 요청
 		if( req_kind.equals("storage_in") ){
 			System.out.println("  -> Request a Storage In...");
 			
@@ -709,62 +765,60 @@ public class purchaseServiceImpl implements purchaseService {
 			model.addAttribute("update_cnt", update_cnt);
 		}
 		
-		// 지급 날짜 , 남은 날짜 확인
-		if( req_kind.equals("pay_date") ){
+		// 지급 날짜 , 남은 날짜 요청
+		else if( req_kind.equals("pay_date") ){
+			System.out.println("  -> Search Pay_Date...");
 			
 			// 수금기간을 조회 구매번호롸 상품매입(500011050000)을 사용하여 지급일을 계산
 			purchase_id = req.getParameter("purchase_id");
 			System.out.println("  -> purchase_id : " + purchase_id);
+		
+			// 상태 변경 ( 입고완료 23205 -> 지급 대기 23206  )
 			Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("purchase_id", purchase_id);
 			daoMap.put("account_id", "500012010000");	// 매입 채무
-			daoMap.put("before_state", 23202);
+			daoMap.put("before_state", 23203);
 			daoMap.put("after_state", 23206);
-			
-			// 상태 변경 ( 입고완료 23205 -> 지급 대기 23206  )
 			update_cnt = dao.update_state(daoMap);
 			
-			if(update_cnt > 0){
-				
-				// 지급 날짜 불러오기
-				pay_date = dao.select_purchase_pay_date(daoMap);
-				System.out.println("  -> pay_date : " + pay_date);
-				model.addAttribute("pay_date", pay_date);
-				
-				// 남은 날짜 불러오기
-				pay_diff = dao.select_purchase_pay_diff(daoMap);
-				System.out.println("  -> pay_diff : " + pay_diff);
-				model.addAttribute("pay_diff", pay_diff);
-				
-			} else{
-				System.out.println("  -> Update Cnt is Zero... ");
-			}
+			// 지급 날짜 불러오기
+			pay_date = dao.select_purchase_pay_date(daoMap);
+			System.out.println("  -> pay_date : " + pay_date);
+			model.addAttribute("pay_date", pay_date);
 			
-			model.addAttribute("cnt", update_cnt);
+			// 남은 날짜 불러오기
+			pay_diff = dao.select_purchase_pay_diff(daoMap);
+			System.out.println("  -> pay_diff : " + pay_diff);
+			model.addAttribute("pay_diff", pay_diff);
+
+			model.addAttribute("date_cnt", 1);
 		}
 		
-		// 지급  확인 버튼
-		if( req_kind.equals("req_pay") ){
+		// 지급  확인 수금 기간이 되어서 수금 완료 상태
+		else  if( req_kind.equals("req_repay") ){
+			System.out.println("  -> Request a Req_Repay...");
 			
 			// 현금(500011010000)과 매입채무(500012010000) 채권 생성 , 둘다 가격은 마이너스
 			purchase_id = req.getParameter("purchase_id");
 			System.out.println("  -> purchase_id : " + purchase_id);
 			price_temp = req.getParameter("supply_price");
+			
 			price_temp = price_temp.replace("￦","");
 			price_temp = price_temp.replace(",","");
+			
 			Long price = Long.parseLong(price_temp);
 			System.out.println( "  -> price : " + price );
-			System.out.println( "빼기 : " + (-price));
-			
 			// 정보 불러오기
 			dto = dao.select_purchase(purchase_id);
 			
-			// 기존 구매 정보 상태변경 ( 23205 -> 23206 | 입고완료 -> 지급대기 )
+			// 기존 구매 정보 상태변경 ( 23206 -> 23207 | 지급대기 -> 지급완료 )
 			Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("purchase_id", purchase_id);
-			daoMap.put("account_id", "500011020000");
-			daoMap.put("after_state", 23206);
-			update_cnt = dao.update_state_force(daoMap);
+			daoMap.put("account_id", "500012010000");	// 매입 채무
+			daoMap.put("before_state", 2320);
+			daoMap.put("after_state", 23207);
+			update_cnt = dao.update_state(daoMap);
+			
 			
 			// 공통사항 설정
 			dto.setPurchase_id(dao.select_purchase_id());
@@ -784,13 +838,356 @@ public class purchaseServiceImpl implements purchaseService {
 			if(insert_cnt != 0 ) ++insert_cnt;
 			dtos.add(dto);
 			
-			System.out.println("  -> update_cnt : " + insert_cnt);
-			
+			System.out.println("  -> insert_cnt : " + insert_cnt);
 			model.addAttribute("insert_cnt", insert_cnt);
 			model.addAttribute("dtos", dtos);
 		}
+		 
+		// 마감 조회
+		else if( req_kind.equals("dead_line") ){
+			System.out.println("  -> Search Dead_Line...");
+			
+			// 상태코드 변경 : 23208 마감처리
+			purchase_id = req.getParameter("purchase_id");
+			System.out.println("  -> purchase_id : " + purchase_id);
+			update_cnt = dao.update_dead_line_purchase(purchase_id);
+			System.out.println("  -> update_cnt :" + update_cnt);
+			model.addAttribute("update_cnt",update_cnt);
+			
+		}
 		
 	}
+
+	
+	
+	
+	// 구매 현황
+	
+	@Override
+	public void search_status_purchase_service(Model model) {
+		
+		System.out.println("  -> search_status_purchase_service " );
+
+		ArrayList<PurchaseDTO> product_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> company_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> employee_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> account_ids = new ArrayList<>();
+		
+		product_ids = dao.select_product_ids();
+		company_ids = dao.select_company_ids();
+		employee_ids = dao.select_employee_ids();
+		account_ids = dao.select_account_ids();
+		
+		model.addAttribute("product_ids",product_ids);
+		model.addAttribute("company_ids",company_ids);
+		model.addAttribute("employee_ids",employee_ids);
+		model.addAttribute("account_ids",account_ids);
+		
+	}
+
+	@Override
+	public void search_status_purchase_table_service(Model model) {
+		System.out.println("  -> search_status_purchase_service " );
+
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		ArrayList<PurchaseDTO> dtos = null;
+		Map<String,Object> optionMap = new HashMap<>();
+		
+		String start_date = null;
+		String end_date = null;
+		int date_check = 0;
+		
+		
+		/*System.out.println( req.getParameter("start_date")  );*/
+		
+		// 검색 종류 체크
+		if( req.getParameter("start_date").equals("all") && req.getParameter("end_date").equals("all") ){
+			System.out.println("  -> ALL List Conut Search : table");
+			date_check = 0;
+			
+		} else if( !req.getParameter("start_date").equals("null") || !req.getParameter("start_date").equals("undefined") || !req.getParameter("start_date").equals("0") ){
+			System.out.println("  -> Date Search : table");
+			date_check = 1;
+		}
+	
+		if( !req.getParameter("account").equals("null") && !req.getParameter("account").equals("0") ){
+			optionMap.put("account", req.getParameter("account"));
+			date_check = 2;
+		}
+		
+		if( !req.getParameter("product").equals("null") && !req.getParameter("product").equals("0") ){
+			optionMap.put("product", req.getParameter("product"));
+			date_check = 2;
+		}
+		
+		if( !req.getParameter("company").equals("null") && !req.getParameter("company").equals("0") ){
+			optionMap.put("company", req.getParameter("company"));
+			date_check = 2;
+		}
+		
+		if( !req.getParameter("employee").equals("null") && !req.getParameter("employee").equals("0") ){
+			optionMap.put("employee", req.getParameter("employee"));
+			date_check = 2;
+			
+		} 
+		 
+		
+		// 날짜가 있을 경우
+		if( date_check == 1 ){
+			
+			start_date 	= req.getParameter("start_date").replace("-", "");
+			end_date 	= req.getParameter("end_date").replace("-", "");
+			// 개수 구하기
+			Map<String,String> daoMap = new HashMap<>();
+			daoMap.put("start_date", start_date);
+			daoMap.put("end_date", end_date);
+			cnt = dao.count_search_status_purchase(daoMap);
+			System.out.println("  -> Search Cnt : " + cnt );
+			
+			
+		// 옵션이 있을 경우
+		} else if(date_check == 2){
+			
+			// 개수 구하기
+			cnt = dao.count_option_status_purchase(optionMap);
+			/*cnt = dao.select_option_status_purchase(optionMap);*/
+			
+			
+		// 검색어가 있을 경우(전체 로드)	
+		} else {
+			cnt = dao.select_purchase_cnt();
+			
+		}
+		
+
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		
+		
+		if(cnt > 0) {
+			
+			System.out.println("  -> Complete import cnt ...");
+			
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			
+			
+			// 검색된 내용만 불러오기
+			if( date_check == 1 ){
+				
+				daoMap.put("start_date", start_date);
+				daoMap.put("end_date", end_date);
+				
+				System.out.println("  -> Search_str :" +  req.getParameter("search_str") );
+				dtos = dao.select_serch_status_purchase(daoMap);
+				model.addAttribute("PurchaseDTOs", dtos);
+				
+			// 옵션 검색
+			} else if(date_check == 2 ){
+				optionMap.put("start", start);
+				optionMap.put("end", end);
+				dtos = dao.select_option_status_purchase(optionMap);
+				model.addAttribute("PurchaseDTOs", dtos);
+			
+				// 전체 목록 불러오기		
+			} else {
+				
+				System.out.println("  -> Print All List  ...");
+				dtos = dao.select_all_status_purchase(daoMap);
+				model.addAttribute("PurchaseDTOs", dtos);
+				
+			}
+
+		} else {
+			
+			System.out.println("  -> Cnt is Zero...");
+			System.out.println("cnt체크 : " + cnt);
+		}
+		
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		}
+
+		
+	}
+
+	@Override
+	public void search_status_purchase_page_service(Model model) {
+		System.out.println("  -> search_status_purchase_page_service " );
+
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 3;
+		int cnt			= 0;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		Map<String,Object> optionMap = new HashMap<>();
+		
+		String start_date = null;
+		String end_date = null;
+		int date_check = 0;
+		
+		
+		System.out.println( req.getParameter("start_date")  );
+
+		// 검색 종류 체크
+		if( req.getParameter("start_date").equals("all") && req.getParameter("end_date").equals("all") ){
+			System.out.println("  -> ALL List Conut Search : page");
+			date_check = 0;
+			
+		}else if( !req.getParameter("start_date").equals("null") || !req.getParameter("start_date").equals("undefined") || !req.getParameter("start_date").equals("0") ){
+			System.out.println("  -> Date Search  : page");
+			date_check = 1;
+		}
+	
+		if( !req.getParameter("account").equals("null") && !req.getParameter("account").equals("0") ){
+			optionMap.put("account", req.getParameter("account"));
+			date_check = 2;
+		}
+		
+		if( !req.getParameter("product").equals("null") && !req.getParameter("product").equals("0") ){
+			optionMap.put("product", req.getParameter("product"));
+			date_check = 2;
+		}
+		
+		if( !req.getParameter("company").equals("null") && !req.getParameter("company").equals("0") ){
+			optionMap.put("company", req.getParameter("company"));
+			date_check = 2;
+		}
+		
+		if( !req.getParameter("employee").equals("null") && !req.getParameter("employee").equals("0") ){
+			optionMap.put("employee", req.getParameter("employee"));
+			date_check = 2;
+			
+		} 
+		 
+		
+		// 날짜가 있을 경우
+		if( date_check == 1 ){
+			
+			start_date 	= req.getParameter("start_date").replace("-", "");
+			end_date 	= req.getParameter("end_date").replace("-", "");
+			// 개수 구하기
+			Map<String,String> daoMap = new HashMap<>();
+			daoMap.put("start_date", start_date);
+			daoMap.put("end_date", end_date);
+			cnt = dao.count_search_status_purchase(daoMap);
+			model.addAttribute("date_check",1);
+			
+			
+		// 옵션이 있을 경우
+		} else if(date_check == 2){
+			
+			// 개수 구하기
+			cnt = dao.count_option_status_purchase(optionMap);
+			model.addAttribute("date_check",3);
+			
+		// 검색어가 있을 경우(전체 로드)	
+		} else {
+			cnt = dao.select_purchase_cnt();
+			model.addAttribute("date_check",2);
+		}
+
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		}
+
+		
+	}
+	
+	@Override
+	public void search_status_purchase_detail_service(Model model) {
+		
+		System.out.println("  -> search_status_purchase_detail_service");
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		// 여기서 변수명만 수정하면 완료!
+		String var1 = req.getParameter("purchase_id");
+		String var2 = req.getParameter("account_id");
+		
+		Map<String,Object> daoMap = new HashMap<>();
+		daoMap.put("var1", var1);
+		daoMap.put("var2", var2);
+		ArrayList<PurchaseDTO> dtos = dao.select_detail_status_purchase(daoMap);
+		
+		if( dtos != null ){
+			System.out.println("  -> Complete value import ...");
+			model.addAttribute("dtos", dtos);
+			
+		} else {	// 불러오기 실패
+			System.out.println("  -> Error loading value...");
+		}
+	}
+
+	
+	
+	
 	
 	
 	

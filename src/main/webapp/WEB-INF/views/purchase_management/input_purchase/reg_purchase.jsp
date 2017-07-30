@@ -247,7 +247,7 @@
 							name="condition_note_payable" placeholder="채무 기간" 
 							value="${dto.condition_note_payable}"
 							class="form-control input-sm"
-							min="1" max="12">
+							min="0" max="12">
 					</div>
 				</td>
 
@@ -275,9 +275,9 @@
 		</div>	<!-- // table-responsive -->	
 		</center>
 		<br>
-		
-		<div id="reg_table"></div>
 		<div id="reg_page"></div> 
+		<div id="reg_table"></div>
+		
 		</div>	<!-- // panel-body  -->
 			
 	</div> <!-- // panel panel-primary  -->

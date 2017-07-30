@@ -129,11 +129,6 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		service.search_reg_purchase_page_service(model);
 		return code.c(purchase_management, input_purchase, search_reg_purchase_page);
 	}
-	
-	
-	// ---------------------------------------------------
-	// 			구매 현황  R-3003 status_purchase
-	// ---------------------------------------------------
 
 	@Override
 	@GetMapping(value="input_purchase/search_reg_purchase_pro")
@@ -144,15 +139,69 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		return code.c(purchase_management, input_purchase, reg_purchase);
 	}
 
+	
+	// ---------------------------------------------------
+	// 			구매 현황  R-3003 status_purchase
+	// ---------------------------------------------------
+
 	@Override
 	@GetMapping(value="status_purchase/search_status_purchase")
 	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(search_status_purchase));
 		model.addAttribute("req", req);
-		service.search_reg_purchase_service(model);
-		return code.c(purchase_management, staus_purchase, search_status_purchase);
+		service.search_status_purchase_service(model);
+		return code.c(purchase_management, status_purchase, search_status_purchase);
 	}
 
+	@Override
+	@GetMapping(value="status_purchase/search_status_purchase_table")
+	public String search_status_purchase_table(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_purchase_table));
+		model.addAttribute("req",req);
+		service.search_status_purchase_table_service(model);
+		return code.c(purchase_management, status_purchase, search_status_purchase_table);
+	}
+
+	@Override
+	@GetMapping(value="status_purchase/search_status_purchase_page")
+	public String search_status_purchase_page(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_purchase_page));
+		model.addAttribute("req",req);
+		service.search_status_purchase_page_service(model);
+		return code.c(purchase_management, status_purchase, search_status_purchase_page);
+	
+	}
+
+	@Override
+	@GetMapping(value="status_purchase/search_status_purchase_detail")
+	public String search_status_purchase_detail(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_status_purchase_detail));
+		model.addAttribute("req",req);
+		service.search_status_purchase_detail_service(model);
+		return code.c(purchase_management, status_purchase, search_status_purchase_detail);
+	
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	// ---------------------------------------------------
+	// 			테스트
+	// ---------------------------------------------------
+	
+	@Override
+	@GetMapping(value="search_purchase/test")
+	public String test(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(test));
+		return code.c(purchase_management, status_purchase, test);
+	}
+
+	
 
 	
 	

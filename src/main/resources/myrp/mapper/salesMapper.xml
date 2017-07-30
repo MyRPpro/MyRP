@@ -557,7 +557,7 @@
 		]]>
  	</select>
  	
- 	 	<!-- 판매 바로 검색 개수 -->
+ 	 <!-- 판매 바로 검색 개수 -->
  	<select id="count_search_status_sales" parameterType="java.util.Map"
  	resultType="int">
  		
@@ -713,7 +713,7 @@
 		]]>
  	</select>
  	
- 		<!-- 판매현황 옵션 검색 개수 -->
+ 	<!-- 판매현황 옵션 검색 개수 -->
  	<select id="count_option_status_sales" parameterType="java.util.Map"
  	resultType="int">
  		

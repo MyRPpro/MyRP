@@ -35,58 +35,37 @@
 		</script>
 		
 		<form action="#" name="reg_purchase_table_form" method="get">
-			<div class="panel panel-primary">
-				<div class="panel-body">
+			
+				
 					<div class="table-responsive">
 						<div class="form-group">
-	
 	
 							<table class="table table-condensed table-striped">
 								<tr>
 									<th>구매번호</th>
-									<!-- 1 -->
 									<th>계정이름</th>
-									<!-- 2 -->
 									<th>등록일</th>
-									<!-- 3 -->
 									<th>수량</th>
-									<!-- 4 -->
 									<th>가격</th>
-									<!-- 5 -->
 								</tr>
 	
 								<c:forEach var="dto" items="${dtos}">
 									<tr>
-	
 										<td id="purchase_id">${dto.purchase_id}</td>
-	
 										<td>${dto.state_name}</td>
-	
 										<td>${dto.reg_date}</td>
-	
-										<td><fmt:formatNumber value="${dto.count_purchase}"
-												type="number" /></td>
-	
-										<td><fmt:formatNumber value="${dto.supply_price}"
-												type="currency" /></td>
-	
+										<td><fmt:formatNumber value="${dto.count_purchase}" type="number" /></td>
+										<td><fmt:formatNumber value="${dto.supply_price}" type="currency" /></td>
 									</tr>
 								</c:forEach>
 							</table>
-						</div>
-						<!-- // form-group -->
-	
-						<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary"
-							onclick="sendStatement();">
-					</div>
-					<!-- // table-responsive -->
-				</div>
-				<!-- // panel-body -->
-	
-			</div>
-			<!-- // panel-body -->
-			</div>
-			<!-- // panel panel-primary -->
+						</div> <!-- // form-group -->
+						<center>
+							<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+						</center>
+					</div><!-- // table-responsive -->
+				
+			
 		</form>
 		
 	</c:if>
@@ -97,33 +76,41 @@
 		</script>
 	</c:if>
 
-
-
-
-
-
-	<input type="hidden" id="pay_date" name="pay_date" value="${pay_date}">
-	<input type="hidden" id="pay_diff" name="pay_diff" value="${pay_diff}">
-	
-	<script type="text/javascript">
-	$('#btn_req_repay').ready(function(){
-		var pay_date = $('#pay_date').val();
-		var diff = $('#pay_diff').val();
+	<c:if test="${date_cnt > 0}">
 		
-		if( diff != 0 ){	// 수금기간이 아님
-			$('#btn_req_repay').attr('disabled',true); 
-			$('#text_req_repay').val( "수금기간까지 앞으로"+diff+"일 남았습니다."); 
+		<input type="hidden" id="pay_date" name="pay_date" value="${pay_date}">
+		<input type="hidden" id="pay_diff" name="pay_diff" value="${pay_diff}">
 		
-		} else if ( diff == 0 ){	// 수금기간이 옴
-			$('#btn_req_repay').attr('disabled',false); 
-			$('#text_req_repay').val("수금기간입니다. 수금하기 버튼을 눌러주세요."); 
-		} else {
-			$('#btn_req_repay').attr('disabled',false); 
-			$('#text_req_repay').val("수금기간이 지났습니다. 빨리 수금해주세요."); 
-		}
-	});
+		<script type="text/javascript">
+			setTimeout(function(){
+				var cnt = '${date_cnt}';
+				
+			}, 200);
+				
 		
-	</script>
-
+			var pay_date = $('#pay_date').val();
+			var diff = $('#pay_diff').val();
+			
+			if( diff > 0 ){	// 수금기간이 아님
+				$('#btn_req_repay').attr('disabled',true); 
+				$('#text_req_repay').val( "상환기간까지 앞으로"+diff+"일 남았습니다."); 
+				alert( "채무상환까지 남은 기간을 계산합니다.");
+			} else if ( diff == 0 ){	// 수금기간이 옴
+				$('#btn_req_repay').attr('disabled',false); 
+				$('#text_req_repay').val("상환기간입니다. 채무상환 버튼을 눌러주세요."); 
+				alert( "채무 상환일 입니다.");
+			} else {
+				$('#btn_req_repay').attr('disabled',false); 
+				$('#text_req_repay').val("상환기간이 지났습니다. 빨리 상환해주세요."); 
+				alert( "채무 상환일이 지났습니다. 빨리 상환처리 해주세요.");
+			}
+			
+			function sendStatement(){
+				var purchase_id = document.getElementById("purchase_id").innerHTML
+				$('#main_screen').load("/accounting_management/statement_management/make_statement");
+			};
+			
+		</script>
+	</c:if>
 </body>
 </html>

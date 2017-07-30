@@ -163,5 +163,63 @@ public interface purchaseController extends MyRPController {
 	 */
 	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception;
 	
+
+	/**
+	 * 구매 현황 테이블
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_status_purchase_table(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 구매 현황 페이지
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_status_purchase_page(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 구매 현황세부
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_status_purchase_detail(HttpServletRequest req, Model model) throws Exception;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String test(HttpServletRequest req, Model model) throws Exception;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

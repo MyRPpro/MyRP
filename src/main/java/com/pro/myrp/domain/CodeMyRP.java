@@ -38,7 +38,8 @@ public interface CodeMyRP {
 				public static final int detail_sales_pro 	= 12150;	// 판매 상세 처리
 				public static final int modify_sales 		= 12160;	// 판매 상세 + 수정
 				public static final int modify_sales_pro 	= 12170;	// 판매 수정 처리
-					
+				public static final int test 	= 12180;	// 테스트
+				
 			// 판매입력
 			public static final int input_sales = 12200;
 				public static final int reg_sales = 12210;			//판매 입력
@@ -84,10 +85,17 @@ public interface CodeMyRP {
 				
 				
 			// 구매 현황
-			public static final int staus_purchase = 13300;			
-				public static final int search_status_purchase = 13310;// 구매 현황 검색
-				public static final int status_purchase = 13320;		// 구매 현황
-				/*public static final int detail_purchase = 12120;		// 구매 상세 (중복)*/			
+			public static final int status_purchase 					= 13300;	// 구매 현황	
+				public static final int search_status_purchase 			= 13310;	// 구매 현황 검색
+				public static final int search_status_purchase_table 	= 13320;	// 구매 현황 테이블
+				public static final int search_status_purchase_page 	= 13330;	// 구매 현황 페이지
+				public static final int search_status_purchase_detail 	= 13340;	// 구매 현황 세부
+			
+				
+				
+				
+				
+				
 			// 거래처별 채권
 			public static final int debt_by_company = 13400;			
 				public static final int search_debt_by_company = 13410;			//거래처별채권 검색

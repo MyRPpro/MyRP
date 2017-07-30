@@ -233,7 +233,90 @@ public class purchaseDAOImpl implements purchaseDAO {
 		
 	}
 
-	
+	@Override
+	public int select_payed_purchase_cnt() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_payed_purchase_cnt();
+	}
+
+	@Override
+	public int update_pay_date_purchase() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_pay_date_purchase();
+	}
+
+	@Override
+	public int select_pay_date_purchase_cnt() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_pay_date_purchase_cnt();
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_Payable_purchase_list(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_Payable_purchase_list(daoMap);
+	}
+
+	@Override
+	public int update_dead_line_purchase(String purchase_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_dead_line_purchase(purchase_id);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_payed_purchase_list(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_payed_purchase_list(daoMap);
+	}
+
+	@Override
+	public int update_payed_purchase() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_payed_purchase();
+	}
+
+	@Override
+	public int update_payed_cash_purchase() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_payed_cash_purchase();
+	}
+
+	@Override
+	public int count_search_status_purchase(Map<String, String> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.count_search_status_purchase(daoMap);
+	}
+
+	@Override
+	public int  count_option_status_purchase(Map<String, Object> optionMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.count_option_status_purchase(optionMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_serch_status_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_serch_status_purchase(daoMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_all_status_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_all_status_purchase(daoMap);
+	}
+
+
+	@Override
+	public ArrayList<PurchaseDTO> select_option_status_purchase(Map<String, Object> optionMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_option_status_purchase(optionMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_detail_status_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_detail_status_purchase(daoMap);
+	}
 	
 
 

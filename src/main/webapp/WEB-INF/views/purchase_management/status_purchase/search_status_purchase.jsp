@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../setting.jsp" %>
+<%@ include file = "../../setting.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,13 +9,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h3> 판매 현황 검색 페이지 : search_status_sales.jsp</h3>
 	
-	<input type="button" value="전체내역검색" onclick="return list_table(1,2);">
-	<input type="reset" value="메인으로 이동" onclick="window.location='/';">
+	<h3> 구매 현황 검색 페이지 : search_status_purchase.jsp</h3>
 	
-	<form action="#" name="list_status_sales" method="GET" onsubmit="return list_table(1,1)">
+	<input type="button" name="btn_status_all" value="전체내역검색" onclick="return list_table(1,2);">
+	<input type="reset" name="btn_status_reset" value="메인으로 이동" onclick="window.location='/';">
+	
+	<form action="#" name="list_status_purchase" method="GET" onsubmit="return list_table(1,1)">
 		
 		<hr>
 		기간별 입력 
@@ -23,18 +24,16 @@
 		<br>
 		
 		<c:set var="today" value="<%= new java.util.Date() %>"/>
-		<input type="date" id="start_date" name="start_date" 
-			value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
+		<input type="date" id="start_date" name="start_date" value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
 		~
-		<input type="date" id="end_date" name="end_date"
-			value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
+		<input type="date" id="end_date" name="end_date" value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
 			
-		<input type="button" id="today" value="오늘" >
-		<input type="button" id="a_day" value="하루" >
-		<input type="button" id="a_week" value="한주">
-		<input type="button" id="a_month" value="한달">
-		<input type="button" id="a_quarter" value="한분기">
-		<input type="button" id="a_year" value="일년">
+		<input type="button" id="today"	name="btn_today" value="오늘" >
+		<input type="button" id="a_day" name="btn_a_day"value="하루" >
+		<input type="button" id="a_week" name="btn_a_week" value="한주">
+		<input type="button" id="a_month" name="btn_a_month" value="한달">
+		<input type="button" id="a_quarter" name="btn_a_quarter" value="한분기">
+		<input type="button" id="a_year" name="btn_a_year" value="일년">
 		                                      
 		<select id="months">
 			<option value="0" selected> 월별검색 </option>
@@ -61,9 +60,9 @@
 		
 		<select name="account_ids" id="account_ids"  >
 		   <option value="0" selected> 계정선택 </option>
-				<option value="500012020000">부가세예수금</option>
-				<option value="500014030000">상품매출</option>
-				<option value="500011020000">매출채권</option>
+				<option value="500011030000">부가세대급금</option>
+				<option value="500011050000">상품매입</option>
+				<option value="500012010000">매입채무</option>
 		</select>  
 	  	
 		<select name="product_ids" id="product_ids"  >
@@ -73,7 +72,7 @@
 		  	</c:forEach>
 	  	</select>
 	  	
-	  	<select name="company_ids" id="company_ids"  >
+	  	<select name="company_ids" id="company_ids" >
 		   <option value="0" selected> 거래처선택 </option>
 		   <c:forEach var="company" items="${company_ids}">
 		  		<option value="${company.company_id}">${company.company_name} </option>
@@ -93,11 +92,30 @@
 	<div id="list_page"></div>
 	
 	<div id="list_table">
-		<p><h3> 판매 현황를 볼 수 있는 페이지 입니다. </h3></p>
+		<h3>구매 현황를 볼 수 있는 페이지 입니다. </h3>
 		<p> 검색을 원하는 기간을 선택하면 해당 기간에 거래된  내역을 볼 수 있습니다. </p>
 		<p> 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요. </p>
 	</div>
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- ----------------------------------------------- -->
 	
 	<script type="text/javascript"> 	
 	
@@ -110,50 +128,50 @@
 		var company = null;
 		var employee = null;
 		
+		// 기간 검색
 		if(check==1){
 			var start_date = document.getElementById("start_date").value 
 			var end_date = document.getElementById("end_date").value 
-			console.log(" start_date :" + start_date );
-			console.log(" end_date :" + end_date );
 		}
 		
+		// 전체 검색
 		if(check==2){
 			var start_date = "all";
 			var end_date = "all";
 		}
 		
+		// 옵션 검색		
 		if(check==3){
-			
 			var vals = new Array();
-			
 			account = document.getElementById("account_ids").value;
 			product = document.getElementById("product_ids").value;
 			company = document.getElementById("company_ids").value;
 			employee = document.getElementById("employee_ids").value;
-			console.log(" vals :" + vals );
 			
 		}
 		
-		console.log(" pageNum :" + pageNum );
+		$('#list_table').load('/purchase_management/status_purchase/search_status_purchase_table?start_date='+start_date
+				+'&end_date='+end_date
+				+'&pageNum='+pageNum
+				+'&account='+account
+				+'&product='+product
+				+'&company='+company
+				+'&employee='+employee
+				);
 		
-		$('#list_table').load('/sales_management/status_sales/search_status_sales_table?start_date='+start_date
-				+'&end_date='+end_date
-				+'&pageNum='+pageNum
-				+'&account='+account
-				+'&product='+product
-				+'&company='+company
-				+'&employee='+employee
-				);
-		$('#list_page').load('/sales_management/status_sales/search_status_sales_page?start_date='+start_date
-				+'&end_date='+end_date
-				+'&pageNum='+pageNum
-				+'&account='+account
-				+'&product='+product
-				+'&company='+company
-				+'&employee='+employee
-				);
+		setTimeout(function(){
+			$('#list_page').load('/purchase_management/status_purchase/search_status_purchase_page?start_date='+start_date
+					+'&end_date='+end_date
+					+'&pageNum='+pageNum
+					+'&account='+account
+					+'&product='+product
+					+'&company='+company
+					+'&employee='+employee
+					);	
+		}, 100);
+		
 		return false;
-	}
+	};
 	
 
 	
@@ -169,7 +187,6 @@
 		end_date.vlaue 	 = date_format(new Date(end_date.value));
 		end_date_temp 	 = new Date(end_date.value);
 		
-		console.log(date_format(new Date(end_date.value)));
 		
 		start_date	= document.getElementById("start_date");
 		start_date.value = date_format(new Date(end_date.value));
@@ -222,8 +239,6 @@
 		date_load();
 		var month = this.value;
 		var year = end_date_temp.getFullYear();
-		console.log(year);
-		/* console.log("1:" + date_format(new Date(year,0,1))); */
 		
 		if(month==01){
 			start_date.value = date_format(new Date(year,0,1));
@@ -267,6 +282,9 @@
 		
 	}
 	</script>
-		
+	
+	
+	
+	
 </body>
 </html>

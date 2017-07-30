@@ -7,11 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	<h2> 구매 현황 페이지 : search_status_purchase.jsp</h2>
-	
-	
-	
-	
+테스트 페이지입니다.
+<script type="text/javascript">
+alert("테스트 페이지!");
+</script>
 </body>
 </html>

@@ -12,12 +12,12 @@ public interface purchaseService extends MyRPService {
 
 	public void modify_purchase_service(Model model);
 
-
 	public void reg_purchase_service(Model model);
 
 	public void reg_purchase_table(Model model);
 
 
+	
 	public void search_reg_purchase_service(Model model);
 	
 	public void search_reg_purchase_table_service(Model model);
@@ -34,6 +34,15 @@ public interface purchaseService extends MyRPService {
 
 	public void modify_purchase_pro_service(Model model);
 	
+	
+	
+	public void search_status_purchase_service(Model model);
+
+	public void search_status_purchase_detail_service(Model model);
+	
+	public void search_status_purchase_table_service(Model model);
+
+	public void search_status_purchase_page_service(Model model);
 
 	
 	
