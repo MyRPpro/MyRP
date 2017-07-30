@@ -20,7 +20,20 @@ function storage_go(id, goes,storage_in_date){
 		alert("입고예정일이 안되었습니다.");
 		return false;
 	}
-	window.location = "/distribution_management/search_distribution_order/request_in_out_storage_pro?id="+id+"&goes="+goes;
+	var togo =$("#request");
+	var data = {
+				"id" : id,
+				"goes" : goes
+				}
+	
+	$.ajax({ 					
+		data:	data,
+		type: 	'post',	 			
+		url: 	"/distribution_management/search_distribution_order/request_in_out_storage_pro",
+		success: function(response) { 	
+			togo.html(response);	
+		}
+	});  
 }
 function storage_comp_go(id, goes,storage_out_date){
 	var now = new Date();
@@ -32,8 +45,27 @@ function storage_comp_go(id, goes,storage_out_date){
 		alert("출고예정일이 안되었습니다.");
 		return false;
 	}
-	window.location = "/distribution_management/search_distribution_order/request_in_out_storage_pro?id="+id+"&goes="+goes
+
+	var togo =$("#request");
+	var data = {
+			"id" : id,
+			"goes" : goes
+			}
+
+$.ajax({ 					
+	data:	data,
+	type: 	'post',	 			
+	url: 	"distribution_management/search_distribution_order/request_in_out_storage_pro",
+	success: function(response) { 	
+		togo.html(response);	
+	}
+});  
 }
+
+$(".page").bind("click", function(event) {
+	$("#request").load($(this).attr("href"));
+	return false;
+});
 </script>
 <body>
 <c:if test = "${goes == 'out'}">
@@ -54,7 +86,6 @@ function storage_comp_go(id, goes,storage_out_date){
 	<tr>
 		<th>${dto.sales_id}</th>	
 		<th>${dto.product_id}</th>		
-		<th>${dto.warehouse_id}</th>	
 		<th>${dto.employee_id}</th>		
 		<th>${dto.reg_date}</th>			
 		<th>${dto.update_date}</th>		
@@ -71,14 +102,40 @@ function storage_comp_go(id, goes,storage_out_date){
 		<th>${dto.storage_out_date}</th>	
 		<th>
 			<c:if test = "${(dto.stock_amount - dto.count_sales) >= 0 }">
-				<button onclick = "storage_go('${dto.sales_id}','out_storage')">출고대기</button>
+				<button onclick = "storage_comp_go('${dto.sales_id}','out_storage','${storage_out_date}')">출고대기</button>
 			</c:if>
 			<c:if test = "${(dto.stock_amount - dto.count_sales) < 0 }">
-				<button onclick = "storage_go('${dto.sales_id}','out_storage_wait')">재고준비중</button>
+				<button onclick = "storage_comp_go('${dto.sales_id}','out_storage_wait','${storage_out_date}')">재고준비중</button>
 			</c:if>
 		</th>
 	</tr>
 	</c:forEach>
+	<tr>
+			<th colspan = "13">
+				<div class="text-center">
+            <ul class="pagination">
+            <input type = "hidden" value = "${currentPage}" id = "currentPage">
+               <c:if test="${startPage > pageBlock}">
+                  <li><a class = "page" href="/distribution_management/search_distribution_order/request_in_out_storage?goes=out">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+                  <li><a class = "page" href="/distribution_management/search_distribution_order/request_in_out_storage?goes=out&pageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+               </c:if>
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                  <c:if test="${i == currentPage}">
+                     <li><span>${i}</span></li>
+                  </c:if>
+                  <c:if test="${i != currentPage}">
+                     <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=out&pageNum=${i}">${i}</a></li>
+                  </c:if>
+                  
+               </c:forEach>
+               <c:if test="${pageCount > endPage}">
+                  <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=out&pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+                  <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=out&pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+               </c:if>
+            </ul>
+         </div>
+			</th>
+		</tr>
 </table>
 
 </c:if>
@@ -108,6 +165,32 @@ function storage_comp_go(id, goes,storage_out_date){
 		</th>
 	</tr>
 	</c:forEach>
+	<tr>
+			<th colspan = "13">
+				<div class="text-center">
+            <ul class="pagination">
+            <input type = "hidden" value = "${currentPage}" id = "currentPage">
+               <c:if test="${startPage > pageBlock}">
+                  <li><a class = "page" href="/distribution_management/search_distribution_order/request_in_out_storage?goes=in&">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+                  <li><a class = "page" href="/distribution_management/search_distribution_order/request_in_out_storage?goes=in&pageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+               </c:if>
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                  <c:if test="${i == currentPage}">
+                     <li><span>${i}</span></li>
+                  </c:if>
+                  <c:if test="${i != currentPage}">
+                     <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=in&pageNum=${i}">${i}</a></li>
+                  </c:if>
+                  
+               </c:forEach>
+               <c:if test="${pageCount > endPage}">
+                  <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=in&pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+                  <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=in&pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+               </c:if>
+            </ul>
+         </div>
+			</th>
+		</tr>
 </table>
 </c:if>
 
@@ -132,6 +215,32 @@ function storage_comp_go(id, goes,storage_out_date){
 			</tr>
 			</c:if>
 		</c:forEach>
+		<tr>
+			<th colspan = "13">
+				<div class="text-center">
+            <ul class="pagination">
+            <input type = "hidden" value = "${currentPage}" id = "currentPage">
+               <c:if test="${startPage > pageBlock}">
+                  <li><a class = "page" href="/distribution_management/search_distribution_order/request_in_out_storage?goes=storage_out_complete">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+                  <li><a class = "page" href="/distribution_management/search_distribution_order/request_in_out_storage?goes=storage_out_complete&pageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+               </c:if>
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                  <c:if test="${i == currentPage}">
+                     <li><span>${i}</span></li>
+                  </c:if>
+                  <c:if test="${i != currentPage}">
+                     <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=storage_out_complete&pageNum=${i}">${i}</a></li>
+                  </c:if>
+                  
+               </c:forEach>
+               <c:if test="${pageCount > endPage}">
+                  <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=storage_out_complete&pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+                  <li><a class = "page"  href="/distribution_management/search_distribution_order/request_in_out_storage?goes=storage_out_complete&pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+               </c:if>
+            </ul>
+         </div>
+			</th>
+		</tr>
 	</table>
 </c:if>
 </body>

@@ -226,6 +226,14 @@ public interface HRService extends MyRPService {
 	public void modify_personnel_card_pro_service(Model model) throws Exception;
 
 	/**
+	 * 인사관리 > 인사카드 관리 > 인사카드 사원정보 서비스
+	 * @author amaco78
+	 * @param model
+	 * @throws Exception
+	 */
+	public void personnel_card_info_service(Model model) throws Exception;
+	
+	/**
 	 * 인사관리 > 인사발령 관리 > 인사발령 검색 서비스
 	 * @author amaco78
 	 * @param model

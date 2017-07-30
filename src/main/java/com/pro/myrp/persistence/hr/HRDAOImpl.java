@@ -265,11 +265,16 @@ public class HRDAOImpl implements HRDAO {
 	}
 
 	@Override
+	public Retired_EmployeeDTO select_retired_employee(int employee_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_retired_employee(employee_id);
+	}
+	
+	@Override
 	public int select_salary_register_cnt(Map<String, Object> daoMap) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_salary_register_cnt(daoMap);
 	}
-
 	
 	@Override
 	public List<Salary_registerVO> select_salary_register_list(Map<String, Object> daoMap) {
@@ -330,11 +335,11 @@ public class HRDAOImpl implements HRDAO {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.update_order_state(daoMap);
 	}
-
 	
 	@Override
 	public int update_salary_register(Salary_registerVO vo) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.update_salary_register(vo);
 	}
+	
 }

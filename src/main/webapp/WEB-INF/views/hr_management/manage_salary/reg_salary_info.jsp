@@ -8,66 +8,97 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	
+	$("#page16520_div01_toggle").bind("click", function(event) {
+		$("#page16520_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16520_btn01").bind("click", function(event) {
+		$("#page16520").slideUp();
+		$("#page16510_div01").slideDown();
+		$("#page16510_div02").slideDown();
+		$("#page16510_div03").slideDown();
+		return false;
+	});
+	
+	$("form[name='page16520_form01']").on("submit", function(event) {
+		var data = $(this).serialize();
+		$.ajax({
+			data:	data,
+			type:	'post',
+			url:	'/hr_management/manage_salary/reg_salary_info_pro',
+			success: function(response) {
+				$("#page16520_div02").html(response);
+			}
+		});
+		return false;	
+	});
+	
+</script>
 <body>
-reg_salary_info.jsp
-<form action="/hr_management/manage_salary/reg_salary_info_pro"
-method="post" name="reg_salary_info_form1">
-	<table border="1">
-		<tr>
-			<th colspan="8">Salary_registerVO</th>
-		</tr>
-		<tr>
-			<th>reg_date</th>
-			<td>
-				<c:set var="now" value="<%= new java.util.Date() %>"/>
-				<input type="month" name="reg_date" 
-				value="<fmt:formatDate value='${now}' pattern='yyyy-MM'/>" 
-				required>
-			</td>
-		</tr>
-		<tr>
-			<th>salary_register_name</th>
-			<td>
-				<select name="salary_register_name">
-					<option value=0>급여구분 선택</option>
-					<c:forEach var="vo" items="${hr_codeVos}">
-						<option value="${vo.hr_code_id}">${vo.hr_code_name}</option>
-					</c:forEach>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<th>pay_date</th>
-			<td>
-				<c:set var="now" value="<%= new java.util.Date() %>"/>
-				<input type="date" name="pay_date" 
-				value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
-				required>
-			</td>
-		</tr>
-		<tr>
-			<th>total_pay</th>
-			<td>
-				<input type="number" name="total_pay"
-				min="0" required>
-			</td>
-		</tr>
-		<tr>
-			<th>total_employee</th>
-			<td>
-				<input type="number" name="total_employee"
-				min="0" required>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<input type="submit" value="등록하기">
-				<input type="reset"	value="재작성">
-				<input type="button" value="돌아가기"
-				onclick="window.history.back();">
-			</th>
-		</tr>
-	</table>
-</form>
+	<div class="panel panel-default" id="page16520">
+		<div class="panel-heading">
+			<a id="page16520_div01_toggle">[16520]reg_salary_info.jsp</a>
+		</div>
+		<div class="panel-body" id="page16520_div01">
+			<form action="#" name="page16520_form01">
+				<table class="table">
+					<tr>
+						<th>등록일</th>
+						<td>
+							<c:set var="now" value="<%= new java.util.Date() %>"/>
+							<input type="month" name="reg_date" 
+							value="<fmt:formatDate value='${now}' pattern='yyyy-MM'/>" 
+							required>
+						</td>
+					</tr>
+					<tr>
+						<th>급여대장명</th>
+						<td>
+							<select name="salary_register_name">
+								<option value=0>급여구분 선택</option>
+								<c:forEach var="vo" items="${hr_codeVos}">
+									<option value="${vo.hr_code_id}">${vo.hr_code_name}</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>지급일</th>
+						<td>
+							<c:set var="now" value="<%= new java.util.Date() %>"/>
+							<input type="date" name="pay_date" 
+							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
+							required>
+						</td>
+					</tr>
+					<tr>
+						<th>총 지급액</th>
+						<td>
+							<input type="number" name="total_pay"
+							min="0" required>
+						</td>
+					</tr>
+					<tr>
+						<th>총 지급인원</th>
+						<td>
+							<input type="number" name="total_employee"
+							min="0" required>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<input class="btn btn-default btn-xs" type="submit" value="등록하기">
+							<input class="btn btn-default btn-xs" type="reset"	value="재작성">
+							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16520_btn01">
+						</th>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="page16520_div02"></div>
+	</div>
 </body>
 </html>

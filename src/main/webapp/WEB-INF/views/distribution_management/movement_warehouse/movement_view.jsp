@@ -11,8 +11,6 @@
 
 	console.log("${id}");
 	
-	//document.getElementById("warehouse_id").value = ${warehouse_id};
-	
 	if("${doit}" != null && "${doit}" == '1'){
 		var data = {
 				"warehouse_id" 	: "${warehouse_id}",
@@ -22,7 +20,7 @@
 		$.ajax({ 					
 			data: 	data,
 			type: 	'post',	 			
-			url: 	"movement_product",
+			url: 	"/distribution_management/movement_warehouse/movement_product",
 			success: function(response) { 	
 				$('#product').html(response);	
 			}
@@ -42,7 +40,7 @@
 			$.ajax({ 					
 				data: 	data,
 				type: 	'post',	 			
-				url: 	"movement_product",
+				url: 	"/distribution_management/movement_warehouse/movement_product",
 				success: function(response) { 	
 					$('#product').html(response);	
 				}
@@ -50,11 +48,24 @@
 			
 		});
 	}
+	
+	 $('#movement_button').unbind("click").bind("click",function(){
+			var togo = $('#main_screen');
+			var data = $('#movement_form').serialize();
+			$.ajax({ 					
+				data: 	data,
+				type: 	'post',	 			
+				url: 	"/distribution_management/reg_warehouse/warehouse_pro",
+				success: function(response) { 	
+					togo.html(response);	
+				}
+			});  
+		});
 
 </script>
 <body>
 <c:if test = "${id == 'new'}">
-<form name = "" action = "movement_pro">
+
 <input type = "hidden" id = "id" value = "${id}">
 <h3>신규등록</h3>
 	<select id = "warehouse_id"  class = "warehouse_id">
@@ -65,19 +76,14 @@
 	</select>
 	<br><br>
 	<div id = "product"></div>
-</form>
 </c:if>
 
 
 <c:if test = "${id != 'new'}">
-<form name = "" action = "movement_pro">
 <input type = "hidden" id = "id" value = "${id}">
 <h3>수정</h3>
 	<br><br>
 	<div id = "product"></div>
-</form>
-
-
 </c:if>
 
 </body>

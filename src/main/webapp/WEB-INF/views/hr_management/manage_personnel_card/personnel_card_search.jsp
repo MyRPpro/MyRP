@@ -9,49 +9,75 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function fn_personnel_card_search() {
-		var searchStr = document.personnel_card_search_form1.searchStr.value;
-		$("#personnel_card_nav_div").load("/hr_management/manage_personnel_card/personnel_card_nav?searchStr="+searchStr);
-		$("#personnel_card_div").load("/hr_management/manage_personnel_card/personnel_card_list?searchStr="+searchStr);
+	
+	$("#page16310_div01_toggle").bind("click", function() {
+		$("#page16310_div01").slideToggle();
+	});
+	
+	$("form[name='page16310_form01']").on("submit", function() {
+		var $searchStr = $("form[name='page16310_form01'] input[name='searchStr']");
+		$("#page16310_div04").slideUp();
+		$("#page16310_div02").slideDown();
+		$("#page16310_div03").slideDown();
+		$("#page16310_div02").load(
+				"/hr_management/manage_personnel_card/personnel_card_nav?searchStr="+$searchStr.val());
+		$("#page16310_div03").load(
+				"/hr_management/manage_personnel_card/personnel_card_list?searchStr="+$searchStr.val());
 		return false;
-	}
+	});
 
+	$("#page16310_btn01").bind("click", function(event) { //인사카드등록페이지 이동
+		$("#page16310_div01").slideUp();
+		$("#page16310_div02").slideUp();
+		$("#page16310_div03").slideUp();
+		$("#page16310_div04").slideDown();
+		$("#page16310_div04").load("/hr_management/manage_personnel_card/add_personnel_card");
+		return false;		
+	});
+	
 	function fn_personnel_card_nav(pageNum) {
-		var searchStr = document.personnel_card_search_form1.searchStr.value;
-		$("#personnel_card_nav_div").load(
+		var $searchStr = $("form[name='page16310_form01'] input[name='searchStr']");
+		$("#page16310_div04").slideUp();
+		$("#page16310_div02").slideDown();
+		$("#page16310_div03").slideDown();
+		$("#page16310_div02").load(
 				"/hr_management/manage_personnel_card/personnel_card_nav?"
-						+"searchStr="+searchStr
+						+"searchStr="+$searchStr.val()
 						+'&pageNum='+pageNum);
-		$("#personnel_card_div").load(
+		$("#page16310_div03").load(
 				"/hr_management/manage_personnel_card/personnel_card_list?"
-						+"searchStr="+searchStr
+						+"searchStr="+$searchStr.val()
 						+'&pageNum='+pageNum);
 		return false;
 	}
+	
 </script>
 <body>
-personnel_card_search.jsp
-<div>
-<form action="#" name="personnel_card_search_form1" method="get"
-onsubmit="return fn_personnel_card_search();">
-	<input type="text" name="searchStr" placeholder="사번,이름 검색">
-	<input type="submit" value="검색">
-	<input type="reset" value="재작성">
-	<input type="button" value="인사카드 등록"
-	onclick="window.location='/hr_management/manage_personnel_card/add_personnel_card';">
-	<input type="button" value="돌아가기" onclick="window.location='/';">
-</form>
-</div>
-<hr>
-<div id="personnel_card_nav_div">
-</div>
-<hr>
-<div id="personnel_card_div">
-<table border="1">
-	<tr>
-		<th>검색하실 인사카드의 사번이나 사원명을 검색창에 입력하세요.</th>
-	</tr>
-</table>
-</div>
+	<div class="panel panel-default" id="page16310">
+		<div class="panel-heading">
+	  		<a id="page16310_div01_toggle">[16310]personnel_card_search.jsp</a>
+		</div>
+		<div class="panel-body" id="page16310_div01">
+			<form class="form-inline" action="#" name="page16310_form01">
+				<div class="input-group">
+					<input type="text" class="form-control" name="searchStr" placeholder="사번,이름 검색">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">검색</button>
+						<button class="btn btn-default" type="reset">재작성</button>
+						<button class="btn btn-default" type="button" id="page16310_btn01">인사카드 등록</button>
+					</span>
+				</div>
+			</form>
+		</div>
+		<div class="panel-body" id="page16310_div02"></div>
+		<div class="panel-body" id="page16310_div03">
+			<table class="table">
+				<tr>
+					<th>검색하실 인사카드의 사번이나 사원명을 검색창에 입력하세요.</th>
+				</tr>
+			</table>
+		</div>
+		<div class="panel-body" id="page16310_div04"></div>
+	</div>
 </body>
 </html>

@@ -164,6 +164,11 @@ public class CodeHandler {
 			public static final int call_connected_id_view = 15480;			//연결주문id불러오기:뷰//전표 생성
 			public static final int call_connected_id = 15490;				//연결주문id불러오기
 			public static final int make_statement = 15470; 				//전표 생성
+		//채권/채무 현황
+		public static final int bond_debt_status = 15500;					
+			public static final int search_bond_debt = 15510;				//채권채무 조회
+			public static final int search_all_bond_debt = 15520;			//전체 채권/채무조회
+			public static final int search_bond_debt_by_company = 15530; 	//거래처별 채권/채무조회
 	
 	//인사관리
 	public static final int hr_management = 16000;
@@ -201,6 +206,7 @@ public class CodeHandler {
 			public static final int add_personnel_card_pro = 16324;
 			public static final int modify_personnel_card = 16330;
 			public static final int modify_personnel_card_pro = 16331;
+			public static final int personnel_card_info = 16332;
 		//급여관리
 		public static final int manage_salary = 16500;
 			public static final int salary_register_search = 16510;

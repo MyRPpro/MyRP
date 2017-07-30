@@ -1,24 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file = "../../setting.jsp" %>
 <script type="text/javascript">
-/* function chk(){
-	var name = document.getElementById("name");
-	var loc = document.getElementById("location");
-	if(name.value == null || name.value == " " || name.value == ""){
-		alert("창고명을 입력하시오.");
-		name.focus();
-		return false;
-	}else if(loc.value == null || loc.value == " " || loc.value ==""){
-		alert("창고 주소를 입력하시오.");
-		location.focus();
-		return;
-	}
-}
- */</script>
+$(function(){
+	 $('#new_sub').unbind("click").bind("click",function(){
+		var togo = $('#main_screen');
+		var data = $('#new_form').serialize();
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/reg_warehouse/warehouse_pro",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});  
+	});
+});
+
+$(function(){
+	 $('#modify_sub').unbind("click").bind("click",function(){
+		var togo = $('#main_screen');
+		var data = $('#modify_form').serialize();
+		$.ajax({ 					
+			data: 	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/reg_warehouse/warehouse_pro",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		});  
+	});
+});
+ </script>
 
 <c:if test = "${newmodify == 'new'}">
 <h3>신규 등록</h3>
-<form action="warehouse_pro" method = "post" onsubmit = "chk() return false;">
+<form action="warehouse_pro" id = "new_form" method = "post">
 <input type = "hidden" value = "new" name = "opt">
 <table border = "1">
 	<tr>
@@ -38,14 +54,14 @@
 		<th><input type = "text" id = "location" name = "warehouse_location" required></th>
 	</tr>
 	<tr>
-		<th><input type = "submit" value = "확인"></th>
+		<th><input type = "button" value = "확인" id = "new_sub"></th>
 	</tr>
 </table>
 </form>
 </c:if>
 
 <c:if test = "${newmodify == 'modify'}">
-<form action="warehouse_pro" method = "post" onsubmit = "return chk();">
+<form action="warehouse_pro" id = "modify_form" method = "post">
 <input type = "hidden" value = "modify" name = "opt">
 <h3>창고 수정</h3>
 <table border = "1">
@@ -62,7 +78,7 @@
 			</tr>
 		</c:forEach>
 	<tr>
-		<th><input type = "submit" value = "확인"><input type = "reset" value = "취소"></th>
+		<th><input type = "button" value = "확인" id = "modify_sub"><input type = "reset" value = "취소"></th>
 	</tr>
 </table>
 </form>

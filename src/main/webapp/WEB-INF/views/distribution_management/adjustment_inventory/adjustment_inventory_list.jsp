@@ -33,18 +33,21 @@ $(function(){
 		$.ajax({ 					
 			data:	data,
 			type: 	'post',	 			
-			url: 	"adjustment_inventory_view",
+			url: 	"/distribution_management/adjustment_inventory/adjustment_inventory_view",
 			success: function(response) { 	
 				togo.html(response);	
 			}
 		});  
 	});
+	 
+	 $(".page").bind("click", function(event) {
+			$("#main_screen").load($(this).attr("href"));
+			return false;
+		});
 });
 </script>
 <body>
 adjustment_inventory_list.jsp
-<a href="/">홈으로</a>
-<br><br>
 <h3>재고조정 리스트</h3>
 <table border = "1">
 		<tr>
@@ -67,6 +70,32 @@ adjustment_inventory_list.jsp
 			<th>${dto.taked_stock}</th>
 		</tr>
 		</c:forEach>
+		<tr>
+			<th colspan = "13">
+				<div class="text-center">
+            <ul class="pagination">
+            <input type = "hidden" value = "${currentPage}" id = "currentPage">
+               <c:if test="${startPage > pageBlock}">
+                  <li><a class = "page" href="/distribution_management/adjustment_inventory/adjustment_inventory_list">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+                  <li><a class = "page" href="/distribution_management/adjustment_inventory/adjustment_inventory_list?pageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+               </c:if>
+               <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                  <c:if test="${i == currentPage}">
+                     <li><span>${i}</span></li>
+                  </c:if>
+                  <c:if test="${i != currentPage}">
+                     <li><a class = "page"  href="/distribution_management/adjustment_inventory/adjustment_inventory_list?pageNum=${i}">${i}</a></li>
+                  </c:if>
+                  
+               </c:forEach>
+               <c:if test="${pageCount > endPage}">
+                  <li><a class = "page"  href="/distribution_management/adjustment_inventory/adjustment_inventory_list?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+                  <li><a class = "page"  href="/distribution_management/adjustment_inventory/adjustment_inventory_list?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+               </c:if>
+            </ul>
+         </div>
+			</th>
+		</tr>
 	</table>
 	
 	<br><br>

@@ -1,22 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<script src = "/resources/accounting_management/accounting_management_script.js"></script>
-<body>
+<script type="text/javascript">
+$(function(){
+	$('.page_nav a').bind("click",function(){
+		$("#search_statements_list").load($(this).attr("href"));
+		return false;
+	});
+});
+</script>
 <h3> 승인 전표 조회 </h3>
 총 승인 전표 개수 : ${cnt}
-<br><button onclick="window.location='/'"> 홈으로 </button>
-<form action="/accounting_management/statement_management/make_statement" method="get" name="statement_list_form1">
-	<input type="submit" value="전표 등록">	
-</form>
-<button onclick = "window.location='/accounting_management/statement_management/search_unapproval_statements'"> 미승인 전표 조회</button>
-<button onclick = "window.location='/accounting_management/statement_management/search_all_statements'"> 전체 전표 조회</button>
 <table border="1">
 	<tr>
 		<th> statement_id </th>
@@ -125,5 +119,3 @@
 			</tr>
 		</table>
 	</div>
-</body>
-</html>
