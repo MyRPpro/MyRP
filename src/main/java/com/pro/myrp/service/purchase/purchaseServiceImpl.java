@@ -1,7 +1,9 @@
 package com.pro.myrp.service.purchase;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +22,257 @@ public class purchaseServiceImpl implements purchaseService {
 	@Inject
 	private purchaseDAO dao;
 
+	// 구매 입력 
+	@Override
+	public void reg_purchase_service(Model model) {
+		System.out.println("  -> reg_purchase_service");
+	
+		ArrayList<PurchaseDTO> product_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> company_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> employee_ids = new ArrayList<>();
+		
+		product_ids = dao.select_product_ids();
+		company_ids = dao.select_company_ids();
+		employee_ids = dao.select_employee_ids();
+		
+		model.addAttribute("product_ids",product_ids);
+		model.addAttribute("company_ids",company_ids);
+		model.addAttribute("employee_ids",employee_ids);
+	}
+	
+	@Override
+	public void reg_purchase_table(Model model) {
+		
+		System.out.println("  -> reg_purchase_table...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+
+		
+		
+		String purchase_id = dao.select_purchase_id();
+		String product_id = req.getParameter("product_id");
+		String company_id = req.getParameter("company_id");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		Date reg_date = req.getParameter("reg_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("reg_date"));
+		Date storage_in_date = req.getParameter("storage_in_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("storage_in_date"));
+		int count_purchase = Integer.parseInt( req.getParameter("count_purchase") ); 
+		count_purchase = Math.abs(count_purchase);
+		Long supply_price = Long.parseLong( req.getParameter("supply_price") );
+		int purchase_state = Integer.parseInt(req.getParameter("purchase_state"));
+		int condition_note_payable = Integer.parseInt( req.getParameter("condition_note_payable") );
+		
+		PurchaseDTO dto = new PurchaseDTO();
+		dto.setPurchase_id(purchase_id);
+		dto.setProduct_id(product_id);
+		dto.setCompany_id(company_id);
+		dto.setEmployee_id(employee_id);
+		dto.setReg_date(reg_date);
+		dto.setStorage_in_date(storage_in_date);
+		dto.setCount_purchase(count_purchase);
+		dto.setSupply_price(supply_price);
+		dto.setPurchase_state(purchase_state);
+		dto.setCondition_note_payable(condition_note_payable);
+		
+		// 오더 아이디가 있을 경우
+		if( req.getParameter("order_id") != null ){
+			String order_id = req.getParameter("order_id");
+			dto.setOrder_id(order_id);
+			
+		} else {
+			dto.setOrder_id("0");
+		}
+
+		// 가격 계산 ( 구매가, 부가세, 총합 )
+		int cnt = 0;	
+		long price = supply_price;
+		long tax = price/10;
+		long sum = price + tax;
+		
+		// 상품매입 insert , 가격 x 수량
+		dto.setAccount_id("500011050000");
+		dto.setSupply_price(price);
+		System.out.println("  -> price : " + price );
+		
+		// purchase_order insert 구매 내역 입력
+		int product_cnt = dao.insert_reg_purchase(dto);	
+		if( product_cnt > 0 ){
+			System.out.println("  -> product_cnt insert Complete... ");
+			cnt = 1;
+		}
+		
+		// 부가세대급금 insert , 부가세 10%
+		dto.setAccount_id("500011030000");
+		dto.setSupply_price(tax);
+		System.out.println("  -> tax : " + tax );
+		
+		// purchase_order insert 구매 내역 입력
+		int tax_cnt = dao.insert_reg_purchase(dto);
+		if( tax_cnt > 0 ){
+			System.out.println("  -> tax_cnt insert Complete... ");
+			cnt = 2;
+		}
+		
+		// 매입채무 insert , 상품매입 + 부가세
+		dto.setAccount_id("500012010000");
+		dto.setSupply_price(sum);
+		System.out.println("  -> sum : " + sum );
+		
+		// purchase_order insert 구매 내역 입력
+		int debt_cnt = dao.insert_reg_purchase(dto);
+		if( debt_cnt > 0 ){
+			System.out.println("  -> setAccount_id insert Complete... ");
+			cnt = 3;
+		}
+
+		// 리스트를 만들어서 결과값을 담음
+		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+		dtos = dao.select_reg_purchases(purchase_id);
+		
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("cnt", cnt);
+	}
+	
+	@Override
+	public void search_reg_purchase_service(Model model) {
+		
+		System.out.println("  -> search_reg_purchase_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int cnt =0;
+		cnt = dao.select_lack_reg_purchase_cnt();
+		
+		req.setAttribute("cnt",cnt);
+	}
+	
+	@Override
+	public void search_reg_purchase_table_service(Model model) {
+	System.out.println("  -> search_reg_purchase_table_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+
+		int start = 0;
+		int end	= 0;
+		int cnt	= 0;
+		int pageSize	= 5;
+		String pageNum	= null;
+		int currentPage	= 0;
+		
+		cnt = (Integer) req.getAttribute("cnt");
+		System.out.println(" -> table cnt : " + cnt );
+
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		
+		System.out.println("  -> start & end page : " + start +"/ "+ end);
+		
+		if(cnt > 0) {
+			
+			System.out.println("  -> Complete import cnt ...");
+			
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			
+			ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+			dtos = dao.select_lack_reg_purchase(daoMap);
+			model.addAttribute("dtos",dtos);
+
+		}
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("pageNum",pageNum);
+			
+	}
+	
+	@Override
+	public void search_reg_purchase_page_service(Model model) {
+	System.out.println("  -> search_reg_purchase_page_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int pageSize	= 5;
+		int pageBlock	= 5;
+		int start		= 0;
+		int end			= 0;
+		int cnt 		= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		cnt = (Integer) req.getAttribute("cnt");
+		System.out.println(" -> page cnt : " + cnt );
+		
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		
+		System.out.println("  -> page pageNum : " + pageNum);
+		
+		if(cnt > 0) {
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+		
+		} 
+		
+	}
+		
+	@Override
+
+	public void search_reg_purchase_pro_service(Model model) {
+		System.out.println("  -> search_reg_purchase_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");	
+		
+		String stock_order_id = req.getParameter("stock_order_id");
+		System.out.println("  -> stock_order_id : " + stock_order_id);
+		
+		PurchaseDTO dto = dao.select_reg_purchase_pro(stock_order_id);
+		
+		if( dto != null ){
+			System.out.println("  -> Loadging Complete...");
+			model.addAttribute("dto",dto);
+			model.addAttribute("leck_cnt",1);
+			
+		} else {
+			System.out.println("  -> Loadging Error...");
+			model.addAttribute("leck_cnt",0);
+		}
+
+	}
+
+	
+	// 구매 검색
 	@Override
 	public void purchase_list_servie(Model model) {
 
@@ -175,7 +428,7 @@ public class purchaseServiceImpl implements purchaseService {
 
 		} else System.out.println("  -> Cnt is Zero...");
 		model.addAttribute("cnt", cnt);
-		
+		model.addAttribute("check",search_check);
 		
 		
 		
@@ -189,7 +442,7 @@ public class purchaseServiceImpl implements purchaseService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		int pageSize	= 5;
-		int pageBlock	= 3;
+		int pageBlock	= 5;
 		int cnt			= 0;
 		int start		= 0;
 		int end			= 0;
@@ -288,6 +541,11 @@ public class purchaseServiceImpl implements purchaseService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat cal_f = new SimpleDateFormat("yyyy-MM-dd");
+		String now = cal_f.format(cal.getTime());
+		
+		
 		// 공통코드
 		String purchase_id = req.getParameter("purchase_id");
 		String order_id = req.getParameter("order_id");
@@ -296,7 +554,6 @@ public class purchaseServiceImpl implements purchaseService {
 		String company_name = req.getParameter("company_name");
 		int employee_id =  Integer.parseInt( req.getParameter("employee_id"));
 		Date reg_date = req.getParameter("reg_date") == ""  ? new Date(0):Date.valueOf(req.getParameter("reg_date")); 
-		Date update_date = req.getParameter("update_date") == ""  ? new Date(0):Date.valueOf(req.getParameter("update_date"));
 		Date storage_in_date = req.getParameter("storage_in_date") == ""  ? new Date(0):Date.valueOf(req.getParameter("storage_in_date"));
 		int count_purchase = Integer.parseInt(req.getParameter("count_purchase") );
 		int purchase_state = Integer.parseInt(req.getParameter("purchase_state") );
@@ -304,9 +561,11 @@ public class purchaseServiceImpl implements purchaseService {
 		
 		// 가격 설정
 		String supply_price = req.getParameter("supply_price");
-		System.out.println( "supply_price : " + supply_price );
-
-		Long price	=  Math.round(Double.parseDouble(req.getParameter("supply_price"))); 
+		System.out.println( "  -> supply_price : " + supply_price );
+		supply_price = supply_price.replace("￦","");
+		supply_price = supply_price.replace(",","");
+		
+		Long price	=  Math.round(Double.parseDouble(supply_price)); 
 		System.out.println( "price : " + price );
 		
 		Long tax	=  (price/10);
@@ -334,7 +593,7 @@ public class purchaseServiceImpl implements purchaseService {
 		dto.setCompany_name(company_name);
 		dto.setEmployee_id(employee_id);
 		dto.setReg_date(reg_date);
-		dto.setUpdate_date(update_date);
+		dto.setUpdate_date( Date.valueOf(now) );
 		dto.setStorage_in_date(storage_in_date);
 		dto.setCount_purchase(count_purchase);
 		dto.setPurchase_state(purchase_state);
@@ -349,7 +608,7 @@ public class purchaseServiceImpl implements purchaseService {
 		System.out.println("  -> 부가세 dto: "+dto.toString());
 		if( cnt > 0 ) {
 			System.out.println(" --> 업데이트 성공!");
-			cnt++;
+			++cnt;
 		}
 		
 		System.out.println("  -> 상품매입 수정");
@@ -360,7 +619,7 @@ public class purchaseServiceImpl implements purchaseService {
 		System.out.println("  -> 상품매출 dto: "+dto.toString());
 		if( cnt > 0 ) {
 			System.out.println(" --> 업데이트 성공!");
-			cnt++;
+			++cnt;
 		}
 		
 		System.out.println("  -> 매입채무 수정");
@@ -371,7 +630,7 @@ public class purchaseServiceImpl implements purchaseService {
 		System.out.println("  -> 매출채권 dto: "+dto.toString());
 		if( cnt > 0 ) {
 			System.out.println(" --> 업데이트 성공!");
-			cnt++;
+			++cnt;
 		}
 		
 		model.addAttribute("cnt", cnt);
@@ -415,7 +674,6 @@ public class purchaseServiceImpl implements purchaseService {
 		model.addAttribute("purchase_state", purchase_state);
 
 	}
-	
 
 	@Override
 	public void detail_purchase_pro_service(Model model) {
@@ -427,171 +685,113 @@ public class purchaseServiceImpl implements purchaseService {
 		
 		String req_kind = req.getParameter("req_kind");
 		int update_cnt = 0;
+		int insert_cnt = 0;
+		int pay_diff = 0;
+		String price_temp = "";
+		String purchase_id = "";
+		Date pay_date = null;
+		PurchaseDTO dto = null;
+		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+		
+		// 창고 입고 확인
 		if( req_kind.equals("storage_in") ){
 			System.out.println("  -> Request a Storage In...");
 			
 			// 상품매입(500011050000)만 23203(구매전표승인완료)에서 23204(구매입고요청)으로 바꿈
-			String purchase_id = req.getParameter("purchase_id");
-			Map<String, Object> daoMap = new HashMap<>();
+			purchase_id = req.getParameter("purchase_id");
 			System.out.println("  -> purchase_id : " + purchase_id);
+			Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("purchase_id", purchase_id);
 			daoMap.put("account_id", "500011050000");
 			daoMap.put("purchase_state", 23204);
 			update_cnt = dao.update_req_storage_in(daoMap);
 			System.out.println("  -> update_cnt : " + update_cnt);
-		}
-		model.addAttribute("cnt", update_cnt);
-	}
-
-	
-	@Override
-	public void reg_purchase_service(Model model) {
-		System.out.println("  -> reg_purchase_service");
-	
-		ArrayList<PurchaseDTO> product_ids = new ArrayList<>();
-		ArrayList<PurchaseDTO> company_ids = new ArrayList<>();
-		ArrayList<PurchaseDTO> employee_ids = new ArrayList<>();
-		
-		product_ids = dao.select_product_ids();
-		company_ids = dao.select_company_ids();
-		employee_ids = dao.select_employee_ids();
-		
-		model.addAttribute("product_ids",product_ids);
-		model.addAttribute("company_ids",company_ids);
-		model.addAttribute("employee_ids",employee_ids);
-	}
-	
-
-	
-	@Override
-	public void reg_purchase_table(Model model) {
-		
-		System.out.println("  -> reg_purchase_table...");
-		
-		Map<String,Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
-
-		String purchase_id = dao.select_purchase_id();
-		String product_id = req.getParameter("product_id");
-		String company_id = req.getParameter("company_id");
-		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		Date reg_date = req.getParameter("reg_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("reg_date"));
-		Date storage_in_date = req.getParameter("storage_in_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("storage_in_date"));
-		int count_purchase = Integer.parseInt( req.getParameter("count_purchase") ); 
-		Long supply_price = Long.parseLong( req.getParameter("supply_price") );
-		int purchase_state = Integer.parseInt(req.getParameter("purchase_state"));
-		int condition_note_payable = Integer.parseInt( req.getParameter("condition_note_payable") );
-		
-		PurchaseDTO dto = new PurchaseDTO();
-		dto.setPurchase_id(purchase_id);
-		dto.setProduct_id(product_id);
-		dto.setCompany_id(company_id);
-		dto.setEmployee_id(employee_id);
-		dto.setReg_date(reg_date);
-		dto.setStorage_in_date(storage_in_date);
-		dto.setCount_purchase(count_purchase);
-		dto.setSupply_price(supply_price);
-		dto.setPurchase_state(purchase_state);
-		dto.setCondition_note_payable(condition_note_payable);
-
-		// 가격 계산 ( 구매가, 부가세, 총합 )
-		int cnt = 0;	
-		long price = supply_price;
-		long tax = price/10;
-		long sum = price + tax;
-		
-		// 상품매입 insert , 가격 x 수량
-		dto.setAccount_id("500011050000");
-		dto.setSupply_price(price);
-		System.out.println("  -> price : " + price );
-		
-		// purchase_order insert 구매 내역 입력
-		int product_cnt = dao.insert_reg_purchase(dto);	
-		if( product_cnt > 0 ){
-			System.out.println("  -> product_cnt insert Complete... ");
-			cnt = 1;
+			model.addAttribute("update_cnt", update_cnt);
 		}
 		
-		// 부가세대급금 insert , 부가세 10%
-		dto.setAccount_id("500011030000");
-		dto.setSupply_price(tax);
-		System.out.println("  -> tax : " + tax );
-		
-		// purchase_order insert 구매 내역 입력
-		int tax_cnt = dao.insert_reg_purchase(dto);
-		if( tax_cnt > 0 ){
-			System.out.println("  -> tax_cnt insert Complete... ");
-			cnt = 2;
-		}
-		
-		// 매입채무 insert , 상품매입 + 부가세
-		dto.setAccount_id("500012010000");
-		dto.setSupply_price(sum);
-		System.out.println("  -> sum : " + sum );
-		
-		// purchase_order insert 구매 내역 입력
-		int debt_cnt = dao.insert_reg_purchase(dto);
-		if( debt_cnt > 0 ){
-			System.out.println("  -> setAccount_id insert Complete... ");
-			cnt = 3;
-		}
-
-		// 리스트를 만들어서 결과값을 담음
-		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
-		dtos = dao.select_reg_purchases(purchase_id);
-		
-		model.addAttribute("dtos", dtos);
-		model.addAttribute("cnt", cnt);
-	}
-
-	
-	@Override
-	public void search_reg_purchase_service(Model model) {
-		
-		System.out.println("  -> search_reg_purchase_service...");
-		
-		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
-		dtos = dao.select_reg_purchase();
-		
-		if(dtos != null ){
-			model.addAttribute("dtos",dtos);
-		} else {
-			System.out.println("  Error Loading Lack_stock");
-		}
-	}
-
-	
-	@Override
-
-	public void search_reg_purchase_pro_service(Model model) {
-		System.out.println("  -> search_reg_purchase_service...");
-		
-		Map<String,Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");	
-		
-		String lack_sales_id = req.getParameter("lack_sales_id");
-		System.out.println("  -> lack_sales_id : " + lack_sales_id);
-		
-		PurchaseDTO dto = dao.select_reg_purchase_pro(lack_sales_id);
-		
-		if( dto != null ){
-			System.out.println("  -> Loadging Complete...");
-			model.addAttribute("dto",dto);
-			model.addAttribute("cnt",1);
+		// 지급 날짜 , 남은 날짜 확인
+		if( req_kind.equals("pay_date") ){
 			
-		} else {
-			System.out.println("  -> Loadging Error...");
-			model.addAttribute("cnt",0);
+			// 수금기간을 조회 구매번호롸 상품매입(500011050000)을 사용하여 지급일을 계산
+			purchase_id = req.getParameter("purchase_id");
+			System.out.println("  -> purchase_id : " + purchase_id);
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("purchase_id", purchase_id);
+			daoMap.put("account_id", "500012010000");	// 매입 채무
+			daoMap.put("before_state", 23202);
+			daoMap.put("after_state", 23206);
+			
+			// 상태 변경 ( 입고완료 23205 -> 지급 대기 23206  )
+			update_cnt = dao.update_state(daoMap);
+			
+			if(update_cnt > 0){
+				
+				// 지급 날짜 불러오기
+				pay_date = dao.select_purchase_pay_date(daoMap);
+				System.out.println("  -> pay_date : " + pay_date);
+				model.addAttribute("pay_date", pay_date);
+				
+				// 남은 날짜 불러오기
+				pay_diff = dao.select_purchase_pay_diff(daoMap);
+				System.out.println("  -> pay_diff : " + pay_diff);
+				model.addAttribute("pay_diff", pay_diff);
+				
+			} else{
+				System.out.println("  -> Update Cnt is Zero... ");
+			}
+			
+			model.addAttribute("cnt", update_cnt);
 		}
 		
+		// 지급  확인 버튼
+		if( req_kind.equals("req_pay") ){
+			
+			// 현금(500011010000)과 매입채무(500012010000) 채권 생성 , 둘다 가격은 마이너스
+			purchase_id = req.getParameter("purchase_id");
+			System.out.println("  -> purchase_id : " + purchase_id);
+			price_temp = req.getParameter("supply_price");
+			price_temp = price_temp.replace("￦","");
+			price_temp = price_temp.replace(",","");
+			Long price = Long.parseLong(price_temp);
+			System.out.println( "  -> price : " + price );
+			System.out.println( "빼기 : " + (-price));
+			
+			// 정보 불러오기
+			dto = dao.select_purchase(purchase_id);
+			
+			// 기존 구매 정보 상태변경 ( 23205 -> 23206 | 입고완료 -> 지급대기 )
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("purchase_id", purchase_id);
+			daoMap.put("account_id", "500011020000");
+			daoMap.put("after_state", 23206);
+			update_cnt = dao.update_state_force(daoMap);
+			
+			// 공통사항 설정
+			dto.setPurchase_id(dao.select_purchase_id());
+			dto.setSupply_price(-price);
+			dto.setPurchase_state(23202);
+			dto.setOrder_id("0");
+			
+			// 매입채무 계정 설정
+			dto.setAccount_id("500012010000");
+			insert_cnt = dao.insert_reg_purchase(dto);
+			if(insert_cnt != 0 ) ++insert_cnt; 
+			dtos.add(dto);
+			
+			// 현금 계정 설정
+			dto.setAccount_id("500011010000");
+			insert_cnt = dao.insert_reg_purchase(dto);
+			if(insert_cnt != 0 ) ++insert_cnt;
+			dtos.add(dto);
+			
+			System.out.println("  -> update_cnt : " + insert_cnt);
+			
+			model.addAttribute("insert_cnt", insert_cnt);
+			model.addAttribute("dtos", dtos);
+		}
 		
-
-
 	}
-
 	
-	
-
 	
 	
 }

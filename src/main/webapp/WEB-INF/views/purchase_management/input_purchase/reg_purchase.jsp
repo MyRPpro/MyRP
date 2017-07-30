@@ -15,15 +15,14 @@
 
 <body>
 
-	<c:if test="${cnt == 0 }">
+	<c:if test="${leck_cnt == 0 }">
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("재고부족 목록이 없습니다.");
-				window.location="window.location='/purchase_management/input_purchase/reg_purchase";
+				/* window.location="window.location='/purchase_management/input_purchase/reg_purchase"; */
 			},200);
 		</script>
 	</c:if>
-
 
 	<form action="#" name="reg_table_form" method="get" onsubmit="return reg_purchase();">
 	
@@ -35,7 +34,7 @@
 		<div class="panel-heading">
 			<h3 class="panel-title"> 
 			<span class="glyphicon glyphicon-gift"></span> 
-			&nbsp; &nbsp; 구매 입력 페이지 reg_purchase
+			&nbsp; &nbsp; 구매 입력 페이지 Reg_Purchase
 			</h3>
 		</div>
 			
@@ -45,8 +44,8 @@
 		<div class="table-responsive">
 
 		<!-- 불러온 값이 없을 경우 , 기본값  -->
-		<c:if test="${dto == null}">	
-		<table class="table table-condensed">
+		<c:if test="${leck_cnt == null}">	
+		<table class="table table-condensed table-striped">
 			<tr>				
 				<th>상품</th>
 				<th>거래처</th>
@@ -149,7 +148,7 @@
 				<td colspan="2">
 					<div class="form-group">
 						<input type="hidden" name="purchase_state" id="purchase_state"
-							value="23203"> <input type="text"
+							value="23202"> <input type="text"
 							name="purchase_state_name" id="purchase_state_name"
 							class="form-control input-sm" value="구매전표승인요청" readonly>
 					</div>
@@ -160,8 +159,9 @@
 		</c:if>
 		
 		<!-- 불러온 값이 있을 경우   -->
-		<c:if test="${dto != null}">
-		<table border="1" class="table table-condensed">
+		<c:if test="${leck_cnt != null}">
+		
+		<table class="table table-condensed table-striped">
 
 			<tr>
 				<th>상품</th>
@@ -173,62 +173,46 @@
 
 			<tr>
 				<td>
-					<div class="form-group">
-						<select name="product_id" id="product_id">
-							<option value="0" selected>상품선택</option>
-							<c:forEach var="product" items="${product_ids}">
-								<option value="${product.product_id}">${product.product_name}</option>
-							</c:forEach>
-						</select>
+					<div class="form-group"> 
+						<input type="hidden" name="product_id" id="product_id" value="${dto.product_id}">
+						<input type="text" name="product_name" id="product_name" value="${dto.product_name}"
+						class="form-control input-sm" readonly>
 					</div>
 				</td>
 
 				<td>
-					<div class="form-group">
-						<select name="company_id" id="company_id" required>
-							<option value="0" selected>거래처선택</option>
-							<c:forEach var="company" items="${company_ids}">
-								<option value="${company.company_id}">${company.company_name}
-								</option>
-							</c:forEach>
-						</select>
+					<div class="form-group"> 
+						<input type="hidden" name="company_id" id="company_id" value="${dto.company_id}">
+						<input type="text" name="company_name" id="company_name" value="${dto.company_name}"
+						class="form-control input-sm" readonly>
 					</div>
 				</td>
 
 				<td>
-					<div class="form-group">
-						<select name="employee_id" id="employee_id" required>
-							<option value="0" selected>담당자선택</option>
-							<c:forEach var="employee" items="${employee_ids}">
-								<option value="${employee.employee_id}">${employee.employee_name}
-								</option>
-							</c:forEach>
-						</select>
+					<div class="form-group"> 
+						<input type="hidden" name="employee_id" id="employee_id" value="${dto.employee_id}">
+						<input type="text" name="employee_name" id="employee_name" value="${dto.employee_name}"
+						class="form-control input-sm" readonly>
 					</div>
 				</td>
 
 				<!-- 7  reg_date -->
 				<td>
 					<div class="form-group">
-						<c:set var="now" value="<%=new java.util.Date()%>" />
-
 						<input type="date" name="reg_date" id="reg_date" required
-							onchange="return check_date()" placeholder="등록일을 입력하세요."
-							value="<fmt:formatDate value='${now}' pattern='yyy-MM-dd'/>">
+						class="form-control input-sm" onchange="return check_date()" 
+						value="<fmt:formatDate value='${dto.reg_date}' pattern='yyyy-MM-dd'/>">
 					</div>
 				</td>
-
-
 
 				<td>
 					<div class="form-group">
-						<input type="date" id="storage_in_date"
-							name="storage_in_date" onchange="return check_date()"
-							placeholder="입고일"
-							value="<fmt:formatDate value='${now}' pattern='yyy-MM-dd'/>">
+						<c:set var="now" value="<%=new java.util.Date()%>" />
+						<input type="date" id="storage_in_date" name="storage_in_date" required
+						class="form-control input-sm" onchange="return check_date()"
+							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>">
 					</div>
 				</td>
-
 
 			</tr>
 
@@ -243,50 +227,59 @@
 			<tr>
 
 				<td>
-					<div class="form-group">
-						<input type="number" id="count_purchase"
-							name="count_purchase" min="1" max="9999" placeholder="구매 수량"
-							requiered>
+					<div class="form-group"> 
+						<input type="hidden" name="count_purchase" id="count_purchase" value="${dto.lack_stock}">
+						<input type="text" value="<fmt:formatNumber value="${dto.lack_stock}" type="number"/>" 
+						class="form-control input-sm" requiered readonly>
+						
 					</div>
 				</td>
 
 				<td>
 					<div class="form-group">
-						<input type="number" id="supply_price" name="supply_price"
-							min="1" max="999999999" placeholder="구매단가" requiered>
+						<input type="hidden" name="supply_price" id="supply_price" value="${dto.purchase_unit_price}">
+						<input type="text"  class="form-control input-sm"min="1" max="999999999" requiered readonly
+						value="$<fmt:formatNumber value="${dto.purchase_unit_price}" type="currency" currencySymbol="￦"/>" >
 					</div>
 				</td>
 
 				<td>
 					<div class="form-group">
 						<input type="number" id="condition_note_payable"
-							name="condition_note_payable" placeholder="채무 기간" min="1"
-							max="12">
+							name="condition_note_payable" placeholder="채무 기간" 
+							value="${dto.condition_note_payable}"
+							class="form-control input-sm"
+							min="1" max="12">
 					</div>
 				</td>
 
 				<td colspan="2">
 				<div class="form-group">
-					<input type="hidden" name="purchase_state" id="purchase_state" value="23203"> 
+					<input type="hidden" name="purchase_state" id="purchase_state" value="23202"> 
 					<input type="text" name="purchase_state_name" id="purchase_state_name"
+					class="form-control input-sm"
 					value="구매전표승인요청" readonly>
 				</div>
 				</td>
 			</tr>
 
 		</table>
+		<input type="hidden" id="order_id" value="${dto.stock_order_id}">
+		
 		</c:if>
-		
-		<input type="submit" value="등록하기" class="btn btn-primary" >
-		<input type="reset" value="재설정" class="	btn ">
-		&emsp;
-		<input type="button" value="부족재고조회" class="btn btn-info" onclick="return search_lack_stock()" >
-		<input type="button" value="새로입력하기" class="btn btn-info" onclick="return search_lack_stock()" >  onclick="window.location='/purchase_management/input_purchase/reg_purchase'" >
-		</div>	<!-- // table-responsive -->	
-		
 		<br>
-		<div id="reg_table"></div>
+		<center>
+		<input type="submit" value="등록하기" class="btn btn-primary" >
+		<input type="reset" value="재설정" class="btn btn-default ">
+		&emsp;
+		<input type="button" value="부족재고조회" class="btn btn-info" onclick="return search_lack_stock(1)" >
+		<input type="button" value="새로입력하기" class="btn btn-info" onclick="return reg_purchase_new()" >  
+		</div>	<!-- // table-responsive -->	
+		</center>
+		<br>
 		
+		<div id="reg_table"></div>
+		<div id="reg_page"></div> 
 		</div>	<!-- // panel-body  -->
 			
 	</div> <!-- // panel panel-primary  -->
@@ -299,6 +292,7 @@
 	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script>	
 	function reg_purchase(){
+		
 	 var product_id = document.getElementById("product_id");
 	 var company_id = document.getElementById("company_id");
 	 var employee_id = document.getElementById("employee_id");
@@ -308,6 +302,7 @@
 	 var supply_price = document.getElementById("supply_price");
 	 var purchase_state = document.getElementById("purchase_state");
 	 var condition_note_payable = document.getElementById("condition_note_payable");
+	 var order_id = document.getElementById("order_id");
 	 
 	 if( product_id.value == 0 ){
 		 alert("상품이 선택되지 않았습니다. 원하는 상품을 선택해주세요.");		product_id.focus();		return false;
@@ -334,17 +329,39 @@
 							+'&supply_price='+supply_price.value
 							+'&purchase_state='+purchase_state.value
 							+'&condition_note_payable='+condition_note_payable.value
+							+'&order_id='+order_id.value
 						 );	 
-	 return false;
+	 	return false;
 	 }
 	
 	
-	
-	function search_lack_stock(){
-		 $('#main_screen').load("/purchase_management/input_purchase/search_reg_purchase");
+	function search_lack_stock(pagenum){
+		
+		/* this.pagenum = pagenum; */
+		var pagenum = pagenum;
+		console.log(" 선택한 pagenum :" + pagenum);
+		$('#reg_table').load("/purchase_management/input_purchase/search_reg_purchase_table"
+			+"?pageNum="+pagenum );
+		$('#reg_page').load("/purchase_management/input_purchase/search_reg_purchase_page"
+				+"?pageNum="+pagenum );
+		/* 
+		$.ajax({
+			data	: pagenum,
+			type	: 'get',
+			url		: "/purchase_management/input_purchase/search_reg_purchase_table",
+			success : function(table){
+				$('#reg_table').html(table);
+			}
+		});
+		 */
 		return false;
+		 
 	}
 	
+	function reg_purchase_new(){
+		 $('#main_screen').load("/purchase_management/input_purchase/reg_purchase");
+		return false;
+	}
 	
 	function date_format(date){
 		var year = date.getFullYear();                

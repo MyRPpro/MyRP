@@ -8,8 +8,6 @@
 <%@ include file = "../../setting.jsp" %>
 </head>
 <script type="text/javascript">
-
-	console.log("${id}");
 	
 	if("${doit}" != null && "${doit}" == '1'){
 		var data = {

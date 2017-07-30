@@ -27,7 +27,7 @@
 </head>
 <body>
 
-
+	
 	<h3> 판매 리스트 페이지 : sales_list.jsp</h3>
 	
 	<form action="#" name="sales_list" method="post" onsubmit="return search_list(1,1)" >
@@ -46,9 +46,11 @@
 		<input type="button" value="출고완료조회" onclick="return search_list(1,3)">
 	</form>
 	<hr>
-	<div id="list_page"></div>
 	
+	<div id="list_table_Set"></div>
+	<div id="list_page"></div>
 	<div id="list_table">
+	
 		<p><h3> 판매 리스트를 볼 수 있는 페이지 입니다. </h3></p>
 		<p> 거래처명을 이력후 검색을 누르면 해당 내역을 볼 수 있습니다. </p>
 		<p> 전체 내역을 확인하고 싶으면 전체목록 버튼을 눌러주세요. </p>
