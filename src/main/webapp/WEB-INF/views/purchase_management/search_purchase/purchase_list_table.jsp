@@ -89,12 +89,12 @@
 		
 		function detail_page(param) {
 
-			console.log(" param :" + param)
+			/* console.log(" param :" + param) */
 
 			param = param.split(',');
-			console.log(" purchase_id :" + param[0]);
+			/* console.log(" purchase_id :" + param[0]);
 			console.log(" purchase_state :" + param[1]);
-			console.log(" order_id :" + param[2]);
+			console.log(" order_id :" + param[2]); */
 
 			var state = param[1];
 			

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../setting.jsp" %>
@@ -78,9 +79,8 @@
 		</table>
 		</div>	<!-- // form-group -->
 		
-		<c:if test="변수 정하자">
-			<input type="button" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
-		</c:if>
+		<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		
 		</div> <!-- // table-responsive -->
 	</div>	<!-- // panel-body -->
 		
@@ -93,7 +93,7 @@
 	<script type="text/javascript">
 	function sendStatement(){
 		var purchase_id = document.getElementById("purchase_id").innerHTML
-		console.log( " sned purchase_id : " + purchase_id );
+		/* console.log( " sned purchase_id : " + purchase_id ); */
 		$('#main_screen').load("/accounting_management/statement_management/make_statement");
 		
 		/* window.location="/accounting_management/statement_management/make_statement"; */

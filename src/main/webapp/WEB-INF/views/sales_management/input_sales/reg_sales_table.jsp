@@ -100,7 +100,7 @@
 	<script type="text/javascript">
 	function sendStatement(){
 		var sales_id = document.getElementById("sales_id").innerHTML
-		console.log( " sned sales_id : " + sales_id );
+		/* console.log( " sned sales_id : " + sales_id ); */
 		window.location="/accounting_management/statement_management/make_statement"
 						+"?sales_id="+sales_id;
 	}

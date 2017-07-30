@@ -28,11 +28,11 @@
 				<div class="panel-body" id="purchase_list_content"  >
 					<div class="input-group" id="content" style="display: inline;">
 						<font class="media-heading" style="margin:0 auto;"> 입력된 구매 내역을 검색 할 수 있는 페이지 입니다.</font><br><br>
-							<form class="form-inline-block" action="#" name="purchase_list_form" method="get" onsubmit="search_list(1,1)">
+							<form class="form-inline-block" action="#" name="purchase_list_form" method="get">
 								<div class="container"  style="display: inline-block; text-align: center; ;">
 									<span class="input-group-btn" style="width: 53vw;" >
-											<input type="text" class="form-control" id="search_str" placeholder="구매번호를 입력하세요">
-											<button class="btn btn-primary" id="list_btn_search" type="submit"> 검색 </button>
+											<input type="text" name="input_search" class="form-control" id="search_str" placeholder="구매번호를 입력하세요">
+											<button class="btn btn-primary" id="list_btn_search" type="button" onclick="return search_list(1,1)"> 검색 </button>
 											<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="true" > 
 												 &nbsp;
 												<span class="caret"></span> 
@@ -53,12 +53,12 @@
 					            </div>
 					            <center>
 					            <br>
-								<input type="button" class="btn btn-info " value="전체목록"	id="list_btn_all" 	onclick="return search_list(1,0)">
-								<input type="button" class="btn btn-info " value="구매등록" 	id="list_btn_reg"	onclick="return reg_purchase();">
+								<input type="button" name="btn_list_all" class="btn btn-info " value="전체목록"	id="list_btn_all" 	onclick="return search_list(1,0)">
+								<input type="button" name="btn_reg_purchasel" class="btn btn-info " value="구매등록" 	id="list_btn_reg"	onclick="return reg_purchase();">
 								&nbsp;
-								<input type="button" class="btn btn-info " value="전표승인조회" id="list_btn_state"	onclick="return search_list(1,2)">
-								<input type="button" class="btn btn-info " value="입고완료조회" id="list_btn_in"	onclick="return search_list(1,3)">
-								<input type="button" class="btn btn-info " value="지급완료조회" 	id="list_btn_pay"	onclick="return search_list(1,4)">
+								<input type="button" name="btn_search_state" class="btn btn-info " value="전표승인조회" id="list_btn_state"	onclick="return search_list(1,2)">
+								<input type="button" name="btn_search_storage_in" class="btn btn-info " value="입고완료조회" id="list_btn_in"	onclick="return search_list(1,3)">
+								<input type="button" name="btn_search_repay" class="btn btn-info " value="지급완료조회" 	id="list_btn_pay"	onclick="return search_list(1,4)">
 								<br><br>
 								<div id="list_page"></div> 
 								</center>
@@ -94,7 +94,7 @@
 		var check = check;
 		var pagenum = pagenum;
 		var search_str = null;
-		console.log(" pagenum :" + pagenum )
+		/* console.log(" pagenum :" + pagenum ); */
 		
 		// 전체 검색
 		if ( check == 0 ){
@@ -122,7 +122,7 @@
 			search_str = "check";
 		}
 		
-		console.log(" search_str :" + search_str );
+		/* console.log(" search_str :" + search_str ); */
 		
 		$('#list_table').slideDown(500);
 		$('#list_table').load('/purchase_management/search_purchase/purchase_list_table?search_str='+search_str+'&pageNum='+pagenum);
