@@ -177,7 +177,7 @@ CREATE TABLE retired_employee(
     retired_reason      VARCHAR2(255),
     CONSTRAINT retired_employee_fk FOREIGN KEY(employee_id)
                         REFERENCES employee(employee_id),
-    CONSTRAINT retired_employee_pk PRIMARY KEY(employee_id,retired_date)
+    CONSTRAINT retired_employee_pk PRIMARY KEY(employee_id)
 );
 --------------------------------------------------------------------------------
 -- 근무기록 TABLE 생성 (work_record)
@@ -237,7 +237,7 @@ CREATE TABLE salary(
     account_id              CHAR(12),
     employee_id             NUMBER(4),
     base_pay                NUMBER(10),
-    bouns                   NUMBER(10),
+    bonus                   NUMBER(10),
     benefit                 NUMBER(10),
     cost                    NUMBER(10),
     total_pay               NUMBER(12),
