@@ -82,15 +82,19 @@
 				<tr>
 					<th>인사코드 그룹번호</th>
 					<td>
-						<input type="number" name="hr_code_group_id"
+						<div class="input-group">
+							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 						min="1" max="9" step="1" value="${hr_code_group_id}" required autofocus>
-						<input class="btn btn-default btn-xs" type="button" name="dup_check_btn" value="중복확인">
+						<span class="input-group-btn">
+							<input class="btn btn-default btn-sm" type="button" name="dup_check_btn" value="중복확인">
+						</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<th>인사코드 그룹명</th>
 					<td>
-						<input type="text" name="hr_code_group_name" maxlength="255" required>
+						<input class="form-control input-sm" type="text" name="hr_code_group_name" maxlength="255" required>
 					</td>
 				</tr>
 				<tr>

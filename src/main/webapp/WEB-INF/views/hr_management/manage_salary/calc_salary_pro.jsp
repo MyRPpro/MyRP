@@ -8,19 +8,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-modify_salary_info_pro.jsp
 <c:if test="${cnt == 1}">
 	<script type="text/javascript">
-		alert("급여대장이 정상적으로 수정 되었습니다.");
-		$("#page16522").slideUp();
-		$("#page16510_div01").slideDown();
+		alert("급여정보가 정상적으로 등록 되었습니다.");
 	</script>
 </c:if>
 <c:if test="${cnt == 0}">
 	<script type="text/javascript">
-		alert("급여대장 수정을 실패하였습니다.");
-		$("#page16522_div02").slideUp();
-		$("#page16522_div01").slideUp();
+		alert("급여정보 등록을 실패하였습니다.");
 	</script>
 </c:if>
 </body>

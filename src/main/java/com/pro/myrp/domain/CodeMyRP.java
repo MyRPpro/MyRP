@@ -222,8 +222,10 @@ public interface CodeMyRP {
 				public static final int modify_salary_info = 16522;
 				public static final int modify_salary_info_pro = 16523;
 				public static final int fix_work_record = 16530;
+				public static final int calc_salary = 16540;
+				public static final int calc_salary_pro = 16541;
 				public static final int fix_salary = 16550;
-				public static final int search_salary_history = 16560;
+				public static final int personnel_card_salary = 16560;
 			//인사발령 관리
 			public static final int manage_hr_appointment = 16600;
 				public static final int hr_appointment_search = 16610;

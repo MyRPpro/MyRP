@@ -115,6 +115,22 @@ var retired_reason		= "퇴직사유";
 
 var search_start 		= "검색시작일";
 var search_end			= "검색종료일";
+
+var salary_register_id	= "급여대장 번호";
+var account_id			= "계정";
+var reg_date			= "등록일";
+var salary_register_name= "급여대장명";
+var pay_date			= "지급일";
+var total_pay			= "총 지급액";
+var total_employee		= "총 지급인원";
+var salary_state		= "급여상태";
+
+var bonus_ratio			= "상여금 비율";
+var night_overtime_ratio= "야근수당 비율";
+var weekend_overtime_ratio= "주말근무수당 비율";
+var base_worktime		= "기본 시간";
+var night_overtime		= "야근 시간";
+var weekend_overtime	= "주말 시간";
 /**
  * 근태관리
  */

@@ -34,7 +34,7 @@
 	
 	$("#page16151_btn01").bind("click", function(event) {
 		$("#page16151").slideUp();
-		$("#page16151_div01").slideDown("/hr_management/manage_hr_code/add_base_code_dupCheck");
+		$("#page16150_div01").slideDown();
 		return false;
 	});
 	
@@ -75,7 +75,7 @@
 							<td>
 								<input type="hidden" name="hr_code_group_id"
 								value="${hr_code_group_id}">
-								<input type="number" name="hr_code_id"
+								<input  class="form-control input-sm" type="number" name="hr_code_id"
 								min="1" max="999" step="1" required>
 							</td>
 						</tr>
