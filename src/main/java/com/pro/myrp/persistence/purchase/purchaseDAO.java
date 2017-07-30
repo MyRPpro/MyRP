@@ -1,5 +1,6 @@
 package com.pro.myrp.persistence.purchase;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -76,5 +77,14 @@ public interface purchaseDAO extends MyRPDAO {
 
 	public ArrayList<PurchaseDTO> select_lack_reg_purchase(Map<String, Object> daoMap);
 
+	public Date select_purchase_pay_date(Map<String, Object> daoMap);
+
+	public int select_purchase_pay_diff(Map<String, Object> daoMap);
+
+	public PurchaseDTO select_purchase(String purchase_id);
+
+	public int update_state(Map<String, Object> daoMap);
+
+	public int update_state_force(Map<String, Object> daoMap);
 
 }

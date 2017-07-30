@@ -78,7 +78,9 @@
 		</table>
 		</div>	<!-- // form-group -->
 		
-		<input type="button" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		<c:if test="변수 정하자">
+			<input type="button" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		</c:if>
 		</div> <!-- // table-responsive -->
 	</div>	<!-- // panel-body -->
 		

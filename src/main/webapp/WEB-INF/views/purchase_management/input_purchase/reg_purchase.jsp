@@ -34,7 +34,7 @@
 		<div class="panel-heading">
 			<h3 class="panel-title"> 
 			<span class="glyphicon glyphicon-gift"></span> 
-			&nbsp; &nbsp; 구매 입력 페이지 reg_purchase
+			&nbsp; &nbsp; 구매 입력 페이지 Reg_Purchase
 			</h3>
 		</div>
 			
@@ -200,7 +200,7 @@
 				<td>
 					<div class="form-group">
 						<input type="date" name="reg_date" id="reg_date" required
-						onchange="return check_date()" 
+						class="form-control input-sm" onchange="return check_date()" 
 						value="<fmt:formatDate value='${dto.reg_date}' pattern='yyyy-MM-dd'/>">
 					</div>
 				</td>
@@ -209,7 +209,7 @@
 					<div class="form-group">
 						<c:set var="now" value="<%=new java.util.Date()%>" />
 						<input type="date" id="storage_in_date" name="storage_in_date" required
-						onchange="return check_date()"
+						class="form-control input-sm" onchange="return check_date()"
 							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>">
 					</div>
 				</td>
@@ -248,6 +248,7 @@
 						<input type="number" id="condition_note_payable"
 							name="condition_note_payable" placeholder="채무 기간" 
 							value="${dto.condition_note_payable}"
+							class="form-control input-sm"
 							min="1" max="12">
 					</div>
 				</td>
@@ -256,6 +257,7 @@
 				<div class="form-group">
 					<input type="hidden" name="purchase_state" id="purchase_state" value="23202"> 
 					<input type="text" name="purchase_state_name" id="purchase_state_name"
+					class="form-control input-sm"
 					value="구매전표승인요청" readonly>
 				</div>
 				</td>
@@ -265,14 +267,15 @@
 		<input type="hidden" id="order_id" value="${dto.stock_order_id}">
 		
 		</c:if>
-		
+		<br>
+		<center>
 		<input type="submit" value="등록하기" class="btn btn-primary" >
 		<input type="reset" value="재설정" class="btn btn-default ">
 		&emsp;
 		<input type="button" value="부족재고조회" class="btn btn-info" onclick="return search_lack_stock(1)" >
 		<input type="button" value="새로입력하기" class="btn btn-info" onclick="return reg_purchase_new()" >  
 		</div>	<!-- // table-responsive -->	
-		
+		</center>
 		<br>
 		
 		<div id="reg_table"></div>

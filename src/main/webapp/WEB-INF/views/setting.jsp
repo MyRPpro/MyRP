@@ -27,4 +27,10 @@
 	text-align: center;
 	}
 	
+	/* 추가사항 폰그룸 하단 마진 제거 */
+	form, .form-group{
+	margin-bottom: 0px;
+	}
+
+	
 </style>

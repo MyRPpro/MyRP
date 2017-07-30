@@ -125,7 +125,6 @@
  		]]>
  	</update>
  	
- 	
  	<!-- 구매 리스트 : 입고완료 개수  -->
  	<select id="select_stock_in_purchase_cnt" resultType="int">
  		<![CDATA[
@@ -405,7 +404,7 @@
 			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
 		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
 		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
-		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rnum
 	
 	     	FROM   (  
 	     			SELECT 
@@ -450,7 +449,7 @@
 	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
 	                )
 	          )
-	WHERE 	rNum BETWEEN #{start} AND #{end}
+	WHERE 	rnum BETWEEN '${start}' AND '${end}'
 	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
  	]]>
  	</select>
@@ -835,5 +834,63 @@
 		AND		ACCOUNT_ID = #{account_id}
  	]]>
  	</update>
+ 	
+ 	
+ 	<!-- 지급날짜  불러오기 -->
+ 	<select id="select_purchase_pay_date" parameterType="java.util.Map" resultType="java.sql.Date">
+ 	<![CDATA[
+	 	SELECT	ADD_MONTHS( STORAGE_IN_DATE, CONDITION_NOTE_PAYABLE)
+		FROM	PURCHASE_ORDER
+		WHERE	PURCHASE_ID	= '${purchase_id}'
+		AND		ACCOUNT_ID	= '${account_id}'
+		AND		PURCHASE_STATE = '${after_state}'
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 남은날짜  불러오기 -->
+ 	<select id="select_purchase_pay_diff" parameterType="java.util.Map" resultType="int">
+ 	<![CDATA[
+	 	SELECT TRUNC(ADD_MONTHS(STORAGE_IN_DATE,CONDITION_NOTE_PAYABLE)) - TRUNC(SYSDATE)
+		FROM	PURCHASE_ORDER
+		WHERE	PURCHASE_ID	= '${purchase_id}'
+		AND		ACCOUNT_ID	= '${account_id}'
+		AND		PURCHASE_STATE = '${after_state}'
+ 	]]>
+ 	</select>
+ 	
+ 	<update id="update_state" parameterType="java.util.Map" >
+ 	<![CDATA[
+		UPDATE	PURCHASE_ORDER
+		SET		PURCHASE_STATE 	= '${after_state}'
+		WHERE	PURCHASE_ID 	= '${purchase_id}'
+		AND		ACCOUNT_ID 		= '${account_id}'
+		AND		PURCHASE_STATE 	= '${before_state}'
+ 	]]>
+ 	</update>
+ 	
+ 	
+ 	<update id="update_state_force" parameterType="java.util.Map" >
+ 	<![CDATA[
+		UPDATE	PURCHASE_ORDER
+		SET		PURCHASE_STATE 	= '${after_state}'
+		WHERE	PURCHASE_ID 	= '${purchase_id}'
+		AND		ACCOUNT_ID 		= '${account_id}'
+ 	]]>
+ 	</update>
+ 	
+ 	
+	<select id="select_purchase" parameterType="String" resultType="PurchaseDTO">
+	<![CDATA[
+		SELECT 	P.* , KOR_NAME AS state_name
+		FROM 	PURCHASE_ORDER P
+		JOIN    STATE ST
+		ON      P.PURCHASE_STATE = ST.CODE
+		WHERE	PURCHASE_ID	= #{purchase_id}
+		AND	 	ACCOUNT_ID = 500011050000
+	]]>
+ 	</select>
 
+
+	
 </mapper>
