@@ -1,5 +1,6 @@
 package com.pro.myrp.persistence.purchase;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -97,11 +98,7 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.select_reg_purchases(purchase_id);
 	}
 
-	@Override
-	public ArrayList<PurchaseDTO> select_reg_purchase() {
-		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.select_reg_purchase();
-	}
+
 
 	@Override
 	public PurchaseDTO select_reg_purchase_pro(String lack_sales_id) {
@@ -193,7 +190,48 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.update_req_storage_in(daoMap);
 	}
 
-	
+	@Override
+	public int select_lack_reg_purchase_cnt() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_lack_reg_purchase_cnt();
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_lack_reg_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_lack_reg_purchase(daoMap);
+	}
+
+	@Override
+	public Date select_purchase_pay_date(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_pay_date(daoMap);
+	}
+
+	@Override
+	public int select_purchase_pay_diff(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_pay_diff(daoMap);
+	}
+
+	@Override
+	public PurchaseDTO select_purchase(String purchase_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase(purchase_id);
+	}
+
+	@Override
+	public int update_state(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_state(daoMap);
+	}
+
+	@Override
+	public int update_state_force(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_state_force(daoMap);
+		
+	}
 
 	
 	

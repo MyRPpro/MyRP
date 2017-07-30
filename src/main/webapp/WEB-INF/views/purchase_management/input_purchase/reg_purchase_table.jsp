@@ -40,7 +40,7 @@
 		<div class="table-responsive">
 		<div class="form-group" >
 		
-		<div class="table-responsive">
+		
 		<table class="table table-condensed table-striped">
 			<tr>
 				<th>구매번호</th>	<!-- 1 -->
@@ -76,11 +76,15 @@
 			</tr>
 			</c:forEach>
 		</table>
-		</div> <!-- // table-responsive -->
 		</div>	<!-- // form-group -->
-		</div>	<!-- // form-control -->
 		
-		<input type="button" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		<c:if test="변수 정하자">
+			<input type="button" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		</c:if>
+		</div> <!-- // table-responsive -->
+	</div>	<!-- // panel-body -->
+		
+		
 		
 	</div>	<!-- // panel-body -->
 	</div>	<!-- // panel panel-primary -->
