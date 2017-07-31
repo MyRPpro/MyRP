@@ -62,7 +62,7 @@ $(".panel-body a").bind("click", function(event) {
 								<td><a href = "/distribution_management/search_distribution_order/statement_list?goes=in&oder_id=${dto.pro_id}">구매</a></td>
 								</c:if>
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4753'}">
-								<td><a href = "/distribution_management/adjustment_inventory/statement_list?oder_id=${dto.pro_id}">재고조정</a></td>
+								<td><a href = "/distribution_management/adjustment_inventory/adjustment_inventory_list?oder_id=${dto.pro_id}">재고조정</a></td>
 								</c:if>
 								<td>${dto.plus_stock}</td>
 								<td>${dto.minus_stock}</td>

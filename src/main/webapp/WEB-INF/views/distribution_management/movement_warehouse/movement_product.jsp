@@ -8,34 +8,38 @@ $(function(){
 		var warehouse_id = document.getElementById("warehouse_id").value;
 		var arrive_warehouse_id = document.getElementById("arrive_warehouse_id");
 		
-		if(pro == 0){
-			alert("상품을 선택하시오.");
-			return false;
-		}
-		
-		var stock = document.getElementById(pro+"").value;
 		if(warehouse_id == arrive_warehouse_id.value){
 			alert("출발 창고는 도착 창고와 같을 수 없습니다.");
 			arrive_warehouse_id.focus();
 			return false;
 		}
 		
+		if(pro == 0){
+			alert("상품을 선택하시오.");
+			return false;
+		}
+		
+		var stock = document.getElementById(pro+"").value;
+		
 		if(movement_amount.value*1 > stock*1){
 			alert("입력값은 재고수량 보다 클 수 없습니다.");
 			movement_amount.focus();
 			return false;
 		}
+		var con = confirm("등록하시겠습니까?");
 		
-		var togo = $('#main_screen');
-		var data = $('#movement_form').serialize();
-		$.ajax({ 					
-			data: 	data,
-			type: 	'post',	 			
-			url: 	"/distribution_management/movement_warehouse/movement_pro",
-			success: function(response) { 	
-				togo.html(response);	
-			}
-		});  
+		if(con){
+			var togo = $('#main_screen');
+			var data = $('#movement_form').serialize();
+			$.ajax({ 					
+				data: 	data,
+				type: 	'post',	 			
+				url: 	"/distribution_management/movement_warehouse/movement_pro",
+				success: function(response) { 	
+					togo.html(response);	
+				}
+			}); 
+		}
 	});
 });
 </script>
@@ -51,7 +55,7 @@ $(function(){
 		<tr>
 			<th>출발 창고명</th>
 			<th>
-				<input type = "hidden" value = "${warehouse_id}" name = "warehouse_id" readonly>
+				<input type = "hidden" value = "${warehouse_id}" id = "warehouse_id" name = "warehouse_id" readonly>
 
 				<input class="form-control" type = "text" name = "warehouse_name" value = "${warehouse_name}" readonly>
 			</th>
@@ -117,7 +121,7 @@ $(function(){
 			<tr>
 				<th>출발 창고명</th>
 				<th>
-					<input type = "hidden" value = "${warehouse_id}"  id = "warehouse_id name = "warehouse_id" readonly>
+					<input type = "hidden" value = "${warehouse_id}"  id = "warehouse_id" name = "warehouse_id" readonly>
 					<c:forEach var = "ware" items = "${warehouseVos}">
 						<c:if test = "${ware.warehouse_id == warehouse_id}">
 							<input class="form-control" type = "text" name = "warehouse_name" value = "${ware.warehouse_name}" readonly>
