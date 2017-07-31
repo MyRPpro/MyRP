@@ -12,17 +12,24 @@
 $('.distribution_view_heading').bind("click",function(){  
 	$('.distribution_view_content').slideToggle();
 });
+
+$(".panel-body a").bind("click", function(event) {
+	$("#main_screen").load($(this).attr("href"));
+	return false;
+});
+
 </script>
 <c:if test = "${null eq product_name_list[0].product_id}">
 <h3>상품 정보가 없습니다.</h3>
 </c:if>
 
 <c:if test = "${null ne product_name_list[0].product_id}">
-<div class="row">
+<br><br>
+ <div class="row">
 <div class="col-xs-12">
-	<div class="panel panel-primary">
+	<div class="panel panel-primary"> 
 		<div class="panel-heading distribution_view_heading">
-			<h3 class="panel-title">재고수불부 검색 결과</h3>
+			<h3 class="panel-title">검색 결과</h3>
 		</div>
 		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
@@ -49,13 +56,13 @@ $('.distribution_view_heading').bind("click",function(){
 							<tr>
 								<td>${dto.sto_date}</td>
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4754'}">
-								<td><a href = "?pro_id=${dto.pro_id}">판매</a></td>
+								<td><a href = "/distribution_management/search_distribution_order/request_in_out_storage?goes=out&oder_id=${dto.pro_id}">판매</a></td>
 								</c:if>
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4755'}">
-								<td><a href = "?pro_id=${dto.pro_id}">구매</a></td>
+								<td><a href = "/distribution_management/search_distribution_order/statement_list?goes=in&oder_id=${dto.pro_id}">구매</a></td>
 								</c:if>
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4753'}">
-								<td><a href = "adjustment_inventory/adjustment_inventory_list?pro_id=${dto.pro_id}">재고조정</a></td>
+								<td><a href = "/distribution_management/adjustment_inventory/statement_list?oder_id=${dto.pro_id}">재고조정</a></td>
 								</c:if>
 								<td>${dto.plus_stock}</td>
 								<td>${dto.minus_stock}</td>
@@ -63,6 +70,9 @@ $('.distribution_view_heading').bind("click",function(){
 							</tr>
 							</c:if>
 						</c:forEach>
+						<tr>
+								<td colspan = "5">&emsp;<br></td>
+						</tr>
 					</table>
 				</c:forEach>
 			</div>
@@ -84,9 +94,9 @@ $('.distribution_view_heading').bind("click",function(){
 				</table>
 			</div>
 		</div>
-	</div>
+ 	</div>
 </div>
-</div>
+</div> 
 </c:if>
 </body>
 </html>

@@ -121,10 +121,30 @@ $(function(){
 		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
 			<table class="table table-condensed">
-				<tr>
-					<td colspan = "13">
-						<button class = "movement_modify btn btn-default" value = "new">신규등록</button>
-					</td>
+			<tr>
+					<th colspan = "13">
+						<div class="text-center">
+				          <ul class="pagination">
+				          <input type = "hidden" value = "${currentPage}" id = "currentPage">
+							<c:if test="${startPage > pageBlock}">
+								<li><a class = "page" href="/distribution_management/movement_warehouse/movement_list">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+								<li><a class = "page" href="/distribution_management/movement_warehouse/movement_list?pageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+							</c:if>
+							<c:forEach var="i" begin="${startPage}" end="${endPage}">
+								<c:if test="${i == currentPage}">
+									<li><span>${i}</span></li>
+								</c:if>
+								<c:if test="${i != currentPage}">
+									<li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${i}">${i}</a></li>
+								</c:if>
+							</c:forEach>
+							<c:if test="${pageCount > endPage}">
+								<li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+								<li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+							</c:if>
+				           </ul>
+				        </div>
+					</th>
 				</tr>
 				<tr>
 					<th>주문번호</th>
@@ -168,39 +188,18 @@ $(function(){
 					</tr>
 				</c:forEach>
 				<tr>
-					<th colspan = "13">
-						<div class="text-center">
-				          <ul class="pagination">
-				          <input type = "hidden" value = "${currentPage}" id = "currentPage">
-							<c:if test="${startPage > pageBlock}">
-								<li><a class = "page" href="/distribution_management/movement_warehouse/movement_list">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
-								<li><a class = "page" href="/distribution_management/movement_warehouse/movement_list?pageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
-							</c:if>
-							<c:forEach var="i" begin="${startPage}" end="${endPage}">
-								<c:if test="${i == currentPage}">
-									<li><span>${i}</span></li>
-								</c:if>
-								<c:if test="${i != currentPage}">
-									<li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${i}">${i}</a></li>
-								</c:if>
-							</c:forEach>
-							<c:if test="${pageCount > endPage}">
-								<li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
-								<li><a class = "page"  href="/distribution_management/movement_warehouse/movement_list?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
-							</c:if>
-				           </ul>
-				        </div>
-					</th>
+					<td colspan = "13">
+						<button class = "movement_modify btn btn-default" value = "new">신규등록</button>
+					</td>
 				</tr>
 			</table>
 			</div>
+			<br><br>
+			<div id = "modify"></div>
+			<div id = "product_list"></div>
 		</div>
 	</div>
 </div>
 </div>
-<br>
-<div id = "modify"></div>
-<br>
-<div id = "product_list"></div>
 </body>
 </html>

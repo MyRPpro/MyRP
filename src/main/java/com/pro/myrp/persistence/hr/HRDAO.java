@@ -468,8 +468,16 @@ public interface HRDAO extends MyRPDAO {
 	/**
 	 * 인사카드 급여이력 조회
 	 * @author amaco78
-	 * @param employee_id
+	 * @param daoMap
 	 * @return
 	 */
-	public List<Personnel_card_salaryDTO> select_personnel_card_salary(int employee_id);
+	public List<Personnel_card_salaryDTO> select_personnel_card_salary(Map<String, Object> daoMap);
+
+	/**
+	 * 주문상태명 조회
+	 * @author amaco78
+	 * @param salary_state
+	 * @return
+	 */
+	public String select_state(int salary_state);
 }

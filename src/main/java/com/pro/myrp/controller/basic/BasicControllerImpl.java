@@ -36,12 +36,21 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 	}
 
 	@Override
+	@GetMapping(value="reg_company/add_company_dupCheck")
+	public String add_company_dupCheck(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(add_company_dupCheck));
+		model.addAttribute("req", req);
+		service.add_company_dupCheck_service(model);
+		return code.c(base_registration, reg_company, add_company_dupCheck);
+	}
+	
+	@Override
 	@PostMapping(value="reg_company/add_company_pro")
 	public String reg_company_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_company_pro));
 		model.addAttribute("req", req);
 		service.add_company_pro_service(model);
-		return "redirect:"+code.c(base_registration, reg_company, company_list);
+		return code.c(base_registration, reg_company, add_company_pro);
 	}
 
 	@Override
@@ -59,7 +68,7 @@ public class BasicControllerImpl implements BasicController, CodeMyRP{
 		System.out.println(code.c(modify_company_pro));
 		model.addAttribute("req", req);
 		service.modify_company_pro_service(model);
-		return "redirect:"+code.c(base_registration, reg_company, company_list);
+		return code.c(base_registration, reg_company, modify_company_pro);
 	}
 	
 	@Override

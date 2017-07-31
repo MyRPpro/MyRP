@@ -22,9 +22,16 @@
 	$("form[name='page16323_form02']").on("submit", function(event) {
 		$("#page16323").slideUp();
 		var $employee_id = $("form[name='page16323_form02'] input[name='employee_id']");
-		var url = "/hr_management/manage_personnel_card/add_personnel_card_dupCheck?employee_id="+$employee_id.val();
 		$("#page16320_div01").slideUp();
-		$("#page16320_div02").load(url);
+		$.ajax({
+			data:		null,
+			type:		'get',
+			url:		'/hr_management/manage_personnel_card/add_personnel_card_dupCheck?employee_id='+$employee_id.val(),
+			success: function(response) {
+				$("#page16320_div02").html(response);
+				$("form[name='page16323_form02'] input[name='employee_id']").focus();
+			}
+		});
 		return false;
 	});
 	
@@ -50,7 +57,7 @@
 						<tr>
 							<th>
 								<input type="hidden" name="employee_id" value="${employee_id}">
-								<input class="btn btn-default btn-xs" type="submit" value="확인" autofocus>
+								<input class="btn btn-default btn-sm" type="submit" value="확인">
 							</th>
 						</tr>
 					</table>
@@ -70,14 +77,14 @@
 							<th>부서번호</th>
 							<td>
 								<input class="form-control input-sm" type="number" name="employee_id" 
-								min="1" max="9999" step="1" required autofocus>
+								min="1" max="9999" step="1" required>
 							</td>
 						</tr>
 						<tr>
 							<th colspan="2">
-								<input class="btn btn-default btn-xs" type="submit" value="중복확인">
-								<input class="btn btn-default btn-xs" type="reset" value="재작성">
-								<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16323_btn01">
+								<input class="btn btn-default btn-sm" type="submit" value="중복확인">
+								<input class="btn btn-default btn-sm" type="reset" value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16323_btn01">
 							</th>
 						</tr>
 					</table>

@@ -38,4 +38,20 @@
 	#help_console{
 	margin-top: 15px;
 	}
+	
+	/*  판매에서 추가 한 부분 시작 */
+	.pagination{
+	margin-bottom: 0px;
+	}
+	center{
+	margin-top: 10px;
+	}
+	form{
+	margin-bottom: 0px;
+	}
+	.pagination{
+	margin-top: 0px;
+	margin-bottom: 20px;
+	}
+	/*  판매에서 추가 한 부분 종료 */
 </style>

@@ -191,10 +191,10 @@
 				</tr>
 				<tr>
 					<th colspan="4">
-						<input class="btn btn-default btn-xs" type="submit" value="수정하기">
-						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-						<input class="btn btn-default btn-xs" type="button" value="사진추가" id="page16332_btn01">
-						<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16332_btn02">
+						<input class="btn btn-default btn-sm" type="submit" value="수정하기">
+						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+						<input class="btn btn-default btn-sm" type="button" value="사진추가" id="page16332_btn01">
+						<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16332_btn02">
 					</th>
 				</tr>
 			</table>

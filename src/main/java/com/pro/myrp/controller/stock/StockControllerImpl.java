@@ -15,7 +15,7 @@ import com.pro.myrp.service.stock.StockService;
 @Controller
 @RequestMapping("/distribution_management/*")
 public class StockControllerImpl implements StockController, CodeMyRP{
-
+	
 	@Inject
 	private StockService service;
 	

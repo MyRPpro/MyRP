@@ -202,7 +202,7 @@ CREATE TABLE service_attitude(
     attitude_code           NUMBER(3),
     hr_code_group_leave     NUMBER(1),
     leave_code              NUMBER(3),
-    attitude_period         DATE,
+    attitude_period         NUMBER(3),
     hr_code_group_reason    NUMBER(1),
     attitude_reason         NUMBER(3),
     CONSTRAINT service_attitude_fk FOREIGN KEY(employee_id)
@@ -743,6 +743,7 @@ ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:ALL';
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25451,'전표미승인','disapproval_statement');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25452,'전표승인','approval_statement');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25453,'전표승인거절','denial_statement');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26450,'급여확정요청','request_fix_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26451,'급여지급요청','request_payments_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26452,'급여지급대기','wait_payments_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26453,'급여지급완료','complete_payments_salary');
@@ -772,9 +773,9 @@ Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23206,'지급대기','wait_pa
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23207,'지급완료','complete_payments_salary');
 COMMIT;
 
-INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000001','회사이름 01','0010100001','이름01','0001010000011','사업자 주소입니다. 01','업테 01','종목 01','Y','S',to_date('07/13/2017', 'mm-dd-yyyy'));
-INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000002','회사이름 02','0020200002','이름02','0002020000022','사업자 주소입니다. 02','업테 02','종목 02','N','C',to_date('07/12/2017', 'mm-dd-yyyy'));
-INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000003','회사이름 03','0030300003','이름03','0003030000033','사업자 주소입니다. 03','업테 03','종목 03','N','S',to_date('07/11/2017', 'mm-dd-yyyy'));
+INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000001','회사이름 01','0010100001','이름01','0001010000011','사업자 주소입니다. 01','업태 01','종목 01','Y','S',to_date('07/13/2017', 'mm-dd-yyyy'));
+INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000002','회사이름 02','0020200002','이름02','0002020000022','사업자 주소입니다. 02','업태 02','종목 02','N','C',to_date('07/12/2017', 'mm-dd-yyyy'));
+INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000003','회사이름 03','0030300003','이름03','0003030000033','사업자 주소입니다. 03','업태 03','종목 03','N','S',to_date('07/11/2017', 'mm-dd-yyyy'));
 commit;
 
 INSERT INTO WAREHOUSE_INFORMATION(WAREHOUSE_ID,WAREHOUSE_NAME,WAREHOUSE_LOCATION) VALUES(1001,'양품창고','경기도 화성시 팔탄면');
@@ -795,7 +796,7 @@ UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 10 WHERE PRODUCT_ID = 1200000002 AND
 UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 10 WHERE PRODUCT_ID = 1200000003 AND WAREHOUSE_ID = 2001;
 commit;
 
-INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011010000', '0', '현금');
+--INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011010000', '0', '현금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011020000', '0', '매출채권');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011030000', '0', '부가세대급금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011040000', '0', '재고자산');

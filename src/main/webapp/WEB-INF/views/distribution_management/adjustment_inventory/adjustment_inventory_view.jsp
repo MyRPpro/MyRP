@@ -38,28 +38,34 @@ $(function(){
 <table class="table table-condensed">
 	<tr>
 		<th>상품명</th>
-		<th>창고명</th>
-		<th>담당자명</th>
-		<th>창고 재고</th>
-		<th>조정 재고</th>
-		<th>조정 후 재고</th>		
-	</tr>
-	<tr>
 		<input type = "hidden" name = "product_id" id = "product_id" value = "${product_id}" >
 
 		<th><input class="form-control" type ="text" name = "product_name" id = "product_name" value = "${product_name}" readonly></th>
+	</tr>
+	<tr>
+		<th>창고명</th>
 		<input type ="hidden" name = "warehouse_id" id = "warehouse_id" value = "${warehouse_id}" >
 		<th><input class="form-control" type ="text" name = "warehouse_name" id = "warehouse_name" value = "${warehouse_name}" readonly></th>
+	</tr>
+	<tr>
+		<th>담당자명</th>
 		<th>
 			<input type = "hidden" name = "employee_id" value = "${ROLE.employee_id}"> 
 			<input class="form-control" type = "text" value = "${ROLE.employee_name}" readonly>
 		</th>
-		<th><input class="form-control" type = "number" name = "stock_amount" id = "stock_amount" value = "${stockVo.stock_amount}" readonly></th>
-		<th><input class="form-control" type = "number" name = "delete_stock" id = "delete_stock" ></th>
-		<th><input class="form-control" type = "number" name = "taked_stock" id = "taked_stock" min = "0" readonly></th>
-		
 	</tr>
-	
+	<tr>
+		<th>창고 재고</th>
+		<th><input class="form-control" type = "number" name = "stock_amount" id = "stock_amount" value = "${stockVo.stock_amount}" readonly></th>
+	</tr>
+	<tr>
+		<th>조정 재고</th>
+		<th><input class="form-control" type = "number" name = "delete_stock" id = "delete_stock" ></th>
+	</tr>
+	<tr>
+		<th>조정 후 재고</th>
+		<th><input class="form-control" type = "number" name = "taked_stock" id = "taked_stock" min = "0" readonly></th>		
+	</tr>
 	<tr>
 
 		<th colspan = "6"><input class="btn btn-primary" type = "button" id = "sub" value = "확인" ><input class="btn btn-info" type = "reset" value = "취소" ></th>

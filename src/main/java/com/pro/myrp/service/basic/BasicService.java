@@ -23,6 +23,13 @@ public interface BasicService extends MyRPService {
 	public void add_company_service(Model model) throws Exception;
 
 	/**
+	 * 거래처 등록 > 거래처 번호 중복 확인
+	 * @author amaco78
+	 * @param model
+	 */
+	public void add_company_dupCheck_service(Model model) throws Exception; 
+	
+	/**
 	 * 거래처 등록 > 거래처 신규 등록 처리 서비스
 	 * @author amaco78
 	 * @param model
@@ -91,5 +98,6 @@ public interface BasicService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void modify_product_pro_service(Model model) throws Exception; 
+	public void modify_product_pro_service(Model model) throws Exception;
+
 }
