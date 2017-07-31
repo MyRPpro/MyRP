@@ -292,6 +292,7 @@
  		FROM	warehouse_information
  		<if test = "warehouse_id != null">
  		WHERE	warehouse_id = #{warehouse_id}
+ 		ORDER BY warehouse_id
  		</if>
  	</select>
  	

@@ -10,10 +10,14 @@
 <script type="text/javascript">
 $(function(){
 	 $('#new_reg').unbind("click").bind("click",function(){
-		if(document.getElementById("product_id").value == 0 || document.getElementById("warehouse_id").value == 0){
-			alert("상품과 창고를 선택하시오.");
+		if(document.getElementById("product_id").value == 0){
+			alert("상품을 선택하시오.");
+			return false;
+		}else if(document.getElementById("warehouse_id").value == 0){
+			alert("창고를 선택하시오.");
 			return false;
 		}
+		
 		var togo = $('#reg');
 		var product = document.getElementById("product_id");
 		var product_id = document.getElementById("product_id").value;
