@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<div class="container"  style="display: inline-block;text-align: center;">
-<h3>재무상태표</h3>
-<h4> ${year}년 ${quarter}</h4>
+<div class="panel panel-default">
+<div class="panel-heading" style="text-align: center;">
+	 재무상태표<br>
+	 <small>${year}년 ${quarter}</small>
+</div>
+<div class="panel-body" style="text-align: center;">
 	<table class="table">
 		<tr><td>
 		<table class="table table-hover">
@@ -85,4 +88,5 @@
 		</td>
 		</tr>
 	</table>
+</div>
 </div>

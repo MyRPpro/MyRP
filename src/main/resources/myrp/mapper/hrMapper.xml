@@ -250,33 +250,21 @@
 	resultType="Personnel_card_listDTO">
 		<![CDATA[
 		SELECT	*
-		FROM	(SELECT employee_id, dept_id, dept_name,
-		        hr_code_group_rank, hr_code_group_name,
-		        rank_code, hr_code_name,
-		        employee_name, residence_reg_no, join_date,
+		FROM	(SELECT employee_id, dept_id, hr_code_group_rank, employee_name,
+		        rank_code, residence_reg_no, join_date,
 		        rownum rNum
 		        FROM    (SELECT *
-		                FROM    (SELECT E.employee_id, E.dept_id, D.dept_name,
-		                                E.hr_code_group_rank, G.hr_code_group_name,
-		                                E.rank_code, C.hr_code_name,
-		                                E.employee_name, E.residence_reg_no,
-		                                E.join_date
-		                        FROM    employee E, department D, hr_code C, hr_code_group G
-		                        WHERE	E.dept_id = D.dept_id
-		                        AND		E.hr_code_group_rank = G.hr_code_group_id
-		                        AND		E.rank_code = C.hr_code_id
-		                        AND     E.employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+		                FROM    (SELECT employee_id, dept_id, hr_code_group_rank,
+		                                rank_code, employee_name, residence_reg_no,
+		                                join_date
+		                        FROM    employee
+		                        WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
 		                        UNION
-		                        SELECT E.employee_id, E.dept_id, D.dept_name,
-		                                E.hr_code_group_rank, G.hr_code_group_name,
-		                                E.rank_code, C.hr_code_name,
-		                                E.employee_name, E.residence_reg_no,
-		                                E.join_date
-		                        FROM    employee E, department D, hr_code C, hr_code_group G
-		                        WHERE	E.dept_id = D.dept_id
-		                        AND		E.hr_code_group_rank = G.hr_code_group_id
-		                        AND		E.rank_code = C.hr_code_id
-		                        AND     E.employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
+		                        SELECT  employee_id, dept_id, hr_code_group_rank,
+		                                rank_code, employee_name, residence_reg_no,
+		                                join_date
+		                        FROM    employee
+		                        WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
 		                        )
 		                ORDER BY employee_name
 		                )
@@ -533,6 +521,19 @@
 		]]>
 	</select>
 	
+	<select id="select_retired_employee" parameterType="int"
+	resultType="Retired_EmployeeDTO">
+		<![CDATA[
+		SELECT	E.employee_id, E.employee_name, E.dept_id,
+				E.hr_code_group_rank, E.rank_code, 
+				E.join_date, RE.retired_date, RE.retired_reason
+		FROM	retired_employee RE , employee E
+		WHERE	RE.employee_id = E.employee_id
+		AND		E.employee_id = #{employee_id}
+		ORDER BY RE.retired_date DESC
+		]]>
+	</select>
+	
 	<!-- 검색어를 반영한 급여대장 개수 검색 -->
 	<select id="select_salary_register_cnt" parameterType="java.util.Map"
 	resultType="int">
@@ -676,4 +677,66 @@
 		AND		account_id = #{account_id}
 	</update>
 	
+	<!-- 급여계산용 인사정보 -->
+	<select id="select_calc_salary" resultType="Calc_salaryDTO">
+		<![CDATA[
+		SELECT	*
+		FROM	(SELECT	D.dept_id, D.dept_name, E.employee_id, E.employee_name
+				FROM	employee E, department D
+				WHERE	E.dept_id = D.dept_id
+				AND		E.employee_id NOT IN	(SELECT employee_id
+												FROM	retired_employee)
+				AND		D.use_state = 'Y'
+				ORDER BY dept_id ASC)
+		]]>
+	</select>
+	
+	<!-- 개인급여정보 등록 -->
+	<insert id="insert_salary" parameterType="SalaryVO">
+		<![CDATA[
+		INSERT INTO salary(salary_register_id,account_id,employee_id,
+					base_pay,bonus,benefit,cost,total_pay,deduction_cost,takehome_pay)
+		VALUES(#{salary_register_id},#{account_id},#{employee_id},#{base_pay},#{bonus},
+		#{benefit},#{cost},#{total_pay},#{deduction_cost},#{takehome_pay})
+		]]>
+	</insert>
+	
+	<!-- 급여확정유무 확인 -->
+	<select id="select_fixed_salary" parameterType="java.util.Map"
+	resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	salary
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		AND		employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 개인급여정보 조회 -->
+	<select id="select_salary" parameterType="java.util.Map"
+	resultType="SalaryVO">
+		<![CDATA[
+		SELECT	*
+		FROM	salary
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		AND		employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 개인별 인사카드 급여이럭 조회 -->
+	<select id="select_personnel_card_salary" parameterType="int"
+	resultType="Personnel_card_salaryDTO">
+		<![CDATA[
+		SELECT	SR.salary_register_id,SR.reg_date,SR.salary_register_name,
+				S.employee_id,S.base_pay,S.bonus,S.benefit,S.cost,S.total_pay,
+				S.deduction_cost,S.takehome_pay
+		FROM	salary S, salary_register SR
+		WHERE	S.salary_register_id = SR.salary_register_id
+		AND		S.account_id = SR.account_id
+		AND		S.employee_id = #{employee_id}
+		ORDER BY SR.reg_date DESC
+		]]>
+	</select>
 </mapper>

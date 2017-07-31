@@ -9,58 +9,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-personnel_card_appointment.jsp
-<table border="1">
-	<tr>
-		<th>
-			<input type="button" value="HOME"
-			onclick="window.location='/';">
-			<input type="button" value="INFO"
-			onclick="window.location='/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${employee_id}';">
-			<input type="button" value="APPOINT"
-			onclick="window.location='/hr_management/manage_hr_appointment/personnel_card_appointment?employee_id=${employee_id}';">
-			<input type="button" value="RETIRED"
-			onclick="window.location='/hr_management/manage_retired_employee/personnel_card_retired?employee_id=${employee_id}';">
-		</th>
-	</tr>
-</table>
-<table border="1">
-	<tr>
-		<th colspan="12">Hr_appointment_listDTO</th>
-	</tr>
+<table class="table">
 	<tr>
 		<th colspan="12" style="width:100px; height:130px;">
-			<img alt="사진 이미지" src="/resources/images/${employee_id}.jpg"
+			<img alt="사진 이미지" src="/resources/images/picture_employee/${employee_id}.jpg"
 			width="100" height="125">
 		</th>
 	</tr>
 	<tr>
-		<th>employee_id</th>
-		<th>employee_name</th>
-		<th>appointment_date</th>
-		<th>hr_code_group_rank</th>
-		<th>pre_rank</th>
-		<th>pre_rank_name</th>
-		<th>post_rank</th>
-		<th>post_rank_name</th>
-		<th>pre_dept</th>
-		<th>pre_dept_name</th>
-		<th>post_dept</th>
-		<th>post_dept_name</th>
+		<th>사원번호</th>
+		<th>사원명</th>
+		<th>발령일</th>
+		<th>이전직급명</th>
+		<th>발령직급명</th>
+		<th>이전부서명</th>
+		<th>발령부서명</th>
 	</tr>
 	<c:forEach var="dto" items="${dtos}">
 	<tr>
 		<td>${dto.employee_id}</td>
 		<td>${dto.employee_name}</td>
 		<td>${dto.appointment_date}</td>
-		<td>${dto.hr_code_group_rank}</td>
-		<td>${dto.pre_rank}</td>
 		<td>${dto.pre_rank_name}</td>
-		<td>${dto.post_rank}</td>
 		<td>${dto.post_rank_name}</td>
-		<td>${dto.pre_dept}</td>
 		<td>${dto.pre_dept_name}</td>
-		<td>${dto.post_dept}</td>
 		<td>${dto.post_dept_name}</td>
 	</tr>
 	</c:forEach>

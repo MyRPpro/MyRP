@@ -47,8 +47,9 @@
 		var url =	"/hr_management/manage_hr_code/add_base_code_dupCheck"+
 					"?hr_code_group_id="+$hr_code_group_id.val()+
 					"&hr_code_id="+$hr_code_id.val();
-		$("#page16150_div02").load(url);
+		$("#page16150_div01").slideUp();
 		$("#page16150_div02").slideDown();
+		$("#page16150_div02").load(url);
 	});
 	
 	$("#page16150_btn01").bind("click", function(event) {
@@ -59,35 +60,41 @@
 	
 </script>
 <body>
-	<div id="page16150">
-		<a id="page16150_div01_toggle">[16150]add_base_code.jsp</a>
-		<div id="page16150_div01">
+	<div class="panel panel-default" id="page16150">
+		<div class="panel-heading">
+			<a id="page16150_div01_toggle">[16150]add_base_code.jsp</a>
+		</div>		
+		<div class="panel-body" id="page16150_div01">
 			<form action="#" name="page16150_form01">
 				<table class="table">
 					<tr>
-						<th>hr_code_group_id</th>
+						<th>인사코드 그룹번호</th>
 						<td>
-							<input type="number" name="hr_code_group_id"
+							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 							value="${hr_code_group_id}" readonly>
 						</td>
 					</tr>
 					<tr>
-						<th>hr_code_id</th>
+						<th>인사코드 번호</th>
 						<td>
-							<input type="number" name="hr_code_id" value="${hr_code_id}"
-							min="1" max="999" step="1" required autofocus>
-							<input class="btn btn-default btn-xs"  type="button" name="dup_check_btn" value="중복확인">
+							<div class="input-group">
+								<input class="form-control input-sm" type="number" name="hr_code_id" value="${hr_code_id}"
+								min="1" max="999" step="1" required autofocus>
+								<span class="input-group-btn">
+									<input class="btn btn-default btn-sm"  type="button" name="dup_check_btn" value="중복확인">
+								</span>
+							</div>
 						</td>
 					</tr>
 					<tr>
 					<tr>
-						<th>hr_code_name</th>
+						<th>인사코드명</th>
 						<td>
-							<input type="text" name="hr_code_name" required>
+							<input class="form-control input-sm" type="text" name="hr_code_name" required>
 						</td>
 					</tr>
 					<tr>
-						<th>use_state</th>
+						<th>사용 상태</th>
 						<td>
 							<label for="used">사용</label>
 							<input type="radio" name="use_state" id="used"

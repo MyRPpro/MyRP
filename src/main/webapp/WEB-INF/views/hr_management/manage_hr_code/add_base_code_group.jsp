@@ -59,8 +59,9 @@
 			return false;
 		}
 		var url = "/hr_management/manage_hr_code/add_base_code_group_dupCheck?hr_code_group_id="+$hr_code_group_id.val();
-		$("#page16120_div02").load(url);
+		$("#page16120_div01").slideUp();
 		$("#page16120_div02").slideDown();
+		$("#page16120_div02").load(url);
 	});
 	
 	$("#page16120_btn01").bind("click", function(event) {
@@ -71,23 +72,29 @@
 	
 </script>
 <body>
-<div id="page16120">
-	<a id="page16120_div01_toggle">[16120]add_base_code_group.jsp</a>
-	<div id="page16120_div01">
+<div class="panel panel-default" id="page16120">
+	<div class="panel-heading">
+		<a id="page16120_div01_toggle">[16120]add_base_code_group.jsp</a>
+	</div>
+	<div class="panel-body" id="page16120_div01">
 		<form action="#">
 			<table class="table text-center">
 				<tr>
 					<th>인사코드 그룹번호</th>
 					<td>
-						<input type="number" name="hr_code_group_id"
+						<div class="input-group">
+							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 						min="1" max="9" step="1" value="${hr_code_group_id}" required autofocus>
-						<input class="btn btn-default btn-xs" type="button" name="dup_check_btn" value="중복확인">
+						<span class="input-group-btn">
+							<input class="btn btn-default btn-sm" type="button" name="dup_check_btn" value="중복확인">
+						</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
 					<th>인사코드 그룹명</th>
 					<td>
-						<input type="text" name="hr_code_group_name" maxlength="255" required>
+						<input class="form-control input-sm" type="text" name="hr_code_group_name" maxlength="255" required>
 					</td>
 				</tr>
 				<tr>

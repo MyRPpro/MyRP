@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
-
+function slideUpFunction(){
+	$('#bank_account_list_stage').slideUp();
+}
 	function set_bank_account_id(account_id,account_name,account_balance){
 		
 		switch(account_name){
@@ -128,7 +130,7 @@
 				<th colspan="2">
 					<input type="submit" value="등록하기"  class="btn btn-default">
 					<input type="reset" value="재작성"  class="btn btn-default">
-					<input type="button" value="돌아가기" onclick="window.history.back();"  class="btn btn-default">					
+					<input type="button" value="돌아가기"  onclick="slideUpFunction();"  class="btn btn-default">					
 				</th>
 			</tr>
 		</table>

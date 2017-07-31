@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">	
+function slideUpFunction(){
+	$('#account_list_stage').slideUp();
+}
 	function add_account_dupCheck(){
 		$("#id_check_msg").slideDown();
 		var account_id = document.add_account_form1.account_id.value;
@@ -53,8 +56,11 @@
 		});
 	});
 </script>
-<div class="container"  style="display: inline-block;text-align: center;">
-<h3> 계정 등록 </h3>
+<div class="panel panel-default">
+<div class="panel-heading">
+	 계정 등록
+</div>
+<div class="panel-body" style="text-align: center;">
 <form action="#" name="add_account_form1">
 <input type="hidden" name="dupCheck" id="dupCheck" value="0">
 <table class="table table-hover">
@@ -62,7 +68,7 @@
 		<th> 계정번호 </th>
 		<td>
 			<input type="text" name="account_id" id="account_id" onchange="reset_dupCheck()"> 
-			<input type="button" value="중복확인" onclick="add_account_dupCheck()" name="dupCheckButton" class="btn btn-default">
+			<input type="button" value="중복확인" onclick="add_account_dupCheck()" name="dupCheckButton" class="btn btn-primary btn-xs">
 			<div id="id_check_msg"> </div>
 		</td>
 	</tr>
@@ -82,9 +88,10 @@
 		<th colspan="2">
 			<input type="submit" value="등록하기" class="btn btn-default">
 			<input type="reset" value="재작성" class="btn btn-default">
-			<input type="button" value="돌아가기" onclick="window.history.back();" class="btn btn-default">					
+			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default">					
 		</th>
 	</tr>
 </table>
 </form>
+</div>
 </div>

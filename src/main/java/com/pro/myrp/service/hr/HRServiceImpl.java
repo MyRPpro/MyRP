@@ -17,10 +17,13 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.CodeMyRP;
 import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.hr_management.dto.Calc_salaryDTO;
 import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
 import com.pro.myrp.domain.hr_management.dto.Personnel_cardDTO;
 import com.pro.myrp.domain.hr_management.dto.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_salaryDTO;
 import com.pro.myrp.domain.hr_management.dto.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.dto.SalaryDTO;
 import com.pro.myrp.domain.hr_management.vo.DeptVO;
 import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
 import com.pro.myrp.domain.hr_management.vo.Employee_infoVO;
@@ -28,6 +31,7 @@ import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
 import com.pro.myrp.domain.hr_management.vo.Hr_code_groupVO;
 import com.pro.myrp.domain.hr_management.vo.Personnel_appointmentVO;
 import com.pro.myrp.domain.hr_management.vo.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.vo.SalaryVO;
 import com.pro.myrp.domain.hr_management.vo.Salary_registerVO;
 import com.pro.myrp.persistence.hr.HRDAO;
 
@@ -317,7 +321,14 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 	public void add_dept_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		
+		if(req.getParameter("dept_id") != null) {
+			int dept_id = Integer.parseInt(req.getParameter("dept_id"));
+			model.addAttribute("dept_id", dept_id);
+		}
+		if(req.getParameter("dupcheck") != null) {
+			int dupcheck = Integer.parseInt(req.getParameter("dupcheck"));
+			model.addAttribute("dupcheck", dupcheck);
+		}
 	}
 
 	@Override
@@ -385,6 +396,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		vo.setUse_state(use_state);
 		int cnt = dao.update_dept(vo);
 		model.addAttribute("cnt", cnt);
+		model.addAttribute("dept_id", dept_id);
 	}
 
 	@Override
@@ -424,6 +436,17 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			model.addAttribute("employeeVos", vos);
 			List<Personnel_card_listDTO> dtos = new ArrayList<>();
 			dtos = dao.select_personnel_card_list(daoMap);
+			for(int i=0; i<dtos.size(); i++) {
+				Personnel_card_listDTO dto = dtos.get(i);
+				dto.setDept_name(dao.select_dept_name(dto.getDept_id()));
+				dto.setHr_code_group_name("직급");
+				int hr_code_group_id = 2;
+				int hr_code_id = dto.getRank_code();
+				daoMap.clear();
+				daoMap.put("hr_code_group_id", hr_code_group_id);
+				daoMap.put("hr_code_id", hr_code_id);
+				dto.setHr_code_name(dao.select_hr_code_name(daoMap));
+			}
 			model.addAttribute("presonnel_card_listDtos", dtos);
 		}
 	}
@@ -480,6 +503,16 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		daoMap.put("hr_code_group_id", hr_code_group_id);
 		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
 		model.addAttribute("hr_codeVos", hr_codeVos);
+		
+		if(req.getParameter("employee_id") != null) {
+			int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+			model.addAttribute("employee_id", employee_id);
+		}
+		
+		if(req.getParameter("dupcheck") != null) {
+			String dupcheck = req.getParameter("dupcheck");
+			model.addAttribute("dupcheck", dupcheck);
+		}
 	}
 
 	@Override
@@ -558,10 +591,9 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		Personnel_cardDTO dto = new Personnel_cardDTO();
-		dto = dao.select_personnel_card(employee_id);
-		model.addAttribute("employee_id", dto.getEmployee_id());
-		model.addAttribute("personnel_cardDto", dto);
+		String select_tab = req.getParameter("select_tab");
+		model.addAttribute("employee_id", employee_id);
+		model.addAttribute("select_tab", select_tab);
 	}
 
 	@Override
@@ -617,6 +649,17 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("cnt2", cnt2);
 	}
 
+	@Override
+	public void personnel_card_info_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		Personnel_cardDTO dto = new Personnel_cardDTO();
+		dto = dao.select_personnel_card(employee_id);
+		model.addAttribute("employee_id", dto.getEmployee_id());
+		model.addAttribute("personnel_cardDto", dto);
+	}
+	
 	@Override
 	public void hr_appointment_search_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -1002,9 +1045,16 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		List<Retired_EmployeeDTO> dtos = dao.select_retired_employee_history(employee_id);
+		Retired_EmployeeDTO dto = dao.select_retired_employee(employee_id);
+		if(dto != null) {
+			dto.setDept_name(dao.select_dept_name(dto.getDept_id()));
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("hr_code_group_id", dto.getHr_code_group_rank());
+			daoMap.put("hr_code_id", dto.getRank_code());
+			dto.setHr_code_name(dao.select_hr_code_name(daoMap));
+			model.addAttribute("dto", dto);			
+		}
 		model.addAttribute("employee_id", employee_id);
-		model.addAttribute("dtos", dtos);
 	}
 
 	@Override
@@ -1146,7 +1196,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			salary_register_name = dao.select_hr_code_name(daoMap);			
 		}
 		Date pay_date = Date.valueOf(req.getParameter("pay_date"));
-		int salary_state = state_request_payments_salary;
+		int salary_state = Integer.parseInt(req.getParameter("salary_state"));
 		long total_pay = Integer.parseInt(req.getParameter("total_pay"));
 		int	total_employee = Integer.parseInt(req.getParameter("total_employee"));
 		Salary_registerVO vo = new Salary_registerVO();
@@ -1239,7 +1289,6 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("cnt", cnt);
 	}
 
-
 	@Override
 	public void modify_salary_info_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -1299,6 +1348,126 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		}
 		
 		model.addAttribute("cnt", cnt);
+	}
+
+	@Override
+	public void calc_salary_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String salary_register_id = req.getParameter("salary_register_id");
+		
+		List<Calc_salaryDTO> dtos = dao.select_calc_salary();
+		for(int i=0; i<dtos.size(); i++) {
+			Calc_salaryDTO dto = dtos.get(i);
+			dto.setDept_name(dao.select_dept_name(dto.getDept_id()));
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("salary_register_id", salary_register_id);
+			daoMap.put("account_id", account_salary);
+			daoMap.put("employee_id", dto.getEmployee_id());
+			boolean fixed = dao.select_fixed_salary(daoMap) == 0 ? false : true;
+			dto.setFixed(fixed);
+		}
+		
+		model.addAttribute("salary_register_id", salary_register_id);
+		model.addAttribute("dtos", dtos);
+	}
+
+	@Override
+	public void calc_salary_pro_service(Model model) throws Exception {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String salary_register_id = req.getParameter("salary_register_id");
+		String account_id = account_salary;
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		double bonus_ratio = req.getParameter("bonus_ratio") == ""
+				? 0 : Double.parseDouble(req.getParameter("bonus_ratio"));
+		double night_overtime_ratio = req.getParameter("night_overtime_ratio") == ""
+				? 0 : Double.parseDouble(req.getParameter("night_overtime_ratio"));
+		double weekend_overtime_ratio = req.getParameter("weekend_overtime_ratio") == ""
+				? 0 : Double.parseDouble(req.getParameter("weekend_overtime_ratio"));
+		int base_worktime = req.getParameter("base_worktime") == ""
+				? 0 : Integer.parseInt(req.getParameter("base_worktime"));
+		int night_overtime = req.getParameter("night_overtime") == ""
+				? 0 : Integer.parseInt(req.getParameter("night_overtime"));
+		int weekend_overtime = req.getParameter("weekend_overtime") == ""
+				? 0 : Integer.parseInt(req.getParameter("weekend_overtime"));
+		Personnel_cardDTO dto = dao.select_personnel_card(employee_id);
+		int hourly_wage = dto.getHourly_wage();
+		
+		long base_pay = hourly_wage*base_worktime;
+		long bonus = (long) (hourly_wage*base_worktime*bonus_ratio);
+		long benefit = (long) (hourly_wage*
+				(night_overtime*night_overtime_ratio+weekend_overtime*weekend_overtime_ratio));
+		long cost = 0;
+		long total_pay = base_pay + bonus + benefit + cost;
+		long deduction_cost = (long) (total_pay * 0.1);
+		long takehome_pay = total_pay - deduction_cost;
+		
+		SalaryVO vo = new SalaryVO();
+		vo.setSalary_register_id(salary_register_id);
+		vo.setAccount_id(account_id);
+		vo.setEmployee_id(employee_id);
+		vo.setBase_pay(base_pay);
+		vo.setBonus(bonus);
+		vo.setBenefit(benefit);
+		vo.setCost(cost);
+		vo.setTotal_pay(total_pay);
+		vo.setDeduction_cost(deduction_cost);
+		vo.setTakehome_pay(takehome_pay);
+		
+		int cnt = dao.insert_salary(vo);
+		model.addAttribute("cnt", cnt);
+	}
+
+	@Override
+	public void fix_salary(Model model) {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String salary_register_id = req.getParameter("salary_register_id");
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("salary_register_id", salary_register_id);
+		daoMap.put("account_id", account_salary);
+		Salary_registerVO salary_registerVo = dao.select_salary_register(daoMap);
+		List<Calc_salaryDTO> calc_salaryDtos = dao.select_calc_salary();
+		List<SalaryDTO> salaryDtos = new ArrayList<>();
+		long total_pay = 0;
+		int total_employee = 0;
+		for(int i=0; i<calc_salaryDtos.size(); i++) {
+			Calc_salaryDTO dto = calc_salaryDtos.get(i);
+			daoMap.put("employee_id", dto.getEmployee_id());
+			if(dao.select_fixed_salary(daoMap) == 1) {
+				SalaryVO salaryVo = dao.select_salary(daoMap);
+				SalaryDTO salaryDto = new SalaryDTO();
+				salaryDto.setDept_id(dto.getDept_id());
+				salaryDto.setDept_name(dto.getDept_name());
+				salaryDto.setEmployee_id(dto.getEmployee_id());
+				salaryDto.setEmployee_name(dto.getEmployee_name());
+				salaryDto.setBase_pay(salaryVo.getBase_pay());
+				salaryDto.setBonus(salaryVo.getBonus());
+				salaryDto.setBenefit(salaryVo.getBenefit());
+				salaryDto.setCost(salaryVo.getCost());
+				salaryDto.setPay(salaryVo.getTotal_pay());
+				salaryDto.setDeduction_cost(salaryVo.getDeduction_cost());
+				salaryDto.setTakehome_pay(salaryVo.getTakehome_pay());
+				salaryDtos.add(salaryDto);
+				total_pay += salaryVo.getTotal_pay();
+				total_employee++;
+			}			
+		}
+		salary_registerVo.setTotal_pay(total_pay);
+		salary_registerVo.setTotal_employee(total_employee);
+		model.addAttribute("salary_registerVo", salary_registerVo);
+		model.addAttribute("salaryDtos", salaryDtos);
+	}
+
+	@Override
+	public void personnel_card_salary_service(Model model) {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		List<Personnel_card_salaryDTO> dtos = dao.select_personnel_card_salary(employee_id);
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("employee_id", employee_id);
 	}
 	
 }

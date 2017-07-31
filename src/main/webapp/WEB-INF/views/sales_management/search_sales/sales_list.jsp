@@ -27,28 +27,29 @@
 </head>
 <body>
 
-
+	
 	<h3> 판매 리스트 페이지 : sales_list.jsp</h3>
 	
 	<form action="#" name="sales_list" method="post" onsubmit="return search_list(1,1)" >
 		<input type="text" name="search_str" placeholder="판매번호을 입력하세요." minlength="1">
-		<input type="submit" value="검색">
-		<input type="button" value="전체목록" onclick="return search_list(1,0)">
-		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
+		<input type="submit" name="btn_submit" value="검색">
+		<input type="button" name="btn_all_list" value="전체목록" onclick="return search_list(1,0)">
 		<br>
-		<input type="button" value="판매등록" onclick="window.location='/sales_management/input_sales/reg_sales'" >
-		<input type="button" value="승인요청" onclick="return search_list(1,4)">
+		<input type="button" name="reg_sales" value="판매등록" onclick="window.location='/sales_management/input_sales/reg_sales'" >
+		<input type="button" name="req_confirm" value="승인요청" onclick="return search_list(1,4)">
 		&emsp;
-		<input type="button" value="전표등록" onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
-		<input type="button" value="전표승인조회" onclick="return search_list(1,2)">
+		<input type="button" name="reg_sales_statement" value="전표등록" onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
+		<input type="button" name="req_sales_statement" value="전표승인조회" onclick="return search_list(1,2)">
 		&emsp;
-		<input type="button" value="출고요청" onclick="window.location='/distribution_management/search_distribution_order/statement_list'" >
-		<input type="button" value="출고완료조회" onclick="return search_list(1,3)">
+		<input type="button" name="req_storage_out" value="출고요청" onclick="window.location='/distribution_management/search_distribution_order/statement_list'" >
+		<input type="button" name="search_storage_out" value="출고완료조회" onclick="return search_list(1,3)">
 	</form>
 	<hr>
-	<div id="list_page"></div>
 	
+	<div id="list_table_Set"></div>
+	<div id="list_page"></div>
 	<div id="list_table">
+	
 		<p><h3> 판매 리스트를 볼 수 있는 페이지 입니다. </h3></p>
 		<p> 거래처명을 이력후 검색을 누르면 해당 내역을 볼 수 있습니다. </p>
 		<p> 전체 내역을 확인하고 싶으면 전체목록 버튼을 눌러주세요. </p>

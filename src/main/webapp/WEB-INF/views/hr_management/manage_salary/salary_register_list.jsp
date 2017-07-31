@@ -8,40 +8,57 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+	
+	$("#page16511_div01_toggle").bind("click", function(event) {
+		$("#page16511_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16511_div01 a").bind("click", function(event) {
+		$("#page16510_div01").slideUp();
+		$("#page16510_div02").slideUp();
+		$("#page16510_div03").slideUp();
+		$("#page16510_div04").slideDown();
+		$("#page16510_div04").load($(this).attr("href"));
+		return false;
+	});
+</script>
 <body>
-salary_register_list.jsp
-<table border="1">
-	<tr>
-		<th colspan="8">Salary_registerVO</th>
-	</tr>
-	<tr>
-		<th>salary_register_id</th>
-		<th>account_id</th>
-		<th>reg_date</th>
-		<th>salary_register_name</th>
-		<th>pay_date</th>
-		<th>total_pay</th>
-		<th>total_employee</th>
-		<th>salary_state</th>		
-
-	</tr>
-	<c:forEach var="vo" items="${salary_registerVos}">
-	<tr>
-		<td>${vo.salary_register_id}</td>
-		<td>${vo.account_id}</td>
-		<td>${vo.reg_date}</td>
-		<td>
-			<a href="/hr_management/manage_salary/modify_salary_info?salary_register_id=${vo.salary_register_id}&account_id=${vo.account_id}">
-				${vo.salary_register_name}
-			</a>
-		</td>
-		<td>${vo.pay_date}</td>
-		<td>${vo.total_pay}</td>
-		<td>${vo.total_employee}</td>
-		<td>${vo.salary_state}</td>
-	</tr>
-	</c:forEach>
-</table>
-<hr>
+	<div class="panel panel-default" id="page16511">
+		<div class="panel-heading">
+			<a id="page16511_div01_toggle">[16511]salary_register_list.jsp</a>
+		</div>
+		<div class="panel-body" id="page16511_div01">
+			<table class="table">
+				<tr>
+					<th>급여대장 번호</th>
+					<th>계정</th>
+					<th>등록일</th>
+					<th>급여대장명</th>
+					<th>지급일</th>
+					<th>총 지급액</th>
+					<th>총 지급인원</th>
+					<th>급여상태</th>		
+				</tr>
+				<c:forEach var="vo" items="${salary_registerVos}">
+				<tr>
+					<td>${vo.salary_register_id}</td>
+					<td>${vo.account_id}</td>
+					<td>${vo.reg_date}</td>
+					<td>
+						<a href="/hr_management/manage_salary/modify_salary_info?salary_register_id=${vo.salary_register_id}&account_id=${vo.account_id}">
+							${vo.salary_register_name}
+						</a>
+					</td>
+					<td>${vo.pay_date}</td>
+					<td>${vo.total_pay}</td>
+					<td>${vo.total_employee}</td>
+					<td>${vo.salary_state}</td>
+				</tr>
+				</c:forEach>
+			</table>		
+		</div>
+	</div>
 </body>
 </html>

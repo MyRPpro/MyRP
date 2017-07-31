@@ -5,17 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <html>
 <head>
-   <title>MyRP</title>
+	<title>MyRP</title>
 </head>
 <script type="text/javascript">
 function fn_login_form() {
 	$("#main_screen").load("/user/login");
 }
+
+function onoff(){
+	if(document.getElementById("alarmonoff").value == "on"){
+		document.getElementById("alarmonoff").value = "off";
+	}else{
+		document.getElementById("alarmonoff").value = "on";
+	}
+}
 </script>
 <body>
+<input type = "hidden" id = "alarmonoff" value = "on">
+
 <div class="container-fluid">
 	<form class="form-inline">
-		<div class="row " style="height: 100px; vertical-align: center;  " >
+		<div class="row " style="height: 100px; vertical-align: center; " >
 			<div class="page-header " style="height: 80px; margin: 0; margin-top: 10px; margin-bottom:10px; vertical-align: center; " >
 				<div class="col-md-12">
 					<h1 style="margin:0 auto; padding:0;">
@@ -27,6 +37,7 @@ function fn_login_form() {
 						onmouseout="this.src='/resources/images/design/logo_v4.png'" border="0"></a>
 						
 						<small class="text-right" style="vertical-align: center;">
+
 							<%
 								request.getSession().setAttribute("dest", null);
 							%>
@@ -41,13 +52,16 @@ function fn_login_form() {
 								onclick="fn_login_form();">
 							</c:if>
 							<input class="btn btn-default" type="button" id="menu_nav_btn" value="메뉴">
-							<input class="btn btn-default" type="button" id="alrim_center_btn" value="알림">
+							
+							<button class="btn btn-default" id="alrim_center_btn" onclick = "onoff();">알림&nbsp;<span id = "size"></span></button>
+							<!-- <input class="btn btn-default" data-toggle="button" aria-pressed="true" autocomplete="off" type="button" id="alrim_center_btn" value="알림" onclick = "onoff();"> -->
 						</small>
 					</h1>	
 				</div>	
 			</div>	<!-- // page-header -->
-		</div>	
+		</div>	<!-- // row -->
 	</form>
+
    <div class="row">
       <div class="col-md-12">
          <div class="row">
@@ -188,7 +202,7 @@ function fn_login_form() {
                   <div class="panel-heading"><span class="text-center">알림센터</span></div>
                   <div class="panel-body">
                      <c:if test="${ROLE != null}">
-                        <input type = "hidden" id = "role" value = "${ROLE.access_role}">
+                     	<input type = "hidden" id = "role" value = "${ROLE.access_role}">
                         <span class="text-center">${ROLE.employee_name}님 어서오세요.</span>
                      </c:if>
                      <c:if test="${ROLE == null}">
@@ -201,36 +215,66 @@ function fn_login_form() {
          </div>
       </div>
    </div>
-   <div class="footer navbar-fixed-bottom">
-      <div class="col-xs-12 col-sm-12">
-         <div class="well well-sm" id="help_console">도움말</div>
-      </div>
-   </div>
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+	<div class="col-md-12" id="help_center">
+		<p class="text-center" id="help_console">도움말 센터</p>
+	</div>
+</nav>
+	<div class="footer navbar-fixed-bottom">
+      
+   </div>
 </body>
 <script type="text/javascript">
+
 	$(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;
-			var data = {"role" : role}	
+			var data = {"role" : role}
+			data["goes"] = "1";
 			$.ajax({ 					
 				data: 	 data,
 				type: 	'post',	 			
 				url: 	"/state_alarm/state_alarm_pro",
 				success: function(response) { 	
-					$('#result').html(response);	
+					$('#result').html(response);
+					
+				}
+			});
+			data["goes"] = "2";
+			$.ajax({ 					
+				data: 	 data,
+				type: 	'post',	 			
+				url: 	"/state_alarm/state_alarm_pro",
+				success: function(response) { 	
+					$('#size').html(response);
+					
 				}
 			});
 			var timer = setInterval(function(){
+				if(document.getElementById("alarmonoff").value == "on"){
+					data["goes"] = "1";
 				$.ajax({ 					
 					data: 	 data,
 					type: 	'post',	 			
 					url: 	"/state_alarm/state_alarm_pro",
 					success: function(response) { 	
-						$('#result').html(response);	
+						$('#result').html(response);
 					}
-				}); 
-			}, 100000);
+
+				});
+				data["goes"] = "2";
+				$.ajax({ 					
+					data: 	 data,
+					type: 	'post',	 			
+					url: 	"/state_alarm/state_alarm_pro",
+					success: function(response) { 	
+						$('#size').html(response);
+						
+					}
+				});
+				}
+			}, 10000);
 		}
 	});
 	
@@ -239,5 +283,6 @@ function fn_login_form() {
 		$("#main_screen").load($(this).attr("href"));
 		return false;
 	});
+
 </script>
 </html>

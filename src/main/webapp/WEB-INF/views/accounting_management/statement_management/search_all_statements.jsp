@@ -35,9 +35,11 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 	});
 }
 </script>
-
-<h3> 전체 전표 조회 </h3>
-총 전표 개수 : ${cnt}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		전체 전표 조회 
+	</div>
+	<small>총 전표 개수 : ${cnt}</small>
 <table class="table table-hover">
 	<tr>
 		<th> 전표번호 </th>
@@ -129,3 +131,4 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 			</tr>
 		</table>
 	</div>
+</div>

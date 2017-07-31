@@ -40,6 +40,7 @@ public class PurchaseDTO {
 	private String lack_id;
 	private String lack_sales_id;
 	private int purchase_unit_price;
+	private String stock_order_id;
 	
 	
 	
@@ -275,6 +276,14 @@ public class PurchaseDTO {
 
 	public void setPurchase_unit_price(int purchase_unit_price) {
 		this.purchase_unit_price = purchase_unit_price;
+	}
+
+	public String getStock_order_id() {
+		return stock_order_id;
+	}
+
+	public void setStock_order_id(String stock_order_id) {
+		this.stock_order_id = stock_order_id;
 	}
 
 	

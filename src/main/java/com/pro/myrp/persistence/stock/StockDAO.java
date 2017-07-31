@@ -160,7 +160,7 @@ public interface StockDAO extends MyRPDAO {
 	 * @param model
 	 * @return
 	 */
-	public ArrayList<In_storageDTO> select_storage_in_order();
+	public ArrayList<In_storageDTO> select_storage_in_order(Model model);
 
 	/**
 	 * 물류주문조회 > 리스트 페이지 - 출고주문들
@@ -168,7 +168,7 @@ public interface StockDAO extends MyRPDAO {
 	 * @param model
 	 * @return
 	 */
-	public ArrayList<Out_storageDTO> select_storage_out_order();
+	public ArrayList<Out_storageDTO> select_storage_out_order(Model model);
 
 	/**
 	 * 창고이동 > 창고이동 리스트

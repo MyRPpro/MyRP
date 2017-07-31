@@ -12,13 +12,15 @@ modify_salary_info_pro.jsp
 <c:if test="${cnt == 1}">
 	<script type="text/javascript">
 		alert("급여대장이 정상적으로 수정 되었습니다.");
-		window.location = "/hr_management/manage_salary/salary_register_search";
+		$("#page16522").slideUp();
+		$("#page16510_div01").slideDown();
 	</script>
 </c:if>
 <c:if test="${cnt == 0}">
 	<script type="text/javascript">
 		alert("급여대장 수정을 실패하였습니다.");
-		window.history.back();
+		$("#page16522_div02").slideUp();
+		$("#page16522_div01").slideUp();
 	</script>
 </c:if>
 </body>

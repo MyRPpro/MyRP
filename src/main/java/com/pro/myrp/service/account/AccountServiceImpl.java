@@ -43,8 +43,10 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		int bank_account_reg_on = 0;
 		
+		
+		
 		if(req.getParameter("bank_account_reg_on")!=null) {
-		bank_account_reg_on = Integer.parseInt(req.getParameter("bank_account_reg_on"));
+			bank_account_reg_on = Integer.parseInt(req.getParameter("bank_account_reg_on"));
 		}
 		model.addAttribute("bank_account_reg_on", bank_account_reg_on);
 		

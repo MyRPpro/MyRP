@@ -43,9 +43,11 @@
 </script>
 
 <body>
-	<div id="page16140">
-		<a id="page16140_div01_toggle">[16140]base_code_list.jsp</a>
-		<div id="page16140_div01">
+	<div class="panel panel-default" id="page16140">
+		<div class="panel-heading">
+			<a id="page16140_div01_toggle">[16140]base_code_list.jsp</a>
+		</div>
+		<div class="panel-body" id="page16140_div01">
 			<div id="page16140_div02"></div>
 			<c:if test="${hr_code_groupVo.use_state == 'Y'}">
 				<table class="table">

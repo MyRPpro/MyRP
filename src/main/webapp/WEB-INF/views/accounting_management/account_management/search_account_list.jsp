@@ -3,17 +3,10 @@
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
 $(function(){
-	$("form[name='statement_list_form1']").on("submit",function(){
+	$("form[name='account_list_form1']").on("submit",function(){
 		$("#account_list_stage").slideDown();
-		togo = $('#account_list_stage');
-	
-		$.ajax({ 		
-			type: 	'get',	 			
-			url: 	"/accounting_management/account_management/add_account",
-			success: function(response) { 	
-				togo.html(response);	
-			}
-		});
+		
+		$("#account_list_stage").load("/accounting_management/account_management/add_account");
 	});
 	
 	
@@ -32,12 +25,19 @@ $(function(){
 		return false;
 	});
 });
-</script><div class="container"  >
-<div id="search_account_list" >
-<h3> 전체 계정 조회 </h3>
-총 계정 개수 : ${cnt}
-
+</script>
+<div id="search_account_list" class="panel panel-default">
+	<div class="panel-heading">
+		전체 계정 조회
+	</div>
 <table id="account_list_table" class="table table-hover">
+	<tr><td colspan="2" style="text-align:right;">
+			<form action="#" method="get" name="account_list_form1">
+			 <small>총 계정 개수 : ${cnt}</small>
+			<input type="submit" value="계정 추가" class="btn btn-default">	
+			</form>
+	</td>
+	</tr>
 	<tr>
 		<th> 계정명 </th>
 		<th> 계정금액 </th>
@@ -90,10 +90,8 @@ $(function(){
 		</table>
 	</div>
 	</c:if>
-	<form action="#" method="get" name="statement_list_form1">
-	<input type="submit" value="계정 추가" class="btn btn-default">	
-	</form>
-</div>
+
 	<div id="account_list_stage">
 	
 	</div>
+</div>

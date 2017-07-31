@@ -15,7 +15,11 @@ $(function(){
 });
 
 </script>
-<h3> 상세 전표 조회 </h3>
+<div class="panel panel-default" id="bank_account_list">
+	<div class="panel-heading">
+		상세 전표 조회
+	</div>
+<div class="panel-body" style="text-align: center;">
 
 <c:if test="${sales_id!=null}">
 	<c:set var="connected_id" value="${sales_id}" />
@@ -198,3 +202,4 @@ $(function(){
 	</tr>
 	
 </table>
+</div>

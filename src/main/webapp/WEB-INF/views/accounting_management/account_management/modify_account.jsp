@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
+function slideUpFunction(){
+	$('#account_list_stage').slideUp();
+}
 $(function(){
 	$("form[name='modify_account_form1']").on("submit",function(){
 		//bank_account_register 정보가 올바른지 체크
@@ -33,6 +36,10 @@ $(function(){
 	});
 });
 </script>
+<div id="modify_account" class="panel panel-default">
+	<div class="panel-heading">
+		계정 수정
+	</div>
 <form action="#" name="modify_account_form1" method="POST">
 <table class="table table-hover">
 	<tr>
@@ -55,12 +62,11 @@ $(function(){
 	</tr>
 	<tr>
 		<th colspan="2">
-			<input type="submit" value="수정하기">
-			<input type="reset" value="재작성">
-			<input type="button" value="돌아가기" onclick="window.history.back();">					
+			<input type="submit" value="수정하기" class="btn btn-default">
+			<input type="reset" value="재작성" class="btn btn-default">
+			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default">						
 		</th>
 	</tr>
 </table>
 </form>
-</body>
-</html>
+</div>

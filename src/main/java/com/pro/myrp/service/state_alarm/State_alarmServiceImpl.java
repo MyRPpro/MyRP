@@ -26,7 +26,6 @@ public class State_alarmServiceImpl implements State_alarmService {
 		String role = req.getParameter("role");
 		String order_id = null;
 		
-		
 		if(role.equals("FI")){
 		//화계팀 입력 시작============================================================================================================================================================
 			/*
@@ -44,8 +43,10 @@ public class State_alarmServiceImpl implements State_alarmService {
 			state_alarmDtos = dao.select_state_alarm(model);
 			
 			for(int i = 0; i < state_alarmDtos.size();i++){
-				state =state_alarmDtos.get(i); 
 				int fi_state = 0;
+				state =state_alarmDtos.get(i); 
+				order_id = state.getOrder_id();
+				
 				model.addAttribute("order_id",order_id);
 				model.addAttribute("order_state", 25451);
 				
@@ -59,13 +60,13 @@ public class State_alarmServiceImpl implements State_alarmService {
 				}
 
 				switch(fi_state){
-					case 1 : 	state.setState_addr("/accounting_management/statement_management/search_unapproval_statements"); 
+					case 1 : 	state.setState_addr("/accounting_management/statement_management/search_statements"); 
 								state.setState_msg("전표 승인 요청");
 								state.setFrom_dept("인사"); break;
-					case 2 : 	state.setState_addr("/accounting_management/statement_management/search_unapproval_statements"); 
+					case 2 : 	state.setState_addr("/accounting_management/statement_management/search_statements"); 
 								state.setState_msg("전표 승인 요청");
 								state.setFrom_dept("구매"); break;
-					case 3 : 	state.setState_addr("/accounting_management/statement_management/search_unapproval_statements"); 
+					case 3 : 	state.setState_addr("/accounting_management/statement_management/search_statements"); 
 								state.setState_msg("전표 승인 요청");
 								state.setFrom_dept("영업"); break;
 					case 0 : 	state_alarmDtos.remove(i); i-=1; break;
@@ -247,11 +248,13 @@ public class State_alarmServiceImpl implements State_alarmService {
 			}
 		}
 		//판매팀 입력 끝============================================================================================================================================================
+		String goes = req.getParameter("goes");
+		model.addAttribute("goes", goes);
 		model.addAttribute("state_alarmDtos", state_alarmDtos);
 		model.addAttribute("size", state_alarmDtos.size());
 		return null;
 	}
 	
-	
+
 
 }

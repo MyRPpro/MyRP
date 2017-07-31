@@ -12,14 +12,14 @@ add_retired_employee_pro.jsp
 <c:if test="${cnt == 1}">
 	<script type="text/javascript">
 		alert("퇴사자가 정상적으로 등록 되었습니다.");
-		window.location = "/hr_management/manage_retired_employee/retired_employee_search";
+		$("#main_screen").load("/hr_management/manage_retired_employee/retired_employee_search");
 	</script>
 </c:if>
 <c:if test="${cnt == 0}">
 	<script type="text/javascript">
 		alert("퇴사자 등록을 실패하였습니다.");
-		window.history.back();
-	</script>
+		$("#page16721").slideUp();
+		</script>
 </c:if>
 </body>
 </html>

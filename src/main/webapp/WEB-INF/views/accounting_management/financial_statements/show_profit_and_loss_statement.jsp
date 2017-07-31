@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<div class="container"  style="display: inline-block;text-align: center;">
-<h3>손익계산서</h3>
-<h4> <fmt:formatDate pattern = "yyyy/MM/dd" value="${startDate}"/> ~ 
-	 <fmt:formatDate pattern = "yyyy/MM/dd" value="${endDate}"/>
-</h4>
+<div class="panel panel-default">
+<div class="panel-heading" style="text-align: center;">
+	 손익계산서<br>
+	 <small><fmt:formatDate pattern = "yyyy/MM/dd" value="${startDate}"/> ~ 
+	 <fmt:formatDate pattern = "yyyy/MM/dd" value="${endDate}"/></small>
+</div>
+<div class="panel-body" style="text-align: center;">
 <table class="table table-hover">
 	<tr>
 		<th colspan="2"> 매출액 </th>
@@ -63,4 +65,5 @@
 		<th colspan="2"> 당기 순 이익 : ${SalesProfit - Tax}</th>
 	</tr>
 </table>
+</div>
 </div>

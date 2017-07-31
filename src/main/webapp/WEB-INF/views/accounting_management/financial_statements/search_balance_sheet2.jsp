@@ -59,7 +59,7 @@ $(function(){
 </table>
 	
 </form>
-</div>
 <div id="stage">
 
+</div>
 </div>
