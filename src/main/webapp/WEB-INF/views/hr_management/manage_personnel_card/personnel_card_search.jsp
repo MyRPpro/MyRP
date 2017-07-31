@@ -31,7 +31,15 @@
 		$("#page16310_div02").slideUp();
 		$("#page16310_div03").slideUp();
 		$("#page16310_div04").slideDown();
-		$("#page16310_div04").load("/hr_management/manage_personnel_card/add_personnel_card");
+		$.ajax({
+			data:		null,
+			type:		'get',
+			url:		'/hr_management/manage_personnel_card/add_personnel_card',
+			success: function(response) {
+				$("#page16310_div04").html(response);
+				$("form[name='page16320_form01'] input[name='employee_id']").focus();
+			}
+		});
 		return false;		
 	});
 	

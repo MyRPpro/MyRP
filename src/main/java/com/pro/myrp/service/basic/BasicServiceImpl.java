@@ -78,9 +78,32 @@ public class BasicServiceImpl implements BasicService {
 	public void add_company_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		
+		if(req.getParameter("company_id") != null) {
+			int company_id = Integer.parseInt(req.getParameter("company_id"));
+			model.addAttribute("company_id", company_id);
+		}
+		if(req.getParameter("dupcheck") != null) {
+			int dupcheck = Integer.parseInt(req.getParameter("dupcheck"));
+			model.addAttribute("dupcheck", dupcheck);
+		}
 	}
 
+	@Override
+	public void add_company_dupCheck_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String company_id = req.getParameter("company_id");
+		CompanyVO vo = new CompanyVO();
+		vo = dao.select_company(company_id);
+		if(vo != null) {
+			model.addAttribute("cnt", 1);
+			model.addAttribute("dup_company_name", vo.getCompany_name());
+		} else {
+			model.addAttribute("cnt", 0);
+		}
+		model.addAttribute("company_id", company_id);
+	}
+	
 	@Override
 	public void add_company_pro_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -157,6 +180,7 @@ public class BasicServiceImpl implements BasicService {
 		int cnt = dao.update_company(vo);
 		System.out.println("cnt: "+cnt);
 		model.addAttribute("cnt", cnt);
+		model.addAttribute("company_id", company_id);
 	}
 
 	@Override
@@ -216,7 +240,14 @@ public class BasicServiceImpl implements BasicService {
 	public void add_product_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		
+		if(req.getParameter("product_id") != null) {
+			int product_id = Integer.parseInt(req.getParameter("product_id"));
+			model.addAttribute("product_id", product_id);
+		}
+		if(req.getParameter("dupcheck") != null) {
+			int dupcheck = Integer.parseInt(req.getParameter("dupcheck"));
+			model.addAttribute("dupcheck", dupcheck);
+		}
 	}
 
 	@Override
@@ -288,5 +319,7 @@ public class BasicServiceImpl implements BasicService {
 		vo.setReg_date(reg_date);
 		int cnt = dao.update_product(vo);
 		model.addAttribute("cnt", cnt);
+		model.addAttribute("product_id", product_id);
 	}
+
 }

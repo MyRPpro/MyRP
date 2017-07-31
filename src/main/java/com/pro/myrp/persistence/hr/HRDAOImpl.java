@@ -370,9 +370,15 @@ public class HRDAOImpl implements HRDAO {
 	}
 
 	@Override
-	public List<Personnel_card_salaryDTO> select_personnel_card_salary(int employee_id) {
+	public List<Personnel_card_salaryDTO> select_personnel_card_salary(Map<String, Object> daoMap) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
-		return dao.select_personnel_card_salary(employee_id);
+		return dao.select_personnel_card_salary(daoMap);
+	}
+
+	@Override
+	public String select_state(int salary_state) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_state(salary_state);
 	}
 	
 }

@@ -27,7 +27,6 @@
 	}
 	function showPicture(msg) {
 		alert(msg);
-		document.getElementById("addPictureForm").reset();
 	}
 
 	$("#page16321_btn01").bind("click", function() {
@@ -68,9 +67,9 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input class="btn btn-default btn-xs" type="submit" value="작성">
-							<input class="btn btn-default btn-xs"  type="reset" value="취소">
-							<input class="btn btn-default btn-xs"  type="button" value="닫기" id="page16321_btn01">
+							<input class="btn btn-default btn-sm" type="submit" value="작성">
+							<input class="btn btn-default btn-sm"  type="reset" value="취소">
+							<input class="btn btn-default btn-sm"  type="button" value="닫기" id="page16321_btn01">
 						</td>
 					</tr>
 				</table>
