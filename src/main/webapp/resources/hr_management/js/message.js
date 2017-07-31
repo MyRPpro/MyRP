@@ -129,6 +129,7 @@ var warehouse_location = "창고 위치 주소";
  */
 
 // 회계보고서
+	var fi_statements = "조회할 회계보고서 종류 선택";
 	//재무상태표 
 	var quarter = "조회할 분기";
 	//손익계산서

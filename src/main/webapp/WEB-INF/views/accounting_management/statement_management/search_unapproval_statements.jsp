@@ -14,7 +14,33 @@ $(function(){
 	<div class="panel-heading">
 		 미승인 전표 조회 
 	</div>
-	<small>총 미승인전표 개수 : ${cnt}</small>
+	<div class="panel-body" style="text-align: center;">
+		<small>총 미승인 전표 개수 : ${cnt}</small>
+		<!-- 페이지 내비게이션  -->
+		<div class="page_nav">
+			<div class="text-center">			
+					<ul class="pagination pagination-sm" style="margin: 0px;">
+					<c:if test="${startPage > pageBlock}">
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements">◀◀</a></li> <!-- 첫 페이지로 이동 -->
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage - pageBlock}">◀</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<c:if test="${i == currentPage}">
+							<li><span>${i}</span></li>
+						</c:if>
+						<c:if test="${i != currentPage}">
+							<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${i}">${i}</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pageCount > endPage}">
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+					</c:if>
+					</ul>
+			</div>
+		</div>
+		</div>
+		<div class="panel-body" style="text-align: center;">
 <table  class="table table-hover">
 	<tr>
 		<th> 전표번호 </th>
@@ -80,30 +106,6 @@ $(function(){
 		</td>
 	</tr>
 	</c:forEach>
-	</table>
-	<!-- 페이지 내비게이션  -->
-	<div class="page_nav">
-		<table border="1">
-			<tr>
-				<th>
-					<c:if test="${startPage > pageBlock}">
-						<a href="/accounting_management/statement_management/search_unapproval_statements">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
-					</c:if>
-					<c:forEach var="i" begin="${startPage}" end="${endPage}">
-						<c:if test="${i == currentPage}">
-							<span>[${i}]</span>
-						</c:if>
-						<c:if test="${i != currentPage}">
-							<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${i}">[${i}]</a>
-						</c:if>
-					</c:forEach>
-					<c:if test="${pageCount > endPage}">
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
-					</c:if>
-				</th>
-			</tr>
-		</table>
+	</table>	
 	</div>
 </div>
