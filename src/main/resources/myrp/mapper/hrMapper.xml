@@ -10,6 +10,7 @@
  		<![CDATA[
  		SELECT	*
  		FROM	hr_code_group
+ 		ORDER BY hr_code_group_id ASC
  		]]>
  	</select>
  	
@@ -545,6 +546,7 @@
 			                            ELSE #{salary_register_name}
 			                            END
 		AND		pay_date BETWEEN #{search_start} AND #{search_end}
+		AND		account_id = #{account_id}
 		]]>
 	</select>
 	
@@ -562,6 +564,7 @@
 		                                                ELSE #{salary_register_name}
 		                                                END
 		                AND		pay_date >= #{search_start} AND pay_date <= #{search_end}
+		                AND		account_id = #{account_id}
 		                ORDER BY SALARY_REGISTER_ID DESC)
 		        )
 		WHERE   rNum >= #{start} AND rNum <= #{end}
@@ -726,7 +729,7 @@
 	</select>
 	
 	<!-- 개인별 인사카드 급여이럭 조회 -->
-	<select id="select_personnel_card_salary" parameterType="int"
+	<select id="select_personnel_card_salary" parameterType="java.util.Map"
 	resultType="Personnel_card_salaryDTO">
 		<![CDATA[
 		SELECT	SR.salary_register_id,SR.reg_date,SR.salary_register_name,
@@ -736,7 +739,17 @@
 		WHERE	S.salary_register_id = SR.salary_register_id
 		AND		S.account_id = SR.account_id
 		AND		S.employee_id = #{employee_id}
+		AND		SR.SALARY_STATE = #{salary_state}
 		ORDER BY SR.reg_date DESC
+		]]>
+	</select>
+	
+	<!-- 상태명 조회  -->
+	<select id="select_state" parameterType="int" resultType="String">
+		<![CDATA[
+		SELECT	KOR_NAME
+		FROM	STATE
+		WHERE	CODE = #{salary_state}
 		]]>
 	</select>
 </mapper>

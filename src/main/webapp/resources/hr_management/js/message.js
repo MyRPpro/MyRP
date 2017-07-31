@@ -18,8 +18,14 @@ var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 /**
  * 기초 등록
  */
-
-
+var biz_reg_no				= "사업자 등록번호";
+var ceo_name 				= "대표자";
+var corp_reg_no				= "법인 등록번호";
+var biz_type				= "업태";
+var biz_item				= "업종";
+var company_type			= "회사 유형";
+var purchase_unit_price		= "구매단가";
+var sale_unit_price			= "판매단가";
 /**
  * 판매 관리
  */
@@ -167,7 +173,9 @@ var warehouse_location = "창고 위치 주소";
  */
 //16100
 var hr_code_group_id 	= "인사코드 그룹번호: 1자리 숫자 | 중복확인 필요";
+var hr_code_group_name  = "인사코드 그룹명";
 var hr_code_id			= "인사코드 번호: 3자리 숫자 | 중복확인 필요 | 인사코드의 키값";
+var hr_code_name 		= "인사코드 명";
 //16200
 var dept_id				= "부서번호: 4자리 숫자 | 중복확인 필요 | 부서의 키값";
 var dept_name			= "부서명";

@@ -56,9 +56,16 @@
 			$employee_id.focus();
 			return false;
 		}
-		var url = "/hr_management/manage_personnel_card/add_personnel_card_dupCheck?employee_id="+$employee_id.val();
 		$("#page16320_div01").slideUp();
-		$("#page16320_div02").load(url);
+		$.ajax({
+			data:		null,
+			type:		'get',
+			url:		'/hr_management/manage_personnel_card/add_personnel_card_dupCheck?employee_id='+$employee_id.val(),
+			success: function(response) {
+				$("#page16320_div02").html(response);
+				$("form[name='page16323_form02'] input[name='employee_id']").focus();
+			}
+		});
 		return false;
 	});
 
@@ -70,7 +77,7 @@
 	$("form[name='page16320_form01']").on("submit", function() {
 		if(document.page16320_form01.dupcheck.value == 0) {
 			alert("사원 번호의 중복체크가 필요합니다.");			
-			document.page16320_form01.dup_check_btn.focus();
+			$("#page16320_btn01").focus();
 			return false;
 		}
 		if(document.page16320_form01.dept_id.value == 0) {
@@ -83,11 +90,11 @@
 			document.page16320_form01.hr_code_id.focus();
 			return false;
 		}
-		var reg_name = /^[가-힣]{2,5}$/; //이름 유효성검사
+		var reg_name = /^[가-힣]{2,6}$/; //이름 유효성검사
 		var employee_name = document.page16320_form01.employee_name;
 		var result_name = reg_name.test(employee_name.value);
 		if(!result_name) {
-			alert("이릅은 2~5자의 한글로 입력해야 합니다.");
+			alert("이릅은 2~6자의 한글로 입력해야 합니다.");
 			employee_name.value = "";
 			employee_name.focus();
 			return false;
@@ -136,7 +143,7 @@
 					<td colspan="3">
 						<div class="input-group">
 							<input class="form-control input-sm" type="number" name="employee_id" value="${employee_id}"
-							min="1" max="9999" required autofocus>
+							min="1" max="9999" required>
 							<span class="input-group-btn">
 								<input class="btn btn-default btn-sm" type="button"
 								value="중복확인" id="page16320_btn01">
@@ -261,10 +268,10 @@
 						<input type="hidden" name="dupcheck"
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<input class="btn btn-default btn-xs" type="submit" value="등록하기">
-						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-						<input class="btn btn-default btn-xs" type="button" value="사진추가" id="page16320_btn02">
-						<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16320_btn03">
+						<input class="btn btn-default btn-sm" type="submit" value="등록하기">
+						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+						<input class="btn btn-default btn-sm" type="button" value="사진추가" id="page16320_btn02">
+						<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16320_btn03">
 					</th>
 				</tr>
 			</table>

@@ -21,7 +21,7 @@
 	$("form[name='page16150_form01']").on("submit", function(event) {
 		if($("form[name='page16150_form01'] input[name='dupcheck']").val() == 0) {
 			alert("인사코드 번호의 중복체크가 필요합니다.");
-			$("form[name='page16150_form01'] input[name='dup_check_btn']").focus();
+			$("#page16150_btn02").focus();
 			return false;
 		}
 		var data = $(this).serialize();
@@ -36,7 +36,7 @@
 		return false;
 	});
 	
-	$("form[name='page16150_form01'] input[name='dup_check_btn']").on("click", function() {
+	$("#page16150_btn02").on("click", function() {
 		var $hr_code_group_id = $("form[name='page16150_form01'] input[name='hr_code_group_id']");
 		var $hr_code_id = $("form[name='page16150_form01'] input[name='hr_code_id']");
 		if(!$hr_code_id.val()) {
@@ -79,9 +79,9 @@
 						<td>
 							<div class="input-group">
 								<input class="form-control input-sm" type="number" name="hr_code_id" value="${hr_code_id}"
-								min="1" max="999" step="1" required autofocus>
+								min="1" max="999" step="1" required>
 								<span class="input-group-btn">
-									<input class="btn btn-default btn-sm"  type="button" name="dup_check_btn" value="중복확인">
+									<input class="btn btn-default btn-sm"  type="button" value="중복확인" id="page16150_btn02">
 								</span>
 							</div>
 						</td>
@@ -108,9 +108,9 @@
 							<input type="hidden" name="dupcheck" 
 							<c:if test="${dupcheck == null}">value="0"</c:if>
 							<c:if test="${dupcheck == 1}">value="1"</c:if>>
-							<input	class="btn btn-default btn-xs" type="submit" value="등록하기">
-							<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16150_btn01">
+							<input	class="btn btn-default btn-sm" type="submit" value="등록하기">
+							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16150_btn01">
 						</th>
 					</tr>
 				</table>
