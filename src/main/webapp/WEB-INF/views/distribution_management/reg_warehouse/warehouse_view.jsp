@@ -50,10 +50,6 @@ $('.distribution_view_heading').bind("click",function(){
 					<table class="table table-condensed">
 						<tr>
 							<th>창고종류</th>
-							<th>창고명</th>
-							<th>창고주소</th>
-						</tr>
-						<tr>
 							<th>
 								<select class="form-control input-sm" name = "warehouse_id">
 									<option value = "${nomal}">일반창고 / ${nomal}</option>
@@ -61,7 +57,13 @@ $('.distribution_view_heading').bind("click",function(){
 									<option value = "${wait}">대기창고 / ${wait}</option>
 								</select>
 							</th>
+						</tr>
+						<tr>
+							<th>창고명</th>
 							<th><input class="form-control" type = "text" id = "name" name = "warehouse_name" required></th>
+						</tr>
+						<tr>
+							<th>창고주소</th>
 							<th><input class="form-control" type = "text" id = "location" name = "warehouse_location" required></th>
 						</tr>
 						<tr>
@@ -87,18 +89,19 @@ $('.distribution_view_heading').bind("click",function(){
 				<form action="warehouse_pro" id = "modify_form" method = "post">
 				<input type = "hidden" value = "modify" name = "opt">
 				<table class="table table-condensed">
-					<tr>
-						<th>창고id</th>
-						<th>창고명</th>
-						<th>창고주소</th>
-					</tr>
 					<c:forEach var = "vo" items = "${reg_warehouse_listVos}" >	
-							<tr>
-								<th><input class="form-control" type = "text" value = "${vo.warehouse_id}" name = "warehouse_id" readonly></th>
-								<th><input class="form-control" type = "text" id = "name" value = "${vo.warehouse_name}" name = "warehouse_name" required></th>
-								<th><input class="form-control" type = "text" id = "location" value = "${vo.warehouse_location}" name = "warehouse_location" required></th>
-							</tr>
-						</c:forEach>
+						<tr>
+							<th>창고id</th>
+							<th><input class="form-control" type = "text" value = "${vo.warehouse_id}" name = "warehouse_id" readonly></th>
+						</tr>
+							<th>창고명</th>
+							<th><input class="form-control" type = "text" id = "name" value = "${vo.warehouse_name}" name = "warehouse_name" required></th>
+						</tr>
+						<tr>
+							<th>창고주소</th>
+							<th><input class="form-control" type = "text" id = "location" value = "${vo.warehouse_location}" name = "warehouse_location" required></th>
+						</tr>
+					</c:forEach>
 					<tr>
 						<th colspan = "3"><input type = "button" class="btn btn-primary" value = "확인" id = "modify_sub">&nbsp;<input type = "reset" class="btn btn-info" value = "취소"></th>
 					</tr>
