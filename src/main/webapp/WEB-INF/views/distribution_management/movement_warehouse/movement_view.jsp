@@ -66,6 +66,9 @@ if("${doit}" != null && "${doit}" == '1'){
 </script>
 <body>
 <c:if test = "${id == 'new'}">
+
+
+
 <input type = "hidden" id = "id" value = "${id}">
 	<div class="row">
 		<div class="col-xs-12">
@@ -93,6 +96,9 @@ if("${doit}" != null && "${doit}" == '1'){
 
 <c:if test = "${id != 'new'}">
 <input type = "hidden" id = "id" value = "${id}">
+
+
+
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="panel panel-primary">

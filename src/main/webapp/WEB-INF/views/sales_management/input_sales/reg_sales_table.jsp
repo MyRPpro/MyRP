@@ -94,7 +94,7 @@
 		</table>
 		<br>
 	
-		<input type="button" value="전표입력하기" onclick="sendStatement();">
+		<input type="button" name="reg_sales_statement" value="전표입력하기" onclick="sendStatement();">
 	</form>
 	
 	<script type="text/javascript">

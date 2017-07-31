@@ -45,6 +45,7 @@ $(function(){
 <c:forEach var = "pro" items = "${productVos}">
 	<input type = "hidden" id = "${pro.product_id}" value = "${pro.stock_amount}">
 </c:forEach>
+
 <table class="table table-condensed">
 <input type = "hidden" name = "id" value = "${id}">
 		<tr>
@@ -57,6 +58,7 @@ $(function(){
 		<tr>
 			<th>
 				<input type = "hidden" value = "${warehouse_id}" name = "warehouse_id" readonly>
+
 				<input class="form-control" type = "text" name = "warehouse_name" value = "${warehouse_name}" readonly>
 			</th>
 			<th>
@@ -67,6 +69,7 @@ $(function(){
 				</select>
 			</th>
 			<th>
+
 				<select class="form-control input-sm" id = "product_id" name = "product_id">
 				<option value = "0">상품을 선택하시오.</option>
 				<c:forEach var = "pro" items = "${productVos}"> 
@@ -74,6 +77,7 @@ $(function(){
 				</c:forEach>
 				</select>
 			</th>
+
 			<th><input class="form-control" type = "number" id = "movement_amount" name = "movement_amount" min = "1" required></th>
 			<th>
 				<input type = "hidden" name = "employee_id" value = "${ROLE.employee_id}"> 
@@ -82,6 +86,7 @@ $(function(){
 		</tr>
 		<tr>
 			<th colspan = "6">
+
 				<input type = "button" class="btn btn-primary" id = "movement_button" value = "확인">
 				<input type = "reset" class="btn btn-info" value = "리셋">
 			</th>
@@ -89,6 +94,7 @@ $(function(){
 	</table>
 </form>
 </c:if>
+
 <c:if test = "${id != 'new'}">
 <form id = "movement_form" action = "/distribution_management/movement_warehouse/movement_pro">
 <table class="table table-condensed">
@@ -146,7 +152,9 @@ $(function(){
 		</tr>
 	</table>
 	</form>
-</c:if>
+</c:if>	
+	
+
 
 
 		<div class="panel-heading">
@@ -170,3 +178,4 @@ $(function(){
 		</tr>
 	</c:forEach>
 </table>
+

@@ -32,24 +32,8 @@
 	<form action="#" name="reg_table_form" method="get" 
 		onsubmit="return reg_sales();">
 	
-		<input type="submit" value="등록하기" >
-		<input type="reset" value="재설정">
-		<input type="button" value="메인으로 이동" onclick="window.location='/'" >
-		
-		&emsp;
-		<input type="button" value="검색으로 이동" 
-			onclick="window.location='/sales_management/search_sales/sales_list'" >
-		<input type="button" value="현황으로 이동" 
-			onclick="window.location='/sales_management/status_sales/search_status_sales'" >	
-		
-		&emsp;
-		<input type="button" value="상품등록" 
-			onclick="window.location='/base_registration/reg_product/product_list'" >
-		<input type="button" value="거래처등록" 
-			onclick="window.location='/base_registration/reg_company/company_list'" >
-		<input type="button" value="담당자등록" 
-			onclick="window.location='/hr_management/manage_personnel_card/personnel_card_search'" >
-		
+		<input type="submit" name="btn_submit" value="등록하기" >
+		<input type="reset" name="btn_reset" value="재설정">
 		
 		<hr>
 	
@@ -137,10 +121,7 @@
 					<input type="hidden" value="22213" name="sales_state" id="sales_state">
 					<input type="text" value="판매전표승인요청" readonly>
 
-
 				</td>	
-				
-					
 			</tr>
 			
 		</table>
@@ -152,6 +133,10 @@
 		<p> 해당란에 없는 칼럼은 시퀀스 또는 기본값으로 입력됩니다. </p>
 		<p> 입력이 완료된 내용은 검색페이지에서 확인할 수 있습니다. </p>
 	</div>
+	
+	
+	
+	<!-- ------------------------------------------------------------------------------------- -->
 	
 	<script>	
 	
