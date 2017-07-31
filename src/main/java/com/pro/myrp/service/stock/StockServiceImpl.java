@@ -240,8 +240,23 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	public void search_distribution_order_service(HttpServletRequest req, Model model) throws Exception {
 		ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
 		ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
-		in_storageDtos = dao.select_storage_in_order(model); 
-		out_storageDtos = dao.select_storage_out_order(model); 
+		
+		String goes = req.getParameter("goes");
+		model.addAttribute("goes",goes);
+		String stock_order_id = req.getParameter("oder_id");
+		
+		if(goes != null && goes.equals("in")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			in_storageDtos = dao.select_storage_in_order(model);
+			model.addAttribute("stock_order_id", null);
+			out_storageDtos = dao.select_storage_out_order(model);
+		}else if(goes != null && goes.equals("out")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			out_storageDtos = dao.select_storage_out_order(model);
+			model.addAttribute("stock_order_id", null);
+			in_storageDtos = dao.select_storage_in_order(model);
+			
+		}
 
 		
 		int pageSize = 5;
@@ -306,19 +321,37 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		inumber = icnt - (icurrentPage - 1) * pageSize; 
 		onumber = ocnt - (ocurrentPage - 1) * pageSize;
 		
+		if(goes != null && goes.equals("in")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			in_storageDtos = dao.select_storage_in_order(model);
+			model.addAttribute("stock_order_id", null);
+		}else if(goes != null && goes.equals("out")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			out_storageDtos = dao.select_storage_out_order(model);
+			model.addAttribute("stock_order_id", null);
+			
+		}
+		
+		
 		if(icnt > 0){
 			model.addAttribute("start",istart);
 			model.addAttribute("end",iend);
+			if(goes != null && goes.equals("in")){
+				model.addAttribute("stock_order_id", stock_order_id);
+			}
 			in_storageDtos = dao.select_storage_in_order(model);
-			model.addAttribute("in_storageDtos",in_storageDtos);
-			
+			if(goes != null && goes.equals("in")){
+				model.addAttribute("stock_order_id", null);
+			}
 		}
 		
 		if(ocnt > 0){
 			model.addAttribute("start",ostart);
 			model.addAttribute("end",oend);
+			if(goes != null && goes.equals("out")){
+				model.addAttribute("stock_order_id", stock_order_id);
+			}
 			out_storageDtos = dao.select_storage_out_order(model);
-			model.addAttribute("Adjustment_inventoryDtos",out_storageDtos);
 			
 		}
 		
@@ -521,7 +554,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			model.addAttribute("pageCount", pageCount);	
 			model.addAttribute("currentPage", currentPage);
 		}
-		
 	}
 
 	@Override
@@ -978,6 +1010,10 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		productVos = dao.select_only_product_id_name(model);
 		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
 		warehouseVos = dao.select_warehouse_list(model);
+		
+		String stock_order_id = req.getParameter("oder_id");
+		model.addAttribute("stock_order_id", stock_order_id);
+		
 		ArrayList<Adjustment_inventoryDTO> Adjustment_inventoryDtos = new ArrayList<Adjustment_inventoryDTO>();
 		Adjustment_inventoryDtos = dao.select_adjustment_inventory(model);
 		
@@ -1017,9 +1053,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		}
 		
 		number = cnt - (currentPage - 1) * pageSize; 
-		
-		System.out.println("start : " + start);
-		System.out.println("end : " + end);
 		
 		if(cnt > 0){
 			model.addAttribute("start",start);

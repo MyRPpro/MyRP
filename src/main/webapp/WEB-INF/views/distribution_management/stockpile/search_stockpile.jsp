@@ -7,7 +7,6 @@
 $(function(){
 	$('#select_stockpile').unbind("click").bind("click",function(){
 		togo = $('#search_result');
-		var warehouse = document.getElementsByName("checke_warehouse");
 		var product = document.getElementsByName("checke_product");
 		var start_day = document.getElementById("start_date").value;
 		var end_day = document.getElementById("end_date").value;
@@ -22,12 +21,7 @@ $(function(){
 			alert("날짜를 선택하시오.");
 			return false;
 		}
-		if(warehouse[0] != null){
-			var house = warehouse[0].value;
-			for(var i = 1; i < warehouse.length; i++){
-				house += "-" +  warehouse[i].value;
-			}
-		}
+
 		if(product[0] != null){
 			var pro = product[0].value;
 			for(var i = 1; i < product.length; i++){
@@ -35,7 +29,6 @@ $(function(){
 			}
 		}
 		var data = {
-					"warehouse" : house,
 					"product" : pro,
 					"start_day" : start_day,
 					"end_day" : end_day,
@@ -77,6 +70,91 @@ $(function(){
 			}
 		});
 	});
+	
+	$('#search_stockpile_date').change(function(){	
+		
+		var date = document.getElementById("search_stockpile_date").value;
+		var start_day = document.getElementById("start_date");
+		var end_day = document.getElementById("end_date");
+		var now = new Date();
+		
+		var year= now.getFullYear();
+		var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
+		var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+		
+		if(date == 'today'){
+			start_day.value = year + "-" + mon + "-" + (now.getDate());
+			if((now.getDate()+1) >= 31){
+				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
+			}else{
+				end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+			}
+			return false;
+		
+		}else if(date == 'week'){
+			var i = now.getDay();
+			if(i > 0 && i < 7){
+				aa = 1 - i;
+				start_day.value =  year + "-" + mon + "-" + (now.getDate() + aa);
+			}
+			
+			if((now.getDate()+1) >= 31){
+				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
+			}else{
+				end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+			}
+		
+			if(start_day.value == end_day.value){
+				end_day.value = year + "-" + mon + "-" + (now.getDate()+2);
+			}
+			return false;
+		
+		}else if(date == 'month'){
+			if(now.getMonth()+1 >= 10 && now.getMonth()+2 >= 8 && now.getMonth()+2 <= 10){
+				start_day.value = year + "-" + (now.getMonth()+1) + "-01";
+				end_day.value = year + "-" + (now.getMonth()+2) + "-01";
+			}else{
+				start_day.value = year + "-0" + (now.getMonth()+1) + "-01";
+				end_day.value = year + "-0" + (now.getMonth()+2) + "-01";
+			}
+			return false;
+		
+		}else if(date == 'year'){
+			start_day.value = year + "-01-01";
+			end_day.value = (now.getFullYear() + 1) + "-01-01";
+			return false;
+		
+		}else if(date == '1_quarter'){
+				start_day.value = year + "-01-01";
+				end_day.value = year + "-04-01";
+				return false;
+		
+		}else if(date == '2_quarter'){
+				start_day.value = year + "-04-01";
+				end_day.value = year + "-07-01";
+				return false;
+		
+		}else if(date == '3_quarter'){
+				start_day.value = year + "-07-01";
+				end_day.value = year + "-10-01";
+				return false;
+		
+		}else if(date == '4_quarter'){
+				start_day.value = year + "-10-01";
+				end_day.value = (now.getFullYear()+1) + "-01-01";
+				return false;
+		
+		}else if(date == 'first_half'){
+			start_day.value = year + "-01-01";
+			end_day.value = year + "-07-01";
+			return false;
+		
+		}else if(date == 'second_half'){
+			start_day.value = year + "-07-01";
+			end_day.value = (now.getFullYear()+1) + "-01-01";
+			return false;
+		}
+	});
 });
 
 function go(goes){
@@ -92,94 +170,9 @@ function go(goes){
 	
 	$("#product_search_result").html("");
 	for(var i = 0; i < search_value.length; i++){
-		$("#product_search_result").append("<input type = 'checkbox' name = 'checke_product' value = '" + search_value[i] + "'>" + search_value[i]);
+			$("#product_search_result").append("<span class='glyphicon glyphicon-gift' aria-hidden='true'></span>" + search_value[i]+"<input type = 'hidden' name = 'checke_product' value = '" + search_value[i] + "'>");
 	}
 	$('input[name=checked]').prop('checked', false);
-}
-
-
-function search_stockpile(date){
-	togo = $('#search_result');
-	var start_day = document.getElementById("start_date");
-	var end_day = document.getElementById("end_date");
-	var now = new Date();
-	
-	var year= now.getFullYear();
-	var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-	var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
-	
-	if(date == 'today'){
-		start_day.value = year + "-" + mon + "-" + (now.getDate());
-		if((now.getDate()+1) >= 31){
-			end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
-		}else{
-			end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
-		}
-		return false;
-	
-	}else if(date == 'week'){
-		var i = now.getDay();
-		if(i > 0 && i < 7){
-			aa = 1 - i;
-			start_day.value =  year + "-" + mon + "-" + (now.getDate() + aa);
-		}
-		
-		if((now.getDate()+1) >= 31){
-			end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
-		}else{
-			end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
-		}
-	
-		if(start_day.value == end_day.value){
-			end_day.value = year + "-" + mon + "-" + (now.getDate()+2);
-		}
-		return false;
-	
-	}else if(date == 'month'){
-		if(now.getMonth()+1 >= 10 && now.getMonth()+2 >= 8 && now.getMonth()+2 <= 10){
-			start_day.value = year + "-" + (now.getMonth()+1) + "-01";
-			end_day.value = year + "-" + (now.getMonth()+2) + "-01";
-		}else{
-			start_day.value = year + "-0" + (now.getMonth()+1) + "-01";
-			end_day.value = year + "-0" + (now.getMonth()+2) + "-01";
-		}
-		return false;
-	
-	}else if(date == 'year'){
-		start_day.value = year + "-01-01";
-		end_day.value = (now.getFullYear() + 1) + "-01-01";
-		return false;
-	
-	}else if(date == '1_quarter'){
-			start_day.value = year + "-01-01";
-			end_day.value = year + "-04-01";
-			return false;
-	
-	}else if(date == '2_quarter'){
-			start_day.value = year + "-04-01";
-			end_day.value = year + "-07-01";
-			return false;
-	
-	}else if(date == '3_quarter'){
-			start_day.value = year + "-07-01";
-			end_day.value = year + "-10-01";
-			return false;
-	
-	}else if(date == '4_quarter'){
-			start_day.value = year + "-10-01";
-			end_day.value = (now.getFullYear()+1) + "-01-01";
-			return false;
-	
-	}else if(date == 'first_half'){
-		start_day.value = year + "-01-01";
-		end_day.value = year + "-07-01";
-		return false;
-	
-	}else if(date == 'second_half'){
-		start_day.value = year + "-07-01";
-		end_day.value = (now.getFullYear()+1) + "-01-01";
-		return false;
-	}
 }
 
 $('.distribution_list_heading').bind("click",function(){  
@@ -208,6 +201,19 @@ $('.distribution_list_heading').bind("click",function(){
 							<input class="form-control input-sm" type = "date" name = "" id = "start_date">
 							~
 							<input class="form-control input-sm" type = "date" name = "" id = "end_date">
+							<select class="form-control input-sm" id = "search_stockpile_date">
+								<option value = "0">조회 기간 선택</option>
+								<option value = "today">금일</option>
+								<option value = "week">금주</option>
+								<option value = "month">금월</option>
+								<option value = "year">금년</option>
+								<option value = "1_quarter">1분기</option>
+								<option value = "2_quarter">2분기</option>
+								<option value = "3_quarter">3분기</option>
+								<option value = "4_quarter">4분기</option>
+								<option value = "first_half">전반기</option>
+								<option value = "second_half">후반기</option>
+							</select>
 						</div>
 						</th>
 					</tr>
@@ -223,37 +229,19 @@ $('.distribution_list_heading').bind("click",function(){
 					</tr>
 					<tr>
 						<th colspan = "2">
-						<div class="form-group">
-							<button class="btn btn-default" onclick = "search_stockpile('today')">금일</button>
-							<button class="btn btn-default" onclick = "search_stockpile('week')">금주</button>
-							<button class="btn btn-default" onclick = "search_stockpile('month')">금월</button>
-							<button class="btn btn-default" onclick = "search_stockpile('year')">금년</button>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-default" onclick = "search_stockpile('1_quarter')">1분기</button>
-							<button class="btn btn-default" onclick = "search_stockpile('2_quarter')">2분기</button>
-							<button class="btn btn-default" onclick = "search_stockpile('3_quarter')">3분기</button>
-							<button class="btn btn-default" onclick = "search_stockpile('4_quarter')">4분기</button>
-						</div>
-						<div class="form-group">
-							<button class="btn btn-default" onclick = "search_stockpile('first_half')">전반기</button>
-							<button class="btn btn-default" onclick = "search_stockpile('second_half')">후반기</button>
-						</div>
-						</th>
-					</tr>
-						<tr>
-						<th colspan = "2">
 							<button class="btn btn-primary" id = "select_stockpile">확인</button>
 						</th>
 					</tr>
 				</table>
 			</div>
+		<div id = "search_result"></div>
+		<!-- <div id = "product_result"></div> -->
 		</div>
 	</div>
 </div>
 </div>
 	
-<div id = "search_result"></div>
+
 
 <div class = "modal" id = "product_modal" tabindex = "-1">	
 	<div class = "modal-dialog">
@@ -264,12 +252,12 @@ $('.distribution_list_heading').bind("click",function(){
 				<table class="table-responsive">
 					<tr>
 						<th>
+						<div class="form-inline">
 						<div class="radio">
 								<label>
 							<input type = "radio" name = "selected" id = "product_id" value = "product_id" checked>상품코드</label>&nbsp;&nbsp;
 							<label><input type = "radio" name = "selected" id = "product_name" value = "product_name">상품이름</label>
 						</div>
-						<div class="form-inline">
 							<input class="form-control" type = "text" id = "product_search" placeholder = "검색어를 입력하시오.">
 							<button id = "search_button_product" class="btn btn-primary"">확인</button>
 						</div>
@@ -286,7 +274,7 @@ $('.distribution_list_heading').bind("click",function(){
 	</div>
 </div> 
 	
-<div id = "product_result"></div>
+
 	
 </body>
 </html>

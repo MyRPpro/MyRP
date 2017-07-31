@@ -63,27 +63,7 @@ $(function(){
 		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
 				<table class="table table-condensed">
-					<tr>
-						<th>주문번호</th>
-						<th>상품명</th>
-						<th>창고명</th>
-						<th>담당자명</th>
-						<th>등록일</th>
-						<th>조정 재고</th>
-						<th>조정 후 재고</th>
-					</tr>
-					<c:forEach var = "dto" items = "${Adjustment_inventoryDtos}">
-					<tr>
-						<th>${dto.stock_order_id}</th>
-						<th>${dto.product_name}</th>
-						<th>${dto.warehouse_name}</th>
-						<th>${dto.employee_name}</th>
-						<th>${dto.reg_date}</th>
-						<th>${dto.delete_stock}</th>
-						<th>${dto.taked_stock}</th>
-					</tr>
-					</c:forEach>
-					<tr>
+				<tr>
 						<th colspan = "13">
 							<div class="text-center">
 			            <ul class="pagination">
@@ -109,34 +89,55 @@ $(function(){
 			         </div>
 						</th>
 					</tr>
+					<tr>
+						<th>주문번호</th>
+						<th>상품명</th>
+						<th>창고명</th>
+						<th>담당자명</th>
+						<th>등록일</th>
+						<th>조정 재고</th>
+						<th>조정 후 재고</th>
+					</tr>
+					<c:forEach var = "dto" items = "${Adjustment_inventoryDtos}">
+					<tr>
+						<th>${dto.stock_order_id}</th>
+						<th>${dto.product_name}</th>
+						<th>${dto.warehouse_name}</th>
+						<th>${dto.employee_name}</th>
+						<th>${dto.reg_date}</th>
+						<th>${dto.delete_stock}</th>
+						<th>${dto.taked_stock}</th>
+					</tr>
+					</c:forEach>
 				</table>
 			</div>
-		</div>
-	</div>
-</div>
-</div>
-<div class="row">
-<div class="col-xs-12">
-	<div class="panel panel-primary">
-		<div class="panel-heading distribution_view_heading">
-			<h3 class="panel-title">신규등록</h3>
-		</div>
-		<div class="panel-body distribution_view_content">
-			<div class="table-responsive">
-				<select class="form-control input-sm" id = "product_id" name = "product_id">
-					<option value = "0">상품을 선택하시오.</option>
-					<c:forEach var = "pro" items = "${productVos}">
-						<option value = "${pro.product_id}">${pro.product_name}</option>
-					</c:forEach>
-				</select>
-				<select class="form-control input-sm" id = "warehouse_id" name = "warehouse_id">
-					<option value = "0">창고를 선택하시오.</option>
-					<c:forEach var = "ware" items = "${warehouseVos}">
-						<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
-					</c:forEach>
-				</select>
-				<button class="btn btn-default" id = "new_reg">신규등록하기</button>
-				<div id = "reg"></div>
+			<br><br>
+			<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading distribution_view_heading">
+						<h3 class="panel-title">신규등록</h3>
+					</div>
+					<div class="panel-body distribution_view_content">
+						<div class="table-responsive">
+							<select class="form-control input-sm" id = "product_id" name = "product_id">
+								<option value = "0">상품을 선택하시오.</option>
+								<c:forEach var = "pro" items = "${productVos}">
+									<option value = "${pro.product_id}">${pro.product_name}</option>
+								</c:forEach>
+							</select>
+							<select class="form-control input-sm" id = "warehouse_id" name = "warehouse_id">
+								<option value = "0">창고를 선택하시오.</option>
+								<c:forEach var = "ware" items = "${warehouseVos}">
+									<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
+								</c:forEach>
+							</select>
+							<button class="btn btn-default" id = "new_reg">신규등록하기</button>
+							<div id = "reg"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>
 	</div>

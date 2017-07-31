@@ -115,9 +115,15 @@
  	<select id = "select_in_storage" parameterType="java.util.Map" resultType="In_storageDTO">
  		SELECT	*
  		FROM	(
- 				SELECT	p.*, s.warehouse_id, s.stock_amount, rownum as rnum
+ 				SELECT	p.*, s.warehouse_id, s.stock_amount, rownum as rnum, st.kor_name, pr.product_name,e.employee_name
  				FROM	purchase_order p JOIN stock_information s
  				ON		p.product_id = s.product_id
+ 				JOIN	state st
+ 				ON		p.purchase_state = st.code
+ 				JOIN 	product pr
+ 				ON		p.product_id = pr.product_id
+ 				JOIN	employee e
+ 				ON		p.employee_id = e.employee_id
 		 		WHERE	p.purchase_state = 23204
 		 		AND		s.warehouse_id = 1001
 		 		AND		p.account_id = 500011050000
@@ -133,9 +139,15 @@
  	<select id = "select_out_storage" parameterType="java.util.Map" resultType="Out_storageDTO">
  		SELECT	*
  		FROM	(
- 				SELECT	p.*, s.warehouse_id, s.stock_amount, rownum as rnum
+ 				SELECT	p.*, s.warehouse_id, s.stock_amount, rownum as rnum, st.kor_name, pr.product_name,e.employee_name
  				FROM	sales_order p JOIN stock_information s
 		 		ON		p.product_id = s.product_id
+		 		JOIN	state st
+ 				ON		p.sales_state = st.code
+ 				JOIN 	product pr
+ 				ON		p.product_id = pr.product_id
+ 				JOIN	employee e
+ 				ON		p.employee_id = e.employee_id
 		 		WHERE	sales_state = 22222
 		 		AND		s.warehouse_id = 1001
 		 		AND		p.account_id = 500014030000
@@ -296,9 +308,20 @@
  	<select id = "select_storage_out_order" parameterType="java.util.Map" resultType = "Select_stock_order_storageDTO">
  		SELECT	*
  		FROM	(
- 				SELECT 	s.*, o.count_sales,o.available_stock,o.lack_stock,o.storage_out_date ,rownum as rnum 
+ 				SELECT 	s.*, o.count_sales,o.available_stock,o.lack_stock,o.storage_out_date ,rownum as rnum, st.kor_name, p.product_name, w.warehouse_name, e.employee_name 
  				FROM	stock_order s JOIN storage_out_order o
  				ON		s.stock_order_id = o.stock_order_id
+ 				JOIN	state st
+ 				ON		s.stock_state = st.code
+ 				JOIN 	product p
+ 				ON		s.product_id = p.product_id
+ 				JOIN	warehouse_information w
+ 				ON		s.warehouse_id = w.warehouse_id
+ 				JOIN	employee e
+ 				ON		s.employee_id = e.employee_id
+ 				<if test = "stock_order_id != null">
+	 			WHERE	s.stock_order_id = #{stock_order_id}
+		 		</if>
  				ORDER BY s.reg_date DESC
  				)
  		<if test = "start != null">
@@ -309,9 +332,20 @@
  	<select id = "select_storage_in_order" parameterType="java.util.Map" resultType = "Select_stock_order_storageDTO">
  		SELECT	*
  		FROM	(
- 				SELECT 	s.*, o.count_purchase,o.storage_in_date,rownum as rnum 
+ 				SELECT 	s.*, o.count_purchase,o.storage_in_date,rownum as rnum, st.kor_name, p.product_name, w.warehouse_name, e.employee_name 
  				FROM	stock_order s JOIN storage_in_order o
  				ON		s.stock_order_id = o.stock_order_id
+ 				JOIN	state st
+ 				ON		s.stock_state = st.code
+ 				JOIN 	product p
+ 				ON		s.product_id = p.product_id
+ 				JOIN	warehouse_information w
+ 				ON		s.warehouse_id = w.warehouse_id
+ 				JOIN	employee e
+ 				ON		s.employee_id = e.employee_id
+ 				<if test = "stock_order_id != null">
+	 			WHERE	s.stock_order_id = #{stock_order_id}
+		 		</if>
  				ORDER BY s.reg_date DESC
  				)
  		<if test = "start != null">
@@ -426,15 +460,13 @@
 			 		ON			s.warehouse_id = w.warehouse_id
 			 		JOIN		employee e
 			 		ON			s.employee_id = e.employee_id
+			 		<if test = "stock_order_id != null">
+		 			WHERE		s.stock_order_id = #{stock_order_id}
+		 			</if>
 			 		ORDER BY	s.reg_date DESC
 			 		)
- 		<trim prefix="WHERE" prefixOverrides="AND">
- 		<if test = "stock_order_id != null">
- 		stock_order_id = #{stock_order_id}
- 		</if>
  		<if test = "start != null">
- 		rnum <![CDATA[>=]]>#{start}AND rnum <![CDATA[<=]]> #{end}
+ 		WHERE	rnum <![CDATA[>=]]>#{start}AND rnum <![CDATA[<=]]> #{end}
  		</if>
- 		</trim>
  	</select>
 </mapper>

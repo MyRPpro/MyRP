@@ -8,6 +8,7 @@ $(function(){
 		if(bank_account_reg_on==1){ //계좌등록페이지 띄우기 */
 			$('#bank_account_list_stage').slideDown();
 			$("#bank_account_list_stage").load("/accounting_management/bank_account_registration/register_bank_account");
+			document.getElementById("bank_account_name").focus();
 		/* }else{
 			return false;
 		} */
@@ -58,28 +59,26 @@ $(function(){
 	<!-- 페이지 내비게이션  -->
 	<c:if test="${cnt>5}">
 		<div class="page_nav">
-		<table border="1">
-			<tr>
-				<th>
+			<div class="text-center">
+					<ul class="pagination pagination-sm" style="margin: 0px;">
 					<c:if test="${startPage > pageBlock}">
-						<a href="/accounting_management/bank_account_registration/bank_account_list">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-						<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
+						<li><a href="/accounting_management/bank_account_registration/bank_account_list">[◀◀]</a></li> <!-- 첫 페이지로 이동 -->
+						<li><a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage - pageBlock}">[◀]</a></li> <!-- 이전 블록으로 이동 -->
 					</c:if>
 					<c:forEach var="i" begin="${startPage}" end="${endPage}">
 						<c:if test="${i == currentPage}">
-							<span>[${i}]</span>
+							<li><span>[${i}]</span></li>
 						</c:if>
 						<c:if test="${i != currentPage}">
-							<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${i}">[${i}]</a>
+							<li><a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${i}">[${i}]</a></li>
 						</c:if>
 					</c:forEach>
 					<c:if test="${pageCount > endPage}">
-						<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-						<a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
+						<li><a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${startPage + pageBlock}">[▶]</a></li> <!-- 다음 블록으로 이동 -->
+						<li><a href="/accounting_management/bank_account_registration/bank_account_list?pageNum=${pageCount}">[▶▶]</a></li> <!-- 마지막 페이지로 이동 -->
 					</c:if>
-				</th>
-			</tr>
-		</table>
+					</ul>
+			</div>
 		</div>
 	</c:if>
 		<div id="bank_account_list_form_for_register" style="text-align: center;">
@@ -90,5 +89,3 @@ $(function(){
 	
 	</div>
 </div>
-</body>
-</html>
