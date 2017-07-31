@@ -202,7 +202,7 @@ CREATE TABLE service_attitude(
     attitude_code           NUMBER(3),
     hr_code_group_leave     NUMBER(1),
     leave_code              NUMBER(3),
-    attitude_period         DATE,
+    attitude_period         NUMBER(3),
     hr_code_group_reason    NUMBER(1),
     attitude_reason         NUMBER(3),
     CONSTRAINT service_attitude_fk FOREIGN KEY(employee_id)

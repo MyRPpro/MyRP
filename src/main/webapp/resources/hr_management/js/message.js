@@ -17,8 +17,14 @@
 /**
  * 기초 등록
  */
-
-
+var biz_reg_no				= "사업자 등록번호";
+var ceo_name 				= "대표자";
+var corp_reg_no				= "법인 등록번호";
+var biz_type				= "업태";
+var biz_item				= "업종";
+var company_type			= "회사 유형";
+var purchase_unit_price		= "구매단가";
+var sale_unit_price			= "판매단가";
 /**
  * 판매 관리
  */

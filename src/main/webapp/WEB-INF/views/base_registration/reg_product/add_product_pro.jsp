@@ -12,13 +12,13 @@ add_product_pro.jsp
 <c:if test="${cnt == 1}">
 	<script type="text/javascript">
 		alert("상품이 정상적으로 등록 되었습니다.");
-		window.location = "/base_registration/reg_product/product_list";
+		$("#main_screen").load("/base_registration/reg_product/product_list");
 	</script>
 </c:if>
 <c:if test="${cnt == 0}">
 	<script type="text/javascript">
 		alert("상품의 등록을 실패하였습니다.");
-		window.history.back();
+		$("#page11210_div02").load("/base_registration/reg_product/add_product");
 	</script>
 </c:if>
 </body>
