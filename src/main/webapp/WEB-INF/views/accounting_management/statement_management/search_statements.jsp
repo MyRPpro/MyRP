@@ -13,9 +13,12 @@ $(document).ready(function onload_function(){
 		 $("#search_statements_list").load("/accounting_management/statement_management/search_approval_statements");
 	 }
 });
-
+function slideUpFunction(){
+	$('#make_statements_list').slideUp();
+}
 $(function(){
 	$('#unapproval_statements').unbind("click").bind("click",function(){
+		$('#make_statements_list').slideUp();
 		togo = $('#search_statements_list');
 		$.ajax({ 		
 			type: 	'get',	 			
@@ -28,6 +31,7 @@ $(function(){
 });
 $(function(){
 	$('#approval_statements').unbind("click").bind("click",function(){
+		$('#make_statements_list').slideUp();
 		togo = $('#search_statements_list');
 	
 		$.ajax({ 		
@@ -41,23 +45,31 @@ $(function(){
 });
 $(function(){
 	$('#all_statements').unbind("click").bind("click",function(){
+		$('#make_statements_list').slideUp();
 		$("#search_statements_list").load("/accounting_management/statement_management/search_all_statements");
 	});
 });
 $(function(){
-	$("form[name='statement_list_form1']").on("submit",function(){
+	$("#make_statement_button").unbind("click").bind("click",function(){
 		$("#make_statements_list").load("/accounting_management/statement_management/make_statement");
 		$('#make_statements_list').slideDown();
 	});
 });
 </script>
-<div id="search_statements_overall">
-<button id="all_statements"> 전체 전표 조회</button>
-<button id="unapproval_statements"> 미승인 전표 조회</button>
-<button id="approval_statements"> 승인 전표 조회</button>
-<form action="#" method="get" name="statement_list_form1">
-	<input type="submit" value="전표 등록">	
-</form>
+<div id="search_statements_overall" class="panel panel-default">
+<div class="panel-heading">
+		전표 조회 
+</div>
+	<div>
+		  <!-- Nav tabs -->
+		  <ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active" id="all_statements" ><a href="#info" aria-controls="info" role="tab" data-toggle="tab">전체 전표 조회</a></li>
+		    <li role="presentation" id="unapproval_statements"><a href="#appoint" aria-controls="appoint" role="tab" data-toggle="tab">미승인 전표 조회</a></li>
+		    <li role="presentation" id="approval_statements"><a href="#retired" aria-controls="retired" role="tab" data-toggle="tab">승인 전표 조회</a></li>
+		  </ul>
+		  <input type="button" value="전표 등록" id="make_statement_button" class="btn btn-default">	
+	</div>
+
 <div id="make_statements_list">
 
 </div>
@@ -67,5 +79,6 @@ $(function(){
 <div id="search_statement_detail">
 
 </div>
+
 
 </div>

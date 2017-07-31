@@ -134,6 +134,31 @@ var warehouse_location = "창고 위치 주소";
  * 회계관리
  */
 
+// 회계보고서
+	//재무상태표 
+	var quarter = "조회할 분기";
+	//손익계산서
+	var startDate = "조회할 기간 : 시작일";
+	var endDate = "조회할 기간 : 끝일";
+	
+//계좌등록
+	var bank_account_id = "계좌 ID";
+	var bank_account_name = "계좌 이름";
+	var bank_account_number = "계좌번호 : - 까지 포함해서 입력해주세요"
+	var bank_account_balance = "계좌 잔액"
+	var bank_name = "은행명";
+	var bank_account_type = "계좌 유형";
+	var	use_state = "사용상태 ";
+	var	reg_date = "등록일자 : 자동입력";
+//계정등록
+	var account_id = "계정 ID";
+	var dupCheckButton = "중복확인 버튼";
+	var account_name = "계정 이름";
+	var account_balance = "계정 금액";
+//전표 등록
+	var connected_id = "연결 ID";
+	var calling_button = "연결주문 조회";
+	var account_value = "계정 금액";
 
 /**
  * 인사 관리

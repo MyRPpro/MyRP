@@ -7,6 +7,7 @@
 	}
 	// 연결id 조회
 	function call_connected_id(access_role){
+		$('#show_connected_id').slideDown();
 		togo = $('#show_connected_id');
 		$.ajax({ 		
 			type: 	'get',	 			
@@ -49,15 +50,18 @@
 	});
 
 </script>
-<h3> 전표 생성 </h3>
+<div id="make_statement_overall" class="panel panel-default">
+	<div class="panel-heading">
+			전표 생성 
+	</div>
 <div id="show_connected_id">
 </div>
 <form action="#" name="make_statement_form1" method="post">
 	<input type="hidden" name="typeCnt" id="typeCnt">
-<table border="1">
+<table class="table table-hover">
 	<tr>	
 		<th> 전표 종류 </th>
-		<td colspan="2">
+		<td>
 			<select name="statement_type" onchange="" id="statement_type"> 
 				<c:if test="${ROLE.access_role.equals('SA')}">
 				<option value="54101">매출전표</option>
@@ -72,34 +76,39 @@
 				<option value="54105">출금전표</option>
 			</select>
 		</td>
+	</tr>
+	<tr>
 		<th> 연결 ID </th>
-		<td colspan="2">
+		<td>
 			
 			<input type="text" name="connected_id" id="connected_id">  
-			<input type="button" value="조회" onclick="call_connected_id('${ROLE.access_role}')" name="calling_button">
+			<input type="button" value="조회" onclick="call_connected_id('${ROLE.access_role}')" name="calling_button" class="btn btn-primary btn-xs">
 		</td>
 	</tr>
-	<tr>
-		<th colspan="6"> 계정등록 </th>
+	<tr class="active">
+		<th colspan="2"> 계정등록 </th>
 	</tr>
 	<tr>
-		<th> account_id </th>
+		<th> 계정 ID </th>
 		<td>
 			<input type="text" name="account_id"  readonly="true" id="account_id">
 		</td>
-		<th> account_name </th>
+	</tr>
+	<tr>
+		<th> 계정 이름 </th>
 		<td>
 			<input type="text" name="account_name" readonly="true" id="account_name">
 		</td>
-		<th> account_value</th>
+	</tr>
+	<tr>
+		<th> 계정 금액 </th>
 		<td>
 			<input type="number" name="account_value"  readonly="true" id="account_value">
 		</td>
 	</tr>
 </table>
-<input type="submit" value="등록하기">
-<input type="reset" value="재작성">
-<input type="button" value="돌아가기" onclick="slideUpFunction();">			
+<input type="submit" value="등록하기" class="btn btn-default">
+<input type="reset" value="재작성" class="btn btn-default">
+<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default">			
 </form>
-</body>
-</html>
+</div>
