@@ -24,9 +24,12 @@ $(function(){
 	});
 });
 </script>
-
-		<div class="text-center">
-			<div class="btn-group" data-toggle="buttons">
+<div class="panel panel-default" id="bank_account_list">
+	<div class="panel-heading">
+		 회계보고서
+	</div>
+		<div class="panel-body" style="text-align: center;">
+			<div class="btn-group" data-toggle="buttons"> 
 			<label for="fi_statements" class="btn btn-primary active" id="balance_sheet" > 재무상태표 
 			<input type="radio" name="fi_statements" value="balance_sheet" checked >
 			</label>
@@ -41,6 +44,4 @@ $(function(){
 <div id="select_date">
 
 </div>
-
-</body>
-</html>
+</div>
