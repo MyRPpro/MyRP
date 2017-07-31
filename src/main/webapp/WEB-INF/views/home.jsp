@@ -22,7 +22,7 @@ function onoff(){
 </script>
 <body>
 <input type = "hidden" id = "alarmonoff" value = "on">
-<input type = "hidden" id = "role" value = "${ROLE.access_role}">
+
 <div class="container-fluid">
 	<form class="form-inline">
 		<div class="row " style="height: 100px; vertical-align: center; " >
@@ -226,7 +226,7 @@ function onoff(){
    </div>
 </body>
 <script type="text/javascript">
-	
+
 	$(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;
