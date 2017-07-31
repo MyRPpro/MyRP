@@ -169,7 +169,6 @@
 	<script type="text/javascript">
 	function req_storage_out(){
 		var sales_id = document.getElementById("sales_id").value;
-		console.log( " sned sales_id : " + sales_id );
 
 		window.location="/sales_management/search_sales/detail_sales_pro"
 						+"?req_kind=storage_out&sales_id="+sales_id;

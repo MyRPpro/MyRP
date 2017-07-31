@@ -32,7 +32,7 @@
 		<input type="button" id="a_day"  name="a_day" value="하루" >        
 		<input type="button" id="a_week" name="a_week"  value="한주">       
 		<input type="button" id="a_month" name="a_month" value="한달">      
-		<input type="button" id="a_quarter" name="a_quarter value="한분기">   
+		<input type="button" id="a_quarter" name="a_quarter" value="한분기">   
 		<input type="button" id="a_year" name="a_year" value="일년">       
 		                                                      
 		<select id="months">                                              
@@ -112,8 +112,6 @@
 		if(check==1){
 			var start_date = document.getElementById("start_date").value 
 			var end_date = document.getElementById("end_date").value 
-			console.log(" start_date :" + start_date );
-			console.log(" end_date :" + end_date );
 		}
 		
 		if(check==2){
@@ -129,11 +127,9 @@
 			product = document.getElementById("product_ids").value;
 			company = document.getElementById("company_ids").value;
 			employee = document.getElementById("employee_ids").value;
-			console.log(" vals :" + vals );
 			
 		}
 		
-		console.log(" pageNum :" + pageNum );
 		
 		$('#list_table').load('/sales_management/status_sales/search_status_sales_table?start_date='+start_date
 				+'&end_date='+end_date
@@ -168,7 +164,6 @@
 		end_date.vlaue 	 = date_format(new Date(end_date.value));
 		end_date_temp 	 = new Date(end_date.value);
 		
-		console.log(date_format(new Date(end_date.value)));
 		
 		start_date	= document.getElementById("start_date");
 		start_date.value = date_format(new Date(end_date.value));
@@ -221,8 +216,6 @@
 		date_load();
 		var month = this.value;
 		var year = end_date_temp.getFullYear();
-		console.log(year);
-		/* console.log("1:" + date_format(new Date(year,0,1))); */
 		
 		if(month==01){
 			start_date.value = date_format(new Date(year,0,1));

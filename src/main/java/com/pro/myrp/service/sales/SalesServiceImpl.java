@@ -174,7 +174,7 @@ public class SalesServiceImpl implements SalesService {
 
 		} else System.out.println("  -> Cnt is Zero...");
 		model.addAttribute("cnt", cnt);
-		
+		model.addAttribute("check",search_check);
 		
 	}
 
@@ -187,7 +187,7 @@ public class SalesServiceImpl implements SalesService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
 		int pageSize	= 5;
-		int pageBlock	= 3;
+		int pageBlock	= 5;
 		int cnt			= 0;
 		int start		= 0;
 		int end			= 0;
@@ -313,6 +313,21 @@ public class SalesServiceImpl implements SalesService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
+		String sales_id = "";
+		String sales_state = "";
+		sales_id = req.getParameter("sales_id");
+		System.out.println("  -> sales_id : "  + sales_id);
+		
+		Map<String,Object> daoMap = new HashMap<>();
+		daoMap.put("sales_id", sales_id);
+		ArrayList<SalesDTO> dtos = dao.select_modify_sales(daoMap);
+		
+		if( dtos != null ){
+			System.out.println("  -> Complete value import ...");
+			model.addAttribute("dtos", dtos);
+			
+		} else 	System.out.println("  -> Error loading value..."); // 불러오기 실패
+			
 		ArrayList<SalesDTO> dtos_account  = dao.select_account();	
 		ArrayList<SalesDTO> dtos_product  = dao.select_product();	
 		ArrayList<SalesDTO> dtos_company  = dao.select_company();	
@@ -323,24 +338,15 @@ public class SalesServiceImpl implements SalesService {
 		model.addAttribute("dtos_company", dtos_company);
 		model.addAttribute("dtos_employee", dtos_employee);
 		
-		String sales_id = req.getParameter("sales_id");
-		String sales_state = req.getParameter("sales_state");
+		sales_id = req.getParameter("sales_id");
+		sales_state = req.getParameter("sales_state");
+		
 		model.addAttribute("sales_id", sales_id);
 		model.addAttribute("sales_state", sales_state);
 		System.out.println("  -> sales_id : "  + sales_id);
 		System.out.println("  -> sales_state : "  + sales_state);
 		
-		Map<String,Object> daoMap = new HashMap<>();
-		daoMap.put("sales_id", sales_id);
-		ArrayList<SalesDTO> dtos = dao.select_modify_sales(daoMap);
-		
-		if( dtos != null ){
-			System.out.println("  -> Complete value import ...");
-			model.addAttribute("dtos", dtos);
-			
-		} else {	
-			System.out.println("  -> Error loading value...");
-		}
+
 	
 	}
 	
@@ -449,7 +455,6 @@ public class SalesServiceImpl implements SalesService {
 		model.addAttribute("account_ids",account_ids);
 		
 	}
-	
 
 	@Override
 	public void reg_sales_table(Model model) {
@@ -457,7 +462,7 @@ public class SalesServiceImpl implements SalesService {
 		
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-
+		
 		String sales_id = dao.select_sales_id();
 		String product_id = req.getParameter("product_id");
 		String company_id = req.getParameter("company_id");
@@ -485,13 +490,13 @@ public class SalesServiceImpl implements SalesService {
 		// 판매 상태 : 테스트용
 		System.out.println("  -> sales_state : " + dto.getSales_state());
 		System.out.println("  -> test dto get : " + dto.toString());
-		
+
 		// 가격 계산 ( 구매가, 부가세, 총합 )
 		int cnt = 0;	
 		long price = supply_price;
 		long tax = price/10;
 		long sum = price + tax;
-	
+
 		// 상품매출 insert , 가격 x 수량
 
 		String price_code = dao.select_account_price();
@@ -504,7 +509,7 @@ public class SalesServiceImpl implements SalesService {
 			System.out.println("  -> product_cnt insert Complete... ");
 			cnt++;
 		}
-		
+
 		// 부가세예수금 insert , 부가세 10%
 		String tax_code = dao.select_account_tax();
 		dto.setAccount_id(tax_code);
@@ -516,7 +521,7 @@ public class SalesServiceImpl implements SalesService {
 			System.out.println("  -> tax_cnt insert Complete... ");
 			cnt++;
 		}
-		
+
 		// 매출채권 insert , 상품매출 + 부가세
 		String sum_code = dao.select_account_sum();
 		dto.setAccount_id(sum_code);
@@ -528,20 +533,20 @@ public class SalesServiceImpl implements SalesService {
 			System.out.println("  -> setAccount_id insert Complete... ");
 			cnt++;
 		}
-		
+
 		if ( cnt == 3 ){
-			
+
 			// 리스트를 만들어서 결과값을 담음
 			ArrayList<SalesDTO> dtos = new ArrayList<>();
 			sales_id = dto.getSales_id();
 			dtos = dao.select_sales_order(sales_id);
 			model.addAttribute("dtos", dtos);
 			System.out.println("  ->  dtos : " + dtos.toString());
-			
+
 		} else System.out.println("  -> Insert Error... ");
-		
+
 		model.addAttribute("cnt", cnt);
-		
+
 	}
 
 	@Override
