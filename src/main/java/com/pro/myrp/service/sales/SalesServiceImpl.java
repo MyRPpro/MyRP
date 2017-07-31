@@ -1,7 +1,9 @@
 package com.pro.myrp.service.sales;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -91,6 +93,7 @@ public class SalesServiceImpl implements SalesService {
 		req.setAttribute("search_check",search_check);
 		
 	}
+	
 	
 	@Override
 	public void sales_list_table_servie(Model model) {
@@ -369,7 +372,23 @@ public class SalesServiceImpl implements SalesService {
 		int count_sales = Integer.parseInt(req.getParameter("count_sales") );
 		int sales_state = Integer.parseInt(req.getParameter("sales_state") );
 		int condition_note_receivable = Integer.parseInt(req.getParameter("condition_note_receivable") );
-			
+
+		// 가격 설정
+		String selling_price = req.getParameter("selling_price");
+		System.out.println( "  -> selling_price : " + selling_price );
+		selling_price = selling_price.replace("￦","");
+		selling_price = selling_price.replace(",","");
+		
+		Long price	=  Math.round(Double.parseDouble(selling_price)); 
+		System.out.println( "price : " + price );
+		
+		Long tax	=  (price/10);
+		Long sum	= (price + tax);
+		
+		System.out.println("  -> price : " + price);
+		System.out.println("  -> tax : " + tax);
+		System.out.println("  -> sum : " + sum);
+		
 		SalesDTO dto = new SalesDTO();
 		dto.setSales_id(sales_id);
 		dto.setOrder_id(order_id);
@@ -382,16 +401,7 @@ public class SalesServiceImpl implements SalesService {
 		dto.setCount_sales(count_sales);
 		dto.setSales_state(sales_state);	
 		dto.setCondition_note_receivable(condition_note_receivable);
-
-		// 가격 설정
-		Long price	=  Math.round(Double.parseDouble(req.getParameter("selling_price"))); 
-		Long tax	=  (price/10);
-		Long sum	= (price + tax);
-
-		
-		System.out.println("  -> price : " + price);
-		System.out.println("  -> tax : " + tax);
-		System.out.println("  -> sum : " + sum);
+		System.out.println("  -> dto: "+dto.toString());
 		
 		int cnt = 0;
 		// 상품매출 insert , 가격 x 수량
@@ -403,7 +413,7 @@ public class SalesServiceImpl implements SalesService {
 		int product_cnt = dao.update_sales(dto);	
 		if( product_cnt > 0 ){
 			System.out.println("  -> product_cnt insert Complete... ");
-			cnt++;
+			++cnt;
 		}
 		
 		// 부가세예수금 insert , 부가세 10%
@@ -415,7 +425,7 @@ public class SalesServiceImpl implements SalesService {
 		int tax_cnt = dao.update_sales(dto);
 		if( tax_cnt > 0 ){
 			System.out.println("  -> tax_cnt insert Complete... ");
-			cnt++;
+			++cnt;
 		}
 		
 		// 매출채권 insert , 상품매출 + 부가세
@@ -427,10 +437,11 @@ public class SalesServiceImpl implements SalesService {
 		int debt_cnt = dao.update_sales(dto);
 		if( debt_cnt > 0 ){
 			System.out.println("  -> setAccount_id insert Complete... ");
-			cnt++;
+			++cnt;
 		}
 		
 		model.addAttribute("cnt", cnt);
+		System.out.println("  -> cnt 값 : " + cnt);
 		
 	}
 	

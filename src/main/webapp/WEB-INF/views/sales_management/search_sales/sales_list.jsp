@@ -20,8 +20,8 @@
 						판매 리스트 페이지 Sales_List
 					</h3>
 				</div>	<!-- // panel-heading -->
-				<div class="panel-body" id="sales_list_content"  >
-					<div class="input-group" id="content" style="display: inline;">
+				<div class="panel-body" >
+					<div class="input-group" id="sales_list_content" style="width: 100%;">
 						<font class="media-heading" style="margin:0 auto;"> 입력된 판매 내역을 검색 할 수 있는 페이지 입니다.</font><br><br>
 							<form class="form-inline-block" action="#" name="purchase_list_form" method="get">
 								<div class="input-group">
@@ -72,10 +72,10 @@
 									</div>
 								</div>	<!-- // btn-group-justified -->
 							</form>	
+							<div id="list_page"></div>
 					</div>	<!-- // input-group -->
+					<div id="list_table"></div>
 				</div>	<!-- // panel-body  -->  	
-				<div id="list_page"></div>
-				<div id="list_table"></div>
 			</div> <!-- // panel panel-primary -->
 		</div> <!-- // col-xs-12 -->	 
 	</div>	<!-- // row -->
@@ -90,19 +90,20 @@
 			return false;
 		});
 		
-		$('#list_btn_reg').click(function(){
+		$('#list_btn_reg').click(function(){	// 판매 등록
 			$('#list_page').slideUp(500);
 			$('#list_table').slideDown(500);
 			$('#list_table').load("/sales_management/input_sales/reg_sales");
 			return false;
 			
 		});
-		$("input[name=reg_sales_statement]").click(function(){
+		
+		$("input[name=reg_sales_statement]").click(function(){	// 전표 등록
 			$('#list_table').slideDown(500);
 			$('#list_table').load("/accounting_management/statement_management/search_all_statements");
 			return false;
 		});
-		$("input[name=req_storage_out]").click(function(){
+		$("input[name=req_storage_out]").click(function(){	// 창고 등록
 			$('#list_table').slideDown(500);
 			$('#list_table').load("/distribution_management/search_distribution_order/statement_list");
 			return false;

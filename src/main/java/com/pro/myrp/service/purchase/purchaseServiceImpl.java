@@ -598,7 +598,7 @@ public class purchaseServiceImpl implements purchaseService {
 		dto.setCount_purchase(count_purchase);
 		dto.setPurchase_state(purchase_state);
 		dto.setCondition_note_payable(condition_note_payable);
-		System.out.println("  -> dto1: "+dto.toString());
+		System.out.println("  -> dto: "+dto.toString());
 		
 		System.out.println("  -> 부가세 대수금 수정");
 		dto.setPurchase_id(purchase_id);
