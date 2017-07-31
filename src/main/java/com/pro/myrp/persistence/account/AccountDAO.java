@@ -280,4 +280,6 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public ArrayList<JoinStatementDTO> select_bond_debt_list_by_company(Map<Object, Object> daoMap);
+	
+	public ArrayList<JoinStatementDTO> select_company_name();
 }

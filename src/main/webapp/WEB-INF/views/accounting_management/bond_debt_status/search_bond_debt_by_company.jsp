@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file ="../../setting.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
  $(function(){
@@ -248,8 +249,25 @@ function SetPrevYearDays(begin, end) {
 		 		</td>
 			</tr>
 			<tr>
+				<th> <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> 거래처 선택 </th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class="form-group" role="group">
+						<select name="company_name" class="form-control">
+							<c:forEach var="dtos" items="${dtos}"> 
+							<option value="${dtos.company_name}">
+								${dtos.company_name}
+							</option>
+							</c:forEach>
+						</select>
+		 			</div>
+				</td>
+			</tr>
+			<tr>
 				<td colspan="2"> <input type="submit" value="조회 " id="show_bond_debt"  class="btn btn-default"></td>
 			</tr>
+			
 			</table>
 		</form>
 	</div>

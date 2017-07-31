@@ -1022,22 +1022,36 @@ public class AccountServiceImpl implements AccountService {
 	public void search_bond_debt_by_company_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		ArrayList<JoinStatementDTO> pre_dtos = new ArrayList<JoinStatementDTO>();
+		pre_dtos = dao.select_company_name();
+		
+		for(int i=0; i<pre_dtos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			JoinStatementDTO tempVO = pre_dtos.get(i);
+			String company_name="";
+				if(tempVO.getSales_company_name()!=null) {
+					company_name = tempVO.getSales_company_name();
+				}else if(tempVO.getPurchase_company_name()!=null){
+					company_name = tempVO.getPurchase_company_name();
+				}
+		    dto.setCompany_name(company_name);
+			dtos.add(dto);
+		}
+		model.addAttribute("dtos", dtos);
 	}
 	@Override
 	public void show_all_bond_debt_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 		String startDate = req.getParameter("startDate");
-		System.out.println("startDate: " + startDate);
 		String endDate = req.getParameter("endDate");
-		System.out.println("endDate: " + endDate);
 		Map<Object, Object> daoMap = new HashMap<>();
 		daoMap.put("startDate", startDate);
 		daoMap.put("endDate", endDate);
 		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
 		ArrayList<JoinStatementDTO> pre_dtos = new ArrayList<JoinStatementDTO>();
 		pre_dtos = dao.select_all_bond_debt_list(daoMap);
-		System.out.println("사이즈: " + dtos.size());
 		for(int i=0; i<pre_dtos.size(); i++) {
 			JoinStatementDTO dto = new JoinStatementDTO();
 			JoinStatementDTO tempVO = pre_dtos.get(i);
@@ -1046,25 +1060,20 @@ public class AccountServiceImpl implements AccountService {
 				if(tempVO.getSales_account_id()!=null) {
 					account_id = tempVO.getSales_account_id();
 					company_name = tempVO.getSales_company_name();
-					System.out.println("account_id1: " + account_id);
-					System.out.println("company_name1: " + company_name);
 				}else if(tempVO.getPurchase_account_id()!=null){
 					account_id = tempVO.getPurchase_account_id();
 					company_name = tempVO.getPurchase_company_name();
-					System.out.println("account_id2: " + account_id);
-					System.out.println("company_name2: " + company_name);
 				}
 		    java.util.Date reg_date = tempVO.getReg_date();
 		    Long account_value = tempVO.getAccount_value();
 		    dto.setAccount_id(account_id);
 		    dto.setCompany_name(company_name);
 		    dto.setReg_date(reg_date);
-		    System.out.println("reg_date: " + reg_date);
 		    dto.setAccount_value(account_value);
-		    System.out.println("account_value: " + account_value);
 			dtos.add(dto);
 		}
-		model.addAttribute("dtos", dtos);		
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("dtosCnt", dtos.size());
 	}
 	@Override
 	public void show_bond_debt_by_company_service(Model model) throws Exception {
@@ -1101,6 +1110,7 @@ public class AccountServiceImpl implements AccountService {
 			dtos.add(dto);
 		}
 		model.addAttribute("dtos", dtos);
+		model.addAttribute("dtosCnt", dtos.size());
 	}
 	
 }

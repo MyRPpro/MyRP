@@ -328,19 +328,19 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	@Override
 	@PostMapping(value="bond_debt_status/show_all_bond_debt")
 	public String show_all_bond_debt(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(search_all_bond_debt));
+		System.out.println("show_all_bond_debt_service");
 		model.addAttribute("req",req);
 		service.show_all_bond_debt_service(model);
-		return "accounting_management/bond_debt_status/show_all_bond_debt_service";
+		return "accounting_management/bond_debt_status/show_all_bond_debt";
 	}
 
 	@Override
 	@PostMapping(value="bond_debt_status/show_bond_debt_by_company")
 	public String show_bond_debt_by_company(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(search_bond_debt_by_company));
+		System.out.println("show_bond_debt_by_company");
 		model.addAttribute("req",req);
 		service.show_bond_debt_by_company_service(model);
-		return "accounting_management/bond_debt_status/show_bond_debt_by_company";
+		return "accounting_management/bond_debt_status/show_all_bond_debt";
 	}
 
 

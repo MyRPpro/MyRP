@@ -315,6 +315,11 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_bond_debt_list_by_company(daoMap);
 	}
+	@Override
+	public ArrayList<JoinStatementDTO> select_company_name() {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_company_name();
+	}
 
 	
 	
