@@ -727,5 +727,43 @@
 		]]>
 	</select>
 	
-
+	<!-- 채권/채무현황 조회  > 모든 내역 조회-->
+	<select id="select_all_bond_debt_list" parameterType="java.util.Map" resultType="JoinStatementDTO">
+		<![CDATA[
+		SELECT sales.account_id AS sales_account_id, purc.account_id AS purchase_account_id, s.account_value, s.reg_date, 
+           so.company_name AS sales_company_name, po.company_name AS purchase_company_name
+     	FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id
+                                       left outer JOIN (
+                                        SELECT *
+                                        FROM sales_order so JOIN company c ON so.company_id = c.company_id
+                                       ) so ON sales.sales_id = so.sales_id AND sales.account_id = so.account_id
+                       left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+                                        left outer JOIN (
+                                        SELECT *
+                                        FROM purchase_order po JOIN company c ON po.company_id = c.company_id
+                                       ) po ON purc.purchase_id = po.purchase_id AND purc.account_id = po.account_id
+    	WHERE sales.account_id = '500011020000' OR purc.account_id = '500012010000'
+    	  AND s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+		]]>
+	</select>
+	<!-- 채권/채무현황 조회  > 거래처별 조회-->
+	<select id="select_bond_debt_list_by_company" parameterType="java.util.Map" resultType="JoinStatementDTO">
+		<![CDATA[
+		SELECT sales.account_id AS sales_account_id, purc.account_id AS purchase_account_id, s.account_value, s.reg_date, 
+           so.company_name AS sales_company_name, po.company_name AS purchase_company_name
+     	FROM statement s left outer JOIN sales_statement sales ON s.statement_id = sales.statement_id
+                                       left outer JOIN (
+                                        SELECT *
+                                        FROM sales_order so JOIN company c ON so.company_id = c.company_id
+                                       ) so ON sales.sales_id = so.sales_id AND sales.account_id = so.account_id
+                       left outer JOIN purchase_statement purc ON s.statement_id = purc.statement_id
+                                        left outer JOIN (
+                                        SELECT *
+                                        FROM purchase_order po JOIN company c ON po.company_id = c.company_id
+                                       ) po ON purc.purchase_id = po.purchase_id AND purc.account_id = po.account_id
+    	WHERE sales.account_id = '500011020000' OR purc.account_id = '500012010000'
+  		  AND so.company_name = #{company_name} OR po.company_name = #{company_name}
+  		  AND s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+		]]>
+	</select>
 </mapper>
