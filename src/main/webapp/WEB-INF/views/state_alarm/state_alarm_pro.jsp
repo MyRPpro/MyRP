@@ -44,7 +44,7 @@ $(".mov").bind("click", function(event) {
 	</c:if>
 	<c:if test = "${size > 0}">
 		<table class="table table-hover">
-			<c:forEach var = "dto" items = "${state_alarmDtos}" begin="1" end = "5">
+			<c:forEach var = "dto" items = "${state_alarmDtos}" begin="0" end = "4">
 				<tr>
 					<th style="vertical-align: middle;"><h5 class="label label-Success">${dto.from_dept}</h5></th>
 					<th><a class = "mov" href = "${dto.state_addr}"><h5>${dto.state_msg}</h5></a></th>
