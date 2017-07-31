@@ -13,7 +13,8 @@ public interface CodeMyRP {
 			public static final int reg_company = 11100;
 				public static final int company_list = 11110;									//거래처 리스트
 				public static final int add_company = 11120;									//거래처 추가
-				public static final int add_company_pro = 11121;								//거래처 추가 처리
+				public static final int add_company_dupCheck = 11121;
+				public static final int add_company_pro = 11122;								//거래처 추가 처리
 				public static final int modify_company = 11130;									//거래처 수정
 				public static final int modify_company_pro = 11131;								//거래처 수정 처리
 			//상품 등록

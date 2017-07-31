@@ -45,11 +45,18 @@
 			$dept_id.focus();
 			return false;
 		}
-		var url ="/hr_management/manage_dept/add_dept_dupCheck?dept_id="+$dept_id.val();
 		$("#page16220_div01").slideUp();
 		$("#page16220_div02").slideDown();
-		$("#page16220_div02").load(url);
-		
+		$.ajax({
+			data:		null,
+			type:		'get',
+			url:		'/hr_management/manage_dept/add_dept_dupCheck?dept_id='+$dept_id.val(),
+			success: function(response) {
+				$("#page16220_div02").html(response);
+				$("form[name='page16221_form02'] input[name='dept_id']").focus();
+			}
+		});
+		return false;
 	});
 	
 	$("#page16220_btn02").bind("click", function(event) {
@@ -72,7 +79,7 @@
 					<td>
 						<div class="input-group">
 							<input class="form-control input-sm" type="number" name="dept_id" value="${dept_id}"
-							min="1" max="9999" step="1" required autofocus>
+							min="1" max="9999" step="1" required>
 							<span class="input-group-btn">
 								<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page16220_btn01">
 							</span>
@@ -105,9 +112,9 @@
 						<input type="hidden" name="dupcheck"
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<input class="btn btn-default btn-xs" type="submit" value="등록하기">
-						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-						<input class="btn btn-default btn-xs" type="button" value="닫기"
+						<input class="btn btn-default btn-sm" type="submit" value="등록하기">
+						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+						<input class="btn btn-default btn-sm" type="button" value="닫기"
 						id="page16220_btn02">
 					</th>
 				</tr>

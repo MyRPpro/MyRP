@@ -1092,12 +1092,13 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		if(salary_register_code != 0) {
 			daoMap.put("hr_code_group_id", 4);
 			daoMap.put("hr_code_id", salary_register_code);
-			salary_register_name = dao.select_hr_code_name(daoMap);			
+			salary_register_name = dao.select_hr_code_name(daoMap);
 		}
 		daoMap.clear();
 		daoMap.put("salary_register_name", salary_register_name);
 		daoMap.put("search_start", search_start);
 		daoMap.put("search_end", search_end);
+		daoMap.put("account_id", account_salary);
 		cnt = dao.select_salary_register_cnt(daoMap);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
@@ -1108,8 +1109,11 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		if(cnt > 0) {
 			daoMap.put("start", start);
 			daoMap.put("end", end);
-			List<Salary_registerVO> vos = new ArrayList<>();
-			vos = dao.select_salary_register_list(daoMap);
+			List<Salary_registerVO> vos = dao.select_salary_register_list(daoMap);
+			for(int i=0; i<vos.size(); i++) {
+				Salary_registerVO vo = vos.get(i);
+				vo.setSalary_state_name(dao.select_state(vo.getSalary_state()));
+			}
 			model.addAttribute("salary_registerVos", vos);
 		}
 	}
@@ -1144,6 +1148,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		daoMap.put("salary_register_name", salary_register_name);
 		daoMap.put("search_start", search_start);
 		daoMap.put("search_end", search_end);
+		daoMap.put("account_id", account_salary);
 		cnt = dao.select_salary_register_cnt(daoMap);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
@@ -1249,6 +1254,12 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 				}
 			}
 		}
+		
+		for(int i=0; i<salaryVos.size(); i++) {
+			Salary_registerVO vo = salaryVos.get(i);
+			vo.setSalary_state_name(dao.select_state(vo.getSalary_state()));
+		}
+		
 		int cnt = salaryVos.size();
 		if(cnt != 0) {
 			model.addAttribute("vos", salaryVos);
@@ -1265,6 +1276,10 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		vos = dao.select_salary_register_for_clear();
 		int cnt = vos.size();
 		if(cnt != 0) {
+			for(int i=0; i<vos.size(); i++) {
+				Salary_registerVO vo = vos.get(i);
+				vo.setSalary_state_name(dao.select_state(vo.getSalary_state()));
+			}
 			model.addAttribute("vos", vos);			
 		}
 		model.addAttribute("cnt", cnt);
@@ -1465,7 +1480,10 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		List<Personnel_card_salaryDTO> dtos = dao.select_personnel_card_salary(employee_id);
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("employee_id", employee_id);
+		daoMap.put("salary_state", state_complete_payments_salary);
+		List<Personnel_card_salaryDTO> dtos = dao.select_personnel_card_salary(daoMap);
 		model.addAttribute("dtos", dtos);
 		model.addAttribute("employee_id", employee_id);
 	}

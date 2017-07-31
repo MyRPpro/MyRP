@@ -28,7 +28,15 @@
 	$("#page16210_btn01").bind("click", function(event) { //부서등록페이지 이동
 		$("#page16210_div01").slideUp();
 		$("#page16210_div02").slideDown();
-		$("#page16210_div02").load("/hr_management/manage_dept/add_dept");
+		$.ajax({
+			data:		null,
+			type:		'get',
+			url:		'/hr_management/manage_dept/add_dept',
+			success: function(response) {
+				$("#page16210_div02").html(response);
+				$("form[name='page16220_form01'] input[name='dept_id']").focus();
+			}
+		});
 		return false;		
 	});
 	
@@ -82,7 +90,7 @@
 				</c:forEach>
 				<tr>
 					<td colspan="4">
-						<input class="btn btn-default btn-xs" type="button" value="부서 등록" id="page16210_btn01">
+						<input class="btn btn-default btn-sm" type="button" value="부서 등록" id="page16210_btn01">
 					</td>
 				</tr>
 			</table>

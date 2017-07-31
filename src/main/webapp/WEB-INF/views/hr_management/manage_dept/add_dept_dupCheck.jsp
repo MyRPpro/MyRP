@@ -21,8 +21,15 @@
 	
 	$("form[name='page16221_form02']").on("submit", function(event) {
 		var $dept_id = $("form[name='page16221_form02'] input[name='dept_id']");
-		$("#page16220_div02").load("/hr_management/manage_dept/add_dept_dupCheck"+
-								"?dept_id="+$dept_id.val());
+		$.ajax({
+			data:		null,
+			type:		'get',
+			url:		'/hr_management/manage_dept/add_dept_dupCheck?dept_id='+$dept_id.val(),
+			success: function(response) {
+				$("#page16220_div02").html(response);
+				$("form[name='page16221_form02'] input[name='dept_id']").focus();
+			}
+		});
 		return false;
 	});
 	
@@ -48,7 +55,7 @@
 						<tr>
 							<td>
 								<input type="hidden" name="dept_id" value="${dept_id}">
-								<input class="btn btn-default btn-xs" type="submit" value="확인">
+								<input class="btn btn-default btn-sm" type="submit" value="확인">
 							</td>
 						</tr>
 					</table>
@@ -63,19 +70,18 @@
 								[${dup_dept_name}]에 사용중입니다.<br>
 								새로운 부서번호를 선택하세요.
 							</th>
-						</tr>
 						<tr>
 							<th>부서번호</th>
 							<td>
 								<input class="form-control input-sm" type="number" name="dept_id" 
-								min="1" max="9999" step="1" required autofocus>
+								min="1" max="9999" step="1" required>
 							</td>
 						</tr>
 						<tr>
 							<th colspan="2">
-								<input class="btn btn-default btn-xs" type="submit" value="중복확인">
-								<input class="btn btn-default btn-xs" type="reset" value="재작성">
-								<input class="btn btn-default btn-xs" type="button" value="닫기"
+								<input class="btn btn-default btn-sm" type="submit" value="중복확인">
+								<input class="btn btn-default btn-sm" type="reset" value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기"
 								id="page16221_btn01">
 							</th>
 						</tr>
