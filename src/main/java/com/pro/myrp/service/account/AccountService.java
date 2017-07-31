@@ -188,4 +188,21 @@ public interface AccountService extends MyRPService {
 	 */
 	public void search_statement_of_cash_flows_service(Model model) throws Exception;
 	public void show_statement_of_cash_flows_service(Model model) throws Exception;
+	
+	/**
+	 * 채권/채무현황 > 모든 채권/채무현황 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_all_bond_debt_service(Model model) throws Exception;
+	
+	/**
+	 * 채권/채무현항 > 거래처별 채권/채무현황 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_bond_debt_by_company_service(Model model) throws Exception;
+	
+	public void show_all_bond_debt_service(Model model)throws Exception;
+	public void show_bond_debt_by_company_service(Model model) throws Exception;
 }
