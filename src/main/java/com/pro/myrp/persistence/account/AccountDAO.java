@@ -267,4 +267,19 @@ public interface AccountDAO extends MyRPDAO {
 	public ArrayList<JoinStatementDTO> select_cash_values(Map<Object,Object> daoMap);
 	public String select_account_name_for_tax(String statement_id);
 	public String select_account_name_for_all(String statement_id);
+	
+	/**
+	 * 채권/채무 현황 > 모든 채권/채무 내역 조회
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_all_bond_debt_list(Map<Object, Object> daoMap);
+	/**
+	 * 채권/채무 현황 > 거래처별 채권/채무 내역 조회
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_bond_debt_list_by_company(Map<Object, Object> daoMap);
+	
+	public ArrayList<JoinStatementDTO> select_company_name();
 }

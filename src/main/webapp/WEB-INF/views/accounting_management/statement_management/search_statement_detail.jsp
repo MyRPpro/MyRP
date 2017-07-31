@@ -20,8 +20,9 @@ $(function(){
 		상세 전표 조회
 	</div>
 <div class="panel-body" style="text-align: center;">
+	
+	<table class="table table-hover">
 
-<table class="table table-hover">
 	<tr>
 		<th> 
 			전표타입 			
@@ -185,6 +186,7 @@ $(function(){
 	</tr>
 	
 </table>
+
 <c:if test="${sales_id!=null}">
 	<c:set var="connected_id" value="${sales_id}" />
 </c:if>
@@ -202,4 +204,5 @@ $(function(){
  class="btn btn-info" role="button" <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if>> 승인거절 </a>
 </div>
 </c:if>
+
 </div>

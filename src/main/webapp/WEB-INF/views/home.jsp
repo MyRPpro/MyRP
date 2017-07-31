@@ -227,7 +227,7 @@ function onoff(){
 </body>
 <script type="text/javascript">
 
-	$(function(){
+	 $(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;
 			var data = {"role" : role}
