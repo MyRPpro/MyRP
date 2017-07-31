@@ -62,7 +62,11 @@ function slideUpFunction(){
 	});
 </script>
 <body>
-	
+<div class="panel panel-default">
+	<div class="panel-heading">
+		 계좌 등록
+	</div>
+	<div class="panel-body" style="text-align: center;">
 	<form name="register_bank_account_form1">
 		<table class="table table-hover">
 			<tr>
@@ -90,7 +94,7 @@ function slideUpFunction(){
 			<tr>
 				<th>계좌명</th>
 				<td>
-					<input type="text" name="bank_account_name" maxlength="20">
+					<input type="text" name="bank_account_name" maxlength="20" id="bank_account_name">
 				</td>
 			</tr>
 			<tr>
@@ -135,5 +139,7 @@ function slideUpFunction(){
 			</tr>
 		</table>
 	</form>
+	</div>
+</div>
 </body>
 </html>
