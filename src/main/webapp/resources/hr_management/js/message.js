@@ -13,6 +13,7 @@
 /**
  * 공통
  */
+var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 
 /**
  * 기초 등록
@@ -23,9 +24,7 @@
  * 판매 관리
  */
 
-
 // reg_sales
-var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 var storage_out_date	= "출고일 : YYYY-MM-DD 형식";
 var count_sales = "판매수량 : 4자리 정수";
 var selling_price = "판매가 : 9자리 정수 ";
@@ -49,6 +48,12 @@ var btn_all_list = "전체목록";
 var req_confirm = "승인요청";
 var req_sales_statement = "전표승인조회";
 var search_storage_out = "출고 완료 조회";
+var req_sales_statement = "전표승인신청";
+var search_sales_statement = "전표승인조회";
+var req_storage_out = "상품출고신청";
+var search_storage_out = "출고완료조회";
+var req_note_receive = "지급대기신청";
+var search_note_receive = "지급완료조회";
 
 //search_status
 var start_date = "시작일 : YYYY-MM-DD 형식";
