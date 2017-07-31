@@ -32,12 +32,12 @@ $(function(){
 		return false;
 	});
 });
-</script>
-<div id="search_account_list">
+</script><div class="container"  >
+<div id="search_account_list" >
 <h3> 전체 계정 조회 </h3>
 총 계정 개수 : ${cnt}
 
-<table border="1" id="account_list_table">
+<table id="account_list_table" class="table table-hover">
 	<tr>
 		<th> 계정명 </th>
 		<th> 계정금액 </th>
@@ -91,7 +91,7 @@ $(function(){
 	</div>
 	</c:if>
 	<form action="#" method="get" name="statement_list_form1">
-	<input type="submit" value="계정 추가">	
+	<input type="submit" value="계정 추가" class="btn btn-default">	
 	</form>
 </div>
 	<div id="account_list_stage">

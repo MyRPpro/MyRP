@@ -33,7 +33,7 @@ $(function(){
 });
 </script>
 	<form action="#" name="modify_bank_account_form1" method="post">
-	 	<table border="1">
+	 	<table class="table table-hover">
 	 		<tr>
 				<th>bank_account_id</th>
 				<td>
@@ -89,9 +89,9 @@ $(function(){
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="submit" value="수정하기">
-					<input type="reset" value="재작성">
-					<input type="button" value="돌아가기" onclick="window.history.back();">					
+					<input type="submit" value="수정하기" class="btn btn-default">
+					<input type="reset" value="재작성" class="btn btn-default">
+					<input type="button" value="돌아가기" onclick="window.history.back();" class="btn btn-default">					
 				</th>
 			</tr>
 	 	</table>

@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-
+<div class="container"  style="display: inline-block;text-align: center;">
 <h3>현금흐름표</h3>
 <h4> <fmt:formatDate pattern = "yyyy/MM/dd" value="${startDate}"/> ~ 
 	 <fmt:formatDate pattern = "yyyy/MM/dd" value="${endDate}"/>
 </h4>
 
-<table border="1">
+<table class="table table-hover">
 	<tr>
 		<th>
 			계정
@@ -34,3 +34,4 @@
 	</tr>
 	</c:forEach>
 </table>
+</div>

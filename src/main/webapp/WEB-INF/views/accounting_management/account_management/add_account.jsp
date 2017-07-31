@@ -53,15 +53,16 @@
 		});
 	});
 </script>
+<div class="container"  style="display: inline-block;text-align: center;">
 <h3> 계정 등록 </h3>
 <form action="#" name="add_account_form1">
 <input type="hidden" name="dupCheck" id="dupCheck" value="0">
-<table border="1">
+<table class="table table-hover">
 	<tr>
 		<th> 계정번호 </th>
 		<td>
 			<input type="text" name="account_id" id="account_id" onchange="reset_dupCheck()"> 
-			<input type="button" value="중복확인" onclick="add_account_dupCheck()" name="dupCheckButton">
+			<input type="button" value="중복확인" onclick="add_account_dupCheck()" name="dupCheckButton" class="btn btn-default">
 			<div id="id_check_msg"> </div>
 		</td>
 	</tr>
@@ -79,10 +80,11 @@
 	</tr>
 	<tr>
 		<th colspan="2">
-			<input type="submit" value="등록하기">
-			<input type="reset" value="재작성">
-			<input type="button" value="돌아가기" onclick="window.history.back();">					
+			<input type="submit" value="등록하기" class="btn btn-default">
+			<input type="reset" value="재작성" class="btn btn-default">
+			<input type="button" value="돌아가기" onclick="window.history.back();" class="btn btn-default">					
 		</th>
 	</tr>
 </table>
 </form>
+</div>

@@ -52,11 +52,11 @@ $(function(){
 });
 </script>
 <div id="search_statements_overall">
-<button id="all_statements"> 전체 전표 조회</button>
-<button id="unapproval_statements"> 미승인 전표 조회</button>
-<button id="approval_statements"> 승인 전표 조회</button>
+<button id="all_statements" class="btn btn-default"> 전체 전표 조회</button>
+<button id="unapproval_statements" class="btn btn-default"> 미승인 전표 조회</button>
+<button id="approval_statements" class="btn btn-default"> 승인 전표 조회</button>
 <form action="#" method="get" name="statement_list_form1">
-	<input type="submit" value="전표 등록">	
+	<input type="submit" value="전표 등록" class="btn btn-default">	
 </form>
 <div id="make_statements_list">
 

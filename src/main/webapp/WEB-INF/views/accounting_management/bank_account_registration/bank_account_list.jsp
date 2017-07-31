@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
-$(document).ready(function onload_function(){
+$(function(){
+	$("form[name='bank_account_list_form1']").on("submit",function(){
 	var bank_account_reg_on = "<c:out value='${bank_account_reg_on}' />";
-	if(bank_account_reg_on==1){ //계좌등록페이지 띄우기
-		$("#bank_account_list_stage").load("/accounting_management/bank_account_registration/register_bank_account");
-	}else{
-		return false;
-	}
+		if(bank_account_reg_on==1){ //계좌등록페이지 띄우기
+			$("#bank_account_list_stage").load("/accounting_management/bank_account_registration/register_bank_account");
+		}else{
+			return false;
+		}
+	})
 });
 $(function(){
 	$('#bank_account_list_form_for_register form').on("submit",function(){
@@ -25,7 +27,7 @@ $(function(){
 </script>
 <body>
 <div id="bank_account_list">
-<table border="1" id="bank_account_list_table">
+<table id="bank_account_list_table" class="table table-hover">
 	<tr>
 		<th>계좌명</th>
 		<th>계좌번호</th>
@@ -79,9 +81,9 @@ $(function(){
 	</table>
 	</div>
 </c:if>
-	<div id="bank_account_list_form_for_register">
+	<div id="bank_account_list_form_for_register" class="container"  style="display: inline-block;text-align: center;">
 	<form action="#" method="get" name="bank_account_list_form1">
-		<input type="submit" value="계좌 등록">
+		<input type="submit" value="계좌 등록"  class="btn btn-default">
 	</form>
 	</div>
 </div>

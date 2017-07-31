@@ -16,7 +16,25 @@ $(function(){
 
 </script>
 <h3> 상세 전표 조회 </h3>
-<table border="1">
+
+<c:if test="${sales_id!=null}">
+	<c:set var="connected_id" value="${sales_id}" />
+</c:if>
+<c:if test="${purchase_id!=null}">
+	<c:set var="connected_id" value="${purchase_id}" />
+</c:if>
+<c:if test="${salary_register_id!=null}">
+	<c:set var="connected_id" value="${salary_register_id}" />
+</c:if>
+<c:if test="${ROLE.access_role.equals('FI')}">
+<div id="statement_approve_and_disapprove" style="text-align: right;">
+ <a href="/accounting_management/statement_management/approve_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}&statement_type=${statement_type}" 
+ class="btn btn-info" role="button" <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if>> 승인 </a>
+<a href="/accounting_management/statement_management/disapprove_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}" 
+ class="btn btn-info" role="button" <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if>> 승인거절 </a>
+</div>
+</c:if>
+<table class="table table-hover">
 	<tr>
 		<th> 
 			전표타입 			
@@ -180,22 +198,3 @@ $(function(){
 	</tr>
 	
 </table>
-	<c:if test="${sales_id!=null}">
-		<c:set var="connected_id" value="${sales_id}" />
-	</c:if>
-	<c:if test="${purchase_id!=null}">
-		<c:set var="connected_id" value="${purchase_id}" />
-	</c:if>
-	<c:if test="${salary_register_id!=null}">
-		<c:set var="connected_id" value="${salary_register_id}" />
-	</c:if>
-<c:if test="${ROLE.access_role.equals('FI')}">
-<div id="statement_approve_and_disapprove">
- <a href="/accounting_management/statement_management/approve_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}&statement_type=${statement_type}" 
- class="btn btn-info" role="button" <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if>> 승인 </a>
-<a href="/accounting_management/statement_management/disapprove_statement?statement_id=${statement_ides}&connected_id=${connected_id}&typeCnt=${typeCnt}" 
- class="btn btn-info" role="button" <c:if test="${approval_state != 25451}"> disabled="disabled" </c:if>> 승인거절 </a>
-</div>
-</c:if>
-</body>
-</html>

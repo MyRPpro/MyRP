@@ -34,7 +34,7 @@ $(function(){
 });
 </script>
 <form action="#" name="modify_account_form1" method="POST">
-<table border="1">
+<table class="table table-hover">
 	<tr>
 		<th> 계정번호 </th>
 		<td>

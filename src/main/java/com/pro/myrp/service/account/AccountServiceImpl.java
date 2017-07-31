@@ -90,8 +90,9 @@ public class AccountServiceImpl implements AccountService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
 		vos = dao.select_bank_account_id();
+		int vosCnt = vos.size();
 		model.addAttribute("vos", vos);
-		
+		model.addAttribute("vosCnt", vosCnt);
 	}
 	
 	// 계좌 등록 : bank_account_id 불러오기
