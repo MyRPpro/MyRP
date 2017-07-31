@@ -340,7 +340,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		System.out.println("show_bond_debt_by_company");
 		model.addAttribute("req",req);
 		service.show_bond_debt_by_company_service(model);
-		return "accounting_management/bond_debt_status/show_all_bond_debt";
+		return "accounting_management/bond_debt_status/show_bond_debt_by_company";
 	}
 
 
