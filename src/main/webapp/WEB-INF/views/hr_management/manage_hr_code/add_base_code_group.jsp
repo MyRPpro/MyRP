@@ -36,7 +36,7 @@
 	$("#page16120_div01 form").on("submit", function(event) {
 		if($("input[name='dupcheck']").val() == 0) {
 			alert("인사코드 그룹 번호의 중복체크가 필요합니다.");
-			$("input[name='dup_check_btn']").focus();
+			$("#page16120_btn02").focus();
 			return false;
 		}
 		var data =  $(this).serialize();
@@ -51,7 +51,7 @@
 		return false;
 	});
 	
-	$("input[name='dup_check_btn']").on("click", function() {
+	$("#page16120_btn02").on("click", function() {
 		var $hr_code_group_id = $("input[name='hr_code_group_id']");
 		if(!$hr_code_group_id.val()) {
 			alert("먼저 인사코드 그룹 번호에 값을 입력하세요.");
@@ -86,7 +86,7 @@
 							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 						min="1" max="9" step="1" value="${hr_code_group_id}" required autofocus>
 						<span class="input-group-btn">
-							<input class="btn btn-default btn-sm" type="button" name="dup_check_btn" value="중복확인">
+							<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page16120_btn02">
 						</span>
 						</div>
 					</td>

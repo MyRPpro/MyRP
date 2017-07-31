@@ -66,8 +66,7 @@
 			<a id="page11220_div01_toggle">[11220]add_product.jsp</a>		
 		</div>
 		<div class="panel-body" id="page11220_div01">
-			<form action="#"
-			name="page11220_form01" method="post" onsubmit="return validate_form();">
+			<form action="#" name="page11220_form01">
 				<table class="table">
 					<tr>
 						<th>상품번호</th>

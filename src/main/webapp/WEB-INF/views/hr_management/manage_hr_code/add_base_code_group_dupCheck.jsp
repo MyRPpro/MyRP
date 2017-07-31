@@ -9,13 +9,17 @@
 </head>
 <script type="text/javascript">
 	
+	$("#page16121_div01_toggle").bind("click", function(event) {
+		$("#page16121_div01").slideToggle();
+		return false;
+	});
+	
 	$("form[name='page16120_form02']").on("submit", function(event) {
 		$("#page16121").slideUp();
 		var hr_code_group_id = $("form[name='page16120_form02'] input[name='hr_code_group_id']").val();
 		$("#page16110_div02").load("/hr_management/manage_hr_code/add_base_code_group"+
 								"?hr_code_group_id="+hr_code_group_id+
 								"&dupcheck=1");
-		
 		return false;
 	});
 	
@@ -25,7 +29,7 @@
 		return false;
 	});
 	
-	$("#page16120_btn02").bind("click", function(event) {
+	$("#page16121_btn01").bind("click", function(event) {
 		$("#page16121").slideUp();
 		$("#page16120_div01").slideDown();
 		return false;		
@@ -35,7 +39,7 @@
 <body>
 	<div class="panel panel-default" id="page16121">
 		<div class="panel-heading">
-			[16121]add_base_code_group_dupCheck.jsp
+			<a id="page16121_div01_toggle">[16121]add_base_code_group_dupCheck.jsp</a>
 		</div>
 		<div class="panel-body" id="page16121_div01">
 			<c:if test="${cnt == 0}">
@@ -74,7 +78,7 @@
 							<th colspan="2">
 								<input class="btn btn-default btn-xs" type="submit" value="중복확인">
 								<input class="btn btn-default btn-xs" type="reset" value="재작성">
-								<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16120_btn02">
+								<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16121_btn01">
 							</th>
 						</tr>
 					</table>

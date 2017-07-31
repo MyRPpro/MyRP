@@ -96,7 +96,7 @@
 					<tr>
 						<th>대표자</th>
 						<td>
-							<input class="form-control input-sm" type="text" name="ceo_name" maxlength="20">
+							<input class="form-control input-sm" type="text" name="ceo_name" maxlength="6">
 						</td>
 					</tr>
 					<tr>
