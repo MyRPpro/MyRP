@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
-
+function slideUpFunction(){
+	$('#bank_account_list_stage').slideUp();
+}
 	function set_bank_account_id(account_id,account_name,account_balance){
 		
 		switch(account_name){
@@ -23,6 +25,11 @@
 	$(function(){
 		$("form[name='register_bank_account_form1']").on("submit",function(){
 			//bank_account_register 정보가 올바른지 체크
+			var vosCnt = "<c:out value='${vosCnt}' />";
+				if(vosCnt == 0){
+					alert("모든 개좌가 개설되었습니다");
+					return false;
+				}
 				if(!document.register_bank_account_form1.bank_account_id.value){
 					alert("개설 목적을 선택해 계좌코드를 입력해주세요!");
 					document.register_bank_account_form1.calling_button.focus();
@@ -55,13 +62,17 @@
 	});
 </script>
 <body>
-	
+<div class="panel panel-default">
+	<div class="panel-heading">
+		 계좌 등록
+	</div>
+	<div class="panel-body" style="text-align: center;">
 	<form name="register_bank_account_form1">
-		<table border="1">
+		<table class="table table-hover">
 			<tr>
 				<th>개설목적</th>
 				<td>
-					<c:if test="${vos != null}">
+					<c:if test="${vosCnt > 0}">
 						<c:forEach var="vo" items="${vos}">
 									<c:set var = "name">
 									<c:if test="${vo.account_name.equals('현금')}">주 계좌</c:if>
@@ -73,7 +84,7 @@
 								<input type="button" onclick="set_bank_account_id('${vo.account_id}','${vo.account_name}',${vo.account_balance})" value="${name}">
 						</c:forEach>
 					</c:if>
-					<c:if test="${vos==null}">
+					<c:if test="${vosCnt == 0}">
 						모든 계좌가 개설되었습니다
 					</c:if>
 					<input type="hidden" name="bank_account_id" id="bank_account_id" readonly="true">
@@ -83,7 +94,7 @@
 			<tr>
 				<th>계좌명</th>
 				<td>
-					<input type="text" name="bank_account_name" maxlength="20">
+					<input type="text" name="bank_account_name" maxlength="20" id="bank_account_name">
 				</td>
 			</tr>
 			<tr>
@@ -121,12 +132,14 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="submit" value="등록하기">
-					<input type="reset" value="재작성">
-					<input type="button" value="돌아가기" onclick="window.history.back();">					
+					<input type="submit" value="등록하기"  class="btn btn-default">
+					<input type="reset" value="재작성"  class="btn btn-default">
+					<input type="button" value="돌아가기"  onclick="slideUpFunction();"  class="btn btn-default">					
 				</th>
 			</tr>
 		</table>
 	</form>
+	</div>
+</div>
 </body>
 </html>

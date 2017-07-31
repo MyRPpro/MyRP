@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
+function slideUpFunction(){
+	$('#show_connected_id').slideUp();
+}
 function set_connected_id(connected_id, account_id, account_name, account_value, typeCnt){
 	document.getElementById("connected_id").value = connected_id;
 	document.getElementById("account_id").value = account_id;
@@ -27,8 +30,7 @@ function set_statement_account_id(account_id, account_name, account_value, typeC
 	}
 }
 </script>
-	<h5> 연결 ID </h5>
-	<table border="1">
+	<table class="table table-hover">
 		<c:if test="${access_role.equals('SA') || access_role.equals('PU') || access_role.equals('HR')}">
 		<tr>
 				<th> 연결ID </th>
@@ -113,7 +115,11 @@ function set_statement_account_id(account_id, account_name, account_value, typeC
 		</tr>
 		</c:forEach>
 	</c:if>
-	
+	<tr>
+		<td colspan="2">
+			<span class="glyphicon glyphicon-chevron-up" aria-hidden="true" onclick="slideUpFunction()"></span>
+		</td>
+	</tr>
 	</table>
 </body>
 </html>

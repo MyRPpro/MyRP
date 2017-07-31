@@ -10,17 +10,44 @@ $(function(){
 });
 </script>
 
-<h3> 미승인 전표 조회 </h3>
-총 미승인 전표 개수 : ${cnt}<br>
-<table border="1">
+<div class="panel panel-default" id="page16330">
+	<div class="panel-heading">
+		 미승인 전표 조회 
+	</div>
+	<div class="panel-body" style="text-align: center;">
+		<small>총 미승인 전표 개수 : ${cnt}</small>
+		<!-- 페이지 내비게이션  -->
+		<div class="page_nav">
+			<div class="text-center">			
+					<ul class="pagination pagination-sm" style="margin: 0px;">
+					<c:if test="${startPage > pageBlock}">
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements">◀◀</a></li> <!-- 첫 페이지로 이동 -->
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage - pageBlock}">◀</a></li>
+					</c:if>
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<c:if test="${i == currentPage}">
+							<li><span>${i}</span></li>
+						</c:if>
+						<c:if test="${i != currentPage}">
+							<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${i}">${i}</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pageCount > endPage}">
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+					</c:if>
+					</ul>
+			</div>
+		</div>
+		</div>
+		<div class="panel-body" style="text-align: center;">
+<table  class="table table-hover">
 	<tr>
-		<th> statement_id </th>
-		<th> statement_type </th>
-		<th> connected_id </th>
-		<th> (account_id) </th>
-		<th> account_value </th>
-		<th> reg_date </th>
-		<th> approval_state </th>
+		<th> 전표번호 </th>
+		<th> 전표종류 </th>
+		<th> 연결ID </th>
+		<th> 등록일 </th>
+		<th> 승인 상태 </th>
 	</tr>
 	<c:if test="${cnt==0}">
 	<tr>
@@ -31,7 +58,7 @@ $(function(){
 	</c:if>
 	<c:forEach var="dto" items="${dtos}"> 
 	<tr>
-		<td> 
+		<td>  
 		<a href="javascript:void(0);" onclick="search_statement_detail(${dto.statement_id},
 			<c:choose>
 				<c:when test="${dto.sales_id!=null}">
@@ -71,22 +98,7 @@ $(function(){
 			</c:if>
 			
 		</td>
-		<td> 
-			<c:if test="${salesCnt==1}">
-			${dto.sales_account_id} 
-			</c:if>
-			<c:if test="${purchaseCnt==1}">
-			${dto.purchase_account_id}
-			</c:if>
-			<c:if test="${salaryCnt==1}">
-			${dto.salary_account_id} 
-			</c:if>
-			<c:if test="${taxCnt==1}">
-			${dto.tax_account_id}
-			</c:if>
-		</td>
-		<td> ${dto.account_value}</td>
-		<td> ${dto.reg_date}</td>
+		<td><fmt:formatDate pattern = "yyyy/MM/dd" value="${dto.reg_date}"/></td>
 		<td>
 			<c:if test="${dto.approval_state=='25451'}"> 미승인 </c:if>
 			<c:if test="${dto.approval_state=='25452'}"> 승인 </c:if> 
@@ -94,29 +106,6 @@ $(function(){
 		</td>
 	</tr>
 	</c:forEach>
-	</table>
-	<!-- 페이지 내비게이션  -->
-	<div class="page_nav">
-		<table border="1">
-			<tr>
-				<th>
-					<c:if test="${startPage > pageBlock}">
-						<a href="/accounting_management/statement_management/search_unapproval_statements">[◀◀]</a> <!-- 첫 페이지로 이동 -->
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage - pageBlock}">[◀]</a> <!-- 이전 블록으로 이동 -->
-					</c:if>
-					<c:forEach var="i" begin="${startPage}" end="${endPage}">
-						<c:if test="${i == currentPage}">
-							<span>[${i}]</span>
-						</c:if>
-						<c:if test="${i != currentPage}">
-							<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${i}">[${i}]</a>
-						</c:if>
-					</c:forEach>
-					<c:if test="${pageCount > endPage}">
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage + pageBlock}">[▶]</a> <!-- 다음 블록으로 이동 -->
-						<a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${pageCount}">[▶▶]</a> <!-- 마지막 페이지로 이동 -->
-					</c:if>
-				</th>
-			</tr>
-		</table>
+	</table>	
 	</div>
+</div>

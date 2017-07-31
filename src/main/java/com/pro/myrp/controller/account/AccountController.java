@@ -150,6 +150,14 @@ public interface AccountController extends MyRPController{
 	public String make_statement_pro(HttpServletRequest req, Model model) throws Exception;
 	
 	/**
+	 * 계정관리 > 계정관리
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String account_management(HttpServletRequest req, Model model) throws Exception;
+	/**
 	 * 계정관리 > 계정 목록 조회
 	 * @param req
 	 * @param model
