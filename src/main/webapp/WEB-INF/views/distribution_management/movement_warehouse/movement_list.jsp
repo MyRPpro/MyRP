@@ -30,6 +30,7 @@ $(function(){
 		});  
 	});
 
+
 	 $('.movement_del').unbind("click").bind("click",function(){
 		 var con = confirm("삭제하시겠습니까?");
 		
@@ -75,7 +76,6 @@ $(function(){
 	});
 
 
-
 	$(".modify").click(function(){
 		var pageNum = document.getElementById("currentPage").value;
 		var obj =  $(this).val().split("-");
@@ -110,6 +110,7 @@ $(function(){
 	
 });
 </script>
+
 <body>
 <div class="row">
 <div class="col-xs-12">

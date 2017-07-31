@@ -26,22 +26,26 @@ $(function(){
 
 </script>
 <div id="date_form_div">	
-<form action="#" name="financial_statements_form" method="post" >
-	<table border="1">
+<form action="#" name="financial_statements_form" method="post" class="form-inline" >
+	<table class="table">
 	<tr>
-		<th>기간 선택 </th>
+		<th> <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 조회 기간 </th>
+	</tr>
+	<tr>
 		<td> 
 			<input type="hidden" value="${yearValuable}" name="yearValuable">
 			
-			<select name="year">
+			<select name="year" class="form-control">
 			<c:forEach var = "yearDto" items = "${yearDto}">
-				
 				<c:if test="${yearValuable != 0}">
 				<option value="${yearDto.year}"> ${yearDto.year}년 </option>
 				</c:if>
 			</c:forEach>
+			<c:if test="${yearValuable==0}">
+			<option> ---- </option>
+			</c:if>
 			</select>
-			<select name="quarter">
+			<select name="quarter" class="form-control">
 				<option value="03"> 1분기 </option>
 				<option value="06"> 2분기 </option>
 				<option value="09"> 3분기 </option>
@@ -49,10 +53,13 @@ $(function(){
 			</select>
 		</td>
 	</tr>
+	<tr>
+		<td colspan="2"> <input type="submit" value="조회 " id="show_statement"  class="btn btn-default"> </td>
+	</tr>
 </table>
-	<input type="submit" value="조회 " id="show_statement">
+	
 </form>
-</div>
 <div id="stage">
 
+</div>
 </div>

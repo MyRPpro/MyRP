@@ -25,33 +25,19 @@ $(function(){
 });
 </script>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src = "/resources/accounting_management/accounting_management_script.js"></script>​
-</head>
-<body>
-
-
-<table>
-<tr>
-<th>
-보고서 선택
-</th>
-</tr>
-<tr>
-<td>
-<input type="radio" name="fi_statements" id="balance_sheet" value="balance_sheet" checked>
-<label for="fi_statements"> 재무상태표 </label>
-<input type="radio" name="fi_statements" id="profit_and_loss_statement" value="profit_and_loss">
-<label for="profit_and_loss_statement"> 손익계산서 </label>
-<input type="radio" name="fi_statements" id="statement_of_cash_flows" value="cash_flows">
-<label for="statement_of_cash_flows"> 현금흐름표 </label>
-</td>
-</tr>
-</table>
+		<div class="text-center">
+			<div class="btn-group" data-toggle="buttons">
+			<label for="fi_statements" class="btn btn-primary active" id="balance_sheet" > 재무상태표 
+			<input type="radio" name="fi_statements" value="balance_sheet" checked >
+			</label>
+			<label for="profit_and_loss_statement" class="btn btn-primary" id="profit_and_loss_statement"> 손익계산서
+			<input type="radio" name="fi_statements" value="profit_and_loss">
+			</label>
+			<label for="statement_of_cash_flows" class="btn btn-primary" id="statement_of_cash_flows" > 현금흐름표
+				<input type="radio" name="fi_statements" value="cash_flows">
+			</label>
+			</div>
+		</div>
 <div id="select_date">
 
 </div>

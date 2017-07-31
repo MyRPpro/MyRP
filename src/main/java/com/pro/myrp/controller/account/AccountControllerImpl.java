@@ -299,6 +299,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return null;
 	}
 
+	@Override
+	@GetMapping(value="account_management/account_management")
+	public String account_management(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(account_management));
+		model.addAttribute("req",req);
+		return "accounting_management/account_management/account_management";
+	}
+
 	
 
 	

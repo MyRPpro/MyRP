@@ -157,11 +157,11 @@
 			</tr>
 		</table>
 		<c:if test="${sales_state == 22213 }">
-			<input type="button" value="회계전표 입력하기 " 
+			<input type="button" value="회계전표 입력하기 "  
 			onclick="window.location='/accounting_management/statement_management/search_all_statements'" >
 		</c:if>
 		<c:if test="${sales_state == 22214 and account_id == '500014030000'}">
-			<input type="button" value="출고요청하기" onclick="req_storage_out();">
+			<input type="button" value="출고요청하기" name="req_storage_out" onclick="req_storage_out();">
 		</c:if>
 
 	</form>
@@ -169,7 +169,6 @@
 	<script type="text/javascript">
 	function req_storage_out(){
 		var sales_id = document.getElementById("sales_id").value;
-		console.log( " sned sales_id : " + sales_id );
 
 		window.location="/sales_management/search_sales/detail_sales_pro"
 						+"?req_kind=storage_out&sales_id="+sales_id;

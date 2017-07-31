@@ -49,8 +49,8 @@
 					<table class="table table-condensed table-striped">
 						<tr>
 							<th>순서</th>		<!-- 1 -->
-							<th>계정</th>		<!-- 7 -->
-							<th>구매번호</th>	<!-- 2 -->
+							<th>구매번호</th>		<!-- 7 -->
+							<th>계정이름</th>	<!-- 2 -->
 							<th>상품</th>		<!-- 3 -->
 							<th>거래처</th>	<!-- 4 -->
 							<th>금액</th>		<!-- 5 -->

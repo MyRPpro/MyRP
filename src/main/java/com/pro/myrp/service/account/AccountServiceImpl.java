@@ -43,8 +43,10 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		int bank_account_reg_on = 0;
 		
+		
+		
 		if(req.getParameter("bank_account_reg_on")!=null) {
-		bank_account_reg_on = Integer.parseInt(req.getParameter("bank_account_reg_on"));
+			bank_account_reg_on = Integer.parseInt(req.getParameter("bank_account_reg_on"));
 		}
 		model.addAttribute("bank_account_reg_on", bank_account_reg_on);
 		
@@ -90,8 +92,9 @@ public class AccountServiceImpl implements AccountService {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
 		vos = dao.select_bank_account_id();
+		int vosCnt = vos.size();
 		model.addAttribute("vos", vos);
-		
+		model.addAttribute("vosCnt", vosCnt);
 	}
 	
 	// 계좌 등록 : bank_account_id 불러오기

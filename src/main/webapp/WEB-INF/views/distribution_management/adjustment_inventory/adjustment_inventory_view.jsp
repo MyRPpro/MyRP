@@ -32,12 +32,14 @@ $(function(){
 	});
 });
 
+
 </script>
 <form action = "" method = "post" id = "adjust_form">
 <table class="table table-condensed">
 	<tr>
 		<th>상품명</th>
 		<input type = "hidden" name = "product_id" id = "product_id" value = "${product_id}" >
+
 		<th><input class="form-control" type ="text" name = "product_name" id = "product_name" value = "${product_name}" readonly></th>
 	</tr>
 	<tr>
@@ -65,6 +67,7 @@ $(function(){
 		<th><input class="form-control" type = "number" name = "taked_stock" id = "taked_stock" min = "0" readonly></th>		
 	</tr>
 	<tr>
+
 		<th colspan = "6"><input class="btn btn-primary" type = "button" id = "sub" value = "확인" ><input class="btn btn-info" type = "reset" value = "취소" ></th>
 	</tr>
 </table>

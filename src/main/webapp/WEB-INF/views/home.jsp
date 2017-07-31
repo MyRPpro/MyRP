@@ -22,6 +22,7 @@ function onoff(){
 </script>
 <body>
 <input type = "hidden" id = "alarmonoff" value = "on">
+
 <div class="container-fluid">
 	<form class="form-inline">
 		<div class="row " style="height: 100px; vertical-align: center; " >
@@ -145,7 +146,7 @@ function onoff(){
                         <div class="panel-body">
                            <a href="/accounting_management/financial_statements/search_balance_sheet">재무상태표 조회</a><br>
                            <a href="/accounting_management/bank_account_registration/bank_account_list">계좌리스트</a><br>
-                           <a href="/accounting_management/account_management/search_account_list">계정 목록 조회</a><br>
+                           <a href="/accounting_management/account_management/account_management">계정 목록 조회</a><br>
                            <a href="/accounting_management/statement_management/search_statements">전체전표 조회</a><br>
                            <a href="/accounting_management/bond_debt_status/search_bond_debt">채권/채무 조회</a><br>
                         </div>
@@ -225,7 +226,8 @@ function onoff(){
    </div>
 </body>
 <script type="text/javascript">
-	/* $(function(){
+
+	$(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;
 			var data = {"role" : role}
@@ -274,7 +276,7 @@ function onoff(){
 				}
 			}, 10000);
 		}
-	}); */
+	});
 	
 	//메뉴의 a 태그 클릭시 메인페이지 화면에 해당 화면을 출력한다.
 	$(".panel-body a").bind("click", function(event) {

@@ -9,7 +9,6 @@ function set_bank_account_id(account_id,account_name,account_balance){
 		/* var account_id = $('input[name="account_id"]').val()
 		var account_name = $('input[name="account_name"]').val()
 		var account_balance = $('input[name="account_balance"]').val()*/
-		alert("나오니" + account_balance + account_name + account_id); 
 		
 		switch(account_name){
 			case "현금" : account_name = "주 계좌"; break;

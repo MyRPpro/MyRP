@@ -14,6 +14,7 @@
  * 공통
  */
 var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
+
 /**
  * 기초 등록
  */
@@ -22,6 +23,50 @@ var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 /**
  * 판매 관리
  */
+
+// reg_sales
+var storage_out_date	= "출고일 : YYYY-MM-DD 형식";
+var count_sales = "판매수량 : 4자리 정수";
+var selling_price = "판매가 : 9자리 정수 ";
+var condition_note_receivable = "어음기간 0~12개월 이하";
+var sales_state = "판매상태";
+
+// reg_sales_table
+var reg_sales_statement = "전표등록하기";
+var sales_id = "판매번호";
+var req_storage_out = "출고 요청하기 ";
+
+//modify_sales
+var reg_reg_date = "등록일 : YYYY-MM-DD 형식";
+var reg_storage_out_date = "출고일 : YYYY-MM-DD 형식";
+var reg_count_sales = "판매수량 : 숫자 | 4자리";
+var reg_selling_price = "판매가격 : 숫자 | 9자리";
+
+//sales_list 
+var search_str = "판매번호 검색";
+var btn_all_list = "전체목록";
+var req_confirm = "승인요청";
+var req_sales_statement = "전표승인조회";
+var search_storage_out = "출고 완료 조회";
+var req_sales_statement = "전표승인신청";
+var search_sales_statement = "전표승인조회";
+var req_storage_out = "상품출고신청";
+var search_storage_out = "출고완료조회";
+var req_note_receive = "지급대기신청";
+var search_note_receive = "지급완료조회";
+
+//search_status
+var start_date = "시작일 : YYYY-MM-DD 형식";
+var end_date = "종료일 : YYYY-MM-DD 형식";
+var today ="오늘";
+var a_day ="하루전";
+var a_week ="한주전";
+var a_month ="한달전";
+var a_quarter ="한분기전";
+var a_year ="일년전";
+var btn_search = "검색";
+
+
 
 
 /**
@@ -69,6 +114,7 @@ var btn_search_repay 		= "지급안료조회";
 /**
  * 물류관리
  */
+
 //재고조정
 var product_name = "선택한 상품명.";
 var warehouse_name = "창고명";
@@ -87,6 +133,32 @@ var warehouse_location = "창고 위치 주소";
  * 회계관리
  */
 
+// 회계보고서
+	var fi_statements = "조회할 회계보고서 종류 선택";
+	//재무상태표 
+	var quarter = "조회할 분기";
+	//손익계산서
+	var startDate = "조회할 기간 : 시작일";
+	var endDate = "조회할 기간 : 끝일";
+	
+//계좌등록
+	var bank_account_id = "계좌 ID";
+	var bank_account_name = "계좌 이름";
+	var bank_account_number = "계좌번호 : - 까지 포함해서 입력해주세요"
+	var bank_account_balance = "계좌 잔액"
+	var bank_name = "은행명";
+	var bank_account_type = "계좌 유형";
+	var	use_state = "사용상태 ";
+	var	reg_date = "등록일자 : 자동입력";
+//계정등록
+	var account_id = "계정 ID";
+	var dupCheckButton = "중복확인 버튼";
+	var account_name = "계정 이름";
+	var account_balance = "계정 금액";
+//전표 등록
+	var connected_id = "연결 ID";
+	var calling_button = "연결주문 조회";
+	var account_value = "계정 금액";
 
 /**
  * 인사 관리
