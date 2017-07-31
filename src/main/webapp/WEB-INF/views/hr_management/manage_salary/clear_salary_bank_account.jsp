@@ -88,7 +88,7 @@
 							<td>${vo.pay_date}</td>
 							<td>${vo.total_pay}</td>
 							<td>${vo.total_employee}</td>
-							<td>${vo.salary_state}</td>
+							<td>${vo.salary_state_name}</td>
 							<td>
 								<input class="btn btn-default btn-xs" type="button" value="급여지급"
 								onclick="return fn_clear_payment(${vo.salary_register_id},${vo.account_id},'${vo.pay_date}');">

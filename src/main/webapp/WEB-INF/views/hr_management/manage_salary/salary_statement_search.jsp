@@ -75,7 +75,7 @@
 							<td>${vo.pay_date}</td>
 							<td>${vo.total_pay}</td>
 							<td>${vo.total_employee}</td>
-							<td>${vo.salary_state}</td>
+							<td>${vo.salary_state_name}</td>
 							<td></td>
 						</tr>
 					</c:forEach>

@@ -7,16 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<!-- 
-	page16120		:	add_base_code_group.jsp
-	_div01			:	기본 코드 그룹 등록 폼이 담긴 박스
-	_div02			:	중복확인창이 담긴 박스
-	_div03			:	중복확인 테이블
-	_div01_toggle	:	div01을 슬라이드 업/다운할 수 있는 토글
- 	_btn01			:	페이지 닫기
- 	
- 	
- -->
 <script type="text/javascript">
 	
 	$("#page16120_div01_toggle").bind("click", function(event) {
@@ -77,14 +67,14 @@
 		<a id="page16120_div01_toggle">[16120]add_base_code_group.jsp</a>
 	</div>
 	<div class="panel-body" id="page16120_div01">
-		<form action="#">
+		<form action="#" name="page16120_form01">
 			<table class="table text-center">
 				<tr>
 					<th>인사코드 그룹번호</th>
 					<td>
 						<div class="input-group">
 							<input class="form-control input-sm" type="number" name="hr_code_group_id"
-						min="1" max="9" step="1" value="${hr_code_group_id}" required autofocus>
+						min="1" max="9" step="1" value="${hr_code_group_id}" required>
 						<span class="input-group-btn">
 							<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page16120_btn02">
 						</span>
@@ -111,9 +101,9 @@
 						<input type="hidden" name="dupcheck" 
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<input class="btn btn-default btn-xs" type="submit" value="등록하기">
-						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-						<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16120_btn01">
+						<input class="btn btn-default btn-sm" type="submit" value="등록하기">
+						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+						<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16120_btn01">
 					</th>
 				</tr>
 			</table>

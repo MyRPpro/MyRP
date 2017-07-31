@@ -12,6 +12,7 @@ public class Salary_registerVO {
 	private long total_pay;
 	private int total_employee;
 	private int salary_state;
+	private String salary_state_name;
 	
 	public String getSalary_register_id() {
 		return salary_register_id;
@@ -61,4 +62,11 @@ public class Salary_registerVO {
 	public void setSalary_state(int salary_state) {
 		this.salary_state = salary_state;
 	}
+	public String getSalary_state_name() {
+		return salary_state_name;
+	}
+	public void setSalary_state_name(String salary_state_name) {
+		this.salary_state_name = salary_state_name;
+	}
+	
 }

@@ -9,6 +9,10 @@
 </head>
 <script type="text/javascript">
 	
+	$("#page16160_div01_toggle").bind("click", function(event) {
+		$("#page16160_div01").slideToggle();
+		return false;
+	});
 	$("#page16160_btn01").bind("click", function(event) {
 		$("#page16160").slideUp();
 		$("#page16140_div01").slideDown();
@@ -22,7 +26,7 @@
 			type:	'post',
 			url:	'/hr_management/manage_hr_code/modify_base_code_pro',
 			success: function(response) {
-				$("#page16160").html(response);
+				$("#page16160_div01").html(response);
 				$("#page16160").slideUp();
 			}
 		});
@@ -33,9 +37,9 @@
 <body>
 	<div class="panel panel-default" id="page16160">
 		<div class="panel-heading">
-			[16160]modify_base_code.jsp
+			<a id="page16160_div01_toggle">[16160]modify_base_code.jsp</a>
 		</div>
-		<div class="panel-body" id="page16160">
+		<div class="panel-body" id="page16160_div01">
 			<form action="#" name="page16160_form01">
 				<table class="table">
 					<tr>
@@ -73,9 +77,9 @@
 					</tr>
 					<tr>
 						<th colspan="2">
-							<input class="btn btn-default btn-xs" type="submit" value="수정하기">
-							<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-							<input class="btn btn-default btn-xs" type="button"
+							<input class="btn btn-default btn-sm" type="submit" value="수정하기">
+							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+							<input class="btn btn-default btn-sm" type="button"
 							value="닫기" id="page16160_btn01">
 						</th>
 					</tr>

@@ -30,7 +30,15 @@
 		var hr_code_group_id = $("form[name='page16140_form01'] input[name='hr_code_group_id']");
 		$("#page16140_div01").slideUp();
 		$("#page16140_div03").slideDown();
-		$("#page16140_div03").load("/hr_management/manage_hr_code/add_base_code?hr_code_group_id="+hr_code_group_id.val());
+		$.ajax({
+			data:		null,
+			type:		'get',
+			url:		'/hr_management/manage_hr_code/add_base_code?hr_code_group_id='+hr_code_group_id.val(),
+			success: function(response) {
+				$("#page16140_div03").html(response);
+				$("form[name='page16150_form01'] input[name='hr_code_id']").focus();
+			}
+		});
 		return false;		
 	});
 	
@@ -75,8 +83,8 @@
 						<td colspan="4">
 							<form action="/hr_management/manage_hr_code/add_base_code" name="page16140_form01">
 								<input type="hidden" name="hr_code_group_id" value="${hr_code_groupVo.hr_code_group_id}">
-								<input class="btn btn-default btn-xs" type="submit" value="인사코드  등록">
-								<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16140_btn01">
+								<input class="btn btn-default btn-sm" type="submit" value="인사코드  등록">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
 							</form>
 						</td>
 					</tr>
@@ -89,7 +97,7 @@
 					</tr>
 					<tr>
 						<td>
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16140_btn01">
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
 						</td>
 					</tr>
 				</table>

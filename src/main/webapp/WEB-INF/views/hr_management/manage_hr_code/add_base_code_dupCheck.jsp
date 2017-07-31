@@ -55,7 +55,7 @@
 							<th>
 								<input type="hidden" name="hr_code_group_id" value="${hr_code_group_id}">
 								<input type="hidden" name="hr_code_id" value="${hr_code_id}">
-								<input class="btn btn-default btn-xs" type="submit" value="확인">
+								<input class="btn btn-default btn-sm" type="submit" value="확인">
 							</th>
 						</tr>
 					</table>
@@ -81,9 +81,9 @@
 						</tr>
 						<tr>
 							<th colspan="2">
-								<input class="btn btn-default btn-xs" type="submit" value="중복확인">
-								<input class="btn btn-default btn-xs" type="reset" value="재작성">
-								<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16151_btn01">
+								<input class="btn btn-default btn-sm" type="submit" value="중복확인">
+								<input class="btn btn-default btn-sm" type="reset" value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16151_btn01">
 							</th>
 						</tr>
 					</table>

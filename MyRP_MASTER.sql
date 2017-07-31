@@ -743,6 +743,7 @@ ALTER SESSION SET PLSCOPE_SETTINGS = 'IDENTIFIERS:ALL';
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25451,'전표미승인','disapproval_statement');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25452,'전표승인','approval_statement');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (25453,'전표승인거절','denial_statement');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26450,'급여확정요청','request_fix_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26451,'급여지급요청','request_payments_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26452,'급여지급대기','wait_payments_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26453,'급여지급완료','complete_payments_salary');
