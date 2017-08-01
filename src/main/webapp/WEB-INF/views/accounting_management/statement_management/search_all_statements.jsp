@@ -74,6 +74,7 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 			</div>
 		</div>
 		</div>
+		<div class="panel-body" style="text-align: center;">
 		<div style="text-align: center;">
 		<table class="table table-hover">
 			<tr>

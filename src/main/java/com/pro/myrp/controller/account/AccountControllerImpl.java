@@ -297,6 +297,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	public String account_management(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(account_management));
 		model.addAttribute("req",req);
+		service.search_account_list_service(model);
 		return "accounting_management/account_management/account_management";
 	}
 	@Override

@@ -1006,12 +1006,19 @@ public class AccountServiceImpl implements AccountService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 		int search_statements_list_type = 0;
+		int input_type = 0;
 		if(req.getParameter("search_statements_list_type")!=null) {
 			search_statements_list_type = Integer.parseInt(req.getParameter("search_statements_list_type"));
 		}else {
 			search_statements_list_type = 1;
 		}
+		if(req.getParameter("input_type")!=null) {
+			input_type = Integer.parseInt(req.getParameter("input_type"));
+		}else {
+			input_type = 0;
+		}
 		model.addAttribute("search_statements_list_type", search_statements_list_type);
+		model.addAttribute("input_type",input_type);
 	}
 	@Override
 	public void search_all_bond_debt_service(Model model) throws Exception {

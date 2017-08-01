@@ -75,8 +75,8 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 			</div>
 		</div>
 		</div>
-		<div style="text-align: center;">
-<table  class="table table-hover">
+		<div class="panel-body" style="text-align: center;">
+	<table  class="table table-hover">
 	<tr>
 		<th> 전표번호 </th>
 		<th> 전표종류 </th>
