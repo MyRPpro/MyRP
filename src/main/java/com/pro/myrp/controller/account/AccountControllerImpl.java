@@ -344,6 +344,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return "accounting_management/bond_debt_status/show_bond_debt_by_company";
 	}
 
+	@Override
+	@GetMapping(value="financial_statements/show_balance_sheet_graph")
+	public String show_balance_sheet_graph(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_balance_sheet_graph");
+		model.addAttribute("req",req);
+		return "accounting_management/financial_statements/show_balance_sheet_graph";
+	}
+
 
 	
 	

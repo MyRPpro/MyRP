@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
+<script type="text/javascript">
+$(document).ready(function onload_function(){
+	$("#show_graph").load("/accounting_management/financial_statements/show_balance_sheet_graph");
+});
+</script>
 <div class="panel panel-default">
 <div class="panel-heading" style="text-align: center;">
 	 재무상태표<br>
@@ -88,5 +93,7 @@
 		</td>
 		</tr>
 	</table>
-</div>
+	</div>
+	<div class="panel-body" style="text-align: center;" id="show_graph">
+	</div>
 </div>

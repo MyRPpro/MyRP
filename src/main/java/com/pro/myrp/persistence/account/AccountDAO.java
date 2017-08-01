@@ -92,6 +92,8 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_account_account_value(Map<String, Object> daoMap);
+	public int select_account_id_check(Map<String, Object> daoMap);
+	public int update_bank_update_value_for_purchase(Map<String, Object> daoMap);
 	
 	public int update_bank_account_account_value(Map<String, Object> daoMap);
 	

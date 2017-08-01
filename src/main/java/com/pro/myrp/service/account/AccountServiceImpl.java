@@ -85,7 +85,7 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
-	// 계좌등록 : 뷰(View)
+	// 계좌등록 
 	@Override
 	public void register_bank_account_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -349,7 +349,12 @@ public class AccountServiceImpl implements AccountService {
 				daoMap.put("statement_id", statement_ids[i]);
 				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
 				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
-				bcnt += dao.update_bank_account_account_value(daoMap); //계좌 값 변경
+				int check = dao.select_account_id_check(daoMap); //매입채무는 -값으므로 부호 바꿔주기위해서 우선 매입채무인지 아닌지 확인
+				if(check!=0) {
+					bcnt += dao.update_bank_update_value_for_purchase(daoMap);
+				}else {
+					bcnt += dao.update_bank_account_account_value(daoMap); //계좌 값 변경
+				}
 			}
 		}
 		String statement_id = statement_ids[1];

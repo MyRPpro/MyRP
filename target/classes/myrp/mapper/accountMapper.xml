@@ -495,6 +495,19 @@
  		]]>
  		</if>
  	</update>
+ 	<!-- 매입채무인지 아닌지 확인 -->
+ 	<select id="select_account_id_check" parameterType="java.util.Map"  resultType="int">
+ 		<![CDATA[
+ 		SELECT COUNT(*) FROM purchase_statement WHERE statement_id = #{statement_id} AND account_id = '500012010000'
+ 		]]>
+ 	</select>
+ 	<!-- 매입채무이면 다른 업데이트문 사용 -->
+ 	<update id="update_bank_update_value_for_purchase" parameterType="java.util.Map">
+ 		<![CDATA[
+ 		UPDATE bank_account SET bank_account_balance = bank_account_balance - (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+        WHERE bank_account_id = (SELECT account_id FROM purchase_statement WHERE statement_id = #{statement_id})                                           
+ 		]]>
+ 	</update>
  	<!-- 세금 전표 statement_id 가져오기 -->
  	<select id="select_get_tax_statement_id" resultType="String">
  		<![CDATA[
@@ -744,6 +757,7 @@
                                        ) po ON purc.purchase_id = po.purchase_id AND purc.account_id = po.account_id
     	WHERE (sales.account_id = '500011020000' OR purc.account_id = '500012010000')
     	  AND s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     ORDER BY s.reg_date DESC
 		]]>
 	</select>
 	<!-- 채권/채무현황 조회  > 거래처별 조회-->
@@ -764,6 +778,7 @@
     	WHERE (sales.account_id = '500011020000' OR purc.account_id = '500012010000')
   		  AND (so.company_name = #{company_name} OR po.company_name = #{company_name})
   		  AND s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     ORDER BY s.reg_date DESC
 		]]>
 	</select>
 	
