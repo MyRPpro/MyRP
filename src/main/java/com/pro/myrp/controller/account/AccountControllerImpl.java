@@ -38,14 +38,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return code.c(accounting_management, bank_account_registration, register_bank_account);
 	}
 	
-	@Override
+	/*@Override
 	@GetMapping(value="bank_account_registration/call_bank_account_id")
 	public String call_bank_account_id(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(call_bank_account_id));
 		model.addAttribute("req", req);
 		service.call_bank_account_id_service(model);
 		return code.c(accounting_management, bank_account_registration, call_bank_account_id);
-	}
+	}*/
 	
 	@Override
 	@PostMapping(value="bank_account_registration/register_bank_account_pro")

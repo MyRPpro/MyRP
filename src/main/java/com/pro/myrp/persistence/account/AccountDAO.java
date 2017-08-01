@@ -96,7 +96,7 @@ public interface AccountDAO extends MyRPDAO {
 	public int update_bank_update_value_for_purchase(Map<String, Object> daoMap);
 	
 	public int update_bank_account_account_value(Map<String, Object> daoMap);
-	
+	public int select_check_statement_type(Map<String, Object> daoMap);
 	/**
 	 * 전표 id로 connected_id 가져오기 
 	 * @param statement_id

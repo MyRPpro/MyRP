@@ -232,7 +232,14 @@
  		WHERE statement_id = #{statement_id}
  		]]>
  	</update>
- 	
+ 	<!-- 전표관리 > 전표 승인 > 전표종류 판단   -->
+ 	<select id="select_check_statement_type" parameterType="java.util.Map" resultType="int">
+ 		<![CDATA[
+ 		SELECT COUNT(*) FROM statement 
+ 		WHERE statement_id = #{statement_id} 
+ 		  AND statement_type IN ('54104', '54105', '54106')
+ 		]]>
+ 	</select>
  	<!-- 미승인 전표 총 개수 -->
  	<select id="select_unapproval_statements_cnt" resultType="int">
  		<![CDATA[

@@ -33,7 +33,7 @@ public interface AccountController extends MyRPController{
 	  * @return
 	  * @throws Exception
 	  */
-	 public String call_bank_account_id(HttpServletRequest req, Model model) throws Exception;
+	/* public String call_bank_account_id(HttpServletRequest req, Model model) throws Exception;*/
 	 
 	 /**
 	 * 계좌등록 > 계좌 등록처리
