@@ -211,12 +211,19 @@ public interface CodeMyRP {
 				public static final int personnel_card_retired = 16730;
 
 		//근태관리
-		public static final int attitude_management = 17000;
-			public static final int search_attitude = 17100;
-				public static final int search_attitude_search = 17110;
-			public static final int add_attitude = 17200;
-				public static final int add_attitude_search = 17210;
-				public static final int add_attitude_search_pro = 17220;
+		public static final int attitude_management = 17000;   // 근태 관리
+			public static final int search_attitude = 17100; // 근태조회
+				public static final int search_attitude_search = 17110; //근태조회화면
+				public static final int hr_attitude_nav = 17120; //
+				public static final int hr_attitude_list = 17130; //근태 목록 화면
+				
+			public static final int add_attitude = 17200; // 근태 등록
+				public static final int add_attitude_search = 17210; // 근태 등록 화면
+				public static final int attitude_form = 17220; // 원선택 근태관련 폼 화면
+				public static final int add_attitude_search_pro = 17230; // 근태등록처리
+			
+				
+				
 		//상태정의서 상태코드는 [2+module번호+기능번호+상태번호] 5자리로 구성됨
 				
 		

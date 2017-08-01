@@ -4,13 +4,171 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.pro.myrp.persistence.attitude.AttitudeDAO">
-
-<insert id="insert_attitude"
-	parameterType="AttitudeVO">
+	<!--전체 사원 목록 보기 -->
+	<select id="select_employees" resultType="com.pro.myrp.domain.hr_management.EmployeeVO">
 		<![CDATA[
-			INSERT	INTO SERVICE_ATTITUDE (employee_id,attitude_date,hr_code_attitude,attitude_code,hr_code_group_leave,leave_code,attitude_period,hr_code_group_reason,attitude_reason)
-					VALUES(#{employee_id},#{appointment_date},#{hr_code_attitude},#{attitude_code},#{hr_code_group_leave},#{leave_code},#{attitude_period},#{hr_code_group_reason},#{attitude_reason})
-		]]>
+			SELECT *
+			  FROM employee
+			]]>
+	</select>
+	<!-- 사용상태인 부서 목록 보기 -->
+	<select id="select_used_dept_list" parameterType="String" resultType="com.pro.myrp.domain.hr_management.DeptVO" >
+		<![CDATA[
+			SELECT *
+			  FROM (SELECT dept_id, dept_name, access_role, use_state, rownum rNum
+			  		  FROM  (SELECT *
+			  		  		  FROM department
+			  		  		  	ORDER BY dept_id
+			  		  		  		)
+			  		  		  	)
+			 WHERE use_state = #{use_state}
+			]]>
+	</select>
+	<!-- 사용상태를 조건으로 한 선택그룹의 인사코드 목록보기 -->
+	<select id="select_used_hr_codes" parameterType="java.util.Map" resultType="com.pro.myrp.domain.hr_management.Hr_codeVO">
+		<![CDATA[
+			SELECT *
+			  FROM hr_code
+			 WHERE use_state = #{use_state}
+			   AND hr_code_group_id = #{hr_code_group_id}
+			]]>
+	</select>
+	<!-- 사용상태를 조건으로 한 선택그룹의 인사코드 목록보기 -->
+	<select id="select_used_hr_code" parameterType="java.util.Map" resultType="com.pro.myrp.domain.hr_management.Hr_codeVO">
+		<![CDATA[
+			SELECT *
+		  	  FROM hr_code
+		 	 WHERE use_state = #{use_state}
+		   	   AND hr_code_group_id = #{hr_code_group_id}
+			]]>
+	</select>
+	<!-- 사번으로 사원정보 검색 -->
+	<select id="select_employee" parameterType="int" resultType="com.pro.myrp.domain.hr_management.EmployeeVO">
+		<![CDATA[
+			SELECT *
+			  FROM employee
+			 WHERE employee_id = #{employee_id}
+			]]>
+	</select>
+	<!-- 선택된 번호의 인사코드명 검색 -->
+	<select id="select_hr_code_name" parameterType="java.util.Map" resultType="String">
+		<![CDATA[
+			SELECT hr_code_name
+			  FROM hr_code
+			 WHERE hr_code_group_id = #{hr_code_group_id}
+			   AND hr_code_id = #{hr_code_id}
+			]]>
+	</select>
+	<!-- 선택된 번호의 인사코드명 검색 -->
+	<select id="select_hr_code_names" parameterType="java.util.Map" resultType="String">
+		<![CDATA[
+			SELECT hr_code_name
+			  FROM hr_code
+			 WHERE hr_code_group_id = #{hr_code_group_id}
+			   AND hr_code_id = #{hr_code_id}
+			]]>
+	</select>
+	<!-- 부서번호로 부서명 검색 -->
+	<select id="select_dept_name" parameterType="int" resultType="String">
+		<![CDATA[
+			SELECT dept_name
+			  FROM department
+			 WHERE dept_id = #{dept_id}
+			]]>
+	</select>
+	<!-- 선택된 사원의 최종 발령일자 조회 -->
+	<select id="select_appointment_date" parameterType="int" resultType="java.sql.Date">
+		<![CDATA[
+			SELECT	Max(attitude_date)
+			  FROM	SERVICE_ATTITUDE
+			 GROUP BY employee_id
+			HAVING	employee_id = #{employee_id}
+			]]>
+	</select>
+	
+	<!-- 사원번호 체크 -->
+	<select id="employee_idCheck" parameterType="int" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			  FROM SERVICE_ATTITUDE 
+			 WHERE employee_id=#{employee_id} 
+			 ]]>
+	</select>
+	
+	<!-- 사원번호확인후 휴가일 중복 확인  -->
+	<select id="attitude_dateCnt" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) 
+			  FROM SERVICE_ATTITUDE 
+			 WHERE employee_id=#{employee_id} 
+			   AND ATTITUDE_DATE=#{attitude_date1}
+			]]>
+	</select>
+	
+	<!-- 휴가 등록   -->
+	<insert id="insert_service_attitude" parameterType="com.pro.myrp.domain.attitude_management.Service_attitudeVO">
+		<![CDATA[
+			INSERT INTO SERVICE_ATTITUDE (
+					  EMPLOYEE_ID
+					, ATTITUDE_DATE
+					, HR_CODE_GROUP_LEAVE
+					, LEAVE_CODE
+					, ATTITUDE_PERIOD
+					, HR_CODE_GROUP_REASON
+					, ATTITUDE_REASON
+					)
+					VALUES(
+					 #{employee_id}
+				    , #{attitude_date1}
+					, #{hr_code_group_leave}
+					, #{leave_code}
+					, #{attitude_date2} - #{attitude_date1} 
+					, #{hr_code_group_reason}
+					, #{attitude_reason}	
+					)
+			]]>	
 	</insert>
-
+	
+	<!-- 검색어를 사용한 인사발령정보 숫자 검색 -->
+	<select id="select_appointment_cnt" parameterType="String" resultType="int">
+		<![CDATA[
+			SELECT	COUNT(*)
+			FROM	SERVICE_ATTITUDE
+			WHERE	employee_id IN	(SELECT	employee_id
+									FROM	employee
+									WHERE	employee_id like '%'||NVL(#{search},employee_id)||'%'
+									UNION
+									SELECT	employee_id
+									FROM	employee                      
+									WHERE	employee_name like '%'||NVL(#{search},employee_name)||'%'	
+									)
+			]]>
+	</select>
+	
+	<!-- 검색어를 사용한 인사발령정보 목록 -->
+	<select id="select_hr_appointment_list" parameterType="java.util.Map" resultType="com.pro.myrp.domain.attitude_management.Hr_attitude_listDTO">
+		<![CDATA[
+			SELECT	*
+			FROM	(SELECT	employee_id,employee_name,attitude_date,
+							hr_code_group_leave,leave_code,attitude_period,
+							hr_code_group_reason,attitude_reason,rownum rNum
+					FROM	(SELECT	SA.employee_id,E.employee_name,SA.attitude_date,
+									SA.hr_code_group_leave,SA.leave_code,SA.attitude_period,
+									SA.hr_code_group_reason,SA.attitude_reason
+							FROM	SERVICE_ATTITUDE SA , employee E
+							WHERE	SA.employee_id = E.employee_id	
+							AND		E.employee_id IN	(SELECT	employee_id
+														FROM	employee
+														WHERE	employee_id like '%'||NVL(#{search},employee_id)||'%'
+														UNION
+														SELECT	employee_id
+														FROM	employee
+														WHERE	employee_name like '%'||NVL(#{search},employee_name)||'%'	
+														)
+							ORDER BY E.employee_name, SA.attitude_date DESC
+							)
+					)
+			WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
 </mapper>
