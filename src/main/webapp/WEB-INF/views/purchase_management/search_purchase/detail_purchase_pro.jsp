@@ -76,8 +76,7 @@
 						</div>
 						<!-- // form-group -->
 	
-						<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary"
-							onclick="sendStatement();">
+						<input type="button" id="reg_purchase_state" name="reg_state" value="전표입력하기" class="btn btn-primary">
 					</div>
 					<!-- // table-responsive -->
 				</div>
@@ -102,6 +101,12 @@
 	<input type="hidden" id="pay_diff" name="pay_diff" value="${pay_diff}">
 	
 	<script type="text/javascript">
+	
+	$('#reg_purchase_state').click(function(){
+		$('#main_screen').load("/accounting_management/statement_management/make_statement");
+		return false;
+	});
+	
 	$('#btn_req_repay').ready(function(){
 		var pay_date = $('#pay_date').val();
 		var diff = $('#pay_diff').val();

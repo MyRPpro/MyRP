@@ -12,7 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import com.pro.myrp.domain.accounting_management.Purchase_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.purchase_management.PU_stockorderVO;
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
+import com.pro.myrp.domain.sales_management.SA_stockorderVO;
+import com.pro.myrp.domain.sales_management.SalesDTO;
 
 @Repository
 public class purchaseDAOImpl implements purchaseDAO {
@@ -243,9 +246,9 @@ public class purchaseDAOImpl implements purchaseDAO {
 	}
 
 	@Override
-	public List<Purchase_statementVO> select_purchase_statement(String statement_id) {
+	public List<SA_stockorderVO> select_sales_statement(String statement_id) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
-		return dao.select_purchase_statement(statement_id);
+		return dao.select_sales_statement(statement_id);
 	}
 
 	@Override
@@ -258,6 +261,48 @@ public class purchaseDAOImpl implements purchaseDAO {
 	public int update_order_state(Map<String, Object> daoMap) {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.update_order_state(daoMap);
+	}
+
+	@Override
+	public SalesDTO select_search_sales_order(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_search_sales_order(daoMap);
+	}
+
+	@Override
+	public List<Order_stateVO> select_request_purchase() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_request_purchase();
+	}
+
+	@Override
+	public List<Purchase_statementVO> select_purchase_statement(String statement_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_statement(statement_id);
+	}
+
+	@Override
+	public List<Order_stateVO> select_complete_storage_in() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_complete_storage_in();
+	}
+
+	@Override
+	public List<PU_stockorderVO> select_purchase_stockorder(String statement_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_stockorder(statement_id);
+	}
+
+	@Override
+	public int update_complete_pay_purchase() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_complete_pay_purchase();
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_complete_pay_purchase_list(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_complete_pay_purchase_list(daoMap);
 	}
 
 	

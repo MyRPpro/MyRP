@@ -115,7 +115,7 @@
 		
 		// 지급완료
 		} else if (check == 4 ){
-			search_str = "stock";
+			search_str = "pay";
 			
 		}else if (check == 5 ){
 			search_str = "check";

@@ -149,6 +149,7 @@
 			</tr>
 
 		</table>
+		<input type="hidden" name="order_id" id="order_id" value="0">
 		</c:if>
 		
 		<!-- 불러온 값이 있을 경우   -->
@@ -311,7 +312,7 @@
 		 alert("거래상태가 선택되지 않았습니다. 원하는 상태을 선택해주세요.");		purchase_state.focus();		return false;
 	 } else if ( condition_note_payable.value == "" ){
 		 alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");		condition_note_payable.focus();		return false;
-	 }
+	 } 
 	 
 	 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table?product_id='+product_id.value
 							+'&company_id='+company_id.value

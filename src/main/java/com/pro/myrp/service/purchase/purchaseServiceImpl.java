@@ -17,9 +17,10 @@ import org.springframework.ui.Model;
 import com.pro.myrp.domain.CodeMyRP;
 import com.pro.myrp.domain.accounting_management.Purchase_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.purchase_management.PU_stockorderVO;
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
+import com.pro.myrp.domain.sales_management.SA_stockorderVO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
-import com.pro.myrp.persistence.MyRPDAO;
 import com.pro.myrp.persistence.purchase.purchaseDAO;
 
 @Service
@@ -155,32 +156,31 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 		
 		System.out.println("  -> 알람처리 실행!");
 		List<Order_stateVO> orderVos = new ArrayList<>();
-		orderVos = dao.select_statements_approval();
+		orderVos = dao.select_request_purchase();
 		for(int i=0; i<orderVos.size(); i++) {
 			Order_stateVO orderVo = orderVos.get(i);
 			String statement_id = orderVo.getOrder_id();
-			List<Purchase_statementVO> tempVos = dao.select_purchase_statement(statement_id);
+			List<SA_stockorderVO> tempVos = dao.select_sales_statement(statement_id);
 			
-			if(tempVos != null) {
-				for(int j=0; j<tempVos.size(); j++) {
-					Purchase_statementVO tempVo = tempVos.get(j);
-					String purchase_id = tempVo.getPurchase_id();
-					String account_id = tempVo.getAccount_id();
-					Map<String, Object> daoMap = new HashMap<>();
+			for(int j=0; j<tempVos.size(); j++) {
+				SA_stockorderVO tempVo = tempVos.get(j);
+				String sales_id = tempVo.getStock_order_type();
+				
+				Map<String, Object> daoMap = new HashMap<>();
+				daoMap.put("sales_id", sales_id);
+				daoMap.put("account_id", "500014030000");
+				/*PurchaseDTO purchasedto = dao.select_search_purchase_order(daoMap);*/
+				SalesDTO salesdto = dao.select_search_sales_order(daoMap);
+				System.out.println("  -> salesdto_state() : " + salesdto.getSales_state() );
+				
+				if(salesdto.getSales_state() == request_sales_storage_out_warehouse) {
+					daoMap.clear();
+					daoMap.put("order_id", statement_id);
+					daoMap.put("order_state", 0);
+					System.out.println("  -> daoMap: " + daoMap.toString() );
+					int dao_cnt = dao.update_order_state(daoMap);
+					System.out.println("  -> dao_cnt : " + dao_cnt );
 					
-					daoMap.put("purchase_id", purchase_id);
-					daoMap.put("account_id", account_id);
-					PurchaseDTO purchasedto = dao.select_search_purchase_order(daoMap);
-					System.out.println("  -> salesdto_state() : " + purchasedto.getPurchase_state() );
-					
-					if(purchasedto.getPurchase_state() == wait_storage_out_warehouse ) {
-						daoMap.clear();
-						daoMap.put("order_id", statement_id);
-						daoMap.put("order_state", 0);
-						System.out.println("  -> daoMap: " + daoMap.toString() );
-						int dao_cnt = dao.update_order_state(daoMap);
-						System.out.println("  -> dao_cnt : " + dao_cnt );
-					}
 				}
 			}
 		}
@@ -341,7 +341,7 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 			search_check = 2;
 		} else if (search_str.equals ("stock")) {
 			search_check = 3;
-		} else if (search_str.equals ("check")) {
+		} else if (search_str.equals ("pay")) {
 			search_check = 4;
 		} else if (search_str != null && search_str != "") {
 			search_check = 1;
@@ -365,8 +365,46 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 			System.out.println("  -> update_cnt : " + update_cnt);
 			cnt = dao.select_account_approve_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
+			
+			
+			/*-----------------------------------------------------*/
+			
+			System.out.println("  -> 알람처리 실행!");
+			List<Order_stateVO> orderVos = new ArrayList<>();
+			orderVos = dao.select_statements_approval();
+			for(int i=0; i<orderVos.size(); i++) {
+				Order_stateVO orderVo = orderVos.get(i);
+				String statement_id = orderVo.getOrder_id();
+				List<Purchase_statementVO> tempVos = dao.select_purchase_statement(statement_id);
+				
+				for(int j=0; j<tempVos.size(); j++) {
+					Purchase_statementVO tempVo = tempVos.get(j);
+					String purchase_id = tempVo.getPurchase_id();
+					String account_id = tempVo.getAccount_id();
+					
+					Map<String, Object> daoMap = new HashMap<>();
+					daoMap.put("purchase_id", purchase_id);
+					daoMap.put("account_id", account_id);
+					PurchaseDTO purchasedto = dao.select_search_purchase_order(daoMap);
+					System.out.println("  -> salesdto_state() : " + purchasedto.getPurchase_state() );
+					
+					if(purchasedto.getPurchase_state() == complete_approval_purchase_statement) {
+						daoMap.clear();
+						daoMap.put("order_id", statement_id);
+						daoMap.put("order_state", 0);
+						System.out.println("  -> daoMap: " + daoMap.toString() );
+						int dao_cnt = dao.update_order_state(daoMap);
+						System.out.println("  -> dao_cnt : " + dao_cnt );
+					}
+				}
+			}
+			System.out.println("  -> 알람처리 종료!");
+			
+			/*-----------------------------------------------------*/
+			
+			
 
-		// 창고 출고 완료 일경우
+		// 창고 입고 완료 일경우
 		} else if (search_check == 3) {
 
 			System.out.println("  -> Stock_Out...");
@@ -375,9 +413,55 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 
 			cnt = dao.select_stock_in_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
+			
+			
+			/*-----------------------------------------------------*/
+			
+			System.out.println("  -> 알람처리 실행!");
+			List<Order_stateVO> orderVos = new ArrayList<>();
+			orderVos = dao.select_complete_storage_in();
+			for(int i=0; i<orderVos.size(); i++) {
+				Order_stateVO orderVo = orderVos.get(i);
+				String statement_id = orderVo.getOrder_id();
+				List<PU_stockorderVO> tempVos = dao.select_purchase_stockorder(statement_id);
+				
+				for(int j=0; j<tempVos.size(); j++) {
+					PU_stockorderVO tempVo = tempVos.get(j);
+					String purchase_id = tempVo.getStock_order_type();
+					
+					Map<String, Object> daoMap = new HashMap<>();
+					daoMap.put("purchase_id", purchase_id);
+					daoMap.put("account_id", "500011050000");
+					PurchaseDTO purchasedto = dao.select_search_purchase_order(daoMap);
+					System.out.println("  -> salesdto_state() : " + purchasedto.getPurchase_state() );
+					
+					if(purchasedto.getPurchase_state() == complete_purchase_storage_in_warehouse) {
+						daoMap.clear();
+						daoMap.put("order_id", statement_id);
+						daoMap.put("order_state", 0);
+						System.out.println("  -> daoMap: " + daoMap.toString() );
+						int dao_cnt = dao.update_order_state(daoMap);
+						System.out.println("  -> dao_cnt : " + dao_cnt );
+						
+					}
+				}
+			}
+			System.out.println("  -> 알람처리 종료!");
+			
+			/*-----------------------------------------------------*/
+			
 
-		// 구매 승인 요청일 경우
+		// 지급완료 조회
 		} else if (search_check == 4) {
+			System.out.println("  -> Search_Complete_pay...");
+			int update_cnt = dao.update_complete_pay_purchase();
+			System.out.println("  -> update_cnt : " + update_cnt);
+			cnt = dao.select_checkout_purchase_cnt();
+			System.out.println("  -> Search Cnt : " + cnt);
+			
+			
+		// 구매 승인 요청일 경우
+		} else if (search_check == 99) {
 			System.out.println("  -> Search_Checkout...");
 			cnt = dao.select_checkout_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
@@ -457,6 +541,14 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 				
 				
 			} else if ( search_check == 4 ){
+				
+				// 출고 완료 목록 표시
+				System.out.println("  -> Search_Complete_pay List  ...");
+				dtos = dao.select_complete_pay_purchase_list(daoMap);
+				model.addAttribute("dtos", dtos);
+				
+				
+			} else if ( search_check == 99 ){
 				
 				// 출고 완료 목록 표시
 				System.out.println("  -> Checkout purchase List  ...");

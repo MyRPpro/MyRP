@@ -258,7 +258,7 @@
                  	 ON      S.SALES_STATE = ST.CODE
 	                )
 			WHERE 	SALES_ID = #{sales_id}
-			AND 	ACCOUNT_ID = #{account_id}
+			ORDER	BY ACCOUNT_ID
  		]]>
  	</select>
  	
