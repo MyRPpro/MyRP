@@ -631,7 +631,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				cnt = dao.insert_out_storage(model);
 				cnt = dao.update_order_state(model);
 				cnt = dao.update_orderstate_state(model);
-				
+				goes = "out";
 			}
 			
 		}else if(goes.equals("out_storage_wait")){
@@ -677,6 +677,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				model.addAttribute("op", 1);
 				cnt = dao.insert_out_storage(model);
 				cnt = dao.update_orderstate_state(model);
+				goes = "out";
 			}
 		}else if(goes.equals("in_storage")){
 			
@@ -716,6 +717,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				 stock_state = "24202";
 				 model.addAttribute("stock_state", stock_state);
 				 cnt = dao.update_orderstate_state(model);
+				 goes = "in";
 				 
 				 //dao.update_sales_state(model);
 			}
@@ -746,6 +748,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			model.addAttribute("st_op", 4);
 			dao.update_stock_out_storage(model);
 			//dao.update_sales_state(model);
+			goes = "out";
 			
 		}else if(goes.equals("stock_complete")){
 			product_id = req.getParameter("product_id");
@@ -758,9 +761,11 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			dao.update_stock_out_storage(model);
 			model.addAttribute("st_op","1");
 			dao.update_stock_out_storage(model);
+			goes = "out";
 		}
 		
 		model.addAttribute("cnt", cnt);
+		model.addAttribute("goes",goes);
 	}
 
 	@Override

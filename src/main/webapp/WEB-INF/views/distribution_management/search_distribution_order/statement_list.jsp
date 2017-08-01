@@ -239,7 +239,7 @@ function stock_complete(id,product_id,lack_stock){
 							<th>${dto.kor_name}</th>
 							<th>
 							<c:forEach var = "pro" items = "${proVos}">
-							<c:if test = "${dto.product_id == pro.product_id && pro.warehouse_id == 1001}">	
+							<c:if test = "${dto.product_id == pro.product_id && pro.warehouse_id == 1001 && dto.lack_stock >= 1}">	
 							<c:if test = "${dto.lack_stock <= pro.stock_amount}"><button class="btn btn-default" onclick = "stock_complete('${dto.stock_order_type}','${dto.product_id}','${dto.lack_stock}')">재고준비완료</button></c:if>
 							</c:if>
 							</c:forEach>

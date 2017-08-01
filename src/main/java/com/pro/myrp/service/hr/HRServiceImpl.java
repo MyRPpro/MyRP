@@ -1242,9 +1242,9 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 					daoMap.put("account_id", account_id);
 					Salary_registerVO salaryVo = dao.select_salary_register(daoMap);
 					if(salaryVo.getSalary_state() == state_request_payments_salary) {
-						daoMap.put("salary_state", complete_approval_sales_statement);
+						daoMap.put("salary_state", state_wait_payments_salary);
 						dao.update_salary_register_state(daoMap);
-						salaryVo.setSalary_state(complete_approval_sales_statement);
+						salaryVo.setSalary_state(state_wait_payments_salary);
 						salaryVos.add(salaryVo);
 						daoMap.clear();
 						daoMap.put("statement_id", statement_id);

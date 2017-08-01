@@ -173,7 +173,7 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 					PurchaseDTO purchasedto = dao.select_search_purchase_order(daoMap);
 					System.out.println("  -> salesdto_state() : " + purchasedto.getPurchase_state() );
 					
-					if(purchasedto.getPurchase_state() == complete_storage_in_warehouse	) {
+					if(purchasedto.getPurchase_state() == wait_storage_out_warehouse ) {
 						daoMap.clear();
 						daoMap.put("order_id", statement_id);
 						daoMap.put("order_state", 0);

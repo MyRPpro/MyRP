@@ -20,20 +20,24 @@ function storage_go(id, goes,storage_in_date){
 		alert("입고예정일이 안되었습니다.");
 		return false;
 	}
-	var togo =$("#request_in");
-	var data = {
-				"id" : id,
-				"goes" : goes
-				}
 	
-	$.ajax({ 					
-		data:	data,
-		type: 	'post',	 			
-		url: 	"/distribution_management/search_distribution_order/request_in_out_storage_pro",
-		success: function(response) { 	
-			togo.html(response);	
-		}
-	});  
+	var con = confirm("승인하시겠습니까?");
+	if(con){
+		var togo =$("#main_screen");
+		var data = {
+					"id" : id,
+					"goes" : goes
+					}
+		
+		$.ajax({ 					
+			data:	data,
+			type: 	'post',	 			
+			url: 	"/distribution_management/search_distribution_order/request_in_out_storage_pro",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		}); 
+	}
 }
 function storage_comp_go(id, goes,storage_out_date){
 	var now = new Date();
@@ -46,20 +50,23 @@ function storage_comp_go(id, goes,storage_out_date){
 		return false;
 	}
 
-	var togo =$("#request_out");
-	var data = {
-			"id" : id,
-			"goes" : goes
+	var con = confirm("승인하시겠습니까?");
+	if(con){
+		var togo =$("#main_screen");
+		var data = {
+				"id" : id,
+				"goes" : goes
+				}
+	
+		$.ajax({ 					
+			data:	data,
+			type: 	'post',	 			
+			url: 	"distribution_management/search_distribution_order/request_in_out_storage_pro",
+			success: function(response) { 	
+				togo.html(response);	
 			}
-
-$.ajax({ 					
-	data:	data,
-	type: 	'post',	 			
-	url: 	"distribution_management/search_distribution_order/request_in_out_storage_pro",
-	success: function(response) { 	
-		togo.html(response);	
+		});
 	}
-});  
 }
 
 $(".page_in").bind("click", function(event) {

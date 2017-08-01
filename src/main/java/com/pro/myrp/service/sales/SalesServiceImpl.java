@@ -798,10 +798,14 @@ public class SalesServiceImpl implements SalesService,CodeMyRP  {
 		if(insert_cnt != 0 ) ++insert_cnt;
 		dtos.add(dto);
 		
-		// 추가 사항 시작  : 판매통장에 입금 // 
+		// 추가 사항 시작  : 판매통장에 입금----------------------------------------------------- // 
+		
+		int count = dto.getCount_sales();
+		price = price * count;
 		update_cnt = dao.update_sales_bank_account(price);
 		System.out.println("  -> bank update_cnt :" + update_cnt);
-		// 추가 사항 종료 // 
+		
+		// 추가 사항 종료----------------------------------------------------- // 
 		
 		System.out.println("  -> update_cnt : " + insert_cnt);
 		
