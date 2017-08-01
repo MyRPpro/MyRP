@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file = "../setting.jsp" %>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,30 +30,19 @@
 	}
 </script>
 <body onload="autofocus();">
-login.jsp
-<form action="/user/loginPost" method="post" name="login_form1"
+<form class="form-horizontal" action="/user/loginPost" method="post" name="login_form1"
 onsubmit="return fn_login_check();">
-	<table border="1">
-		<tr>
-			<th>employee_name</th>
-			<td>
-				<input type="text" name="employee_name">
-			</td>
-		</tr>
-		<tr>
-			<th>employee_id</th>
-			<td>
-				<input type="number" name="employee_id">
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<input type="submit" value="로그인">
-				<input type="reset" value="재작성">
-				<input type="button" value="돌아가기" onclick="window.location='/';">
-			</th>
-		</tr>
-	</table>
+	<div class="form-group">
+		<label for="employee_name">사원명</label>
+		<input type="text" class="form-control" id="employee_name" name="employee_name" placeholder="성명" autofocus required>
+	</div>
+	<div class="form-group">
+		<label for="employee_id">사원번호</label>
+		<input type="number" class="form-control" id="employee_id" name="employee_id" placeholder="사원번호" required>
+	</div>
+	<button type="submit" class="btn btn-default">LOGIN</button>
+	<button type="reset" class="btn btn-default">RESET</button>
+	<button type="button" class="btn btn-default" onclick="window.location='/';">BACK</button>
 </form>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(function(){
 	$('#storage_out').click(function(){
-		var togo = $('#request');
+		var togo = $('#request_out');
 		var data = {
 					"goes" : "out",
 					}
@@ -26,7 +26,7 @@ $(function(){
 	});	
 	
 	$('#storage_in').click(function(){
-		var togo = $('#request');
+		var togo = $('#request_in');
 		var data = {
 					"goes" : "in",
 					}
@@ -41,7 +41,7 @@ $(function(){
 	});	
 	
 	$('#storage_out_complete').click(function(){
-		var togo = $('#request');
+		var togo = $('#request_out');
 		var data = {
 					"goes" : "storage_out_complete",
 					}
@@ -54,79 +54,185 @@ $(function(){
 			}
 		});
 	});	
+	$(".page").bind("click", function(event) {
+		$("#main_screen").load($(this).attr("href"));
+		return false;
+	});
+	
+	
+	$('.distribution_in_list_down').bind("click",function(){  
+		$("#main_screen").load("/distribution_management/search_distribution_order/statement_list?goes=in");
+	});
+
+	$('.distribution_out_list_down').bind("click",function(){  
+		$("#main_screen").load("/distribution_management/search_distribution_order/statement_list?goes=out");
+	});
+	
+	$('.distribution_in_list_heading').bind("click",function(){  
+		$('.distribution_in_list_content').slideToggle();
+	});
+
+	$('.distribution_out_list_heading').bind("click",function(){  
+		$('.distribution_out_list_content').slideToggle();
+	});
 });
 </script>
-all_statement_list.jsp
-<button id = "storage_out">출고요청</button>
-<button id = "storage_in">입고요청</button>
-<button id = "storage_out_complete">출고완료요청</button>
-<button onclick = "window.location = '/'">홈으로</button>
-<br>
-<br>
-<div id = "request"></div>
-<br>
-<br>	
-<h3>입고요청 처리내역</h3>
-<table border = "1">
-	<tr>
-		<th>STOCK_ORDER_ID</th>
-		<th>STOCK_ORDER_TYPE</th>
-		<th>PRODUCT_ID</th>
-		<th>WAREHOUSE_ID</th>
-		<th>EMPLOYEE_ID</th>
-		<th>REG_DATE</th>
-		<th>UPDATE_DATE</th>
-		<th>STOCK_STATE</th>
-		<th>COUNT_PURCHASE</th>
-		<th>STORAGE_IN_DATE</th>
-	</tr>
-	<c:forEach var = "dto" items = "${in_storageDtos}">
-		<tr>
-			<th>${dto.stock_order_id}</th>
-			<th>${dto.stock_order_type}</th>
-			<th>${dto.product_id}</th>
-			<th>${dto.warehouse_id}</th>
-			<th>${dto.employee_id}</th>
-			<th>${dto.reg_date}</th>
-			<th>${dto.update_date}</th>
-			<th>${dto.stock_state}</th>
-			<th>${dto.count_purchase}</th>
-			<th>${dto.storage_in_date}</th>
-		</tr>
-	</c:forEach>
-</table>
-
-<h3>출고요청 처리내역</h3>
-<table border = "1">
-	<tr>
-		<th>STOCK_ORDER_ID</th>
-		<th>STOCK_ORDER_TYPE</th>
-		<th>PRODUCT_ID</th>
-		<th>WAREHOUSE_ID</th>
-		<th>EMPLOYEE_ID</th>
-		<th>REG_DATE</th>
-		<th>UPDATE_DATE</th>
-		<th>STOCK_STATE</th>
-		<th>COUNT_SALES</th>
-		<th>AVAILABLE_STOCK</th>
-		<th>LACK_STOCK</th>
-		<th>STORAGE_OUT_DATE</th>
-	</tr>
-	<c:forEach var = "dto" items = "${out_storageDtos}">
-		<tr>
-			<th>${dto.stock_order_id}</th>
-			<th>${dto.stock_order_type}</th>
-			<th>${dto.product_id}</th>
-			<th>${dto.warehouse_id}</th>
-			<th>${dto.employee_id}</th>
-			<th>${dto.reg_date}</th>
-			<th>${dto.update_date}</th>
-			<th>${dto.stock_state}</th>
-			<th>${dto.count_sales}</th>
-			<th>${dto.available_stock}</th>
-			<th>${dto.lack_stock}</th>
-			<th>${dto.storage_out_date}</th>
-		</tr>
-	</c:forEach>
-</table>
+<button class="btn btn-default distribution_in_list_down">입고내역</button>
+<button class="btn btn-default distribution_out_list_down">출고내역</button>
+<br><br>
+<c:if test = "${goes == 'in'}">
+<div class="row">
+<div class="col-xs-12">
+	<div class="panel panel-primary">
+		<div class="panel-heading distribution_in_list_heading">
+			<h3 class="panel-title">입고요청 처리내역</h3>
+		</div>
+		<div class="panel-body distribution_in_list_content">
+			<div class="table-responsive">
+				<table class="table table-condensed">
+				<tr>
+						<th colspan = "13">
+							<div class="text-center">
+			            <ul class="pagination">
+			            <input type = "hidden" value = "${icurrentPage}" id = "currentPage">
+			               <c:if test="${istartPage > pageBlock}">
+			                  <li><a class = "page" href="/distribution_management/search_distribution_order/statement_list?goes=in">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+			                  <li><a class = "page" href="/distribution_management/search_distribution_order/statement_list?goes=in&ipageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+			               </c:if>
+			               <c:forEach var="i" begin="${istartPage}" end="${iendPage}">
+			                  <c:if test="${i == icurrentPage}">
+			                     <li><span>${i}</span></li>
+			                  </c:if>
+			                  <c:if test="${i != icurrentPage}">
+			                     <li><a class = "page"  href="/distribution_management/search_distribution_order/statement_list?goes=in&ipageNum=${i}">${i}</a></li>
+			                  </c:if>
+			                  
+			               </c:forEach>
+			               <c:if test="${pageCount > endPage}">
+			                  <li><a class = "page"  href="/distribution_management/search_distribution_order/statement_list?goes=in&ipageNum=${istartPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+			                  <li><a class = "page"  href="/distribution_management/search_distribution_order/statement_list?goes=in&ipageNum=${ipageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+			               </c:if>
+			            </ul>
+			         </div>
+						</th>
+					</tr>
+					<tr>
+						<th>주문번호</th>
+						<th>구매번호</th>
+						<th>상품명</th>
+						<th>구매 수량</th>
+						<th>창고명</th>
+						<th>입고일</th>
+						<th>담당자명</th>
+						<th>등록일</th>
+						<th>최종 수정일</th>
+						<th>상태</th>
+					</tr>
+					<c:forEach var = "dto" items = "${in_storageDtos}">
+						<tr>
+							<th>${dto.stock_order_id}</th>
+							<th>${dto.stock_order_type}</th>
+							<th>${dto.product_id}</th>
+							<th>${dto.count_purchase}</th>
+							<th>${dto.warehouse_id}</th>
+							<th>${dto.storage_in_date}</th>
+							<th>${dto.employee_id}</th>
+							<th>${dto.reg_date}</th>
+							<th>${dto.update_date}</th>
+							<th>${dto.kor_name}</th>			
+						</tr>
+					</c:forEach>
+					<tr>
+						<td colspan = "10"><button class="btn btn-default" id = "storage_in">입고요청</button></td>
+					</tr>
+				</table>
+			</div>
+			<br>
+			<div id = "request_in"></div>
+		</div>
+	</div>
+</div>
+</div>
+</c:if>
+<c:if test = "${goes == 'out'}">
+<div class="row">
+<div class="col-xs-12">
+	<div class="panel panel-primary">
+		<div class="panel-heading distribution_out_list_heading">
+			<h3 class="panel-title">출고요청 처리내역</h3>
+		</div>
+		<div class="panel-body distribution_out_list_content">
+			<div class="table-responsive">
+				<table class="table table-condensed">
+				<tr>
+						<th colspan = "13">
+							<div class="text-center">
+			            <ul class="pagination">
+			            <input type = "hidden" value = "${ocurrentPage}" id = "currentPage">
+			               <c:if test="${ostartPage > pageBlock}">
+			                  <li><a class = "page" href="/distribution_management/search_distribution_order/statement_list?goes=out">◀◀</a></li>  <!-- 첫 페이지로 이동 -->
+			                  <li><a class = "page" href="/distribution_management/search_distribution_order/statement_list?goes=out&opageNum=${startPage - pageBlock}">◀</a></li> <!-- 이전 블록으로 이동 -->
+			               </c:if>
+			               <c:forEach var="i" begin="${ostartPage}" end="${oendPage}">
+			                  <c:if test="${i == ocurrentPage}">
+			                     <li><span>${i}</span></li>
+			                  </c:if>
+			                  <c:if test="${i != ocurrentPage}">
+			                     <li><a class = "page"  href="/distribution_management/search_distribution_order/statement_list?goes=out&opageNum=${i}">${i}</a></li>
+			                  </c:if>
+			                  
+			               </c:forEach>
+			               <c:if test="${pageCount > oendPage}">
+			                  <li><a class = "page"  href="/distribution_management/search_distribution_order/statement_list?goes=out&opageNum=${ostartPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+			                  <li><a class = "page"  href="/distribution_management/search_distribution_order/statement_list?goes=out&opageNum=${opageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+			               </c:if>
+			            </ul>
+			         </div>
+						</th>
+					</tr>
+					<tr>
+						<th>주문번호</th>
+						<th>판매번호</th>
+						<th>상품명</th>
+						<th>판매 수량</th>
+						<th>출고 가능 수량</th>
+						<th>부족 수량</th>
+						<th>창고명</th>
+						<th>출고일</th>
+						<th>담당자명</th>
+						<th>등록일</th>
+						<th>최종 수정일</th>
+						<th>상태</th>
+					</tr>
+					<c:forEach var = "dto" items = "${out_storageDtos}">
+						<tr>
+							<th>${dto.stock_order_id}</th>
+							<th>${dto.stock_order_type}</th>
+							<th>${dto.product_name}</th>
+							<th>${dto.count_sales}</th>
+							<th>${dto.available_stock}</th>
+							<th>${dto.lack_stock}</th>
+							<th>${dto.warehouse_name}</th>
+							<th>${dto.storage_out_date}</th>
+							<th>${dto.employee_name}</th>
+							<th>${dto.reg_date}</th>
+							<th>${dto.update_date}</th>
+							<th>${dto.kor_name}</th>
+						</tr>
+					</c:forEach>
+					<tr>
+						<td colspan = "12">
+							<button class="btn btn-default" id = "storage_out">출고요청</button>
+							<button class="btn btn-default" id = "storage_out_complete">출고완료요청</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br>
+			<div id = "request_out"></div>
+		</div>
+	</div>
+</div>
+</div>
+</c:if>
 </html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.pro.myrp.persistence.state_alarm.State_alaramDAO">
+ 
+ 	<select id = "select_state_alarm" parameterType="java.util.Map" resultType="State_alarmDTO">
+ 		<!-- SELECT	*
+ 		FROM	order_state
+ 		WHERE	order_state in  <foreach item="order_state" collection="order_state" open="(" separator="," close=")">#{order_state}</foreach> --> 
+ 		SELECT	*
+	 	FROM	(
+		 			SELECT	o.*, rownum as rnum
+		 			FROM	order_state o JOIN state s
+		 			ON		o.order_state = s.code
+		 			WHERE	o.order_state in  <foreach item="order_state" collection="order_state" open="(" separator="," close=")">#{order_state}</foreach>
+	 			)
+	 	<!-- WHERE	rnum in (1,2,3,4,5) -->
+	 	
+ 	</select>
+ 	
+ 	<select id="select_sales_statement" resultType="int">
+ 		SELECT	COUNT(*)
+ 		FROM	statement s JOIN sales_statement st
+		ON		s.statement_id = st.statement_id
+		WHERE	s.statement_id = #{order_id}
+		AND		s.approval_state = #{order_state}
+		AND		st.account_id = '500012020000'
+ 	</select>
+ 	
+ 	<select id="select_salary_register_statement" resultType="int">
+ 		SELECT	COUNT(*)
+ 		FROM	statement s JOIN salary_register_statement st
+ 		ON		s.statement_id = st.statement_id
+ 		WHERE	s.statement_id = #{order_id}
+		AND		s.approval_state = #{order_state}
+		AND		st.account_id = '500011010000'
+ 	</select>
+ 	
+ 	<select id="select_purchase_statement" resultType="int">
+ 		SELECT	COUNT(*)
+ 		FROM	statement s JOIN purchase_statement st
+ 		ON		s.statement_id = st.statement_id
+ 		WHERE	s.statement_id = #{order_id}
+		AND		s.approval_state = #{order_state}
+		AND		st.account_id = '500012010000'
+ 	</select>
+</mapper>
+
+

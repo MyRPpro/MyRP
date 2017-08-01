@@ -69,7 +69,12 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void make_statement_service(Model model) throws Exception;
-	
+	/**
+	 * 전표조회 맨 처음 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_statements_service(Model model) throws Exception;
 	/**
 	 * 전표관리 > 전표 승인 서비스
 	 * @param model
@@ -159,4 +164,45 @@ public interface AccountService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void modify_account_pro_service(Model model) throws Exception;
+	
+	/**
+	 * 회계보고서 > 재무상태표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_balance_sheet_service(Model model) throws Exception;
+	public void show_balance_sheet_service(Model model) throws Exception;
+	
+	/**
+	 * 회계보고서 > 손익계산서 조회 서비스 
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_profit_and_loss_statement_service(Model model) throws Exception;
+	public void show_profit_and_loss_statement_service(Model model) throws Exception;
+	
+	/**
+	 * 회계보고서 > 현금흐름표 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_statement_of_cash_flows_service(Model model) throws Exception;
+	public void show_statement_of_cash_flows_service(Model model) throws Exception;
+	
+	/**
+	 * 채권/채무현황 > 모든 채권/채무현황 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_all_bond_debt_service(Model model) throws Exception;
+	
+	/**
+	 * 채권/채무현항 > 거래처별 채권/채무현황 조회 서비스
+	 * @param model
+	 * @throws Exception
+	 */
+	public void search_bond_debt_by_company_service(Model model) throws Exception;
+	
+	public void show_all_bond_debt_service(Model model)throws Exception;
+	public void show_bond_debt_by_company_service(Model model) throws Exception;
 }

@@ -21,6 +21,46 @@ public class Select_stock_order_storageDTO {
 	private int count_purchase;
 	private Date storage_in_date;
 	
+	private String kor_name;
+	private String product_name;
+	private String warehouse_name;
+	private String employee_name;
+	
+	
+	
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
+
+	public String getWarehouse_name() {
+		return warehouse_name;
+	}
+
+	public void setWarehouse_name(String warehouse_name) {
+		this.warehouse_name = warehouse_name;
+	}
+
+	public String getEmployee_name() {
+		return employee_name;
+	}
+
+	public void setEmployee_name(String employee_name) {
+		this.employee_name = employee_name;
+	}
+
+	public String getKor_name() {
+		return kor_name;
+	}
+
+	public void setKor_name(String kor_name) {
+		this.kor_name = kor_name;
+	}
+
 	public int getCount_purchase() {
 		return count_purchase;
 	}

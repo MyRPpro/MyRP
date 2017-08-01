@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: ￬ﾞﾥ￬ﾞﾬ￭ﾝﾬ
+=======
+Built-By: choidream
+>>>>>>> 0245fc4d644dc20056448af8dde1e83b551b88a1
 Build-Jdk: 1.8.0_131
 Created-By: Maven Integration for Eclipse
 

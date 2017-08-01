@@ -8,74 +8,108 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function autofocus() {
-		document.add_base_code_group_form1.hr_code_group_id.focus();
-	}
 	
-	function validate_form() {
-		if(document.add_base_code_group_form1.dupcheck.value == 0) {
-			alert("인사코드 그룹 번호의 중복체크가 필요합니다.");			
-			document.add_base_code_group_form1.dup_check_btn.focus();
+	$("#page16120_div01_toggle").bind("click", function(event) {
+		$("#page16120_div01").slideToggle();
+		return false;
+	});
+	
+	$("#page16120_div03_toggle").bind("click", function(event) {
+		$("#page16120_div03").slideToggle();
+		return false;
+	});
+	
+	$("input[name='hr_code_group_id']").on("change",function() {
+		$("input[name='dupcheck']").val(0);
+	});
+	
+	$("#page16120_div01 form").on("submit", function(event) {
+		if($("input[name='dupcheck']").val() == 0) {
+			alert("인사코드 그룹 번호의 중복체크가 필요합니다.");
+			$("#page16120_btn02").focus();
 			return false;
 		}
-	}
+		var data =  $(this).serialize();
+		$.ajax({ 					
+			data: 	 data,
+			type: 	'post',	 			
+			url: 	"/hr_management/manage_hr_code/add_base_code_group_pro",
+			success: function(response) { 	
+				$('#page16120_div01').html(response);	
+			}
+		});
+		return false;
+	});
 	
-	function check_dup() {
-		if(!document.add_base_code_group_form1.hr_code_group_id.value) {
-			alert("먼저 인사코드 그룹 번호에 값을 입력하세요.")
-			document.add_base_code_group_form1.hr_code_group_id.focus();
+	$("#page16120_btn02").on("click", function() {
+		var $hr_code_group_id = $("input[name='hr_code_group_id']");
+		if(!$hr_code_group_id.val()) {
+			alert("먼저 인사코드 그룹 번호에 값을 입력하세요.");
+			$hr_code_group_id.focus();
 			return false;
 		}
-		var hr_code_group_id = document.add_base_code_group_form1.hr_code_group_id.value;
-		var url ="/hr_management/manage_hr_code/add_base_code_group_dupCheck?hr_code_group_id="+hr_code_group_id;
-		
-		window.open(url, "dupCheck", "menubar=no, width=300, height=200");
-	}
+		var url = "/hr_management/manage_hr_code/add_base_code_group_dupCheck?hr_code_group_id="+$hr_code_group_id.val();
+		$("#page16120_div01").slideUp();
+		$("#page16120_div02").slideDown();
+		$("#page16120_div02").load(url);
+	});
 	
-	function check_change() {
-		document.add_base_code_form1.dupcheck.value = 0;
-	}
+	$("#page16120_btn01").bind("click", function(event) {
+		$("#page16120").slideUp();
+		$("#page16110_div01").slideDown();
+		return false;		
+	});
+	
 </script>
-<body onload="autofocus();">
-add_base_code_group.jsp
-<form action="/hr_management/manage_hr_code/add_base_code_group_pro"
-name="add_base_code_group_form1" method="post" onsubmit="return validate_form();">
-	<table border="1">
-		<tr>
-			<th>hr_code_group_id</th>
-			<td>
-				<input type="number" name="hr_code_group_id"
-				min="1" max="9" step="1" required
-				onchange="return check_change();">
-				<input type="button" name="dup_check_btn" value="중복확인"
-				onclick="return check_dup();">
-			</td>
-		</tr>
-		<tr>
-			<th>hr_code_group_name</th>
-			<td>
-				<input type="text" name="hr_code_group_name" maxlength="255" required>
-			</td>
-		</tr>
-		<tr>
-			<th>use_state</th>
-			<td>
-				<label for="used">사용</label>
-				<input type="radio" name="use_state" id="used" value="Y" checked>
-				<label for="unused">비사용</label>
-				<input type="radio" name="use_state" id="unused" value="N">
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<input type="submit" value="등록하기">
-				<input type="reset"	value="재작성">
-				<input type="button" value="돌아가기"
-				onclick="window.history.back();">
-			</th>
-		</tr>
-	</table>
-	<input type="hidden" name="dupcheck" value="0">
-</form>
+<body>
+<div class="panel panel-default" id="page16120">
+	<div class="panel-heading">
+		<a id="page16120_div01_toggle">[16120]add_base_code_group.jsp</a>
+	</div>
+	<div class="panel-body" id="page16120_div01">
+		<form action="#" name="page16120_form01">
+			<table class="table text-center">
+				<tr>
+					<th>인사코드 그룹번호</th>
+					<td>
+						<div class="input-group">
+							<input class="form-control input-sm" type="number" name="hr_code_group_id"
+						min="1" max="9" step="1" value="${hr_code_group_id}" required>
+						<span class="input-group-btn">
+							<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page16120_btn02">
+						</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>인사코드 그룹명</th>
+					<td>
+						<input class="form-control input-sm" type="text" name="hr_code_group_name" maxlength="255" required>
+					</td>
+				</tr>
+				<tr>
+					<th>사용 상태</th>
+					<td>
+						<label for="used">사용</label>
+						<input type="radio" name="use_state" id="used" value="Y" checked>
+						<label for="unused">비사용</label>
+						<input type="radio" name="use_state" id="unused" value="N">
+					</td>
+				</tr>
+				<tr>
+					<th colspan="2">
+						<input type="hidden" name="dupcheck" 
+						<c:if test="${dupcheck == null}">value="0"</c:if>
+						<c:if test="${dupcheck == 1}">value="1"</c:if>>
+						<input class="btn btn-default btn-sm" type="submit" value="등록하기">
+						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+						<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16120_btn01">
+					</th>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div id="page16120_div02"></div>
+</div>
 </body>
 </html>

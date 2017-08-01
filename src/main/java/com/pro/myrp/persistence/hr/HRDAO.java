@@ -4,17 +4,23 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.pro.myrp.domain.hr_management.DeptVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.domain.hr_management.Employee_infoVO;
-import com.pro.myrp.domain.hr_management.Hr_appointment_listDTO;
-import com.pro.myrp.domain.hr_management.Hr_codeVO;
-import com.pro.myrp.domain.hr_management.Hr_code_groupVO;
-import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
-import com.pro.myrp.domain.hr_management.Personnel_cardDTO;
-import com.pro.myrp.domain.hr_management.Personnel_card_listDTO;
-import com.pro.myrp.domain.hr_management.Retired_EmployeeDTO;
-import com.pro.myrp.domain.hr_management.Retired_employeeVO;
+import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.hr_management.dto.Calc_salaryDTO;
+import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_cardDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_listDTO;
+import com.pro.myrp.domain.hr_management.dto.Personnel_card_salaryDTO;
+import com.pro.myrp.domain.hr_management.dto.Retired_EmployeeDTO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.Employee_infoVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_code_groupVO;
+import com.pro.myrp.domain.hr_management.vo.Personnel_appointmentVO;
+import com.pro.myrp.domain.hr_management.vo.Retired_employeeVO;
+import com.pro.myrp.domain.hr_management.vo.SalaryVO;
+import com.pro.myrp.domain.hr_management.vo.Salary_registerVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface HRDAO extends MyRPDAO {
@@ -53,9 +59,8 @@ public interface HRDAO extends MyRPDAO {
 	/**
 	 * 사용상태를 조건으로 한 선택그룹의 인사코드 목록보기
 	 * @author amaco78
-	 * @param use_state
-	 * @param hr_code_group_id
-	 * @return
+	 * @param daoMap [use_state, hr_code_group_id]
+	 * @return List [Hr_codeVO]
 	 */
 	public List<Hr_codeVO> select_used_hr_codes(Map<String, Object> daoMap);
 	
@@ -304,6 +309,14 @@ public interface HRDAO extends MyRPDAO {
 	public List<Retired_EmployeeDTO> select_retired_employee_list(Map<String, Object> daoMap);
 
 	/**
+	 * 퇴사자 조회
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
+	public Retired_EmployeeDTO select_retired_employee(int employee_id);
+	
+	/**
 	 * 퇴사자 등록
 	 * @author amaco78
 	 * @param vo
@@ -326,4 +339,145 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public List<Retired_EmployeeDTO> select_retired_employee_history(int employee_id);
+
+	/**
+	 * 검색어를 반영한 급여대장 개수 검색
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int select_salary_register_cnt(Map<String, Object> daoMap);
+
+	/**
+	 * 검색어를 반영한 급여대장 목록 조회
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<Salary_registerVO> select_salary_register_list(Map<String, Object> daoMap);
+
+	/**
+	 * 급여정보 등록
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_salary_register(Salary_registerVO vo);
+
+	/**
+	 * 급여정보 등록2
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_salary_register2(Salary_registerVO vo);
+
+	/**
+	 * 승인된 회계전표 조회
+	 * @author amaco78
+	 * @return
+	 */
+	public List<Order_stateVO> select_statements_approval();
+
+	/**
+	 * 회계전표번호와 연결된 급여전표 목록 조회
+	 * @author amaco78
+	 * @param salary_register_id
+	 * @return
+	 */
+	public List<Salary_register_statementVO> select_salary_statement(String statement_id);
+
+	/**
+	 * 선택된 급여대장번호의 급여대장 정보를 조회
+	 * @author amaco78
+	 * @param daoMap [salary_register_id, account_id]
+	 * @return Salary_registerVO
+	 */
+	public Salary_registerVO select_salary_register(Map<String, Object> daoMap);
+	
+	/**
+	 * 선택된 급여대장의 급여대장 상태를 변경
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int update_salary_register_state(Map<String, Object> daoMap);
+
+	/**
+	 * 지급대기상태인 급여대장 목록 조회
+	 * @author amaco78
+	 * @return
+	 */
+	public List<Salary_registerVO> select_salary_register_for_clear();
+
+	/**
+	 * 급여통장의 돈을 변경
+	 * @author amaco78
+	 * @param pay_money
+	 * @return
+	 */
+	public int update_bank_account_balance(long pay_money);
+
+	/**
+	 * 선택된 주문의 주문상태를 초기화
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int update_order_state(Map<String, Object> daoMap);
+
+	/**
+	 * 급여대장 정보 수정
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int update_salary_register(Salary_registerVO vo);
+
+	/**
+	 * 급여계산용 인사정보
+	 * @author amaco78
+	 * @return
+	 */
+	public List<Calc_salaryDTO> select_calc_salary();
+
+	/**
+	 * 개인급여정보 등록
+	 * @author amaco78
+	 * @param vo
+	 * @return
+	 */
+	public int insert_salary(SalaryVO vo);
+
+	/**
+	 * 급여확정유무 확인
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public int select_fixed_salary(Map<String, Object> daoMap);
+
+	/**
+	 * 개인급여정보 조회
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public SalaryVO select_salary(Map<String, Object> daoMap);
+
+	/**
+	 * 인사카드 급여이력 조회
+	 * @author amaco78
+	 * @param daoMap
+	 * @return
+	 */
+	public List<Personnel_card_salaryDTO> select_personnel_card_salary(Map<String, Object> daoMap);
+
+	/**
+	 * 주문상태명 조회
+	 * @author amaco78
+	 * @param salary_state
+	 * @return
+	 */
+	public String select_state(int salary_state);
 }

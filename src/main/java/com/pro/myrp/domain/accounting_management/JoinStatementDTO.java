@@ -7,13 +7,12 @@ public class JoinStatementDTO {
 	public String statement_id;
 	public String purchase_id;
 	public String account_id;
-	
 	public String salary_register_id;
 	
 	public String sales_id;
 	
     public Date reg_date; 				//등록일자
-    public int account_value;			//계정금액
+    public Long account_value;			//계정금액
     public int approval_state;			//주문상태
     public String statement_type; 		//전표타입	
 	
@@ -27,7 +26,66 @@ public class JoinStatementDTO {
     
     public String account_balance;
     
-    public String getAccount_balance() {
+    public int year;
+    public long sum;
+    String account_class;
+    
+    public String product_id;
+    public int count_sales;
+    
+   
+    public String sales_company_name;
+    public String purchase_company_name;
+    
+    
+    
+    
+    public String getSales_company_name() {
+		return sales_company_name;
+	}
+	public void setSales_company_name(String sales_company_name) {
+		this.sales_company_name = sales_company_name;
+	}
+	public String getPurchase_company_name() {
+		return purchase_company_name;
+	}
+	public void setPurchase_company_name(String purchase_company_name) {
+		this.purchase_company_name = purchase_company_name;
+	}
+	public void setAccount_value(Long account_value) {
+		this.account_value = account_value;
+	}
+	public String getProduct_id() {
+		return product_id;
+	}
+	public void setProduct_id(String product_id) {
+		this.product_id = product_id;
+	}
+	public int getCount_sales() {
+		return count_sales;
+	}
+	public void setCount_sales(int count_sales) {
+		this.count_sales = count_sales;
+	}
+	public String getAccount_class() {
+		return account_class;
+	}
+	public void setAccount_class(String account_class) {
+		this.account_class = account_class;
+	}
+	public long getSum() {
+		return sum;
+	}
+	public void setSum(long sum) {
+		this.sum = sum;
+	}
+	public int getYear() {
+		return year;
+	}
+	public void setYear(int year) {
+		this.year = year;
+	}
+	public String getAccount_balance() {
 		return account_balance;
 	}
 	public void setAccount_balance(String account_balance) {
@@ -106,10 +164,10 @@ public class JoinStatementDTO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	public int getAccount_value() {
+	public long getAccount_value() {
 		return account_value;
 	}
-	public void setAccount_value(int account_value) {
+	public void setAccount_value(long account_value) {
 		this.account_value = account_value;
 	}
 	public int getApproval_state() {

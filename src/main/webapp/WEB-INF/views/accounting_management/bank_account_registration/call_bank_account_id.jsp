@@ -1,50 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src = "/resources/accounting_management/accounting_management_script.js"></script>
-</head>
+<script type="text/javascript">
+
+/* $(function(){
+	$('#calling_button').unbind("click").bind("click",function(){ */
+function set_bank_account_id(account_id,account_name,account_balance){
+		/* var account_id = $('input[name="account_id"]').val()
+		var account_name = $('input[name="account_name"]').val()
+		var account_balance = $('input[name="account_balance"]').val()*/
+		
+		switch(account_name){
+			case "현금" : account_name = "주 계좌"; break;
+			case "매출채권" : account_name = "판매";break;
+			case "매입채무" : account_name = "구매";break;
+			case "급여" : account_name = "급여지급";break;
+			case "부가세예수금" : account_name = "세금납부";break;
+			default : account_name = "잘못됐다";break;
+		}
+		
+		document.getElementById("bank_account_id").value = account_id;
+		document.getElementById("bank_account_type").value = account_name;
+		document.getElementById("bank_account_balance").value = account_balance;
+		
+		/* togo = $('#call_bank_id_stage');
+	
+		$.ajax({ 		
+			type: 	'get',	 			
+			url: 	"/accounting_management/bank_account_registration/call_bank_account_id",
+			success: function(response) { 	
+				togo.html(response);	
+			}
+		}); */
+	}
+	
+	/* }); */
+	
+		
+</script>
 <body>
-	call_bank_account_id.jsp
-	<table border="1">
-		<tr>
-			<th>
-				계좌 개설 목적 
-			</th>
-		</tr>
-		<c:if test="${vos != null}">
-		<c:forEach var="vo" items="${vos}">
-		<tr>
-				<td>
-				<button onclick="set_bank_account_id('${vo.account_id}','${vo.account_name}',${vo.account_balance})">
-					<c:if test="${vo.account_name.equals('현금')}">
-						주 계좌
-					</c:if>
-					<c:if test="${vo.account_name.equals('매출채권')}">
-						판매
-					</c:if>
-					<c:if test="${vo.account_name.equals('매입채무')}">
-						구매
-					</c:if>
-					<c:if test="${vo.account_name.equals('급여')}">
-						급여지급
-					</c:if>
-					<c:if test="${vo.account_name.equals('부가세예수금')}">
-						세금납부
-					</c:if>
-				</button><br>
-				
-				</td>
-		</tr>
-		</c:forEach>
-		</c:if>
-		<c:if test="${vos}==null">
-			모든 계좌가 개설되었습니다
-		</c:if>
-	</table>
+		
+		
 </body>
 </html>

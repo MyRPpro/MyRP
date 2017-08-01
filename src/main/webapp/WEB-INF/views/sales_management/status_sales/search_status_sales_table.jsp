@@ -66,8 +66,6 @@
 		function detail_status_page(param){
 			
 			param = param.split(',');
-			console.log(" sales_id :" + param[0] );		
-			console.log(" account_id :" + param[1] );	
 			
 			$('#list_dateil').load('/sales_management/status_sales/search_status_sales_detail?sales_id='+param[0]
 			+'&account_id='+param[1] );

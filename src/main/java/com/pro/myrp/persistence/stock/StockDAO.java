@@ -10,6 +10,8 @@ import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_movement_warehouseDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
+import com.pro.myrp.domain.distribution_manage.Stock_informationVO;
+import com.pro.myrp.domain.distribution_manage.Adjustment_inventoryDTO;
 import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
@@ -158,7 +160,7 @@ public interface StockDAO extends MyRPDAO {
 	 * @param model
 	 * @return
 	 */
-	public ArrayList<In_storageDTO> select_storage_in_order();
+	public ArrayList<In_storageDTO> select_storage_in_order(Model model);
 
 	/**
 	 * 물류주문조회 > 리스트 페이지 - 출고주문들
@@ -166,7 +168,7 @@ public interface StockDAO extends MyRPDAO {
 	 * @param model
 	 * @return
 	 */
-	public ArrayList<Out_storageDTO> select_storage_out_order();
+	public ArrayList<Out_storageDTO> select_storage_out_order(Model model);
 
 	/**
 	 * 창고이동 > 창고이동 리스트
@@ -201,4 +203,12 @@ public interface StockDAO extends MyRPDAO {
 	public int insert_stock_order(Model model);
 
 	public int update_stock_order(Model model);
+
+	public Stock_informationVO select_stock_information(Model model);
+
+	public int insert_adjustment_inventory(Model model);
+
+	public ArrayList<ProductVO> select_only_product_id_name(Model model);
+
+	public ArrayList<Adjustment_inventoryDTO> select_adjustment_inventory(Model model);
 }

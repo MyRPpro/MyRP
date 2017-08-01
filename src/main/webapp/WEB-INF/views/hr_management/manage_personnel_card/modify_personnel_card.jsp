@@ -8,191 +8,94 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
+
+	$(document).ready(function(){
+		var employee_id = "<c:out value='${employee_id}'/>";
+		var select_tab = "<c:out value='${select_tab}'/>";
+		if(select_tab != null) {
+			select_tab = "#"+select_tab;
+			switch(select_tab) {
+			case "#info":
+				$("#page16330_div03 li:eq(0) a").tab("show");
+				$(select_tab).load("/hr_management/manage_personnel_card/personnel_card_info"+
+						"?employee_id="+employee_id);
+				break;
+			case "#appoint": 
+				$("#page16330_div03 li:eq(1) a").tab("show");
+				$(select_tab).load("/hr_management/manage_hr_appointment/personnel_card_appointment"+
+						"?employee_id="+employee_id);
+				break;
+			case "#retired":
+				$("#page16330_div03 li:eq(2) a").tab("show");
+				$(select_tab).load("/hr_management/manage_retired_employee/personnel_card_retired"+
+						"?employee_id="+employee_id);
+				break;
+			case "#salary":
+				$("#page16330_div03 li:eq(3) a").tab("show");
+				$(select_tab).load("/hr_management/manage_salary/personnel_card_salary"+
+						"?employee_id="+employee_id);
+				break;
+			default: break;	
+			}
+			$(this).tab("show");
+			return false;
+		}
+	});
 	
-	function emailChk() {
-		var form = document.modify_personnel_card_form1;
-		if(form.email3.value != 0) {
-			form.email2.value = form.email3.value;
-			form.email2.setAttribute("disabled",true);
-		} else if(form.email3.value == 0) {
-			form.email2.value = "";
-			form.email2.removeAttribute("disabled");
-			form.email2.focus();
-		}	
-	}
-	
-	function addPicture() {
-		var employee_id = document.modify_personnel_card_form1.employee_id.value;
-		var url = "/hr_management/manage_personnel_card/add_personnel_card_picture?employee_id="+employee_id;
-		window.open(url, "addPicture", "menubar=no, width=500, height=300");
-	}
+	$("#page16330_div01_toggle").bind("click", function() {
+		$("#page16330_div01").slideToggle();
+	});
+
+	$("#page16330_div01 a").bind("click", function(event) {
+		var employee_id = "<c:out value='${employee_id}'/>";
+		var select_tab = $(this).attr("href");
+		switch(select_tab) {
+		case "#info":
+			$(select_tab).load("/hr_management/manage_personnel_card/personnel_card_info"+
+					"?employee_id="+employee_id);
+			break;
+		case "#appoint":
+			$(select_tab).load("/hr_management/manage_hr_appointment/personnel_card_appointment"+
+					"?employee_id="+employee_id);
+			break;
+		case "#retired":
+			$(select_tab).load("/hr_management/manage_retired_employee/personnel_card_retired"+
+					"?employee_id="+employee_id);
+			break;
+		case "#salary":
+			$(select_tab).load("/hr_management/manage_salary/personnel_card_salary"+
+					"?employee_id="+employee_id);
+			break;
+		default: break;	
+		}
+		$("#page16310_div01").slideUp();
+		$(this).tab("show");
+		return false;
+	});
 </script>
 <body>
-modify_personnel_card.jsp
-<table border="1">
-	<tr>
-		<th>
-			<input type="button" value="HOME"
-			onclick="window.location='/';">
-			<input type="button" value="INFO"
-			onclick="window.location='/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${employee_id}';">
-			<input type="button" value="APPOINT"
-			onclick="window.location='/hr_management/manage_hr_appointment/personnel_card_appointment?employee_id=${employee_id}';">
-			<input type="button" value="RETIRED"
-			onclick="window.location='/hr_management/manage_retired_employee/personnel_card_retired?employee_id=${employee_id}';">
-		</th>
-	</tr>
-</table>
-<form action="/hr_management/manage_personnel_card/modify_personnel_card_pro"
-method="post" name="modify_personnel_card_form1"
-onsubmit="return validate_form();">
-	<div id="employee_picture_div">
+<div class="panel panel-default" id="page16330">
+	<div class="panel-heading">
+		<a id="page16330_div01_toggle">[16330]modify_personnel_card.jsp</a>
 	</div>
-	<table border="1">
-		<tr>
-			<th colspan="2">Personnel_cardDTO</th>
-		</tr>
-		<tr>
-			<th colspan="2" style="width:100px; height:130px;">
-				<img alt="사진 이미지" src="/resources/images/${employee_id}.jpg"
-				width="100" height="125">
-			</th>
-		</tr>
-		<tr>
-			<th>employee_id</th>
-			<td>
-				<input type="number" name="employee_id"
-				value="${personnel_cardDto.employee_id}" readonly>
-			</td>
-		</tr>
-		<tr>
-			<th>employee_name</th>
-			<td>
-				<input type="text" name="employee_name"
-				value="${personnel_cardDto.employee_name}"
-				maxlength="50" required>
-			</td>
-		</tr>
-		<tr>
-			<th>dept_name</th>
-			<td>
-				<input type="hidden" name="dept_id"
-				value="${personnel_cardDto.dept_id}">
-				<input type="text" name="dept_name"
-				value="${personnel_cardDto.dept_name}" readonly>
-			</td>
-		</tr>
-		<tr>
-			<th>hr_code_name</th>
-			<td>
-				<input type="hidden" name="hr_code_group_rank"
-				value="${personnel_cardDto.hr_code_group_rank}">
-				<input type="hidden" name="rank_code"
-				value="${personnel_cardDto.rank_code}">
-				<input type="text" name="hr_code_name"
-				value="${personnel_cardDto.hr_code_name}" readonly>
-			</td>
-		</tr>
-		<tr>
-			<th>residence_reg_no</th>
-			<td>
-				<input type="text" name="residence_reg_no1"
-				value="${fn:substring(personnel_cardDto.residence_reg_no,0,6)}"
-				maxlength="6" required>
-				-
-				<input type="text" name="residence_reg_no2"
-				value="${fn:substring(personnel_cardDto.residence_reg_no,6,13)}"
-				maxlength="7" required>
-			</td>
-		</tr>
-		<tr>
-			<th>join_date</th>
-			<td>
-				<input type="date" name="join_date" 
-				value="<fmt:formatDate 
-						value='${personnel_cardDto.join_date}'
-						pattern='yyyy-MM-dd'/>" 
-				required>
-			</td>
-		</tr>
-		<tr>
-			<th>tel</th>
-			<td>
-				<input type="text" name="tel" 
-				value="${personnel_cardDto.tel}"
-				maxlength="30">
-			</td>
-		</tr>
-		<tr>
-			<th>mobile_tel</th>
-			<td>
-				<input type="text" name="mobile_tel"
-				value="${personnel_cardDto.mobile_tel}"
-				maxlength="30">
-			</td>
-		</tr>
-		<tr>
-			<th>passport_no</th>
-			<td>
-				<input type="text" name="passport_no"
-				value="${personnel_cardDto.passport_no}"
-				maxlength="9">
-			</td>
-		</tr>
-		<tr>
-			<td>email</td>
-			<td>
-				<input type="text" name="email1"
-				value="${fn:split(personnel_cardDto.email,'@')[0]}"
-				maxlength="20">
-				@
-				<input type="text" name="email2"
-				value="${fn:split(personnel_cardDto.email,'@')[1]}"
-				maxlength="19">
-				<select name="email3"
-				onchange="emailChk();">
-					<option value="0" selected>직접 입력</option>
-					<option value="gmail.com">gmail.com</option>
-					<option value="naver.com">naver.com</option>
-					<option value="daum.net">daum.net</option>
-					<option value="nate.com">nate.com</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<th>address</th>
-			<td>
-				<input type="text" name="address"
-				value="${personnel_cardDto.address}">
-			</td>
-		</tr>
-		<tr>
-			<th>hourly_wage</th>
-			<td>
-				<input type="number" name="hourly_wage"
-				value="${personnel_cardDto.hourly_wage}"
-				min="0" max="999999" required>
-			</td>
-		</tr>
-		<tr>
-			<th>salary_account</th>
-			<td>
-				<input type="text" name="salary_account"
-				value="${personnel_cardDto.salary_account}"
-				maxlength="20" required>
-			</td>
-		</tr>
-		<tr>
-			<th colspan="2">
-				<input type="submit" value="수정하기">
-				<input type="reset"	value="재작성">
-				<input type="button" value="사진추가"
-				onclick="addPicture();">
-				<input type="button" value="돌아가기"
-				onclick="window.history.back();">
-			</th>
-		</tr>
-	</table>
-</form>
+		<div class="panel-body" id="page16330_div01">		
+			<div>
+			  <!-- Nav tabs -->
+			  <ul class="nav nav-tabs" role="tablist" id="page16330_div03">
+			    <li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">INFO</a></li>
+			    <li role="presentation"><a href="#appoint" aria-controls="appoint" role="tab" data-toggle="tab">APPOINT</a></li>
+			    <li role="presentation"><a href="#retired" aria-controls="retired" role="tab" data-toggle="tab">RETIRED</a></li>
+			  	<li role="presentation"><a href="#salary" aria-controls="salary" role="tab" data-toggle="tab">SALARY</a></li>
+			  </ul>
+			  <!-- Tab panes -->
+			  <div class="tab-content" id="page16330_div02">
+			    <div role="tabpanel" class="tab-pane active" id="info"></div>
+				<div role="tabpanel" class="tab-pane" id="appoint"></div>
+				<div role="tabpanel" class="tab-pane" id="retired"></div>
+				<div role="tabpanel" class="tab-pane" id="salary"></div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

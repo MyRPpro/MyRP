@@ -73,7 +73,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.modify_bank_account_pro_service(model);
 		return "redirect:"+code.c(accounting_management, bank_account_registration, bank_account_list);
 	}
-
+	@Override
+	@GetMapping(value="statement_management/search_statements")
+	public String search_statements(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("search_statements");
+		model.addAttribute("req", req);
+		service.search_statements_service(model);
+		return "accounting_management/statement_management/search_statements";
+	}
 	@Override
 	@GetMapping(value="statement_management/search_all_statements")
 	public String search_all_statements(HttpServletRequest req, Model model) throws Exception {
@@ -165,7 +172,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		if(typeCnt==4) {
 			url=code.c(accounting_management, statement_management, approve_statement);
 		}else {
-			url=code.c(accounting_management, statement_management, search_all_statements);
+			url= "/accounting_management/statement_management/search_statements";
 		}
 		return "redirect:"+ url;
 	}
@@ -198,7 +205,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	}
 
 	@Override
-	@GetMapping(value="account_management/add_account_pro")
+	@PostMapping(value="account_management/add_account_pro")
 	public String add_account_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(add_account));
 		model.addAttribute("req",req);
@@ -223,5 +230,121 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		service.modify_account_pro_service(model);
 		return "redirect:"+ code.c(accounting_management, account_management, search_account_list);
 	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_balance_sheet")
+	public String search_balance_sheet(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_balance_sheet));
+		model.addAttribute("req",req);
+		service.search_balance_sheet_service(model);
+		return code.c(accounting_management, financial_statements, search_balance_sheet);
+	}
+	@Override
+	@GetMapping(value="financial_statements/search_balance_sheet2")
+	public String search_balnace_sheet2(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_balance_sheet));
+		model.addAttribute("req",req);
+		service.search_balance_sheet_service(model);
+		return "accounting_management/financial_statements/search_balance_sheet2";
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_balance_sheet")
+	public String show_balance_sheet(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_balance_sheet));
+		model.addAttribute("req",req);
+		service.show_balance_sheet_service(model);
+		return code.c(accounting_management, financial_statements, show_balance_sheet);
+	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_profit_and_loss_statement")
+	public String search_profit_and_loss_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_profit_and_loss_statement));
+		model.addAttribute("req",req);
+		service.search_profit_and_loss_statement_service(model);
+		return code.c(accounting_management, financial_statements, search_profit_and_loss_statement);
+	}
+	
+	@Override
+	@RequestMapping(value="financial_statements/show_profit_and_loss_statement", method = {RequestMethod.GET, RequestMethod.POST})
+	public String show_profit_and_loss_statement(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_profit_and_loss_statement));
+		model.addAttribute("req",req);
+		service.show_profit_and_loss_statement_service(model);
+		return code.c(accounting_management, financial_statements, show_profit_and_loss_statement);
+	}
+
+	@Override
+	@GetMapping(value="financial_statements/search_statement_of_cash_flows")
+	public String search_statement_of_cash_flows(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_statement_of_cash_flows));
+		model.addAttribute("req",req);
+		service.search_statement_of_cash_flows_service(model);
+		return code.c(accounting_management, financial_statements, search_statement_of_cash_flows);
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_statement_of_cash_flows")
+	public String show_statement_of_cash_flows(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(show_statement_of_cash_flows));
+		model.addAttribute("req",req);
+		service.show_statement_of_cash_flows_service(model);
+		return code.c(accounting_management, financial_statements, show_statement_of_cash_flows);
+	}
+	@Override
+	@GetMapping(value="account_management/account_management")
+	public String account_management(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(account_management));
+		model.addAttribute("req",req);
+		return "accounting_management/account_management/account_management";
+	}
+	@Override
+	@GetMapping(value="bond_debt_status/search_bond_debt")
+	public String search_bond_debt(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_bond_debt));
+		model.addAttribute("req",req);
+		return code.c(accounting_management, bond_debt_status, search_bond_debt);
+	}
+
+	@Override
+	@GetMapping(value="bond_debt_status/search_all_bond_debt")
+	public String search_all_bond_debt(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_all_bond_debt));
+		model.addAttribute("req",req);
+		service.search_all_bond_debt_service(model);
+		return code.c(accounting_management, bond_debt_status, search_all_bond_debt);
+	}
+
+	@Override
+	@GetMapping(value="bond_debt_status/search_bond_debt_by_company")
+	public String search_bond_debt_by_company(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_bond_debt_by_company));
+		model.addAttribute("req",req);
+		service.search_bond_debt_by_company_service(model);
+		return code.c(accounting_management, bond_debt_status, search_bond_debt_by_company);
+	}
+
+	@Override
+	@PostMapping(value="bond_debt_status/show_all_bond_debt")
+	public String show_all_bond_debt(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_all_bond_debt_service");
+		model.addAttribute("req",req);
+		service.show_all_bond_debt_service(model);
+		return "accounting_management/bond_debt_status/show_all_bond_debt";
+	}
+
+	@Override
+	@PostMapping(value="bond_debt_status/show_bond_debt_by_company")
+	public String show_bond_debt_by_company(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_bond_debt_by_company");
+		model.addAttribute("req",req);
+		service.show_bond_debt_by_company_service(model);
+		return "accounting_management/bond_debt_status/show_bond_debt_by_company";
+	}
+
+
+	
+	
 	
 }

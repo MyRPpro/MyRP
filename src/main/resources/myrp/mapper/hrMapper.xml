@@ -10,6 +10,7 @@
  		<![CDATA[
  		SELECT	*
  		FROM	hr_code_group
+ 		ORDER BY hr_code_group_id ASC
  		]]>
  	</select>
  	
@@ -250,33 +251,21 @@
 	resultType="Personnel_card_listDTO">
 		<![CDATA[
 		SELECT	*
-		FROM	(SELECT employee_id, dept_id, dept_name,
-		        hr_code_group_rank, hr_code_group_name,
-		        rank_code, hr_code_name,
-		        employee_name, residence_reg_no, join_date,
+		FROM	(SELECT employee_id, dept_id, hr_code_group_rank, employee_name,
+		        rank_code, residence_reg_no, join_date,
 		        rownum rNum
 		        FROM    (SELECT *
-		                FROM    (SELECT E.employee_id, E.dept_id, D.dept_name,
-		                                E.hr_code_group_rank, G.hr_code_group_name,
-		                                E.rank_code, C.hr_code_name,
-		                                E.employee_name, E.residence_reg_no,
-		                                E.join_date
-		                        FROM    employee E, department D, hr_code C, hr_code_group G
-		                        WHERE	E.dept_id = D.dept_id
-		                        AND		E.hr_code_group_rank = G.hr_code_group_id
-		                        AND		E.rank_code = C.hr_code_id
-		                        AND     E.employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
+		                FROM    (SELECT employee_id, dept_id, hr_code_group_rank,
+		                                rank_code, employee_name, residence_reg_no,
+		                                join_date
+		                        FROM    employee
+		                        WHERE	employee_id like '%'||NVL(#{searchStr},employee_id)||'%'
 		                        UNION
-		                        SELECT E.employee_id, E.dept_id, D.dept_name,
-		                                E.hr_code_group_rank, G.hr_code_group_name,
-		                                E.rank_code, C.hr_code_name,
-		                                E.employee_name, E.residence_reg_no,
-		                                E.join_date
-		                        FROM    employee E, department D, hr_code C, hr_code_group G
-		                        WHERE	E.dept_id = D.dept_id
-		                        AND		E.hr_code_group_rank = G.hr_code_group_id
-		                        AND		E.rank_code = C.hr_code_id
-		                        AND     E.employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
+		                        SELECT  employee_id, dept_id, hr_code_group_rank,
+		                                rank_code, employee_name, residence_reg_no,
+		                                join_date
+		                        FROM    employee
+		                        WHERE	employee_name like '%'||NVL(#{searchStr},employee_name)||'%'
 		                        )
 		                ORDER BY employee_name
 		                )
@@ -530,6 +519,237 @@
 		WHERE	RE.employee_id = E.employee_id
 		AND		E.employee_id = #{employee_id}
 		ORDER BY RE.retired_date DESC
+		]]>
+	</select>
+	
+	<select id="select_retired_employee" parameterType="int"
+	resultType="Retired_EmployeeDTO">
+		<![CDATA[
+		SELECT	E.employee_id, E.employee_name, E.dept_id,
+				E.hr_code_group_rank, E.rank_code, 
+				E.join_date, RE.retired_date, RE.retired_reason
+		FROM	retired_employee RE , employee E
+		WHERE	RE.employee_id = E.employee_id
+		AND		E.employee_id = #{employee_id}
+		ORDER BY RE.retired_date DESC
+		]]>
+	</select>
+	
+	<!-- 검색어를 반영한 급여대장 개수 검색 -->
+	<select id="select_salary_register_cnt" parameterType="java.util.Map"
+	resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	salary_register
+		WHERE	salary_register_name = 	CASE #{salary_register_name}
+			                            WHEN '0' THEN salary_register_name
+			                            ELSE #{salary_register_name}
+			                            END
+		AND		pay_date BETWEEN #{search_start} AND #{search_end}
+		AND		account_id = #{account_id}
+		]]>
+	</select>
+	
+	<!-- 검색어를 반영한 급여대장 정보 조회 -->
+	<select id="select_salary_register_list" parameterType="java.util.Map"
+	resultType="Salary_registerVO">
+		<![CDATA[
+		SELECT  *
+		FROM    (SELECT SALARY_REGISTER_ID,ACCOUNT_ID,REG_DATE,SALARY_REGISTER_NAME,
+		                PAY_DATE,TOTAL_PAY,TOTAL_EMPLOYEE,SALARY_STATE, rownum rNum
+		        FROM    (SELECT *
+		                FROM	salary_register
+		                WHERE	salary_register_name = 	CASE #{salary_register_name}
+		                                                WHEN '0' THEN salary_register_name
+		                                                ELSE #{salary_register_name}
+		                                                END
+		                AND		pay_date >= #{search_start} AND pay_date <= #{search_end}
+		                AND		account_id = #{account_id}
+		                ORDER BY SALARY_REGISTER_ID DESC)
+		        )
+		WHERE   rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 급여정보 등록 -->
+	<insert id="insert_salary_register" parameterType="Salary_registerVO">
+		<![CDATA[
+		INSERT INTO salary_register(salary_register_id,account_id,reg_date,
+					salary_register_name,pay_date,total_pay,total_employee,
+					salary_state)
+		VALUES('6000'||TO_CHAR(SYSDATE,'yyMMdd')||LPAD(salary_seq.nextval,2,'0'),
+					#{account_id},#{reg_date},#{salary_register_name},
+					#{pay_date},#{total_pay},#{total_employee},#{salary_state})
+		]]>
+	</insert>
+	
+	<!-- 급여정보 등록2 -->
+	<insert id="insert_salary_register2" parameterType="Salary_registerVO">
+		<![CDATA[
+		INSERT INTO salary_register(salary_register_id,account_id,reg_date,
+					salary_register_name,pay_date,total_pay,total_employee,
+					salary_state)
+		VALUES('6000'||TO_CHAR(SYSDATE,'yyMMdd')||LPAD(salary_seq.currval,2,'0'),
+					#{account_id},#{reg_date},#{salary_register_name},
+					#{pay_date},#{total_pay},#{total_employee},#{salary_state})
+		]]>
+	</insert>
+	
+	<!-- 승인된 회계전표 조회 -->
+	<select id="select_statements_approval"
+	resultType="Order_stateVO">
+		<![CDATA[
+		SELECT	*
+		FROM 	order_state
+		WHERE	order_state = 25452
+		]]>
+	</select>
+	
+	<!-- 회계전표번호와 연결된 급여전표 목록 조회 -->
+	<select id="select_salary_statement" parameterType="String"
+	resultType="Salary_register_statementVO">
+		<![CDATA[
+		SELECT	*
+		FROM	salary_register_statement
+		WHERE	statement_id = #{statement_id}
+		]]>
+	</select>
+	
+	<!-- 선택된 급여대장번호의 급여대장 정보를 조회 -->
+	<select id="select_salary_register" parameterType="java.util.Map"
+	resultType="Salary_registerVO">
+		<![CDATA[
+		SELECT	*
+		FROM	salary_register
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		]]>
+	</select>
+	
+	<!-- 선택된 급여대장의 급여대장 상태를 변경 -->
+	<update id="update_salary_register_state" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	salary_register
+		SET		salary_state = #{salary_state}
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		]]>
+	</update>
+	
+	<!-- 지급대기상태인 급여대장 목록 조회 -->
+	<select id="select_salary_register_for_clear"
+	resultType="Salary_registerVO">
+		<![CDATA[
+		SELECT	*
+		FROM	salary_register
+		WHERE	salary_state = 26452
+		AND		account_id = 500014010000
+		]]>
+	</select>
+	
+	<!-- 급여통장의 돈을 변경 -->
+	<update id="update_bank_account_balance" parameterType="long">
+		<![CDATA[
+		UPDATE	bank_account
+		SET		bank_account_balance = bank_account_balance - #{pay_money}
+		WHERE	bank_account_id = 500014010000
+		]]>
+	</update>
+	
+	<!-- 선택된 주문의 주문상태를 초기화 -->
+	<update id="update_order_state" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	order_state
+		SET		order_state = 0
+		WHERE	order_id = #{statement_id}
+		]]>
+	</update>
+	
+	<!-- 급여대장 정보 수정 -->
+	<update id="update_salary_register" parameterType="Salary_registerVO">
+		UPDATE	salary_register
+		<set>
+			<if test="reg_date != null">reg_date = #{reg_date},</if>
+			<if test="salary_register_name != null">salary_register_name = #{salary_register_name},</if>
+			<if test="pay_date != null">pay_date = #{pay_date},</if>
+			<if test="total_pay != null">total_pay = #{total_pay},</if>
+			<if test="total_employee != null">total_employee = #{total_employee},</if>
+			<if test="salary_state != null">salary_state = #{salary_state}</if>
+		</set>	
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+	</update>
+	
+	<!-- 급여계산용 인사정보 -->
+	<select id="select_calc_salary" resultType="Calc_salaryDTO">
+		<![CDATA[
+		SELECT	*
+		FROM	(SELECT	D.dept_id, D.dept_name, E.employee_id, E.employee_name
+				FROM	employee E, department D
+				WHERE	E.dept_id = D.dept_id
+				AND		E.employee_id NOT IN	(SELECT employee_id
+												FROM	retired_employee)
+				AND		D.use_state = 'Y'
+				ORDER BY dept_id ASC)
+		]]>
+	</select>
+	
+	<!-- 개인급여정보 등록 -->
+	<insert id="insert_salary" parameterType="SalaryVO">
+		<![CDATA[
+		INSERT INTO salary(salary_register_id,account_id,employee_id,
+					base_pay,bonus,benefit,cost,total_pay,deduction_cost,takehome_pay)
+		VALUES(#{salary_register_id},#{account_id},#{employee_id},#{base_pay},#{bonus},
+		#{benefit},#{cost},#{total_pay},#{deduction_cost},#{takehome_pay})
+		]]>
+	</insert>
+	
+	<!-- 급여확정유무 확인 -->
+	<select id="select_fixed_salary" parameterType="java.util.Map"
+	resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	salary
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		AND		employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 개인급여정보 조회 -->
+	<select id="select_salary" parameterType="java.util.Map"
+	resultType="SalaryVO">
+		<![CDATA[
+		SELECT	*
+		FROM	salary
+		WHERE	salary_register_id = #{salary_register_id}
+		AND		account_id = #{account_id}
+		AND		employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 개인별 인사카드 급여이럭 조회 -->
+	<select id="select_personnel_card_salary" parameterType="java.util.Map"
+	resultType="Personnel_card_salaryDTO">
+		<![CDATA[
+		SELECT	SR.salary_register_id,SR.reg_date,SR.salary_register_name,
+				S.employee_id,S.base_pay,S.bonus,S.benefit,S.cost,S.total_pay,
+				S.deduction_cost,S.takehome_pay
+		FROM	salary S, salary_register SR
+		WHERE	S.salary_register_id = SR.salary_register_id
+		AND		S.account_id = SR.account_id
+		AND		S.employee_id = #{employee_id}
+		AND		SR.SALARY_STATE = #{salary_state}
+		ORDER BY SR.reg_date DESC
+		]]>
+	</select>
+	
+	<!-- 상태명 조회  -->
+	<select id="select_state" parameterType="int" resultType="String">
+		<![CDATA[
+		SELECT	KOR_NAME
+		FROM	STATE
+		WHERE	CODE = #{salary_state}
 		]]>
 	</select>
 </mapper>

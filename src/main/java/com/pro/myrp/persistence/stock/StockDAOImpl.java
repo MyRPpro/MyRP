@@ -14,6 +14,8 @@ import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_movement_warehouseDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
+import com.pro.myrp.domain.distribution_manage.Stock_informationVO;
+import com.pro.myrp.domain.distribution_manage.Adjustment_inventoryDTO;
 import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
@@ -25,6 +27,7 @@ public class StockDAOImpl implements StockDAO {
 
 	@Inject
 	private SqlSession sqlSession;
+
 
 	@Override
 	public ArrayList<Stock_conditionDTO> select_stock_condition() {
@@ -160,15 +163,15 @@ public class StockDAOImpl implements StockDAO {
 	}
 
 	@Override
-	public ArrayList<In_storageDTO> select_storage_in_order() {
+	public ArrayList<In_storageDTO> select_storage_in_order(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
-		return dao.select_storage_in_order();
+		return dao.select_storage_in_order(model);
 	}
 
 	@Override
-	public ArrayList<Out_storageDTO> select_storage_out_order() {
+	public ArrayList<Out_storageDTO> select_storage_out_order(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
-		return dao.select_storage_out_order();
+		return dao.select_storage_out_order(model);
 	}
 
 	@Override
@@ -217,5 +220,29 @@ public class StockDAOImpl implements StockDAO {
 	public int update_stock_order(Model model) {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
 		return dao.update_stock_order(model);
+	}
+
+	@Override
+	public Stock_informationVO select_stock_information(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_stock_information(model);
+	}
+
+	@Override
+	public int insert_adjustment_inventory(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.insert_adjustment_inventory(model);
+	}
+
+	@Override
+	public ArrayList<ProductVO> select_only_product_id_name(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_only_product_id_name(model);
+	}
+
+	@Override
+	public ArrayList<Adjustment_inventoryDTO> select_adjustment_inventory(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.select_adjustment_inventory(model);
 	}
 }

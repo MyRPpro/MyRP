@@ -9,17 +9,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-add_dept_pro.jsp
+[16222]add_dept_pro.jsp
 <c:if test="${cnt == 1}">
 	<script type="text/javascript">
 		alert("부서가 정상적으로 등록 되었습니다.");
-		window.location = "/hr_management/manage_dept/dept_list";
+		$("#main_screen").load("/hr_management/manage_dept/dept_list");
 	</script>
 </c:if>
 <c:if test="${cnt == 0}">
 	<script type="text/javascript">
 		alert("부서 등록을 실패하였습니다.");
-		window.history.back();
+		$("#page16210_div02").load("/hr_management/manage_dept/add_dept");
 	</script>
 </c:if>
 </body>

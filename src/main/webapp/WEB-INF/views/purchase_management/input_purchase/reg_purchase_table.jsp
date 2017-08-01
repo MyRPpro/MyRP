@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../setting.jsp" %>
@@ -8,8 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	<h3>등록된 내역</h3>
 	
 	<c:if test="${cnt == 3}">
 		<script type="text/javascript">
@@ -30,52 +29,76 @@
 	
 	<form action="#" name="reg_purchase_table_form" method="get">
 	
-		<table border="1">
-			
-			<tr>
-				<th>List</th>		<!-- 1 -->
-				<th>purchase</th>	<!-- 2 -->
-				<th>account</th>	<!-- 3 -->
-				<th>product</th>	<!-- 4 -->
-				<th>company</th>	<!-- 5 -->
-				<th>employee</th>	<!-- 6 -->
-				<th>reg_date</th>	<!-- 7 -->
-				<th>count</th>	<!-- 11 -->
-				<th>price</th>		<!-- 8 -->
-				<th>state</th>		<!-- 9 -->
-				<th>condition</th>	<!-- 10 -->
-			</tr>
-			
-			<c:forEach var="vo" items="${vos}">
-			
-			<tr>
-				<th>${vo.rnum}</th> 			<!-- 1 -->
-				<td>${vo.purchase_id}</td> 		<!-- 2 -->
-				<td>${vo.account_name}</td> 	<!-- 3 -->
-				<td>${vo.product_name}</td> 	<!-- 4 -->
-				<td>${vo.company_name}</td>		<!-- 5 -->
-				<td>${vo.employee_name}</td>	<!-- 6 -->
-				<td>							<!-- 7 -->
-				<fmt:formatDate value="${vo.reg_date}" pattern="MM-dd"/>
-				</td>	
-				<td>							<!-- 11 -->
-				<fmt:formatNumber value="${vo.count_purchase}" type="number" />
-				</td>	
-				<td>							<!-- 8 -->
-				<fmt:formatNumber value="${vo.supply_price}" type="currency" />
-				</td>	
-				<td>${vo.purchase_state}</td>	<!-- 9 -->
-				<td>${vo.condition_note_payable}</td>	<!-- 10 -->
-
-			</tr>
-
-			</c:forEach>
-			
-		</table>
-		<br>
-		<input type="button" value="전표입력하기" onclick="window.location='/accounting_management/statement_management/make_statement';" >
+	<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title"> 
+		<span class="glyphicon glyphicon-gift"></span> 
+		&nbsp; &nbsp; 구매 입력 세부내용 페이지 reg_purchase
+		</h3>
+	</div>	<!-- // panel-heading -->
 	
+	<div class="panel-body">
+		<div class="table-responsive">
+		<div class="form-group" >
+		
+		
+		<table class="table table-condensed table-striped">
+			<tr>
+				<th>구매번호</th>	<!-- 1 -->
+				<th>계정이름</th>	<!-- 2 -->
+				<th>등록일</th>	<!-- 3 -->
+				<th>수량</th>		<!-- 4 -->
+				<th>가격</th>		<!-- 5 -->
+			</tr>
+			
+			<c:forEach var="dto" items="${dtos}">
+			<tr>
+									
+				<td id="purchase_id">	
+				${dto.purchase_id} 
+				</td> 	
+				
+				<td>
+				${dto.state_name}
+				</td> 
+				
+				<td>
+				${dto.reg_date}
+				</td> 	
+				
+				<td>
+				<fmt:formatNumber value="${dto.count_purchase}" type="number" />
+				</td>
+				
+				<td>
+				<fmt:formatNumber value="${dto.supply_price}" type="currency" />
+				</td>
+				
+			</tr>
+			</c:forEach>
+		</table>
+		</div>	<!-- // form-group -->
+		
+		<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		
+		</div> <!-- // table-responsive -->
+	</div>	<!-- // panel-body -->
+		
+		
+		
+	</div>	<!-- // panel-body -->
+	</div>	<!-- // panel panel-primary -->
 	</form>
+	
+	<script type="text/javascript">
+	function sendStatement(){
+		var purchase_id = document.getElementById("purchase_id").innerHTML
+		$('#main_screen').load("/accounting_management/statement_management/make_statement");
+		
+		/* window.location="/accounting_management/statement_management/make_statement"; */
+						/* +"?purchase_id="+purchase_id; */
+	}
+	</script>
 
 </body>
 </html>

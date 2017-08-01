@@ -31,7 +31,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter implements MyRPI
 			logger.info("■■■■■■■■■■new login success");
 			session.setAttribute(ROLE, userVO);
 			Object dest = session.getAttribute("dest");
-			response.sendRedirect(dest != null ? (String)dest:"/");
+			/*response.sendRedirect(dest != null ? (String)dest:"/");*/
+			response.sendRedirect("/");
 		}
 	}
 	

@@ -15,7 +15,7 @@ import com.pro.myrp.domain.accounting_management.AccountVO;
 import com.pro.myrp.domain.accounting_management.Bank_accountVO;
 import com.pro.myrp.domain.accounting_management.JoinStatementDTO;
 import com.pro.myrp.domain.accounting_management.StatementVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
+
 import com.pro.myrp.persistence.account.AccountDAO;
 
 @Service
@@ -41,6 +41,14 @@ public class AccountServiceImpl implements AccountService {
 		int pageCount	= 0;
 		int	startPage	= 0;
 		int endPage		= 0;
+		int bank_account_reg_on = 0;
+		
+		
+		
+		if(req.getParameter("bank_account_reg_on")!=null) {
+			bank_account_reg_on = Integer.parseInt(req.getParameter("bank_account_reg_on"));
+		}
+		model.addAttribute("bank_account_reg_on", bank_account_reg_on);
 		
 		cnt = dao.select_bank_account_cnt();
 		pageNum = req.getParameter("pageNum");
@@ -65,7 +73,6 @@ public class AccountServiceImpl implements AccountService {
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -83,7 +90,11 @@ public class AccountServiceImpl implements AccountService {
 	public void register_bank_account_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		
+		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+		vos = dao.select_bank_account_id();
+		int vosCnt = vos.size();
+		model.addAttribute("vos", vos);
+		model.addAttribute("vosCnt", vosCnt);
 	}
 	
 	// 계좌 등록 : bank_account_id 불러오기
@@ -91,9 +102,7 @@ public class AccountServiceImpl implements AccountService {
 	public void call_bank_account_id_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
-		vos = dao.select_bank_account_id();
-		model.addAttribute("vos", vos);
+		
 	}
 	
 	// 계좌등록 : 등록처리
@@ -121,7 +130,6 @@ public class AccountServiceImpl implements AccountService {
 		vo.setReg_date(reg_date);
 		
 		int cnt = dao.insert_bank_account(vo);
-		System.out.println("cnt: " + cnt);
 		model.addAttribute("cnt", cnt);
 	}
 	//계좌 수정
@@ -155,7 +163,6 @@ public class AccountServiceImpl implements AccountService {
 		vo.setReg_date(reg_date);
 		
 		int cnt = dao.update_bank_account(vo);
-		System.out.println("cnt: " +cnt);
 		model.addAttribute("cnt", cnt);
 	}
 	
@@ -178,7 +185,6 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		
 		cnt = dao.select_statements_cnt();
-		System.out.println("cnt: " +  cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -220,7 +226,6 @@ public class AccountServiceImpl implements AccountService {
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -288,8 +293,6 @@ public class AccountServiceImpl implements AccountService {
 	public void make_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
-		
-		
 	}
 	
 	// 전표 승인 처리 
@@ -298,6 +301,8 @@ public class AccountServiceImpl implements AccountService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 		String statement_ides = req.getParameter("statement_id");
+		String statement_type = req.getParameter("statement_type");
+		String connected_id = req.getParameter("connected_id"); 
 		int typeCnt = Integer.parseInt(req.getParameter("typeCnt"));
 		String statement_ids[] = statement_ides.split(",");
 		int scnt = 0;
@@ -307,7 +312,18 @@ public class AccountServiceImpl implements AccountService {
 		int cnt = statement_ids.length-1; //선택한 거래에 해당하는 전표개수
 		Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("typeCnt", typeCnt);
-		
+			//매출원가 넣어주기
+			if(statement_type.equals("54101")) { //매출전표일경우
+				Map<String, Object> oriPriceMap = new HashMap<>();
+				oriPriceMap.put("sales_id", connected_id);
+				oriPriceMap.put("account_id", "500014030000");
+				int count_sales = dao.select_count_sales(oriPriceMap);
+				int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);
+				oriPriceMap.put("account_value", count_sales*purchase_unit_price);
+				oriPriceMap.put("account_id", "500014020000");
+				dao.update_costs_of_goods_sold_account(oriPriceMap); // 매출원가계정 업데이트
+			}	
+			
 		for(int i=1; i<cnt+1; i++) {
 			daoMap.put("statement_id", statement_ids[i]);
 			int checkBankAccountCnt = 0;
@@ -321,27 +337,23 @@ public class AccountServiceImpl implements AccountService {
 			}else {
 				checkCnt=0;
 			}
-			System.out.println(i+"번쨰전표 : "+statement_ids[i]);
-			System.out.println("checkAccountCnt : " + checkAccountCnt);
-			System.out.println("checkBankAccountCnt : " + checkBankAccountCnt);
-			System.out.println("checkCnt : " + checkCnt);
 		}
 		if(checkCnt==0) { //계좌 가져야하는 계정의 전표가 아닌경우
 			for(int i= 1; i<cnt+1; i++){	
 				daoMap.put("statement_id", statement_ids[i]);
 				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
-				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
+				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경
 			}
 		}else if(checkCnt==1){ //계좌 가져야하는 계정의 전표인 경우
 			for(int i= 1; i<cnt+1; i++){	
 				daoMap.put("statement_id", statement_ids[i]);
 				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
 				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
-				bcnt += dao.update_bank_account_account_value(daoMap);
+				bcnt += dao.update_bank_account_account_value(daoMap); //계좌 값 변경
 			}
 		}
 		String statement_id = statement_ids[1];
-		String connected_id = req.getParameter("connected_id"); 
+		
 		model.addAttribute("statement_id", statement_id);
 		if(connected_id != null) model.addAttribute("connected_id", connected_id);
 		model.addAttribute("typeCnt", typeCnt);
@@ -351,9 +363,6 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("bcnt", bcnt);
 		model.addAttribute("checkCnt", checkCnt);
 
-		System.out.println("cnt = " + cnt);
-		System.out.println("scnt = " + scnt);
-		System.out.println("acnt = " + acnt);
 	}
 	// 전표 승인 거절
 	@Override
@@ -399,7 +408,6 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		
 		cnt = dao.select_unapproval_statements_cnt();
-		System.out.println("cnt: " +  cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -450,13 +458,11 @@ public class AccountServiceImpl implements AccountService {
 				model.addAttribute("purchaseCnt", purchaseCnt);
 				model.addAttribute("salaryCnt", salaryCnt);
 				model.addAttribute("taxCnt", taxCnt);
-				System.out.println("sales, purchase, salary, tax CNT : "+ salesCnt+","+ purchaseCnt +","+ salaryCnt +","+ taxCnt);
 		}
 		startPage = (currentPage/pageBlock)*pageBlock+1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -489,7 +495,6 @@ public class AccountServiceImpl implements AccountService {
 		int endPage		= 0;
 		
 		cnt = dao.select_approval_statements_cnt();
-		System.out.println("cnt: " +  cnt);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -540,13 +545,11 @@ public class AccountServiceImpl implements AccountService {
 				model.addAttribute("purchaseCnt", purchaseCnt);
 				model.addAttribute("salaryCnt", salaryCnt);
 				model.addAttribute("taxCnt", taxCnt);
-				System.out.println("sales, purchase, salary, tax CNT : "+ salesCnt+","+ purchaseCnt +","+ salaryCnt +","+ taxCnt);
 		}
 		startPage = (currentPage/pageBlock)*pageBlock+1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -565,21 +568,26 @@ public class AccountServiceImpl implements AccountService {
 	public void call_connected_id_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
-		int select_connection = Integer.parseInt(req.getParameter("select_connection"));
+		String access_role = req.getParameter("access_role");
 		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
-		if(select_connection == 1) { //sales 
+		if(access_role.equals("SA")) { //sales 
 			dtos = dao.select_sales_statement();
 			model.addAttribute("sales_dtos",dtos);
-		}else if(select_connection == 2) { //purchase
+			model.addAttribute("sales_Cnt", dtos.size());
+		}else if(access_role.equals("PU")) { //purchase
 			dtos = dao.select_purchase_statement();
 			model.addAttribute("purchase_dtos",dtos);
-		}else if(select_connection ==3) { //salary
+			model.addAttribute("purchase_Cnt", dtos.size());
+		}else if(access_role.equals("HR")) { //salary
 			dtos = dao.select_salary_statement();
 			model.addAttribute("salary_dtos",dtos);
-		}else if(select_connection ==4) { //tax
+			model.addAttribute("salary_Cnt", dtos.size());
+		}else if(access_role.equals("FI")) { //tax
 			dtos = dao.select_tax_statement();
 			model.addAttribute("tax_dtos",dtos);
+			model.addAttribute("tax_Cnt", dtos.size());
 		}
+		model.addAttribute("access_role", access_role);
 	}
 	@Override
 	public void call_connected_id_view_service(Model model) throws Exception {
@@ -595,6 +603,7 @@ public class AccountServiceImpl implements AccountService {
 		String connected_id = req.getParameter("connected_id");
 		String statement_type = req.getParameter("statement_type");
 		String account_id = req.getParameter("account_id");
+		int search_statements_list_type = 0;
 		int scnt = 0;
 		int ccnt = 0;
 		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
@@ -610,7 +619,7 @@ public class AccountServiceImpl implements AccountService {
 		}if(typeCnt==4) { //tax의 경우
 			JoinStatementDTO taxdto = new JoinStatementDTO(); // 세금 전표 생성
 			taxdto = dao.select_same_type_tax(account_id);
-			int taxValue = -taxdto.getAccount_value();
+			long taxValue = -taxdto.getAccount_value();
 			
 			vo.setAccount_value(taxValue);
 			vo.setStatement_type(statement_type);
@@ -629,12 +638,14 @@ public class AccountServiceImpl implements AccountService {
 			String statement_id = "," + taxStId + "," + cashStId;
 			model.addAttribute("typeCnt", typeCnt);
 			model.addAttribute("statement_id",statement_id);
+			model.addAttribute("statement_type", statement_type);
 		}
 		if(typeCnt!=4) {
+			search_statements_list_type = 2;
 			for(int i=0; i<dtos.size(); i++) {
 				JoinStatementDTO tempDTO = dtos.get(i);
 				
-				int account_value = tempDTO.getAccount_value();
+				long account_value = tempDTO.getAccount_value();
 				vo.setAccount_value(account_value);
 				vo.setStatement_type(statement_type);
 				if(typeCnt==4) {
@@ -654,14 +665,16 @@ public class AccountServiceImpl implements AccountService {
 					String salary_register_id = connected_id;
 					dto.setSalary_register_id(salary_register_id);
 				}
+				
 				account_id = tempDTO.getAccount_id();
 				dto.setAccount_id(account_id);
 				ccnt = dao.insert_connected_statement(dto); //연결전표 생성처리
 			}
+		
 		model.addAttribute("addStatementCnt", scnt);
 		model.addAttribute("addConnectedCnt", ccnt);
 		}
-		
+		model.addAttribute("search_statements_list_type", search_statements_list_type);
 	}
 	
 	//////////////////////////// 계정 관리 ///////////////////////////////////////
@@ -705,7 +718,6 @@ public class AccountServiceImpl implements AccountService {
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		endPage = startPage+pageBlock-1;
 		if(endPage>pageCount) endPage = pageCount;
-		System.out.println("start,end:"+startPage+","+endPage);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("number", number);
 		model.addAttribute("pageNum", pageNum);
@@ -780,4 +792,325 @@ public class AccountServiceImpl implements AccountService {
 		int cnt = dao.update_modify_account(vo);
 		model.addAttribute("cnt",cnt);		
 	}
+	@Override
+	public void search_balance_sheet_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		ArrayList<JoinStatementDTO> yearDto = new ArrayList<JoinStatementDTO>();
+		yearDto = dao.get_statement_year();
+		model.addAttribute("yearDto",yearDto);
+		model.addAttribute("yearValuable", yearDto.size());
+	}
+	@Override
+	public void show_balance_sheet_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		int year = Integer.parseInt(req.getParameter("year"));
+		int quarter_end = Integer.parseInt(req.getParameter("quarter"));
+		int quarter_start = quarter_end -3;
+		if(quarter_end ==3) {
+			quarter_start = quarter_end -2;
+		}
+		Map<Object, Object> daoMap = new HashMap<>();
+		daoMap.put("year", year);
+		daoMap.put("quarter_start", quarter_start);
+		daoMap.put("quarter_end", quarter_end);
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+		vos = dao.select_accounts();
+		int assetsCnt = 0;
+		int liabilitiesCnt = 0;
+		int capitalCnt = 0;
+		for(int i=0; i<vos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			AccountVO tempVO = vos.get(i);
+			String account_id = tempVO.getAccount_id();
+			String account_name = tempVO.getAccount_name();
+			daoMap.put("account_id", account_id);
+			Long sum = (long) 0;
+				if(dao.select_accounts_for_quarter_sales(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_sales(daoMap);
+				}
+				if(dao.select_accounts_for_quarter_purchase(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_purchase(daoMap);
+				}
+				if(dao.select_accounts_for_quarter_salary(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_salary(daoMap);
+				}
+				if(dao.select_accounts_for_quarter_tax(daoMap)!=null) {
+					sum += dao.select_accounts_for_quarter_tax(daoMap);
+				}
+			
+			String account_class = "";
+			if(account_id.substring(4,6).equals("11")){ // 자산
+				account_class = "assets";
+				assetsCnt = assetsCnt + 1;
+			}else if(account_id.substring(4,6).equals("12")) { //부채
+				account_class = "liabilities";
+				liabilitiesCnt = liabilitiesCnt + 1;
+			}else if(account_id.substring(4,6).equals("13")) {
+				account_class = "capital";
+				capitalCnt = capitalCnt+1;
+			}
+			dto.setAccount_id(account_id);
+			dto.setAccount_name(account_name);
+			dto.setSum(sum);
+			dto.setAccount_class(account_class);
+			dtos.add(dto);
+		}
+		
+		
+		model.addAttribute("vos", vos);
+		model.addAttribute("dtos",dtos);
+		model.addAttribute("assetsCnt",assetsCnt);
+		model.addAttribute("liabilitiesCnt",liabilitiesCnt);
+		model.addAttribute("capitalCnt",capitalCnt);
+		model.addAttribute("year", year);
+		String quarter="";
+		if(quarter_end==3) quarter="1분기";
+		else if(quarter_end==6) quarter="2분기";
+		else if(quarter_end==9) quarter="3분기";
+		else if(quarter_end==12) quarter="4분기";
+		model.addAttribute("quarter", quarter);
+		
+	}
+	@Override
+	public void search_profit_and_loss_statement_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		model.addAttribute("yearValuable", 999);
+	}
+	//손익계산서 조회
+	@Override
+	public void show_profit_and_loss_statement_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		String startDate = req.getParameter("startDate");
+		String endDate = req.getParameter("endDate");
+		Map<Object, Object> daoMap = new HashMap<>();
+		daoMap.put("startDate", startDate);
+		daoMap.put("endDate", endDate);
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		ArrayList<AccountVO> vos = new ArrayList<AccountVO>();
+		vos = dao.select_accounts();
+		
+		for(int i=0; i<vos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			AccountVO tempVO = vos.get(i);
+			String account_id = tempVO.getAccount_id();
+			String account_name = tempVO.getAccount_name();
+			daoMap.put("account_id", account_id);
+			
+			Long sum = (long) 0;
+				if(dao.select_accounts_for_date_sales(daoMap)!=null) {
+					sum += dao.select_accounts_for_date_sales(daoMap);
+				}
+				if(dao.select_accounts_for_date_purchase(daoMap)!=null) {
+					sum += dao.select_accounts_for_date_purchase(daoMap);
+				}
+				if(dao.select_accounts_for_date_salary(daoMap)!=null) {
+					sum += dao.select_accounts_for_date_salary(daoMap);
+				}
+				if(dao.select_accounts_for_date_tax(daoMap)!=null) {
+					sum += dao.select_accounts_for_date_tax(daoMap);
+				}
+				
+				if(account_id.equals("500014020000")) { //매출원가 계정
+					ArrayList<JoinStatementDTO> sales_ids = new ArrayList<JoinStatementDTO>();
+					sales_ids = dao.select_sales_id(daoMap);
+					for(int j=0; j<sales_ids.size(); j++) {
+						JoinStatementDTO tempDto = sales_ids.get(j);
+						String sales_id = tempDto.getSales_id();
+						Map<String, Object> oriPriceMap = new HashMap<>();
+						oriPriceMap.put("sales_id", sales_id);
+						oriPriceMap.put("account_id", "500014030000");
+						int count_sales = dao.select_count_sales(oriPriceMap);
+						int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);
+						sum = sum - (count_sales*purchase_unit_price);
+					}
+				}
+			String account_class = "";
+			if(account_id.substring(4,6).equals("14")){
+				account_class = "profit_and_loss";
+			}
+			dto.setAccount_id(account_id);
+			dto.setAccount_name(account_name);
+			dto.setSum(sum);
+			dto.setAccount_class(account_class);
+			dtos.add(dto);
+		}
+		model.addAttribute("vos", vos);
+		model.addAttribute("dtos",dtos);
+		Date sDate = Date.valueOf(startDate);
+		Date eDate = Date.valueOf(endDate);
+		model.addAttribute("startDate",sDate);
+		model.addAttribute("endDate",eDate);
+	}
+	@Override
+	public void search_statement_of_cash_flows_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		model.addAttribute("yearValuable", 999);
+	}
+	@Override
+	public void show_statement_of_cash_flows_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		String startDate = req.getParameter("startDate");
+		String endDate = req.getParameter("endDate");
+		Map<Object, Object> daoMap = new HashMap<>();
+		daoMap.put("startDate", startDate);
+		daoMap.put("endDate", endDate);
+		
+		ArrayList<JoinStatementDTO> pre_dtos = new ArrayList<JoinStatementDTO>();
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		pre_dtos = dao.select_cash_values(daoMap);
+		
+		for(int i=0; i<pre_dtos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			JoinStatementDTO tempVO = pre_dtos.get(i);
+			String statement_id = tempVO.getStatement_id();
+			Long account_value = (long) tempVO.getAccount_value();
+			java.util.Date reg_date = tempVO.getReg_date();
+			String tax = tempVO.getAccount_id();
+			String account_name = "";
+			if(tax!=null) { //세금
+				if(dao.select_account_name_for_tax(statement_id)!=null) {
+					account_name = dao.select_account_name_for_tax(statement_id);
+				}else if(dao.select_account_name_for_tax(statement_id)==null){
+					 continue;
+				}
+			}else if(tax==null){
+				if(dao.select_account_name_for_all(statement_id)!=null) {
+					account_name = dao.select_account_name_for_all(statement_id);
+				}else if(dao.select_account_name_for_all(statement_id)==null){
+					 continue;
+				}
+			}
+			
+			dto.setAccount_name(account_name);
+			dto.setAccount_value(account_value);
+			dto.setReg_date(reg_date);
+			dtos.add(dto);
+		}
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("cnt",dtos.size());
+		Date sDate = Date.valueOf(startDate);
+		Date eDate = Date.valueOf(endDate);
+		model.addAttribute("startDate",sDate);
+		model.addAttribute("endDate",eDate);
+		
+	}
+	@Override
+	public void search_statements_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		int search_statements_list_type = 0;
+		if(req.getParameter("search_statements_list_type")!=null) {
+			search_statements_list_type = Integer.parseInt(req.getParameter("search_statements_list_type"));
+		}else {
+			search_statements_list_type = 1;
+		}
+		model.addAttribute("search_statements_list_type", search_statements_list_type);
+	}
+	@Override
+	public void search_all_bond_debt_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+	}
+	@Override
+	public void search_bond_debt_by_company_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		ArrayList<JoinStatementDTO> pre_dtos = new ArrayList<JoinStatementDTO>();
+		pre_dtos = dao.select_company_name();
+		
+		for(int i=0; i<pre_dtos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			JoinStatementDTO tempVO = pre_dtos.get(i);
+			String company_name="";
+				if(tempVO.getSales_company_name()!=null) {
+					company_name = tempVO.getSales_company_name();
+				}else if(tempVO.getPurchase_company_name()!=null){
+					company_name = tempVO.getPurchase_company_name();
+				}
+		    dto.setCompany_name(company_name);
+			dtos.add(dto);
+		}
+		model.addAttribute("dtos", dtos);
+	}
+	@Override
+	public void show_all_bond_debt_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		String startDate = req.getParameter("startDate");
+		String endDate = req.getParameter("endDate");
+		Map<Object, Object> daoMap = new HashMap<>();
+		daoMap.put("startDate", startDate);
+		daoMap.put("endDate", endDate);
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		ArrayList<JoinStatementDTO> pre_dtos = new ArrayList<JoinStatementDTO>();
+		pre_dtos = dao.select_all_bond_debt_list(daoMap);
+		for(int i=0; i<pre_dtos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			JoinStatementDTO tempVO = pre_dtos.get(i);
+			String account_id ="";
+			String company_name="";
+				if(tempVO.getSales_account_id()!=null) {
+					account_id = tempVO.getSales_account_id();
+					company_name = tempVO.getSales_company_name();
+				}else if(tempVO.getPurchase_account_id()!=null){
+					account_id = tempVO.getPurchase_account_id();
+					company_name = tempVO.getPurchase_company_name();
+				}
+		    java.util.Date reg_date = tempVO.getReg_date();
+		    Long account_value = tempVO.getAccount_value();
+		    dto.setAccount_id(account_id);
+		    dto.setCompany_name(company_name);
+		    dto.setReg_date(reg_date);
+		    dto.setAccount_value(account_value);
+			dtos.add(dto);
+		}
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("dtosCnt", dtos.size());
+	}
+	@Override
+	public void show_bond_debt_by_company_service(Model model) throws Exception {
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest)map.get("req");
+		String startDate = req.getParameter("startDate");
+		String endDate = req.getParameter("endDate");
+		String company_name = req.getParameter("company_name");
+		Map<Object, Object> daoMap = new HashMap<>();
+		daoMap.put("startDate", startDate);
+		daoMap.put("endDate", endDate);
+		daoMap.put("company_name", company_name);
+		ArrayList<JoinStatementDTO> dtos = new ArrayList<JoinStatementDTO>();
+		ArrayList<JoinStatementDTO> pre_dtos = new ArrayList<JoinStatementDTO>();
+		pre_dtos = dao.select_bond_debt_list_by_company(daoMap);
+		
+		for(int i=0; i<pre_dtos.size(); i++) {
+			JoinStatementDTO dto = new JoinStatementDTO();
+			JoinStatementDTO tempVO = pre_dtos.get(i);
+			String account_id ="";
+				if(tempVO.getSales_account_id()!=null) {
+					account_id = tempVO.getSales_account_id();
+					company_name = tempVO.getSales_company_name();
+				}else if(tempVO.getPurchase_account_id()!=null){
+					account_id = tempVO.getPurchase_account_id();
+					company_name = tempVO.getPurchase_company_name();
+				}
+		    java.util.Date reg_date = tempVO.getReg_date();
+		    Long account_value = tempVO.getAccount_value();
+		    dto.setAccount_id(account_id);
+		    dto.setCompany_name(company_name);
+		    dto.setReg_date(reg_date);
+		    dto.setAccount_value(account_value);
+			dtos.add(dto);
+		}
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("dtosCnt", dtos.size());
+	}
+	
 }

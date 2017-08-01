@@ -85,14 +85,16 @@
 			<beans:ref bean="authInterceptor_DT"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/accounting_management/**/*"/>
+			<mapping path="/accounting_management/account_management/*"/>
+			<mapping path="/accounting_management/bank_account_registration/*"/>
+			<mapping path="/accounting_management/financial_statements/*"/>
 			<beans:ref bean="authInterceptor_FI"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/hr_management/**/*"/>
+			<mapping path="/attitude_management/**/*"/>
 			<beans:ref bean="authInterceptor_HR"/>
 		</interceptor>
 	</interceptors>
-	
-	
+
 </beans:beans>

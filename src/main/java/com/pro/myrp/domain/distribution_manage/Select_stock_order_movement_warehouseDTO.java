@@ -6,18 +6,37 @@ public class Select_stock_order_movement_warehouseDTO {
 	
 	private String stock_order_id;
 	private String product_id;
+	private String product_name;
 	private int warehouse_id;
+	private String warehouse_name;
 	private int employee_id;
+	private String employee_name;
 	private Date reg_date;
 	private Date update_date;
 	
-	private String product_name;
 	private int arrive_warehouse;
 	private int movement_amount;
 	private String movement_state;
 
 	
 	
+
+	public String getWarehouse_name() {
+		return warehouse_name;
+	}
+
+	public void setWarehouse_name(String warehouse_name) {
+		this.warehouse_name = warehouse_name;
+	}
+
+	public String getEmployee_name() {
+		return employee_name;
+	}
+
+	public void setEmployee_name(String employee_name) {
+		this.employee_name = employee_name;
+	}
+
 	public String getProduct_name() {
 		return product_name;
 	}

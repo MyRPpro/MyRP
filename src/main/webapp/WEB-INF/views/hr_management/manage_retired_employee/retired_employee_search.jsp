@@ -9,49 +9,76 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-	function fn_retired_employee_search() {
-		var searchStr = document.retired_employee_search_form1.searchStr.value;
-		$("#retired_employee_nav_div").load("/hr_management/manage_retired_employee/retired_employee_nav?searchStr="+searchStr);
-		$("#retired_employee_div").load("/hr_management/manage_retired_employee/retired_employee_list?searchStr="+searchStr);
+	
+	$("#page16710_div01_toggle").bind("click", function(event) {
+		$("#page16710_div01").slideToggle();
 		return false;
-	}
+	});
+
+	$("#page16710_btn01").bind("click", function(evnet) {
+		$("#page16710_div01").slideUp();
+		$("#page16710_div02").slideUp();
+		$("#page16710_div03").slideUp();
+		$("#page16710_div04").slideDown();
+		$("#page16710_div04").load("/hr_management/manage_retired_employee/add_retired_employee");
+		return false;
+	});
+	
+	$("form[name='page16710_form01']").on("submit", function(event) {
+		var searchStr = document.page16710_form01.searchStr.value;
+		$("#page16710_div04").slideUp();
+		$("#page16710_div02").slideDown();
+		$("#page16710_div03").slideDown();
+		$("#page16710_div02").load(
+				"/hr_management/manage_retired_employee/retired_employee_nav?searchStr="+searchStr);
+		$("#page16710_div03").load(
+				"/hr_management/manage_retired_employee/retired_employee_list?searchStr="+searchStr);
+		return false;
+	});
 	
 	function fn_retired_employee_nav(pageNum) {
-		var searchStr = document.retired_employee_search_form1.searchStr.value;
-		$("#retired_employee_nav_div").load(
+		var searchStr = document.page16710_form01.searchStr.value;
+		$("#page16710_div04").slideUp();
+		$("#page16710_div02").slideDown();
+		$("#page16710_div03").slideDown();
+		$("#page16710_div02").load(
 				"/hr_management/manage_retired_employee/retired_employee_nav?"
 						+"searchStr="+searchStr
 						+'&pageNum='+pageNum);
-		$("#retired_employee_div").load(
+		$("#page16710_div03").load(
 				"/hr_management/manage_retired_employee/retired_employee_list?"
 						+"searchStr="+searchStr
 						+'&pageNum='+pageNum);
 		return false;
 	}
+	
 </script>
 <body>
-retired_employee_search.jsp
-<div>
-<form action="#" name="retired_employee_search_form1" method="get"
-onsubmit="return fn_retired_employee_search();">
-	<input type="text" name="searchStr" placeholder="사번,이름 검색">
-	<input type="submit" value="검색">
-	<input type="reset" value="재작성">
-	<input type="button" value="퇴사자 등록"
-	onclick="window.location='/hr_management/manage_retired_employee/add_retired_employee';">
-	<input type="button" value="돌아가기" onclick="window.location='/';">
-</form>
-</div>
-<hr>
-<div id="retired_employee_nav_div">
-</div>
-<hr>
-<div id="retired_employee_div">
-<table border="1">
-	<tr>
-		<th>검색하실 퇴사자 정보의 사번이나 사원명을 검색창에 입력하세요.</th>
-	</tr>
-</table>
-</div>
+	<div class="panel panel-default" id="page16710">
+		<div class="panel-heading">
+			<a id="page16710_div01_toggle">[16710]retired_employee_search.jsp</a>
+		</div>
+		<div class="panel-body" id="page16710_div01">
+			<form class="form-inline" action="#" name="page16710_form01">
+				<div class="input-group">
+					<input class="form-control" type="text" name="searchStr" placeholder="사번,이름 검색">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">검색</button>
+						<button class="btn btn-default" type="reset">재작성</button>
+						<button class="btn btn-default" type="button" id="page16710_btn01">퇴사자 등록</button>
+					</span>
+				</div>
+			</form>
+		</div>
+		<div class="panel-body" id="page16710_div02"></div>
+		<div class="panel-body" id="page16710_div03">
+			<table class="table">
+				<tr>
+					<th>검색하실 퇴사자 정보의 사번이나 사원명을 검색창에 입력하세요.</th>
+				</tr>
+			</table>
+		</div>
+		<div class="panel-body" id="page16710_div04"></div>
+	</div>
 </body>
 </html>

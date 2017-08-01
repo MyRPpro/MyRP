@@ -13,13 +13,14 @@ modify_product_pro.jsp
 <c:if test="${cnt == 1}">
 	<script type="text/javascript">
 		alert("상품 정보가 수정되었습니다.");
-		window.location = "/base_registration/reg_product/product_list";
+		$("#main_screen").load("/base_registration/reg_product/product_list");
 	</script>
 </c:if>
 <c:if test="${cnt == 0}">
 	<script type="text/javascript">
 		alert("상품 정보 수정을 실패하였습니다.");
-		window.history.back();
+		$("#page11210_div02").load("/base_registration/reg_product/modify_product"+
+				"?product_id="+${product_id});
 	</script>
 </c:if>
 </body>

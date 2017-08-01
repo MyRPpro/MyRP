@@ -15,7 +15,7 @@ import com.pro.myrp.service.stock.StockService;
 @Controller
 @RequestMapping("/distribution_management/*")
 public class StockControllerImpl implements StockController, CodeMyRP{
-
+	
 	@Inject
 	private StockService service;
 	
@@ -108,7 +108,22 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 	@Override
 	@RequestMapping(value = "adjustment_inventory/adjustment_inventory_list", method = {RequestMethod.GET,RequestMethod.POST})
 	public String adjustment_inventory(HttpServletRequest req, Model model) throws Exception {
+		service.adjustment_inventory_list(req,model);
 		return code.c(distribution_management, adjustment_inventory, adjustment_inventory_list);
+	}
+	
+	@Override
+	@RequestMapping(value = "adjustment_inventory/adjustment_inventory_view", method = {RequestMethod.GET,RequestMethod.POST})
+	public String adjustment_inventory_view(HttpServletRequest req, Model model) throws Exception {
+		service.adjustment_inventory_view_service(req,model);
+		return code.c(distribution_management, adjustment_inventory, adjustment_inventory_view);
+	}
+
+	@Override
+	@RequestMapping(value = "adjustment_inventory/adjustment_inventory_pro", method = {RequestMethod.GET,RequestMethod.POST})
+	public String adjustment_inventory_pro(HttpServletRequest req, Model model) throws Exception {
+		service.adjustment_inventory_pro_service(req,model);
+		return "redirect:" + code.c(distribution_management, adjustment_inventory, adjustment_inventory_list);
 	}
 
 	@Override
@@ -143,6 +158,8 @@ public class StockControllerImpl implements StockController, CodeMyRP{
 		
 		return "redirect:" + code.c(distribution_management, search_distribution_order, statement_list);
 	}
+
+	
 
 	
 }

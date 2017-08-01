@@ -8,165 +8,112 @@
 <%@ include file = "../../setting.jsp" %>
 </head>
 <script type="text/javascript">
-$(function(){
-	 $('.warehouse_id').change(function(){
-		var warehouse_id = $(this).val();
+if("${doit}" != null && "${doit}" == '1'){
+	var data = {
+			"warehouse_id" 	: "${warehouse_id}",
+			"id" :  "${id}"
+			};
 
-		var data = {
-					"warehouse_id" 	: warehouse_id,
-					"goes"			: "1"
-					};
-		
 		$.ajax({ 					
 			data: 	data,
 			type: 	'post',	 			
-			url: 	"movement_product",
+			url: 	"/distribution_management/movement_warehouse/movement_product",
 			success: function(response) { 	
 				$('#product').html(response);	
 			}
 		});  
-		
-		data = {
-				"warehouse_id"	: warehouse_id,
-				"goes"			: "2"
-				};
-	
-		$.ajax({ 					
-			data: 	data,
-			type: 	'post',	 			
-			url: 	"movement_product",
-			success: function(response) { 	
-				$('#product_list').html(response);	
-			}
-		});  
-	});
-});
-
-function chk(){
-	var warehouse_id = document.getElementsByName("warehouse_id")[0].value;
-	var employee_id = document.getElementsByName("employee_id")[0].value;
-	var product_id = document.getElementsByName("product_id")[0].value;
-	var arrive_warehouse_id = document.getElementsByName("arrive_warehouse_id")[0].value;
-	var movement_amount = document.getElementsByName("movement_amount")[0].value;
-	
-	if(warehouse_id == 0 || employee_id == 0 || product_id == 0 || arrive_warehouse_id == 0 || movement_amount == null){
-		alert("입력이 잘못되었습니다.");
-		return false;
+ 	
+	}else{
+		$('.warehouse_id').change(function(){
+			var id = document.getElementById("id").value;
+			var warehouse_id = $(this).val();
+			var warehouse_name = document.getElementById("warehouse_id").options[document.getElementById("warehouse_id").selectedIndex].text;
+			var data = {
+						"warehouse_id" 	: warehouse_id,
+						"warehouse_name" : warehouse_name,
+						"id" : id
+						};
+			
+			$.ajax({ 					
+				data: 	data,
+				type: 	'post',	 			
+				url: 	"/distribution_management/movement_warehouse/movement_product",
+				success: function(response) { 	
+					$('#product').html(response);	
+				}
+			});  
+			
+		});
 	}
-}
+	
+	 $('#movement_button').unbind("click").bind("click",function(){
+			var togo = $('#main_screen');
+			var data = $('#movement_form').serialize();
+			$.ajax({ 					
+				data: 	data,
+				type: 	'post',	 			
+				url: 	"/distribution_management/reg_warehouse/warehouse_pro",
+				success: function(response) { 	
+					togo.html(response);	
+				}
+			});  
+		});
+	 
+	 $('.distribution_view_heading').bind("click",function(){  
+			$('.distribution_view_content').slideToggle();
+		});
+
 </script>
 <body>
 <c:if test = "${id == 'new'}">
-<form name = "" action = "movement_pro" onsubmit = "return chk();">
-<input type = "hidden" name = "id" value = "${id}" onsubmit = "chk();">
-<h3>신규등록</h3>
-<table border = "1">
-		<tr>
-			<th>출발 WAREHOUSE_ID</th>
-			<th>PRODUCT_ID</th>
-			<th>EMPLOYEE_ID</th>
-			<th>ARRIVE_WAREHOUSE</th>
-			<th>MOVEMENT_AMOUNT</th>
-		</tr>
-		<tr>
-			<th>
-				
-				<select id = "warehouse_id" class  = "warehouse_id" name = "warehouse_id">
+
+
+
+<input type = "hidden" id = "id" value = "${id}">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading distribution_view_heading">
+					<h3 class="panel-title"> 신규등록</h3>
+				</div>
+			<div class="panel-body distribution_view_content">
+				<div class="table-responsive">
+					<select id = "warehouse_id"  class = "warehouse_id form-control input-sm">
 						<option value = "0">창고를 선택하시오.</option>
-					<c:forEach var = "ware" items = "${warehouseVos}">
-						<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
-					</c:forEach>
-				</select>
-			</th>
-			<th>
+						<c:forEach var = "ware" items = "${warehouseVos}">
+							<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
+						</c:forEach>
+					</select>
+					<br>
 				<div id = "product"></div>
-			</th>
-			<th>
-				<select name = "employee_id">
-					<option value = "0">담당자를 선택하시오.</option>
-					<c:forEach var = "em" items = "${employeeVos}">
-						<option value = "${em.employee_id}">${em.employee_name}</option>
-					</c:forEach>
-				</select>
-			</th>
-			<th>
-				<select name = "arrive_warehouse_id">
-					<c:forEach var = "ware" items = "${warehouseVos}">
-						<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
-					</c:forEach>
-				</select>
-			</th>
-			<th><input type = "number" name = "movement_amount" min = "1"></th>
-		</tr>
-		<tr>
-			<th colspan = "6">
-				<input type = "submit" value = "확인">
-				<input type = "reset" value = "리셋">
-			</th>
-		</tr>
-	</table>
-</form>
-</c:if>
-<c:if test = "${id != 'new'}">
-<form name = "" action = "movement_pro" onsubmit = "return chk();">
-<input type = "hidden" name = "id" value = "${id}">
-<table border = "1">
-		<tr>
-			<th>STOCK_ORDER_ID</th>
-			<th>출발 WAREHOUSE_ID</th>
-			<th>PRODUCT_ID</th>
-			<th>EMPLOYEE_ID</th>
-			<th>ARRIVE_WAREHOUSE</th>
-			<th>MOVEMENT_AMOUNT</th>
-			<th>REG_DATE</th>
-			<th>MOVEMENT_STATE</th>
-			
-		</tr>
-		<c:forEach var = "dto" items = "${movement_warehouseDtos}">
-		<tr>
-			<th><input type = "text" name = "stock_order_id" value = "${dto.stock_order_id}"></th>
-			<th>
-				
-				<select id = "warehouse_id"  class = "warehouse_id" name = "warehouse_id">
-					<c:forEach var = "ware" items = "${warehouseVos}">
-						<option value = "${ware.warehouse_id}" <c:if test = "${ware.warehouse_id == dto.warehouse_id}">selected</c:if>>${ware.warehouse_name}</option>
-					</c:forEach>
-				</select>
-			
-			</th>
-			<th>
-				<div id = "product"></div>
-			</th>
-			<th>
-				<select name = "employee_id">
-				<option value = "0">담당자를 선택하시오.</option>
-					<c:forEach var = "em" items = "${employeeVos}">
-						<option value = "${em.employee_id}"<c:if test = "${em.employee_id == dto.employee_id}">selected</c:if>>${em.employee_name}</option>
-					</c:forEach>
-				</select>
-			</th>
-			<th>
-				<select name = "arrive_warehouse_id">
-					<c:forEach var = "ware" items = "${warehouseVos}">
-						<option value = "${ware.warehouse_id}"<c:if test = "${ware.warehouse_id == dto.arrive_warehouse}">selected</c:if>>${ware.warehouse_name}</option>
-					</c:forEach>
-				</select>
-			</th>
-			<th><input type = "number" name = "movement_amount" min = "1" max = ""value = "${dto.movement_amount}"></th>
-			<th><input type = "text" value = "${dto.reg_date}" readonly></th>
-			<th><input type = "text" value = "${dto.movement_state}"readonly></th>
-		</tr>
-		</c:forEach>
-		<tr>
-			<th colspan = "11">
-				<input type = "submit" value = "확인">
-				<input type = "reset" value = "리셋">
-			</th>
-		</tr>
-	</table>
-</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 </c:if>
 
-<div id = "product_list"></div>
+
+<c:if test = "${id != 'new'}">
+<input type = "hidden" id = "id" value = "${id}">
+
+
+
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading distribution_view_heading">
+					<h3 class="panel-title">수정</h3>
+				</div>
+				<div class="panel-body distribution_view_content">
+					<div class="table-responsive">
+					<div id = "product"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</c:if>
+
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.pro.myrp.service.stock;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +15,13 @@ import com.pro.myrp.domain.distribution_manage.Search_distribution_orderDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_movement_warehouseDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stock_order_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Stock_conditionDTO;
+import com.pro.myrp.domain.distribution_manage.Stock_informationVO;
+import com.pro.myrp.domain.distribution_manage.Adjustment_inventoryDTO;
 import com.pro.myrp.domain.distribution_manage.In_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Out_storageDTO;
 import com.pro.myrp.domain.distribution_manage.Select_stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.Stockpile_searchDTO;
 import com.pro.myrp.domain.distribution_manage.WarehouseVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.persistence.hr.HRDAO;
 import com.pro.myrp.persistence.stock.StockDAO;
 
 @Service
@@ -30,9 +29,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 
 	@Inject
 	private StockDAO dao;
-	
-	@Inject
-	private HRDAO hdao;
 	
 	@Override
 	public String stock_condition_service(HttpServletRequest req, Model model) throws Exception {
@@ -92,7 +88,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		int add_stock= 0;
 		
 		String[] product = pro == null ? null : pro.split("-");
-		
+
 		ArrayList<Select_stockpile_searchDTO> select_stockpile_searchDtos = new ArrayList<Select_stockpile_searchDTO>();
 		ArrayList<ProductVO> product_name_list = new ArrayList<ProductVO>();
 		ArrayList<ProductVO> select_product = new ArrayList<ProductVO>();
@@ -103,7 +99,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("end_day",end_day);
 		
 		select_stockpile_searchDtos = dao.select_stockpile_search(model);
-		
 		search_product.add(select_stockpile_searchDtos.get(0).getProduct_id());
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
 				for(int a = 0; a < search_product.size(); a++ ){
@@ -135,15 +130,15 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		
 		
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
-			if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 1).equals("2")){
+			if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 4).equals("4754")){
 				select_stockpile_searchDtos.get(i).setMinus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
-			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 1).equals("3")){
+			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 4).equals("4755")){
 				select_stockpile_searchDtos.get(i).setPlus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
-			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 1).equals("4")){
+			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 4).equals("4753")){
 				if(select_stockpile_searchDtos.get(i).getMoving_stock() > 0){
 					select_stockpile_searchDtos.get(i).setPlus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
 				}else{
-					select_stockpile_searchDtos.get(i).setMinus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
+					select_stockpile_searchDtos.get(i).setMinus_stock(-select_stockpile_searchDtos.get(i).getMoving_stock());
 				}
 			}
 			
@@ -186,19 +181,18 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 						if(select_product.get(y).getProduct_id().equals(select_stockpile_searchDtos.get(x).getProduct_id())){
 							int stock = select_stockpile_searchDtos.get(x).getStock_amount();
 							
-							if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("2")){
+							if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4754")){
 								select_stockpile_searchDtos.get(x).setStock_amount(stock + select_stockpile_minusDtos.get(i).getMoving_stock());
 								
-							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("3")){
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4755")){
 								select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
 							
-							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 1).equals("4")){
+							}else if(select_stockpile_minusDtos.get(i).getPro_id().substring(0, 4).equals("4753")){
 								if(select_stockpile_minusDtos.get(i).getMoving_stock() > 0){
 									select_stockpile_searchDtos.get(x).setStock_amount(stock - select_stockpile_minusDtos.get(i).getMoving_stock());
 								
-								}else{
+								}else if(select_stockpile_minusDtos.get(i).getMoving_stock() < 0){
 									select_stockpile_searchDtos.get(x).setStock_amount(stock + select_stockpile_minusDtos.get(i).getMoving_stock());
-									
 								}
 							}
 						
@@ -240,14 +234,173 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		
 		model.addAttribute("add_stock",add_stock);
 	}
+	
 
 	@Override
 	public void search_distribution_order_service(HttpServletRequest req, Model model) throws Exception {
 		ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
 		ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
-		in_storageDtos = dao.select_storage_in_order(); 
-		out_storageDtos = dao.select_storage_out_order(); 
+		
+		String goes = req.getParameter("goes");
+		model.addAttribute("goes",goes);
+		String stock_order_id = req.getParameter("oder_id");
+		
+		if(goes != null && goes.equals("in")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			in_storageDtos = dao.select_storage_in_order(model);
+			model.addAttribute("stock_order_id", null);
+			out_storageDtos = dao.select_storage_out_order(model);
+		}else if(goes != null && goes.equals("out")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			out_storageDtos = dao.select_storage_out_order(model);
+			model.addAttribute("stock_order_id", null);
+			in_storageDtos = dao.select_storage_in_order(model);
+			
+		}
 
+		
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int istart = 0;
+		int iend = 0;
+		int ostart = 0;
+		int oend = 0;
+		
+		int inumber = 0;
+		int onumber = 0;
+		
+		String ipageNum = null;
+		String opageNum = null;
+		int icurrentPage = 0; 
+		int ocurrentPage = 0; 
+		
+		int ipageCount = 0;
+		int opageCount = 0;
+		
+		int istartPage = 0; 		
+		int iendPage = 0; 
+		int ostartPage = 0; 		
+		int oendPage = 0;
+		
+		
+		int icnt = in_storageDtos.size();
+		int ocnt = out_storageDtos.size();
+				
+		ipageNum = req.getParameter("ipageNum");
+		opageNum = req.getParameter("opageNum");
+		
+		if(ipageNum == null){
+			ipageNum = "1";
+		}
+		
+		if(opageNum == null){
+			opageNum = "1";
+		}
+		
+		icurrentPage = (Integer.parseInt(ipageNum));
+		ocurrentPage = (Integer.parseInt(opageNum));
+		
+		ipageCount = (icnt/pageSize) + (icnt%pageSize > 0 ? 1 : 0);
+		opageCount = (ocnt/pageSize) + (ocnt%pageSize > 0 ? 1 : 0);
+		
+		istart = (icurrentPage - 1) * pageSize + 1;
+		iend = istart + pageSize - 1;
+		ostart = (ocurrentPage - 1) * pageSize + 1;
+		oend = ostart + pageSize - 1;
+		
+		
+		if(iend > icnt){
+			iend = icnt;
+		}
+		
+		if(oend > ocnt){
+			oend = ocnt;
+		}
+		
+		inumber = icnt - (icurrentPage - 1) * pageSize; 
+		onumber = ocnt - (ocurrentPage - 1) * pageSize;
+		
+		if(goes != null && goes.equals("in")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			in_storageDtos = dao.select_storage_in_order(model);
+			model.addAttribute("stock_order_id", null);
+		}else if(goes != null && goes.equals("out")){
+			model.addAttribute("stock_order_id", stock_order_id);
+			out_storageDtos = dao.select_storage_out_order(model);
+			model.addAttribute("stock_order_id", null);
+			
+		}
+		
+		
+		if(icnt > 0){
+			model.addAttribute("start",istart);
+			model.addAttribute("end",iend);
+			if(goes != null && goes.equals("in")){
+				model.addAttribute("stock_order_id", stock_order_id);
+			}
+			in_storageDtos = dao.select_storage_in_order(model);
+			if(goes != null && goes.equals("in")){
+				model.addAttribute("stock_order_id", null);
+			}
+		}
+		
+		if(ocnt > 0){
+			model.addAttribute("start",ostart);
+			model.addAttribute("end",oend);
+			if(goes != null && goes.equals("out")){
+				model.addAttribute("stock_order_id", stock_order_id);
+			}
+			out_storageDtos = dao.select_storage_out_order(model);
+			
+		}
+		
+		istartPage = (icurrentPage / pageBlock) * pageBlock + 1;
+		if(icurrentPage % pageBlock == 0){
+			istartPage -= pageBlock;
+		}
+		
+		iendPage = istartPage + pageBlock - 1;
+		if(iendPage > ipageCount){
+			iendPage = ipageCount;
+		}
+		
+		ostartPage = (ocurrentPage / pageBlock) * pageBlock + 1;
+		if(ocurrentPage % pageBlock == 0){
+			ostartPage -= pageBlock;
+		}
+		
+		
+		oendPage = ostartPage + pageBlock - 1;
+		if(oendPage > opageCount){
+			oendPage = opageCount;
+		}
+		
+		model.addAttribute("icnt", icnt); 			
+		model.addAttribute("inumber", inumber); 	
+		model.addAttribute("ipageNum", ipageNum); 	
+		model.addAttribute("ocnt", ocnt); 			
+		model.addAttribute("onumber", onumber); 	
+		model.addAttribute("opageNum", opageNum);
+		
+		if(icnt > 0){
+			model.addAttribute("icnt", icnt);
+			model.addAttribute("istartPage", istartPage);	
+			model.addAttribute("iendPage", iendPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("ipageCount", ipageCount);	
+			model.addAttribute("icurrentPage", icurrentPage);
+		}
+		
+		if(ocnt > 0){
+			model.addAttribute("ocnt", ocnt);
+			model.addAttribute("ostartPage", ostartPage);	
+			model.addAttribute("oendPage", oendPage);		
+			model.addAttribute("opageBlock", pageBlock);	
+			model.addAttribute("opageCount", opageCount);	
+			model.addAttribute("ocurrentPage", ocurrentPage);
+		}
+		
 		model.addAttribute("in_storageDtos", in_storageDtos);
 		model.addAttribute("out_storageDtos", out_storageDtos);
 	}
@@ -255,25 +408,151 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	@Override
 	public void request_in_out_storage_service(HttpServletRequest req, Model model) throws Exception {
 		String goes = req.getParameter("goes");
-		
 		model.addAttribute("goes",goes);
+
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int cnt = 0;
+		int start = 0;
+		int end = 0;
+		
+		int number = 0;
+		String pageNum = null; 	
+		int currentPage = 0; 	
+		
+		int pageCount = 0; 		
+		int startPage = 0; 		
+		int endPage = 0; 
+		
+		pageNum = req.getParameter("pageNum");
+		
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
+		currentPage = (Integer.parseInt(pageNum));
 		
 		if(goes.equals("in")){
 			ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
 			model.addAttribute("opt", 1);
 			in_storageDtos = dao.select_in_storage(model);
-			model.addAttribute("in_storageDtos", in_storageDtos);
-		
+			
+			cnt = in_storageDtos.size();
+			
+			pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+			
+			start = (currentPage - 1) * pageSize + 1;
+			end = start + pageSize - 1;
+			
+			if(end > cnt){
+				end = cnt;
+			}
+			
+			number = cnt - (currentPage - 1) * pageSize; 
+			
+			if(cnt > 0){
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				in_storageDtos = dao.select_in_storage(model);
+				model.addAttribute("in_storageDtos",in_storageDtos);
+				
+			}
+			
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+			if(currentPage % pageBlock == 0){
+				startPage -= pageBlock;
+			}
+			
+			endPage = startPage + pageBlock - 1;
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
+			
 		}else if(goes.equals("out")){
 			ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
 			model.addAttribute("opt", 1);
 			out_storageDtos = dao.select_out_storage(model);
-			model.addAttribute("out_storageDtos", out_storageDtos);
+			
+			cnt = out_storageDtos.size();
+			
+			pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+			
+			start = (currentPage - 1) * pageSize + 1;
+			end = start + pageSize - 1;
+			
+			if(end > cnt){
+				end = cnt;
+			}
+			
+			number = cnt - (currentPage - 1) * pageSize; 
+			
+			if(cnt > 0){
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				out_storageDtos = dao.select_out_storage(model);
+				model.addAttribute("out_storageDtos",out_storageDtos);
+				
+			}
+			
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+			if(currentPage % pageBlock == 0){
+				startPage -= pageBlock;
+			}
+			
+			endPage = startPage + pageBlock - 1;
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
 		
+			
 		}else if(goes.equals("storage_out_complete")){
 			ArrayList<Search_distribution_orderDTO> order_stateDto = new ArrayList<Search_distribution_orderDTO>();
 			order_stateDto = dao.Search_distribution_order(model);
-			model.addAttribute("order_stateDto", order_stateDto);
+			
+			cnt = order_stateDto.size();
+			
+			pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+			
+			start = (currentPage - 1) * pageSize + 1;
+			end = start + pageSize - 1;
+			
+			if(end > cnt){
+				end = cnt;
+			}
+			
+			number = cnt - (currentPage - 1) * pageSize; 
+			
+			if(cnt > 0){
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				order_stateDto = dao.Search_distribution_order(model);
+				model.addAttribute("order_stateDto",order_stateDto);
+			}
+			
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+			if(currentPage % pageBlock == 0){
+				startPage -= pageBlock;
+			}
+			
+			endPage = startPage + pageBlock - 1;
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
+			
+		}
+		
+		model.addAttribute("cnt", cnt); 			
+		model.addAttribute("number", number); 	
+		model.addAttribute("pageNum", pageNum); 	
+		
+		if(cnt > 0){
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);	
+			model.addAttribute("endPage", endPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("pageCount", pageCount);	
+			model.addAttribute("currentPage", currentPage);
 		}
 	}
 
@@ -334,12 +613,14 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				
 				 dao.update_stock_out_storage(model);
 				 stock_cnt = dao.select_product_in_warehouse(model);
-				 
+				 System.out.println("stock_cnt : " + stock_cnt);
 				 if(stock_cnt >= 1){
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
+					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
 				dao.update_sales_state(model);
@@ -381,7 +662,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 					 model.addAttribute("st_op", 1);
 					 dao.update_stock_out_storage(model);
 				 }else{
+					 model.addAttribute("warehouse_id", null);
 					 dao.insert_stock_out_storage(model);
+					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
 				dao.update_sales_state(model);
@@ -475,7 +758,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	@Override
 	public void reg_warehouse_view_service(HttpServletRequest req, Model model) throws Exception {
 		String warehouse_id = req.getParameter("id") == null ? null : req.getParameter("id");
-		
+		model.addAttribute("id", warehouse_id);
 		if(!warehouse_id.equals("new")){
 			ArrayList<WarehouseVO> reg_warehouse_listVos = new ArrayList<WarehouseVO>();
 			model.addAttribute("warehouse_id",warehouse_id);
@@ -514,38 +797,108 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	@Override
 	public void movement_warehouse_list_service(HttpServletRequest req, Model model)  throws Exception{
 		ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
+		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		
 		movement_warehouseDtos = dao.select_movement_warehouse_list(model);
 		model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+		
+		warehouseVos = dao.select_warehouse_list(model);
+		model.addAttribute("warehouseVos",warehouseVos);
+		
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int cnt = 0;
+		int start = 0;
+		int end = 0;
+		
+		int number = 0;
+		
+		String pageNum = null; 	
+		int currentPage = 0; 	
+		
+		int pageCount = 0; 		
+		int startPage = 0; 		
+		int endPage = 0; 
+		
+		cnt = movement_warehouseDtos.size();
+				
+		pageNum = req.getParameter("pageNum");
+		
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
+		currentPage = (Integer.parseInt(pageNum));
+		pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+		
+		start = (currentPage - 1) * pageSize + 1;
+		end = start + pageSize - 1;
+		
+		if(end > cnt){
+			end = cnt;
+		}
+		
+		number = cnt - (currentPage - 1) * pageSize; 
+		
+		System.out.println("start : " + start);
+		System.out.println("end : " + end);
+		
+		if(cnt > 0){
+			model.addAttribute("start",start);
+			model.addAttribute("end",end);
+			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
+			model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+			
+		}
+		
+		startPage = (currentPage / pageBlock) * pageBlock + 1;
+		if(currentPage % pageBlock == 0){
+			startPage -= pageBlock;
+		}
+		
+		endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("cnt", cnt); 			
+		model.addAttribute("number", number); 	
+		model.addAttribute("pageNum", pageNum); 	
+		
+		if(cnt > 0){
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);	
+			model.addAttribute("endPage", endPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("pageCount", pageCount);	
+			model.addAttribute("currentPage", currentPage);
+		}
+		
 	}
 	
 	@Override
 	public void movement_warehouse_view_service(HttpServletRequest req, Model model)  throws Exception{
 		String id = req.getParameter("id");
 		model.addAttribute("id",id);
+		String doit = req.getParameter("doit");
+		model.addAttribute("doit",doit);
+		
 		
 		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
-		List<EmployeeVO> employeeVos = new ArrayList<EmployeeVO>();
-		
+
 		warehouseVos = dao.select_warehouse_list(model);
-		employeeVos = hdao.select_employees();
 		
 		model.addAttribute("warehouseVos",warehouseVos);
-		model.addAttribute("employeeVos",employeeVos);
 		
-		if(!id.equals("new")){
-			ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
-			model.addAttribute("stock_order_id", id);
-			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
-			model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
-		}
+		String warehouse_id = req.getParameter("warehouse_id");
+		model.addAttribute("warehouse_id",warehouse_id);
 	}
 
 	@Override
 	public void movement_warehouse_pro_service(HttpServletRequest req, Model model)  throws Exception{
 		String id = req.getParameter("id");
 		String opt = req.getParameter("opt") == null ? null : req.getParameter("opt");
-		
-		System.out.println("opt : " + opt);
 		
 		if(id != null && id.equals("new")){
 			String product_id = req.getParameter("product_id");
@@ -574,6 +927,12 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			model.addAttribute("stock_order_id", id);
 			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
 			
+			model.addAttribute("product_id", req.getParameter("product_id"));
+			model.addAttribute("warehouse_id", req.getParameter("warehouse_id"));
+			
+			ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
+			productVos = dao.select_product_info(model);
+			
 			String product_id =  movement_warehouseDtos.get(0).getProduct_id();
 			int warehouse_id =  movement_warehouseDtos.get(0).getWarehouse_id();
 			int arrive_warehouse_id =  movement_warehouseDtos.get(0).getArrive_warehouse();
@@ -581,21 +940,18 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			
 			model.addAttribute("product_id", product_id);
 			model.addAttribute("warehouse_id", warehouse_id);
-			model.addAttribute("arrive_warehouse_id", arrive_warehouse_id);
+			
 			model.addAttribute("stock_amount", stock_amount);
 			
 			model.addAttribute("mv_op", "1");
 			dao.update_stock_out_storage(model);
 			model.addAttribute("mv_op", "2");
 			
-			ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
-			productVos = dao.select_product_info(model);
-			
-			System.out.println("productVos.size : " + productVos.size());
-			
 			if(productVos.size() > 0){
+				model.addAttribute("arrive_warehouse_id", arrive_warehouse_id);
 				dao.update_stock_out_storage(model);
 			}else{
+				model.addAttribute("warehouse_id", arrive_warehouse_id);
 				dao.insert_stock_out_storage(model);
 			}
 			model.addAttribute("movement_state", "1");
@@ -623,21 +979,156 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 
 	@Override
 	public void movement_warehouse_product_service(HttpServletRequest req, Model model) throws Exception {
-		String warehouse_id = req.getParameter("warehouse_id");
-		String goes = req.getParameter("goes");
-		//String product_id = req.getParameter("product_id") == null ? null : req.getParameter("product_id");
+		String id = req.getParameter("id");
+		model.addAttribute("id",id);
 		
+		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		warehouseVos = dao.select_warehouse_list(model);
+		model.addAttribute("warehouseVos",warehouseVos);
+		
+		String warehouse_id = req.getParameter("warehouse_id");
 		model.addAttribute("warehouse_id", warehouse_id);
-		//model.addAttribute("product_id", product_id);
-		model.addAttribute("goes", goes);
+		
+		String warehouse_name = req.getParameter("warehouse_name");
+		model.addAttribute("warehouse_name", warehouse_name);
 		
 		ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
 		productVos = dao.select_product_info(model);
-		
 		model.addAttribute("productVos",productVos);
 		
+		if(!id.equals("new")){
+			ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
+			model.addAttribute("stock_order_id", id);
+			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
+			model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
+		}
+	}
+
+	@Override
+	public void adjustment_inventory_list(HttpServletRequest req, Model model) throws Exception {
+		ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
+		productVos = dao.select_only_product_id_name(model);
+		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		warehouseVos = dao.select_warehouse_list(model);
+		
+		String stock_order_id = req.getParameter("oder_id");
+		model.addAttribute("stock_order_id", stock_order_id);
+		
+		ArrayList<Adjustment_inventoryDTO> Adjustment_inventoryDtos = new ArrayList<Adjustment_inventoryDTO>();
+		Adjustment_inventoryDtos = dao.select_adjustment_inventory(model);
+		
+		
+		
+		int pageSize = 5;
+		int pageBlock = 3;
+		
+		int cnt = 0;
+		int start = 0;
+		int end = 0;
+		
+		int number = 0;
+		String pageNum = null; 	
+		int currentPage = 0; 	
+		
+		int pageCount = 0; 		
+		int startPage = 0; 		
+		int endPage = 0; 
+		
+		cnt = Adjustment_inventoryDtos.size();
+				
+		pageNum = req.getParameter("pageNum");
+		
+		if(pageNum == null){
+			pageNum = "1";
+		}
+		
+		currentPage = (Integer.parseInt(pageNum));
+		pageCount = (cnt/pageSize) + (cnt%pageSize > 0 ? 1 : 0);
+		
+		start = (currentPage - 1) * pageSize + 1;
+		end = start + pageSize - 1;
+		
+		if(end > cnt){
+			end = cnt;
+		}
+		
+		number = cnt - (currentPage - 1) * pageSize; 
+		
+		if(cnt > 0){
+			model.addAttribute("start",start);
+			model.addAttribute("end",end);
+			Adjustment_inventoryDtos = dao.select_adjustment_inventory(model);
+			model.addAttribute("Adjustment_inventoryDtos",Adjustment_inventoryDtos);
+			
+		}
+		
+		startPage = (currentPage / pageBlock) * pageBlock + 1;
+		if(currentPage % pageBlock == 0){
+			startPage -= pageBlock;
+		}
+		
+		endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		
+		model.addAttribute("cnt", cnt); 			
+		model.addAttribute("number", number); 	
+		model.addAttribute("pageNum", pageNum); 	
+		
+		if(cnt > 0){
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);	
+			model.addAttribute("endPage", endPage);		
+			model.addAttribute("pageBlock", pageBlock);	
+			model.addAttribute("pageCount", pageCount);	
+			model.addAttribute("currentPage", currentPage);
+		}
+		
+		model.addAttribute("productVos",productVos);
+		model.addAttribute("warehouseVos",warehouseVos);
+	}
+	
+	@Override
+	public void adjustment_inventory_view_service(HttpServletRequest req, Model model) throws Exception {
+		String product_id = req.getParameter("product_id");
+		String product_name = req.getParameter("product_name");
+		String warehouse_id = req.getParameter("warehouse_id");
+		String warehouse_name = req.getParameter("warehouse_name");
+		
+		Stock_informationVO stockVo = new Stock_informationVO();
+		model.addAttribute("product_id",product_id);
+		model.addAttribute("warehouse_id",warehouse_id);
+		stockVo = dao.select_stock_information(model);
+		
+		model.addAttribute("product_name",product_name);
+		model.addAttribute("warehouse_id",warehouse_id);
+		model.addAttribute("warehouse_name",warehouse_name);
+		model.addAttribute("stockVo",stockVo);
+	}
+
+	@Override
+	public void adjustment_inventory_pro_service(HttpServletRequest req, Model model) throws Exception {
+		String product_id = req.getParameter("product_id"); 
+		int warehouse_id = Integer.parseInt(req.getParameter("warehouse_id")); 
+		int employee_id = Integer.parseInt(req.getParameter("employee_id")); 
+		int taked_stock = Integer.parseInt(req.getParameter("taked_stock")); 
+		int delete_stock = Integer.parseInt(req.getParameter("delete_stock"));
+		
+		model.addAttribute("stock_order_id", "4753");
+		model.addAttribute("product_id",product_id);
+		model.addAttribute("warehouse_id",warehouse_id);
+		model.addAttribute("employee_id",employee_id);
+		model.addAttribute("taked_stock",taked_stock);
+		model.addAttribute("delete_stock",delete_stock);
+		model.addAttribute("ad_op","1");
+		dao.insert_stock_order(model);
+		dao.insert_adjustment_inventory(model);
+		dao.update_stock_out_storage(model);
 		
 	}
+
+	
 }
 
 

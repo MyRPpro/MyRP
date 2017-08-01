@@ -8,60 +8,83 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
-
-	function autofocus(formName) {
-		document.add_base_code_group_dupCheck_form1.hr_code_group_id.focus();
-	}
 	
-	function setId(id) {
-		opener.document.add_base_code_group_form1.hr_code_group_id.value = id;
-		opener.document.add_base_code_group_form1.dupcheck.value = 1;
-		self.close();
-	}
+	$("#page16121_div01_toggle").bind("click", function(event) {
+		$("#page16121_div01").slideToggle();
+		return false;
+	});
+	
+	$("form[name='page16120_form02']").on("submit", function(event) {
+		$("#page16121").slideUp();
+		var hr_code_group_id = $("form[name='page16120_form02'] input[name='hr_code_group_id']").val();
+		$("#page16110_div02").load("/hr_management/manage_hr_code/add_base_code_group"+
+								"?hr_code_group_id="+hr_code_group_id+
+								"&dupcheck=1");
+		return false;
+	});
+	
+	$("form[name='page16120_form03']").on("submit", function(event) {
+		var hr_code_group_id = $("form[name='page16120_form03'] input[name='hr_code_group_id']").val();
+		$("#page16120_div02").load("/hr_management/manage_hr_code/add_base_code_group_dupCheck?hr_code_group_id="+hr_code_group_id);
+		return false;
+	});
+	
+	$("#page16121_btn01").bind("click", function(event) {
+		$("#page16121").slideUp();
+		$("#page16120_div01").slideDown();
+		return false;		
+	});
 	
 </script>
-<body onload="autofocus()">
-add_base_code_group_dupCheck.jsp
-<c:if test="${cnt == 0}">
-	<table border="1">
-		<tr>
-			<th>선택하신 [${hr_code_group_id}]는 사용가능합니다.</th>
-		</tr>
-		<tr>
-			<th>
-				<input type="button" value="확인" 
-				onclick="setId('${hr_code_group_id}')";>
-			</th>
-		</tr>
-	</table>
-</c:if>
-<c:if test="${cnt == 1}">
-	<form action="/hr_management/manage_hr_code/add_base_code_group_dupCheck"
-	name="add_base_code_group_dupCheck_form1" method="get">
-		<table border="1">
-			<tr>
-				<th colspan="2">
-					선택하신 [${hr_code_group_id}]는 이미 존재합니다.<br>
-					새로운 인사코드를 선택하세요.
-				</th>
-			</tr>
-			<tr>
-				<th>hr_code_group_id</th>
-				<td>
-					<input type="number" name="hr_code_group_id"
-					min="1" max="9" step="1" required>
-				</td>
-			</tr>
-			<tr>
-				<th colspan="2">
-					<input type="submit" value="중복확인">
-					<input type="reset" value="재작성">
-					<input type="button" value="닫기"
-					onclick="self.close()">
-				</th>
-			</tr>
-		</table>
-	</form>
-</c:if>
+<body>
+	<div class="panel panel-default" id="page16121">
+		<div class="panel-heading">
+			<a id="page16121_div01_toggle">[16121]add_base_code_group_dupCheck.jsp</a>
+		</div>
+		<div class="panel-body" id="page16121_div01">
+			<c:if test="${cnt == 0}">
+				<form action="#" name="page16120_form02">
+					<table class="table">
+						<tr>
+							<th>선택하신 [${hr_code_group_id}]는 사용가능합니다.</th>
+						</tr>
+						<tr>
+							<td>
+								<input type="hidden" name="hr_code_group_id"
+								value="${hr_code_group_id}">
+								<input class="btn btn-default btn-sm" type="submit" value="확인">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</c:if>
+			<c:if test="${cnt == 1}">
+				<form action="#" name="page16120_form03">
+					<table class="table">
+						<tr>
+							<th colspan="2">
+								선택하신 [${hr_code_group_id}]는 이미 존재합니다.<br>
+								새로운 인사코드를 선택하세요.
+							</th>
+						</tr>
+						<tr>
+							<th>인사코드 그룹번호</th>
+							<td>
+								<input class="form-control input-sm" type="number" name="hr_code_group_id"
+								min="1" max="9" step="1" required autofocus>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2">
+								<input class="btn btn-default btn-sm" type="submit" value="중복확인">
+								<input class="btn btn-default btn-sm" type="reset" value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16121_btn01">
+							</th>
+						</tr>
+					</table>
+				</form>
+			</c:if>		
+		</div>
+	</div>
 </body>
 </html>

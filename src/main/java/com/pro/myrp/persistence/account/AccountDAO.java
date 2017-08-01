@@ -1,5 +1,6 @@
 package com.pro.myrp.persistence.account;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -220,4 +221,65 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int update_modify_account(AccountVO vo);
+	
+	/**
+	 * 회계보고서 > 회사가 가진 전표의 모든 년  가져오기
+	 */
+	public ArrayList<JoinStatementDTO> get_statement_year();
+	
+	/**
+	 * 회계보고서 > 재무상태표 관리
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<AccountVO> select_accounts();
+	public Long select_accounts_for_quarter_sales(Map<Object, Object> daoMap);
+	public Long select_accounts_for_quarter_purchase(Map<Object, Object> daoMap);
+	public Long select_accounts_for_quarter_salary(Map<Object, Object> daoMap);
+	public Long select_accounts_for_quarter_tax(Map<Object, Object> daoMap);
+	
+	/**
+	 * 전표승인 > 매출원가 해주기
+	 * @param oriPriceMap
+	 * @return
+	 */
+	public int select_count_sales(Map<String, Object> oriPriceMap);
+	public int select_purchase_unit_price(Map<String, Object> oriPriceMap);
+	public int update_costs_of_goods_sold_account(Map<String, Object> oriPriceMap);
+
+	public ArrayList<JoinStatementDTO> select_sales_id(Map<Object, Object> daoMap);
+	
+	/**
+	 * 회계보고서 > 손익계산서 관리 
+	 * @param daoMap
+	 * @return
+	 */
+	public Long select_accounts_for_date_sales(Map<Object, Object> daoMap);
+	public Long select_accounts_for_date_purchase(Map<Object, Object> daoMap);
+	public Long select_accounts_for_date_salary(Map<Object, Object> daoMap);
+	public Long select_accounts_for_date_tax(Map<Object, Object> daoMap);
+
+	/**
+	 * 회계보고서 >
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_cash_values(Map<Object,Object> daoMap);
+	public String select_account_name_for_tax(String statement_id);
+	public String select_account_name_for_all(String statement_id);
+	
+	/**
+	 * 채권/채무 현황 > 모든 채권/채무 내역 조회
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_all_bond_debt_list(Map<Object, Object> daoMap);
+	/**
+	 * 채권/채무 현황 > 거래처별 채권/채무 내역 조회
+	 * @param daoMap
+	 * @return
+	 */
+	public ArrayList<JoinStatementDTO> select_bond_debt_list_by_company(Map<Object, Object> daoMap);
+	
+	public ArrayList<JoinStatementDTO> select_company_name();
 }
