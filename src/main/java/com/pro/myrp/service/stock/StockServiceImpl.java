@@ -240,6 +240,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	public void search_distribution_order_service(HttpServletRequest req, Model model) throws Exception {
 		ArrayList<In_storageDTO> in_storageDtos = new ArrayList<In_storageDTO>();
 		ArrayList<Out_storageDTO> out_storageDtos = new ArrayList<Out_storageDTO>();
+		ArrayList<ProductVO> proVos = dao.select_product_name(model);
+		
+		model.addAttribute("proVos", proVos);
 		
 		String goes = req.getParameter("goes");
 		model.addAttribute("goes",goes);
@@ -375,6 +378,8 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		if(oendPage > opageCount){
 			oendPage = opageCount;
 		}
+		
+		 
 		
 		model.addAttribute("icnt", icnt); 			
 		model.addAttribute("inumber", inumber); 	
@@ -622,10 +627,11 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 					 dao.insert_stock_out_storage(model);
 					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
-				cnt = dao.update_order_state(model);
-				dao.update_sales_state(model);
-				model.addAttribute("op", 1);
+				 model.addAttribute("op", 1);
 				cnt = dao.insert_out_storage(model);
+				cnt = dao.update_order_state(model);
+				cnt = dao.update_orderstate_state(model);
+				
 			}
 			
 		}else if(goes.equals("out_storage_wait")){
@@ -667,9 +673,10 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 					 model.addAttribute("warehouse_id", warehouse_id);
 				 }
 				cnt = dao.update_order_state(model);
-				dao.update_sales_state(model);
+				//dao.update_sales_state(model);
 				model.addAttribute("op", 1);
 				cnt = dao.insert_out_storage(model);
+				cnt = dao.update_orderstate_state(model);
 			}
 		}else if(goes.equals("in_storage")){
 			
@@ -698,7 +705,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				model.addAttribute("op", 1);
 				cnt = dao.insert_in_storage(model);
 				dao.update_order_state(model);
-				dao.update_purchase_state(model);
+				//dao.update_purchase_state(model);
 				 model.addAttribute("st_op", 2);
 				 dao.update_stock_out_storage(model);
 				 
@@ -708,8 +715,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				 
 				 stock_state = "24202";
 				 model.addAttribute("stock_state", stock_state);
+				 cnt = dao.update_orderstate_state(model);
 				 
-				 dao.update_sales_state(model);
+				 //dao.update_sales_state(model);
 			}
 		}else if(goes.equals("storage_out_complete")){
 			Select_stock_order_storageDTO dto = dao.select_stock_order_out_order(model);
@@ -729,8 +737,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			
 			model.addAttribute("stock_order_id", stock_order_id);
 			model.addAttribute("stock_order_type", stock_order_type);
-			model.addAttribute("count_sales", count_sales);
-			model.addAttribute("available_stock", available_stock);
+			model.addAttribute("available_stock", count_sales);
 			model.addAttribute("lack_stock", lack_stock);
 			model.addAttribute("stock_state", stock_state);
 			model.addAttribute("product_id", product_id);
@@ -738,11 +745,19 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			dao.update_order_state(model);
 			model.addAttribute("st_op", 4);
 			dao.update_stock_out_storage(model);
-			dao.update_sales_state(model);
+			//dao.update_sales_state(model);
 			
-			model.addAttribute("st_op", 5);
+		}else if(goes.equals("stock_complete")){
+			product_id = req.getParameter("product_id");
+			lack_stock = Integer.parseInt(req.getParameter("lack_stock"));
+			model.addAttribute("product_id", product_id);
+			model.addAttribute("available_stock", lack_stock);
+			model.addAttribute("stock_state", "24202");
+			dao.update_order_state(model);
+			
 			dao.update_stock_out_storage(model);
-			 
+			model.addAttribute("st_op","1");
+			dao.update_stock_out_storage(model);
 		}
 		
 		model.addAttribute("cnt", cnt);

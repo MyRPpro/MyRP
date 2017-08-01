@@ -134,7 +134,7 @@
 					<div class="form-group">
 						<input type="number" id="condition_note_payable"
 							name="condition_note_payable" class="form-control input-sm"
-							placeholder="채무 기간" min="1" max="12">
+							placeholder="채무 기간" min="0" max="12">
 					</div>
 				</td>
 
@@ -232,7 +232,7 @@
 					<div class="form-group">
 						<input type="hidden" name="supply_price" id="supply_price" value="${dto.purchase_unit_price}">
 						<input type="text"  class="form-control input-sm"min="1" max="999999999" requiered readonly
-						value="$<fmt:formatNumber value="${dto.purchase_unit_price}" type="currency" currencySymbol="￦"/>" >
+						value="<fmt:formatNumber value="${dto.purchase_unit_price}" type="currency" currencySymbol="￦"/>" >
 					</div>
 				</td>
 
@@ -242,7 +242,7 @@
 							name="condition_note_payable" placeholder="채무 기간" 
 							value="${dto.condition_note_payable}"
 							class="form-control input-sm"
-							min="1" max="12">
+							min="0" max="12">
 					</div>
 				</td>
 

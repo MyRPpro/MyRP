@@ -2,6 +2,7 @@ package com.pro.myrp.persistence.purchase;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -9,6 +10,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.pro.myrp.domain.accounting_management.Purchase_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
 
 @Repository
@@ -231,6 +234,30 @@ public class purchaseDAOImpl implements purchaseDAO {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.update_state_force(daoMap);
 		
+	}
+
+	@Override
+	public List<Order_stateVO> select_statements_approval() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_statements_approval();
+	}
+
+	@Override
+	public List<Purchase_statementVO> select_purchase_statement(String statement_id) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_statement(statement_id);
+	}
+
+	@Override
+	public PurchaseDTO select_search_purchase_order(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_search_purchase_order(daoMap);
+	}
+
+	@Override
+	public int update_order_state(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_order_state(daoMap);
 	}
 
 	

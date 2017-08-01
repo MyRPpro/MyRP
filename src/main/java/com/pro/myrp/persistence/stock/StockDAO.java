@@ -211,4 +211,6 @@ public interface StockDAO extends MyRPDAO {
 	public ArrayList<ProductVO> select_only_product_id_name(Model model);
 
 	public ArrayList<Adjustment_inventoryDTO> select_adjustment_inventory(Model model);
+
+	public int update_orderstate_state(Model model);
 }

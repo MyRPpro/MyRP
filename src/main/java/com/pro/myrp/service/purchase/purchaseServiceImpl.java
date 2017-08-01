@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -13,11 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pro.myrp.domain.CodeMyRP;
+import com.pro.myrp.domain.accounting_management.Purchase_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
+import com.pro.myrp.domain.sales_management.SalesDTO;
+import com.pro.myrp.persistence.MyRPDAO;
 import com.pro.myrp.persistence.purchase.purchaseDAO;
 
 @Service
-public class purchaseServiceImpl implements purchaseService {
+public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 
 	@Inject
 	private purchaseDAO dao;
@@ -144,7 +150,47 @@ public class purchaseServiceImpl implements purchaseService {
 		int cnt =0;
 		cnt = dao.select_lack_reg_purchase_cnt();
 		
+		
+		/*-----------------------------------------------------*/
+		
+		System.out.println("  -> 알람처리 실행!");
+		List<Order_stateVO> orderVos = new ArrayList<>();
+		orderVos = dao.select_statements_approval();
+		for(int i=0; i<orderVos.size(); i++) {
+			Order_stateVO orderVo = orderVos.get(i);
+			String statement_id = orderVo.getOrder_id();
+			List<Purchase_statementVO> tempVos = dao.select_purchase_statement(statement_id);
+			
+			if(tempVos != null) {
+				for(int j=0; j<tempVos.size(); j++) {
+					Purchase_statementVO tempVo = tempVos.get(j);
+					String purchase_id = tempVo.getPurchase_id();
+					String account_id = tempVo.getAccount_id();
+					Map<String, Object> daoMap = new HashMap<>();
+					
+					daoMap.put("purchase_id", purchase_id);
+					daoMap.put("account_id", account_id);
+					PurchaseDTO purchasedto = dao.select_search_purchase_order(daoMap);
+					System.out.println("  -> salesdto_state() : " + purchasedto.getPurchase_state() );
+					
+					if(purchasedto.getPurchase_state() == complete_storage_in_warehouse	) {
+						daoMap.clear();
+						daoMap.put("order_id", statement_id);
+						daoMap.put("order_state", 0);
+						System.out.println("  -> daoMap: " + daoMap.toString() );
+						int dao_cnt = dao.update_order_state(daoMap);
+						System.out.println("  -> dao_cnt : " + dao_cnt );
+					}
+				}
+			}
+		}
+		System.out.println("  -> 알람처리 종료!");
+		
+		/*-----------------------------------------------------*/
+		
+		
 		req.setAttribute("cnt",cnt);
+		
 	}
 	
 	@Override

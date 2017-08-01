@@ -122,11 +122,11 @@
 		}
 		
 		/* console.log(" search_str :" + search_str ); */
-		
 		$('#list_table').slideDown(500);
-		$('#list_table').load('/purchase_management/search_purchase/purchase_list_table?search_str='+search_str+'&pageNum='+pagenum);
 		$('#list_page').slideDown(500);
 		$('#list_page').load('/purchase_management/search_purchase/purchase_list_page?search_str='+search_str+'&pageNum='+pagenum);
+		$('#list_table').load('/purchase_management/search_purchase/purchase_list_table?search_str='+search_str+'&pageNum='+pagenum);
+		
 		return false;
 	}
 	

@@ -58,18 +58,32 @@
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-default" onclick="return search_list(1,3)">전표승인</button>
 									</div>
+									
+									
+									
+									<!-- 
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-default" onclick="return search_list(1,4)">출고신청</button>
 									</div>
+									 -->
+									
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-default" onclick="return search_list(1,5)">출고조회</button>
 									</div>
+									
+									<!-- 
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-default" onclick="return search_list(1,6)">수급대기</button>
+										<button type="button" class="btn btn-default" onclick="return search_list(1,6)">수금대기</button>
 									</div>
+									 -->
+									
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-default" onclick="return search_list(1,7)">수급완료</button>
+										<button type="button" class="btn btn-default" onclick="return search_list(1,7)">수금완료</button>
 									</div>
+									
+									
+									
+									
 								</div>	<!-- // btn-group-justified -->
 							</form>	
 							<div id="list_page"></div>
@@ -117,7 +131,8 @@
 		var search_str = null;
 		
 		 if ( check == 1 ){		
-				search_str = document.sales_list.search_str.value;	// 0.판매번호 검색
+				/* search_str = document.sales_list.input_search.value;	// 0.판매번호 검색 */
+				search_str = $('#search_str').val();
 				if ( !search_str )	search_str = "all";	
 				} 	
 		else if ( check == 0 )		search_str = "all";			// 1.전체 검색
@@ -126,7 +141,7 @@
 		else if (check == 4 )		search_str = "out";			// 4.상품출고신청
 		else if (check == 5 )		search_str = "out_c";		// 5.출고완료조회
 		else if (check == 6 )		search_str = "receive";		// 6.지급대기신청
-		else if (check == 7 )		search_str = "receive_C";	// 7.지급완료조회
+		else if (check == 7 )		search_str = "receive_c";	// 7.지급완료조회
 
 		$('#list_page').slideDown(500);
 		$('#list_table').slideDown(500);

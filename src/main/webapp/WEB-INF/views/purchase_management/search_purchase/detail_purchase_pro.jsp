@@ -98,10 +98,6 @@
 	</c:if>
 
 
-
-
-
-
 	<input type="hidden" id="pay_date" name="pay_date" value="${pay_date}">
 	<input type="hidden" id="pay_diff" name="pay_diff" value="${pay_diff}">
 	

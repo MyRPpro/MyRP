@@ -2,8 +2,11 @@ package com.pro.myrp.persistence.purchase;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.pro.myrp.domain.accounting_management.Purchase_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
@@ -86,5 +89,21 @@ public interface purchaseDAO extends MyRPDAO {
 	public int update_state(Map<String, Object> daoMap);
 
 	public int update_state_force(Map<String, Object> daoMap);
+
+
+
+	public List<Order_stateVO> select_statements_approval();
+
+
+
+	public List<Purchase_statementVO> select_purchase_statement(String statement_id);
+
+
+
+	public PurchaseDTO select_search_purchase_order(Map<String, Object> daoMap);
+
+
+
+	public int update_order_state(Map<String, Object> daoMap);
 
 }

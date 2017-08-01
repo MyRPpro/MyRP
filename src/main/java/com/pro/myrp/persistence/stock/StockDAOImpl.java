@@ -245,4 +245,10 @@ public class StockDAOImpl implements StockDAO {
 		StockDAO dao = sqlSession.getMapper(StockDAO.class);
 		return dao.select_adjustment_inventory(model);
 	}
+
+	@Override
+	public int update_orderstate_state(Model model) {
+		StockDAO dao = sqlSession.getMapper(StockDAO.class);
+		return dao.update_orderstate_state(model);
+	}
 }

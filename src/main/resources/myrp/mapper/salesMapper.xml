@@ -369,6 +369,14 @@
 		
  	</insert>
  	
+ 	
+ 	<update id="update_sales_bank_account" parameterType="Long" >
+	 	UPDATE	BANK_ACCOUNT
+	 	SET		BANK_ACCOUNT_BALANCE = BANK_ACCOUNT_BALANCE + #{price}
+	 	WHERE	BANK_ACCOUNT_ID	= 500011020000
+ 	
+ 	</update>
+ 	
  
  	
  	
@@ -876,7 +884,6 @@
  			SELECT 	COUNT(SALES_ID)
 			FROM 	SALES_ORDER
 			WHERE 	SALES_STATE = 22214
-			
  		]]>
  	</select>
 
@@ -893,21 +900,30 @@
 
 	<update id="update_account_approve_serch_sales" >
 		<![CDATA[
-		UPDATE  SALES_ORDER                                 
-		SET     SALES_STATE = 22214                         
-		WHERE   SALES_ID IN (SELECT SALES_ID
-		                    FROM    SALES_STATEMENT
-		                    WHERE   STATEMENT_ID IN (SELECT  ORDER_ID
-		                                            FROM    ORDER_STATE
-		                                            WHERE   ORDER_ID LIKE '5470%'
-		                                            AND     ORDER_STATE = 25452
-		                                            )
-		                    )
-		AND     SALES_STATE = 22213
+		UPDATE SALES_ORDER 
+		SET SALES_STATE = 	case 
+							when  SALES_ID in (SELECT SALES_ID
+							      FROM    SALES_STATEMENT
+							      WHERE   STATEMENT_ID IN (SELECT  ORDER_ID
+													         FROM    ORDER_STATE
+								                             WHERE   ORDER_ID LIKE '5470%'
+								                             AND     ORDER_STATE IN(25452)
+								                           )
+					            )
+					        then 22214
+							when  SALES_ID in (SELECT SALES_ID
+							      FROM    SALES_STATEMENT
+							      WHERE   STATEMENT_ID IN (SELECT  ORDER_ID
+													         FROM    ORDER_STATE
+								                             WHERE   ORDER_ID LIKE '5470%'
+								                             AND     ORDER_STATE IN(25453)
+								                           )
+					            )
+					        then 22215
+					        end
+		where	SALES_STATE = 22213
 		]]>
 	</update>
-
-
 
  	
  	<select id="select_account_approve_serch_sales" resultType="SalesDTO">
@@ -923,7 +939,7 @@
 		        FROM    (
 		                SELECT  
 				                S.SALES_ID, 
-                        S.ACCOUNT_ID,
+                       			S.ACCOUNT_ID,
 				                NVL((
 				                SELECT ACCOUNT_NAME 
 				                FROM   ACCOUNT A
@@ -980,19 +996,26 @@
  	</select>
  	
  	
- 	<update id="update_stock_out_serch_sales" >
-		
+ 	<update id="update_stock_out_serch_sales" parameterType="int">
 		UPDATE  SALES_ORDER                                 
-		SET     SALES_STATE = 22223                         
+		SET     SALES_STATE = #{complete_sales_storage_out_warehouse}                             
 		WHERE   SALES_ID IN (SELECT STOCK_ORDER_TYPE
 		                    FROM    STOCK_ORDER
-		                    WHERE   STOCK_STATE = 24752
+		                    WHERE   STOCK_ORDER_ID IN (SELECT  ORDER_ID
+			                                            FROM    ORDER_STATE
+			                                            WHERE   ORDER_ID LIKE '4754%'
+			                                            AND     ORDER_STATE = 24752
+			                                            )
 		                    )
 		AND     SALES_STATE = 22222
 		AND     ACCOUNT_ID = 500014030000
-		OR		SALES_STATE = 24752
 	</update>
- 	
+	
+	
+
+	
+	
+	
  	
  	<select id="select_stock_out_serch_sales" resultType="SalesDTO">
  		<![CDATA[
@@ -1119,6 +1142,150 @@
 		ORDER BY SALES_ID DESC, ACCOUNT_ID ASC
  		]]>
  	</select>
+ 	
+ 	
+ 	
+ 	<!-- 승인된 회계전표 조회 -->
+	<select id="select_statements_approval"
+	resultType="Order_stateVO">
+		<![CDATA[
+		SELECT	*
+		FROM 	order_state
+		WHERE	order_state in( 25452,25453 )
+		]]>
+	</select>
+	
+	
+ 	<!-- 물류 출고완료 조회 -->
+	<select id="select_storage_out"
+	resultType="Order_stateVO">
+		<![CDATA[
+		SELECT	*
+		FROM 	order_state
+		WHERE	order_state = 24752
+		]]>
+	</select>
+ 	
+ 	
+ 	<!-- 회계전표번호와 연결된 판매 목록 조회 -->
+	<select id="select_sales_statement" parameterType="String"
+	resultType="Sales_statementVO">
+		<![CDATA[
+		SELECT	*
+		FROM	SALES_STATEMENT
+		WHERE	statement_id = #{statement_id}
+		]]>
+	</select>
+	
+	
+	<!-- STOCK_ORDER에서 STOCK_ORDER_TYPE 조회  -->
+	<select id="select_stock_order_all" parameterType="String"
+	resultType="SA_stockorderVO">
+		<![CDATA[
+		SELECT	*
+		FROM	STOCK_ORDER
+		WHERE	STOCK_ORDER_ID = #{stock_order_id}
+		]]>
+	</select>
+	
+	
+	
+ 	<!-- 선택된 판매번호와 정보를 조회 -->
+	<select id="select_search_sales_order" parameterType="java.util.Map"
+	resultType="SalesDTO">
+		<![CDATA[
+		SELECT	*
+		FROM	sales_order
+		WHERE	sales_id = #{sales_id}
+		AND		account_id = #{account_id}
+		]]>
+	</select>
+	
+ 	
+ 	
+ 	<!-- 선택된 판매내역의 상태를 변경 -->
+	<update id="update_sales_state" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	sales_order
+		SET		sales_state = #{sales_state}
+		WHERE	sales_id = #{sales_id}
+		AND		account_id = #{account_id}
+		]]>
+	</update>
+	
+	
+	<!-- 선택된 주문의 주문상태를 초기화 -->
+	<update id="update_order_state" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	ORDER_STATE
+		SET		ORDER_STATE = 0
+		WHERE	ORDER_ID = #{order_id}
+		]]>
+	</update>
+ 	
+ 	
+ 	<!-- 수금요청 상태 업데이트 : 매출채권을 지급완료에서 수금대기로 / 23202 -> 23206 -->
+ 	<update id="update_state" parameterType="java.util.Map" >
+ 	<![CDATA[
+		UPDATE	SALES_ORDER
+		SET		SALES_STATE 	= '${after_state}'
+		WHERE	SALES_ID 		= '${sales_id}'
+		AND		ACCOUNT_ID 		= '${account_id}'
+		AND		SALES_STATE 	= '${before_state}'
+ 	]]>
+ 	</update>
+ 	
+ 	
+ 	<!-- 지급날짜  불러오기 -->
+ 	<select id="select_sales_pay_date" parameterType="java.util.Map" resultType="java.sql.Date">
+ 	<![CDATA[
+	 	SELECT	ADD_MONTHS( STORAGE_OUT_DATE, CONDITION_NOTE_RECEIVABLE)
+		FROM	SALES_ORDER
+		WHERE	SALES_ID	= '${sales_id}'
+		AND		ACCOUNT_ID	= '${account_id}'
+		AND		SALES_STATE = '${after_state}'
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 남은날짜  불러오기 -->
+ 	<select id="select_sales_pay_diff" parameterType="java.util.Map" resultType="int">
+ 	<![CDATA[
+	 	SELECT TRUNC(ADD_MONTHS(STORAGE_OUT_DATE,CONDITION_NOTE_RECEIVABLE)) - TRUNC(SYSDATE)
+		FROM	SALES_ORDER
+		WHERE	SALES_ID	= '${sales_id}'
+		AND		ACCOUNT_ID	= '${account_id}'
+		AND		SALES_STATE = '${after_state}'
+ 	]]>
+ 	</select>
+ 	
+ 	<!-- 남은날짜  불러오기 -->
+ 	<select id="select_sales" parameterType="String" resultType="SalesDTO">
+ 	<![CDATA[
+	 	SELECT *
+	 	FROM 	SALES_ORDER
+	 	WHERE 	SALES_ID	= #{sales_id}
+	 	AND		ACCOUNT_ID 	= 500011020000
+ 	]]>
+ 	</select>
+ 	
+ 	
+ 	<!-- 수금요청 상태 업데이트  -->
+ 	<update id="update_state_force" parameterType="java.util.Map" >
+ 	<![CDATA[
+		UPDATE	SALES_ORDER
+		SET		SALES_STATE 	= '${after_state}'
+		WHERE	SALES_ID 		= '${sales_id}'
+		AND		ACCOUNT_ID 		= '${account_id}'
+ 	]]>
+ 	</update>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  	
  	
  	
