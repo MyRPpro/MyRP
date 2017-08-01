@@ -33,8 +33,29 @@ public class JoinStatementDTO {
     public String product_id;
     public int count_sales;
     
+   
+    public String sales_company_name;
+    public String purchase_company_name;
     
-    public String getProduct_id() {
+    
+    
+    
+    public String getSales_company_name() {
+		return sales_company_name;
+	}
+	public void setSales_company_name(String sales_company_name) {
+		this.sales_company_name = sales_company_name;
+	}
+	public String getPurchase_company_name() {
+		return purchase_company_name;
+	}
+	public void setPurchase_company_name(String purchase_company_name) {
+		this.purchase_company_name = purchase_company_name;
+	}
+	public void setAccount_value(Long account_value) {
+		this.account_value = account_value;
+	}
+	public String getProduct_id() {
 		return product_id;
 	}
 	public void setProduct_id(String product_id) {

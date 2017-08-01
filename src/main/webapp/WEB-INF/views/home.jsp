@@ -227,7 +227,7 @@ function onoff(){
 </body>
 <script type="text/javascript">
 
-	$(function(){
+	 $(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;
 			var data = {"role" : role}
@@ -276,7 +276,7 @@ function onoff(){
 				}
 			}, 10000);
 		}
-	});
+	}); 
 	
 	//메뉴의 a 태그 클릭시 메인페이지 화면에 해당 화면을 출력한다.
 	$(".panel-body a").bind("click", function(event) {

@@ -249,5 +249,23 @@ public interface AccountController extends MyRPController{
 	 * @throws Exception
 	 */
 	public String search_bond_debt(HttpServletRequest req, Model model)throws Exception;
+	/**
+	 * 채권/채무 조회 > 모두 조회
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_all_bond_debt(HttpServletRequest req, Model model)throws Exception;
+	public String show_all_bond_debt(HttpServletRequest req, Model model)throws Exception;
+	/**
+	 * 채권/채무 조회 > 거래처별 조회
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String search_bond_debt_by_company(HttpServletRequest req, Model model)throws Exception;
+	public String show_bond_debt_by_company(HttpServletRequest req, Model model)throws Exception;
 }
 

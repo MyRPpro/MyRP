@@ -2,19 +2,54 @@
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
 <script type="text/javascript">
+function slideUp(){
+	$("#statements_contents").slideUp(); 
+}
 $(function(){
 	$('.page_nav a').bind("click",function(){
 		$("#search_statements_list").load($(this).attr("href"));
 		return false;
 	});
 });
+$(function(){
+	$("#panel-heading a").bind("click", function(){
+		$("#statements_contents").slideDown(); 
+	})
+})
+//전표 상세페이지 띄우기
+function search_statement_detail(statement_id, connected_id, typeCnt){
+	$('#statements_contents').slideUp();
+	var url="";
+	if(typeCnt==1){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
+	}
+	if(typeCnt==2){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&purchase_id="+connected_id;
+	}
+	if(typeCnt==3){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&salary_register_id="+connected_id;
+	}
+	if(typeCnt==null){
+		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id;
+	}
+	togo = $('#search_statement_detail');
+	
+	$.ajax({ 		
+		type: 	'get',	 			
+		url: 	url,
+		success: function(response) { 	
+			togo.html(response);	
+		}
+	});
+}
 </script>
 
 <div class="panel panel-default" id="page16330">
-	<div class="panel-heading">
-		 미승인 전표 조회 
+	<div class="panel-heading" id="panel-heading">
+		<a> 미승인 전표 조회 </a>
 	</div>
-	<div class="panel-body" style="text-align: center;">
+	<div class="panel-body" id="statements_contents">
+	<div style="text-align: center;">
 		<small>총 미승인 전표 개수 : ${cnt}</small>
 		<!-- 페이지 내비게이션  -->
 		<div class="page_nav">
@@ -40,7 +75,7 @@ $(function(){
 			</div>
 		</div>
 		</div>
-		<div class="panel-body" style="text-align: center;">
+		<div style="text-align: center;">
 <table  class="table table-hover">
 	<tr>
 		<th> 전표번호 </th>
@@ -106,6 +141,12 @@ $(function(){
 		</td>
 	</tr>
 	</c:forEach>
+		<tr>
+	 	<td colspan="5">
+	 		<span class="glyphicon glyphicon-menu-up" aria-hidden="true" onclick="slideUp()"></span>
+	 	</td>
+		 </tr>
 	</table>	
+	</div>
 	</div>
 </div>
