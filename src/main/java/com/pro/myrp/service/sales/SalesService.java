@@ -39,6 +39,14 @@ public interface SalesService extends MyRPService {
 	public void detail_sales_pro_service(Model model);
 
 	public void modify_sales_service(Model model);
+	
+	
+	// alert check
+	public void sales_statement_search_service(Model model);
+
+	public void req_receive_service(Model model);
+
+	public void req_receive_pro_service(Model model);
 
 	
 }

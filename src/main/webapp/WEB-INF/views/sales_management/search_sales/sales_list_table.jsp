@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <body>
+<%-- 
 	<c:if test="${cnt==0}">
 		<script type="text/javascript">
 			setTimeout(function(){
@@ -23,7 +24,7 @@
 			}, 200);
 		</script>
 	</c:if>
-		
+		 --%>
 	<div class="row" id="row">
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
@@ -111,41 +112,43 @@
 						</form>
 					</div> <!-- // table-responsive -->
 				</div>	<!-- // panel-body -->
-				<div id="list_dateil"></div>
 			</div>	<!-- // panel panel-primary -->
+			<div id="list_detail"></div>
 		</div>	<!-- // col-xs-12 -->
 	</div>	<!-- // row -->
 	
 	<script type="text/javascript">	
+	
 	$(document).ready(function(){
 		$('#sales_list_table_heading').click(function(){
 			$('#sales_list_table_content').slideToggle();
 			return false;
 		});
-		$('#list_dateil').slideUp(); return false;
 		
 	});
+	
 	function detail_page(param){
 		param = param.split(',');
 		var state = param[1];
-		$('#list_page').slideUp();
-		$('#sales_list_content').slideUp();
+		
 		$('#sales_list_table_content').slideUp();
+		$('#sales_list_content').slideUp();
+		  
 		if( state == "22213" ){
-			$('#list_dateil').slideDown();
-			$('#list_dateil').load("/sales_management/search_sales/modify_sales?sales_id="+param[0]
+			$('#list_detail').slideDown();
+			$('#list_detail').load("/sales_management/search_sales/modify_sales?sales_id="+param[0]
 				+ '&sales_state=' + param[1]);
 			return false;
 		} else {
-			$('#list_dateil').slideDown();
-			$('#list_dateil').load("/sales_management/search_sales/detail_sales?sales_id="+param[0]
+			$('#list_detail').slideDown();
+			$('#list_detail').load("/sales_management/search_sales/detail_sales?sales_id="+param[0]
 			+'&sales_state='+param[1]
 			+'&account_id='+param[2]);
 			return false;
 		}
 	};
 	</script>
-	
+	 
 	
 </body>
 </html>

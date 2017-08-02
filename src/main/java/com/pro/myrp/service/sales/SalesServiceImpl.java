@@ -1,8 +1,11 @@
 package com.pro.myrp.service.sales;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -11,11 +14,17 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.pro.myrp.domain.CodeMyRP;
+import com.pro.myrp.domain.accounting_management.Sales_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.sales_management.SA_stockorderVO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.sales.SalesDAO;
 
+
+
 @Service
-public class SalesServiceImpl implements SalesService {
+public class SalesServiceImpl implements SalesService,CodeMyRP  {
 
 	@Inject
 	private SalesDAO dao;
@@ -37,10 +46,12 @@ public class SalesServiceImpl implements SalesService {
 			search_check = 0;
 		} else if( req.getParameter("search_str").equals("account")){
 			search_check = 2;
-		} else if( req.getParameter("search_str").equals("stock")){
+		} else if( req.getParameter("search_str").equals("account_c")){
 			search_check = 3;
-		} else if( req.getParameter("search_str").equals("check")){
-			search_check = 4;
+		} else if( req.getParameter("search_str").equals("out_c")){
+			search_check = 5;
+		} else if( req.getParameter("search_str").equals("receive_c")){
+			search_check = 7;
 		} else if( req.getParameter("search_str") != null && req.getParameter("search_str") != "" ){
 			search_check = 1;
 		}
@@ -62,15 +73,107 @@ public class SalesServiceImpl implements SalesService {
 			System.out.println("  -> Search Cnt : " + cnt );
 			
 			
+		} else if (search_check == 3 ){
+			System.out.println("  -> Account_Approve");
+			
+			// 추가사항 시작 : 가격이 양수면 승인처리 가격이 음수면 마감처리  //
+			
+			int update_cnt = dao.update_account_approve_serch_sales();
+			/*
+			price > 0 -> 22214
+			price < 0 -> 22215
+			*/
+			// 추가사항 종료 //
+			
+			System.out.println("  -> update_cnt : "+ update_cnt);
+			cnt = dao.select_count_approve_sales();
+			System.out.println("  -> Search Cnt : " + cnt );
+			
+			/*-----------------------------------------------------*/
+			
+			System.out.println("  -> 알람처리 실행!");
+			List<Order_stateVO> orderVos = new ArrayList<>();
+			orderVos = dao.select_statements_approval();
+			for(int i=0; i<orderVos.size(); i++) {
+				Order_stateVO orderVo = orderVos.get(i);
+				String statement_id = orderVo.getOrder_id();
+				List<Sales_statementVO> tempVos = dao.select_sales_statement(statement_id);
+				
+				if(tempVos != null) {
+					for(int j=0; j<tempVos.size(); j++) {
+						Sales_statementVO tempVo = tempVos.get(j);
+						String sales_id = tempVo.getSales_id();
+						String account_id = tempVo.getAccount_id();
+						Map<String, Object> daoMap = new HashMap<>();
+						
+						daoMap.put("sales_id", sales_id);
+						daoMap.put("account_id", account_id);
+						SalesDTO salesdto = dao.select_search_sales_order(daoMap);
+						System.out.println("  -> salesdto.getSales_state() : " + salesdto.getSales_state());
+						if(salesdto.getSales_state() == complete_approval_sales_statement ||
+								salesdto.getSales_state() == deadline	) {
+							daoMap.clear();
+							daoMap.put("order_id", statement_id);
+							daoMap.put("order_state", 0);
+							System.out.println("  -> daoMap: " + daoMap.toString() );
+							int dao_cnt = dao.update_order_state(daoMap);
+							System.out.println("  -> dao_cnt : " + dao_cnt );
+							/*
+							daoMap.put("sales_state", complete_approval_sales_statement);
+							*/
+							
+						}
+					}
+				}
+			}
+			System.out.println("  -> 알람처리 종료!");
+			
+			/*-----------------------------------------------------*/
+
 		// 창고 출고 완료 일경우
-		} else if(search_check == 3 ){
+		} else if(search_check == 5 ){
 			
 			System.out.println("  -> Stock_Out");
-			int update_cnt = dao.update_stock_out_serch_sales();
+			int update_cnt = dao.update_stock_out_serch_sales(complete_sales_storage_out_warehouse);
 			System.out.println("  -> update_cnt : "+ update_cnt);
 			
 			cnt = dao.select_count_stock_out_sales();
 			System.out.println("  -> Search Cnt : " + cnt );
+			
+			/*-----------------------------------------------------*/
+			
+			System.out.println("  -> 알람처리 실행!");
+			List<Order_stateVO> orderVos = new ArrayList<>();
+			orderVos = dao.select_storage_out();
+			
+			for(int i=0; i<orderVos.size(); i++) {
+				Order_stateVO orderVo = orderVos.get(i);
+				String stock_order_id = orderVo.getOrder_id();
+				
+				SA_stockorderVO tempVo = dao.select_stock_order_all(stock_order_id);
+				String sales_id = tempVo.getStock_order_type();
+				Map<String, Object> daoMap = new HashMap<>();
+				daoMap.put("sales_id", sales_id);
+				daoMap.put("account_id", account_sales_of_product);
+				SalesDTO salesdto = dao.select_search_sales_order(daoMap);
+				System.out.println("  -> salesdto : " + salesdto.getSales_state());
+				
+				if(salesdto.getSales_state() == complete_sales_storage_out_warehouse) {
+					daoMap.clear();
+					daoMap.put("order_id", stock_order_id);
+					daoMap.put("order_state", 0);
+					System.out.println("  -> daoMap: " + daoMap.toString() );
+					int dao_cnt = dao.update_order_state(daoMap);
+					System.out.println("  -> dao_cnt : " + dao_cnt );
+				}
+			}
+		
+			System.out.println("  -> 알람처리 종료!");
+			
+			/*-----------------------------------------------------*/
+			
+			
+			
 		
 		// 판매 승인 요청일 경우
 		} else if(search_check == 4 ){
@@ -78,6 +181,14 @@ public class SalesServiceImpl implements SalesService {
 			cnt = dao.select_count_checkout_sales();
 			System.out.println("  -> Search Cnt : " + cnt );
 		
+			
+			
+		} else if(search_check == 7 ){
+			
+			System.out.println("  -> Dead Line... ");
+			// 나중에 하자 
+			
+			
 		// 전체 조회일 경우
 		} else {
 			cnt = dao.select_sales_cnt();
@@ -90,7 +201,10 @@ public class SalesServiceImpl implements SalesService {
 		req.setAttribute("cnt",cnt);
 		req.setAttribute("search_check",search_check);
 		
+		
+		
 	}
+	
 	
 	@Override
 	public void sales_list_table_servie(Model model) {
@@ -151,12 +265,21 @@ public class SalesServiceImpl implements SalesService {
 			} else if ( search_check == 3 ){
 				
 				// 출고 완료 목록 표시
+				System.out.println("  -> Account Approve List  ...");
+				dtos = dao.select_account_approve_serch_sales(daoMap);
+				model.addAttribute("dtos", dtos);
+				
+				
+			} else if ( search_check == 5 ){
+				
+				// 출고 완료 목록 표시
 				System.out.println("  -> Stock Out List  ...");
 				dtos = dao.select_stock_out_serch_sales(daoMap);
 				model.addAttribute("dtos", dtos);
 				
-				
-			} else if ( search_check == 4 ){
+			} 
+			
+			else if ( search_check == 4 ){
 				
 				// 출고 완료 목록 표시
 				System.out.println("  -> Checkout Sales List  ...");
@@ -173,6 +296,7 @@ public class SalesServiceImpl implements SalesService {
 			}
 
 		} else System.out.println("  -> Cnt is Zero...");
+		
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("check",search_check);
 		
@@ -230,6 +354,7 @@ public class SalesServiceImpl implements SalesService {
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("currentPage", currentPage);
 		}
+		
 		
 		
 	}
@@ -369,7 +494,23 @@ public class SalesServiceImpl implements SalesService {
 		int count_sales = Integer.parseInt(req.getParameter("count_sales") );
 		int sales_state = Integer.parseInt(req.getParameter("sales_state") );
 		int condition_note_receivable = Integer.parseInt(req.getParameter("condition_note_receivable") );
-			
+
+		// 가격 설정
+		String selling_price = req.getParameter("selling_price");
+		System.out.println( "  -> selling_price : " + selling_price );
+		selling_price = selling_price.replace("￦","");
+		selling_price = selling_price.replace(",","");
+		
+		Long price	=  Math.round(Double.parseDouble(selling_price)); 
+		System.out.println( "price : " + price );
+		
+		Long tax	=  (price/10);
+		Long sum	= (price + tax);
+		
+		System.out.println("  -> price : " + price);
+		System.out.println("  -> tax : " + tax);
+		System.out.println("  -> sum : " + sum);
+		
 		SalesDTO dto = new SalesDTO();
 		dto.setSales_id(sales_id);
 		dto.setOrder_id(order_id);
@@ -382,16 +523,7 @@ public class SalesServiceImpl implements SalesService {
 		dto.setCount_sales(count_sales);
 		dto.setSales_state(sales_state);	
 		dto.setCondition_note_receivable(condition_note_receivable);
-
-		// 가격 설정
-		Long price	=  Math.round(Double.parseDouble(req.getParameter("selling_price"))); 
-		Long tax	=  (price/10);
-		Long sum	= (price + tax);
-
-		
-		System.out.println("  -> price : " + price);
-		System.out.println("  -> tax : " + tax);
-		System.out.println("  -> sum : " + sum);
+		System.out.println("  -> dto: "+dto.toString());
 		
 		int cnt = 0;
 		// 상품매출 insert , 가격 x 수량
@@ -403,7 +535,7 @@ public class SalesServiceImpl implements SalesService {
 		int product_cnt = dao.update_sales(dto);	
 		if( product_cnt > 0 ){
 			System.out.println("  -> product_cnt insert Complete... ");
-			cnt++;
+			++cnt;
 		}
 		
 		// 부가세예수금 insert , 부가세 10%
@@ -415,7 +547,7 @@ public class SalesServiceImpl implements SalesService {
 		int tax_cnt = dao.update_sales(dto);
 		if( tax_cnt > 0 ){
 			System.out.println("  -> tax_cnt insert Complete... ");
-			cnt++;
+			++cnt;
 		}
 		
 		// 매출채권 insert , 상품매출 + 부가세
@@ -427,10 +559,11 @@ public class SalesServiceImpl implements SalesService {
 		int debt_cnt = dao.update_sales(dto);
 		if( debt_cnt > 0 ){
 			System.out.println("  -> setAccount_id insert Complete... ");
-			cnt++;
+			++cnt;
 		}
 		
 		model.addAttribute("cnt", cnt);
+		System.out.println("  -> cnt 값 : " + cnt);
 		
 	}
 	
@@ -567,7 +700,125 @@ public class SalesServiceImpl implements SalesService {
 
 	}
 
+	@Override
+	public void req_receive_service(Model model) {
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		String sales_id="";
+		int update_cnt = 0;
+		Date pay_date = null;
+		int pay_diff = 0;
+		
+		// 수금기간을 조회 구매번호롸 상품매입(500011050000)을 사용하여 지급일을 계산
+		sales_id = req.getParameter("sales_id");
+		System.out.println("  -> sales_id : " + sales_id);
+		
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("sales_id", sales_id);
+		daoMap.put("account_id", "500011020000");	// 매입 채무
+		daoMap.put("before_state", 22214);
+		daoMap.put("after_state", 22411);
+		
+		// 상태 변경 ( 입고완료 23205 -> 지급 대기 23206  )
+		update_cnt = dao.update_state(daoMap);
+		System.out.println("  -> 수금 update_cnt :" + update_cnt);
+		
+		if(update_cnt > 0){
+			
+			// 지급 날짜 불러오기
+			pay_date = dao.select_sales_pay_date(daoMap);
+			System.out.println("  -> pay_date : " + pay_date);
+			model.addAttribute("pay_date", pay_date);
+			
+			// 남은 날짜 불러오기
+			pay_diff = dao.select_sales_pay_diff(daoMap);
+			System.out.println("  -> pay_diff : " + pay_diff);
+			model.addAttribute("pay_diff", pay_diff);
+			
+		} else{
+			System.out.println("  -> Update Cnt is Zero... ");
+		}
+		
+		model.addAttribute("cnt", update_cnt);
+		model.addAttribute("sales_id", sales_id);
+		
+	}
+
+
+	@Override
+	public void req_receive_pro_service(Model model) {
+		
+		System.out.println("  -> req_receive_pro_service ");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		String sales_id="";
+		Long price = null;
+		SalesDTO dto = new SalesDTO();
+		ArrayList<SalesDTO> dtos = new ArrayList<>();
+		int update_cnt = 0;
+		int insert_cnt = 0;
+		
+		// 현금(500011010000)과 매입채무(500012010000) 채권 생성 , 둘다 가격은 마이너스
+		sales_id = req.getParameter("sales_id");
+		System.out.println("  -> sales_id : " + sales_id);
+		dto = dao.select_sales(sales_id);
+		System.out.println("  -> dto : " + dto.toString());
+
+		price = dto.getSelling_price();
+		System.out.println( "  -> price : " + price );
+		
+		// 기존 구매 정보 상태변경 ( 23205 -> 23206 | 입고완료 -> 지급대기 )
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("sales_id", sales_id);
+		daoMap.put("account_id", "500011020000");
+		daoMap.put("after_state", 22412);
+		update_cnt = dao.update_state_force(daoMap);
+		System.out.println("  -> update_cnt : " + update_cnt);
+		
+		// 공통사항 설정
+		dto.setSales_id(dao.select_sales_id());
+		dto.setSales_state(22213);
+		dto.setOrder_id("0");
+		
+		// 매입채무 계정 설정
+		dto.setAccount_id("500011020000");
+		dto.setSelling_price(-price);
+		insert_cnt = dao.insert_reg_sales(dto);
+		if(insert_cnt != 0 ) ++insert_cnt; 
+		dtos.add(dto);
+		
+		// 현금 계정 설정
+		dto.setAccount_id("500011010000");
+		dto.setSelling_price(price);
+		insert_cnt = dao.insert_reg_sales(dto);
+		if(insert_cnt != 0 ) ++insert_cnt;
+		dtos.add(dto);
+		
+		// 추가 사항 시작  : 판매통장에 입금----------------------------------------------------- // 
+		
+		int count = dto.getCount_sales();
+		price = price * count;
+		update_cnt = dao.update_sales_bank_account(price);
+		System.out.println("  -> bank update_cnt :" + update_cnt);
+		
+		// 추가 사항 종료----------------------------------------------------- // 
+		
+		System.out.println("  -> update_cnt : " + insert_cnt);
+		
+		model.addAttribute("cnt", insert_cnt);
+		model.addAttribute("dtos", dtos);
+		
+	}
+		
+
 	
+	
+	
+	/*-----------------------------------------------------*/
 	
 	@Override
 	public void search_status_sales_service(Model model) {
@@ -890,9 +1141,51 @@ public class SalesServiceImpl implements SalesService {
 		}
 	}
 
+	/*-----------------------------------------------------*/
 	
+	@Override
+	public void sales_statement_search_service(Model model) {
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		List<Order_stateVO> orderVos = new ArrayList<>();
+		orderVos = dao.select_statements_approval();
+		for(int i=0; i<orderVos.size(); i++) {
+			Order_stateVO orderVo = orderVos.get(i);
+			String statement_id = orderVo.getOrder_id();
+			List<Sales_statementVO> tempVos = dao.select_sales_statement(statement_id);
+			
+			if(tempVos != null) {
+				for(int j=0; j<tempVos.size(); j++) {
+					Sales_statementVO tempVo = tempVos.get(j);
+					String sales_id = tempVo.getSales_id();
+					String account_id = tempVo.getAccount_id();
+					Map<String, Object> daoMap = new HashMap<>();
+					
+					daoMap.put("sales_id", sales_id);
+					daoMap.put("account_id", account_id);
+					SalesDTO salesdto = dao.select_search_sales_order(daoMap);
+					if(salesdto.getSales_state() == request_approval_sales_statement) {
+						dao.update_sales_state(daoMap);
+						daoMap.clear();
+						
+						daoMap.put("statement_id", statement_id);
+						daoMap.put("order_state", 0);
+						dao.update_order_state(daoMap);
+						/*
+						daoMap.put("sales_state", complete_approval_sales_statement);
+						*/
+						
+					}
+				}
+			}
+		}
+	}
+
+
 	
-	
+	/*-----------------------------------------------------*/
 	
 
 	
