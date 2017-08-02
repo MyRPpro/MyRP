@@ -35,6 +35,11 @@
 				$(select_tab).load("/hr_management/manage_salary/personnel_card_salary"+
 						"?employee_id="+employee_id);
 				break;
+			case "#attitude":
+				$("#page16330_div03 li:eq(4) a").tab("show");
+				$(select_tab).load("/attitude_management/search_attitude/personnel_card_attitude"+
+						"?employee_id="+employee_id);
+				break;
 			default: break;	
 			}
 			$(this).tab("show");
@@ -66,6 +71,11 @@
 			$(select_tab).load("/hr_management/manage_salary/personnel_card_salary"+
 					"?employee_id="+employee_id);
 			break;
+		case "#attitude":
+			$("#page16330_div03 li:eq(4) a").tab("show");
+			$(select_tab).load("/attitude_management/search_attitude/personnel_card_attitude"+
+					"?employee_id="+employee_id);
+			break;
 		default: break;	
 		}
 		$("#page16310_div01").slideUp();
@@ -86,6 +96,7 @@
 			    <li role="presentation"><a href="#appoint" aria-controls="appoint" role="tab" data-toggle="tab">APPOINT</a></li>
 			    <li role="presentation"><a href="#retired" aria-controls="retired" role="tab" data-toggle="tab">RETIRED</a></li>
 			  	<li role="presentation"><a href="#salary" aria-controls="salary" role="tab" data-toggle="tab">SALARY</a></li>
+			  	<li role="presentation"><a href="#attitude" aria-controls="attitude" role="tab" data-toggle="tab">ATTITUDE</a></li>
 			  </ul>
 			  <!-- Tab panes -->
 			  <div class="tab-content" id="page16330_div02">
@@ -93,6 +104,7 @@
 				<div role="tabpanel" class="tab-pane" id="appoint"></div>
 				<div role="tabpanel" class="tab-pane" id="retired"></div>
 				<div role="tabpanel" class="tab-pane" id="salary"></div>
+				<div role="tabpanel" class="tab-pane" id="attitude"></div>
 			</div>
 		</div>
 	</div>
