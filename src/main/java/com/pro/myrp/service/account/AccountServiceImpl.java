@@ -345,14 +345,16 @@ public class AccountServiceImpl implements AccountService {
 				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경
 			}
 		}else if(checkCnt==1){ //계좌 가져야하는 계정의 전표인 경우
-			for(int i= 1; i<cnt+1; i++){	
+			for(int i= 1; i<cnt+1; i++){
+				System.out.println(cnt+"번째 전표!*********");
 				daoMap.put("statement_id", statement_ids[i]);
 				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
+				System.out.println("scnt : " + scnt);
 				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
-				
+				System.out.println("acnt : " + acnt);
 				int typeCheck = dao.select_check_statement_type(daoMap); // 전표타입 판단
 				int check = dao.select_account_id_check(daoMap); //매입채무는 -값이므로 부호 바꿔주기 위해서 우선 매입채무인지 아닌지 확인
-				
+				System.out.println("이제부터 통장처리");
 				if(typeCheck!=0) { //입금, 출금, 급여 전표일 경우에만!
 					if(check!=0) {
 						System.out.println("매입채무!");

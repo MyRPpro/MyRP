@@ -345,10 +345,11 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	}
 
 	@Override
-	@GetMapping(value="financial_statements/show_balance_sheet_graph")
+	@PostMapping(value="financial_statements/show_balance_sheet_graph")
 	public String show_balance_sheet_graph(HttpServletRequest req, Model model) throws Exception {
 		System.out.println("show_balance_sheet_graph");
 		model.addAttribute("req",req);
+		service.show_balance_sheet_service(model);
 		return "accounting_management/financial_statements/show_balance_sheet_graph";
 	}
 

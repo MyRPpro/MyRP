@@ -20,10 +20,17 @@ $(function(){
 				togo.html(response);	
 			}
 		});
+		$.ajax({ 	
+			data:    data,
+			type: 	'post',	 			
+			url: 	"/accounting_management/financial_statements/show_balance_sheet_graph",
+			success: function(response) { 	
+				$('#show_graph').html(response);	
+			}
+		});
 		return false;
 	});
 });
-
 </script>
 <div id="date_form_div">	
 <form action="#" name="financial_statements_form" method="post" class="form-inline" >
@@ -62,4 +69,8 @@ $(function(){
 <div id="stage">
 
 </div>
+
+<div id="show_graph">
+</div>
+
 </div>
