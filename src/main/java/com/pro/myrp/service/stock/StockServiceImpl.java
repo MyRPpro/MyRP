@@ -711,9 +711,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				 dao.update_stock_out_storage(model);
 				 
 				 //
-				 stock_order_type = dao.select_stock_order_type(model);
-				 model.addAttribute("stock_order_type", stock_order_type);
-				 
+
 				 stock_state = "24202";
 				 model.addAttribute("stock_state", stock_state);
 				 cnt = dao.update_orderstate_state(model);
