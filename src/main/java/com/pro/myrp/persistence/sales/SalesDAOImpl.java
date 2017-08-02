@@ -1,6 +1,8 @@
 package com.pro.myrp.persistence.sales;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -8,6 +10,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.pro.myrp.domain.accounting_management.Sales_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.sales_management.SA_stockorderVO;
 import com.pro.myrp.domain.sales_management.SalesDTO;
 
 @Repository
@@ -232,9 +237,9 @@ public class SalesDAOImpl implements SalesDAO {
 
 	
 	@Override
-	public int update_stock_out_serch_sales() {
+	public int update_stock_out_serch_sales(int completeSalesStorageOutWarehouse){
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
-		return dao.update_stock_out_serch_sales();
+		return dao.update_stock_out_serch_sales(completeSalesStorageOutWarehouse);
 	}
 
 
@@ -307,7 +312,100 @@ public class SalesDAOImpl implements SalesDAO {
 		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
 		return dao.select_req_storage_out();
 	}
+
+
+	@Override
+	public List<Order_stateVO> select_statements_approval() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_statements_approval();
+	}
+
+
 	
+	@Override
+	public List<Sales_statementVO> select_sales_statement(String statement_id) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_sales_statement(statement_id);
+	}
+
+
+	@Override
+	public SalesDTO select_search_sales_order(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_search_sales_order(daoMap);
+	}
+
+
+	@Override
+	public void update_sales_state(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+	}
+
+	@Override
+	public int update_order_state(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_order_state(daoMap);
+	}
+
+
+	@Override
+	public List<Order_stateVO> select_storage_out() {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_storage_out();
+	}
+
+
+	@Override
+	public SA_stockorderVO select_stock_order_all(String stock_order_id) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_stock_order_all(stock_order_id);
+	}
+
+
+	@Override
+	public int update_state(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_state(daoMap);
+	}
+
+
+	
+	@Override
+	public Date select_sales_pay_date(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_sales_pay_date(daoMap);
+	}
+	
+
+
+	@Override
+	public int select_sales_pay_diff(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_sales_pay_diff(daoMap);
+	}
+
+
+	@Override
+	public SalesDTO select_sales(String sales_id) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.select_sales(sales_id);
+	}
+
+
+	@Override
+	public int update_state_force(Map<String, Object> daoMap) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_state_force(daoMap);
+	}
+
+
+	@Override
+	public int update_sales_bank_account(Long price) {
+		SalesDAO dao = sqlSession.getMapper(SalesDAO.class);
+		return dao.update_sales_bank_account(price);
+	}
+
+
 
 	
 	

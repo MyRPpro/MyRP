@@ -87,16 +87,6 @@ public class AccountDAOImpl implements AccountDAO {
 		return dao.update_account_account_value(daoMap);
 	}
 	@Override
-	public int select_account_id_check(Map<String, Object> daoMap) {
-		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.select_account_id_check(daoMap);
-	}
-	@Override
-	public int select_check_statement_type(Map<String, Object> daoMap) {
-		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
-		return dao.select_check_statement_type(daoMap);
-	}
-	@Override
 	public int update_bank_update_value_for_purchase(Map<String, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.update_bank_update_value_for_purchase(daoMap);
@@ -335,13 +325,19 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_company_name();
 	}
-	
-	
-	
-
-	
-	
-	
-	
-	
+	@Override
+	public int select_account_id_check(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_account_id_check(daoMap);
+	}
+	@Override
+	public int select_check_statement_type(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_check_statement_type(daoMap);
+	}
+	@Override
+	public int update_bank_account_value_for_purchase(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.update_bank_account_value_for_purchase(daoMap);
+	}	
 }

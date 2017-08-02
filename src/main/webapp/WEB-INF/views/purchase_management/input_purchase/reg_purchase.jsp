@@ -134,7 +134,7 @@
 					<div class="form-group">
 						<input type="number" id="condition_note_payable"
 							name="condition_note_payable" class="form-control input-sm"
-							placeholder="채무 기간" min="1" max="12">
+							placeholder="채무 기간" min="0" max="12">
 					</div>
 				</td>
 
@@ -149,6 +149,7 @@
 			</tr>
 
 		</table>
+		<input type="hidden" name="order_id" id="order_id" value="0">
 		</c:if>
 		
 		<!-- 불러온 값이 있을 경우   -->
@@ -232,7 +233,7 @@
 					<div class="form-group">
 						<input type="hidden" name="supply_price" id="supply_price" value="${dto.purchase_unit_price}">
 						<input type="text"  class="form-control input-sm"min="1" max="999999999" requiered readonly
-						value="$<fmt:formatNumber value="${dto.purchase_unit_price}" type="currency" currencySymbol="￦"/>" >
+						value="<fmt:formatNumber value="${dto.purchase_unit_price}" type="currency" currencySymbol="￦"/>" >
 					</div>
 				</td>
 
@@ -242,7 +243,7 @@
 							name="condition_note_payable" placeholder="채무 기간" 
 							value="${dto.condition_note_payable}"
 							class="form-control input-sm"
-							min="1" max="12">
+							min="0" max="12">
 					</div>
 				</td>
 
@@ -311,7 +312,7 @@
 		 alert("거래상태가 선택되지 않았습니다. 원하는 상태을 선택해주세요.");		purchase_state.focus();		return false;
 	 } else if ( condition_note_payable.value == "" ){
 		 alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");		condition_note_payable.focus();		return false;
-	 }
+	 } 
 	 
 	 $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table?product_id='+product_id.value
 							+'&company_id='+company_id.value
