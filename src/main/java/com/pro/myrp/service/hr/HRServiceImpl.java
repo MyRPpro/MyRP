@@ -41,6 +41,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 	@Inject
 	private HRDAO dao;
 
+	//16100 인사코드관리
 	@Override
 	public void base_code_group_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -264,6 +265,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		}
 	}
 
+	//16200 부서관리
 	@Override
 	public void dept_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -399,6 +401,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("dept_id", dept_id);
 	}
 
+	//16300 인사카드관리
 	@Override
 	public void personnel_card_search_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -660,6 +663,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("personnel_cardDto", dto);
 	}
 	
+	//16600 인사발령관리
 	@Override
 	public void hr_appointment_search_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -883,6 +887,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("dtos", dtos);
 	}
 
+	//16700 퇴사자관리
 	@Override
 	public void retired_employee_search_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -1057,6 +1062,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("employee_id", employee_id);
 	}
 
+	//16500 급여관리
 	@Override
 	public void salary_register_search_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
