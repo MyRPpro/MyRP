@@ -116,7 +116,8 @@
 				$('#list_dateil').load(
 						'/purchase_management/search_purchase/detail_purchase?purchase_id='
 								+ param[0] + '&purchase_state=' + param[1]
-								+ '&account_id=' + param[2]);
+								+ '&account_id=' + param[2]
+						);
 				return false;
 			}
 		}

@@ -98,14 +98,21 @@
  		WHERE	order_state in (22222,23204,24202)
  	</select> 	
  	
+ 	<update id = "update_orderstate_state" parameterType = "java.util.Map">
+ 		UPDATE	order_state
+ 		SET		order_state = 0
+ 		WHERE	order_id = #{stock_order_type}
+ 	</update>
+ 	
  	<select id = "Search_distribution_order" parameterType="java.util.Map" resultType="Search_distribution_orderDTO">
  		SELECT	*
  		FROM	(
- 				SELECT	s.*, o.order_state, rownum as rnum
- 				FROM	order_state o JOIN sales_order s
- 				ON		o.order_id = s.sales_id
-		 		WHERE	o.order_state = 24202
-		   		AND   	s.sales_state = 24202
+ 				SELECT	s.stock_order_id, o.storage_out_date, st.kor_name, rownum as rnum
+ 				FROM	stock_order s JOIN storage_out_order o
+				ON		s.stock_order_id = o.stock_order_id
+				JOIN 	state st
+ 				ON		s.stock_state = st.code
+		 		WHERE	s.stock_state = 24202
 		   		)
    		<if test = "statr != null">
    		WHERE	#{start} <![CDATA[<=]]> rnum AND rnum <![CDATA[<=]]> #{end}
@@ -124,7 +131,9 @@
  				ON		p.product_id = pr.product_id
  				JOIN	employee e
  				ON		p.employee_id = e.employee_id
-		 		WHERE	p.purchase_state = 23204
+ 				JOIN	order_state os
+ 				ON		p.purchase_id = os.order_id
+		 		WHERE	os.order_state = 23204
 		 		AND		s.warehouse_id = 1001
 		 		AND		p.account_id = 500011050000
 		 		<if test = "opt == 1">
@@ -148,7 +157,9 @@
  				ON		p.product_id = pr.product_id
  				JOIN	employee e
  				ON		p.employee_id = e.employee_id
-		 		WHERE	sales_state = 22222
+ 				JOIN	order_state os
+ 				ON		p.sales_id = os.order_id
+		 		WHERE	os.order_state = 22222
 		 		AND		s.warehouse_id = 1001
 		 		AND		p.account_id = 500014030000
 		 		<!-- AND		st.stock_state NOT IN (24202,24752,24203) -->
@@ -284,7 +295,7 @@
  		SELECT	*
  		FROM	stock_order o  JOIN storage_out_order s
  		ON		s.stock_order_id = o.stock_order_id
- 		WHERE	stock_order_type = #{stock_order_type}
+ 		WHERE	o.stock_order_id = #{stock_order_type}
  	</select>
  
   	<select id = "select_warehouse_list" parameterType="java.util.Map" resultType = "WarehouseVO">

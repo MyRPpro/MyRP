@@ -85,6 +85,29 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	}
 	
 	
+	@Override
+	@GetMapping(value="search_sales/req_receive")
+	public String req_receive(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(req_receive));
+		model.addAttribute("req", req);
+		service.req_receive_service(model);
+		return code.c(sales_management, search_sales, req_receive);
+	}
+
+	
+	@Override
+	@GetMapping(value="search_sales/req_receive_pro")
+	public String req_receive_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(req_receive_pro));
+		model.addAttribute("req", req);
+		service.req_receive_pro_service(model);
+		return code.c(sales_management, search_sales, req_receive_pro);
+	}
+	
+	
+	
+	
+	
 	
 	
 	@Override
@@ -158,6 +181,8 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	}
 
 	
+
+	/*----------------------------------------------------------------------------------------------------------*/
 	
 	
 	

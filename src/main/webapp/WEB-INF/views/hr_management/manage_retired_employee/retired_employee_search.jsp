@@ -78,7 +78,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="panel-body" id="page16710_div04"></div>
+		<div class="panel-body" id="page16710_div04"><jsp:include page="pai_chart.jsp" flush="false"/></div>
 	</div>
 </body>
 </html>
