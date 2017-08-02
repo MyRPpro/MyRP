@@ -113,7 +113,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		product_name_list = dao.select_product_name(model);
 		select_product = dao.select_product_id(model);
 		
-		int warehouse_good_stock = 0;
+		/*int warehouse_good_stock = 0;
 		int warehouse_bad_stock = 0;
 		int warehouse_will_stock = 0;
 		
@@ -126,7 +126,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			}else if(product_name_list.get(i).getWarehouse_id().equals("3001")){
 				warehouse_will_stock += product_name_list.get(i).getStock_amount();
 			}
-		}
+		}*/
 		
 		
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
@@ -225,9 +225,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("product_name_list", product_name_list);
 		model.addAttribute("select_product", select_product);
 		
-		model.addAttribute("warehouse_good_stock", warehouse_good_stock);
+		/*model.addAttribute("warehouse_good_stock", warehouse_good_stock);
 		model.addAttribute("warehouse_bad_stock", warehouse_bad_stock);
-		model.addAttribute("warehouse_will_stock", warehouse_will_stock); 
+		model.addAttribute("warehouse_will_stock", warehouse_will_stock); */
 		
 		model.addAttribute("start_day",start_day);
 		model.addAttribute("end_day",end_day);
@@ -943,12 +943,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			model.addAttribute("stock_order_id", id);
 			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
 			
-			model.addAttribute("product_id", req.getParameter("product_id"));
-			model.addAttribute("warehouse_id", req.getParameter("warehouse_id"));
-			
-			ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
-			productVos = dao.select_product_info(model);
-			
 			String product_id =  movement_warehouseDtos.get(0).getProduct_id();
 			int warehouse_id =  movement_warehouseDtos.get(0).getWarehouse_id();
 			int arrive_warehouse_id =  movement_warehouseDtos.get(0).getArrive_warehouse();
@@ -961,10 +955,15 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			
 			model.addAttribute("mv_op", "1");
 			dao.update_stock_out_storage(model);
+			
+			model.addAttribute("warehouse_id", arrive_warehouse_id);
+			ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
+			productVos = dao.select_product_info(model);
+			
 			model.addAttribute("mv_op", "2");
 			
+			model.addAttribute("arrive_warehouse_id", arrive_warehouse_id);
 			if(productVos.size() > 0){
-				model.addAttribute("arrive_warehouse_id", arrive_warehouse_id);
 				dao.update_stock_out_storage(model);
 			}else{
 				model.addAttribute("warehouse_id", arrive_warehouse_id);
