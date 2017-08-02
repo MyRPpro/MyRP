@@ -160,9 +160,6 @@
 								<br>
 								<input type="hidden" name="purchase_id" id="purchase_id" value="${dtos.get(0).purchase_id}">
 								<center>
-									dtos.get(0): ${dtos.get(0).account_id}<br>
-									dtos.get(1): ${dtos.get(1).account_id}<br>
-									dtos.get(2): ${dtos.get(2).account_id}<br>
 									<!-- ---------------------------------------------------------------------------------------------------------- -->									
 									
 									<c:if test="${purchase_state == 22213 }">
@@ -171,13 +168,13 @@
 									
 									<!-- ---------------------------------------------------------------------------------------------------------- -->									
 									
-									<c:if test="${purchase_state == 23203 and account_id == 500011050000 }"> <!-- 상품매입시 -->
+									<c:if test="${purchase_state == 23203 && account_id == 500011050000 }"> <!-- 상품매입시 -->
 										<input type="button" name="req_storage_in"  id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
 									</c:if>
 									
 									<!-- ---------------------------------------------------------------------------------------------------------- -->									
 									
-									<c:if test="${purchase_state == 23203 and account_id == 500012010000 }"> <!-- 상품매입시 -->
+									<c:if test="${purchase_state == 23203 && account_id == 500012010000 }"> <!-- 상품매입시 -->
 										<div class="col-xs-9" style="display: inline;" >
 											<div class="input-group">
 												<input type="text" id="text_req_repay" name="req_repay" class="form-control" value="" placeholder="남은 기간" disabled="true" >
@@ -186,16 +183,7 @@
 												</span>
 											</div>
 										</div>
-									</c:if>
-									
-									<!-- ---------------------------------------------------------------------------------------------------------- -->									
-									
-									<c:if test="${purchase_state == 23203 and account_id == 500011050000 }"> <!-- 상품매입시 -->
-										<input type="button" name="req_storage_in"  id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
-									</c:if>
-									
-									<!-- ---------------------------------------------------------------------------------------------------------- -->									
-									
+										</c:if>
 									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
 								</center>
 								<br>

@@ -143,10 +143,10 @@ function onoff(){
                      </div>
                      <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
                         <div class="panel-body">
-                           <a href="/accounting_management/financial_statements/search_balance_sheet">재무상태표 조회</a><br>
-                           <a href="/accounting_management/bank_account_registration/bank_account_list">계좌리스트</a><br>
-                           <a href="/accounting_management/account_management/account_management">계정 목록 조회</a><br>
-                           <a href="/accounting_management/statement_management/search_statements">전체전표 조회</a><br>
+                           <a href="/accounting_management/financial_statements/search_balance_sheet">회계보고서</a><br>
+                           <a href="/accounting_management/bank_account_registration/bank_account_list">계좌 관리</a><br>
+                           <a href="/accounting_management/account_management/account_management">계정 관리</a><br>
+                           <a href="/accounting_management/statement_management/search_statements">전표 관리</a><br>
                            <a href="/accounting_management/bond_debt_status/search_bond_debt">채권/채무 조회</a><br>
                         </div>
                      </div>

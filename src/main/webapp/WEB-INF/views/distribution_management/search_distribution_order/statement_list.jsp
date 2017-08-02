@@ -150,11 +150,11 @@ function stock_complete(id,product_id,lack_stock){
 						<tr>
 							<th>${dto.stock_order_id}</th>
 							<th>${dto.stock_order_type}</th>
-							<th>${dto.product_id}</th>
+							<th>${dto.product_name}</th>
 							<th>${dto.count_purchase}</th>
-							<th>${dto.warehouse_id}</th>
+							<th>${dto.warehouse_name}</th>
 							<th>${dto.storage_in_date}</th>
-							<th>${dto.employee_id}</th>
+							<th>${dto.employee_name}</th>
 							<th>${dto.reg_date}</th>
 							<th>${dto.update_date}</th>
 							<th>${dto.kor_name}</th>			

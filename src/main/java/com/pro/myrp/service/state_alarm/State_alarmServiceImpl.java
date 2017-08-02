@@ -95,13 +95,13 @@ public class State_alarmServiceImpl implements State_alarmService {
 				state =state_alarmDtos.get(i); 
 
 				switch(state.getOrder_state()){
-					case 23204 :state.setState_addr("/distribution_management/search_distribution_order/statement_list"); 
+					case 23204 :state.setState_addr("/distribution_management/search_distribution_order/statement_list?goes=in"); 
 								state.setState_msg("구매입고 요청");
 								state.setFrom_dept("구매"); break;
-					case 24202 :state.setState_addr("/distribution_management/search_distribution_order/statement_list"); 
+					case 24202 :state.setState_addr("/distribution_management/search_distribution_order/statement_list?goes=out"); 
 								state.setState_msg("출고완료 요청");
 								state.setFrom_dept("영업"); break;			
-					case 22222 :state.setState_addr("/distribution_management/search_distribution_order/statement_list"); 
+					case 22222 :state.setState_addr("/distribution_management/search_distribution_order/statement_list?goes=out"); 
 								state.setState_msg("출고 요청");
 								state.setFrom_dept("영업");break;
 				}

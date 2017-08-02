@@ -78,7 +78,7 @@
 				</tr>
 			</table>
 		</div>
-		<div class="panel-body" id="page16710_div04"></div>
 	</div>
+	<div id="page16710_div04"></div>
 </body>
 </html>
