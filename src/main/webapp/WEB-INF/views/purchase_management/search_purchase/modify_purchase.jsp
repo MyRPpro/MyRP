@@ -226,7 +226,7 @@
 								<input type="hidden" name="purchase_id" id="purchase_id" value="${dtos.get(0).purchase_id}">
 								<center>
 									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
-									<input type=button name="btn_modify" class="btn btn-info"  id="btn-modify" value="수정하기" onclick="return modify_purchase();" >
+									<input type=button name="btn_modify" class="btn btn-info"  id="btn_modify" value="수정하기" onclick="return modify_purchase();" >
 									<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
 								</center>
 								<div id="alert_pro">

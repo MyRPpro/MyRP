@@ -56,7 +56,7 @@ $(".panel-body a").bind("click", function(event) {
 							<tr>
 								<td>${dto.sto_date}</td>
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4754'}">
-								<td><a href = "/distribution_management/search_distribution_order/request_in_out_storage?goes=out&oder_id=${dto.pro_id}">판매</a></td>
+								<td><a href = "/distribution_management/search_distribution_order/statement_list?goes=out&oder_id=${dto.pro_id}">판매</a></td>
 								</c:if>
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4755'}">
 								<td><a href = "/distribution_management/search_distribution_order/statement_list?goes=in&oder_id=${dto.pro_id}">구매</a></td>

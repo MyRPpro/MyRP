@@ -2,9 +2,15 @@ package com.pro.myrp.persistence.purchase;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import com.pro.myrp.domain.accounting_management.Purchase_statementVO;
+import com.pro.myrp.domain.base_registration.Order_stateVO;
+import com.pro.myrp.domain.purchase_management.PU_stockorderVO;
 import com.pro.myrp.domain.purchase_management.PurchaseDTO;
+import com.pro.myrp.domain.sales_management.SA_stockorderVO;
+import com.pro.myrp.domain.sales_management.SalesDTO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface purchaseDAO extends MyRPDAO {
@@ -86,5 +92,49 @@ public interface purchaseDAO extends MyRPDAO {
 	public int update_state(Map<String, Object> daoMap);
 
 	public int update_state_force(Map<String, Object> daoMap);
+
+
+
+	public List<Order_stateVO> select_statements_approval();
+
+
+
+	public List<SA_stockorderVO> select_sales_statement(String statement_id);
+
+
+
+	public PurchaseDTO select_search_purchase_order(Map<String, Object> daoMap);
+
+
+
+	public int update_order_state(Map<String, Object> daoMap);
+
+
+
+	public SalesDTO select_search_sales_order(Map<String, Object> daoMap);
+
+
+
+	public List<Order_stateVO> select_request_purchase();
+
+
+
+	public List<Purchase_statementVO> select_purchase_statement(String statement_id);
+
+
+
+	public List<Order_stateVO> select_complete_storage_in();
+
+
+
+	public List<PU_stockorderVO> select_purchase_stockorder(String statement_id);
+
+
+
+	public int update_complete_pay_purchase();
+
+
+
+	public ArrayList<PurchaseDTO> select_complete_pay_purchase_list(Map<String, Object> daoMap);
 
 }

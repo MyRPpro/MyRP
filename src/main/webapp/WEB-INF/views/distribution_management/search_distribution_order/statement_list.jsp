@@ -59,7 +59,6 @@ $(function(){
 		return false;
 	});
 	
-	
 	$('.distribution_in_list_down').bind("click",function(){  
 		$("#main_screen").load("/distribution_management/search_distribution_order/statement_list?goes=in");
 	});
@@ -75,7 +74,26 @@ $(function(){
 	$('.distribution_out_list_heading').bind("click",function(){  
 		$('.distribution_out_list_content').slideToggle();
 	});
+		
 });
+
+function stock_complete(id,product_id,lack_stock){
+	var togo = $('#request_out');
+	var data = {
+				"goes" 				: "stock_complete",
+				"id"	: id,
+				"product_id"		: product_id,
+				"lack_stock"		: lack_stock
+				}
+	$.ajax({ 					
+		data: 	data,
+		type: 	'post',	 			
+		url: 	"/distribution_management/search_distribution_order/request_in_out_storage_pro",
+		success: function(response) { 
+			togo.html(response);	
+		}
+	});
+}
 </script>
 <button class="btn btn-default distribution_in_list_down">입고내역</button>
 <button class="btn btn-default distribution_out_list_down">출고내역</button>
@@ -203,6 +221,7 @@ $(function(){
 						<th>등록일</th>
 						<th>최종 수정일</th>
 						<th>상태</th>
+						<th>버튼</th>
 					</tr>
 					<c:forEach var = "dto" items = "${out_storageDtos}">
 						<tr>
@@ -218,10 +237,17 @@ $(function(){
 							<th>${dto.reg_date}</th>
 							<th>${dto.update_date}</th>
 							<th>${dto.kor_name}</th>
+							<th>
+							<c:forEach var = "pro" items = "${proVos}">
+							<c:if test = "${dto.product_id == pro.product_id && pro.warehouse_id == 1001 && dto.lack_stock >= 1}">	
+							<c:if test = "${dto.lack_stock <= pro.stock_amount}"><button class="btn btn-default" onclick = "stock_complete('${dto.stock_order_type}','${dto.product_id}','${dto.lack_stock}')">재고준비완료</button></c:if>
+							</c:if>
+							</c:forEach>
+							</th>
 						</tr>
 					</c:forEach>
 					<tr>
-						<td colspan = "12">
+						<td colspan = "13">
 							<button class="btn btn-default" id = "storage_out">출고요청</button>
 							<button class="btn btn-default" id = "storage_out_complete">출고완료요청</button>
 						</td>

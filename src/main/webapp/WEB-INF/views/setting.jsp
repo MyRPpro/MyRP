@@ -53,7 +53,10 @@
 	}
 	.pagination{
 	margin-top: 0px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
+	}
+	.btn-group{
+	margin-bottom: 10px;
 	}
 	/*  판매에서 추가 한 부분 종료 */
 </style>
