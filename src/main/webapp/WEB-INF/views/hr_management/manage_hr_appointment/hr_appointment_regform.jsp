@@ -28,7 +28,10 @@
 			alert("발령 직급을 선택하세요.");
 			post_rank.focus();
 			return false;
-		} else if(post_rank.value < pre_rank.value) {
+			
+		} else if(post_rank.value*1 < pre_rank.value*1) {
+			alert(post_rank.value);
+			alert(pre_rank.value);
 			alert("이전 직급보다 낮은 직급을 선택하셨습니다.");
 			post_rank.focus();
 			return false;

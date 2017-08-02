@@ -197,8 +197,13 @@
  		</if>
  		<if test="typeCnt == 2">
  		<![CDATA[
- 		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
- 		 WHERE account_id = (SELECT account_id FROM purchase_statement WHERE statement_id =#{statement_id})
+ 		UPDATE account 
+ 		SET account_balance = account_balance + (SELECT account_value 
+ 												FROM statement 
+ 												WHERE statement_id = #{statement_id})
+ 		 WHERE account_id = (SELECT account_id 
+ 		 					FROM purchase_statement 
+ 		 					WHERE statement_id =#{statement_id})
  		]]>
  		</if>
  		<if test="typeCnt == 3">
@@ -788,7 +793,7 @@
  		<![CDATA[
  		SELECT COUNT(*) FROM statement 
  		WHERE statement_id = #{statement_id} 
- 		  AND statement_type IN ('54104', '54105', '54106')
+ 		  AND statement_type IN ('54104', '54105', '54103')
  		]]>
  	</select>
  	<!-- 매입채무인지 아닌지 확인 -->
