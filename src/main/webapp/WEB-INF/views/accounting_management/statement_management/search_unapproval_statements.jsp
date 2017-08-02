@@ -18,9 +18,7 @@ $(function(){
 })
 //전표 상세페이지 띄우기
 function search_statement_detail(statement_id, connected_id, typeCnt){
-	$('#statements_contents').slideUp();
-	$('#search_statement_detail').slideDown();
-	var url="";
+	$('#statements_contents').slideUp();	var url="";
 	if(typeCnt==1){
 		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
 	}
@@ -44,32 +42,33 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 	});
 }
 </script>
+
 <div class="panel panel-default" id="page16330">
 	<div class="panel-heading" id="panel-heading">
 		<a> 미승인 전표 조회 </a>
 	</div>
 	<div class="panel-body" id="statements_contents">
 	<div style="text-align: center;">
-		<small>총 승인 전표 개수 : ${cnt}</small>
+		<small>총 미승인 전표 개수 : ${cnt}</small>
 		<!-- 페이지 내비게이션  -->
 		<div class="page_nav">
 			<div class="text-center">			
 					<ul class="pagination pagination-sm" style="margin: 0px;">
 					<c:if test="${startPage > pageBlock}">
-						<li><a href="/accounting_management/statement_management/search_approval_statements">◀◀</a></li> <!-- 첫 페이지로 이동 -->
-						<li><a href="/accounting_management/statement_management/search_approval_statements?pageNum=${startPage - pageBlock}">◀</a></li>
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements">◀◀</a></li> <!-- 첫 페이지로 이동 -->
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage - pageBlock}">◀</a></li>
 					</c:if>
 					<c:forEach var="i" begin="${startPage}" end="${endPage}">
 						<c:if test="${i == currentPage}">
 							<li><span>${i}</span></li>
 						</c:if>
 						<c:if test="${i != currentPage}">
-							<li><a href="/accounting_management/statement_management/search_approval_statements?pageNum=${i}">${i}</a></li>
+							<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${i}">${i}</a></li>
 						</c:if>
 					</c:forEach>
 					<c:if test="${pageCount > endPage}">
-						<li><a href="/accounting_management/statement_management/search_approval_statements?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
-						<li><a href="/accounting_management/statement_management/search_approval_statements?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${startPage + pageBlock}">▶</a></li> <!-- 다음 블록으로 이동 -->
+						<li><a href="/accounting_management/statement_management/search_unapproval_statements?pageNum=${pageCount}">▶▶</a></li> <!-- 마지막 페이지로 이동 -->
 					</c:if>
 					</ul>
 			</div>

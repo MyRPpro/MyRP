@@ -114,6 +114,7 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 				<td>
 					<c:if test="${dto.statement_type=='54101'}"> 매출전표 </c:if>
 					<c:if test="${dto.statement_type=='54102'}"> 매입전표 </c:if>
+					<c:if test="${dto.statement_type=='54103'}"> 급여전표 </c:if>
 					<c:if test="${dto.statement_type=='54104'}"> 입금전표 </c:if>
 					<c:if test="${dto.statement_type=='54105'}"> 출금전표 </c:if>	
 					<c:if test="${dto.statement_type=='54106'}"> 일반전표 </c:if>	
