@@ -26,7 +26,7 @@
 		ON		s.statement_id = st.statement_id
 		WHERE	s.statement_id = #{order_id}
 		AND		s.approval_state = #{order_state}
-		AND		st.account_id = '500012020000'
+		AND		st.account_id = '500011020000'
  	</select>
  	
  	<select id="select_salary_register_statement" resultType="int">

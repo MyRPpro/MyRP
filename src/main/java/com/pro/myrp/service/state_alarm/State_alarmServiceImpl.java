@@ -87,6 +87,7 @@ public class State_alarmServiceImpl implements State_alarmService {
 			
 			order_stateList.add(23204);
 			order_stateList.add(22222);
+			order_stateList.add(24202);
 			model.addAttribute("order_state",order_stateList);
 			state_alarmDtos = dao.select_state_alarm(model);
 			
@@ -94,11 +95,14 @@ public class State_alarmServiceImpl implements State_alarmService {
 				state =state_alarmDtos.get(i); 
 
 				switch(state.getOrder_state()){
-					case 23204 :state.setState_addr("/distribution_management/search_distribution_order/statement_list"); 
+					case 23204 :state.setState_addr("/distribution_management/search_distribution_order/statement_list?goes=in"); 
 								state.setState_msg("구매입고 요청");
 								state.setFrom_dept("구매"); break;
-					case 22222 :state.setState_addr("/distribution_management/search_distribution_order/statement_list"); 
-								state.setState_msg("영업출고 요청");
+					case 24202 :state.setState_addr("/distribution_management/search_distribution_order/statement_list?goes=out"); 
+								state.setState_msg("출고완료 요청");
+								state.setFrom_dept("영업"); break;			
+					case 22222 :state.setState_addr("/distribution_management/search_distribution_order/statement_list?goes=out"); 
+								state.setState_msg("출고 요청");
 								state.setFrom_dept("영업");break;
 				}
 			}
@@ -160,7 +164,7 @@ public class State_alarmServiceImpl implements State_alarmService {
 			 */
 			
 			order_stateList.add(24102);
-			order_stateList.add(24753);
+			order_stateList.add(24203);
 			order_stateList.add(25452);
 			model.addAttribute("order_state",order_stateList);
 			state_alarmDtos = dao.select_state_alarm(model);
@@ -176,21 +180,24 @@ public class State_alarmServiceImpl implements State_alarmService {
 					purchase_state = 25452;
 				}
 				
-				switch(purchase_state){
-					case 25452 : 	state.setState_addr("/purchase_management/search_purchase/purchase_list"); 
-									state.setState_msg("전표 승인 알림"); 
-									state.setFrom_dept("회계"); break;
-				}
+				
 				
 				switch(state.getOrder_state()){
 					case 24102 :	state.setState_addr("/purchase_management/search_purchase/purchase_list"); 
 									state.setState_msg("입고완료 알림");
-									state.setFrom_dept("물류");break;
-					case 24753 :	state.setState_addr("/purchase_management/search_purchase/purchase_list"); 
+									state.setFrom_dept("물류");continue;
+					case 24203 :	state.setState_addr("/purchase_management/input_purchase/reg_purchase"); 
 									state.setState_msg("구매 요청");
-									state.setFrom_dept("물류");break;
-					case 0	   : 	state_alarmDtos.remove(i); i-=1; break;
+									state.setFrom_dept("물류");continue;
 				}
+				
+				switch(purchase_state){
+				case 25452 : 	state.setState_addr("/purchase_management/search_purchase/purchase_list"); 
+								state.setState_msg("전표 승인 알림"); 
+								state.setFrom_dept("회계"); continue;
+				case 0	   : 	state_alarmDtos.remove(i); i-=1; break;
+								
+			}
 				
 				
 			}
@@ -211,6 +218,7 @@ public class State_alarmServiceImpl implements State_alarmService {
 			order_stateList.add(25452);
 			order_stateList.add(25453);
 			order_stateList.add(24752);
+			
 			model.addAttribute("order_state",order_stateList);
 			state_alarmDtos = dao.select_state_alarm(model);
 			for(int i = 0; i < state_alarmDtos.size();i++){
@@ -232,7 +240,7 @@ public class State_alarmServiceImpl implements State_alarmService {
 				switch(state.getOrder_state()){
 					case 24752 : 	state.setState_addr("/sales_management/search_sales/sales_list"); 
 									state.setState_msg("출고완료 알림");
-									state.setFrom_dept("물류");break;
+									state.setFrom_dept("물류"); continue;
 				}
 				
 				switch(sa_state){

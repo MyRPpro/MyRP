@@ -197,8 +197,13 @@
  		</if>
  		<if test="typeCnt == 2">
  		<![CDATA[
- 		UPDATE account SET account_balance = account_balance + (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
- 		 WHERE account_id = (SELECT account_id FROM purchase_statement WHERE statement_id =#{statement_id})
+ 		UPDATE account 
+ 		SET account_balance = account_balance + (SELECT account_value 
+ 												FROM statement 
+ 												WHERE statement_id = #{statement_id})
+ 		 WHERE account_id = (SELECT account_id 
+ 		 					FROM purchase_statement 
+ 		 					WHERE statement_id =#{statement_id})
  		]]>
  		</if>
  		<if test="typeCnt == 3">
@@ -683,7 +688,7 @@
 	     	  			  left outer JOIN salary_register_statement salary ON s.statement_id = salary.statement_id
 	     	  			  left outer JOIN tax_statement tax ON s.statement_id = tax.statement_id
          WHERE  s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
-          	     AND  tax.account_id = '500011010000' OR sales.account_id = '500011010000' OR purc.account_id= '500011010000' OR salary.account_id= '500011010000'
+          	     AND  (tax.account_id = '500011010000' OR sales.account_id = '500011010000' OR purc.account_id= '500011010000' OR salary.account_id= '500011010000')
           	     AND s.APPROVAL_STATE='25452'
 	     ORDER BY s.reg_date
 		]]>
@@ -705,15 +710,15 @@
 		 													 					FROM sales_statement 
 		 													 					WHERE account_id=500011010000
 		 													 					AND statement_Id = #{statement_id})
-                                                             AND account_id <> '500011010000'
+                                                             AND account_id = '500011020000'
                                                                                                           
                                                              UNION 
                                                              SELECT account_id FROM purchase_statement 
                                                              WHERE purchase_id = 	(SELECT purchase_id 
-                                                             						FROM sales_statement 
+                                                             						FROM purchase_statement 
                                                              						WHERE account_id=500011010000
                                                              						AND statement_Id = #{statement_id})
-                                                             AND account_id <> '500011010000'
+                                                             AND account_id = '500012010000'
                                                                                                           
                                                              UNION 
                                                              SELECT account_id FROM salary_register_statement 
@@ -721,7 +726,7 @@
                                                              							FROM salary_register_statement 
                                                              							WHERE account_id=500011010000
                                                              							AND statement_Id = #{statement_id})
-                                                             AND account_id <> '500011010000'
+                                                             AND account_id = '500014010000'
                                                                                                           
                                                             )
 		]]>
@@ -782,4 +787,28 @@
                                        ) po ON purc.purchase_id = po.purchase_id AND purc.account_id = po.account_id
 		]]>
 	</select>
+
+ 	<!-- 전표관리 > 전표 승인 > 전표종류 판단   -->
+ 	<select id="select_check_statement_type" parameterType="java.util.Map" resultType="int">
+ 		<![CDATA[
+ 		SELECT COUNT(*) FROM statement 
+ 		WHERE statement_id = #{statement_id} 
+ 		  AND statement_type IN ('54104', '54105', '54103')
+ 		]]>
+ 	</select>
+ 	<!-- 매입채무인지 아닌지 확인 -->
+ 	<select id="select_account_id_check" parameterType="java.util.Map"  resultType="int">
+ 		<![CDATA[
+ 		SELECT COUNT(*) FROM purchase_statement WHERE statement_id = #{statement_id} AND account_id = '500012010000'
+ 		]]>
+ 	</select>
+ 	<!-- 매입채무이면 다른 업데이트문 사용 -->
+ 	 <update id="update_bank_account_value_for_purchase" parameterType="java.util.Map">
+ 		<![CDATA[
+ 		UPDATE bank_account SET bank_account_balance = bank_account_balance - (SELECT account_value FROM statement WHERE statement_id = #{statement_id})
+        WHERE bank_account_id = (SELECT account_id FROM purchase_statement WHERE statement_id = #{statement_id})                                           
+ 		]]>
+ 	 </update> 
+	
+	
 </mapper>

@@ -76,8 +76,7 @@
 						</div>
 						<!-- // form-group -->
 	
-						<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary"
-							onclick="sendStatement();">
+						<input type="button" id="reg_purchase_state" name="reg_state" value="전표입력하기" class="btn btn-primary">
 					</div>
 					<!-- // table-responsive -->
 				</div>
@@ -98,28 +97,30 @@
 	</c:if>
 
 
-
-
-
-
 	<input type="hidden" id="pay_date" name="pay_date" value="${pay_date}">
 	<input type="hidden" id="pay_diff" name="pay_diff" value="${pay_diff}">
 	
 	<script type="text/javascript">
+	
+	$('#reg_purchase_state').click(function(){
+		$('#main_screen').load("/accounting_management/statement_management/make_statement");
+		return false;
+	});
+	
 	$('#btn_req_repay').ready(function(){
 		var pay_date = $('#pay_date').val();
 		var diff = $('#pay_diff').val();
 		
 		if( diff != 0 ){	// 수금기간이 아님
 			$('#btn_req_repay').attr('disabled',true); 
-			$('#text_req_repay').val( "수금기간까지 앞으로"+diff+"일 남았습니다."); 
+			$('#text_req_repay').val( "상환기간까지 앞으로"+diff+"일 남았습니다."); 
 		
 		} else if ( diff == 0 ){	// 수금기간이 옴
 			$('#btn_req_repay').attr('disabled',false); 
-			$('#text_req_repay').val("수금기간입니다. 수금하기 버튼을 눌러주세요."); 
+			$('#text_req_repay').val("상환기간입니다. 상환하기 버튼을 눌러주세요."); 
 		} else {
 			$('#btn_req_repay').attr('disabled',false); 
-			$('#text_req_repay').val("수금기간이 지났습니다. 빨리 수금해주세요."); 
+			$('#text_req_repay').val("상환기간이 지났습니다. 빨리 상환해주세요."); 
 		}
 	});
 		

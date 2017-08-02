@@ -42,6 +42,10 @@ public class CodeHandler {
 			public static final int detail_sales_pro 	= 12150;	// 판매 상세 처리
 			public static final int modify_sales 		= 12160;	// 판매 상세 + 수정
 			public static final int modify_sales_pro 	= 12170;	// 판매 수정 처리
+			public static final int req_receive 		= 12180;	// 판매 채권회수 조회
+			public static final int req_receive_pro 	= 12190;	// 판매 채권회수 처리
+			
+			
 			
 		// 판매입력
 		public static final int input_sales 			= 12200;

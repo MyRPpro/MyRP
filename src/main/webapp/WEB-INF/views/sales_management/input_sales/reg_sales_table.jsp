@@ -87,7 +87,7 @@
 		$("input[name=reg_sales_statement]").click(function(){
 			$('#reg_sales_content').slideUp(500);
 			$('#reg_sales_table_centent').slideUp(500);
-			$('#alert_pro').load("/accounting_management/statement_management/make_statement");
+			$('#main_screen').load("/accounting_management/statement_management/make_statement");
 			return false;
 		});
 		

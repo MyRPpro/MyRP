@@ -15,7 +15,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading" id="detail_purchase_heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-gift"></span> &emsp;
+						<span class="glyphicon glyphicon-euro"></span> &emsp;
 						구매번호" ${dtos.get(0).purchase_id}"의 상세 정보 입니다. 
 					</h3>
 				</div>	<!--  // panel-heading -->
@@ -160,15 +160,21 @@
 								<br>
 								<input type="hidden" name="purchase_id" id="purchase_id" value="${dtos.get(0).purchase_id}">
 								<center>
-									
+									<!-- ---------------------------------------------------------------------------------------------------------- -->									
 									
 									<c:if test="${purchase_state == 22213 }">
 										<input type="button" name="reg_state" id="button_reg_state" class="btn btn-primary" value="회계전표 입력하기 " >	
 									</c:if>
-									<c:if test="${purchase_state == 23203 and account_id == 500011050000 }"> <!-- 상품매입시 -->
+									
+									<!-- ---------------------------------------------------------------------------------------------------------- -->									
+									
+									<c:if test="${purchase_state == 23203 && account_id == 500011050000 }"> <!-- 상품매입시 -->
 										<input type="button" name="req_storage_in"  id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
 									</c:if>
-									<c:if test="${purchase_state == 23203 and account_id == 500012010000 }"> <!-- 상품매입시 -->
+									
+									<!-- ---------------------------------------------------------------------------------------------------------- -->									
+									
+									<c:if test="${purchase_state == 23203 && account_id == 500012010000 }"> <!-- 상품매입시 -->
 										<div class="col-xs-9" style="display: inline;" >
 											<div class="input-group">
 												<input type="text" id="text_req_repay" name="req_repay" class="form-control" value="" placeholder="남은 기간" disabled="true" >
@@ -177,7 +183,7 @@
 												</span>
 											</div>
 										</div>
-									</c:if>
+										</c:if>
 									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
 								</center>
 								<br>
@@ -211,7 +217,7 @@
 	});
 	$('#btn_req_storage_in').click(function(){
 		var purchase_id = $('#purchase_id').val();
-		$('#main_screen').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=storage_in&purchase_id="+purchase_id);
+		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=storage_in&purchase_id="+purchase_id);
 	});
 	
 	$('#btn_req_repay').ready(function(){

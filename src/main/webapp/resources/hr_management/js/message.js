@@ -47,6 +47,7 @@ var reg_reg_date = "등록일 : YYYY-MM-DD 형식";
 var reg_storage_out_date = "출고일 : YYYY-MM-DD 형식";
 var reg_count_sales = "판매수량 : 숫자 | 4자리";
 var reg_selling_price = "판매가격 : 숫자 | 9자리";
+var btn_modify = "수정버튼";
 
 //sales_list 
 var search_str = "판매번호 검색";
@@ -59,6 +60,7 @@ var search_sales_statement = "전표승인조회";
 var req_storage_out = "상품출고신청";
 var search_storage_out = "출고완료조회";
 var req_note_receive = "지급대기신청";
+var reg_condition_note_receivable = "어음기간";
 var search_note_receive = "지급완료조회";
 
 //search_status

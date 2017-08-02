@@ -3,10 +3,12 @@
 
 <!-- <script type="text/javascript" src = "https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
 <script type="text/javascript" src = "/resources/assest/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="/resources/assest/jquery.flot.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/assest/bootstrap.min.css">
 <script type="text/javascript" src = "/resources/assest/bootstrap.js"></script>
 <script type="text/javascript" src="/resources/hr_management/js/script.js"></script>
 <script type="text/javascript" src="/resources/hr_management/js/message.js"></script>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -51,7 +53,10 @@
 	}
 	.pagination{
 	margin-top: 0px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
+	}
+	.btn-group{
+	margin-bottom: 10px;
 	}
 	/*  판매에서 추가 한 부분 종료 */
 </style>
