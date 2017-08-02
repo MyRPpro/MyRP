@@ -28,7 +28,6 @@ function storage_go(id, goes,storage_in_date){
 					"id" : id,
 					"goes" : goes
 					}
-		
 		$.ajax({ 					
 			data:	data,
 			type: 	'post',	 			

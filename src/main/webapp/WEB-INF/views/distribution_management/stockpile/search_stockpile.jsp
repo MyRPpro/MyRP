@@ -15,7 +15,7 @@ $(function(){
 		var year= now.getFullYear();
 	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 		
-		var today = year + "-" + mon + "-" + (now.getDate()+1);
+		var today = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate()+1);
 		
 		if(start_day == "" || end_day == ""){
 			alert("날짜를 선택하시오.");
@@ -80,14 +80,14 @@ $(function(){
 		
 		var year= now.getFullYear();
 		var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-		var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+		var day = now.getDate()>9? now.getDate() : '0' + now.getDate()>9 ? ''+now.getDate()>9? now.getDate() : '0' + now.getDate() : '0'+now.getDate()>9? now.getDate() : '0' + now.getDate();
 		
 		if(date == 'today'){
-			start_day.value = year + "-" + mon + "-" + (now.getDate());
-			if((now.getDate()+1) >= 31){
+			start_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate());
+			if((now.getDate()>9? now.getDate() : '0' + now.getDate()+1) >= 31){
 				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
 			}else{
-				end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1));
 			}
 			return false;
 		
@@ -95,17 +95,21 @@ $(function(){
 			var i = now.getDay();
 			if(i > 0 && i < 7){
 				aa = 1 - i;
-				start_day.value =  year + "-" + mon + "-" + (now.getDate() + aa);
+				if(now.getDate() + aa == 0){
+					start_day.value =  year + "-" + ((now.getMonth())>9 ? ''+(now.getMonth()) : '0'+(now.getMonth())) + "-" + '31';
+				}else{
+					start_day.value =  year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate() + aa));
+				}
 			}
 			
-			if((now.getDate()+1) >= 31){
+			if((now.getDate()>9? now.getDate() : '0' + now.getDate()+1) >= 31){
 				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
 			}else{
-				end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1));
 			}
 		
 			if(start_day.value == end_day.value){
-				end_day.value = year + "-" + mon + "-" + (now.getDate()+2);
+				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate()+2);
 			}
 			return false;
 		
