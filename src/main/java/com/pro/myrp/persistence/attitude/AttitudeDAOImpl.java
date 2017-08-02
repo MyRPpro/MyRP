@@ -11,9 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import com.pro.myrp.domain.attitude_management.Hr_attitude_listDTO;
 import com.pro.myrp.domain.attitude_management.Service_attitudeVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.domain.hr_management.Hr_codeVO;
+import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
+import com.pro.myrp.persistence.hr.HRDAO;
+
 
 @Repository
 public class AttitudeDAOImpl implements AttitudeDAO {
@@ -78,63 +81,38 @@ public class AttitudeDAOImpl implements AttitudeDAO {
 	}
 	
 	@Override
-	public Date select_appointment_date(int employee_id) throws Exception {
+	public Date select_attitude_date(int employee_id) throws Exception {
 		// 
 		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class);
-		return dao.select_appointment_date(employee_id);
+		return dao.select_attitude_date(employee_id);
 	}
 	
-	@Override
-	public int employee_idCheck(int employee_id) throws Exception {
-		//
-		int cnt =0;
-		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class); 
-		cnt = dao.employee_idCheck(employee_id);
-		return cnt;
-	}
-	
-	@Override
-	public int attitude_dateCnt(Map<String, Object> daoMap) throws Exception {
-		//
-		int cnt = 0;
-		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class);
-		int employee_id_checkCnt = dao.employee_idCheck ((int) daoMap.get("employee_id"));
-		
-		if (employee_id_checkCnt != 0) { 
-			int attitude_dateCnt=dao.attitude_dateCnt(daoMap);
-			System.out.println("--->attitude_dateCnt"+attitude_dateCnt);
-			if(attitude_dateCnt != 1) {
-				cnt = 1;
-				System.out.println("---->attitude_dateCnt"+attitude_dateCnt);
-			} else {
-				cnt = 2;
-				System.out.println("----->attitude_dateCnt"+attitude_dateCnt);
-			} 
-		} else {
-			cnt = 0;
-		} 
-		return cnt;
-	}
-
 	@Override
 	public int insert_service_attitude(Service_attitudeVO vo) throws Exception {
 		//
 		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class);
 		return dao.insert_service_attitude(vo);
 	}
-
+	
 	@Override
-	public int select_appointment_cnt(String search) throws Exception {
+	public int select_attitude_cnt(String search) throws Exception {
+		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class);
+		return dao.select_attitude_cnt(search);
+	}
+	
+	@Override
+	public List<Hr_attitude_listDTO> select_hr_attitude_list(Map<String, Object> daoMap) throws Exception {
 		// 
 		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class);
-		return dao.select_appointment_cnt(search);
+		return dao.select_hr_attitude_list(daoMap);
 	}
 
 	@Override
-	public List<Hr_attitude_listDTO> select_hr_appointment_list(Map<String, Object> daoMap) throws Exception {
+	public List<Hr_attitude_listDTO> select_attitude(int employee_id) throws Exception {
 		// 
 		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class);
-		return dao.select_hr_appointment_list(daoMap);
+		return dao.select_attitude(employee_id);
 	}
+
 	
 }

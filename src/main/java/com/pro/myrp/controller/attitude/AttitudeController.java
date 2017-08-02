@@ -67,4 +67,15 @@ public interface AttitudeController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String hr_attitude_list (HttpServletRequest req, Model model) throws Exception;
+	
+	
+	/**
+	 * 근태관리 > 근태조회 > 인사카드 휴가등록 이력 보기
+	 * @author 장재희
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String personnel_card_attitude(HttpServletRequest req, Model model) throws Exception;
 }

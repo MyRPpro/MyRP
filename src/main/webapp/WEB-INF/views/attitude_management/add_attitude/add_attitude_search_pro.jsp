@@ -11,20 +11,20 @@
 add_attitude_search_pro.jsp
 <c:if test="${cnt == 1}">
 	<script type="text/javascript">
-		alert("휴가등록이 정상적으로 등록 되었습니다.");
-		window.location = "/attitude_management/search_attitude/search_attitude_search";
+		alert("휴가등록 되었습니다.");
+		$("#main_screen").load("/attitude_management/search_attitude/search_attitude_search");
 	</script>
 </c:if>
 <c:if test="${cnt == 2}">
 	<script type="text/javascript">
 		alert("이미 승인 받은 휴가일입니다 다시 등록 해주세요.");
-		window.location = "/attitude_management/search_attitude/search_attitude_search";
+		$("#main_screen").load("/attitude_management/search_attitude/add_attitude_search");
 	</script>
 </c:if>
 <c:if test="${cnt == 0}">
 	<script type="text/javascript">
 		alert("휴가등록 에 실패 하였습니다.");
-		window,history.back(-2);
+		$("#page17220").slideUp();
 	</script>
 </c:if>
 

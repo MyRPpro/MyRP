@@ -6,11 +6,10 @@ import java.util.Map;
 
 import com.pro.myrp.domain.attitude_management.Hr_attitude_listDTO;
 import com.pro.myrp.domain.attitude_management.Service_attitudeVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.domain.hr_management.Hr_appointment_listDTO;
-import com.pro.myrp.domain.hr_management.Hr_codeVO;
-import com.pro.myrp.domain.hr_management.Personnel_appointmentVO;
+import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
 import com.pro.myrp.persistence.MyRPDAO;
 
 public interface AttitudeDAO extends MyRPDAO {
@@ -77,9 +76,8 @@ public interface AttitudeDAO extends MyRPDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public Date select_appointment_date(int employee_id) throws Exception;
+	public Date select_attitude_date(int employee_id) throws Exception;
 	
-
 	/**
 	 * 
 	 * @param dept_id
@@ -87,23 +85,6 @@ public interface AttitudeDAO extends MyRPDAO {
 	 * @throws Exception
 	 */
 	public String select_dept_name(int dept_id) throws Exception;
-	
-	
-	/**
-	 * @author 장재희
-	 * @param employee_idCheck
-	 * @return
-	 * @throws Exception
-	 */
-	public int employee_idCheck(int employee_id) throws Exception;
-	
-	/**
-	 * @author 장재희
-	 * @param daoMap
-	 * @return
-	 * @throws Exception
-	 */
-	public int attitude_dateCnt(Map<String, Object> daoMap) throws Exception; 
 	
 	/**
 	 * @author 장재희
@@ -114,17 +95,23 @@ public interface AttitudeDAO extends MyRPDAO {
 	
 	/**
 	 * @author 장재희
-	 * @param searchStr
+	 * @param search
 	 * @return
+	 * @throws Exception
 	 */
-	public int select_appointment_cnt(String search) throws Exception;
+	public int select_attitude_cnt(String search) throws Exception;
 	
 	/**
 	 * @author 장재희
 	 * @param daoMap
 	 * @return
 	 */
-	public List<Hr_attitude_listDTO> select_hr_appointment_list(Map<String, Object> daoMap) throws Exception;
+	public List<Hr_attitude_listDTO> select_hr_attitude_list(Map<String, Object> daoMap) throws Exception;
 	
-	
+	/**
+	 * @author 장재희
+	 * @param employee_id
+	 * @return
+	 */
+	public List<Hr_attitude_listDTO> select_attitude(int employee_id) throws Exception;
 }

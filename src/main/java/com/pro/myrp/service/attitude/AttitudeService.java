@@ -54,4 +54,12 @@ public interface AttitudeService extends MyRPService {
 	 * @throws Exception
 	 */
 	public void hr_attitude_list_service(Model model) throws Exception;
+	
+	/**
+	 * 근태관리 > 근태조회 > 인사카드 휴가등록 이력 보기
+	 * @author 장재희
+	 * @param model
+	 * @throws Exception
+	 */
+	public void personnel_card_attitude_service(Model model) throws Exception;
 }

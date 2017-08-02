@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -55,7 +56,7 @@ public class AttitudeControllerImpl implements AttitudeController, CodeMyRP {
 	}
 
 	@Override
-	@GetMapping(value="add_attitude/add_attitude_search_pro")
+	@PostMapping(value="add_attitude/add_attitude_search_pro")
 	public String add_attitude_search_pro(HttpServletRequest req, Model model) throws Exception {
 		//
 		System.out.println(code.c(add_attitude_search_pro));
@@ -90,7 +91,17 @@ public class AttitudeControllerImpl implements AttitudeController, CodeMyRP {
 		
 		return code.c(attitude_management, search_attitude , hr_attitude_list );
 	}
-
 	
+	@Override
+	@GetMapping(value="search_attitude/personnel_card_attitude")
+	public String personnel_card_attitude(HttpServletRequest req, Model model) throws Exception {
+		//
+		System.out.println(code.c(personnel_card_attitude));
+		
+		model.addAttribute("req", req);
+		service.personnel_card_attitude_service(model);
+		
+		return code.c(attitude_management, search_attitude, personnel_card_attitude);
+	}
 
 }

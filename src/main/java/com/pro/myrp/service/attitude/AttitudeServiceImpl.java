@@ -14,9 +14,10 @@ import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.attitude_management.Hr_attitude_listDTO;
 import com.pro.myrp.domain.attitude_management.Service_attitudeVO;
-import com.pro.myrp.domain.hr_management.DeptVO;
-import com.pro.myrp.domain.hr_management.EmployeeVO;
-import com.pro.myrp.domain.hr_management.Hr_codeVO;
+import com.pro.myrp.domain.hr_management.dto.Hr_appointment_listDTO;
+import com.pro.myrp.domain.hr_management.vo.DeptVO;
+import com.pro.myrp.domain.hr_management.vo.EmployeeVO;
+import com.pro.myrp.domain.hr_management.vo.Hr_codeVO;
 import com.pro.myrp.persistence.attitude.AttitudeDAO;
 
 @Service
@@ -90,7 +91,7 @@ public class AttitudeServiceImpl implements AttitudeService {
 		model.addAttribute("hr_code_id", hr_code_id); //서비스에서 휴가 사유를 모델에 담아서 컨트롤러에 전달한다
 		model.addAttribute("attitude_reason", attitude_reason); //서비스에서 휴가사유종류를 모델에 담아서 컨트롤러에 전달한다
 		
-		Date attitude_date1 = dao.select_appointment_date(vo.getEmployee_id());
+		Date attitude_date1 = dao.select_attitude_date(vo.getEmployee_id());
 		
 		String last_date = "2000-01-01";
 		if(attitude_date1 != null) {
@@ -156,20 +157,9 @@ public class AttitudeServiceImpl implements AttitudeService {
 		vo.setHr_code_group_reason(hr_code_group_reason);
 		vo.setAttitude_reason(attitude_reason);
 		
-		Map <String, Object> daoMap = new HashMap<>();
-		daoMap.put("employee_id", employee_id);
-		daoMap.put("attitude_date1", attitude_date1);
+		int cnt = dao.insert_service_attitude(vo);
+		model.addAttribute("cnt", cnt);
 		
-		int selectCnt = dao.attitude_dateCnt(daoMap);
-		System.out.println("selectCnt"+selectCnt); //0
-		if (selectCnt != 0 ) {
-			model.addAttribute("cnt", selectCnt);
-		} else if(selectCnt == 2) {
-			model.addAttribute("cnt", selectCnt);
-		} else {
-			int cnt = dao.insert_service_attitude(vo);
-			model.addAttribute("cnt", cnt);
-		}
 	}
 	
 	@Override
@@ -188,7 +178,7 @@ public class AttitudeServiceImpl implements AttitudeService {
 		int endPage		= 0;
 		
 		String search = req.getParameter("search");
-		cnt = dao.select_appointment_cnt(search);
+		cnt = dao.select_attitude_cnt(search);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);
@@ -225,7 +215,7 @@ public class AttitudeServiceImpl implements AttitudeService {
 		int currentPage	= 0;
 		
 		String search = req.getParameter("search");
-		cnt = dao.select_appointment_cnt(search);
+		cnt = dao.select_attitude_cnt(search);
 		pageNum = req.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		currentPage = Integer.parseInt(pageNum);
@@ -238,9 +228,10 @@ public class AttitudeServiceImpl implements AttitudeService {
 			daoMap.put("end", end);
 			daoMap.put("search", search);
 			List<Hr_attitude_listDTO> dtos = new ArrayList<>();
-			dtos = dao.select_hr_appointment_list(daoMap);
-			for(int i=0; i<dtos.size(); i++) {
+			dtos = dao.select_hr_attitude_list(daoMap);
+			for(int i=0; i < dtos.size(); i++) {
 				Hr_attitude_listDTO dto = dtos.get(i);
+				
 				int hr_code_group_leave = dto.getHr_code_group_leave();
 				int leave_code = dto.getLeave_code();
 				int hr_code_group_reason = dto.getHr_code_group_reason();
@@ -261,4 +252,33 @@ public class AttitudeServiceImpl implements AttitudeService {
 		}
 	}
 
+	@Override
+	public void personnel_card_attitude_service(Model model) throws Exception {
+		//
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		List<Hr_attitude_listDTO> dtos = dao.select_attitude(employee_id);
+		for(int i=0; i<dtos.size(); i++) {
+			Hr_attitude_listDTO dto = dtos.get(i);
+		
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("hr_code_group_id", dto.getHr_code_group_leave());
+			daoMap.put("hr_code_id", dto.getLeave_code());
+			String leave_code_name = dao.select_hr_code_name(daoMap);
+			
+			daoMap.clear();
+			daoMap.put("hr_code_group_id", dto.getHr_code_group_reason());
+			daoMap.put("hr_code_id", dto.getAttitude_reason());
+			String attitude_reason_name = dao.select_hr_code_names(daoMap);
+			
+			dto.setLeave_code_name(leave_code_name);
+			dto.setAttitude_reason_name(attitude_reason_name);
+			
+		}
+		model.addAttribute("employee_id", employee_id);
+		model.addAttribute("dtos", dtos);
+	}
+	
 }

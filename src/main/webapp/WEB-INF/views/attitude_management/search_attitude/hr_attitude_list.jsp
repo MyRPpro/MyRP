@@ -6,39 +6,55 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+	$("#page17130_div_toggel").bind("click", function(event){
+		$("#page17130_div01").slideToggle();
+	});
+	$("#page17130_div01 a").on("click", function(event) {
+		$("#page17110_div01").slideUp();
+		$("#page17110_div02").slideUp();
+		$("#page17110_div03").slideUp();
+		$("#page17110_div04").slideDown();
+		$("#page17110_div04").load($(this).attr("href"));
+		return false;
+	});
+
+</script>
 </head>
 <body>
-hr_attitude_list.jsp
-<table border="1">
-	<tr>
-		<th colspan="10">Hr_attitude_listDTO</th>
-	</tr>
-	<tr>
-		<th>employee_id</th>
-		<th>employee_name</th>
-		<th>attitude_date</th>
-		<th>hr_code_group_leave</th>
-		<th>leave_code</th>
-		<th>leave_code_name</th>
-		<th>attitude_period</th>
-		<th>hr_code_group_reason</th>
-		<th>attitude_reason</th>
-		<th>attitude_reason_name</th>
-	</tr>
-	<c:forEach var="dto" items="${hr_attitude_listDtos}">
-	<tr>
-		<td>${dto.employee_id}</td>
-		<td>${dto.employee_name}</td>
-		<td>${dto.attitude_date}</td>
-		<td>${dto.hr_code_group_leave}</td>
-		<td>${dto.leave_code}</td>
-		<td>${dto.leave_code_name}</td>
-		<td>${dto.attitude_period}</td>
-		<td>${dto.hr_code_group_reason}</td>
-		<td>${dto.attitude_reason}</td>
-		<td>${dto.attitude_reason_name}</td>
-	</tr>
-	</c:forEach>
-</table>
+	<div class="panel panel-default" id="page17130">
+		<div class="panel-heading">
+			<a id="page17130_div_toggel">hr_attitude_list.jsp</a>
+		</div>
+		<div class="panel-body" id="page17130_div01">
+		<table class="table">
+
+				<tr>
+					<th>사원번호</th>
+					<th>사원이름</th>
+					<th>휴가시작일</th>
+					<th>휴가명</th>
+					<th>휴가일</th>
+					<th>휴가사유명</th>
+				</tr>
+				<c:forEach var="dto" items="${hr_attitude_listDtos}">
+				<tr>
+					<td>${dto.employee_id}</td>
+					<td>
+						<a href="/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${dto.employee_id}&select_tab=attitude">
+							${dto.employee_name}
+						</a>
+					</td>
+					<td>${dto.attitude_date}</td>
+					<td>${dto.leave_code_name}</td>
+					<td>${dto.attitude_period}</td>
+					<td>${dto.attitude_reason_name}</td>
+				</tr>
+				</c:forEach>
+			</table>
+		</div>
+		<div id="page17130_div02"></div>
+	</div>
 </body>
 </html>

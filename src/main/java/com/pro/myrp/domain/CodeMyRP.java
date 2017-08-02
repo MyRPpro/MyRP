@@ -252,10 +252,11 @@ public interface CodeMyRP {
 				public static final int search_attitude_search = 17110; //근태조회화면
 				public static final int hr_attitude_nav = 17120; //
 				public static final int hr_attitude_list = 17130; //근태 목록 화면
+				public static final int personnel_card_attitude = 17140;
 				
 			public static final int add_attitude = 17200; // 근태 등록
 				public static final int add_attitude_search = 17210; // 근태 등록 화면
-				public static final int attitude_form = 17220; // 원선택 근태관련 폼 화면
+				public static final int attitude_form = 17220; // 사원선택시 근태관련 폼 화면
 				public static final int add_attitude_search_pro = 17230; // 근태등록처리
 			
 				
