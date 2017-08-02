@@ -380,7 +380,7 @@ public class SalesServiceImpl implements SalesService,CodeMyRP  {
 		daoMap.put("account_id", account_id);
 		
 		ArrayList<SalesDTO> dtos = dao.select_detail_sales(daoMap);
-		/*System.out.println("  -> dtos : " + dtos.toString() );*/
+		System.out.println("  -> dtos : " + dtos.toString() );
 		
 		if( dtos != null ){
 			System.out.println("  -> Complete value import ...");

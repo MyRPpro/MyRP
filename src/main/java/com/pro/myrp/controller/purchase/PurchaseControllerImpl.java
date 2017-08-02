@@ -87,7 +87,15 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		return code.c(purchase_management, search_purchase, detail_purchase_pro);
 	}
 	
-	
+	@Override
+	@GetMapping(value="input_purchase/search_reg_purchase_pro")
+	public String search_reg_purchase_pro(HttpServletRequest req, Model model) throws Exception {
+		System.out.println(code.c(search_reg_purchase_pro));
+		model.addAttribute("req", req);
+		service.search_reg_purchase_pro_service(model);
+		return code.c(purchase_management, input_purchase, reg_purchase);
+	}
+
 	// ---------------------------------------------------
 	// 			구매 입력  R-3002 input_purchase
 	// ---------------------------------------------------
@@ -134,15 +142,6 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 	// ---------------------------------------------------
 	// 			구매 현황  R-3003 status_purchase
 	// ---------------------------------------------------
-
-	@Override
-	@GetMapping(value="input_purchase/search_reg_purchase_pro")
-	public String search_reg_purchase_pro(HttpServletRequest req, Model model) throws Exception {
-		System.out.println(code.c(search_reg_purchase_pro));
-		model.addAttribute("req", req);
-		service.search_reg_purchase_pro_service(model);
-		return code.c(purchase_management, input_purchase, reg_purchase);
-	}
 
 	@Override
 	@GetMapping(value="status_purchase/search_status_purchase")

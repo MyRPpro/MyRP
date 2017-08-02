@@ -165,6 +165,8 @@
 							<c:if test="${sales_state == 22214 and account_id == '500014030000'}">
 								<input type="button" class="btn btn-primary"  value="출고요청하기" name="req_storage_out" onclick="req_storage_out();">
 							</c:if>
+							
+							
 							<c:if test="${sales_state == 22223 and account_id == '500014030000'}">
 								<button type="button" class="btn btn-primary"  onclick="return req_receive();">채권회수요청</button>
 							</c:if>
