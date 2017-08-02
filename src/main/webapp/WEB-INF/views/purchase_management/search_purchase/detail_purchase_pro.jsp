@@ -113,14 +113,14 @@
 		
 		if( diff != 0 ){	// 수금기간이 아님
 			$('#btn_req_repay').attr('disabled',true); 
-			$('#text_req_repay').val( "수금기간까지 앞으로"+diff+"일 남았습니다."); 
+			$('#text_req_repay').val( "상환기간까지 앞으로"+diff+"일 남았습니다."); 
 		
 		} else if ( diff == 0 ){	// 수금기간이 옴
 			$('#btn_req_repay').attr('disabled',false); 
-			$('#text_req_repay').val("수금기간입니다. 수금하기 버튼을 눌러주세요."); 
+			$('#text_req_repay').val("상환기간입니다. 상환하기 버튼을 눌러주세요."); 
 		} else {
 			$('#btn_req_repay').attr('disabled',false); 
-			$('#text_req_repay').val("수금기간이 지났습니다. 빨리 수금해주세요."); 
+			$('#text_req_repay').val("상환기간이 지났습니다. 빨리 상환해주세요."); 
 		}
 	});
 		

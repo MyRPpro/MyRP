@@ -774,8 +774,8 @@ Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23207,'지급완료','complet
 COMMIT;
 
 INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000001','회사이름 01','0010100001','이름01','0001010000011','사업자 주소입니다. 01','업태 01','종목 01','Y','S',to_date('07/13/2017', 'mm-dd-yyyy'));
-INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000002','회사이름 02','0020200002','이름02','0002020000022','사업자 주소입니다. 02','업태 02','종목 02','N','C',to_date('07/12/2017', 'mm-dd-yyyy'));
-INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000003','회사이름 03','0030300003','이름03','0003030000033','사업자 주소입니다. 03','업태 03','종목 03','N','S',to_date('07/11/2017', 'mm-dd-yyyy'));
+INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000002','회사이름 02','0020200002','이름02','0002020000022','사업자 주소입니다. 02','업태 02','종목 02','Y','C',to_date('07/12/2017', 'mm-dd-yyyy'));
+INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000003','회사이름 03','0030300003','이름03','0003030000033','사업자 주소입니다. 03','업태 03','종목 03','Y','S',to_date('07/11/2017', 'mm-dd-yyyy'));
 commit;
 
 INSERT INTO WAREHOUSE_INFORMATION(WAREHOUSE_ID,WAREHOUSE_NAME,WAREHOUSE_LOCATION) VALUES(1001,'양품창고','경기도 화성시 팔탄면');
@@ -783,9 +783,9 @@ INSERT INTO WAREHOUSE_INFORMATION(WAREHOUSE_ID,WAREHOUSE_NAME,WAREHOUSE_LOCATION
 INSERT INTO WAREHOUSE_INFORMATION(WAREHOUSE_ID,WAREHOUSE_NAME,WAREHOUSE_LOCATION) VALUES(3001,'출고대기창고','경기도 화성시 팔탄면');
 commit;
 
-Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000001','상품이름 01',5555555,11111110,'Y',to_date('17/07/13','RR/MM/DD'));
-Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000002','상품이름 02',5554555,11109110,'N',to_date('17/07/12','RR/MM/DD'));
-Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000003','상품이름 03',5553555,11107110,'Y',to_date('17/07/11','RR/MM/DD'));
+Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000001','상품이름 01',10000,12000,'Y',to_date('17/07/13','RR/MM/DD'));
+Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000002','상품이름 02',15000,18000,'Y',to_date('17/07/12','RR/MM/DD'));
+Insert into PRODUCT (PRODUCT_ID,PRODUCT_NAME,PURCHASE_UNIT_PRICE,SALE_UNIT_PRICE,USE_STATE,REG_DATE) values ('1200000003','상품이름 03',20000,23000,'Y',to_date('17/07/11','RR/MM/DD'));
 commit;
 
 UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 100 WHERE PRODUCT_ID = 1200000001 AND WAREHOUSE_ID = 1001;
@@ -796,7 +796,7 @@ UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 10 WHERE PRODUCT_ID = 1200000002 AND
 UPDATE STOCK_INFORMATION SET STOCK_AMOUNT = 10 WHERE PRODUCT_ID = 1200000003 AND WAREHOUSE_ID = 2001;
 commit;
 
---INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011010000', '0', '현금');
+INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011010000', '1000000000', '현금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011020000', '0', '매출채권');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011030000', '0', '부가세대급금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500011040000', '0', '재고자산');
@@ -808,7 +808,7 @@ INSERT INTO account (account_id, account_balance, account_name) VALUES ('5000130
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014010000', '0', '급여');
 commit;
 
-INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011010000', '자산통장' , '123-456-7889111' , 0 , '주 계좌', '국민은행', 'Y', sysdate);
+INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011010000', '자산통장' , '123-456-7889111' , 1000000000 , '주 계좌', '국민은행', 'Y', sysdate);
 INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011020000', '판매통장' , '123-456-7889222' , 0 , '판매', '신한은행', 'Y', sysdate);
 INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500012020000', '세금통장' , '123-456-7889333' , 0 , '세금납부', 'SC은행', 'Y', sysdate);
 INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500012010000', '구매통장' , '123-456-7889444' , 0 , '구매', '농협', 'Y', sysdate);
