@@ -70,7 +70,7 @@
 		<form action="#" name="page16120_form01">
 			<table class="table text-center">
 				<tr>
-					<th>인사코드 그룹번호</th>
+					<th>인사코드 그룹번호＊</th>
 					<td>
 						<div class="input-group">
 							<input class="form-control input-sm" type="number" name="hr_code_group_id"
@@ -82,13 +82,13 @@
 					</td>
 				</tr>
 				<tr>
-					<th>인사코드 그룹명</th>
+					<th>인사코드 그룹명＊</th>
 					<td>
 						<input class="form-control input-sm" type="text" name="hr_code_group_name" maxlength="255" required>
 					</td>
 				</tr>
 				<tr>
-					<th>사용 상태</th>
+					<th>사용 상태＊</th>
 					<td>
 						<label for="used">사용</label>
 						<input type="radio" name="use_state" id="used" value="Y" checked>

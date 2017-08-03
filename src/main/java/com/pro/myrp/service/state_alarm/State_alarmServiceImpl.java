@@ -118,9 +118,15 @@ public class State_alarmServiceImpl implements State_alarmService {
 			 * }
 			 * switch 문이 2개 이상인 경우 switch(state.getOrder_state()) 안에 넣으셔야합니다. 
 			 */
+			order_stateList.add(26450); //급여확정요청
+			order_stateList.add(26451); //급여지급요청
+			order_stateList.add(26452); //급여지급대기
+			order_stateList.add(26453); //급여지급완료
+			order_stateList.add(26454); //급여지급취소
 			
-			order_stateList.add(25452);
-			order_stateList.add(25453);
+			order_stateList.add(25452); //전표승인
+			order_stateList.add(25453); //전표승인거절
+			
 			model.addAttribute("order_state",order_stateList);
 			state_alarmDtos = dao.select_state_alarm(model);
 			
@@ -130,21 +136,36 @@ public class State_alarmServiceImpl implements State_alarmService {
 				order_id = state.getOrder_id();
 				
 				model.addAttribute("order_id",order_id);
+
+				if(state.getOrder_state() == 26450) {
+					hr_state = 26450;
+				} else if(state.getOrder_state() == 26452) {
+					hr_state = 26452;
+				}
+				
 				model.addAttribute("order_state", 25452);
 				if(dao.select_salary_register_statement(model) > 0){
 					hr_state = 25452;
 				}
-			
 				model.addAttribute("order_state", 25453);
 				if(dao.select_salary_register_statement(model) > 0){
 					hr_state = 25453;
 				}
 				
 				switch(hr_state){
-					case 25452 	: 	state.setState_addr("/hr_management/manage_salary/salary_register_search"); 
+					case 26450 	: 	state.setState_addr("/hr_management/manage_salary/salary_register_search?select_tab=fix_salary"); 
+									state.setState_msg("급여확정 요청"); 
+									state.setFrom_dept("인사"); break;
+					case 26451 	: 	state.setState_addr("/hr_management/manage_salary/salary_register_search?select_tab=request_salary"); 
+									state.setState_msg("회계전표 등록 요청"); 
+									state.setFrom_dept("인사"); break;
+					case 26452 	: 	state.setState_addr("/hr_management/manage_salary/salary_register_search?select_tab=pay_salary"); 
+									state.setState_msg("급여지급 요청"); 
+									state.setFrom_dept("인사"); break;
+					case 25452 	: 	state.setState_addr("/hr_management/manage_salary/salary_register_search?select_tab=confirm_salary"); 
 									state.setState_msg("전표 승인 알림"); 
 									state.setFrom_dept("회계"); break;
-					case 25453 	: 	state.setState_addr("/hr_management/manage_salary/salary_register_search"); 
+					case 25453 	: 	state.setState_addr("/hr_management/manage_salary/salary_register_search?select_tab=cancle_salary"); 
 									state.setState_msg("전표 승인 거절 알림"); 
 									state.setFrom_dept("회계");break;
 					case 0		: 	state_alarmDtos.remove(i); i-=1; break;

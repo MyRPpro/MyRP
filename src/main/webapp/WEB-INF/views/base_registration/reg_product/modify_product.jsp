@@ -53,14 +53,14 @@
 						</td>
 					</tr>
 					<tr>
-						<th>상품 명</th>
+						<th>상품 명＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="product_name"
 							value="${productVo.product_name}" required>
 						</td>
 					</tr>
 					<tr>
-						<th>구매 단가</th>
+						<th>구매 단가＊</th>
 						<td>
 							
 							<input class="form-control input-sm" type="number" name="purchase_unit_price"
@@ -69,7 +69,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>판매 단가</th>
+						<th>판매 단가＊</th>
 						<td>
 							<input class="form-control input-sm" type="number" name="sale_unit_price"
 							min="0" max="9999999999"

@@ -86,7 +86,7 @@
 							<td>${vo.reg_date}</td>
 							<td>${vo.salary_register_name}</td>
 							<td>${vo.pay_date}</td>
-							<td>${vo.total_pay}</td>
+							<td><fmt:formatNumber value="${vo.total_pay}" type="number"/></td>
 							<td>${vo.total_employee}</td>
 							<td>${vo.salary_state_name}</td>
 							<td>
