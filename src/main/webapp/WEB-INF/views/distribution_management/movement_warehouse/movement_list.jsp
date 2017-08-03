@@ -164,7 +164,7 @@ $(function(){
 					<tr>
 						<th>${dto.stock_order_id}</th>
 						<th>${dto.product_name}</th>
-						<th>${dto.movement_amount}</th>
+						<th><fmt:formatNumber value="${dto.movement_amount}" type = "number" /></th>
 						<th>${dto.warehouse_name}</th>
 						<c:forEach var = "ware" items = "${warehouseVos}">
 							<c:if test = "${ware.warehouse_id ==  dto.arrive_warehouse}">
@@ -182,14 +182,14 @@ $(function(){
 								이동 완료
 							</c:if>
 						</th>
-						<th><c:if test = "${dto.movement_state == 0}"><button class = "modify btn btn-default" value = "${dto.stock_order_id}-${dto.warehouse_id}">수정</button></c:if></th>
-						<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_del btn btn-default" value = "${dto.stock_order_id}">삭제</button></c:if></th>
-						<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_movement_confirm btn btn-default" value = "${dto.stock_order_id}">이동승인</button></c:if></th>
+						<th><c:if test = "${dto.movement_state == 0}"><button class = "modify btn btn-sm btn-default" value = "${dto.stock_order_id}-${dto.warehouse_id}">수정</button></c:if></th>
+						<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_del btn btn-sm btn-default" value = "${dto.stock_order_id}">삭제</button></c:if></th>
+						<th><c:if test = "${dto.movement_state == 0}"><button class = "movement_movement_confirm btn btn-sm btn-default" value = "${dto.stock_order_id}">이동승인</button></c:if></th>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td colspan = "13">
-						<button class = "movement_modify btn btn-default" value = "new">신규등록</button>
+						<button class = "movement_modify btn btn-sm btn-default" value = "new">신규등록</button>
 					</td>
 				</tr>
 			</table>

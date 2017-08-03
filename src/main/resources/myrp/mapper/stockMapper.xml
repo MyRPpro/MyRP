@@ -407,25 +407,27 @@
  	
  	<select id = "select_movement_warehouse_list"  parameterType="java.util.Map"  resultType = "Select_stock_order_movement_warehouseDTO">
  		SELECT	*
- 		FROM	(SELECT s.*,m.arrive_warehouse,m.movement_amount,m.movement_state,p.product_name,w.warehouse_name,e.employee_name,rownum as rnum	
- 				 FROM	stock_order s JOIN movement_warehouse m
- 				 ON		s.stock_order_id = m.stock_order_id
- 				 JOIN	product p
- 				 ON		s.product_id = p.product_id
- 				 JOIN	warehouse_information w
- 				 ON		s.warehouse_id = w.warehouse_id
- 				 JOIN	employee e
- 				 ON		s.employee_id = e.employee_id
- 				 ORDER BY m.stock_order_id DESC
+ 		FROM	(SELECT a.*,rownum as rnum	
+ 				 FROM
+ 				 	(	
+	 				 SELECT s.*,m.arrive_warehouse,m.movement_amount,m.movement_state,p.product_name,w.warehouse_name,e.employee_name	
+	 				 FROM	stock_order s JOIN movement_warehouse m
+	 				 ON		s.stock_order_id = m.stock_order_id
+	 				 JOIN	product p
+	 				 ON		s.product_id = p.product_id
+	 				 JOIN	warehouse_information w
+	 				 ON		s.warehouse_id = w.warehouse_id
+	 				 JOIN	employee e
+	 				 ON		s.employee_id = e.employee_id
+	 				 <if test = "stock_order_id != null">
+	 				 WHERE	m.stock_order_id = #{stock_order_id}
+	 				 </if>
+	 				 ORDER BY m.stock_order_id DESC
+	 				) a
  				 )
- 		<trim prefix="WHERE" prefixOverrides="AND">
-	 		<if test = "stock_order_id != null">
-	 		stock_order_id = #{stock_order_id}
-	 		</if>
 	 		<if test = "start != null">
-	 		rnum <![CDATA[>=]]>#{start} AND rnum <![CDATA[<=]]> #{end}
+	 		WHERE	rnum <![CDATA[>=]]>#{start} AND rnum <![CDATA[<=]]> #{end}
 	 		</if>
- 		</trim>
  	</select>
  	
  	<delete id = "delete_movement_stock_order" parameterType = "java.util.Map">

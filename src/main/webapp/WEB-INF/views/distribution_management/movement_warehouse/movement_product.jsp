@@ -61,7 +61,7 @@ $(function(){
 			</th>
 		</tr>
 		<tr>
-			<th>도착 창고명</th>
+			<th>도착 창고명＊</th>
 			<th>
 				<select class="form-control input-sm"  name = "arrive_warehouse_id" id = "arrive_warehouse_id">
 					<c:forEach var = "ware" items = "${warehouseVos}">
@@ -71,7 +71,7 @@ $(function(){
 			</th>
 		</tr>
 		<tr>
-			<th>상품명</th>
+			<th>상품명＊</th>
 			<th>
 
 				<select class="form-control input-sm" id = "product_id" name = "product_id">
@@ -83,7 +83,7 @@ $(function(){
 			</th>
 		</tr>
 		<tr>
-			<th>수량</th>
+			<th>수량＊</th>
 			<th><input class="form-control" type = "number" id = "movement_amount" name = "movement_amount" min = "1" required></th>
 		</tr>
 		<tr>
@@ -96,8 +96,8 @@ $(function(){
 		<tr>
 			<th colspan = "6">
 
-				<input type = "button" class="btn btn-primary" id = "movement_button" value = "확인">
-				<input type = "reset" class="btn btn-info" value = "리셋">
+				<input type = "button" class="btn btn-sm btn-primary" id = "movement_button" value = "확인">
+				<input type = "reset" class="btn btn-sm btn-sm btn-info" value = "리셋">
 			</th>
 		</tr>
 	</table>
@@ -130,7 +130,7 @@ $(function(){
 				</th>
 			</tr>
 			<tr>
-				<th>도착 창고명</th>
+				<th>도착 창고명＊</th>
 				<th>
 					<select class="form-control input-sm" name = "arrive_warehouse_id" id = "arrive_warehouse_id">
 						<c:forEach var = "ware" items = "${warehouseVos}">
@@ -140,7 +140,7 @@ $(function(){
 				</th>
 			</tr>
 			<tr>
-				<th>상품명</th>
+				<th>상품명＊</th>
 				<th>
 					<select class="form-control input-sm" id = "product_id" name = "product_id">
 					<option value = "0">상품을 선택하시오.</option>
@@ -151,7 +151,7 @@ $(function(){
 				</th>
 			</tr>
 			<tr>
-				<th>수량</th>
+				<th>수량＊</th>
 				<th><input class="form-control" type = "number" id = "movement_amount" name = "movement_amount" min = "1" value = "${dto.movement_amount}"></th>
 			</tr>
 			<tr>
@@ -164,8 +164,8 @@ $(function(){
 		</c:forEach>
 		<tr>
 			<th colspan = "6">
-				<input type = "button" class="btn btn-primary" id = "movement_button" value = "확인">
-				<input type = "reset" class="btn btn-info" value = "리셋">
+				<input type = "button" class="btn btn-sm btn-primary" id = "movement_button" value = "확인">
+				<input type = "reset" class="btn btn-sm btn-info" value = "리셋">
 			</th>
 		</tr>
 	</table>

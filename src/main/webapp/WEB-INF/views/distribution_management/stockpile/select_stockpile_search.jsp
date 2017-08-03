@@ -67,9 +67,9 @@ $(".panel-body a").bind("click", function(event) {
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4751'}">
 								<td><a href = "/distribution_management/movement_warehouse/movement_list?oder_id=${dto.pro_id}">창고이동</a></td>
 								</c:if>
-								<td>${dto.plus_stock}</td>
-								<td>${dto.minus_stock}</td>
-								<td>${dto.stock_amount}</td>
+								<td><fmt:formatNumber value="${dto.plus_stock}" type = "number" /></td>
+								<td><fmt:formatNumber value="${dto.minus_stock}" type = "number" /></td>
+								<td><fmt:formatNumber value="${dto.stock_amount}" type = "number" /></td>
 							</tr>
 							</c:if>
 						</c:forEach>
@@ -90,9 +90,9 @@ $(".panel-body a").bind("click", function(event) {
 						<th>총 재고수량</th>
 					</tr>
 						<tr>
-							<th>${plus_stock}</th>
-							<th>${minus_stock}</th>
-							<th>${add_stock}</th>
+							<th><fmt:formatNumber value="${plus_stock}" type = "number" /></th>
+							<th><fmt:formatNumber value="${minus_stock}" type = "number" /></th>
+							<th><fmt:formatNumber value="${add_stock}" type = "number" /></th>
 						</tr>
 				</table>
 			</div>
