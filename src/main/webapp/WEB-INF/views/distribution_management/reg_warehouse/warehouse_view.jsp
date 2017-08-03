@@ -82,7 +82,7 @@ $(function(){
 					<input type = "hidden" value = "new" name = "opt">
 					<table class="table table-condensed">
 						<tr>
-							<th>창고종류</th>
+							<th>창고종류＊</th>
 							<th>
 								<select class="form-control input-sm" name = "warehouse_id" id = "warehouse_id">
 									<option value = "${nomal}">일반창고 / ${nomal}</option>
@@ -92,15 +92,15 @@ $(function(){
 							</th>
 						</tr>
 						<tr>
-							<th>창고명</th>
+							<th>창고명＊</th>
 							<th><input class="form-control" type = "text" id = "warehouse_name" name = "warehouse_name" required></th>
 						</tr>
 						<tr>
-							<th>창고주소</th>
+							<th>창고주소＊</th>
 							<th><input class="form-control" type = "text" id = "warehouse_location" name = "warehouse_location" required></th>
 						</tr>
 						<tr>
-							<th colspan = "3"><input type = "button" class="btn btn-primary" value = "확인" id = "new_sub">&nbsp;<input type = "reset" class="btn btn-info" value = "취소"></th>
+							<th colspan = "3"><input type = "button" class="btn btn-sm  btn-primary" value = "확인" id = "new_sub">&nbsp;<input type = "reset" class="btn btn-sm btn-info" value = "취소"></th>
 						</tr>
 					</table>
 					</form>
@@ -127,16 +127,16 @@ $(function(){
 							<th>창고id</th>
 							<th><input class="form-control" type = "text" value = "${vo.warehouse_id}" name = "warehouse_id" readonly></th>
 						</tr>
-							<th>창고명</th>
+							<th>창고명＊</th>
 							<th><input class="form-control" type = "text" id = "warehouse_name" value = "${vo.warehouse_name}" name = "warehouse_name" required></th>
 						</tr>
 						<tr>
-							<th>창고주소</th>
+							<th>창고주소＊</th>
 							<th><input class="form-control" type = "text" id = "warehouse_location" value = "${vo.warehouse_location}" name = "warehouse_location" required></th>
 						</tr>
 					</c:forEach>
 					<tr>
-						<th colspan = "3"><input type = "button" class="btn btn-primary" value = "확인" id = "modify_sub">&nbsp;<input type = "reset" class="btn btn-info" value = "취소"></th>
+						<th colspan = "3"><input type = "button" class="btn btn-sm btn-primary" value = "확인" id = "modify_sub">&nbsp;<input type = "reset" class="btn btn-sm btn-info" value = "취소"></th>
 					</tr>
 				</table>
 				</form>

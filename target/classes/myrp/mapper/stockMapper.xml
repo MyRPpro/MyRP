@@ -26,7 +26,7 @@
  	<select id = "select_stockpile_search" parameterType="java.util.Map" resultType="Select_stockpile_searchDTO">
 	 	SELECT	*
 		FROM	( SELECT  *
-				FROM  ( SELECT	o.stock_order_id AS pro_id, o.storage_out_date AS sto_date, o.count_sales AS moving_stock,  s.stock_state AS sto_state, s.product_id
+				FROM  ( SELECT	o.stock_order_id AS pro_id, o.storage_out_date AS sto_date, s.stock_state AS sto_state, s.product_id, o.count_sales AS moving_stock
 						FROM	stock_order s JOIN storage_out_order o
 			            ON		s.stock_order_id = o.stock_order_id
 		                WHERE	stock_state = '24752' 
@@ -39,7 +39,7 @@
 			                  
 						UNION
 			                  
-						SELECT	o.stock_order_id AS pro_id, o.storage_in_date AS sto_date, o.count_purchase AS moving_stock,  s.stock_state AS sto_state, s.product_id
+						SELECT	o.stock_order_id AS pro_id, o.storage_in_date AS sto_date, s.stock_state AS sto_state, s.product_id, o.count_purchase AS moving_stock
 						FROM	stock_order s JOIN storage_in_order o
 					    ON		s.stock_order_id = o.stock_order_id
 						WHERE	s.stock_state = '24102'
@@ -52,11 +52,51 @@
 	                      
 						UNION
 			                  
-						SELECT	s.stock_order_id AS pro_id, s.update_date AS sto_date, a.delete_stock AS moving_stock, s.stock_state AS sto_state, s.product_id
+						SELECT	s.stock_order_id AS pro_id, s.update_date AS sto_date, s.stock_state AS sto_state, s.product_id, a.delete_stock AS moving_stock
 						FROM	stock_order s JOIN  adjustment_inventory a
 						ON		s.stock_order_id = a.stock_order_id
 						<if test = "product != null">
 						WHERE	s.product_id in
+								<foreach item="pro" collection="product" open="(" separator="," close=")">
+								#{pro}
+								</foreach>
+						</if>
+								
+						UNION
+						
+						SELECT m.stock_order_id AS pro_id, s.update_date AS sto_date, s.stock_state AS sto_state, s.product_id,
+                          CASE  
+                            WHEN warehouse_id like TO_CHAR(1)||'%' 
+                              THEN  CASE  
+                                      WHEN arrive_warehouse like TO_CHAR(1)||'%' 
+                                      THEN  CASE  
+                                              WHEN m.movement_amount <![CDATA[>]]> 0  
+                                              THEN 0
+                                            END 
+                                     WHEN arrive_warehouse like TO_CHAR(2)||'%' OR arrive_warehouse like TO_CHAR(3)||'%'
+                                     THEN   CASE  
+                                              WHEN m.movement_amount <![CDATA[>]]> 0  
+                                              THEN m.movement_amount * -1
+                                            END 
+                                      END
+                            ELSE  CASE
+                                    WHEN arrive_warehouse like TO_CHAR(1)||'%' 
+                                    THEN  CASE  
+                                            WHEN m.movement_amount <![CDATA[>]]> 0  
+                                            THEN  m.movement_amount
+                                        END
+                                  WHEN arrive_warehouse like TO_CHAR(2)||'%' OR arrive_warehouse like TO_CHAR(3)||'%'
+                                  THEN  CASE  
+                                           WHEN m.movement_amount <![CDATA[>]]> 0  
+                                           THEN 0
+                                        END
+                                  END
+                        	END AS moving_stock
+	                    FROM	stock_order s JOIN movement_warehouse m
+	                    ON		s.stock_order_id = m.stock_order_id
+	                    WHERE	m.movement_state = 1
+	                     <if test = "product != null">
+						AND		s.product_id in
 								<foreach item="pro" collection="product" open="(" separator="," close=")">
 								#{pro}
 								</foreach>
@@ -367,25 +407,27 @@
  	
  	<select id = "select_movement_warehouse_list"  parameterType="java.util.Map"  resultType = "Select_stock_order_movement_warehouseDTO">
  		SELECT	*
- 		FROM	(SELECT s.*,m.arrive_warehouse,m.movement_amount,m.movement_state,p.product_name,w.warehouse_name,e.employee_name,rownum as rnum	
- 				 FROM	stock_order s JOIN movement_warehouse m
- 				 ON		s.stock_order_id = m.stock_order_id
- 				 JOIN	product p
- 				 ON		s.product_id = p.product_id
- 				 JOIN	warehouse_information w
- 				 ON		s.warehouse_id = w.warehouse_id
- 				 JOIN	employee e
- 				 ON		s.employee_id = e.employee_id
- 				 ORDER BY s.reg_date DESC
+ 		FROM	(SELECT a.*,rownum as rnum	
+ 				 FROM
+ 				 	(	
+	 				 SELECT s.*,m.arrive_warehouse,m.movement_amount,m.movement_state,p.product_name,w.warehouse_name,e.employee_name	
+	 				 FROM	stock_order s JOIN movement_warehouse m
+	 				 ON		s.stock_order_id = m.stock_order_id
+	 				 JOIN	product p
+	 				 ON		s.product_id = p.product_id
+	 				 JOIN	warehouse_information w
+	 				 ON		s.warehouse_id = w.warehouse_id
+	 				 JOIN	employee e
+	 				 ON		s.employee_id = e.employee_id
+	 				 <if test = "stock_order_id != null">
+	 				 WHERE	m.stock_order_id = #{stock_order_id}
+	 				 </if>
+	 				 ORDER BY m.stock_order_id DESC
+	 				) a
  				 )
- 		<trim prefix="WHERE" prefixOverrides="AND">
- 		<if test = "stock_order_id != null">
- 		stock_order_id = #{stock_order_id}
- 		</if>
- 		<if test = "start != null">
- 		rnum <![CDATA[>=]]>#{start}AND rnum <![CDATA[<=]]> #{end}
- 		</if>
- 		</trim>
+	 		<if test = "start != null">
+	 		WHERE	rnum <![CDATA[>=]]>#{start} AND rnum <![CDATA[<=]]> #{end}
+	 		</if>
  	</select>
  	
  	<delete id = "delete_movement_stock_order" parameterType = "java.util.Map">

@@ -132,24 +132,24 @@ $('.distribution_view_heading').bind("click",function(){
 					<c:forEach var = "dto" items = "${out_storageDtos}">
 					<tr>
 						<th>${dto.sales_id}</th>	
-						<th>${dto.product_name}</th>		
-						<th>${dto.count_sales}</th>
+						<th>${dto.product_name}</th>
+						<th><fmt:formatNumber value="${dto.count_sales}" type = "number" /></th>		
 						<c:if test = "${(dto.stock_amount - dto.count_sales) >= 0 }">
-							<th>${dto.count_sales}</th>	 
+						<th><fmt:formatNumber value="${dto.count_sales}" type = "number" /></th>	
 							<th>0</th>
 						</c:if>
 						<c:if test = "${(dto.stock_amount - dto.count_sales) < 0 }">
-							<th>${dto.stock_amount}</th>	 
-							<th>${ dto.count_sales - dto.stock_amount}</th>
+						<th><fmt:formatNumber value="${dto.stock_amount}" type = "number" /></th>
+						<th><fmt:formatNumber value="${dto.count_sales - dto.stock_amount}" type = "number" /></th>
 						</c:if>
 						<th>${dto.storage_out_date}</th>
 						<th>${dto.employee_name}</th>		
 						<th>
 							<c:if test = "${(dto.stock_amount - dto.count_sales) >= 0 }">
-								<butto class="btn btn-primary" onclick = "storage_comp_go('${dto.sales_id}','out_storage','${storage_out_date}')">출고대기</button>
+								<button class="btn btn-sm btn-primary" onclick = "storage_comp_go('${dto.sales_id}','out_storage','${storage_out_date}')">출고대기</button>
 							</c:if>
 							<c:if test = "${(dto.stock_amount - dto.count_sales) < 0 }">
-								<button class="btn btn-primary" onclick = "storage_comp_go('${dto.sales_id}','out_storage_wait','${storage_out_date}')">재고준비중</button>
+								<button class="btn btn-sm btn-primary" onclick = "storage_comp_go('${dto.sales_id}','out_storage_wait','${storage_out_date}')">재고준비중</button>
 							</c:if>
 						</th>
 					</tr>
@@ -214,7 +214,7 @@ $('.distribution_view_heading').bind("click",function(){
 							<th>${dto.storage_in_date}</th>
 							<th>${dto.employee_name}</th>	 
 							<th>
-								<button class="btn btn-primary" onclick = "storage_go('${dto.purchase_id}','in_storage','${dto.storage_in_date}')">입고완료</button>
+								<button class="btn btn-sm btn-primary" onclick = "storage_go('${dto.purchase_id}','in_storage','${dto.storage_in_date}')">입고완료</button>
 							</th>
 						</tr>
 					</c:forEach>
@@ -274,7 +274,7 @@ $('.distribution_view_heading').bind("click",function(){
 								<th>${dto.stock_order_id}</th>
 								<th>${dto.kor_name}</th>
 								<th>${dto.storage_out_date}</th>
-								<th><button class="btn btn-primary" onclick = "storage_comp_go('${dto.stock_order_id}','storage_out_complete','${dto.storage_out_date}')">출고완료</button></th>
+								<th><button class="btn btn-sm btn-primary" onclick = "storage_comp_go('${dto.stock_order_id}','storage_out_complete','${dto.storage_out_date}')">출고완료</button></th>
 							</tr>
 					</c:forEach>
 				</table>
