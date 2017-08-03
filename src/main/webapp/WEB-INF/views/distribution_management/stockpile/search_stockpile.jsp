@@ -15,7 +15,7 @@ $(function(){
 		var year= now.getFullYear();
 	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 		
-		var today = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate()+1);
+		var today = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1)*1);
 		
 		if(start_day == "" || end_day == ""){
 			alert("날짜를 선택하시오.");

@@ -64,6 +64,9 @@ $(".panel-body a").bind("click", function(event) {
 								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4753'}">
 								<td><a href = "/distribution_management/adjustment_inventory/adjustment_inventory_list?oder_id=${dto.pro_id}">재고조정</a></td>
 								</c:if>
+								<c:if test = "${fn:substring(dto.pro_id,0,4) == '4751'}">
+								<td><a href = "/distribution_management/movement_warehouse/movement_list?oder_id=${dto.pro_id}">창고이동</a></td>
+								</c:if>
 								<td>${dto.plus_stock}</td>
 								<td>${dto.minus_stock}</td>
 								<td>${dto.stock_amount}</td>
@@ -94,6 +97,23 @@ $(".panel-body a").bind("click", function(event) {
 				</table>
 			</div>
 		</div>
+		<br>
+		<%-- <div class="panel-body distribution_view_content">
+			<div class="table-responsive">
+				<table class="table table-condensed">
+					<tr>
+						<th>양품창고 수량</th>
+						<th>불량창고 수량</th>
+						<th>출고대기창고 수량</th>
+					</tr>
+						<tr>
+							<th>${warehouse_good_stock}</th>
+							<th>${warehouse_bad_stock}</th>
+							<th>${warehouse_will_stock}</th>
+						</tr>
+				</table>
+			</div>
+		</div> --%>
  	</div>
 </div>
 </div> 
