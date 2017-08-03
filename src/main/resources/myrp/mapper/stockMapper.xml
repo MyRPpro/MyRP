@@ -363,9 +363,6 @@
  		<if test = "start != null">
  		WHERE	#{start} <![CDATA[<=]]> rnum AND rnum <![CDATA[<=]]> #{end}
  		</if>
- 		
- 		
-
  	</select>
  	
  	<select id = "select_movement_warehouse_list"  parameterType="java.util.Map"  resultType = "Select_stock_order_movement_warehouseDTO">

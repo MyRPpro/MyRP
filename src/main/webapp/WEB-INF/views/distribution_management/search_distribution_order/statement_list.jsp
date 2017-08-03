@@ -78,7 +78,7 @@ $(function(){
 });
 
 function stock_complete(id,product_id,lack_stock){
-	var togo = $('#request_out');
+	var togo = $('#main_screen');
 	var data = {
 				"goes" 				: "stock_complete",
 				"id"	: id,
