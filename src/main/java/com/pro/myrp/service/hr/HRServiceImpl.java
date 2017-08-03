@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -543,6 +544,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void add_personnel_card_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -825,6 +827,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		
 	}
 
+	@Transactional
 	@Override
 	public void add_hr_appointment_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -1194,6 +1197,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("hr_codeVos", hr_codeVos);	
 	}
 
+	@Transactional
 	@Override
 	public void reg_salary_info_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -1293,6 +1297,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("cnt", cnt);
 	}
 
+	@Transactional
 	@Override
 	public void clear_salary_bank_account_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
