@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../setting.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,11 +26,12 @@
 		</script>
 	</c:if>
 		 --%>
-	<div class="row" id="row">
+		 
+	<div class="row">
 		<div class="col-xs-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading" id="sales_list_table_heading">
-					<h3 class="panel-title">
+			<div class="panel panel-primary" id="sales_list_panel">
+				<div class="panel-heading">
+					<h3 class="panel-title" id="sales_list_table_panel_title">
 						<span class="glyphicon glyphicon-euro"></span> 
 						&emsp;
 						<c:choose>
@@ -64,7 +66,7 @@
 						검색 목록 Sales_List_Table &emsp; 검색개수 : 총 ${cnt} 개
 					</h3>
 				</div>	<!--  // panel-heading -->
-				<div class="panel-body" id="sales_list_table_content">
+				<div class="panel-body" id="sales_list_table_panel_body">
 					<div class="table-responsive">
 						<form action="#" method="get" onsubmit="return reg_sales();">
 							<div class="form-group">
@@ -119,12 +121,9 @@
 	
 	<script type="text/javascript">	
 	
-	$(document).ready(function(){
-		$('#sales_list_table_heading').click(function(){
-			$('#sales_list_table_content').slideToggle();
-			return false;
-		});
-		
+	$('#sales_list_table_panel_title').click(function(){
+		$('#sales_list_table_panel_body').slideToggle();
+		return false;
 	});
 	
 	function detail_page(param){
@@ -132,7 +131,7 @@
 		var state = param[1];
 		
 		$('#sales_list_table_content').slideUp();
-		$('#sales_list_content').slideUp();
+		$('#sales_list_table_panel_body').slideUp();
 		  
 		if( state == "22213" ){
 			$('#list_detail').slideDown();

@@ -145,6 +145,26 @@ public interface purchaseController extends MyRPController {
 	 * @throws Exception
 	 */
 	public String search_reg_purchase_pro(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 구매 입력 테이블 : 부족 재고 조회 후 처리
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String list_approval_pay(HttpServletRequest req, Model model) throws Exception;
+	
+	/**
+	 * 구매 입력 테이블 : 부족 재고 조회 후 처리
+	 * @author Jang.EC
+	 * @param req
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	public String list_complete_pay(HttpServletRequest req, Model model) throws Exception;
 
 
 

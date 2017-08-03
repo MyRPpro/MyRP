@@ -68,15 +68,17 @@ public interface CodeMyRP {
 
 
 			// 구매검색
-			public static final int search_purchase 		 = 13100;	// 구매 검색
-				public static final int purchase_list 		 = 13110;	// 구매 리스트
-				public static final int purchase_list_table  = 13120;	// 구매 리스트 테이블 내용
-				public static final int purchase_list_page 	 = 13130;	// 구매 리스트 테이블 페이지 번호
-				public static final int detail_purchase 	 = 13140;	// 구매 상세
-				public static final int detail_purchase_pro  = 13150;	// 구매 상세 처이
-				public static final int modify_purchase 	 = 13160;	// 구매 수정
-				public static final int modify_purchase_pro  = 13170;	// 구매 수정 처리
-
+			public static final int search_purchase 		 	= 13100;	// 구매 검색
+				public static final int purchase_list 		 	= 13110;	// 구매 리스트
+				public static final int purchase_list_table  	= 13120;	// 구매 리스트 테이블 내용
+				public static final int purchase_list_page 	 	= 13130;	// 구매 리스트 테이블 페이지 번호
+				public static final int detail_purchase 		 = 13140;	// 구매 상세
+				public static final int detail_purchase_pro 	 = 13150;	// 구매 상세 처이
+				public static final int modify_purchase 	 	= 13160;	// 구매 수정
+				public static final int modify_purchase_pro  	= 13170;	// 구매 수정 처리
+				public static final int list_approval_pay 		 = 13180;	// 구매 상환 승인 조회
+				public static final int list_complete_pay  		 = 13190;	// 구매 상환 완료 조회	
+				
 				
 			// 구매입력
 			public static final int input_purchase 					= 13200;
@@ -299,8 +301,11 @@ public interface CodeMyRP {
 			public static final int complete_approval_purchase_statement 	= 23203;	// 구매전표승인완료
 			public static final int request_purchase_storage_in_warehouse 	= 23204;	// 구매입고요청						
 			public static final int complete_purchase_storage_in_warehouse 	= 23205;	// 구매입고완료
-			public static final int wait_payments 							= 23206;	// 지급대기
-			public static final int complete_payments 						= 23207;	// 지급완료						
+			public static final int wait_payments 							= 23206;	// 상환대기
+			public static final int request_payments 						= 23207;	// 상환요청		
+			public static final int approval_payments 						= 23208;	// 상환승인	
+			public static final int complete_payments 						= 23209;	// 상환완효	
+			public static final int purchase_deadline 						= 23299;	// 마감							
 
 		// 계정 코드
 			public static final String account_cash = "500011010000"; //현금

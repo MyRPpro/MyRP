@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../../setting.jsp" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,17 +14,17 @@
 	<div class="row" id="row">
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading" id="detail_sales_heading">
-					<h3 class="panel-title">
+				<div class="panel-heading" >
+					<h3 class="panel-title" id="detail_sales_panel_heading">
 						<span class="glyphicon glyphicon-gift"></span> &emsp;
 						판매번호" ${dtos.get(0).sales_id}"의 상세 정보 입니다. 
 					</h3>
 				</div>	<!--  // panel-heading -->
-				<div class="panel-body">
+				<div class="panel-body" id="detail_sales_panel_body" >
 					<div class="table-responsive">
 						<div class="form-group">
 						
-							<form class="form-inline-block" role="form"  action="#" method="get" >
+							<form class="form-inline-block"   action="#" method="get" >
 								<table class="table table-condensed table-striped" id="detail_sales_form">
 										
 									<tr>
@@ -166,10 +167,11 @@
 								<input type="button" class="btn btn-primary"  value="출고요청하기" name="req_storage_out" onclick="req_storage_out();">
 							</c:if>
 							
-							
 							<c:if test="${sales_state == 22223 and account_id == '500014030000'}">
 								<button type="button" class="btn btn-primary"  onclick="return req_receive();">채권회수요청</button>
 							</c:if>
+							
+							<button type="button" class="btn btn-primary" id="detail_sales_confirm"> 확인 </button>
 							
 						</div>	<!-- // form-group -->
 					</div> <!-- // table-responsive -->
@@ -183,6 +185,7 @@
 
 	
 	<script type="text/javascript">
+	
 	function req_storage_out(){
 		 var sales_id = '${dtos.get(0).sales_id}';
 		$('#alert_pro').load("/sales_management/search_sales/detail_sales_pro"+"?req_kind=storage_out&sales_id="+sales_id);
@@ -195,6 +198,17 @@
 	
 	$('#reg_sales_state').click(function(){
 		$('#main_screen').load("/accounting_management/statement_management/make_statement");
+	});
+	
+	$('#detail_sales_panel_heading').click(function(){
+		$('#detail_sales_panel_body').slideToggle();
+	});
+	
+	$('#detail_sales_confirm').click(function(){
+		
+		$('#detail_sales_panel_body').slideUp();
+		$('#sales_list_table_panel_title').slideDown();
+		$('#sales_list_panel_body').slideDown();
 	});
 	
 	
