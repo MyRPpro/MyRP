@@ -109,8 +109,8 @@ $(function(){
 						<th>${dto.warehouse_name}</th>
 						<th>${dto.employee_name}</th>
 						<th>${dto.reg_date}</th>
-						<th>${dto.delete_stock}</th>
-						<th>${dto.taked_stock}</th>
+						<th><fmt:formatNumber value="${dto.delete_stock}" type = "number" /></th>
+						<th><fmt:formatNumber value="${dto.taked_stock}" type = "number" /></th>
 					</tr>
 					</c:forEach>
 				</table>
@@ -136,7 +136,7 @@ $(function(){
 									<option value = "${ware.warehouse_id}">${ware.warehouse_name}</option>
 								</c:forEach>
 							</select>
-							<button class="btn btn-default" id = "new_reg">신규등록하기</button>
+							<button class="btn btn-sm btn-default" id = "new_reg">신규등록하기</button>
 							<div id = "reg"></div>
 						</div>
 					</div>

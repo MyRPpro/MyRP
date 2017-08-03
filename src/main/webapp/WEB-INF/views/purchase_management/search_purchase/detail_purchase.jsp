@@ -15,7 +15,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading" id="detail_purchase_heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-euro"></span> &emsp;
+						<span class="glyphicon glyphicon-gift"></span> &emsp;
 						구매번호" ${dtos.get(0).purchase_id}"의 상세 정보 입니다. 
 					</h3>
 				</div>	<!--  // panel-heading -->
@@ -168,22 +168,46 @@
 									
 									<!-- ---------------------------------------------------------------------------------------------------------- -->									
 									
-									<c:if test="${purchase_state == 23203 && account_id == 500011050000 }"> <!-- 상품매입시 -->
+									
+									
+									<c:if test="${dtos.get(0).purchase_state == 23203 && dtos.get(1).purchase_state == 23203 && dtos.get(2).purchase_state == 23203 }"> <!-- 입고 요청  -->
 										<input type="button" name="req_storage_in"  id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
 									</c:if>
 									
 									<!-- ---------------------------------------------------------------------------------------------------------- -->									
 									
-									<c:if test="${purchase_state == 23203 && account_id == 500012010000 }"> <!-- 상품매입시 -->
+									<c:if test="${dtos.get(0).purchase_state == 23203 && dtos.get(1).purchase_state == 23205 && dtos.get(2).purchase_state == 23203 }"> <!-- 상환요청 -->
 										<div class="col-xs-9" style="display: inline;" >
 											<div class="input-group">
 												<input type="text" id="text_req_repay" name="req_repay" class="form-control" value="" placeholder="남은 기간" disabled="true" >
 												<span class="input-group-btn">
-													<button id="btn_req_repay" class="btn btn-info" type="button" disabled="true">채무 상환 하기</button>
+													<button id="btn_req_repay" class="btn btn-info" type="button" disabled="true">상환요청</button>
 												</span>
 											</div>
 										</div>
+									</c:if>
+										
+									<!-- ---------------------------------------------------------------------------------------------------------- -->
+									
+									
+									
+									<c:if test="${dtos.get(0).purchase_state == 23208  && dtos.get(1).purchase_state == 23208  }"> <!-- 상환승인-->
+										<input type="button" name="req_complete_pay"  id="req_complete_pay" class="btn btn-primary" value="상환 완료 하기">
+									</c:if>
+									
+									<!-- ---------------------------------------------------------------------------------------------------------- -->
+									<%-- 
+									${dtos.get(0).purchase_state}<br>	
+									${dtos.get(1).purchase_state}<br>	
+									 --%>
+									<c:if test="${dtos.get(0).purchase_state == 23209  && dtos.get(1).purchase_state == 23209  }"> <!-- 상환하기-->
+										<c:if test="${dtos.get(0).purchase_state != 23299  && dtos.get(1).purchase_state != 23299  }"> <!-- 상환하기-->
+											<input type="button" name="req_purchase_bank"  id="req_purchase_bank" class="btn btn-primary" value="상환하기">
 										</c:if>
+									</c:if>
+									
+									<!-- ---------------------------------------------------------------------------------------------------------- -->
+											
 									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
 								</center>
 								<br>
@@ -202,54 +226,62 @@
 	<script type="text/javascript">
 	
 	
+	$('#req_purchase_bank').click(function(){
+		var purchase_id = $('#purchase_id').val();
+		var account_id = $('#account_id').val();
+		
+		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro?req_kind=req_purchase_bank&purchase_id='+purchase_id
+				+"&account_id"+account_id );
+		return false;
+	});
+	
+	
 	$('#alert_pro').ready(function(){
 		$('#alert_pro').slideUp();
-	})
+		return false;
+	});
 	
 	$('#btn-confirm').bind('click',function(){
 		$('#purchase_list_content').slideDown();
 		$('#purchase_list_table_content').slideDown();
 		$('#row').slideToggle();
-	})
+		return false;
+	});
+	 
+	$('#req_complete_pay').click(function(){
+		var purchase_id = $('#purchase_id').val();
+		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_complete_pay&purchase_id="+purchase_id);
+		return false;
+	});
 	
 	$('#button_reg_state').click(function(){
 		$('#main_screen').load('/accounting_management/statement_management/search_all_statements');
+		return false;
 	});
+	
 	$('#btn_req_storage_in').click(function(){
 		var purchase_id = $('#purchase_id').val();
 		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=storage_in&purchase_id="+purchase_id);
+		return false;
 	});
 	
 	$('#btn_req_repay').ready(function(){
 		var purchase_id = $('#purchase_id').val();
 		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=pay_date&purchase_id="+purchase_id);
+		return false;
 	})
 	$('#btn_req_repay').click(function(){
 		var purchase_id = $('#purchase_id').val();
 		var price = $('#supply_price').val();
+		var count = $('#count_purchase').val();
 		price = price.replace(/[^0-9]/g,'');
-		/* console.log("supply_price : " + price); */
 		$('#alert_pro').slideDown(500);
-		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_pay&purchase_id="+purchase_id+"&supply_price="+price);
+		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_repay&purchase_id="+purchase_id
+				+"&supply_price="+price
+				+"&count="+count
+				);
+		return false;
 	});
-	
-	function date_format(date){
-      var year = date.getFullYear();                //yyyy
-      var month = (1 + date.getMonth());            //M
-      month = month >= 10 ? month : '0' + month;    // month 두자리로 저장
-      var day = date.getDate();                     //d
-      day = day >= 10 ? day : '0' + day;            //day 두자리로 저장
-      return  year + '-' + month + '-' + day;
-   }
-	
-	function req_storage_in(){
-		var purchase_id = document.getElementById("purchase_id").value;
-		/* console.log( " sned purchase_id : " + purchase_id ); */
-
-		window.location="/purchase_management/search_purchase/detail_purchase_pro"
-						+"?req_kind=storage_in&purchase_id="+purchase_id;
-						
-	}
 	
 	</script>
 	

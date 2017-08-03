@@ -227,6 +227,7 @@
 								<center>
 									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
 									<input type=button name="btn_modify" class="btn btn-info"  id="btn_modify" value="수정하기" onclick="return modify_purchase();" >
+									<input type="button" name="reg_state" id="btn_reg_state" class="btn btn-info" value="회계전표 입력하기 " >
 									<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
 								</center>
 								<div id="alert_pro">
@@ -242,6 +243,11 @@
 
 
 	<script type="text/javascript">
+	
+		$('#btn_reg_state').click(function(){
+			$('#main_screen').load("/accounting_management/statement_management/make_statement");
+			return false;
+		});
 	
 		function modify_purchase() {
 

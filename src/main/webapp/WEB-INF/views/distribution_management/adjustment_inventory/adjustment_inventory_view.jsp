@@ -59,7 +59,7 @@ $(function(){
 		<th><input class="form-control" type = "number" name = "stock_amount" id = "stock_amount" value = "${stockVo.stock_amount}" readonly></th>
 	</tr>
 	<tr>
-		<th>조정 재고</th>
+		<th>조정 재고＊</th>
 		<th><input class="form-control" type = "number" name = "delete_stock" id = "delete_stock" ></th>
 	</tr>
 	<tr>
@@ -68,7 +68,7 @@ $(function(){
 	</tr>
 	<tr>
 
-		<th colspan = "6"><input class="btn btn-primary" type = "button" id = "sub" value = "확인" ><input class="btn btn-info" type = "reset" value = "취소" ></th>
+		<th colspan = "6"><input class="btn btn-sm btn-primary" type = "button" id = "sub" value = "확인" ><input class="btn btn-sm btn-info" type = "reset" value = "취소" ></th>
 	</tr>
 </table>
 </form>

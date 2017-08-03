@@ -110,6 +110,8 @@
  	</select>
  	
  	
+ 
+ 	
  	<!-- 구매 리스트 : 상태 업데이트 : 구매입고요청 23204 -> 구매입고완료 23205  -->
  	<update id="update_stock_in_purchase" >
  		<![CDATA[
@@ -121,7 +123,6 @@
 			                    )
 		AND     PURCHASE_STATE = 23204
 		AND     ACCOUNT_ID = 500011050000
-		OR		PURCHASE_STATE = 24102
  		]]>
  	</update>
  	
@@ -131,8 +132,8 @@
  		<![CDATA[
 		UPDATE  PURCHASE_ORDER                                 
 		SET     PURCHASE_STATE = 23207                         
-		WHERE   PURCHASE_ID = 311017080101
-    	AND     ACCOUNT_ID = 500012010000
+		WHERE   PURCHASE_ID = '${purchase_id}'
+    	AND     ACCOUNT_ID = '${account_id}'
 		AND     PURCHASE_STATE = 23203
 		AND		ROUND(MONTHS_BETWEEN( ADD_MONTHS(STORAGE_IN_DATE,CONDITION_NOTE_PAYABLE) , SYSDATE ) ) = 0
  		]]>
@@ -143,7 +144,7 @@
  		<![CDATA[
  		SELECT 	COUNT(PURCHASE_ID)  
 	    FROM	PURCHASE_ORDER
-		WHERE 	PURCHASE_STATE = 23205
+		WHERE 	PURCHASE_STATE IN (23205,23206)
  		]]>
  	</select>
  	
@@ -338,7 +339,8 @@
 				                ),'입력값 오류' ) AS STATE_NAME
 
 	                FROM	PURCHASE_ORDER PO
-	                WHERE 	PO.PURCHASE_STATE IN 23205
+	                WHERE 	PO.PURCHASE_STATE IN (23205,23206)
+                  	AND     PO.ACCOUNT_ID =  500011050000
 	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
 	                )
 	          )
@@ -651,6 +653,7 @@
                  	 ON      PO.PURCHASE_STATE = ST.CODE
 	                )
 			WHERE 	PURCHASE_ID = #{purchase_id}
+			ORDER	BY ACCOUNT_ID
  		]]>
  	</select>
 
@@ -947,14 +950,26 @@
  	</update>
  	
  	
+ 	
+ 	
  	<update id="update_state_force" parameterType="java.util.Map" >
+ 	<![CDATA[
+		UPDATE	PURCHASE_ORDER
+		SET		PURCHASE_STATE 	= ${after_state}
+		WHERE	PURCHASE_ID 	= #{purchase_id}
+		AND		ACCOUNT_ID 		IN ( ${account_id} )
+ 	]]>
+ 	</update>
+ 	
+ 	<update id="update_state_force2" parameterType="java.util.Map" >
  	<![CDATA[
 		UPDATE	PURCHASE_ORDER
 		SET		PURCHASE_STATE 	= '${after_state}'
 		WHERE	PURCHASE_ID 	= '${purchase_id}'
-		AND		ACCOUNT_ID 		= '${account_id}'
+		AND		ACCOUNT_ID 		IN (${account_id1},${account_id2})
  	]]>
  	</update>
+ 	
  	
  	
 	<select id="select_purchase" parameterType="String" resultType="PurchaseDTO">
@@ -964,7 +979,7 @@
 		JOIN    STATE ST
 		ON      P.PURCHASE_STATE = ST.CODE
 		WHERE	PURCHASE_ID	= #{purchase_id}
-		AND	 	ACCOUNT_ID = 500011050000
+		AND	 	ACCOUNT_ID = 500012010000
 	]]>
  	</select>
 
@@ -1065,7 +1080,97 @@
 		]]>
 	</update>
 
+	
+	
+	
+	<!-- 구매 상태 업데이트 상환승인요청 -> 상환승인 / 23207 -> 23208 -->
+ 	<update id="update_purchase_state" parameterType="java.util.Map" >
+		<![CDATA[
+		UPDATE  PURCHASE_ORDER                                 
+		SET     PURCHASE_STATE = '${after_state}'                         
+		WHERE   PURCHASE_STATE = '${before_state}'
+		]]>
+	</update>
+	
+	<!-- 구매 상태 업데이트 개수 구하기 -->
+	<select id="select_purchase_state_cnt" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+			SELECT	COUNT(PURCHASE_ID)
+			FROM	PURCHASE_ORDER
+			WHERE	PURCHASE_STATE = '${after_state}'
+		]]>
+	</select>
+	
+	<!-- 구매상태 업데이트 목록 구하기 -->
+	<select id="select_purchase_state" parameterType="java.util.Map" resultType="PurchaseDTO">
+	<![CDATA[
+		SELECT  	*
+	FROM    ( 
+			SELECT	PURCHASE_ID, ACCOUNT_ID, ACCOUNT_NAME, ORDER_ID, PRODUCT_NAME, 
+		               COMPANY_ID, COMPANY_NAME, EMPLOYEE_NAME, REG_DATE, UPDATE_DATE, 
+		               STORAGE_IN_DATE, COUNT_PURCHASE, SUPPLY_PRICE, 
+		               CONDITION_NOTE_PAYABLE, PURCHASE_STATE, STATE_NAME ,ROWNUM rNum
+	
+	     	FROM   (  
+	     			SELECT 
+			                PO.PURCHASE_ID,
+                       		PO.ACCOUNT_ID,
+				                NVL((
+				                SELECT ACCOUNT_NAME 
+				                FROM   ACCOUNT A
+				                WHERE  PO.ACCOUNT_ID = A.ACCOUNT_ID
+				                ),'입력값 오류' ) AS ACCOUNT_NAME ,
+			                PO.ORDER_ID,      
+				                NVL((
+				                SELECT PRODUCT_NAME 
+				                FROM   PRODUCT P
+				                WHERE  PO.PRODUCT_ID = P.PRODUCT_ID
+				                ),'입력값 오류' ) AS PRODUCT_NAME ,
+			                PO.COMPANY_ID,  
+				                NVL((
+				                SELECT COMPANY_NAME 
+				                FROM   COMPANY C
+				                WHERE  PO.COMPANY_ID = C.COMPANY_ID
+				                ),'입력값 오류' ) AS COMPANY_NAME ,
+				                NVL((
+				                SELECT EMPLOYEE_NAME 
+				                FROM   EMPLOYEE E
+				                WHERE  PO.EMPLOYEE_ID = E.EMPLOYEE_ID
+				                ),'입력값 오류' ) AS EMPLOYEE_NAME ,
+			                PO.REG_DATE, 
+                       		PO.UPDATE_DATE, 
+			                PO.STORAGE_IN_DATE, 
+			                PO.COUNT_PURCHASE,
+			                PO.SUPPLY_PRICE, 
+			                PO.CONDITION_NOTE_PAYABLE,
+			                PO.PURCHASE_STATE,
+				                NVL((
+				                SELECT KOR_NAME 
+				                FROM   STATE ST
+				                WHERE  PO.PURCHASE_STATE = ST.CODE
+				                ),'입력값 오류' ) AS STATE_NAME
 
+	                FROM	PURCHASE_ORDER PO
+	                WHERE 	PO.PURCHASE_STATE IN ${state}
+	                ORDER 	BY PO.PURCHASE_ID DESC, PO.ACCOUNT_ID ASC 
+	                )
+	          )
+	WHERE 	rNum BETWEEN #{start} AND #{end}
+	ORDER 	BY PURCHASE_ID DESC, ACCOUNT_ID ASC
+	]]>
+	</select>
+	
+	
+	<update id="update_purchase_bank" parameterType="java.util.Map">
+	<![CDATA[
+		UPDATE 	BANK_ACCOUNT 
+		SET 	BANK_ACCOUNT_BALANCE = BANK_ACCOUNT_BALANCE - #{price}
+		WHERE 	BANK_ACCOUNT_ID = #{account_id}
+	]]>
+	</update>
+	
+	
+	
 
 	
 </mapper>
