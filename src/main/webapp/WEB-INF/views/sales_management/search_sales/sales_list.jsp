@@ -14,17 +14,17 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading"  id="sales_list_heading" >
-					<h3 class="panel-title">
+				<div class="panel-heading">
+					<h3 class="panel-title" id="sales_list_panel_title">
 						<span class="glyphicon glyphicon-euro"></span> &emsp;
 						판매 리스트 페이지 Sales_List
 					</h3>
 				</div>	<!-- // panel-heading -->
-				<div class="panel-body" >
-					<div class="input-group" id="sales_list_content" style="width: 100%;">
+				<div class="panel-body" id="sales_list_panel_body" >
+					<div class="input-group" id="sales_list_input-group" style="width: 100%;">
 						<font class="media-heading" style="margin:0 auto;"> 입력된 판매 내역을 검색 할 수 있는 페이지 입니다.</font><br><br>
-							<form class="form-inline-block" action="#" name="purchase_list_form" method="get">
-								<div class="input-group">
+							<form class="form-inline-block" id="sales_list_form" action="#" name="purchase_list_form" method="get">
+								<div class="input-group" >
 									<input type="text" class="form-control" name="input_search" id="search_str" placeholder="판매번호를 입력하세요">
 									<span class="input-group-btn">
 										<button class="btn btn-primary" id="list_btn_search" type="button" onclick="return search_list(1,1)"> 검색 </button>
@@ -87,7 +87,7 @@
 								</div>	<!-- // btn-group-justified -->
 							</form>	
 							<div id="list_page"></div>
-					</div>	<!-- // input-group -->
+						</div>	<!-- // input-group -->
 					<div id="list_table"></div>
 				</div>	<!-- // panel-body  -->  	
 			</div> <!-- // panel panel-primary -->
@@ -99,8 +99,8 @@
 	
 	
 	$(document).ready(function(){
-		$('#sales_list_heading').click(function(){
-			$('#sales_list_content').slideToggle();
+		$('#sales_list_panel_title').click(function(){
+			$('#sales_list_input-group').slideToggle();
 			return false;
 		});
 		

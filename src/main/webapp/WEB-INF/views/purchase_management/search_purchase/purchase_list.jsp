@@ -57,7 +57,8 @@
 								&nbsp;
 								<input type="button" name="btn_search_state" class="btn btn-info " value="전표승인조회" id="list_btn_state"	onclick="return search_list(1,2)">
 								<input type="button" name="btn_search_storage_in" class="btn btn-info " value="입고완료조회" id="list_btn_in"	onclick="return search_list(1,3)">
-								<input type="button" name="btn_search_repay" class="btn btn-info " value="지급완료조회" 	id="list_btn_pay"	onclick="return search_list(1,4)">
+								<input type="button" name="btn_approval_pay" class="btn btn-info " value="상환승인조회" 	id="list_approval_pay">
+								<input type="button" name="btn_complete_pay" class="btn btn-info " value="상환완료조회" 	id="list_complete_pay">
 								<br><br>
 								<div id="list_page"></div> 
 								</center>
@@ -75,7 +76,23 @@
 	
 	<script>	
 	
+	$('#list_approval_pay').click(function list_approval_pay_table (){
+		var pagenum = 1;
+		$('#list_table').slideDown(500);
+		$('#list_page').slideUp(500);
+		$('#list_table').load('/purchase_management/search_purchase/list_approval_pay?pageNum='+pagenum);
+		return false;
+		
+		
+	});
 	
+	$('#list_complete_pay').click(function list_complete_pay_table(){
+		var pagenum = 1;
+		$('#list_table').slideDown(500);
+		$('#list_page').slideUp(500);
+		$('#list_table').load('/purchase_management/search_purchase/list_complete_pay?pageNum='+pagenum);
+		return false;
+	});
 	
 	$('#purchase_list_heading').bind("click",function(){  
 		$('#purchase_list_content').slideToggle();
@@ -95,6 +112,7 @@
 		var search_str = null;
 		/* console.log(" pagenum :" + pagenum ); */
 		
+		
 		// 전체 검색
 		if ( check == 0 ){
 			search_str = "all";
@@ -104,15 +122,12 @@
 			search_str = document.getElementById("search_str").value;
 			if ( !search_str )
 				search_str = "all";
-		
 		// 전표승인 검색
 		} else if (check == 2 ){
 			search_str = "account";
-		
 		// 출고완료 검색
 		} else if (check == 3 ){
 			search_str = "stock";
-		
 		// 지급완료
 		} else if (check == 4 ){
 			search_str = "pay";

@@ -95,7 +95,20 @@
 			alert("전표생성 도중 오류가 발생하였습니다.");
 		</script>
 	</c:if>
-
+	
+	<c:if test="${purchase_bank_cnt > 0}">
+		<script type="text/javascript">
+		setTimeout(function(){
+				var cnt = '${purchase_bank_cnt}';
+				var price = '${price}';
+				price = Math.abs(price);
+				alert( "금액" + price +"원을 총"+cnt+"번 상환완료하였습니다.");
+			}, 200);
+		</script>
+	</c:if>
+	
+	
+	
 
 	<input type="hidden" id="pay_date" name="pay_date" value="${pay_date}">
 	<input type="hidden" id="pay_diff" name="pay_diff" value="${pay_diff}">

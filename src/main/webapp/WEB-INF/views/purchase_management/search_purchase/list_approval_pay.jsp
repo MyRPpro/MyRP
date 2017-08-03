@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ include file="../../setting.jsp" %>
+<%@ include file="../../setting.jsp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
 <body>
 
 	<c:if test="${cnt==-1}">
@@ -21,38 +27,39 @@
 		</script>
 	</c:if>
 	
+	
+	<div class="text-center">
+		<ul class="pagination" style="margin:0 auto;">
+			<c:if test="${startPage > pageBlock}">
+				<li> <a href="javascript:list_approval_pay_table('1')">◀◀ </a> </li> <!-- 첫 페이지로 이동 -->
+				<li> <a href="javascript:list_approval_pay_table('${startPage - pageBlock}')">◀</a> </li> <!-- 이전 블록으로 이동 -->
+			</c:if>
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				<c:if test="${i == currentPage}">
+					<li> <span><b>${i}</b></span> </li>
+				</c:if>
+				<c:if test="${i != currentPage}">
+					<li> <a href="javascript:list_approval_pay_table('${i}')"> ${i}</a> </li>
+				</c:if>
+			</c:forEach>
+			<c:if test="${pageCount > endPage}">
+				<li> <a href="javascript:list_approval_pay_table('${startPage + pageBlock}')">▶</a> </li> <!-- 다음 블록으로 이동 -->
+				<li> <a href="javascript:list_approval_pay_table('${pageCount}')">▶▶</a> </li> <!-- 마지막 페이지로 이동 -->
+			</c:if>
+		</ul>
+	</div>
+	<br>
+	
+	
 	<div class="panel panel-primary">
-		<div class="panel-heading" id="purchase_list_table_heading">
+		<div class="panel-heading" id="list_approval_pay_table_heading">
 			<h3 class="panel-title">
 				<span class="glyphicon glyphicon-gift"></span> 
-				&nbsp; &nbsp; 
-				<c:choose>
-					<c:when test="${check==0}">
-						전체검색
-					</c:when>
-					<c:when test="${check==1}">
-						검색어 검색
-					</c:when>
-					<c:when test="${check==2}">
-						전표승인 조회
-					</c:when>
-					<c:when test="${check==3}">
-						입고완료 조회
-					</c:when>
-					<c:when test="${check==4}">
-						미승인 판매 조회
-					</c:when>
-					<c:otherwise>
-						입력값 오류
-					</c:otherwise>
-				</c:choose>
-				검색 목록 조회 search_reg_purchase &emsp;  검색개수 : 총 ${cnt} 개 
-			</h3> 
-			
-			
+				상환 승인 검색 목록 조회 &emsp; 검색개수 : 총 ${cnt}개 
+			</h3>
 		</div>	<!-- // panel-title -->
 		
-		<div class="panel-body" id="purchase_list_table_content">
+		<div class="panel-body" id="list_approval_pay_table_content">
 			<div class="table-responsive">
 				<div class="form-group" >
 					<table class="table table-condensed table-striped">
@@ -92,45 +99,33 @@
 	
 	<script type="text/javascript">	
 	
-		$('#purchase_list_table_heading').click(function(){
-			$('#purchase_list_table_content').slideToggle();
+		$('#list_approval_pay_table_heading').click(function(){
+			$('#list_approval_pay_table_content').slideToggle();
 		});
 		
 		function detail_page(param) {
 
-			/* console.log(" param :" + param) */
-
 			param = param.split(',');
-			/* console.log(" purchase_id :" + param[0]);
-			console.log(" purchase_state :" + param[1]);
-			console.log(" order_id :" + param[2]); */
-
 			var state = param[1];
 			
 			// purchase_list 접기
-			$('#purchase_list_content').slideUp();
+			$('#list_approval_pay_content').slideUp();
 			 
-			// purchase_list_table 접기
-			$('#purchase_list_table_content').slideUp();
-			 
-			if (state == "23202") {
-				$('#list_dateil').slideDown(500);
-				$('#list_dateil').load(
-						'/purchase_management/search_purchase/modify_purchase?purchase_id='
-								+ param[0] + '&purchase_state=' + param[1]);
-				return false;
-
-			} else {
-				$('#list_dateil').slideDown(500);
-				$('#list_dateil').load(
-						'/purchase_management/search_purchase/detail_purchase?purchase_id='
-								+ param[0] + '&purchase_state=' + param[1]
-								+ '&account_id=' + param[2]
-						);
+			// list_approval_pay_table 접기
+			$('#list_approval_pay_table_content').slideUp();
+			
+			$('#list_dateil').slideDown(500);
+			$('#list_dateil').load(
+					'/purchase_management/search_purchase/detail_purchase?purchase_id='
+							+ param[0] + '&purchase_state=' + param[1]
+							+ '&account_id=' + param[2] );
+	
 				return false;
 			}
-		}
+		
 	</script>
+	
+	
 	
 </body>
 </html>

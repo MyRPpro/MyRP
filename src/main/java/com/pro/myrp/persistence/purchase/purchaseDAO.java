@@ -137,4 +137,28 @@ public interface purchaseDAO extends MyRPDAO {
 
 	public ArrayList<PurchaseDTO> select_complete_pay_purchase_list(Map<String, Object> daoMap);
 
+
+
+	public int update_purchase_account();
+
+
+
+	public int update_purchase_state(Map<String, Object> daoMap);
+
+
+
+	public int select_purchase_state_cnt(Map<String, Object> daoMap);
+
+
+
+	public ArrayList<PurchaseDTO> select_purchase_state(Map<String, Object> daoMap);
+
+
+
+	public int update_state_force2(Map<String, Object> daoMap);
+
+
+
+	public int update_purchase_bank(Map<String, Object> daoMap);
+
 }
