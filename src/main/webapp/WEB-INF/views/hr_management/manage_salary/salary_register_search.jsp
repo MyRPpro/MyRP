@@ -10,6 +10,45 @@
 </head>
 <script type="text/javascript">
 	
+	$(document).ready(function() {
+		var select_tab = "<c:out value='${select_tab}'/>";
+		switch(select_tab) {
+		case "fix_salary":		var salary_register_name = document.page16510_form01.salary_register_name.value;
+								var search_start = document.page16510_form01.search_start.value;
+								var search_end = document.page16510_form01.search_end.value;
+								$("#page16510_div01").slideDown();
+								$("#page16510_div02").slideDown();
+								$("#page16510_div03").slideDown();
+								$("#page16510_div04").slideUp();
+								$("#page16510_div02").load(
+										"/hr_management/manage_salary/salary_register_nav"+
+										"?salary_register_name="+salary_register_name+
+										"&search_start="+search_start+
+										"&search_end="+search_end);
+								$("#page16510_div03").load(
+										"/hr_management/manage_salary/salary_register_list"+
+										"?salary_register_name="+salary_register_name+
+										"&search_start="+search_start+
+										"&search_end="+search_end);
+								break;
+		case "confirm_salary":	$("#page16510_div01").slideUp();
+								$("#page16510_div02").slideUp();
+								$("#page16510_div03").slideUp();
+								$("#page16510_div04").slideDown();
+								$("#page16510_div04").load("/hr_management/manage_salary/salary_statement_search");
+								break;
+		case "pay_salary":		$("#page16510_div01").slideUp();
+								$("#page16510_div02").slideUp();
+								$("#page16510_div03").slideUp();
+								$("#page16510_div04").slideDown();
+								$("#page16510_div04").load("/hr_management/manage_salary/clear_salary_bank_account");
+								break;
+		default: 				break;
+		}
+		
+		return false;
+	});
+	
 	$("#page16510_div01_toggle").bind("click", function(event) {
 		$("#page16510_div01").slideToggle();
 		return false;
@@ -29,7 +68,7 @@
 		$("#page16510_div02").slideUp();
 		$("#page16510_div03").slideUp();
 		$("#page16510_div04").slideDown();
-		$("#page16510_div04").load("/accounting_management/statement_management/make_statement");
+		$("#main_screen").load("/accounting_management/statement_management/search_statements");
 		return false;
 	});
 	

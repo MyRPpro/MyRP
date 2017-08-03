@@ -83,7 +83,7 @@
 					value="${employeeVo.employee_name}" readonly></td>
 				</tr>
 				<tr>
-					<th>발령일</th>
+					<th>발령일＊</th>
 					<td>
 						<input class="form-control input-sm" type="date" name="appointment_date"
 						value="<fmt:formatDate value='${appointment_date}' pattern='yyyy-MM-dd'/>"
@@ -102,7 +102,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>발령직급명</th>
+					<th>발령직급명＊</th>
 					<td>
 						<select class="form-control input-sm" name="post_rank">
 							<option value=0>발령 직급 선택</option>
@@ -124,7 +124,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>발령부서명</th>
+					<th>발령부서명＊</th>
 					<td>
 						<select class="form-control input-sm" name="post_dept">
 							<option value=0>발령 부서 선택</option>

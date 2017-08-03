@@ -747,6 +747,7 @@ Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26450,'급여확정요청','r
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26451,'급여지급요청','request_payments_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26452,'급여지급대기','wait_payments_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26453,'급여지급완료','complete_payments_salary');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (26454, '급여지급취소','cancle_payments_salary');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (24101,'입고요청접수','receive_request_storage_in_warehouse');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (24102,'입고완료','complete_storage_in_warehouse');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (24201,'출고요청접수','receive_request_storage_out_warehouse');
@@ -821,6 +822,7 @@ INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(5,'수당','Y');
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(6,'경비','Y');
 INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(7,'공제','Y');
+INSERT INTO hr_code_group(hr_code_group_id,hr_code_group_name,use_state) VALUES(8,'휴가사유','Y');
 COMMIT;
 
 INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(2,100,'사원','Y');
@@ -829,6 +831,29 @@ INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(2
 INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(2,400,'차장','Y');
 INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(2,500,'부장','Y');
 INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(2,600,'이사','Y');
+COMMIT;
+
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(3,100,'정기휴가','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(3,200,'연차휴가','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(3,300,'경조사휴가','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(3,400,'병가','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(3,500,'출산휴가','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(3,600,'월차','Y');
+COMMIT;
+
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(4,100,'정기급여','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(4,200,'특별상여금','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(4,300,'성과급','Y');
+COMMIT;
+
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(5,100,'야근수당','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(5,200,'주말근무수당','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(5,300,'가족수당','N');
+COMMIT;
+
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(8,100,'개인사정','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(8,200,'여행','Y');
+INSERT INTO hr_code(hr_code_group_id,hr_code_id,hr_code_name,use_state) VALUES(8,300,'가족행사','N');
 COMMIT;
 
 INSERT INTO department(dept_id,dept_name,access_role,use_state) VALUES(1000,'관리자','ADMIN','Y');
@@ -841,13 +866,13 @@ COMMIT;
 
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(1001,1000,2,500,'관리자','8011161111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(1001,5000);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(6001,6000,2,100,'이인홍','7812161111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(6001,6000,2,300,'이인홍','7812161111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(6001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(4001,4000,2,200,'최연호','8510121111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(4001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(2001,2000,2,300,'장은철','8707101111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(2001,5000);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(3001,3000,2,400,'장재희','8705231111111',SYSDATE);
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(3001,3000,2,200,'장재희','8705231111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(3001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(5001,5000,2,500,'이주원','9501302111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(5001,5000);

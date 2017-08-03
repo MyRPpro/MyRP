@@ -1067,12 +1067,14 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 	public void salary_register_search_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String select_tab = req.getParameter("select_tab");
 		int hr_code_group_id = 4;
 		String use_state = "Y";
 		Map<String, Object> daoMap = new HashMap<>();
 		daoMap.put("use_state", use_state);
 		daoMap.put("hr_code_group_id", hr_code_group_id);
 		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		model.addAttribute("select_tab", select_tab);
 		model.addAttribute("hr_codeVos", hr_codeVos);	
 	}
 	
@@ -1449,6 +1451,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		daoMap.put("salary_register_id", salary_register_id);
 		daoMap.put("account_id", account_salary);
 		Salary_registerVO salary_registerVo = dao.select_salary_register(daoMap);
+		salary_registerVo.setSalary_state_name(dao.select_state(salary_registerVo.getSalary_state()));
 		List<Calc_salaryDTO> calc_salaryDtos = dao.select_calc_salary();
 		List<SalaryDTO> salaryDtos = new ArrayList<>();
 		long total_pay = 0;

@@ -73,7 +73,7 @@
 						<td>${dto.join_date}</td>
 					</tr>
 					<tr>
-						<th>퇴직일</th>
+						<th>퇴직일＊</th>
 						<td>
 							<c:set var="now" value="<%= new java.util.Date() %>"/>
 							<input class="form-control input-sm" type="date" name="retired_date"
@@ -82,7 +82,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>퇴직사유</th>
+						<th>퇴직사유＊</th>
 						<td>
 							<textarea class="form-control input-sm" rows="5" name="retired_reason">사유를 작성하세요.</textarea>
 						</td>

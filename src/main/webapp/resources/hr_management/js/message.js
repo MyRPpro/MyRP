@@ -18,7 +18,7 @@ var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 /**
  * 기초 등록
  */
-var biz_reg_no				= "사업자 등록번호";
+var biz_reg_no				= "사업자 등록번호: 문자12자 | 필수입력사항";
 var ceo_name 				= "대표자";
 var corp_reg_no				= "법인 등록번호";
 var biz_type				= "업태";
@@ -228,4 +228,5 @@ var weekend_overtime	= "주말 시간";
 /**
  * 근태관리
  */
-
+var attitude_date1 		= "휴가시작 일자";
+var attitude_date2 		= "휴가종료 일자";
