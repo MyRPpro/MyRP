@@ -15,7 +15,7 @@ $(function(){
 		var year= now.getFullYear();
 	    var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
 		
-		var today = year + "-" + mon + "-" + (now.getDate()+1);
+		var today = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1)*1);
 		
 		if(start_day == "" || end_day == ""){
 			alert("날짜를 선택하시오.");
@@ -80,14 +80,14 @@ $(function(){
 		
 		var year= now.getFullYear();
 		var mon = (now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1);
-		var day = now.getDate()>9 ? ''+now.getDate() : '0'+now.getDate();
+		var day = now.getDate()>9? now.getDate() : '0' + now.getDate()>9 ? ''+now.getDate()>9? now.getDate() : '0' + now.getDate() : '0'+now.getDate()>9? now.getDate() : '0' + now.getDate();
 		
 		if(date == 'today'){
-			start_day.value = year + "-" + mon + "-" + (now.getDate());
-			if((now.getDate()+1) >= 31){
+			start_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate());
+			if((now.getDate()>9? now.getDate() : '0' + now.getDate()+1) >= 31){
 				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
 			}else{
-				end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1));
 			}
 			return false;
 		
@@ -95,17 +95,21 @@ $(function(){
 			var i = now.getDay();
 			if(i > 0 && i < 7){
 				aa = 1 - i;
-				start_day.value =  year + "-" + mon + "-" + (now.getDate() + aa);
+				if(now.getDate() + aa == 0){
+					start_day.value =  year + "-" + ((now.getMonth())>9 ? ''+(now.getMonth()) : '0'+(now.getMonth())) + "-" + '31';
+				}else{
+					start_day.value =  year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate() + aa));
+				}
 			}
 			
-			if((now.getDate()+1) >= 31){
+			if((now.getDate()>9? now.getDate() : '0' + now.getDate()+1) >= 31){
 				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
 			}else{
-				end_day.value = year + "-" + mon + "-" + (now.getDate()+1);
+				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1));
 			}
 		
 			if(start_day.value == end_day.value){
-				end_day.value = year + "-" + mon + "-" + (now.getDate()+2);
+				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate()+2);
 			}
 			return false;
 		
@@ -229,7 +233,7 @@ $('.distribution_list_heading').bind("click",function(){
 					</tr>
 					<tr>
 						<th colspan = "2">
-							<button class="btn btn-primary" id = "select_stockpile">확인</button>
+							<button class="btn btn-sm btn-primary" id = "select_stockpile">확인</button>
 						</th>
 					</tr>
 				</table>
@@ -259,7 +263,7 @@ $('.distribution_list_heading').bind("click",function(){
 							<label><input type = "radio" name = "selected" id = "product_name" value = "product_name">상품이름</label>
 						</div>
 							<input class="form-control" type = "text" id = "product_search" placeholder = "검색어를 입력하시오.">
-							<button id = "search_button_product" class="btn btn-primary"">확인</button>
+							<button id = "search_button_product" class="btn btn-sm btn-primary"">확인</button>
 						</div>
 						</th>
 					</tr>

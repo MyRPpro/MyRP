@@ -97,7 +97,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("product",product);
 		model.addAttribute("start_day",start_day);
 		model.addAttribute("end_day",end_day);
-		
+
 		select_stockpile_searchDtos = dao.select_stockpile_search(model);
 		search_product.add(select_stockpile_searchDtos.get(0).getProduct_id());
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
@@ -113,7 +113,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		product_name_list = dao.select_product_name(model);
 		select_product = dao.select_product_id(model);
 		
-		int warehouse_good_stock = 0;
+/*		int warehouse_good_stock = 0;
 		int warehouse_bad_stock = 0;
 		int warehouse_will_stock = 0;
 		
@@ -128,6 +128,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			}
 		}
 		
+		model.addAttribute("warehouse_good_stock",warehouse_good_stock);
+		model.addAttribute("warehouse_bad_stock",warehouse_bad_stock);
+		model.addAttribute("warehouse_will_stock",warehouse_will_stock);*/
 		
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
 			if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 4).equals("4754")){
@@ -135,6 +138,12 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 4).equals("4755")){
 				select_stockpile_searchDtos.get(i).setPlus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
 			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 4).equals("4753")){
+				if(select_stockpile_searchDtos.get(i).getMoving_stock() > 0){
+					select_stockpile_searchDtos.get(i).setPlus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
+				}else{
+					select_stockpile_searchDtos.get(i).setMinus_stock(-select_stockpile_searchDtos.get(i).getMoving_stock());
+				}
+			}else if(select_stockpile_searchDtos.get(i).getPro_id().substring(0, 4).equals("4751")){
 				if(select_stockpile_searchDtos.get(i).getMoving_stock() > 0){
 					select_stockpile_searchDtos.get(i).setPlus_stock(select_stockpile_searchDtos.get(i).getMoving_stock());
 				}else{
@@ -166,11 +175,12 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			}
 		}
 		
-		if(Integer.parseInt(end_day.replace("-", "")) < Integer.parseInt(today.replace("-", ""))){
+		
+		if(Integer.parseInt(end_day.replaceAll("-", "")) < Integer.parseInt(today.replaceAll("-", ""))){
 			ArrayList<Select_stockpile_searchDTO> select_stockpile_minusDtos = new ArrayList<Select_stockpile_searchDTO>();
 			model.addAttribute("start_day",end_day);
 			model.addAttribute("end_day",today);
-			
+			System.out.println("================================================================================================================");
 			select_stockpile_minusDtos = dao.select_stockpile_search(model);
 			
 			for(int y = 0; y < select_product.size(); y++){
@@ -224,10 +234,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("select_stockpile_searchDtos", select_stockpile_searchDtos);
 		model.addAttribute("product_name_list", product_name_list);
 		model.addAttribute("select_product", select_product);
-		
-		model.addAttribute("warehouse_good_stock", warehouse_good_stock);
-		model.addAttribute("warehouse_bad_stock", warehouse_bad_stock);
-		model.addAttribute("warehouse_will_stock", warehouse_will_stock); 
 		
 		model.addAttribute("start_day",start_day);
 		model.addAttribute("end_day",end_day);
@@ -710,8 +716,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 				 model.addAttribute("st_op", 2);
 				 dao.update_stock_out_storage(model);
 				 
-				 //
-
 				 stock_state = "24202";
 				 model.addAttribute("stock_state", stock_state);
 				 cnt = dao.update_orderstate_state(model);
@@ -816,6 +820,11 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 	public void movement_warehouse_list_service(HttpServletRequest req, Model model)  throws Exception{
 		ArrayList<Select_stock_order_movement_warehouseDTO> movement_warehouseDtos = new ArrayList<Select_stock_order_movement_warehouseDTO>();
 		ArrayList<WarehouseVO> warehouseVos = new ArrayList<WarehouseVO>();
+		
+		String stock_order_id = req.getParameter("oder_id") == null ? null : req.getParameter("oder_id");
+		model.addAttribute("stock_order_id", stock_order_id);
+		
+		System.out.println("stock_order_id : " + stock_order_id);
 		
 		movement_warehouseDtos = dao.select_movement_warehouse_list(model);
 		model.addAttribute("movement_warehouseDtos",movement_warehouseDtos);
@@ -945,12 +954,6 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			model.addAttribute("stock_order_id", id);
 			movement_warehouseDtos = dao.select_movement_warehouse_list(model);
 			
-			model.addAttribute("product_id", req.getParameter("product_id"));
-			model.addAttribute("warehouse_id", req.getParameter("warehouse_id"));
-			
-			ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
-			productVos = dao.select_product_info(model);
-			
 			String product_id =  movement_warehouseDtos.get(0).getProduct_id();
 			int warehouse_id =  movement_warehouseDtos.get(0).getWarehouse_id();
 			int arrive_warehouse_id =  movement_warehouseDtos.get(0).getArrive_warehouse();
@@ -963,10 +966,15 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 			
 			model.addAttribute("mv_op", "1");
 			dao.update_stock_out_storage(model);
+			
+			model.addAttribute("warehouse_id", arrive_warehouse_id);
+			ArrayList<ProductVO> productVos = new ArrayList<ProductVO>();
+			productVos = dao.select_product_info(model);
+			
 			model.addAttribute("mv_op", "2");
 			
+			model.addAttribute("arrive_warehouse_id", arrive_warehouse_id);
 			if(productVos.size() > 0){
-				model.addAttribute("arrive_warehouse_id", arrive_warehouse_id);
 				dao.update_stock_out_storage(model);
 			}else{
 				model.addAttribute("warehouse_id", arrive_warehouse_id);

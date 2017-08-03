@@ -78,7 +78,7 @@ $(function(){
 });
 
 function stock_complete(id,product_id,lack_stock){
-	var togo = $('#request_out');
+	var togo = $('#main_screen');
 	var data = {
 				"goes" 				: "stock_complete",
 				"id"	: id,
@@ -95,8 +95,8 @@ function stock_complete(id,product_id,lack_stock){
 	});
 }
 </script>
-<button class="btn btn-default distribution_in_list_down">입고내역</button>
-<button class="btn btn-default distribution_out_list_down">출고내역</button>
+<button class="btn btn-sm btn-default distribution_in_list_down">입고내역</button>
+<button class="btn btn-sm btn-default distribution_out_list_down">출고내역</button>
 <br><br>
 <c:if test = "${goes == 'in'}">
 <div class="row">
@@ -151,7 +151,7 @@ function stock_complete(id,product_id,lack_stock){
 							<th>${dto.stock_order_id}</th>
 							<th>${dto.stock_order_type}</th>
 							<th>${dto.product_name}</th>
-							<th>${dto.count_purchase}</th>
+							<th><fmt:formatNumber value="${dto.count_purchase}" type = "number" /></th>
 							<th>${dto.warehouse_name}</th>
 							<th>${dto.storage_in_date}</th>
 							<th>${dto.employee_name}</th>
@@ -161,7 +161,7 @@ function stock_complete(id,product_id,lack_stock){
 						</tr>
 					</c:forEach>
 					<tr>
-						<td colspan = "10"><button class="btn btn-default" id = "storage_in">입고요청</button></td>
+						<td colspan = "10"><button class="btn btn-sm btn-default" id = "storage_in">입고요청</button></td>
 					</tr>
 				</table>
 			</div>
@@ -228,9 +228,9 @@ function stock_complete(id,product_id,lack_stock){
 							<th>${dto.stock_order_id}</th>
 							<th>${dto.stock_order_type}</th>
 							<th>${dto.product_name}</th>
-							<th>${dto.count_sales}</th>
-							<th>${dto.available_stock}</th>
-							<th>${dto.lack_stock}</th>
+							<th><fmt:formatNumber value="${dto.count_sales}" type = "number" /></th>
+							<th><fmt:formatNumber value="${dto.available_stock}" type = "number" /></th>
+							<th><fmt:formatNumber value="${dto.lack_stock}" type = "number" /></th>
 							<th>${dto.warehouse_name}</th>
 							<th>${dto.storage_out_date}</th>
 							<th>${dto.employee_name}</th>
@@ -240,7 +240,7 @@ function stock_complete(id,product_id,lack_stock){
 							<th>
 							<c:forEach var = "pro" items = "${proVos}">
 							<c:if test = "${dto.product_id == pro.product_id && pro.warehouse_id == 1001 && dto.lack_stock >= 1}">	
-							<c:if test = "${dto.lack_stock <= pro.stock_amount}"><button class="btn btn-default" onclick = "stock_complete('${dto.stock_order_type}','${dto.product_id}','${dto.lack_stock}')">재고준비완료</button></c:if>
+							<c:if test = "${dto.lack_stock <= pro.stock_amount}"><button class="btn btn-sm btn-default" onclick = "stock_complete('${dto.stock_order_type}','${dto.product_id}','${dto.lack_stock}')">재고준비완료</button></c:if>
 							</c:if>
 							</c:forEach>
 							</th>
@@ -248,8 +248,8 @@ function stock_complete(id,product_id,lack_stock){
 					</c:forEach>
 					<tr>
 						<td colspan = "13">
-							<button class="btn btn-default" id = "storage_out">출고요청</button>
-							<button class="btn btn-default" id = "storage_out_complete">출고완료요청</button>
+							<button class="btn btn-sm btn-default" id = "storage_out">출고요청</button>
+							<button class="btn btn-sm btn-default" id = "storage_out_complete">출고완료요청</button>
 						</td>
 					</tr>
 				</table>
