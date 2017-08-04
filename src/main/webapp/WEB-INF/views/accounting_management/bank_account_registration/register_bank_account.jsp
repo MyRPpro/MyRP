@@ -94,25 +94,25 @@ function slideUpFunction(){
 			<tr>
 				<th>계좌명</th>
 				<td>
-					<input type="text" name="bank_account_name" maxlength="20" id="bank_account_name">
+					<input type="text" name="bank_account_name" maxlength="20" id="bank_account_name" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>계좌번호</th>
 				<td>
-					<input type="text" name="bank_account_number" maxlength="20">
+					<input type="text" name="bank_account_number" maxlength="20" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>잔액</th>
 				<td>
-					<input type="number" id="bank_account_balance" name="bank_account_balance" readonly="true"> <!-- max="999999999999999999" min="0" -->
+					<input type="number" id="bank_account_balance" name="bank_account_balance" readonly="true" class="form-control input-sm"> <!-- max="999999999999999999" min="0" -->
 				</td>
 			</tr>
 			<tr>
 				<th>은행</th>
 				<td>
-					<input type="text" name="bank_name" maxlength="12">
+					<input type="text" name="bank_name" maxlength="12" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
@@ -127,7 +127,7 @@ function slideUpFunction(){
 			<tr>
 				<th>등록일</th>
 				<td>
-					<input type="Date" name="reg_date"> 
+					<input type="Date" name="reg_date" class="form-control input-sm"> 
 				</td>
 			</tr>
 			<tr>

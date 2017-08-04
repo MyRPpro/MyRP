@@ -26,7 +26,7 @@ public interface AccountService extends MyRPService {
 	 * @param model
 	 * @throws Exception
 	 */
-	public void call_bank_account_id_service(Model model) throws Exception;
+	/*public void call_bank_account_id_service(Model model) throws Exception;*/
 	
 	/**
 	 * 계좌 등록 > 계좌 등록 처리 서비스

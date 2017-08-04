@@ -237,7 +237,7 @@
  		WHERE statement_id = #{statement_id}
  		]]>
  	</update>
- 	
+ 
  	<!-- 미승인 전표 총 개수 -->
  	<select id="select_unapproval_statements_cnt" resultType="int">
  		<![CDATA[
@@ -617,18 +617,35 @@
 		]]>
 	</select>
 	<!-- 매출원가 : 구입원가 가져오기  -->
-	<select id="select_purchase_unit_price" parameterType="java.util.Map" resultType="int">
+	<!-- <select id="select_purchase_unit_price" parameterType="java.util.Map" resultType="int">
 		<![CDATA[
 		SELECT purchase_unit_price FROM product WHERE product_id = (SELECT product_id FROM sales_order WHERE sales_id = #{sales_id} AND account_id = #{account_id})
 		]]>
-	</select>
+	</select> -->
 	<!-- 매출원가 : 매출원가계정 업데이트  -->
-	<update id="update_costs_of_goods_sold_account" parameterType="java.util.Map">
+	<!-- <update id="update_costs_of_goods_sold_account" parameterType="java.util.Map">
 		<![CDATA[
-		UPDATE account SET account_balance = #{account_value} WHERE account_id = #{account_id} 
+		UPDATE account SET account_balance = account_balance + #{account_value} WHERE account_id = #{account_id} 
 		]]>
-	</update>
-	
+	</update> -->
+	<!-- 매출원가 : 총 구입 가격 -->
+	<select id="select_total_purchase_price" parameterType="java.util.Map" resultType="Long">
+		<![CDATA[
+		SELECT  SUM(s.account_value) FROM statement s JOIN purchase_statement ps ON s.statement_id = ps.statement_id
+    	WHERE s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+    	AND s.APPROVAL_STATE='25452' AND ps.account_id = '500011050000'
+		]]>
+	</select>
+	<!-- 매출원가 : 총 구입 갯수 -->
+	<select id="select_total_purchase_count" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+		 SELECT SUM(count_purchase) FROM purchase_order 
+		  WHERE account_id='500011050000'
+      		AND purchase_id IN (SELECT purchase_id FROM purchase_statement ps JOIN statement s ON s.statement_id = ps.statement_id 
+                          		WHERE s.APPROVAL_STATE='25452' AND ps.account_id = '500011050000')
+            AND reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+		]]>
+	</select>
 	<!-- 날짜별 계정 가져오기  - sales-->
 	<select id="select_accounts_for_date_sales" parameterType="java.util.Map" resultType="Long">
 		<![CDATA[
@@ -678,7 +695,6 @@
         AND s.APPROVAL_STATE='25452' AND ss.account_id = '500014030000'
 		]]>
 	</select>
-	
 	<!-- 현금흐름표 > account_values 가져오기(시간 순서대로) -->
 	<select id="select_cash_values" parameterType="java.util.Map" resultType="JoinStatementDTO">
 		<![CDATA[
@@ -749,6 +765,7 @@
                                        ) po ON purc.purchase_id = po.purchase_id AND purc.account_id = po.account_id
     	WHERE (sales.account_id = '500011020000' OR purc.account_id = '500012010000')
     	  AND s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     ORDER BY s.reg_date DESC
 		]]>
 	</select>
 	<!-- 채권/채무현황 조회  > 거래처별 조회-->
@@ -769,6 +786,7 @@
     	WHERE (sales.account_id = '500011020000' OR purc.account_id = '500012010000')
   		  AND (so.company_name = #{company_name} OR po.company_name = #{company_name})
   		  AND s.reg_date >= TO_DATE(#{startDate},'YYYY-MM-DD') AND s.reg_date <= TO_DATE(#{endDate},'YYYY-MM-DD')
+     ORDER BY s.reg_date DESC
 		]]>
 	</select>
 	
@@ -787,7 +805,6 @@
                                        ) po ON purc.purchase_id = po.purchase_id AND purc.account_id = po.account_id
 		]]>
 	</select>
-
  	<!-- 전표관리 > 전표 승인 > 전표종류 판단   -->
  	<select id="select_check_statement_type" parameterType="java.util.Map" resultType="int">
  		<![CDATA[

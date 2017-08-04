@@ -60,13 +60,13 @@ public class State_alarmServiceImpl implements State_alarmService {
 				}
 
 				switch(fi_state){
-					case 1 : 	state.setState_addr("/accounting_management/statement_management/search_statements"); 
+					case 1 : 	state.setState_addr("/accounting_management/statement_management/search_statements?input_type=1"); 
 								state.setState_msg("전표 승인 요청");
 								state.setFrom_dept("인사"); break;
-					case 2 : 	state.setState_addr("/accounting_management/statement_management/search_statements"); 
+					case 2 : 	state.setState_addr("/accounting_management/statement_management/search_statements?input_type=1"); 
 								state.setState_msg("전표 승인 요청");
 								state.setFrom_dept("구매"); break;
-					case 3 : 	state.setState_addr("/accounting_management/statement_management/search_statements"); 
+					case 3 : 	state.setState_addr("/accounting_management/statement_management/search_statements?input_type=1"); 
 								state.setState_msg("전표 승인 요청");
 								state.setFrom_dept("영업"); break;
 					case 0 : 	state_alarmDtos.remove(i); i-=1; break;

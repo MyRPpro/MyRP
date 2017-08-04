@@ -9,14 +9,16 @@ function set_account_id(account_id){
 	$('#id_check_msg').html("");
 }
 </script>
+<div style="margin: 5px;">
 <c:if test="${cnt == 0}">
 	선택하신 [${account_id}]는 사용가능합니다.
-	<input type="button" value="확인" onclick="set_account_id('${account_id}');">
+	<input type="button" value="확인" onclick="set_account_id('${account_id}');" class="btn btn-primary btn-xs">
 </c:if>
 <c:if test="${cnt == 1}">
 	선택하신 [${account_id}]는<br>
 	[${account_name}]에 사용중입니다.<br>
 	다른 account_id를 입력하세요.
 </c:if>
+</div>
 </body>
 </html>

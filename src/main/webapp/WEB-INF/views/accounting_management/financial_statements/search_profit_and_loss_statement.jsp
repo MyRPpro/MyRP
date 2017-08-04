@@ -27,6 +27,14 @@ $(function(){
 				togo.html(response);	
 			}
 		});
+		$.ajax({ 	
+			data:    data,
+			type: 	'post',	 			
+			url: 	"/accounting_management/financial_statements/show_profit_and_loss_statement_graph",
+			success: function(response) { 	
+				$('#show_graph').html(response);	
+			}
+		});
 		return false;
 	});
 });
@@ -250,7 +258,10 @@ function SetPrevYearDays(begin, end) {
 	</table>
 	
 </form>
-</div>
 <div id="stage">
 
+</div>
+<div id="show_graph">
+
+</div>
 </div>

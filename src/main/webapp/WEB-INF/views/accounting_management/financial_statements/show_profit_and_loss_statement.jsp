@@ -25,7 +25,7 @@
 	<tr>	
 		<td> ${dtos.account_name} </td>
 		<td> ${dtos.sum}
-			 <c:set var="SalesSum" value="${SalesSum + dtos.sum}" />
+			 <c:set var="SalesSum" value="${SalesSum - dtos.sum}" />
 		</td>
 	</tr>
 	</c:if>
