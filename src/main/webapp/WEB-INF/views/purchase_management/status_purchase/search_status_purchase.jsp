@@ -13,24 +13,24 @@
 	<div class="panel panel-primary" id="page2110">
 		<div class="panel-heading">
 	  		 <h4 class="panel-title">
-	  		 	<a id="page2410_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
-	  			<b> 판매 현황 검색 페이지 : Search_Status_Sales </b>
+	  		 	<a id="page3310_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
+	  			<b> 구매 현황 검색 페이지 : Search_Status_Sales </b>
 	  			</a>
 	  		</h4>
 		</div>
-		<div class="panel-body" id="page2410_div01">
+		<div class="panel-body" id="page3310_div01">
 			<font class="media-heading">
-				<span>판매내역을 원하는 기간 및 옵션별로 검색할 수 있습니다. 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요.</span>
+				<span>구매내역을 원하는 기간 및 옵션별로 검색할 수 있습니다. 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요.</span>
 			</font>
 			<br>
 			<!-- ----------------------------------------------------- -->
 			
 			<div class="form-group">
-				<form action="#" name="list_status_sales" method="GET" onsubmit="return list_table(1,2)">
+				<form action="#" name="list_status_sales" method="GET" onsubmit="return list_table(1,1)">
 				
 				<div class="btn-group" align="center">
 					<span class="input-group-btn">
-						<input type="button" name="btn_all_list" value="전체내역 검색" class="btn btn-primary"  onclick="return list_table(1,1);">
+						<input type="button" name="btn_all_list" value="전체내역 검색" class="btn btn-primary"  onclick="return list_table(1,2);">
 						<input type="reset" class="btn btn-default" value="재작성">
 					</span>
 				</div>	<!-- // btn-group -->
@@ -102,7 +102,7 @@
 					
 					<div class="btn-group" align="center">
 						<span class="input-group-btn">
-							<input type="button" name="btn_submit"class="btn btn-primary"  value="검색"  onclick="list_table(1,1);" > 
+							<input type="submit" name="btn_submit"class="btn btn-primary"  value="검색" > 
 							<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
 						</span>
 					</div>	<!-- // btn-group -->
@@ -122,7 +122,7 @@
 						</div>
 						
 						<div class="btn-group" role="group">
-						  	<select name="product_ids" id="product_ids"  class="form-control" >
+						  	<select name="account_ids" id="account_ids"  class="form-control" >
 							   <option value="0" selected> 제품선택 </option>
 							   <c:forEach var="product" items="${product_ids}">
 							  		<option value="${product.product_id}">${product.product_name} </option>
@@ -131,7 +131,7 @@
 					  	</div>
 					  	
 					  	<div class="btn-group" role="group">
-						  	<select name="company_ids" id="company_ids"  class="form-control" >
+						  	<select name="account_ids" id="account_ids"  class="form-control" >
 							   <option value="0" selected> 거래처선택 </option>
 							   <c:forEach var="company" items="${company_ids}">
 							  		<option value="${company.company_id}">${company.company_name} </option>
@@ -140,7 +140,7 @@
 					  	</div>
 					  	
 					  	<div class="btn-group" role="group">
-						  	<select name="employee_ids" id="employee_ids" class="form-control"  >
+						  	<select name="account_ids" id="account_ids" class="form-control"  >
 							   <option value="0" selected> 담당자선택 </option>
 							   <c:forEach var="employee" items="${employee_ids}">
 							  		<option value="${employee.employee_id}">${employee.employee_name} </option>
@@ -151,7 +151,7 @@
 					
 					<div class="btn-group" align="center">
 						<span class="input-group-btn">
-							<input type="button" name="btn_submit"class="btn btn-primary"  value="검색" onclick="list_table(1,3);" > 
+							<input type="submit" name="btn_submit"class="btn btn-primary"  value="검색" > 
 							<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
 						</span>
 					</div>	<!-- // btn-group -->
@@ -165,7 +165,7 @@
 			<!-- ----------------------------------------------------- -->
 			<div class="panel-body" id="list_page"></div>
 			</div>	<!-- // panel-body -->
-		<div  id="page2410_div02">
+		<div  id="page3310_div02">
 			<div class="panel-body" id="list_table"></div>
 		</div>
 	</div>	<!-- // panel -->
@@ -176,8 +176,8 @@
 	
 	function list_table(param,check){
 		
-		$('#page2410_div01_toggle').click(function(){
-			$('#page2410_div01').slideToggle();
+		$('#page3310_div01_toggle').click(function(){
+			$('#page3310_div01').slideToggle();
 			return false;
 		});
 		

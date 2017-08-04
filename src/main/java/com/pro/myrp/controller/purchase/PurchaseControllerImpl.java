@@ -168,15 +168,9 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 	public String search_status_purchase(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(search_status_purchase));
 		model.addAttribute("req", req);
-		service.search_reg_purchase_service(model);
-		return code.c(purchase_management, staus_purchase, search_status_purchase);
+		service.search_status_purchase_service(model);
+		return code.c(purchase_management, status_purchase, search_status_purchase);
 	}
-
-	
-	
-	
-	
-	
 
 
 
