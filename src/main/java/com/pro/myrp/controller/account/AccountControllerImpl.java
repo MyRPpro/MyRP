@@ -353,6 +353,24 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return "accounting_management/financial_statements/show_balance_sheet_graph";
 	}
 
+	@Override
+	@PostMapping(value="financial_statements/show_profit_and_loss_statement_graph")
+	public String show_profit_and_loss_statement_graph(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_profit_and_loss_statement_graph");
+		model.addAttribute("req",req);
+		service.show_profit_and_loss_statement_service(model);
+		return "accounting_management/financial_statements/show_profit_and_loss_statement_graph";
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_statement_of_cash_flows_graph")
+	public String show_statement_of_cash_flows_graph(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_statement_of_cash_flows_graph");
+		model.addAttribute("req",req);
+		service.show_statement_of_cash_flows_service(model);
+		return "accounting_management/financial_statements/show_statement_of_cash_flows_graph";
+	}
+
 
 	
 	

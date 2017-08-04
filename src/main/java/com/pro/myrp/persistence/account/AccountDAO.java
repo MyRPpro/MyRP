@@ -249,9 +249,10 @@ public interface AccountDAO extends MyRPDAO {
 	 * @return
 	 */
 	public int select_count_sales(Map<String, Object> oriPriceMap);
-	public int select_purchase_unit_price(Map<String, Object> oriPriceMap);
-	public int update_costs_of_goods_sold_account(Map<String, Object> oriPriceMap);
-
+	/*public int select_purchase_unit_price(Map<String, Object> oriPriceMap);
+	public int update_costs_of_goods_sold_account(Map<String, Object> oriPriceMap);*/
+	public long select_total_purchase_price(Map<Object, Object> daoMap);
+	public int select_total_purchase_count(Map<Object, Object> daoMap);
 	public ArrayList<JoinStatementDTO> select_sales_id(Map<Object, Object> daoMap);
 	
 	/**

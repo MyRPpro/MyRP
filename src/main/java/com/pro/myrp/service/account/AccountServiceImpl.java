@@ -313,16 +313,16 @@ public class AccountServiceImpl implements AccountService {
 		Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("typeCnt", typeCnt);
 			//매출원가 넣어주기
-			if(statement_type.equals("54101")) { //매출전표일경우
+			/*if(statement_type.equals("54101")) { //매출전표일경우
 				Map<String, Object> oriPriceMap = new HashMap<>();
 				oriPriceMap.put("sales_id", connected_id);
 				oriPriceMap.put("account_id", "500014030000");
-				int count_sales = dao.select_count_sales(oriPriceMap);
+				int count_sales = dao.select_count_sales(oriPriceMap); //총몇개팔았는지
 				int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);
 				oriPriceMap.put("account_value", count_sales*purchase_unit_price);
 				oriPriceMap.put("account_id", "500014020000");
 				dao.update_costs_of_goods_sold_account(oriPriceMap); // 매출원가계정 업데이트
-			}	
+			}	*/
 			
 		for(int i=1; i<cnt+1; i++) {
 			daoMap.put("statement_id", statement_ids[i]);
@@ -939,8 +939,11 @@ public class AccountServiceImpl implements AccountService {
 						oriPriceMap.put("sales_id", sales_id);
 						oriPriceMap.put("account_id", "500014030000");
 						int count_sales = dao.select_count_sales(oriPriceMap);
-						int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);
-						sum = sum - (count_sales*purchase_unit_price);
+							long total_purchase_price = dao.select_total_purchase_price(daoMap);
+							int total_purcahse_count = dao.select_total_purchase_count(daoMap);
+						long sales_origin_unit_price = total_purchase_price/total_purcahse_count;
+						/*int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);*/
+						sum = sum + (count_sales*sales_origin_unit_price);
 					}
 				}
 			String account_class = "";
