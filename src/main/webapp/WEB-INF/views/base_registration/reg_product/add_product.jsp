@@ -69,32 +69,32 @@
 			<form action="#" name="page11220_form01">
 				<table class="table">
 					<tr>
-						<th>상품번호</th>
+						<th>상품번호＊</th>
 						<td>
 							<div class="input-group">
 								<input class="form-control input-sm" type="text" name="product_id" value="${product_id}"
 								maxlength="10" required autofocus>
-							<span class="input-group-btn">
-								<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page11220_btn01">
-							</span>
+								<span class="input-group-btn">
+									<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page11220_btn01">
+								</span>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<th>상품명</th>
+						<th>상품명＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="product_name" required>
 						</td>
 					</tr>
 					<tr>
-						<th>구매단가</th>
+						<th>구매단가＊</th>
 						<td>
 							<input class="form-control input-sm" type="number" name="purchase_unit_price"
 							min="0" max="9999999999" value="0" required>
 						</td>
 					</tr>
 					<tr>
-						<th>판매단가</th>
+						<th>판매단가＊</th>
 						<td>
 							<input class="form-control input-sm" type="number" name="sale_unit_price"
 							min="0" max="9999999999" value="0" required>

@@ -114,5 +114,11 @@ public class AttitudeDAOImpl implements AttitudeDAO {
 		return dao.select_attitude(employee_id);
 	}
 
+	@Override
+	public String select_pic_uid(int employee_id) {
+		AttitudeDAO dao = sqlSession.getMapper(AttitudeDAO.class);
+		return dao.select_pic_uid(employee_id);
+	}
+
 	
 }

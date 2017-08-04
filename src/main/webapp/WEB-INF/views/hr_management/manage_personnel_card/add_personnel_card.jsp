@@ -139,7 +139,7 @@
 			</div>
 			<table class="table">
 				<tr>
-					<th>사원번호</th>
+					<th>사원번호＊</th>
 					<td colspan="3">
 						<div class="input-group">
 							<input class="form-control input-sm" type="number" name="employee_id" value="${employee_id}"
@@ -152,14 +152,14 @@
 					</td>
 				</tr>
 				<tr>
-					<th>사원명</th>
+					<th>사원명＊</th>
 					<td colspan="3">
 						<input class="form-control input-sm" type="text" name="employee_name"
 						maxlength="50" required>
 					</td>
 				</tr>
 				<tr>
-					<th>부서명</th>
+					<th>부서명＊</th>
 					<td colspan="3">
 						<select class="form-control input-sm" name="dept_id">
 							<option value=0 selected>부서 선택</option>
@@ -172,7 +172,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>직급</th>
+					<th>직급＊</th>
 					<td colspan="3">
 						<select class="form-control input-sm" name="hr_code_id">
 							<option value=0 selected>직급 선택</option>
@@ -185,7 +185,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>주민등록번호</th>
+					<th>주민번호＊</th>
 					<td>
 						<input class="form-control input-sm" type="text" name="residence_reg_no1" maxlength="6" required>
 					</td>
@@ -196,7 +196,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>입사일</th>
+					<th>입사일＊</th>
 					<td colspan="3">
 						<c:set var="now" value="<%= new java.util.Date() %>"/>
 						<input class="form-control input-sm" type="date" name="join_date" 
@@ -250,7 +250,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>시급</th>
+					<th>시급＊</th>
 					<td colspan="3">
 						<input class="form-control input-sm" type="number" name="hourly_wage"
 						min="0" max="999999" required>

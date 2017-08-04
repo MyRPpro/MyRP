@@ -68,14 +68,14 @@
 			<form action="#" name="page16150_form01">
 				<table class="table">
 					<tr>
-						<th>인사코드 그룹번호</th>
+						<th>인사코드 그룹번호＊</th>
 						<td>
 							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 							value="${hr_code_group_id}" readonly>
 						</td>
 					</tr>
 					<tr>
-						<th>인사코드 번호</th>
+						<th>인사코드 번호＊</th>
 						<td>
 							<div class="input-group">
 								<input class="form-control input-sm" type="number" name="hr_code_id" value="${hr_code_id}"
@@ -88,13 +88,13 @@
 					</tr>
 					<tr>
 					<tr>
-						<th>인사코드명</th>
+						<th>인사코드명＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="hr_code_name" required>
 						</td>
 					</tr>
 					<tr>
-						<th>사용 상태</th>
+						<th>사용 상태＊</th>
 						<td>
 							<label for="used">사용</label>
 							<input type="radio" name="use_state" id="used"

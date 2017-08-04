@@ -75,7 +75,7 @@
 		<form action="#" name="page16220_form01">
 			<table class="table">
 				<tr>
-					<th>부서번호</th>
+					<th>부서번호＊</th>
 					<td>
 						<div class="input-group">
 							<input class="form-control input-sm" type="number" name="dept_id" value="${dept_id}"
@@ -87,7 +87,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>부서명</th>
+					<th>부서명＊</th>
 					<td>
 						<input class="form-control input-sm" type="text" name="dept_name" maxlength="255" required>
 					</td>
@@ -99,7 +99,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>사용 상태</th>
+					<th>사용 상태＊</th>
 					<td>
 						<label for="used">사용</label>
 						<input type="radio" name="use_state" id="used" value="Y" checked>

@@ -279,6 +279,9 @@ public class AttitudeServiceImpl implements AttitudeService {
 		}
 		model.addAttribute("employee_id", employee_id);
 		model.addAttribute("dtos", dtos);
+
+		String pic_uid = dao.select_pic_uid(employee_id);
+		model.addAttribute("pic_uid", pic_uid);
 	}
 	
 }

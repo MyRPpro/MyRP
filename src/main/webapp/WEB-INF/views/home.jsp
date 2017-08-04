@@ -10,15 +10,19 @@
 <script type="text/javascript">
 function fn_login_form() {
 	$("#main_screen").load("/user/login");
+	return false;
 }
 
 function onoff(){
-	if(document.getElementById("alarmonoff").value == "on"){
+	if(document.getElementById("alarmonoff").value == "on"){		
 		document.getElementById("alarmonoff").value = "off";
 	}else{
 		document.getElementById("alarmonoff").value = "on";
 	}
+	return false;
 }
+ 
+
 </script>
 <body>
 <input type = "hidden" id = "alarmonoff" value = "on">
@@ -226,7 +230,7 @@ function onoff(){
    </div>
 </body>
 <script type="text/javascript">
-
+	
 	 $(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;

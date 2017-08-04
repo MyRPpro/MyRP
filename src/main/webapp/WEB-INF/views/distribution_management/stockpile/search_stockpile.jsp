@@ -182,7 +182,37 @@ function go(goes){
 $('.distribution_list_heading').bind("click",function(){  
 	$('.distribution_list_content').slideToggle();
 });
-</script>	
+
+$('#print').click(function(){
+	
+	var $table = $("#search_result");
+	$table.find('a').attr('href',null);
+
+	var printView = window.open();
+	
+	printView.document.write( "<head>"); 
+	printView.document.write( $('head').html() );
+	printView.document.write( '</head>' );
+	
+	printView.document.write( '<body>' );
+	printView.document.write( '<div id = "printSet">' );
+	printView.document.write( $table.html() );
+	printView.document.write( '</div>' );
+	printView.document.write( '</body>' );
+
+	printView.document.write( '<script type="text/javascript">' );
+	printView.document.write( 'setTimeout(function(){');
+	printView.document.write( 'window.print();');
+	printView.document.write( '},10);');
+	printView.document.write( 'setTimeout(function(){');
+	printView.document.write( 'window.close();');
+	printView.document.write( '},20);');
+	printView.document.write('</scr');
+	printView.document.write('ipt>');
+});
+
+</script>
+	
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -234,6 +264,7 @@ $('.distribution_list_heading').bind("click",function(){
 					<tr>
 						<th colspan = "2">
 							<button class="btn btn-sm btn-primary" id = "select_stockpile">확인</button>
+							<button class="btn btn-sm btn-primary" id = "print">출력</button>
 						</th>
 					</tr>
 				</table>

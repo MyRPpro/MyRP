@@ -44,55 +44,55 @@
 			<form action="#" name="page11130_form01">
 				<table class="table">
 					<tr>
-						<th>거래처 번호</th>
+						<th>거래처 번호＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="company_id" value="${companyVo.company_id}" maxlength="10" readonly="readonly">
 						</td>
 					</tr>
 					<tr>
-						<th>거래처 명</th>
+						<th>거래처 명＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="company_name" value="${companyVo.company_name}">
 						</td>
 					</tr>
 					<tr>
-						<th>사업자 등록번호</th>
+						<th>사업자 등록번호＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="biz_reg_no" value="${companyVo.biz_reg_no}" maxlength="12">
 						</td>
 					</tr>
 					<tr>
-						<th>대표자</th>
+						<th>대표자＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="ceo_name" value="${companyVo.ceo_name}" maxlength="20">
 						</td>
 					</tr>
 					<tr>
-						<th>법인 등록번호</th>
+						<th>법인 등록번호＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="corp_reg_no" value="${companyVo.corp_reg_no}" maxlength="14">
 						</td>
 					</tr>
 					<tr>
-						<th>주소</th>
+						<th>주소＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="address" value="${companyVo.address}">
 						</td>
 					</tr>
 					<tr>
-						<th>업태</th>
+						<th>업태＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="biz_type" value="${companyVo.biz_type}">
 						</td>
 					</tr>
 					<tr>
-						<th>업종</th>
+						<th>업종＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="biz_item" value="${companyVo.biz_item}">
 						</td>
 					</tr>
 					<tr>
-						<th>사용 상태</th>
+						<th>사용 상태＊</th>
 						<td>
 							<label for="used">사용</label>
 							<input type="radio" name="use_state" id="used" value="Y"
@@ -103,7 +103,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>회사 유형</th>
+						<th>회사 유형＊</th>
 						<td>
 							<label for="supplier">supplier</label>
 							<input type="radio" name="company_type" id="supplier" value="S" 
