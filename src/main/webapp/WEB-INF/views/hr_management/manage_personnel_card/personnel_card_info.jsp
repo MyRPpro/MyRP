@@ -55,7 +55,7 @@
 			<table class="table">
 				<tr>
 					<th colspan="4" style="width:100px; height:130px;">
-						<img alt="사진 이미지" src="/resources/images/picture_employee/${employee_id}.jpg"
+						<img alt="사진 이미지" src="/resources/images/picture_employee/${pic_uid}"
 						width="100" height="125">
 					</th>
 				</tr>

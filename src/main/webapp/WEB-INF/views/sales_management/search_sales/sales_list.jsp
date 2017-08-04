@@ -25,32 +25,41 @@
 						<font class="media-heading" style="margin:0 auto;"> 입력된 판매 내역을 검색 할 수 있는 페이지 입니다.</font><br><br>
 							<form class="form-inline-block" id="sales_list_form" action="#" name="purchase_list_form" method="get">
 								<div class="input-group" >
-									<input type="text" class="form-control" name="input_search" id="search_str" placeholder="판매번호를 입력하세요">
-									<span class="input-group-btn">
-										<button class="btn btn-primary" id="list_btn_search" type="button" onclick="return search_list(1,1)"> 검색 </button>
-										<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="true" > 
-											 &nbsp; <span class="caret"></span> 
-										</button>
-										<ul class = "dropdown-menu" >
-						                    <li><a href = "javascript:search_list(1,10)">전표신청</a></li>	<!-- 23202 -->
-						                    <li><a href = "javascript:search_list(1,11)">전표승인</a></li>	<!-- 23203 -->
-						                    <li><a href = "javascript:search_list(1,12)">입고신청</a></li>	<!-- 23204 -->
-						                    <li><a href = "javascript:search_list(1,13)">입고완료</a></li>	<!-- 23205 -->
-						                    <li><a href = "javascript:search_list(1,14)">지급대기</a></li>	<!-- 23206 -->
-						                    <li><a href = "javascript:search_list(1,15)">지급완료</a></li>	<!-- 23207 -->
-						                    <li class="divider"></li>	
-						                    <li><a href = "javascript:search_list(1,16)">부가세예수금</a></li>	
-						                    <li><a href = "javascript:search_list(1,17)">상품매출</a></li>
-						                    <li><a href = "javascript:search_list(1,18)">매출채권</a></li>	
-						                </ul>
-									</span>
+								
+								<div class="btn-group btn-group-justified" role="group" aria-label="...">
+									
+									<div class="btn-group" role="group" style="width: 70%;">
+										<input type="text" class="form-control" name="input_search" id="search_str" placeholder="판매번호를 입력하세요">
+									</div>
+										
+									<div class="btn-group" role="group" style="width: 15%;">
+									<button class="btn btn-primary" id="list_btn_search" type="button" onclick="return search_list(1,1)"> 검색 </button>
+									</div>
+									
+									
+									<div class="btn-group" role="group" style="width: 15%;">
+										<select id="months" class="form-control form-control btn-primary" style="height: 33px;" >                                              
+											<option value="01" > 옵션 </option>
+											<option value="01" > 전표신청 </option>
+											<option value="02" > 전표승인 </option>
+											<option value="03" > 입고신청 </option>
+											<option value="04" > 입고완료 </option>
+											<option value="05" > 지급대기 </option>
+											<option value="06" > 지급완료 </option>
+											<option> ------- </option>
+											<option value="07" > 부가세예수금 </option>
+											<option value="08" > 상품매출 </option>
+											<option value="09" > 매출채권 </option>
+										</select>
+									</div>
+									
 								</div>
 								<div class="btn-group btn-group-justified" role="group" aria-label="...">
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-info" onclick="return search_list(1,0)">전체검색</button>
+										<button type="button" class="btn btn-primary" onclick="return search_list(1,0)">전체검색</button>
 									</div>
 									<div class="btn-group" role="group">
-										<button type="button" class="btn btn-info" id="list_btn_reg">판매등록</button>
+										<button type="button" class="btn btn-primary" id="list_btn_reg">판매등록</button>
 									</div>
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-default" onclick="return search_list(1,2)">전표신청</button>
@@ -58,8 +67,6 @@
 									<div class="btn-group" role="group">
 										<button type="button" class="btn btn-default" onclick="return search_list(1,3)">전표승인</button>
 									</div>
-									
-									
 									
 									<!-- 
 									<div class="btn-group" role="group">
@@ -81,9 +88,7 @@
 										<button type="button" class="btn btn-default" onclick="return search_list(1,7)">수금완료</button>
 									</div>
 									
-									
-									
-									
+									</div>
 								</div>	<!-- // btn-group-justified -->
 							</form>	
 							<div id="list_page"></div>
@@ -100,7 +105,7 @@
 	
 	$(document).ready(function(){
 		$('#sales_list_panel_title').click(function(){
-			$('#sales_list_input-group').slideToggle();
+			$('#sales_list_panel_body').slideToggle();
 			return false;
 		});
 		

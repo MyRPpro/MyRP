@@ -41,6 +41,7 @@ DROP TABLE PRODUCT;
 DROP TABLE SALARY;
 DROP TABLE SALARY_REGISTER;
 DROP TABLE PERSONNEL_APPOINTMENT;
+DROP TABLE EMPLOYEE_PICTURE;
 DROP TABLE EMPLOYEE_INFO;
 DROP TABLE WORK_RECORD;
 DROP TABLE RETIRED_EMPLOYEE;
@@ -129,6 +130,11 @@ CREATE TABLE employee(
     CONSTRAINT hr_code_group_rank_fk FOREIGN KEY(hr_code_group_rank,rank_code)
                         REFERENCES hr_code(hr_code_group_id,hr_code_id),
     CONSTRAINT employee_pk PRIMARY KEY(employee_id)
+);
+
+CREATE TABLE employee_picture(
+    employee_id         NUMBER(4),
+    pic_uid             VARCHAR2(255)
 );
 --------------------------------------------------------------------------------
 -- 인사정보 TABLE 생성 (employee_info)
@@ -807,6 +813,7 @@ INSERT INTO account (account_id, account_balance, account_name) VALUES ('5000120
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500012020000', '0', '부가세예수금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500013010000', '0', '이익잉여금');
 INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014010000', '0', '급여');
+INSERT INTO account (account_id, account_balance, account_name) VALUES ('500014020000', '0', '매출원가');
 commit;
 
 INSERT INTO bank_account (bank_account_id, bank_account_name, bank_account_number, bank_account_balance, bank_account_type, bank_name, use_state, reg_date) VALUES  ('500011010000', '자산통장' , '123-456-7889111' , 1000000000 , '주 계좌', '국민은행', 'Y', sysdate);

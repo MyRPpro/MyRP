@@ -45,19 +45,19 @@ $(function(){
 	<tr>
 		<th> 계정번호 </th>
 		<td>
-			<input type="text" name="account_id" value="${vo.account_id}" readonly="true"> 
+			<input type="text" name="account_id" value="${vo.account_id}" readonly="true" class="form-control input-sm"> 
 		</td>
 	</tr>
 	<tr>
 		<th> 계정명 </th>
 		<td> 
-			<input type="text" name="account_name" value="${vo.account_name}">
+			<input type="text" name="account_name" value="${vo.account_name}" class="form-control input-sm">
 		</td>
 	</tr>
 	<tr>
 		<th> 계정금액 </th>
 		<td> 
-			<input type ="number" value = "${vo.account_balance}" name="account_balance" readonly="true">
+			<input type ="number" value = "${vo.account_balance}" name="account_balance" readonly="true" class="form-control input-sm">
 		</td>
 	</tr>
 	<tr>

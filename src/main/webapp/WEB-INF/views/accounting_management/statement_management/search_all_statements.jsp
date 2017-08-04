@@ -19,6 +19,7 @@ $(function(){
 //전표 상세페이지 띄우기
 function search_statement_detail(statement_id, connected_id, typeCnt){
 	$('#statements_contents').slideUp();
+	$('#search_statement_detail').slideDown();
 	var url="";
 	if(typeCnt==1){
 		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
@@ -74,6 +75,7 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 			</div>
 		</div>
 		</div>
+		<div class="panel-body" style="text-align: center;">
 		<div style="text-align: center;">
 		<table class="table table-hover">
 			<tr>

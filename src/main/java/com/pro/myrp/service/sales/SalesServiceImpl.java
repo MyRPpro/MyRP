@@ -976,7 +976,7 @@ public class SalesServiceImpl implements SalesService,CodeMyRP  {
 			}
 
 		} else {
-			
+			cnt = -1;
 			System.out.println("  -> Cnt is Zero...");
 			System.out.println("cnt체크 : " + cnt);
 		}
@@ -1141,6 +1141,7 @@ public class SalesServiceImpl implements SalesService,CodeMyRP  {
 		}
 	}
 
+	
 	/*-----------------------------------------------------*/
 	
 	@Override

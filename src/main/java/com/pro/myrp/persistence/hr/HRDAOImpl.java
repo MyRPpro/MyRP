@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
@@ -379,6 +380,30 @@ public class HRDAOImpl implements HRDAO {
 	public String select_state(int salary_state) {
 		HRDAO dao = sqlSession.getMapper(HRDAO.class);
 		return dao.select_state(salary_state);
+	}
+
+	@Override
+	public int update_employee_picture(Model model) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.update_employee_picture(model);
+	}
+
+	@Override
+	public int select_employee_picture(Model model) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_employee_picture(model);
+	}
+
+	@Override
+	public int insert_employee_picture(Model model) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.insert_employee_picture(model);
+	}
+
+	@Override
+	public String select_pic_uid(int employee_id) {
+		HRDAO dao = sqlSession.getMapper(HRDAO.class);
+		return dao.select_pic_uid(employee_id);
 	}
 	
 }
