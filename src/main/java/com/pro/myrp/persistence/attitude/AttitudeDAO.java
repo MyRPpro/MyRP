@@ -114,4 +114,11 @@ public interface AttitudeDAO extends MyRPDAO {
 	 * @return
 	 */
 	public List<Hr_attitude_listDTO> select_attitude(int employee_id) throws Exception;
+
+	/**
+	 * 
+	 * @param employee_id
+	 * @return
+	 */
+	public String select_pic_uid(int employee_id);
 }

@@ -187,4 +187,15 @@
 			ORDER BY E.employee_name, SA.attitude_date DESC
 		]]>
 	</select>
+	
+	<!-- 사진 pic_uid 조회 -->
+	<select id="select_pic_uid" parameterType="int"
+	resultType="String">
+		<![CDATA[
+		SELECT	pic_uid
+		FROM	employee_picture
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</select>
+	
 </mapper>
