@@ -1032,7 +1032,6 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 		int update_cnt = 0;
 		int insert_cnt = 0;
 		int pay_diff = 0;
-		String price_temp = "";
 		String purchase_id = "";
 		Date pay_date = null;
 		PurchaseDTO dto = null;
@@ -1110,7 +1109,6 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 			dto = dao.select_purchase(purchase_id);
 			
 			Long price = dto.getSupply_price();
-			int count = dto.getCount_purchase();
 			System.out.println( "  -> price : " + price );
 			
 			// 공통사항 설정
@@ -1208,4 +1206,36 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 
 	}
 
+	
+
+	
+	
+	// 구매 현황
+	
+	@Override
+	public void search_status_purchase_service(Model model) {
+		
+		System.out.println("  -> search_status_sales_service " );
+
+		ArrayList<PurchaseDTO> product_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> company_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> employee_ids = new ArrayList<>();
+		ArrayList<PurchaseDTO> account_ids = new ArrayList<>();
+		
+		product_ids = dao.select_product_ids();
+		company_ids = dao.select_company_ids();
+		employee_ids = dao.select_employee_ids();
+		account_ids = dao.select_account_ids();
+		
+		System.out.println("  -> product_ids :" + product_ids.toString());
+		
+		
+		model.addAttribute("product_ids",product_ids);
+		model.addAttribute("company_ids",company_ids);
+		model.addAttribute("employee_ids",employee_ids);
+		model.addAttribute("account_ids",account_ids);
+	}
+
+
+	
 }

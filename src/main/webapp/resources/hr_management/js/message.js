@@ -41,6 +41,7 @@ var sales_state = "판매상태";
 var reg_sales_statement = "전표등록하기";
 var sales_id = "판매번호";
 var req_storage_out = "출고 요청하기 ";
+var reg_sales_confrim	= "회계전표 입력하기"
 
 //modify_sales
 var reg_reg_date = "등록일 : YYYY-MM-DD 형식";

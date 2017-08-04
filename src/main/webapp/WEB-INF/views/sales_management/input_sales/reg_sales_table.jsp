@@ -8,12 +8,74 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<div class="panel panel-primary" id="page2110">
+		<div class="panel-heading">
+			<h5 class="panel-title">
+				<a id="page2120_div01_toggle"> <span class="glyphicon glyphicon-triangle-right"></span> &nbsp; 
+				판매 입력 세부 페이지 Reg_Sales_Table
+				</a>
+			</h5>
+		</div>
+		<div class="panel-body" id="page2120_div01">
+			<font class="media-heading"> 
+				
+			</font> 
+			<br><br>
+			
+			<!-- ----------------------------------------------------- -->
+			
+			<div class="table-responsive">
+				<table class="table table-condensed table-striped table-hover" id="reg_sales_table">
+					<tr>
+						<th>판매번호</th>
+						<th>계정이름</th>
+						<th>등록일</th>
+						<th>수량</th>
+						<th>가격</th>
+					</tr>
+					<!-- ----------------------------------------------------- -->
+					<c:forEach var="dto" items="${dtos}">
+					<tr>
+						<td id="sales_id">
+							${dto.sales_id}
+						</td> 
+						<td>
+							${dto.account_name}
+						</td> 	
+						<td>
+							<fmt:formatDate value="${dto.reg_date}" pattern="MM-dd"/>
+						</td> 
+						<td>
+							<fmt:formatNumber value="${dto.count_sales}" type="number"/>
+						</td> 	
+						<td>
+							<fmt:formatNumber value="${dto.selling_price}" type="currency"/>
+						</td> 	
+					</tr>
+					</c:forEach>
+					<!-- ----------------------------------------------------- -->
+				</table>
+			</div>
+			
+			<!-- ----------------------------------------------------- -->
+			
+			<br>
+			<div class="btn-group" align="center">
+				<span class="input-group-btn"> 
+					<button type="button" id="page2120_btn02" class="btn btn-primary"> 회계전표 입력 </button>
+					<button type="button" id="page2120_btn03" class="btn btn-default"> 메인으로 이동 </button>
+				</span>
+			</div>	<!-- // btn-group -->
+		</div>	<!-- // panel-body -->
+	</div>	<!-- // panel -->
+	
+	<!-- ----------------------------------------------------- -->
 	
 	<c:if test="${cnt == 3}">
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("정상적으로 입력되었습니다.");
-				 /* $('#reg_table').load('/purchase_management/input_purchase/reg_purchase_table'); */
 			}, 200);
 		</script>
 	</c:if>
@@ -21,80 +83,29 @@
 	<c:if test="${cnt != 3}">
 		<script type="text/javascript">
 			alert("입력작업중 오류가 발생했습니다.");
-			/* window.history.back(); */
 		</script>
 	</c:if>
 	
-	<div class="row" id="row">
-		<div class="col-xs-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading" id="reg_sales_table_heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-euro"></span> &emsp; 
-						판매 입력 세부 페이지 Reg_Sales_Table
-					</h3>
-				</div>	<!--  // panel-heading -->
-				<div class="panel-body" id="reg_sales_table_centent">
-					<div class="table-responsive">
-						<form action="#" method="get" onsubmit="return reg_sales();">
-							<div class="form-group">
-								<table class="table table-condensed table-striped" id="reg_sales_table">
-									<tr>
-										<th>판매번호</th>
-										<th>계정이름</th>
-										<th>등록일</th>
-										<th>수량</th>
-										<th>가격</th>
-									</tr>
-									<!-- ----------------------------------------------------- -->
-									<c:forEach var="dto" items="${dtos}">
-									<tr>
-										<td id="sales_id">
-											${dto.sales_id}
-										</td> 
-										<td>
-											${dto.account_name}
-										</td> 	
-										<td>
-											<fmt:formatDate value="${dto.reg_date}" pattern="MM-dd"/>
-										</td> 
-										<td>
-											<fmt:formatNumber value="${dto.count_sales}" type="number"/>
-										</td> 	
-										<td>
-											<fmt:formatNumber value="${dto.selling_price}" type="currency"/>
-										</td> 	
-									</tr>
-									</c:forEach>
-									<!-- ----------------------------------------------------- -->
-								</table>
-								<br>
-								<center>
-									<input type="button" name="reg_sales_statement" class="btn btn-primary" value="회계 전표 입력">
-								</center>
-								<br>
-							</div>	<!-- // form-group -->
-						</form>
-					</div> <!-- // table-responsive -->
-				</div>	<!-- // panel-body -->
-				<div id="alert_pro"></div>
-			</div>	<!-- // panel panel-primary -->
-		</div>	<!-- // col-xs-12 -->
-	</div>	<!-- // row -->
+	<!-- ----------------------------------------------------- -->
 	
 	<script type="text/javascript">	
-	$(document).ready(function(){
-		$("input[name=reg_sales_statement]").click(function(){
-			$('#reg_sales_content').slideUp(500);
-			$('#reg_sales_table_centent').slideUp(500);
-			$('#main_screen').load("/accounting_management/statement_management/make_statement");
-			return false;
-		});
-		
-		$('#reg_sales_table_heading').click(function(){
-			$('#reg_sales_table_centent').slideToggle();
-		});
+	
+	$('#page2120_div01_toggle').click(function(){
+		$('#page2120_div01').slideToggle();
+		return false;
 	});
+	
+	$('#page2120_btn02').click(function(){
+		$('#main_screen').load("/accounting_management/statement_management/search_statements");
+		return false;
+	});
+	
+	$('#page2120_btn03').click(function(){
+		window.location="/";
+		return false;
+	});
+	
+	
 	</script>
 	
 	

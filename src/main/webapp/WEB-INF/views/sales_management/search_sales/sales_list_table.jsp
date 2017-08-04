@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <body>
-<%-- 
+
 	<c:if test="${cnt==0}">
 		<script type="text/javascript">
 			setTimeout(function(){
@@ -22,10 +22,12 @@
 		<script type="text/javascript">
 			setTimeout(function(){
 				alert("등록된 내역이 없습니다. 판매등록을 해주세요.");
+				$('#main_screen').load("/sales_management/input_sales/reg_sales");
+				return false;
 			}, 200);
 		</script>
 	</c:if>
-		 --%>
+		 
 		 
 	<div class="row">
 		<div class="col-xs-12">
@@ -130,7 +132,7 @@
 		param = param.split(',');
 		var state = param[1];
 		
-		$('#sales_list_table_content').slideUp();
+		$('#sales_list_input-group').slideUp();
 		$('#sales_list_table_panel_body').slideUp();
 		  
 		if( state == "22213" ){
