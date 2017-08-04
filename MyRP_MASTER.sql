@@ -41,6 +41,7 @@ DROP TABLE PRODUCT;
 DROP TABLE SALARY;
 DROP TABLE SALARY_REGISTER;
 DROP TABLE PERSONNEL_APPOINTMENT;
+DROP TABLE EMPLOYEE_PICTURE;
 DROP TABLE EMPLOYEE_INFO;
 DROP TABLE WORK_RECORD;
 DROP TABLE RETIRED_EMPLOYEE;
@@ -129,6 +130,11 @@ CREATE TABLE employee(
     CONSTRAINT hr_code_group_rank_fk FOREIGN KEY(hr_code_group_rank,rank_code)
                         REFERENCES hr_code(hr_code_group_id,hr_code_id),
     CONSTRAINT employee_pk PRIMARY KEY(employee_id)
+);
+
+CREATE TABLE employee_picture(
+    employee_id         NUMBER(4),
+    pic_uid             VARCHAR2(255)
 );
 --------------------------------------------------------------------------------
 -- 인사정보 TABLE 생성 (employee_info)

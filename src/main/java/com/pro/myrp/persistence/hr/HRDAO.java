@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.ui.Model;
+
 import com.pro.myrp.domain.accounting_management.Salary_register_statementVO;
 import com.pro.myrp.domain.base_registration.Order_stateVO;
 import com.pro.myrp.domain.hr_management.dto.Calc_salaryDTO;
@@ -480,4 +482,36 @@ public interface HRDAO extends MyRPDAO {
 	 * @return
 	 */
 	public String select_state(int salary_state);
+
+	/**
+	 * 업로드 사진 uid 업데이트
+	 * @author amaco78
+	 * @param model
+	 * @return
+	 */
+	public int update_employee_picture(Model model);
+
+	/**
+	 * 업로드 사진 uid 존재여부 체크
+	 * @author amaco78
+	 * @param model
+	 * @return
+	 */
+	public int select_employee_picture(Model model);
+
+	/**
+	 * 업로드 사진 uid 등록
+	 * @author amaco78
+	 * @param model
+	 * @return
+	 */
+	public int insert_employee_picture(Model model);
+
+	/**
+	 * 사진 pic_uid 조회
+	 * @author amaco78
+	 * @param employee_id
+	 * @return
+	 */
+	public String select_pic_uid(int employee_id);
 }
