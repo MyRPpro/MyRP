@@ -84,10 +84,10 @@ $(function(){
 		
 		if(date == 'today'){
 			start_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate());
-			if((now.getDate()>9? now.getDate() : '0' + now.getDate()+1) >= 31){
+			if(now.getDate()+1 >= 31){
 				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
 			}else{
-				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1));
+				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate()+1 : '0' + (now.getDate()+1));
 			}
 			return false;
 		
@@ -102,8 +102,8 @@ $(function(){
 				}
 			}
 			
-			if((now.getDate()>9? now.getDate() : '0' + now.getDate()+1) >= 31){
-				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
+			if(now.getDate()+1 >= 31){
+				end_day.value = year + "-" + ((now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1)) + "-" + '01';		
 			}else{
 				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1));
 			}
@@ -209,6 +209,9 @@ $('#print').click(function(){
 	printView.document.write( '},20);');
 	printView.document.write('</scr');
 	printView.document.write('ipt>');
+
+	$("#main_screen").load("/distribution_management/stockpile/search_stockpile");
+	
 });
 
 </script>
