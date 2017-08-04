@@ -82,11 +82,47 @@
 		$(this).tab("show");
 		return false;
 	});
+	
+	$('#print').click(function(){ //'#print' 는 출력버튼 id
+		
+		var $table = $("#page16330_div01"); //출력div 설정
+		$table.find('a').attr('href',null);
+		$table.find('.btn').attr('type','hidden');
+
+		var printView = window.open();
+		
+		printView.document.write( "<head>"); 
+		printView.document.write( $('head').html() );
+		printView.document.write( '</head>' );
+		
+		printView.document.write( '<body>' );
+		printView.document.write( '<div id = "printSet">' );
+		printView.document.write( $table.html() );
+		printView.document.write( '</div>' );
+		printView.document.write( '</body>' );
+
+		printView.document.write( '<script type="text/javascript">' );
+		printView.document.write( 'setTimeout(function(){');
+		printView.document.write( 'window.print();');
+		printView.document.write( '},10);');
+		printView.document.write( 'setTimeout(function(){');
+		printView.document.write( 'window.close();');
+		printView.document.write( '},20);');
+		printView.document.write('</scr');
+		printView.document.write('ipt>');
+		
+		var employee_id = "<c:out value='${employee_id}'/>";
+		var select_tab = "<c:out value='${select_tab}'/>";
+		//$table이 아닌 이 페이지를 호출한 상위 페이지의 div를 호출해야 됨
+		$("#page16310_div04").load("/hr_management/manage_personnel_card/modify_personnel_card?employee_id="+employee_id+"&select_tab="+select_tab);
+	});
+	
 </script>
 <body>
 <div class="panel panel-default" id="page16330">
 	<div class="panel-heading">
 		<a id="page16330_div01_toggle">[16330]modify_personnel_card.jsp</a>
+		<button class="btn btn-default btn-sm" id="print">출력</button>
 	</div>
 		<div class="panel-body" id="page16330_div01">		
 			<div>
