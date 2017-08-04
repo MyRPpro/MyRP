@@ -90,10 +90,14 @@ public interface CodeMyRP {
 				
 				
 			// 구매 현황
-			public static final int staus_purchase = 13300;			
-				public static final int search_status_purchase = 13310;// 구매 현황 검색
-				public static final int status_purchase = 13320;		// 구매 현황
-				/*public static final int detail_purchase = 12120;		// 구매 상세 (중복)*/			
+			public static final int status_purchase 					= 13300;			
+				public static final int search_status_purchase 			= 13310;	// 구매 현황 검색
+				public static final int search_status_purchase_table 	= 13320;	// 구매 현황 테이블
+				public static final int search_status_purchase_page 	= 13330;	// 구매 현황 페이지
+				public static final int search_status_purchase_detail 	= 13340;	// 구매 현황 세부
+				
+				
+				
 			// 거래처별 채권
 			public static final int debt_by_company = 13400;			
 				public static final int search_debt_by_company = 13410;			//거래처별채권 검색

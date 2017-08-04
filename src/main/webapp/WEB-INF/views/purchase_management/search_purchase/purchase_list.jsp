@@ -51,15 +51,36 @@
 									</span>
 								</div>
 					            <center>
-					            <br>
-								<input type="button" name="btn_list_all" class="btn btn-info " value="전체목록"	id="list_btn_all" 	onclick="return search_list(1,0)">
-								<input type="button" name="btn_reg_purchasel" class="btn btn-info " value="구매등록" 	id="list_btn_reg"	onclick="return reg_purchase();">
-								&nbsp;
-								<input type="button" name="btn_search_state" class="btn btn-info " value="전표승인조회" id="list_btn_state"	onclick="return search_list(1,2)">
-								<input type="button" name="btn_search_storage_in" class="btn btn-info " value="입고완료조회" id="list_btn_in"	onclick="return search_list(1,3)">
-								<input type="button" name="btn_approval_pay" class="btn btn-info " value="상환승인조회" 	id="list_approval_pay">
-								<input type="button" name="btn_complete_pay" class="btn btn-info " value="상환완료조회" 	id="list_complete_pay">
-								<br><br>
+					            
+					            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+						            
+						            <div class="btn-group" role="group">
+										<input type="button" name="btn_list_all" class="btn btn-primary " value="전체목록"	id="list_btn_all" 	onclick="return search_list(1,0)">
+									</div>
+									
+									<div class="btn-group" role="group">
+										<input type="button" name="btn_reg_purchasel" class="btn btn-primary " value="구매등록" 	id="list_btn_reg"	onclick="return reg_purchase();">
+									</div>
+									
+									<div class="btn-group" role="group">
+										<input type="button" name="btn_search_state" class="btn btn-default " value="전표승인조회" id="list_btn_state"	onclick="return search_list(1,2)">
+									</div>
+									
+									<div class="btn-group" role="group">
+										<input type="button" name="btn_search_storage_in" class="btn btn-default " value="입고완료조회" id="list_btn_in"	onclick="return search_list(1,3)">
+									</div>
+									
+									<div class="btn-group" role="group">
+										<input type="button" name="btn_approval_pay" class="btn btn-default " value="상환승인조회" 	id="list_approval_pay">
+									</div>
+									
+									<div class="btn-group" role="group">
+										<input type="button" name="btn_complete_pay" class="btn btn-default " value="상환완료조회" 	id="list_complete_pay">
+									</div>
+								
+								</div>
+								
+								
 								<div id="list_page"></div> 
 								</center>
 							</form>	

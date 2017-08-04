@@ -46,7 +46,6 @@ public class CodeHandler {
 			public static final int req_receive_pro 	= 12190;	// 판매 채권회수 처리
 			
 			
-			
 		// 판매입력
 		public static final int input_sales 			= 12200;
 			public static final int reg_sales 			= 12210;	//판매 입력
@@ -93,11 +92,14 @@ public class CodeHandler {
 			public static final int search_reg_purchase_pro 	= 13250;	// 부족 재고 조회 처리
 			
 		// 구매 현황
-		public static final int staus_purchase 						= 13300;	// 구매 현황	
+		public static final int status_purchase 					= 13300;	// 구매 현황	
 			public static final int search_status_purchase 			= 13310;	// 구매 현황 검색
 			public static final int search_status_purchase_table 	= 13320;	// 구매 현황 테이블
 			public static final int search_status_purchase_page 	= 13330;	// 구매 현황 페이지
 			public static final int search_status_purchase_detail 	= 13340;	// 구매 현황 세부
+			
+			
+			
 		// 거래처별 채권
 		public static final int debt_by_company = 13400;			
 			public static final int search_debt_by_company = 13410;			//거래처별채권 검색
