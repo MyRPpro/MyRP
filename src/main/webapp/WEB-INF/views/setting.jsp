@@ -24,18 +24,18 @@
 	margin-bottom: 0px;
 	}
 	tr{
-	font-size: x-small;
+	font-size: small
 	text-align: center;
 	}
 	td,th{
-	font-size: x-small;
+	font-size: small
 	text-align: center;
 	}
 	body > .container-fluid{
 	padding-bottom: 60px;
 	}
 	#help_center{
-	font-size: x-small;
+	font-size: small
 	}
 	#help_console{
 	margin-top: 15px;
@@ -57,6 +57,9 @@
 	}
 	.btn-group{
 	margin-bottom: 10px;
+	}
+	a{
+	vertical-align: center;
 	}
 	/*  판매에서 추가 한 부분 종료 */
 </style>

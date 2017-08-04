@@ -8,99 +8,178 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h3> 판매 현황 검색 페이지 : search_status_sales.jsp</h3>
 	
-	<input type="button" name="btn_all_list" value="전체내역검색" onclick="return list_table(1,2);">
 	
-	<form action="#" name="list_status_sales" method="GET" onsubmit="return list_table(1,1)">
-		
-		<hr>
-		기간별 입력 
-		<input type="submit" name="btn_submit" value="검색" > 
-		<input type="reset" name="btn_reset" value="재설정">  
-		<br>
-		
-		<c:set var="today" value="<%= new java.util.Date() %>"/>
-		<input type="date" id="start_date" name="start_date" 
-			value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
-		~
-		<input type="date" id="end_date" name="end_date"
-			value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
+	<div class="panel panel-primary" id="page2110">
+		<div class="panel-heading">
+	  		 <h4 class="panel-title">
+	  		 	<a id="page2410_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
+	  			<b> 판매 현황 검색 페이지 : Search_Status_Sales </b>
+	  			</a>
+	  		</h4>
+		</div>
+		<div class="panel-body" id="page2410_div01">
+			<font class="media-heading">
+				<span>판매내역을 원하는 기간 및 옵션별로 검색할 수 있습니다. 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요.</span>
+			</font>
+			<br>
+			<!-- ----------------------------------------------------- -->
 			
-		<input type="button" id="today" name="today" value="오늘" >                    
-		<input type="button" id="a_day"  name="a_day" value="하루" >        
-		<input type="button" id="a_week" name="a_week"  value="한주">       
-		<input type="button" id="a_month" name="a_month" value="한달">      
-		<input type="button" id="a_quarter" name="a_quarter" value="한분기">   
-		<input type="button" id="a_year" name="a_year" value="일년">       
-		                                                      
-		<select id="months">                                              
-			<option value="0" selected> 월별검색 </option>
-			<option value="01" > 1월 </option>
-			<option value="02" > 2월 </option>
-			<option value="03" > 3월 </option>
-			<option value="04" > 4월 </option>
-			<option value="05" > 5월 </option>
-			<option value="06" > 6월 </option>
-			<option value="07" > 7월 </option>
-			<option value="08" > 8월 </option>
-			<option value="09" > 9월 </option>
-			<option value="10" > 10월 </option>
-			<option value="11" > 11월 </option>
-			<option value="12" > 12월 </option>
-		</select>
-		<hr>
+			<div class="form-group">
+				<form action="#" name="list_status_sales" method="GET" onsubmit="return list_table(1,2)">
+				
+				<div class="btn-group" align="center">
+					<span class="input-group-btn">
+						<input type="button" name="btn_all_list" value="전체내역 검색" class="btn btn-primary"  onclick="return list_table(1,1);">
+						<input type="reset" class="btn btn-default" value="재작성">
+					</span>
+				</div>	<!-- // btn-group -->
+				<hr>
+				
+				<!-- ----------------------------------------------------- -->
+				
+				<c:set var="today" value="<%= new java.util.Date() %>"/>
 
+					<div class="btn-group btn-group-justified" role="group" aria-label="...">
+						<div class="btn-group" role="group">
+							<input type="date" id="start_date" name="start_date" class="btn btn-default"
+								value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
+						</div>
+						<div class="btn-group" role="group">
+							<input type="date" id="end_date" name="end_date" class="btn btn-default"
+								value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
+						</div>
+					</div>
+					
+					<!-- ----------------------------------------------------- -->
+
+					<div class="btn-group btn-group-justified" role="group" aria-label="...">
+
+						<div class="btn-group" role="group">
+							<input type="button" id="today" name="today" value="오늘"
+								class="btn btn-default">
+						</div>
+
+						<div class="btn-group" role="group">
+							<input type="button" id="a_day" name="a_day" value="하루"
+								class="btn btn-default">
+						</div>
+						<div class="btn-group" role="group">
+							<input type="button" id="a_week" name="a_week" value="한주"
+								class="btn btn-default">
+						</div>
+						<div class="btn-group" role="group">
+							<input type="button" id="a_month" name="a_month" value="한달"
+								class="btn btn-default">
+						</div>
+						<div class="btn-group" role="group">
+							<input type="button" id="a_quarter" name="a_quarter" value="한분기"
+								class="btn btn-default">
+						</div>
+						<div class="btn-group" role="group">
+							<input type="button" id="a_year" name="a_year" value="일년"
+								class="btn btn-default">
+						</div>
+						
+						<div class="btn-group" role="group">
+							<select id="months" class="form-control" >                                              
+								<option value="0" selected> 월별 </option>
+								<option value="01" > 1월 </option>
+								<option value="02" > 2월 </option>
+								<option value="03" > 3월 </option>
+								<option value="04" > 4월 </option>
+								<option value="05" > 5월 </option>
+								<option value="06" > 6월 </option>
+								<option value="07" > 7월 </option>
+								<option value="08" > 8월 </option>
+								<option value="09" > 9월 </option>
+								<option value="10" > 10월 </option>
+								<option value="11" > 11월 </option>
+								<option value="12" > 12월 </option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="btn-group" align="center">
+						<span class="input-group-btn">
+							<input type="button" name="btn_submit"class="btn btn-primary"  value="검색"  onclick="list_table(1,1);" > 
+							<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
+						</span>
+					</div>	<!-- // btn-group -->
+						
+					
+					<!-- ----------------------------------------------------- -->
+					
+					<div class="btn-group btn-group-justified" role="group" aria-label="...">
+						
+						<div class="btn-group" role="group">
+							<select name="account_ids" id="account_ids"  class="form-control" >
+							   <option value="0" selected> 계정선택 </option>
+									<option value="500012020000">부가세예수금</option>
+									<option value="500014030000">상품매출</option>
+									<option value="500011020000">매출채권</option>
+							</select>  
+						</div>
+						
+						<div class="btn-group" role="group">
+						  	<select name="product_ids" id="product_ids"  class="form-control" >
+							   <option value="0" selected> 제품선택 </option>
+							   <c:forEach var="product" items="${product_ids}">
+							  		<option value="${product.product_id}">${product.product_name} </option>
+							  	</c:forEach>
+						  	</select>
+					  	</div>
+					  	
+					  	<div class="btn-group" role="group">
+						  	<select name="company_ids" id="company_ids"  class="form-control" >
+							   <option value="0" selected> 거래처선택 </option>
+							   <c:forEach var="company" items="${company_ids}">
+							  		<option value="${company.company_id}">${company.company_name} </option>
+							  	</c:forEach>
+						  	</select>
+					  	</div>
+					  	
+					  	<div class="btn-group" role="group">
+						  	<select name="employee_ids" id="employee_ids" class="form-control"  >
+							   <option value="0" selected> 담당자선택 </option>
+							   <c:forEach var="employee" items="${employee_ids}">
+							  		<option value="${employee.employee_id}">${employee.employee_name} </option>
+							  	</c:forEach>
+						  	</select>
+						</div>
+					</div>
+					
+					<div class="btn-group" align="center">
+						<span class="input-group-btn">
+							<input type="button" name="btn_submit"class="btn btn-primary"  value="검색" onclick="list_table(1,3);" > 
+							<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
+						</span>
+					</div>	<!-- // btn-group -->
+
+				<!-- ----------------------------------------------------- -->
+				
+				</form>
+			</div>
+	
+	
+			<!-- ----------------------------------------------------- -->
+			<div class="panel-body" id="list_page"></div>
+			</div>	<!-- // panel-body -->
+		<div  id="page2410_div02">
+			<div class="panel-body" id="list_table"></div>
+		</div>
+	</div>	<!-- // panel -->
 		
-		옵션별 선택 
-		<input type="button" name="btn_search" value="검색" onclick="list_table(1,3)" >
-		<input type="reset" name="btn_reset" value="재설정">  
-		<br>
-		
-		<select name="account_ids" id="account_ids"  >
-		   <option value="0" selected> 계정선택 </option>
-				<option value="500012020000">부가세예수금</option>
-				<option value="500014030000">상품매출</option>
-				<option value="500011020000">매출채권</option>
-		</select>  
-	  	
-		<select name="product_ids" id="product_ids"  >
-		   <option value="0" selected> 제품선택 </option>
-		   <c:forEach var="product" items="${product_ids}">
-		  		<option value="${product.product_id}">${product.product_name} </option>
-		  	</c:forEach>
-	  	</select>
-	  	
-	  	<select name="company_ids" id="company_ids"  >
-		   <option value="0" selected> 거래처선택 </option>
-		   <c:forEach var="company" items="${company_ids}">
-		  		<option value="${company.company_id}">${company.company_name} </option>
-		  	</c:forEach>
-	  	</select>
-	  	
-	  	<select name="employee_ids" id="employee_ids"  >
-		   <option value="0" selected> 담당자선택 </option>
-		   <c:forEach var="employee" items="${employee_ids}">
-		  		<option value="${employee.employee_id}">${employee.employee_name} </option>
-		  	</c:forEach>
-	  	</select>
-		 
-	</form>		
-	
-	<hr>
-	<div id="list_page"></div>
-	
-	<div id="list_table">
-		<p><h3> 판매 현황를 볼 수 있는 페이지 입니다. </h3></p>
-		<p> 검색을 원하는 기간을 선택하면 해당 기간에 거래된  내역을 볼 수 있습니다. </p>
-		<p> 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요. </p>
-	</div>
-	
+	<!-- ------------------------------------------------------------------------------------- -->
 	
 	<script type="text/javascript"> 	
 	
 	function list_table(param,check){
+		
+		$('#page2410_div01_toggle').click(function(){
+			$('#page2410_div01').slideToggle();
+			return false;
+		});
 		
 		var pageNum = param;
 		var check = check;
@@ -130,7 +209,6 @@
 			
 		}
 		
-		
 		$('#list_table').load('/sales_management/status_sales/search_status_sales_table?start_date='+start_date
 				+'&end_date='+end_date
 				+'&pageNum='+pageNum
@@ -150,7 +228,6 @@
 		return false;
 	}
 	
-
 	
 	
 	var start_date	= null;

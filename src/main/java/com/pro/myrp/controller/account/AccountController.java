@@ -33,7 +33,7 @@ public interface AccountController extends MyRPController{
 	  * @return
 	  * @throws Exception
 	  */
-	 public String call_bank_account_id(HttpServletRequest req, Model model) throws Exception;
+	/* public String call_bank_account_id(HttpServletRequest req, Model model) throws Exception;*/
 	 
 	 /**
 	 * 계좌등록 > 계좌 등록처리
@@ -221,6 +221,7 @@ public interface AccountController extends MyRPController{
 	public String search_balnace_sheet2(HttpServletRequest req, Model model) throws Exception;
 	public String show_balance_sheet(HttpServletRequest req, Model model) throws Exception;
 	
+	public String show_balance_sheet_graph(HttpServletRequest req, Model model)throws Exception;
 	/**
 	 * 회계보고서 > 손익계산서 조회
 	 * @param req
@@ -230,7 +231,7 @@ public interface AccountController extends MyRPController{
 	 */
 	public String search_profit_and_loss_statement(HttpServletRequest req, Model model)throws Exception;
 	public String show_profit_and_loss_statement(HttpServletRequest req, Model model)throws Exception;
-	
+	public String show_profit_and_loss_statement_graph(HttpServletRequest req, Model model)throws Exception;
 	/**
 	 * 회계보고서 > 현금흐름표 조회
 	 * @param req
@@ -240,6 +241,7 @@ public interface AccountController extends MyRPController{
 	 */
 	public String search_statement_of_cash_flows(HttpServletRequest req, Model model)throws Exception;
 	public String show_statement_of_cash_flows(HttpServletRequest req, Model model)throws Exception;
+	public String show_statement_of_cash_flows_graph(HttpServletRequest req, Model model)throws Exception;
 	
 	/**
 	 * 채권/채무 조회

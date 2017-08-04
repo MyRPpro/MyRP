@@ -186,6 +186,7 @@
 	
 	<script type="text/javascript">
 	
+	
 	function req_storage_out(){
 		 var sales_id = '${dtos.get(0).sales_id}';
 		$('#alert_pro').load("/sales_management/search_sales/detail_sales_pro"+"?req_kind=storage_out&sales_id="+sales_id);
@@ -197,7 +198,7 @@
 	}
 	
 	$('#reg_sales_state').click(function(){
-		$('#main_screen').load("/accounting_management/statement_management/make_statement");
+		$('#main_screen').load("/accounting_management/statement_management/search_statements");
 	});
 	
 	$('#detail_sales_panel_heading').click(function(){
@@ -206,9 +207,11 @@
 	
 	$('#detail_sales_confirm').click(function(){
 		
-		$('#detail_sales_panel_body').slideUp();
-		$('#sales_list_table_panel_title').slideDown();
-		$('#sales_list_panel_body').slideDown();
+		$('#list_detail').slideUp();
+		
+		$('#sales_list_input-group').slideDown();
+		$('#sales_list_table_panel_body').slideDown();
+		
 	});
 	
 	
