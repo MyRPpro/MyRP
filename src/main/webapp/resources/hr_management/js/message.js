@@ -18,7 +18,7 @@ var use_state 		= "사용상태 체크 (Y:사용, N:비사용)";
 /**
  * 기초 등록
  */
-var biz_reg_no				= "사업자 등록번호";
+var biz_reg_no				= "사업자 등록번호: 문자12자 | 필수입력사항";
 var ceo_name 				= "대표자";
 var corp_reg_no				= "법인 등록번호";
 var biz_type				= "업태";
@@ -82,6 +82,7 @@ var btn_search = "검색";
  */
 // reg_purchase_table
 var reg_state 				= "전표 입력 페이지로 이동";
+
 // reg_purchase
 var reg_date				= "등록일 : YYYY-MM-DD 형식";
 var storage_in_date 		= "입고일 : YYYY-MM-DD 형식";
@@ -99,6 +100,12 @@ var btn_submit 				= "전송 버튼 ";
 var btn_reset 				= "재설정 버튼 ";
 var btn_search_lack 		= "부족재고 조회 ";
 var btn_reg_purchase 		= "구매 입력 ";
+
+//purchase_list
+var btn_approval_pay		= "상황승인조회";
+var btn_complete_pay		= "상황완료조회";
+
+
 //detail_purchase
 var account_name 			= "계정 이름 ";
 var order_id 				= "구매 상태 코드 ";
@@ -109,6 +116,9 @@ var update_date 			= "최근수정일";
 var req_storage_in 			= "입고요청하기";
 var req_repay 				= "지급기간까지 남은 일자";
 var btn_confirm 			= "확인하고 창을 닫음";
+var req_complete_pay 		= "상환완료하기";
+var req_purchase_bank 		= "상황완료 후 구매통장 계산"
+
 // modify_purchase
 var state_name 				= "상태명";
 var btn_modify 				= "수정하기";
@@ -228,4 +238,5 @@ var weekend_overtime	= "주말 시간";
 /**
  * 근태관리
  */
-
+var attitude_date1 		= "휴가시작 일자";
+var attitude_date2 		= "휴가종료 일자";

@@ -317,6 +317,194 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 
 	}
 
+	public void list_approval_pay_service(Model model){
+		
+		System.out.println("  -> list_approval_pay_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		// 우선 상태 코드 업데이트
+		Map<String,Object> daoMap = new HashMap<>();
+		daoMap.put("before_state", request_payments);	// 상황 요청
+		daoMap.put("after_state", approval_payments);	// 상황 승인
+		
+		int update_cnt = dao.update_purchase_state(daoMap);
+		System.out.println("  -> approval_pay update_cnt : " + update_cnt);
+		
+		int cnt = dao.select_purchase_state_cnt(daoMap);
+		System.out.println("  -> approval_pay Search Cnt : " + cnt);
+		
+		/*-----------------------------------------------------*/
+		
+		System.out.println("  -> 상환 요청 알람처리 실행!");
+		List<Order_stateVO> orderVos = new ArrayList<>();
+		orderVos = dao.select_statements_approval();
+		for(int i=0; i<orderVos.size(); i++) {
+			Order_stateVO orderVo = orderVos.get(i);
+			String statement_id = orderVo.getOrder_id();
+			List<Purchase_statementVO> tempVos = dao.select_purchase_statement(statement_id);
+			
+			for(int j=0; j<tempVos.size(); j++) {
+				Purchase_statementVO tempVo = tempVos.get(j);
+				String purchase_id = tempVo.getPurchase_id();
+				String account_id = tempVo.getAccount_id();
+				daoMap.clear();
+				daoMap.put("purchase_id", purchase_id);
+				daoMap.put("account_id", account_id);
+				
+				PurchaseDTO purchaseDTO = dao.select_search_purchase_order(daoMap);
+				System.out.println("  -> alert_state() : " + purchaseDTO.getPurchase_state() );
+				
+				if(purchaseDTO.getPurchase_state() == approval_payments) {
+					daoMap.clear();
+					daoMap.put("order_id", statement_id);
+					daoMap.put("order_state", 0);
+					System.out.println("  -> daoMap: " + daoMap.toString() );
+					int dao_cnt = dao.update_order_state(daoMap);
+					System.out.println("  -> dao_cnt : " + dao_cnt );
+				}
+			}
+		}
+		System.out.println("  -> 알람처리 종료!");
+		
+		/*-----------------------------------------------------*/
+		
+		// 목록 출력이니 테이블로 만들자
+		int pageSize	= 5;
+		int pageBlock	= 5;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		
+		System.out.println("  -> start & end page : " + start +"/ "+ end);
+		
+		if(cnt > 0) {
+			System.out.println("  -> Complete import cnt ...");
+			
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+			
+			daoMap.clear();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			daoMap.put("state", approval_payments);
+			
+			ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+			dtos = dao.select_purchase_state(daoMap);
+			model.addAttribute("dtos",dtos);
+		}
+		
+	}
+
+	public void list_complete_pay_service(Model model){
+
+		System.out.println("  -> list_complete_pay_service...");
+		
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		
+		// 우선 상태 코드 업데이트
+		Map<String,Object> daoMap = new HashMap<>();
+		daoMap.put("before_state", approval_payments);	// 상황 요청
+		daoMap.put("after_state", complete_payments);	// 상황 완료
+		
+		int update_cnt = dao.update_purchase_state(daoMap);
+		System.out.println("  -> complete_pay update_cnt : " + update_cnt);
+		
+		int cnt = dao.select_purchase_state_cnt(daoMap);
+		System.out.println("  -> complete_pay Search Cnt : " + cnt);
+		
+		daoMap.put("after_state", purchase_deadline);	// 마감
+		int temp_cnt = dao.select_purchase_state_cnt(daoMap);
+		System.out.println("  -> complete_pay Search temp_cnt: " + temp_cnt);
+		
+		cnt = cnt + temp_cnt;
+		
+		
+		// 목록 출력이니 테이블로 만들자
+		int pageSize	= 5;
+		int pageBlock	= 5;
+		int start		= 0;
+		int end			= 0;
+		int number		= 0;
+		String pageNum	= null;
+		int currentPage	= 0;
+		int pageCount	= 0;
+		int	startPage	= 0;
+		int endPage		= 0;
+		
+		pageNum = req.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		currentPage = Integer.parseInt(pageNum);
+		pageCount = (cnt/pageSize)+((cnt%pageSize)>0?1:0);
+		start = (currentPage -1) * pageSize + 1;
+		end = start + pageSize - 1;
+		if(end > cnt) end = cnt;
+		number = cnt - (currentPage - 1) * pageSize;
+		
+		startPage = (currentPage/pageBlock)*pageBlock+1;
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		endPage = startPage+pageBlock-1;
+		if(endPage>pageCount) endPage = pageCount;
+		
+		model.addAttribute("cnt", cnt);
+		model.addAttribute("number", number);
+		model.addAttribute("pageNum", pageNum);
+		System.out.println("  -> start & end page : " + start +"/ "+ end);
+		
+		ArrayList<PurchaseDTO> dtos = new ArrayList<>();
+		
+		if(cnt > 0) {
+			System.out.println("  -> Complete import cnt ...");
+			
+			model.addAttribute("cnt", cnt);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("pageBlock", pageBlock);
+			model.addAttribute("pageCount", pageCount);
+			model.addAttribute("currentPage", currentPage);
+			
+			daoMap.clear();
+			daoMap.put("start", start);
+			daoMap.put("end", end);
+			daoMap.put("state", "(23209,23299)" );
+			
+			dtos = dao.select_purchase_state(daoMap);
+			model.addAttribute("dtos",dtos);
+		}
+		
+	}
+	
+	
+	
 	
 	// 구매 검색
 	@Override
@@ -365,7 +553,6 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 			System.out.println("  -> update_cnt : " + update_cnt);
 			cnt = dao.select_account_approve_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
-			
 			
 			/*-----------------------------------------------------*/
 			
@@ -431,7 +618,7 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 					
 					Map<String, Object> daoMap = new HashMap<>();
 					daoMap.put("purchase_id", purchase_id);
-					daoMap.put("account_id", "500011050000");
+					daoMap.put("account_id", account_purchase_of_product);
 					PurchaseDTO purchasedto = dao.select_search_purchase_order(daoMap);
 					System.out.println("  -> salesdto_state() : " + purchasedto.getPurchase_state() );
 					
@@ -455,6 +642,16 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 		} else if (search_check == 4) {
 			System.out.println("  -> Search_Complete_pay...");
 			int update_cnt = dao.update_complete_pay_purchase();
+			
+			/*String purchase_id = ;
+			
+			Map<String,Object> daoMap = new HashMap<>();
+			daoMap.put("purchase_id", purchase_id);
+			daoMap.put("account_id", account_debt_of_sales );
+			daoMap.put("complete_approval_purchase_statement", complete_approval_purchase_statement);
+			daoMap.put("complete_payments", complete_payments);
+			*/
+			
 			System.out.println("  -> update_cnt : " + update_cnt);
 			cnt = dao.select_checkout_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
@@ -466,7 +663,9 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 			cnt = dao.select_checkout_purchase_cnt();
 			System.out.println("  -> Search Cnt : " + cnt);
 
-		} else {
+		} 
+		
+		else {
 			System.out.println("  -> Search_All...");
 			cnt = dao.select_all_purchase_cnt();
 		}
@@ -563,9 +762,13 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 				dtos = dao.select_purchase_All_list(daoMap);
 				model.addAttribute("dtos", dtos);
 			}
-
-		} else System.out.println("  -> Cnt is Zero...");
-		model.addAttribute("cnt", cnt);
+			
+			model.addAttribute("cnt", cnt);
+			
+		} else{
+			System.out.println("  -> Cnt is Zero...");
+			model.addAttribute("cnt", -1);
+		}
 		model.addAttribute("check",search_check);
 		
 		
@@ -625,6 +828,10 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 			model.addAttribute("pageBlock", pageBlock);
 			model.addAttribute("pageCount", pageCount);
 			model.addAttribute("currentPage", currentPage);
+		
+		} else {
+			System.out.println("  -> Cnt is Zero...");
+			model.addAttribute("nocnt", 0);
 		}
 	}
 
@@ -840,8 +1047,8 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 			System.out.println("  -> purchase_id : " + purchase_id);
 			Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("purchase_id", purchase_id);
-			daoMap.put("account_id", "500011050000");
-			daoMap.put("purchase_state", 23204);
+			daoMap.put("account_id", account_purchase_of_product);	// 상품매입
+			daoMap.put("purchase_state", 23204);		// 입고 요청
 			update_cnt = dao.update_req_storage_in(daoMap);
 			System.out.println("  -> update_cnt : " + update_cnt);
 			model.addAttribute("update_cnt", update_cnt);
@@ -882,56 +1089,123 @@ public class purchaseServiceImpl implements purchaseService,CodeMyRP {
 		}
 		
 		// 지급  확인 버튼
-		if( req_kind.equals("req_pay") ){
+		if( req_kind.equals("req_repay") ){
+			
+			System.out.println("  -> Req_Repay... ");
 			
 			// 현금(500011010000)과 매입채무(500012010000) 채권 생성 , 둘다 가격은 마이너스
+			purchase_id = "";
 			purchase_id = req.getParameter("purchase_id");
 			System.out.println("  -> purchase_id : " + purchase_id);
-			price_temp = req.getParameter("supply_price");
-			price_temp = price_temp.replace("￦","");
-			price_temp = price_temp.replace(",","");
-			Long price = Long.parseLong(price_temp);
-			System.out.println( "  -> price : " + price );
-			System.out.println( "빼기 : " + (-price));
+			
+			
+			// 기존 구매 정보 상태변경 ( 23205 -> 23206 | 입고완료 ->  상환대기 )
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.put("purchase_id", purchase_id);
+			daoMap.put("account_id", account_purchase_of_product  );	// 상품매입
+			daoMap.put("after_state", wait_payments );					// 상환대기 23206
+			update_cnt = dao.update_state_force(daoMap);
 			
 			// 정보 불러오기
 			dto = dao.select_purchase(purchase_id);
 			
-			// 기존 구매 정보 상태변경 ( 23205 -> 23206 | 입고완료 -> 지급대기 )
-			Map<String, Object> daoMap = new HashMap<>();
-			daoMap.put("purchase_id", purchase_id);
-			daoMap.put("account_id", "500011020000");
-			daoMap.put("after_state", 23206);
-			update_cnt = dao.update_state_force(daoMap);
+			Long price = dto.getSupply_price();
+			int count = dto.getCount_purchase();
+			System.out.println( "  -> price : " + price );
 			
 			// 공통사항 설정
 			dto.setPurchase_id(dao.select_purchase_id());
-			dto.setSupply_price(-price);
-			dto.setPurchase_state(23202);
+			dto.setSupply_price(-price);					// 가격 마이너스 설정
+			dto.setPurchase_state(request_payments);		// 23207 상환요청
 			dto.setOrder_id("0");
 			
 			// 매입채무 계정 설정
-			dto.setAccount_id("500012010000");
+			dto.setAccount_id(account_debt_of_sales);
 			insert_cnt = dao.insert_reg_purchase(dto);
 			if(insert_cnt != 0 ) ++insert_cnt; 
 			dtos.add(dto);
 			
 			// 현금 계정 설정
-			dto.setAccount_id("500011010000");
+			dto.setAccount_id(account_cash);
 			insert_cnt = dao.insert_reg_purchase(dto);
 			if(insert_cnt != 0 ) ++insert_cnt;
 			dtos.add(dto);
 			
-			System.out.println("  -> update_cnt : " + insert_cnt);
+			System.out.println("  -> insert_cnt : " + insert_cnt);
 			
 			model.addAttribute("insert_cnt", insert_cnt);
 			model.addAttribute("dtos", dtos);
 		}
 		
-	}
-	
-	
-	
-}
+		// 상환 완료 하기 버튼
+		if( req_kind.equals("req_complete_pay") ){
+			
+			System.out.println("  -> REQ_COMPLETE_PAY... ");
+			
+			purchase_id = req.getParameter("purchase_id");
+			System.out.println("  -> purchase_id : " + purchase_id);
+			
+			Map<String, Object> daoMap = new HashMap<>();
+			daoMap.clear();
+			daoMap.put("purchase_id", purchase_id);
+			daoMap.put("account_id1", account_cash);
+			daoMap.put("account_id2", account_debt_of_sales );
+			daoMap.put("after_state", 23209);
+			update_cnt = dao.update_state_force2(daoMap);
+			System.out.println("  -> update_cnt : " + update_cnt);
+			model.addAttribute("update_cnt", update_cnt);
+			
+		}
 		
+		// 상환 완료하고 구매통장 계산 
+		if( req_kind.equals("req_purchase_bank") ){
+			
+			System.out.println("  -> REQ_COMPLETE_PAY... ");
+			
+			purchase_id = req.getParameter("purchase_id");
+			System.out.println("  -> purchase_id : " + purchase_id);
+			
+			Map<String,Object> daoMap = new HashMap<>();
+			daoMap.clear();
+			daoMap.put("purchase_id",purchase_id);
+			ArrayList<PurchaseDTO> bank_dtos = dao.select_detail_purchase(daoMap);
+			
+			int state = bank_dtos.get(0).getPurchase_state();
+			System.out.println("  -> state :" + state);
+			
+			Long price = null;
+			int purchase_bank_cnt = 0;
+			if( state == complete_payments ){
+				
+				System.out.println("  -> Purchase_account_Update... ");
+				
+				price = bank_dtos.get(0).getSupply_price();
+				int conunt = bank_dtos.get(0).getCount_purchase();
+				price = price * conunt;
+				price = Math.abs(price);
+				daoMap.put("price",price);
+				daoMap.put("account_id",account_debt_of_sales);
+				
+				// 구매통장 업데이트
+				purchase_bank_cnt = dao.update_purchase_bank(daoMap); 
+				System.out.println("  -> purchase_bank_cnt : " + purchase_bank_cnt);
+				
+				// 상태 업데이트
+				int update_state = purchase_deadline;
+				bank_dtos.get(1).setPurchase_state(update_state);
+				update_cnt = dao.update_purchase( bank_dtos.get(1) );
+				System.out.println("  -> update_cnt :" + update_cnt);
+				
+				model.addAttribute("purchase_bank_cnt",purchase_bank_cnt);
+				model.addAttribute("price",price);
+				
+			} else {
+				System.out.println("  -> Cnt is Zero... ");
+			}
+				model.addAttribute("purchase_bank_cnt",purchase_bank_cnt);
+				model.addAttribute("price",price);
+		}
 
+	}
+
+}

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -527,6 +528,38 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 	}
 
 	@Override
+	public void personnel_card_salary_service(Model model) {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		Map<String, Object> daoMap = new HashMap<>();
+		daoMap.put("employee_id", employee_id);
+		daoMap.put("salary_state", state_complete_payments_salary);
+		List<Personnel_card_salaryDTO> dtos = dao.select_personnel_card_salary(daoMap);
+		model.addAttribute("dtos", dtos);
+		model.addAttribute("employee_id", employee_id);
+		
+		String pic_uid = dao.select_pic_uid(employee_id);
+		model.addAttribute("pic_uid", pic_uid);
+	}
+
+	@Transactional
+	@Override
+	public void add_personnel_card_upload_service(Model model) {
+		Map<String,Object> map = model.asMap();
+		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		int employee_id = Integer.parseInt((String) map.get("employee_id"));
+		String savedName = (String) map.get("savedName");
+		System.out.println("■■■■■■■■■■■■■■■■"+employee_id+","+savedName);
+		int cnt = dao.select_employee_picture(model);
+		if(cnt == 1) {
+			cnt = dao.update_employee_picture(model);
+		} else {
+			cnt = dao.insert_employee_picture(model);
+		}
+	}
+	
+	@Override
 	public void add_personnel_card_dupCheck_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
@@ -543,6 +576,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void add_personnel_card_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -658,9 +692,14 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
 		Personnel_cardDTO dto = new Personnel_cardDTO();
+		
 		dto = dao.select_personnel_card(employee_id);
 		model.addAttribute("employee_id", dto.getEmployee_id());
 		model.addAttribute("personnel_cardDto", dto);
+
+		String pic_uid = dao.select_pic_uid(employee_id);
+		model.addAttribute("pic_uid", pic_uid);
+
 	}
 	
 	//16600 인사발령관리
@@ -825,6 +864,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		
 	}
 
+	@Transactional
 	@Override
 	public void add_hr_appointment_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -885,6 +925,10 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		}
 		model.addAttribute("employee_id", employee_id);
 		model.addAttribute("dtos", dtos);
+		
+
+		String pic_uid = dao.select_pic_uid(employee_id);
+		model.addAttribute("pic_uid", pic_uid);
 	}
 
 	//16700 퇴사자관리
@@ -1060,6 +1104,9 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 			model.addAttribute("dto", dto);			
 		}
 		model.addAttribute("employee_id", employee_id);
+
+		String pic_uid = dao.select_pic_uid(employee_id);
+		model.addAttribute("pic_uid", pic_uid);
 	}
 
 	//16500 급여관리
@@ -1067,12 +1114,14 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 	public void salary_register_search_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
+		String select_tab = req.getParameter("select_tab");
 		int hr_code_group_id = 4;
 		String use_state = "Y";
 		Map<String, Object> daoMap = new HashMap<>();
 		daoMap.put("use_state", use_state);
 		daoMap.put("hr_code_group_id", hr_code_group_id);
 		List<Hr_codeVO> hr_codeVos = dao.select_used_hr_codes(daoMap);
+		model.addAttribute("select_tab", select_tab);
 		model.addAttribute("hr_codeVos", hr_codeVos);	
 	}
 	
@@ -1192,6 +1241,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("hr_codeVos", hr_codeVos);	
 	}
 
+	@Transactional
 	@Override
 	public void reg_salary_info_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -1291,6 +1341,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("cnt", cnt);
 	}
 
+	@Transactional
 	@Override
 	public void clear_salary_bank_account_pro_service(Model model) throws Exception {
 		Map<String,Object> map = model.asMap();
@@ -1449,6 +1500,7 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		daoMap.put("salary_register_id", salary_register_id);
 		daoMap.put("account_id", account_salary);
 		Salary_registerVO salary_registerVo = dao.select_salary_register(daoMap);
+		salary_registerVo.setSalary_state_name(dao.select_state(salary_registerVo.getSalary_state()));
 		List<Calc_salaryDTO> calc_salaryDtos = dao.select_calc_salary();
 		List<SalaryDTO> salaryDtos = new ArrayList<>();
 		long total_pay = 0;
@@ -1481,17 +1533,4 @@ public class HRServiceImpl implements HRService, CodeMyRP {
 		model.addAttribute("salaryDtos", salaryDtos);
 	}
 
-	@Override
-	public void personnel_card_salary_service(Model model) {
-		Map<String,Object> map = model.asMap();
-		HttpServletRequest req = (HttpServletRequest) map.get("req");
-		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
-		Map<String, Object> daoMap = new HashMap<>();
-		daoMap.put("employee_id", employee_id);
-		daoMap.put("salary_state", state_complete_payments_salary);
-		List<Personnel_card_salaryDTO> dtos = dao.select_personnel_card_salary(daoMap);
-		model.addAttribute("dtos", dtos);
-		model.addAttribute("employee_id", employee_id);
-	}
-	
 }

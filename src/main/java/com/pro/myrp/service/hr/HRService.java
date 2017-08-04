@@ -463,4 +463,11 @@ public interface HRService extends MyRPService {
 	 * @param model
 	 */
 	public void personnel_card_salary_service(Model model);
+
+	/**
+	 * 인사관리 > 인사카드관리 > 사진업로드 서비스
+	 * @author amaco78
+	 * @param model
+	 */
+	public void add_personnel_card_upload_service(Model model);
 }

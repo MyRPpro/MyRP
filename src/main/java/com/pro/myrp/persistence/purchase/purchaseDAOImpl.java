@@ -305,10 +305,45 @@ public class purchaseDAOImpl implements purchaseDAO {
 		return dao.select_complete_pay_purchase_list(daoMap);
 	}
 
+	@Override
+	public int update_purchase_account() {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_purchase_account();
+	}
+
+	@Override
+	public int update_purchase_state(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_purchase_state(daoMap);
+	}
+
+	@Override
+	public int select_purchase_state_cnt(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_state_cnt(daoMap);
+	}
+	
+	@Override
+	public ArrayList<PurchaseDTO> select_purchase_state(Map<String, Object> daoMap){
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_purchase_state(daoMap);
+	}
+	
+	@Override
+	public int update_state_force2(Map<String, Object> daoMap){
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_state_force2(daoMap);
+	}
+	
+	@Override
+	public int update_purchase_bank(Map<String, Object> daoMap){
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.update_purchase_bank(daoMap);
+	}
 	
 	
 
-
+	
 
 
 }

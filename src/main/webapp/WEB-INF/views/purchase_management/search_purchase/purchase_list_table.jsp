@@ -3,6 +3,15 @@
  <%@ include file="../../setting.jsp" %>
 <body>
 
+	<c:if test="${cnt==-1}">
+		<script type="text/javascript">
+			setTimeout(function(){
+				alert("구매내역이 없습니다. 새로운 구매내역을 입력해주세요.");
+				$('#main_screen').load("/purchase_management/input_purchase/reg_purchase");
+			}, 200);
+		</script>
+	</c:if>
+	
 	<c:if test="${cnt==0}">
 		<script type="text/javascript">
 			setTimeout(function(){
@@ -28,7 +37,7 @@
 						전표승인 조회
 					</c:when>
 					<c:when test="${check==3}">
-						출고완료 조회
+						입고완료 조회
 					</c:when>
 					<c:when test="${check==4}">
 						미승인 판매 조회

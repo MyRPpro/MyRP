@@ -55,7 +55,7 @@
 			<table class="table">
 				<tr>
 					<th colspan="4" style="width:100px; height:130px;">
-						<img alt="사진 이미지" src="/resources/images/picture_employee/${employee_id}.jpg"
+						<img alt="사진 이미지" src="/resources/images/picture_employee/${pic_uid}"
 						width="100" height="125">
 					</th>
 				</tr>
@@ -67,7 +67,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>사원명</th>
+					<th>사원명＊</th>
 					<td colspan="3">
 						<input class="form-control input-sm" type="text" name="employee_name"
 						value="${personnel_cardDto.employee_name}"
@@ -95,7 +95,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>주민등록번호</th>
+					<th>주민번호＊</th>
 					<td>
 						<input class="form-control input-sm" type="text" name="residence_reg_no1"
 						value="${fn:substring(personnel_cardDto.residence_reg_no,0,6)}"
@@ -109,7 +109,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>입사일</th>
+					<th>입사일＊</th>
 					<td colspan="3">
 						<input class="form-control input-sm" type="date" name="join_date" 
 						value="<fmt:formatDate 
@@ -174,7 +174,7 @@
 					</td>
 				</tr>
 				<tr>
-					<th>시급</th>
+					<th>시급＊</th>
 					<td colspan="3">
 						<input class="form-control input-sm" type="number" name="hourly_wage"
 						value="${personnel_cardDto.hourly_wage}"

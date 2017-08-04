@@ -24,6 +24,12 @@
 	});
 	
 	$("form[name='page16520_form01']").on("submit", function(event) {
+		var salary_register_name = $("form[name='page16520_form01'] select[name='salary_register_name']");
+		if(salary_register_name.val() == 0) {
+			alert("급여대장명을 선택하세요.");
+			salary_register_name.focus();
+			return false;
+		}
 		var data = $(this).serialize();
 		$.ajax({
 			data:	data,
@@ -64,9 +70,9 @@
 						</td>
 					</tr>
 					<tr>
-						<th>급여대장명</th>
+						<th>급여대장명＊</th>
 						<td>
-							<select class="form-control input-sm" name="salary_register_name">
+							<select class="form-control input-sm" name="salary_register_name" required>
 								<option value=0>급여구분 선택</option>
 								<c:forEach var="vo" items="${hr_codeVos}">
 									<option value="${vo.hr_code_id}">${vo.hr_code_name}</option>
@@ -84,7 +90,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>총 지급액</th>
+						<th>총 지급액＊</th>
 						<td>
 							<div class="input-group">
 								<input class="form-control input-sm" type="number" name="total_pay"
@@ -96,7 +102,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>총 지급인원</th>
+						<th>총 지급인원＊</th>
 						<td>
 							<input class="form-control" type="number" name="total_employee"
 							min="0" required>

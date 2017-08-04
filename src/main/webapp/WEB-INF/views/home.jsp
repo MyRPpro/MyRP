@@ -10,15 +10,19 @@
 <script type="text/javascript">
 function fn_login_form() {
 	$("#main_screen").load("/user/login");
+	return false;
 }
 
 function onoff(){
-	if(document.getElementById("alarmonoff").value == "on"){
+	if(document.getElementById("alarmonoff").value == "on"){		
 		document.getElementById("alarmonoff").value = "off";
 	}else{
 		document.getElementById("alarmonoff").value = "on";
 	}
+	return false;
 }
+ 
+
 </script>
 <body>
 <input type = "hidden" id = "alarmonoff" value = "on">
@@ -125,11 +129,12 @@ function onoff(){
                      <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                         <div class="panel-body">
                            <a href="/distribution_management/stock_condition/search_stock_condition">재고현황</a><br>
-                           <a href="/distribution_management/stockpile/search_stockpile">재고수불부 검색</a><br>
+                           <a href="/distribution_management/search_distribution_order/statement_list">전표 리스트</a><br>
+                           <a href="/distribution_management/stockpile/search_stockpile">재고수불부</a><br>
                            <a href="/distribution_management/reg_warehouse/warehouse_list">창고 리스트</a><br>
-                           <a href="/distribution_management/movement_warehouse/movement_list">창고 이동 전체 리스트</a><br>
-                           <a href="/distribution_management/adjustment_inventory/adjustment_inventory_list">재고 조정 조회</a><br>
-                           <a href="/distribution_management/search_distribution_order/statement_list">전체 전표 리스트</a>
+                           <a href="/distribution_management/movement_warehouse/movement_list">창고 이동</a><br>
+                           <a href="/distribution_management/adjustment_inventory/adjustment_inventory_list">재고 조정</a><br>
+                           
                         </div>
                      </div>
                   </div>
@@ -225,7 +230,7 @@ function onoff(){
    </div>
 </body>
 <script type="text/javascript">
-
+	
 	 $(function(){
 		if(document.getElementById('role') != null) {
 			var role = document.getElementById("role").value;

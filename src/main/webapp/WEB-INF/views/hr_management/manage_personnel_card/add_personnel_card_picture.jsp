@@ -7,36 +7,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<script type="text/javascript">
-	function addPictureFormCheck(event) {
-		//선택된 파일이 있는지 검증
-		if(!document.addPictureForm.file.value) {
-			alert(msg_addPicture);
-			document.addPictureForm.file.focus();
-			return false;
-		}
-		//선택된 파일이 jpg 파일인지 검증
-		var fileName = document.addPictureForm.file.value;
-		var check = fileName.split(".");
-		var check2 = check[1];
-		if(check2 != 'jpg' && check2 != 'JPG') {
-			alert("jpg파일만 업로드 가능합니다.");
-			document.addPictureForm.file.focus();
-			return false;
-		}
-	}
-	function showPicture(msg) {
-		alert(msg);
-	}
-
-	$("#page16321_btn01").bind("click", function() {
-		$("#page16321").slideUp();
-		$("#page16320_div01").slideDown();
-		$("#page16332_div01").slideDown();
-		return false;
-	});
-
-</script>
+<style>
+iframe{
+	width: 0px;
+	height: 0px;
+	border: 0px;
+}
+</style>
 <body>
 	<div class="panel panel-default" id="page16321">
 		<div class="panel-heading">
@@ -47,7 +24,7 @@
 			<h4 style="text-align: center;">이미지 업로드는 확장자가 .jpg인 파일만 가능합니다.</h4>
 		 	<form method="POST" 
 		 	action="/hr_management/manage_personnel_card/add_personnel_card_upload"
-		 	enctype="multipart/form-data" name="addPictureForm" target="employeeImage"
+		 	enctype="multipart/form-data" name="addPictureForm" id="addPictureForm" target="employeeImage"
 		 	onsubmit="return addPictureFormCheck();">
 				<table class="table">
 					<tr>
@@ -76,5 +53,37 @@
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript">
+		function addPictureFormCheck(event) {
+			//선택된 파일이 있는지 검증
+			if(!document.addPictureForm.file.value) {
+				alert(msg_addPicture);
+				document.addPictureForm.file.focus();
+				return false;
+			}
+			//선택된 파일이 jpg 파일인지 검증
+			var fileName = document.addPictureForm.file.value;
+			var check = fileName.split(".");
+			var check2 = check[1];
+			if(check2 != 'jpg' && check2 != 'JPG') {
+				alert("jpg파일만 업로드 가능합니다.");
+				document.addPictureForm.file.focus();
+				return false;
+			}
+		}
+		
+		function addFilePath(msg) {
+			alert(msg);
+			document.getElementById("addPictureForm").reset();
+		}
+		
+		$("#page16321_btn01").bind("click", function() {
+			$("#page16321").slideUp();
+			$("#page16320_div01").slideDown();
+			$("#page16332_div01").slideDown();
+			return false;
+		});
+	
+	</script>
 </body>
 </html>

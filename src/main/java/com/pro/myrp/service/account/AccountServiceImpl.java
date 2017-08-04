@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.accounting_management.AccountVO;
@@ -25,6 +26,7 @@ public class AccountServiceImpl implements AccountService {
 	private AccountDAO dao;
 	
 	//계좌리스트
+	@Transactional 
 	@Override
 	public void bank_account_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -167,6 +169,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	// 전체 전표목록 조회
+	@Transactional 
 	@Override
 	public void search_all_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -239,6 +242,7 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
+	@Transactional 
 	//상세전표조회
 	@Override
 	public void search_statement_detail(Model model) throws Exception {
@@ -296,6 +300,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	// 전표 승인 처리 
+	@Transactional 
 	@Override
 	public void approve_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -379,6 +384,7 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 	// 전표 승인 거절
+	@Transactional 
 	@Override
 	public void disapprove_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -404,6 +410,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("scnt", scnt);
 	}
+	@Transactional 
 	@Override
 	public void search_unapproval_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -491,6 +498,7 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 	//승인전표 조회
+	@Transactional 
 	@Override
 	public void search_approval_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -578,6 +586,7 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 	// connected_id 불러오기
+	@Transactional 
 	@Override
 	public void call_connected_id_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -610,6 +619,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	// 전표 등록 처리
 	@Override
+	@Transactional 
 	public void make_statement_pro_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -693,6 +703,7 @@ public class AccountServiceImpl implements AccountService {
 	
 	//////////////////////////// 계정 관리 ///////////////////////////////////////
 	@Override
+	@Transactional 
 	public void search_account_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -750,6 +761,7 @@ public class AccountServiceImpl implements AccountService {
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 	}
 	@Override
+	@Transactional 
 	public void add_account_dupCheck_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -816,6 +828,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("yearValuable", yearDto.size());
 	}
 	@Override
+	@Transactional 
 	public void show_balance_sheet_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -896,6 +909,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	//손익계산서 조회
 	@Override
+	@Transactional 
 	public void show_profit_and_loss_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -970,6 +984,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("yearValuable", 999);
 	}
 	@Override
+	@Transactional 
 	public void show_statement_of_cash_flows_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -1019,6 +1034,7 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 	@Override
+	@Transactional 
 	public void search_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -1043,6 +1059,7 @@ public class AccountServiceImpl implements AccountService {
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 	}
 	@Override
+	@Transactional 
 	public void search_bond_debt_by_company_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -1065,6 +1082,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("dtos", dtos);
 	}
 	@Override
+	@Transactional 
 	public void show_all_bond_debt_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -1100,6 +1118,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("dtosCnt", dtos.size());
 	}
 	@Override
+	@Transactional 
 	public void show_bond_debt_by_company_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");

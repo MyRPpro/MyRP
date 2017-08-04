@@ -3,6 +3,7 @@ package com.pro.myrp.controller.hr;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -240,25 +242,23 @@ public class HRControllerImpl implements HRController, CodeMyRP {
 	@PostMapping(value="/manage_personnel_card/add_personnel_card_upload")
 	public String add_personnel_card_upload(FileDTO dto, Model model) throws Exception {
 		System.out.println(code.c(add_personnel_card_upload));
-		String msg = "";
+		
 		MultipartFile file = dto.getFile();
-		if (file != null) {
-			String fileName = dto.getName();
-			try {
-				String path = "C:/Users/amaco78/Documents/project/MyRP/src/main/webapp/resources/images/picture_employee/";
-				File file2 = new File(path + fileName + ".jpg");
-				file.transferTo(file2);
-				model.addAttribute("employee_id", fileName);
-				msg = "성공적으로 파일업로드 되었습니다.";
-			} catch (IOException e) {
-				e.printStackTrace();
-				msg = "파일업로드에 실패하였습니다. 잠시후 다시 시도해 주세요.";
-			}
-		} else {
-			msg = "선택받은 파일이 없거나 재대로 연결되지 않았습니다.";
-		}
-		model.addAttribute("msg", msg);
+		String originalName = dto.getName() + ".jpg";
+		String savedName = uploadFile(originalName, file.getBytes());
+		model.addAttribute("employee_id", dto.getName());
+		model.addAttribute("savedName", savedName);
+		service.add_personnel_card_upload_service(model);
 		return code.c(hr_management, manage_personnel_card, add_personnel_card_upload);
+	}
+	
+	private String uploadFile(String originalName, byte[] fileData) throws Exception {
+		UUID uid = UUID.randomUUID();
+		String savedName = uid.toString() + "_" + originalName;
+		String path = "C:/Users/amaco78/Documents/project/MyRP/src/main/webapp/resources/images/picture_employee/";
+		File target = new File(path,savedName);
+		FileCopyUtils.copy(fileData, target);
+		return savedName;
 	}
 	
 	@Override

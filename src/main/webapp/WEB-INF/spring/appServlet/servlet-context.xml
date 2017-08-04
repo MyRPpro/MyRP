@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -25,8 +27,7 @@
 	
 	<!-- MultipartResolver 설정 -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <beans:property name="maxUploadSize" value="100000000" />
-        <beans:property name="maxInMemorySize" value="100000000" />
+        <beans:property name="maxUploadSize" value="10485760" />
     </beans:bean>
 	
 	<!-- MyBatis 설정 -->
@@ -36,7 +37,7 @@
 			<beans:property name="resourceRef" value="true"/>
 	</beans:bean>
 	 
-	 <!-- 2. 추가 시작-->	
+	 <!-- 2. SQL 콘솔로그 출력기 추가 시작-->	
 	<beans:bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
         <beans:constructor-arg ref="dataSourceSpied" />
         <beans:property name="logFormatter">
@@ -58,6 +59,14 @@
 	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 			<beans:constructor-arg index="0" ref="sqlSessionFactory"/>
 	</beans:bean>
+	
+	<!-- 트랜잭션 매니저 설정 -->
+	<beans:bean id="transactionManager"
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+	</beans:bean>
+	
+	<tx:annotation-driven />
 	
 	<!-- 권한 관리 설정 -->
 	<beans:bean id="loginInterceptor" class="com.pro.myrp.util.authentication.LoginInterceptor"></beans:bean>

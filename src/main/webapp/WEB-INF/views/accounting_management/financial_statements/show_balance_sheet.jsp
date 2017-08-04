@@ -34,7 +34,6 @@
 			</c:if>
 			<tr>
 				<th colspan="3" align="right"> 자산총계 : ${assets_totalSum}
-				<%-- <c:set var="totalSum" value="0" /> --%>
 				</th>
 			</tr>
 		</table>

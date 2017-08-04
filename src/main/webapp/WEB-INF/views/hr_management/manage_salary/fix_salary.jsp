@@ -24,11 +24,41 @@
 		return false;
 	});
 
+	$('#print').click(function(){ //'#print' 는 출력버튼 id
+		
+		var $table = $("#page16550_div01"); //출력div 설정
+		$table.find('a').attr('href',null);
+		$table.find('.btn').attr('type','hidden');
+		
+		var printView = window.open();
+		
+		printView.document.write( "<head>"); 
+		printView.document.write( $('head').html() );
+		printView.document.write( '</head>' );
+		
+		printView.document.write( '<body>' );
+		printView.document.write( '<div id = "printSet">' );
+		printView.document.write( $table.html() );
+		printView.document.write( '</div>' );
+		printView.document.write( '</body>' );
+
+		printView.document.write( '<script type="text/javascript">' );
+		printView.document.write( 'setTimeout(function(){');
+		printView.document.write( 'window.print();');
+		printView.document.write( '},10);');
+		printView.document.write( 'setTimeout(function(){');
+		printView.document.write( 'window.close();');
+		printView.document.write( '},20);');
+		printView.document.write('</scr');
+		printView.document.write('ipt>');
+	});
+	
 </script>
 <body>
 	<div class="panel panel-default" id="page16550">
 		<div class="panel-heading">
 			<a id="page16550_div01_toggle">[16550]fix_salary.jsp</a>
+			<button class="btn btn-default btn-sm" id="print">출력</button>
 		</div>
 		<div class="panel-body" id="page16550_div01">
 			<table class="table">
@@ -47,9 +77,9 @@
 					<td>${salary_registerVo.salary_register_name}</td>
 					<td>${salary_registerVo.reg_date}</td>
 					<td>${salary_registerVo.pay_date}</td>
-					<td>${salary_registerVo.total_pay}</td>
+					<td><fmt:formatNumber value="${salary_registerVo.total_pay}" type="number"/></td>
 					<td>${salary_registerVo.total_employee}</td>
-					<td>${salary_registerVo.salary_state}</td>
+					<td>${salary_registerVo.salary_state_name}</td>
 					<td>
 						<c:if test="${salary_registerVo.salary_state == 26450}">
 							<input class="form-control input-sm" type="button" value="미확정" id="page16550_btn01">						
@@ -78,13 +108,13 @@
 					<th>${dto.dept_name}</th>
 					<th>${dto.employee_id}</th>
 					<th>${dto.employee_name}</th>
-					<th>${dto.base_pay}</th>
-					<th>${dto.bonus}</th>
-					<th>${dto.benefit}</th>
-					<th>${dto.cost}</th>
-					<th>${dto.pay}</th>
-					<th>${dto.deduction_cost}</th>
-					<th>${dto.takehome_pay}</th>
+					<th><fmt:formatNumber value="${dto.base_pay}" type="number"/></th>
+					<th><fmt:formatNumber value="${dto.bonus}" type="number"/></th>
+					<th><fmt:formatNumber value="${dto.benefit}" type="number"/></th>
+					<th><fmt:formatNumber value="${dto.cost}" type="number"/></th>
+					<th><fmt:formatNumber value="${dto.pay}" type="number"/></th>
+					<th><fmt:formatNumber value="${dto.deduction_cost}" type="number"/></th>
+					<th><fmt:formatNumber value="${dto.takehome_pay}" type="number"/></th>
 				</tr>
 				</c:forEach>
 			</table>

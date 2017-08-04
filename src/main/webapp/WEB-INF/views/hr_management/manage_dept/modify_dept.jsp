@@ -47,7 +47,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>부서명</th>
+						<th>부서명＊</th>
 						<td>
 							<input class="form-control input-sm" type="text" name="dept_name"
 							value="${deptVo.dept_name}" required>
@@ -61,7 +61,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>사용 상태</th>
+						<th>사용 상태＊</th>
 						<td>
 							<label for="used">사용</label>
 							<input type="radio" name="use_state" id="used" value="Y"
