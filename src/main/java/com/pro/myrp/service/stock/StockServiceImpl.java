@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.CodeMyRP;
@@ -79,6 +80,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		return null;
 	}
 
+	@Transactional
 	@Override
 	public void select_stockpile_search_service(HttpServletRequest req, Model model) throws Exception {
 		String pro = req.getParameter("product") == null ? null : req.getParameter("product");
@@ -567,6 +569,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void request_in_out_storage_pro_service(HttpServletRequest req, Model model) throws Exception {
 		String goes = req.getParameter("goes");
@@ -922,6 +925,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("warehouse_id",warehouse_id);
 	}
 
+	@Transactional
 	@Override
 	public void movement_warehouse_pro_service(HttpServletRequest req, Model model)  throws Exception{
 		String id = req.getParameter("id");
@@ -1133,6 +1137,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("stockVo",stockVo);
 	}
 
+	@Transactional
 	@Override
 	public void adjustment_inventory_pro_service(HttpServletRequest req, Model model) throws Exception {
 		String product_id = req.getParameter("product_id"); 

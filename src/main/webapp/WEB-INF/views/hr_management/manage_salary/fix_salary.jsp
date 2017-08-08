@@ -24,11 +24,41 @@
 		return false;
 	});
 
+	$('#print').click(function(){ //'#print' 는 출력버튼 id
+		
+		var $table = $("#page16550_div01"); //출력div 설정
+		$table.find('a').attr('href',null);
+		$table.find('.btn').attr('type','hidden');
+		
+		var printView = window.open();
+		
+		printView.document.write( "<head>"); 
+		printView.document.write( $('head').html() );
+		printView.document.write( '</head>' );
+		
+		printView.document.write( '<body>' );
+		printView.document.write( '<div id = "printSet">' );
+		printView.document.write( $table.html() );
+		printView.document.write( '</div>' );
+		printView.document.write( '</body>' );
+
+		printView.document.write( '<script type="text/javascript">' );
+		printView.document.write( 'setTimeout(function(){');
+		printView.document.write( 'window.print();');
+		printView.document.write( '},10);');
+		printView.document.write( 'setTimeout(function(){');
+		printView.document.write( 'window.close();');
+		printView.document.write( '},20);');
+		printView.document.write('</scr');
+		printView.document.write('ipt>');
+	});
+	
 </script>
 <body>
 	<div class="panel panel-default" id="page16550">
 		<div class="panel-heading">
 			<a id="page16550_div01_toggle">[16550]fix_salary.jsp</a>
+			<button class="btn btn-default btn-sm" id="print">출력</button>
 		</div>
 		<div class="panel-body" id="page16550_div01">
 			<table class="table">

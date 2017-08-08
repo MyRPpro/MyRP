@@ -87,6 +87,11 @@ public class AccountDAOImpl implements AccountDAO {
 		return dao.update_account_account_value(daoMap);
 	}
 	@Override
+	public int update_bank_update_value_for_purchase(Map<String, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.update_bank_update_value_for_purchase(daoMap);
+	}
+	@Override
 	public String select_connected_id(String statement_id) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_connected_id(statement_id);
@@ -255,7 +260,7 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_count_sales(oriPriceMap);
 	}
-	@Override
+	/*@Override
 	public int select_purchase_unit_price(Map<String, Object> oriPriceMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.select_purchase_unit_price(oriPriceMap);
@@ -264,7 +269,7 @@ public class AccountDAOImpl implements AccountDAO {
 	public int update_costs_of_goods_sold_account(Map<String, Object> oriPriceMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.update_costs_of_goods_sold_account(oriPriceMap);
-	}
+	}*/
 	@Override
 	public ArrayList<JoinStatementDTO> select_sales_id(Map<Object, Object> daoMap) {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
@@ -335,10 +340,14 @@ public class AccountDAOImpl implements AccountDAO {
 		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
 		return dao.update_bank_account_value_for_purchase(daoMap);
 	}
-
-	
-	
-	
-	
-	
+	@Override
+	public long select_total_purchase_price(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_total_purchase_price(daoMap);
+	}
+	@Override
+	public int select_total_purchase_count(Map<Object, Object> daoMap) {
+		AccountDAO dao = sqlSession.getMapper(AccountDAO.class);
+		return dao.select_total_purchase_count(daoMap);
+	}	
 }

@@ -752,4 +752,41 @@
 		WHERE	CODE = #{salary_state}
 		]]>
 	</select>
+	
+	<!-- 업로드사진 존재여부 확인 -->
+	<select id="select_employee_picture" parameterType="java.util.Map" resultType="int">
+		<![CDATA[
+		SELECT	COUNT(*)
+		FROM	employee_picture
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</select>
+	
+	<!-- 업로드사진 uid 등록 -->
+	<insert id="insert_employee_picture" parameterType="java.util.Map">
+		<![CDATA[
+		INSERT INTO employee_picture(employee_id,pic_uid)
+		VALUES(#{employee_id},#{savedName})
+		]]>
+	</insert>
+	
+	<!-- 업로드사진 uid 업데이트 -->
+	<update id="update_employee_picture" parameterType="java.util.Map">
+		<![CDATA[
+		UPDATE	employee_picture
+		SET		pic_uid = #{savedName}
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</update>
+	
+	<!-- 사진 pic_uid 조회 -->
+	<select id="select_pic_uid" parameterType="int"
+	resultType="String">
+		<![CDATA[
+		SELECT	pic_uid
+		FROM	employee_picture
+		WHERE	employee_id = #{employee_id}
+		]]>
+	</select>
+	
 </mapper>

@@ -40,37 +40,37 @@ $(function(){
 	 		<tr>
 				<th>계좌 ID</th>
 				<td>
-					<input type="text" name="bank_account_id" value="${vo.bank_account_id}" readonly="true">
+					<input type="text" name="bank_account_id" value="${vo.bank_account_id}" readonly="true" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>계좌 이름</th>
 				<td>
-					<input type="text" name="bank_account_name" value="${vo.bank_account_name}" maxlength="20">
+					<input type="text" name="bank_account_name" value="${vo.bank_account_name}" maxlength="20" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>계좌 번호</th>
 				<td>
-					<input type="text" name="bank_account_number" value="${vo.bank_account_number}" maxlength="20">
+					<input type="text" name="bank_account_number" value="${vo.bank_account_number}" maxlength="20" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>잔액</th>
 				<td>
-					<input type="number" name="bank_account_balance" value="${vo.bank_account_balance}" maxlength="18" min="0" value="0" readonly="true">
+					<input type="number" name="bank_account_balance" value="${vo.bank_account_balance}" maxlength="18" min="0" value="0" readonly="true" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>계좌 타입</th>
 				<td>
-					<input type="text" name="bank_account_type" value="${vo.bank_account_type}" readonly="true">
+					<input type="text" name="bank_account_type" value="${vo.bank_account_type}" readonly="true" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>은행명</th>
 				<td>
-					<input type="text" name="bank_name" value="${vo.bank_name}" maxlength="12">
+					<input type="text" name="bank_name" value="${vo.bank_name}" maxlength="12" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
@@ -87,7 +87,7 @@ $(function(){
 			<tr>
 				<th>등록일</th>
 				<td>
-					<input type="date" name="reg_date" value="${vo.reg_date}" >
+					<input type="date" name="reg_date" value="${vo.reg_date}" class="form-control input-sm" >
 				</td>
 			</tr>
 			<tr>
