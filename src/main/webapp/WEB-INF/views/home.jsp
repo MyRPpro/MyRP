@@ -22,7 +22,6 @@ function onoff(){
 	return false;
 }
  
-
 </script>
 <body>
 <input type = "hidden" id = "alarmonoff" value = "on">
@@ -76,7 +75,6 @@ function onoff(){
                         <h4 class="panel-title">
                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
                               기초등록
-                           </a>
                         </h4>
                      </div>
                      <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
