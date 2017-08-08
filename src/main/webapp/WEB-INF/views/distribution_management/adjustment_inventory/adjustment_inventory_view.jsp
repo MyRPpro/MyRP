@@ -67,8 +67,7 @@ $(function(){
 		<th><input class="form-control" type = "number" name = "taked_stock" id = "taked_stock" min = "0" readonly></th>		
 	</tr>
 	<tr>
-
-		<th colspan = "6"><input class="btn btn-sm btn-primary" type = "button" id = "sub" value = "확인" ><input class="btn btn-sm btn-info" type = "reset" value = "취소" ></th>
+		<th colspan = "6"><div class = "btn-group btn-group-default"><input class="btn btn-sm btn-primary" type = "button" id = "sub" value = "확인" ><input class="btn btn-sm btn-default" type = "reset" value = "취소" ></div></th>
 	</tr>
 </table>
 </form>

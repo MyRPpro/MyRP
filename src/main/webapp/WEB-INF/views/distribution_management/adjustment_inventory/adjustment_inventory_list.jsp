@@ -62,7 +62,9 @@ $(function(){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_list_heading">
-			<h3 class="panel-title">재고조정 리스트</h3>
+			<h3 class="panel-title">
+			<a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>
+			재고조정 리스트</h3></a>
 		</div>
 		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
@@ -120,7 +122,7 @@ $(function(){
 			<div class="col-xs-12">
 				<div class="panel panel-primary">
 					<div class="panel-heading distribution_view_heading">
-						<h3 class="panel-title">신규등록</h3>
+						<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>신규등록</a></h3>
 					</div>
 					<div class="panel-body distribution_view_content">
 						<div class="table-responsive">

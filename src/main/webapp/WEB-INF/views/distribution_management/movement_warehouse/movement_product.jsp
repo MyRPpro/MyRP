@@ -95,9 +95,10 @@ $(function(){
 		</tr>
 		<tr>
 			<th colspan = "6">
-
+				<div class = "btn-group btn-group-default">
 				<input type = "button" class="btn btn-sm btn-primary" id = "movement_button" value = "확인">
-				<input type = "reset" class="btn btn-sm btn-sm btn-info" value = "리셋">
+				<input type = "reset" class="btn btn-sm btn-sm btn-default" value = "리셋">
+				</div>
 			</th>
 		</tr>
 	</table>
@@ -164,8 +165,10 @@ $(function(){
 		</c:forEach>
 		<tr>
 			<th colspan = "6">
+			<div class = "btn-group btn-group-default">
 				<input type = "button" class="btn btn-sm btn-primary" id = "movement_button" value = "확인">
-				<input type = "reset" class="btn btn-sm btn-info" value = "리셋">
+				<input type = "reset" class="btn btn-sm btn-default" value = "리셋">
+			</div>
 			</th>
 		</tr>
 	</table>
