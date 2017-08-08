@@ -53,9 +53,13 @@
 	
 </script>
 <body>
-<div class="panel panel-default" id="page16620">
+<div class="panel panel-primary" id="page16620">
 	<div class="panel-heading">
-		<a id="page16620_div01_toggle">[16620]add_hr_appointment.jsp</a>
+		<!-- <a id="page16620_div01_toggle">[16620]add_hr_appointment.jsp</a> -->
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+			<a id="page16620_div01_toggle">인사발령 등록</a>
+		</h3>
 	</div>
 	<div class="panel-body" id="page16620_div01">
 		<form class="form-inline" action="#" name="page16620_form01">
@@ -70,7 +74,7 @@
 					<option value=0>사원 선택</option>
 				</select>
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit">확인</button>
+					<button class="btn btn-info" type="submit">확인</button>
 					<button class="btn btn-default" type="reset">재작성</button>
 					<button class="btn btn-default" type="button" id="page16620_btn01">닫기</button>
 				</span>

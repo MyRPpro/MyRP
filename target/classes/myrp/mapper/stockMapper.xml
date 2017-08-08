@@ -26,7 +26,7 @@
  	<select id = "select_stockpile_search" parameterType="java.util.Map" resultType="Select_stockpile_searchDTO">
 	 	SELECT	*
 		FROM	( SELECT  *
-				FROM  ( SELECT	o.stock_order_id AS pro_id, o.storage_out_date AS sto_date, s.stock_state AS sto_state, s.product_id, o.count_sales AS moving_stock
+				FROM  ( SELECT	o.stock_order_id AS pro_id, o.storage_out_date AS sto_date, s.stock_state AS sto_state, s.product_id, s.update_date, o.count_sales AS moving_stock
 						FROM	stock_order s JOIN storage_out_order o
 			            ON		s.stock_order_id = o.stock_order_id
 		                WHERE	stock_state = '24752' 
@@ -39,7 +39,7 @@
 			                  
 						UNION
 			                  
-						SELECT	o.stock_order_id AS pro_id, o.storage_in_date AS sto_date, s.stock_state AS sto_state, s.product_id, o.count_purchase AS moving_stock
+						SELECT	o.stock_order_id AS pro_id, o.storage_in_date AS sto_date, s.stock_state AS sto_state, s.product_id, s.update_date, o.count_purchase AS moving_stock
 						FROM	stock_order s JOIN storage_in_order o
 					    ON		s.stock_order_id = o.stock_order_id
 						WHERE	s.stock_state = '24102'
@@ -52,7 +52,7 @@
 	                      
 						UNION
 			                  
-						SELECT	s.stock_order_id AS pro_id, s.update_date AS sto_date, s.stock_state AS sto_state, s.product_id, a.delete_stock AS moving_stock
+						SELECT	s.stock_order_id AS pro_id, s.update_date AS sto_date, s.stock_state AS sto_state, s.product_id, s.update_date, a.delete_stock AS moving_stock
 						FROM	stock_order s JOIN  adjustment_inventory a
 						ON		s.stock_order_id = a.stock_order_id
 						<if test = "product != null">
@@ -64,7 +64,7 @@
 								
 						UNION
 						
-						SELECT m.stock_order_id AS pro_id, s.update_date AS sto_date, s.stock_state AS sto_state, s.product_id,
+						SELECT m.stock_order_id AS pro_id, s.update_date AS sto_date, s.stock_state AS sto_state, s.product_id, s.update_date,
                           CASE  
                             WHEN warehouse_id like TO_CHAR(1)||'%' 
                               THEN  CASE  
@@ -102,9 +102,9 @@
 								</foreach>
 						</if>
 						)    
-			ORDER BY sto_date
 	        )
 		WHERE	sto_date BETWEEN #{start_day} AND #{end_day} 
+		ORDER BY  TO_CHAR(update_date, 'yyyy-MM-dd HH:MM') 
  	</select>
  	
  	<!-- product id로 name stock amount 가져오기 -->
@@ -321,7 +321,7 @@
  	
  	<update id = "update_order_state" parameterType="java.util.Map">
  		UPDATE	stock_order
- 		SET		stock_state = #{stock_state}
+ 		SET		stock_state = #{stock_state},update_date = SYSDATE
  		WHERE	stock_order_type = #{stock_order_type}
  	</update>
  	
