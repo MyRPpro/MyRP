@@ -42,9 +42,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16210">
+	<div class="panel panel-primary" id="page16210">
 		<div class="panel-heading">
-			<a id="page16210_div01_toggle">[16210]dept_list.jsp</a>
+			<!-- <a id="page16210_div01_toggle">[16210]dept_list.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+					<a id="page16210_div01_toggle">부서 목록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16210_div01">
 			<c:if test="${pageCount > 1}">

@@ -79,8 +79,7 @@
 						</td>
 						
 						<td>
-							<input type="hidden" value="22213" name="sales_state" id="sales_state">
-							<input type="text" name="sales_state" value="판매전표승인요청" class="form-control input-sm" readonly>
+							<input type="text" value="판매전표승인요청" class="form-control input-sm" readonly>
 						</td>	
 					</tr>
 					<!-- ----------------------------------------------------- -->
@@ -112,7 +111,7 @@
 			<br>		
 		<div class="btn-group" align="center">
 			<span class="input-group-btn">
-				<input type="submit" class="btn btn-primary" name="btn_submit" id="page2110_submit" value="등록하기" >
+				<input type="button" class="btn btn-primary" id="page2110_submit" value="등록하기" >
 				<input type="reset" class="btn btn-default" value="재작성">
 			</span>
 		</div>	<!-- // btn-group -->
@@ -125,23 +124,22 @@
 	
 	<script>
 
-	$('#page2110_div01_toggle').click(function(){
+	$('#page2110_div01_toggle').click(function() {
 		$('#page2110_div01').slideToggle();
 		return false;
 	});
 	
-	$('#page2110_submit').click(function reg_sales_confrim(){
+	$('#page2110_submit').click(function() {
 		
-		 var product_id = document.getElementById("product_id");
-		 var sales_id = document.getElementById("sales_id");
-		 var company_id = document.getElementById("company_id");
-		 var employee_id = document.getElementById("employee_id");
-		 var reg_date = document.getElementById("reg_date");
-		 var storage_out_date = document.getElementById("storage_out_date");
-		 var count_sales = document.getElementById("count_sales");
-		 var selling_price = document.getElementById("selling_price");
-		 var sales_state = document.getElementById("sales_state");
-		 var condition_note_receivable = document.getElementById("condition_note_receivable");
+		 var product_id = 					document.getElementById("product_id");
+		 var sales_id = 					document.getElementById("sales_id");
+		 var company_id = 					document.getElementById("company_id");
+		 var employee_id = 					document.getElementById("employee_id");
+		 var reg_date = 					document.getElementById("reg_date");
+		 var storage_out_date = 			document.getElementById("storage_out_date");
+		 var count_sales = 					document.getElementById("count_sales");
+		 var selling_price = 				document.getElementById("selling_price");
+		 var condition_note_receivable = 	document.getElementById("condition_note_receivable");
 		 
 		 if( product_id.value == 0 ){
 			 alert("상품이 선택되지 않았습니다. 원하는 상품을 선택해주세요.");		
@@ -163,10 +161,6 @@
 			 alert("가격이 선택되지 않았습니다. 원하는 가격을 선택해주세요.");		
 			 selling_price.focus();		
 			 return false;
-		 } else if ( sales_state.value == 0 ){
-			 alert("거래상태가 선택되지 않았습니다. 원하는 상태을 선택해주세요.");		
-			 sales_state.focus();		
-			 return false;
 		 } else if ( condition_note_receivable.value == "" ){
 			 alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");		
 			 condition_note_receivable.focus();		
@@ -180,7 +174,6 @@
 								+'&storage_out_date='+storage_out_date.value
 								+'&count_sales='+count_sales.value
 								+'&selling_price='+selling_price.value
-								+'&sales_state='+sales_state.value
 								+'&condition_note_receivable='+condition_note_receivable.value
 							 );	 
 		 return false;
@@ -217,9 +210,5 @@
 	}
 	
 	</script>
-	
-	
-	
-	
 </body>
 </html>

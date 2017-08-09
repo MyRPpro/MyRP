@@ -77,9 +77,13 @@
 	
 </script>
 <body>
-	<div class="panle panel-default" id="page16540">
+	<div class="panle panel-primary" id="page16540">
 		<div class="panel-heading">
-			<a id="page16540_div01_toggle">[16540]calc_salary.jsp</a>
+			<!-- <a id="page16540_div01_toggle">[16540]calc_salary.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16540_div01_toggle">급여 계산</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16540_div01">
 			<table class="table">
@@ -114,7 +118,7 @@
 						</div>
 					</td>
 					<td>
-						<input class="form-control input-sm" type="button" value="결과 보기" id="page16540_btn01">
+						<input class="form-control btn-info input-sm" type="button" value="결과 보기" id="page16540_btn01">
 					</td>
 				</tr>
 			</table>

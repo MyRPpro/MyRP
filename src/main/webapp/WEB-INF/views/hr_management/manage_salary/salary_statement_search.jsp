@@ -33,9 +33,13 @@
 
 </script>
 <body>
-	<div class="panel panel-default" id="page16513">
+	<div class="panel panel-primary" id="page16513">
 		<div class="panel-heading">
-			<a id="page16513_div01_toggel">[16513]salary_statement_search.jsp</a>		
+			<!-- <a id="page16513_div01_toggel">[16513]salary_statement_search.jsp</a>	 -->	
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16513_div01_toggel">급여전표 조회</a>		
+			</h3>
 		</div>
 		<div class="panel-body" id="page16531_div01">
 			<c:if test="${cnt == 0}">
@@ -52,9 +56,6 @@
 			</c:if>
 			<c:if test="${cnt != 0}">
 				<table class="table">
-					<tr>
-						<th colspan="8">Salary_registerVO</th>
-					</tr>
 					<tr>
 						<th>급여대장 번호</th>
 						<th>계정</th>
@@ -81,7 +82,7 @@
 					</c:forEach>
 					<tr>
 						<td colspan="8">
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16513_btn02">			
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16513_btn02">			
 						</td>
 					</tr>
 				</table>

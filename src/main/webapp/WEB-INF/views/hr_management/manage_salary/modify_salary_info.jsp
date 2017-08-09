@@ -50,27 +50,31 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16522">
+	<div class="panel panel-primary" id="page16522">
 		<div class="panel-heading">
-			<a id="page16522_div01_toggle">[16522]modify_salary_info.jsp</a>
+			<!-- <a id="page16522_div01_toggle">[16522]modify_salary_info.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16522_div01_toggle">급여정보 확정</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16522_div01">
 			<form action="/hr_management/manage_salary/modify_salary_info_pro" name="page16522_form01">
 				<table class="table">
 					<tr>
 						<th>급여대장 번호</th>
-						<td><input class="form-control" type="text" name="salary_register_id"
+						<td><input class="form-control input-sm" type="text" name="salary_register_id"
 						value="${salary_registerVo.salary_register_id}" readonly></td>
 					</tr>
 					<tr>
 						<th>계정</th>
-						<td><input class="form-control" type="text" name="account_id"
+						<td><input class="form-control input-sm" type="text" name="account_id"
 						value="${salary_registerVo.account_id}" readonly></td>
 					</tr>
 					<tr>
 						<th>등록일</th>
 						<td>
-							<input class="form-control" type="month" name="reg_date" 
+							<input class="form-control input-sm" type="month" name="reg_date" 
 							value="<fmt:formatDate value='${salary_registerVo.reg_date}' pattern='yyyy-MM'/>" 
 							required readonly>
 						</td>
@@ -78,14 +82,14 @@
 					<tr>
 						<th>급여대장명</th>
 						<td>
-							<input class="form-control" type="text" name="salary_register_name"
+							<input class="form-control input-sm" type="text" name="salary_register_name"
 							value="${salary_registerVo.salary_register_name}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<th>지급일</th>
 						<td>
-							<input class="form-control" type="date" name="pay_date" 
+							<input class="form-control input-sm" type="date" name="pay_date" 
 							value="<fmt:formatDate value='${salary_registerVo.pay_date}' pattern='yyyy-MM-dd'/>" 
 							required readonly>
 						</td>
@@ -94,10 +98,10 @@
 						<th>총 지급액</th>
 						<td>
 							<div class="input-group">
-								<input class="form-control" type="number" name="total_pay"
+								<input class="form-control input-sm" type="number" name="total_pay"
 								min="0" value="${salary_registerVo.total_pay}" required readonly>
 								<span class="input-group-btn">
-									<input class="btn btn-default" type="button" value="급여계산" id="page16522_btn02">
+									<input class="btn btn-info btn-sm" type="button" value="급여계산" id="page16522_btn02">
 								</span>
 							</div>
 						</td>
@@ -105,18 +109,20 @@
 					<tr>
 						<th>총 지급인원</th>
 						<td>
-							<input class="form-control" type="number" name="total_employee"
+							<input class="form-control input-sm" type="number" name="total_employee"
 							min="0" value="${salary_registerVo.total_employee}" required readonly>
 						</td>
 					</tr>
 					<tr>
 						<th colspan="2">
-							<c:if test="${salary_registerVo.salary_state == 26450}">
-								<input class="btn btn-defaut btn-xs" type="submit" value="지급요청">
-								<input class="btn btn-defaut btn-xs" type="reset"	value="재작성">
-							</c:if>
-							<input type="hidden" name="salary_state" value="${salary_registerVo.salary_state}">
-							<input class="btn btn-defaut btn-xs" type="button" value="닫기" id="page16522_btn01">
+							<div class="btn-group btn-group-default">
+								<c:if test="${salary_registerVo.salary_state == 26450}">
+									<input class="btn btn-primary btn-sm" type="submit" value="지급요청">
+									<input class="btn btn-defaut btn-sm" type="reset"	value="재작성">
+								</c:if>
+								<input type="hidden" name="salary_state" value="${salary_registerVo.salary_state}">
+								<input class="btn btn-defaut btn-sm" type="button" value="닫기" id="page16522_btn01">
+							</div>
 						</th>
 					</tr>
 				</table>

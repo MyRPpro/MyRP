@@ -776,8 +776,11 @@ Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23202,'구매전표승인요�
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23203,'구매전표승인완료','complete_approval_purchase_statement');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23204,'구매입고요청','request_purchase_storage_in_warehouse');
 Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23205,'구매입고완료','complete_purchase_storage_in_warehouse');
-Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23206,'지급대기','wait_payments_salary');
-Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23207,'지급완료','complete_payments_salary');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23206,'상환대기','wait_payments');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23207,'상환요청','request_payments');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23208,'상환승인','approval_payments');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23209,'상환완료','complete_payments');
+Insert into STATE (CODE,KOR_NAME,ENG_NAME) values (23299,'상환마감','purchase_deadline');
 COMMIT;
 
 INSERT INTO COMPANY (COMPANY_ID, COMPANY_NAME, BIZ_REG_NO, CEO_NAME, CORP_REG_NO, ADDRESS, BIZ_TYPE, BIZ_ITEM, USE_STATE, COMPANY_TYPE, REG_DATE) VALUES ('1100000001','회사이름 01','0010100001','이름01','0001010000011','사업자 주소입니다. 01','업태 01','종목 01','Y','S',to_date('07/13/2017', 'mm-dd-yyyy'));
@@ -883,4 +886,8 @@ INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_n
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(3001,5000);
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(5001,5000,2,500,'이주원','9501302111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(5001,5000);
+COMMIT;
+
+INSERT INTO statement(statement_id, reg_date, account_value, approval_state, statement_type) VALUES('547017080209', sysdate, 1000000000, '25452', '54104');
+INSERT INTO tax_statement(statement_id, account_id) VALUES('547017080209', '500011010000');
 COMMIT;

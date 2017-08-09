@@ -136,9 +136,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16510">
+	<div class="panel panel-primary" id="page16510">
 		<div class="panel-heading">
-			<a id="page16510_div01_toggle">[16510]salary_register.jsp</a>		
+			<!-- <a id="page16510_div01_toggle">[16510]salary_register.jsp</a>	 -->	
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16510_div01_toggle">급여대장 조회</a>	
+			</h3>
 		</div>
 			<div class="btn-group btn-group-justified" role="group" aria-label="...">
 			 	<div class="btn-group" role="group">

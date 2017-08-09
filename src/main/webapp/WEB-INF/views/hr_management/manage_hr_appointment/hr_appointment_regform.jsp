@@ -65,9 +65,13 @@
 	
 </script>
 <body>
-<div class="panel panel-default" id="page16621">
+<div class="panel panel-primary" id="page16621">
 	<div class="panel-heading">
-		<a id="page16621_div01_toggle">[16621]hr_appointment_regform.jsp</a>	
+		<!-- <a id="page16621_div01_toggle">[16621]hr_appointment_regform.jsp</a>	 -->
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+			<a id="page16621_div01_toggle">등록 양식</a>
+		</h3>
 	</div>
 	<div class="panel-body" id="page16621_div01">
 		<form action="#" name="page16621_form01">
@@ -138,9 +142,11 @@
 				</tr>
 				<tr>
 					<th colspan="2">
-						<input class="btn btn-default btn-xs" type="submit" value="발령하기">
-						<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-						<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16621_btn01">
+						<div class="btn-group btn-group-default">
+							<input class="btn btn-primary btn-sm" type="submit" value="발령하기">
+							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16621_btn01">						
+						</div>
 					</th>
 				</tr>
 			</table>
