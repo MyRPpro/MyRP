@@ -56,9 +56,13 @@
 
 </head>
 <body>
-	<div class="panel panel-default" id="page17210">
+	<div class="panel panel-primary" id="page17210">
 		<div class="panel-heading">
-			<a id="page17210_div01_toggle">[17210]add_attitude_search.jsp</a>
+			<!-- <a id="page17210_div01_toggle">[17210]add_attitude_search.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-calendar"></span>
+				<a id="page17210_div01_toggle">근태등록 사원 조회</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page17210_div01">
 			<form class="form-inline" action="#" name="page17210_form01">
@@ -73,7 +77,7 @@
 					<option value=0>사원 선택</option>
 				</select>
 				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit">확인</button>
+					<button class="btn btn-primary" type="submit">확인</button>
 					<button class="btn btn-default" type="reset">재작성</button>
 					<button class="btn btn-default" type="button" id="page17210_btn01">닫기</button>
 				</span>

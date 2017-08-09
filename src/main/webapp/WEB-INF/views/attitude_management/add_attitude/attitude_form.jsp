@@ -60,9 +60,13 @@
 </script>
 </head>
 <body>
-	<div class="panel panel-default" id="page17220">
+	<div class="panel panel-primary" id="page17220">
 		<div class="panel-heading">
-			<a class="page17220_div_toggle">[17220]attitude_form.jsp</a>
+			<!-- <a class="page17220_div_toggle">[17220]attitude_form.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-calendar"></span>
+				<a class="page17220_div_toggle">근태등록 양식</a>
+			</h3>
 		</div>	
 	<div class="panel-body" id="page17220_div01">
 	<form action="#" name="page17220_form01">
@@ -124,9 +128,11 @@
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input class="btn btn-default btn-xs" type="submit" value="휴가신청">
-					<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-					<input class="btn btn-default btn-xs" type="button" value="닫기"id="page17220_btn01">
+					<div class="btn-group btn-group-default">
+						<input class="btn btn-primary btn-sm" type="submit" value="휴가신청">
+						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+						<input class="btn btn-default btn-sm" type="button" value="닫기"id="page17220_btn01">
+					</div>
 				</th>
 			</tr>
 		</table>	

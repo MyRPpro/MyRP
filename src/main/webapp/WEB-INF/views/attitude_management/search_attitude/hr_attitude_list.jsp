@@ -23,9 +23,13 @@
 </script>
 </head>
 <body>
-	<div class="panel panel-default" id="page17130">
+	<div class="panel panel-primary" id="page17130">
 		<div class="panel-heading">
-			<a id="page17130_div_toggel">hr_attitude_list.jsp</a>
+			<!-- <a id="page17130_div_toggel">hr_attitude_list.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-calendar"></span>
+				<a id="page17130_div_toggel">근태 목록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page17130_div01">
 		<table class="table">
