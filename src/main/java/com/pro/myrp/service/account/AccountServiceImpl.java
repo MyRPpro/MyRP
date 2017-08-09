@@ -1060,6 +1060,7 @@ public class AccountServiceImpl implements AccountService {
 			JoinStatementDTO dto = new JoinStatementDTO();
 			JoinStatementDTO tempVO = pre_dtos.get(i);
 			String company_name="";
+				System.out.println(i+"번째는 고객사 이름 " + tempVO.getSales_company_name() + "과 공급사 이름" + tempVO.getPurchase_company_name() + "가 있습니다");
 				if(tempVO.getSales_company_name()!=null) {
 					company_name = tempVO.getSales_company_name();
 				}else if(tempVO.getPurchase_company_name()!=null){

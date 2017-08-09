@@ -19,9 +19,12 @@ $(function(){
 
 </script>
 
-<div id="search_bond_debt" class="panel panel-default">
+<div id="search_bond_debt" class="panel panel-primary">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		채권/채무 현황
+		</h3>
 	</div>
 	<div class="panel-body">
 		<div>
@@ -31,9 +34,8 @@ $(function(){
 		    <li role="presentation" id="search_bond_debt_by_company"><a href="#appoint" aria-controls="appoint" role="tab" data-toggle="tab">거래처별 채권/채무 현황</a></li>
 		  </ul>
 		</div>
+	</div>
 		<div id="search_bond_debt_section">
 			
 		</div>
-		
-	</div>
 </div>

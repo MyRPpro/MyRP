@@ -56,9 +56,12 @@ function slideUpFunction(){
 		});
 	});
 </script>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
+	<h3 class="panel-title">
+	<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 	 계정 등록
+	 </h3>
 </div>
 <div class="panel-body" style="text-align: center;">
 <form action="#" name="add_account_form1">
@@ -88,9 +91,9 @@ function slideUpFunction(){
 	</tr>
 	<tr>
 		<th colspan="2">
-			<input type="submit" value="등록하기" class="btn btn-default">
-			<input type="reset" value="재작성" class="btn btn-default">
-			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default">					
+			<input type="submit" value="등록하기" class="btn btn-primary btn-sm">
+			<input type="reset" value="재작성" class="btn btn-default btn-sm">
+			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default btn-sm">					
 		</th>
 	</tr>
 </table>
