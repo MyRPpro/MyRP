@@ -53,9 +53,13 @@
 </script>
 </head>
 <body>
-	<div class="panel panel-default" id="page17110">
+	<div class="panel panel-primary" id="page17110">
 		<div class="panel-heading">
-			<a id="page17110_div01_toggle">[17110]search_attitude_search.jsp</a>
+			<!-- <a id="page17110_div01_toggle">[17110]search_attitude_search.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-calendar"></span>
+				<a id="page17110_div01_toggle">근태 조회</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page17110_div01">
 			<form class="form-inline" action="#" name="page17110_form01">
@@ -64,7 +68,7 @@
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="submit">검색</button>
 						<button class="btn btn-default" type="reset">재작성</button>
-						<button class="btn btn-default" type="button" id="page17110_btn01">휴가등록</button>
+						<button class="btn btn-info" type="button" id="page17110_btn01">휴가등록</button>
 					</span>
 				</div>
 			</form>

@@ -38,9 +38,13 @@
 </script>
 
 <body>
-	<div class="panel panel-default" id="page11230">
+	<div class="panel panel-primary" id="page11230">
 		<div class="panel-heading">
-			<a id="page11230_div01_toggle">[11230]modify_product.jsp</a>
+			<!-- <a id="page11230_div01_toggle">[11230]modify_product.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-ok"></span>
+				<a id="page11230_div01_toggle">상품정보 수정</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page11230_div01">
 			<form action="#" name="page11230_form01">
@@ -98,9 +102,11 @@
 					</tr>
 					<tr>
 						<th colspan="2">
-							<input class="btn btn-default btn-sm" type="submit" value="수정하기">
-							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page11230_btn01">
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-primary btn-sm" type="submit" value="수정하기">
+								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page11230_btn01">	
+							</div>
 						</th>
 					</tr>
 				</table>
