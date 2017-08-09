@@ -15,7 +15,7 @@
 </c:forEach>
 <tr>
 	<td colspan = "3">
-		<button onclick = "go('product')" class="btn btn-sm btn-primary"" data-dismiss = "modal">확인</button>
+		<button onclick = "go('product')" class="btn btn-sm btn-primary" data-dismiss = "modal">확인</button>
 	</td>
 </tr>
 </table>

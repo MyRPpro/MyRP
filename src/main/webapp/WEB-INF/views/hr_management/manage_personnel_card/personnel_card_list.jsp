@@ -24,15 +24,16 @@
 </script>
 
 <body>
-	<div class="panel panel-default" id="page16311">
+	<div class="panel panel-primary" id="page16311">
 		<div class="panel-heading">
-			<a id="page16311_div01_toggle">[16311]personnel_card_list.jsp</a>
+			<!-- <a id="page16311_div01_toggle">[16311]personnel_card_list.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16311_div01_toggle">인사카드 목록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16311_div01">
 			<table class="table">
-				<tr>
-					<th colspan="10">Personnel_card_listDTO</th>
-				</tr>
 				<tr>
 					<th>사원번호</th>
 					<th>부서명</th>

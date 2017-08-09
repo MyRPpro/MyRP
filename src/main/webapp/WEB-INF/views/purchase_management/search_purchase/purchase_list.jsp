@@ -75,7 +75,7 @@
 									</div>
 									
 									<div class="btn-group" role="group">
-										<input type="button" name="btn_complete_pay" class="btn btn-default " value="상환완료조회" 	id="list_complete_pay">
+										<input type="button" name="btn_complete_pay" class="btn btn-default " value="채무상환" 	id="list_complete_pay">
 									</div>
 								
 								</div>

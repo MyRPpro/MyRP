@@ -51,9 +51,13 @@
 </script>
 
 <body>
-	<div class="panel panel-default" id="page16140">
+	<div class="panel panel-primary" id="page16140">
 		<div class="panel-heading">
-			<a id="page16140_div01_toggle">[16140]base_code_list.jsp</a>
+			<!-- <a id="page16140_div01_toggle">[16140]base_code_list.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16140_div01_toggle">인사코드 목록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16140_div01">
 			<div id="page16140_div02"></div>
@@ -83,8 +87,10 @@
 						<td colspan="4">
 							<form action="/hr_management/manage_hr_code/add_base_code" name="page16140_form01">
 								<input type="hidden" name="hr_code_group_id" value="${hr_code_groupVo.hr_code_group_id}">
-								<input class="btn btn-default btn-sm" type="submit" value="인사코드  등록">
-								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
+								<div class="btn-group btn-group-default">
+									<input class="btn btn-primary btn-sm" type="submit" value="인사코드  등록">
+									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
+								</div>								
 							</form>
 						</td>
 					</tr>

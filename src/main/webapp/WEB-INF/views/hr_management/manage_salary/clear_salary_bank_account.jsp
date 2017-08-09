@@ -49,9 +49,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16514">
+	<div class="panel panel-primary" id="page16514">
 		<div class="panel-heading">
-			<a id="page16514_div01_toggle">[16514]clear_salary_bank_account.jsp</a>
+			<!-- <a id="page16514_div01_toggle">[16514]clear_salary_bank_account.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16514_div01_toggle">급여 지급</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16514_div01">
 			<c:if test="${cnt == 0}">
@@ -61,7 +65,7 @@
 					</tr>
 					<tr>
 						<td>
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16514_btn01">			
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16514_btn01">			
 						</td>
 					</tr>
 				</table>
@@ -90,14 +94,14 @@
 							<td>${vo.total_employee}</td>
 							<td>${vo.salary_state_name}</td>
 							<td>
-								<input class="btn btn-default btn-xs" type="button" value="급여지급"
+								<input class="btn btn-info btn-sm" type="button" value="급여지급"
 								onclick="return fn_clear_payment(${vo.salary_register_id},${vo.account_id},'${vo.pay_date}');">
 							</td>
 						</tr>
 					</c:forEach>
 					<tr>
 						<td colspan="9">
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16514_btn02">			
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16514_btn02">			
 						</td>
 					</tr>
 				</table>

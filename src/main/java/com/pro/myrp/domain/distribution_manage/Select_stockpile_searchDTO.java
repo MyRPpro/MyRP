@@ -12,11 +12,19 @@ public class Select_stockpile_searchDTO {
 	private int plus_stock;
 	private int stock_amount;
 	private Date sto_date;
+	private Date update_date;	
+	
 	
 	private String sto_state;
 
 	
 	
+	public Date getUpdate_date() {
+		return update_date;
+	}
+	public void setUpdate_date(Date update_date) {
+		this.update_date = update_date;
+	}
 	public int getMinus_stock() {
 		return minus_stock;
 	}

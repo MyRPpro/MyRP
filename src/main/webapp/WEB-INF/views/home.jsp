@@ -22,7 +22,6 @@ function onoff(){
 	return false;
 }
  
-
 </script>
 <body>
 <input type = "hidden" id = "alarmonoff" value = "on">
@@ -76,7 +75,6 @@ function onoff(){
                         <h4 class="panel-title">
                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
                               기초등록
-                           </a>
                         </h4>
                      </div>
                      <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
@@ -129,7 +127,7 @@ function onoff(){
                      <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                         <div class="panel-body">
                            <a href="/distribution_management/stock_condition/search_stock_condition">재고현황</a><br>
-                           <a href="/distribution_management/search_distribution_order/statement_list">전표 리스트</a><br>
+                           <a href="/distribution_management/search_distribution_order/statement_list?goes=in">전표 리스트</a><br>
                            <a href="/distribution_management/stockpile/search_stockpile">재고수불부</a><br>
                            <a href="/distribution_management/reg_warehouse/warehouse_list">창고 리스트</a><br>
                            <a href="/distribution_management/movement_warehouse/movement_list">창고 이동</a><br>
@@ -278,7 +276,7 @@ function onoff(){
 					}
 				});
 				}
-			}, 20000);
+			}, 5000);
 		}
 	}); 
 	

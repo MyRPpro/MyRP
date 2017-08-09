@@ -61,9 +61,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16310">
+	<div class="panel panel-primary" id="page16310">
 		<div class="panel-heading">
-	  		<a id="page16310_div01_toggle">[16310]personnel_card_search.jsp</a>
+	  		<!-- <a id="page16310_div01_toggle">[16310]personnel_card_search.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16310_div01_toggle">인사카드 조회</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16310_div01">
 			<form class="form-inline" action="#" name="page16310_form01">
@@ -72,7 +76,7 @@
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="submit">검색</button>
 						<button class="btn btn-default" type="reset">재작성</button>
-						<button class="btn btn-default" type="button" id="page16310_btn01">인사카드 등록</button>
+						<button class="btn btn-info" type="button" id="page16310_btn01">인사카드 등록</button>
 					</span>
 				</div>
 			</form>

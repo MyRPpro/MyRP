@@ -9,6 +9,9 @@
 </head>
 <script type="text/javascript">
 
+	$("#page16151_div01_toggle").bind("click", function(event) {
+		$("#page16151_div01").slideToggle();
+	});
 	$("form[name='page16151_form01']").on("submit", function(event) {
 		var hr_code_group_id = $("form[name='page16151_form01'] input[name='hr_code_group_id']").val();
 		var hr_code_id = $("form[name='page16151_form01'] input[name='hr_code_id']").val();
@@ -40,9 +43,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16151">
+	<div class="panel panel-primary" id="page16151">
 		<div class="panel-heading">
-			[16151]add_base_code_dupCheck.jsp
+			<!-- [16151]add_base_code_dupCheck.jsp -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16151_div01_toggle">중복 확인</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16151_div01">
 			<c:if test="${cnt == 0}">
@@ -81,9 +88,11 @@
 						</tr>
 						<tr>
 							<th colspan="2">
-								<input class="btn btn-default btn-sm" type="submit" value="중복확인">
-								<input class="btn btn-default btn-sm" type="reset" value="재작성">
-								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16151_btn01">
+								<div class="btn-group btn-group-default">
+									<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
+									<input class="btn btn-default btn-sm" type="reset" value="재작성">
+									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16151_btn01">								
+								</div>
 							</th>
 						</tr>
 					</table>

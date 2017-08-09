@@ -14,12 +14,22 @@ iframe{
 	border: 0px;
 }
 </style>
+<script type="text/javascript">
+	$("#page16321_div01_toggle").bind("click", function(event) {
+		$("#page16321_div01").slideToggle();
+		return false;
+	});
+</script>
 <body>
-	<div class="panel panel-default" id="page16321">
+	<div class="panel panel-primary" id="page16321">
 		<div class="panel-heading">
-			[16321]add_personnel_card_picture.jsp
+			<!-- [16321]add_personnel_card_picture.jsp -->
+			<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+				<a id="page16321_div01_toggle">사진 등록</a>
+			</h3>
 		</div>
-		<div class="pnale-body">
+		<div class="pnale-body" id="page16321_div01">
 			<h2 style="text-align: center;">사진 추가</h2>
 			<h4 style="text-align: center;">이미지 업로드는 확장자가 .jpg인 파일만 가능합니다.</h4>
 		 	<form method="POST" 
@@ -44,9 +54,11 @@ iframe{
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input class="btn btn-default btn-sm" type="submit" value="작성">
-							<input class="btn btn-default btn-sm"  type="reset" value="취소">
-							<input class="btn btn-default btn-sm"  type="button" value="닫기" id="page16321_btn01">
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-primary btn-sm" type="submit" value="작성">
+								<input class="btn btn-default btn-sm"  type="reset" value="취소">
+								<input class="btn btn-default btn-sm"  type="button" value="닫기" id="page16321_btn01">
+							</div>
 						</td>
 					</tr>
 				</table>
