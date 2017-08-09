@@ -24,9 +24,12 @@ $(function(){
 	});
 });
 </script>
-<div class="panel panel-default" id="bank_account_list">
+<div class="panel panel-primary" id="bank_account_list">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		 계좌 관리
+		 </h3>
 	</div>
 <div class="panel-body" style="text-align: center;">
 	<table id="bank_account_list_table" class="table table-hover">
@@ -82,7 +85,7 @@ $(function(){
 		</div>
 	</c:if>
 		<div id="bank_account_list_form_for_register" style="text-align: center;">
-			<input type="submit" value="계좌 등록"  class="btn btn-default" id="register_bank_account">
+			<input type="submit" value="계좌 등록"  class="btn btn-primary btn-sm" id="register_bank_account">
 		</div>
 </div>
 	<div id="bank_account_list_stage">

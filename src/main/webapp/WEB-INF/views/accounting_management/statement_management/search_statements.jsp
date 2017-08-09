@@ -62,9 +62,12 @@ $(function(){
 	});
 });
 </script>
-<div id="search_statements_overall" class="panel panel-default">
+<div id="search_statements_overall" class="panel panel-primary">
 <div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		전표 조회 
+		</h3>
 </div>
 	<div>
 		  <!-- Nav tabs -->
@@ -72,7 +75,7 @@ $(function(){
 		    <li role="presentation" class="active" id="all_statements" ><a aria-controls="info" role="tab" data-toggle="tab">전체 전표 조회</a></li>
 		    <li role="presentation" id="unapproval_statements"><a aria-controls="appoint" role="tab" data-toggle="tab">미승인 전표 조회</a></li>
 		    <li role="presentation" id="approval_statements"><a aria-controls="retired" role="tab" data-toggle="tab">승인 전표 조회</a></li>
-		    <li id="make_statement_button" class="btn btn-default"> 전표등록 </li>
+		    <li id="make_statement_button" class="btn btn-primary btn-sm" style="margin-top: 6px;"> 전표등록 </li>
 		  </ul>
 	</div>
 <div id="make_statements_list">

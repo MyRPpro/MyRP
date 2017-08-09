@@ -15,9 +15,12 @@ $(function(){
 });
 
 </script>
-<div class="panel panel-default" id="bank_account_list">
+<div class="panel panel-primary" id="bank_account_list">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		상세 전표 조회
+		</h3>
 	</div>
 <div class="panel-body" style="text-align: center;">
 	

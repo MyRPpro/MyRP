@@ -44,9 +44,12 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 	});
 }
 </script>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 	<div class="panel-heading" id="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		<a>전체 전표 조회</a>
+		</h3>
 	</div>
 	<div class="panel-body" id="statements_contents">
 	<div style="text-align: center;">

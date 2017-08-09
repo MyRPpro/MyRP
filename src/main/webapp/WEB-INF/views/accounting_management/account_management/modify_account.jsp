@@ -36,9 +36,12 @@ $(function(){
 	});
 });
 </script>
-<div id="modify_account" class="panel panel-default">
+<div id="modify_account" class="panel panel-primary">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		계정 수정
+		</h3>
 	</div>
 <form action="#" name="modify_account_form1" method="POST">
 <table class="table table-hover">
@@ -62,9 +65,9 @@ $(function(){
 	</tr>
 	<tr>
 		<th colspan="2">
-			<input type="submit" value="수정하기" class="btn btn-default">
-			<input type="reset" value="재작성" class="btn btn-default">
-			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default">						
+			<input type="submit" value="수정하기" class="btn btn-primary btn-sm">
+			<input type="reset" value="재작성" class="btn btn-default btn-sm">
+			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default btn-sm">						
 		</th>
 	</tr>
 </table>
