@@ -87,7 +87,7 @@ $(function(){
 			if(now.getDate()+1 >= 31){
 				end_day.value = year + "-" + ((now.getMonth()+2)>9 ? ''+(now.getMonth()+2) : '0'+(now.getMonth()+2)) + "-" + '01';		
 			}else{
-				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate()+1 : '0' + (now.getDate()+1));
+				end_day.value = year + "-" + mon + "-" + (now.getDate()+1>9? now.getDate()+1 : '0' + (now.getDate()+1));
 			}
 			return false;
 		
@@ -105,11 +105,11 @@ $(function(){
 			if(now.getDate()+1 >= 31){
 				end_day.value = year + "-" + ((now.getMonth()+1)>9 ? ''+(now.getMonth()+1) : '0'+(now.getMonth()+1)) + "-" + '01';		
 			}else{
-				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + (now.getDate()+1));
+				end_day.value = year + "-" + mon + "-" + (now.getDate()+1>9? now.getDate()+1 : '0' + (now.getDate()+1));
 			}
 		
 			if(start_day.value == end_day.value){
-				end_day.value = year + "-" + mon + "-" + (now.getDate()>9? now.getDate() : '0' + now.getDate()+2);
+				end_day.value = year + "-" + mon + "-" + (now.getDate()+2>9? now.getDate()+2 : '0' + now.getDate()+2);
 			}
 			return false;
 		
@@ -225,14 +225,11 @@ $('#print').click(function(){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_list_heading">
-			<div class = "btn-group btn-group-default">
 				<h3 class="panel-title">
-					<a>
-						<span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>재고수불부 검색
-					</a>
-					<button class="btn btn-sm btn-default" id = "print">출력</button>
+						<span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;&nbsp;<a>재고수불부</a>
+					<input type = "button" class="btn btn-xs btn-default" id = "print" value = "출력">
+					<!-- <button class="btn btn-sm btn-default" id = "print">출력</button> -->
 				</h3>
-			</div>
 		</div>
 		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">
