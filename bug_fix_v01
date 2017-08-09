@@ -1,9 +1,0 @@
-bug fix v.0.1
-
-물류관리:	재고수불부 정렬오류로 재고수량 -값 출력되는 현상 수정
-		order by pro_id > order by  TO_CHAR(update_date, 'yyyy-MM-dd HH:MM') 
-		select절에 s.update_date 추가
-		update_order_state 테이블 set 절에  update_date = SYSDATE 추가
-		Select_stockpile_searchDTO에 변수 update, setter getter 추가
-		
-인사관리:	판넬명 한글로 수정 진행중................

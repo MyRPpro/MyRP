@@ -876,16 +876,22 @@ COMMIT;
 
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(1001,1000,2,500,'관리자','8011161111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(1001,5000);
+INSERT INTO employee_picture(employee_id,pic_uid) VALUES(1001,'관리자.jpg');
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(6001,6000,2,300,'이인홍','7812161111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(6001,5000);
+INSERT INTO employee_picture(employee_id,pic_uid) VALUES(6001,'증명사진4.JPG');
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(4001,4000,2,200,'최연호','8510121111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(4001,5000);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(2001,2000,2,300,'장은철','8707101111111',SYSDATE);
+INSERT INTO employee_picture(employee_id,pic_uid) VALUES(4001,'증명사진3.JPG');
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(2001,3000,2,300,'장은철','8707101111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(2001,5000);
-INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(3001,3000,2,200,'장재희','8705231111111',SYSDATE);
+INSERT INTO employee_picture(employee_id,pic_uid) VALUES(2001,'증명사진1.JPG');
+INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(3001,6000,2,200,'장재희','8705231111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(3001,5000);
+INSERT INTO employee_picture(employee_id,pic_uid) VALUES(3001,'증명사진2.JPG');
 INSERT INTO employee(employee_id,dept_id,hr_code_group_rank,rank_code,employee_name,residence_reg_no,join_date) VALUES(5001,5000,2,500,'이주원','9501302111111',SYSDATE);
 INSERT INTO employee_info(employee_id,hourly_wage) VALUES(5001,5000);
+INSERT INTO employee_picture(employee_id,pic_uid) VALUES(5001,'증명사진5.JPG');
 COMMIT;
 
 INSERT INTO statement(statement_id, reg_date, account_value, approval_state, statement_type) VALUES('547017080209', sysdate, 1000000000, '25452', '54104');
