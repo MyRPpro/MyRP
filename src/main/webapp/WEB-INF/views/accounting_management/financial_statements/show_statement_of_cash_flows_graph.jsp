@@ -46,7 +46,12 @@
   </script>
 </head>
 <body>
-<div class="panel panel-default">
+<div class="panel panel-primary">
+	<div class="panel-heading" style="text-align: center;">
+		<h3 class="panel-title">
+		현금흐름 그래프
+		</h3>
+	</div>
 	<div class="panel-body" style="text-align: center;">
 		<div id="graph">
 		</div>

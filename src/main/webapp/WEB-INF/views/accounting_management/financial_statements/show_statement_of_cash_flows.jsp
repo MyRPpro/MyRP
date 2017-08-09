@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading" style="text-align: center;">
+	<h3 class="panel-title">
 	 현금흐름표<br>
+	</h3>
 	 <small><fmt:formatDate pattern = "yyyy/MM/dd" value="${startDate}"/> ~ 
 	 <fmt:formatDate pattern = "yyyy/MM/dd" value="${endDate}"/></small>
 </div>
