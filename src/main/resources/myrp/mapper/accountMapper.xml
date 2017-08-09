@@ -803,6 +803,7 @@
                                         SELECT *
                                         FROM purchase_order po JOIN company c ON po.company_id = c.company_id
                                        ) po ON purc.purchase_id = po.purchase_id AND purc.account_id = po.account_id
+        WHERE so.company_name IS NOT NULL OR po.company_name IS NOT NULL
 		]]>
 	</select>
  	<!-- 전표관리 > 전표 승인 > 전표종류 판단   -->
