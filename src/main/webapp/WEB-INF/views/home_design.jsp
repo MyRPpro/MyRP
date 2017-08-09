@@ -9,20 +9,6 @@
 	<title>MyRP</title>
 </head>
 
-<style>
-#background_img{
-	display:block;
-	background: url('/resources/images/design/main_v01.png');
-	background-position: center center;
-	background-size: cover ;
-	background-repeat: no-repeat;
-	max-width:100%;
-	height: 100%;
-	maring: 0px;
-}
-</style>
-
-
 <script type="text/javascript">
 function fn_login_form() {
 	$("#main_screen").load("/user/login");
@@ -116,8 +102,8 @@ $("#main_screen").attr("href").change(function(){
 		                     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 		                        <div class="panel-body" style="line-height: 1.5em; padding: 0px;">
 		                        	<div class="list-group" style="margin-bottom: 0px;">
-			                         <a href="/base_registration/reg_company/company_list" class="list-group-item"> &gt; 거래처등록</a>
-			                         <a href="/base_registration/reg_product/product_list" class="list-group-item"> &gt; 상품등록</a>
+			                         <a href="/base_registration/reg_company/company_list" class="list-group-item"> 거래처등록</a>
+			                         <a href="/base_registration/reg_product/product_list" class="list-group-item"> 상품등록</a>
 			                        </div>
 		                        </div>
 		                     </div>
@@ -140,9 +126,9 @@ $("#main_screen").attr("href").change(function(){
 		                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 		                     	<div class="panel-body" style="line-height: 1.5em; padding: 0px;">
 			                        <div class="list-group" style="margin-bottom: 0px;">
-			                           <a href="/sales_management/search_sales/sales_list" class="list-group-item">&gt; 판매검색</a>
-			                           <a href="/sales_management/input_sales/reg_sales" class="list-group-item">&gt; 판매입력</a>
-			                           <a href="/sales_management/status_sales/search_status_sales"class="list-group-item">&gt; 판매현황</a>
+			                           <a href="/sales_management/search_sales/sales_list" class="list-group-item">판매검색</a>
+			                           <a href="/sales_management/input_sales/reg_sales" class="list-group-item">판매입력</a>
+			                           <a href="/sales_management/status_sales/search_status_sales"class="list-group-item">판매현황</a>
 			                        </div>
 			                     </div>
 			                  </div>
@@ -163,9 +149,9 @@ $("#main_screen").attr("href").change(function(){
 		                     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 		                     	<div class="panel-body" style="line-height: 1.5em; padding: 0px;">
 		                        <div class="list-group" style="margin-bottom: 0px;">
-		                           <a href="/purchase_management/search_purchase/purchase_list" class="list-group-item"> &gt; 구매검색</a>
-		                           <a href="/purchase_management/input_purchase/reg_purchase" class="list-group-item"> &gt; 구매입력</a>
-		                           <a href="/purchase_management/staus_purchase/search_status_purchase" class="list-group-item"> &gt; 구매현황</a>
+		                           <a href="/purchase_management/search_purchase/purchase_list" class="list-group-item"> 구매검색</a>
+		                           <a href="/purchase_management/input_purchase/reg_purchase" class="list-group-item"> 구매입력</a>
+		                           <a href="/purchase_management/staus_purchase/search_status_purchase" class="list-group-item"> 구매현황</a>
 		                        </div>
 		                     </div>
 		                  	</div>
@@ -187,12 +173,12 @@ $("#main_screen").attr("href").change(function(){
 		                     <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
 			                     <div class="panel-body" style="line-height: 1.5em; padding: 0px;">
 			                        <div class="list-group" style="margin-bottom: 0px;">
-			                           <a href="/distribution_management/stock_condition/search_stock_condition" class="list-group-item"> &gt; 재고현황</a>
-			                           <a href="/distribution_management/search_distribution_order/statement_list" class="list-group-item"> &gt; 전표 리스트</a>
-			                           <a href="/distribution_management/stockpile/search_stockpile" class="list-group-item"> &gt; 재고수불부</a>
-			                           <a href="/distribution_management/reg_warehouse/warehouse_list" class="list-group-item"> &gt; 창고 리스트</a>
+			                           <a href="/distribution_management/stock_condition/search_stock_condition" class="list-group-item"> 재고현황</a>
+			                           <a href="/distribution_management/search_distribution_order/statement_list" class="list-group-item"> 전표 리스트</a>
+			                           <a href="/distribution_management/stockpile/search_stockpile" class="list-group-item"> 재고수불부</a>
+			                           <a href="/distribution_management/reg_warehouse/warehouse_list" class="list-group-item"> 창고 리스트</a>
 			                           <a href="/distribution_management/movement_warehouse/movement_list" class="list-group-item">창고 이동</a>
-			                           <a href="/distribution_management/adjustment_inventory/adjustment_inventory_list" class="list-group-item"> &gt; 재고 조정</a>
+			                           <a href="/distribution_management/adjustment_inventory/adjustment_inventory_list" class="list-group-item"> 재고 조정</a>
 			                           
 			                        </div>
 			                     </div>
@@ -215,11 +201,11 @@ $("#main_screen").attr("href").change(function(){
 		                     <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
 		                     <div class="panel-body" style="line-height: 1.5em; padding: 0px;">
 		                        <div class="list-group" style="margin-bottom: 0px;">
-		                           <a href="/accounting_management/financial_statements/search_balance_sheet" class="list-group-item"> &gt; 회계보고서</a>
-		                           <a href="/accounting_management/bank_account_registration/bank_account_list" class="list-group-item"> &gt; 계좌 관리</a>
-		                           <a href="/accounting_management/account_management/account_management" class="list-group-item"> &gt; 계정 관리</a>
-		                           <a href="/accounting_management/statement_management/search_statements" class="list-group-item"> &gt; 전표 관리</a>
-		                           <a href="/accounting_management/bond_debt_status/search_bond_debt" class="list-group-item"> &gt; 채권/채무 조회</a>
+		                           <a href="/accounting_management/financial_statements/search_balance_sheet" class="list-group-item"> 회계보고서</a>
+		                           <a href="/accounting_management/bank_account_registration/bank_account_list" class="list-group-item"> 계좌 관리</a>
+		                           <a href="/accounting_management/account_management/account_management" class="list-group-item"> 계정 관리</a>
+		                           <a href="/accounting_management/statement_management/search_statements" class="list-group-item"> 전표 관리</a>
+		                           <a href="/accounting_management/bond_debt_status/search_bond_debt" class="list-group-item"> 채권/채무 조회</a>
 		                        </div>
 		                     </div>
 		                  </div>
@@ -241,12 +227,12 @@ $("#main_screen").attr("href").change(function(){
 	                     <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
 	                     <div class="panel-body" style="line-height: 1.5em; padding: 0px;">
 	                        <div class="list-group" style="margin-bottom: 0px;">
-	                           <a href="/hr_management/manage_hr_code/base_code_group_list" class="list-group-item"> &gt; 인사코드 관리</a>
-	                           <a href="/hr_management/manage_dept/dept_list" class="list-group-item"> &gt; 부서 관리</a>
-	                           <a href="/hr_management/manage_personnel_card/personnel_card_search" class="list-group-item"> &gt; 인사카드 관리</a>
-	                           <a href="/hr_management/manage_hr_appointment/hr_appointment_search" class="list-group-item"> &gt; 인사발령 관리</a>
-	                           <a href="/hr_management/manage_retired_employee/retired_employee_search" class="list-group-item"> &gt; 퇴사자 관리</a>
-	                           <a href="/hr_management/manage_salary/salary_register_search" class="list-group-item"> &gt; 급여 관리</a>
+	                           <a href="/hr_management/manage_hr_code/base_code_group_list" class="list-group-item"> 인사코드 관리</a>
+	                           <a href="/hr_management/manage_dept/dept_list" class="list-group-item"> 부서 관리</a>
+	                           <a href="/hr_management/manage_personnel_card/personnel_card_search" class="list-group-item"> 인사카드 관리</a>
+	                           <a href="/hr_management/manage_hr_appointment/hr_appointment_search" class="list-group-item"> 인사발령 관리</a>
+	                           <a href="/hr_management/manage_retired_employee/retired_employee_search" class="list-group-item"> 퇴사자 관리</a>
+	                           <a href="/hr_management/manage_salary/salary_register_search" class="list-group-item"> 급여 관리</a>
 	                        </div>
 	                     </div>
 	                  </div>
@@ -268,7 +254,7 @@ $("#main_screen").attr("href").change(function(){
 	                     <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
 		                     <div class="panel-body" style="line-height: 1.5em; padding: 0px;">
 		                        <div class="list-group" style="margin-bottom: 0px;">
-		                           <a href="/attitude_management/search_attitude/search_attitude_search" class="list-group-item"> &gt; 근태 조회</a>   
+		                           <a href="/attitude_management/search_attitude/search_attitude_search" class="list-group-item"> 근태 조회</a>   
 		                        </div>
 		                     </div>
 		                  </div>
@@ -282,8 +268,8 @@ $("#main_screen").attr("href").change(function(){
 	            
 	            <div class="col-md-8" id="main_screen">
 	               <div class="img-responsive" align="center" >   
-	                  <!-- <img class="img-reponsive " src="/resources/images/design/back_03.png"  style="max-width: 100%; margin-top: 3% "  >  -->
-							                  
+	                	<img class="img-reponsive " src="/resources/images/design/back_03.png" 
+                 		style="max-width: 100%; margin-top: 3% "  > 
 	               </div>
 	            </div>
 	            

@@ -201,14 +201,14 @@ function onoff(){
             
             <div class="col-md-2" id="alrim_center">
                <div class="panel panel-warning">
-                  <div class="panel-heading"><span class="text-center">알림센터</span></div>
-                  <div class="panel-body">
+                  <div class="panel-heading text-center">알림센터</div>
+                  <div class="panel-body text-center">
                      <c:if test="${ROLE != null}">
                      	<input type = "hidden" id = "role" value = "${ROLE.access_role}">
-                        <span class="text-center">${ROLE.employee_name}님 어서오세요.</span>
+                       	<h6>환영합니다.</h6>
                      </c:if>
                      <c:if test="${ROLE == null}">
-                        <span class="text-center">로그인이 필요합니다.</span>
+                     	<h6>로그인하세요.</h6>
                      </c:if>
                   </div>
                   <div id = "result"> </div>
