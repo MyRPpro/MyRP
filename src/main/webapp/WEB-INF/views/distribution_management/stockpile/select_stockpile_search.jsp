@@ -19,8 +19,11 @@ $(".panel-body a").bind("click", function(event) {
 });
 
 </script>
+
 <c:if test = "${null eq product_name_list[0].product_id}">
-<h3>상품 정보가 없습니다.</h3>
+<br>
+<h3 class = "text-center">상품 정보가 없습니다.</h3>
+<br>
 </c:if>
 
 <c:if test = "${null ne product_name_list[0].product_id}">
@@ -29,7 +32,7 @@ $(".panel-body a").bind("click", function(event) {
 <div class="col-xs-12">
 	<div class="panel panel-primary"> 
 		<div class="panel-heading distribution_view_heading">
-			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>검색 결과</a></h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;검색 결과</a></h3>
 		</div>
 		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
