@@ -14,3 +14,12 @@
   6. data_dictionary<br>
   7. entity_relationship_diagram<br>
   8. sequence_diagram<br>
+***
+### 프로젝트 소개 자료
+#### 프리젠테이션
+  1. MyRP 프로젝트 소개   : https://www.youtube.com/watch?v=ktt4grDeKyk&t=528s<br>
+  2. MyRP 시뮬레이션 시연 : https://www.youtube.com/watch?v=fnsoywEs5tE&t=14s<br>
+#### 참고영상
+  1. 개발배경 : https://www.youtube.com/watch?v=KkHvGnD6atc&t=61s<br>
+  2. 기능소개 : https://www.youtube.com/watch?v=gmLnVw24eyA<br>
+  3. 시나리오 시연 : https://www.youtube.com/watch?v=95ZOgC52Do0&t=49s<br>
