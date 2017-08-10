@@ -1,4 +1,5 @@
-# MyRP -easy & accessible ERP
+# MyRP
+### easy & accessible ERP
 ***
 ### 프로젝트 소개
 	MyRP 프로젝트는 Easy & accessible ERP라는 목표를 가지고 기존 ERP 시스템의 복잡성과 접근성 부족을 개선하였습니다.
