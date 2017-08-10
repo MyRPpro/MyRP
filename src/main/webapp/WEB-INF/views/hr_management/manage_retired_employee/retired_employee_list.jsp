@@ -26,9 +26,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16711">
+	<div class="panel panel-primary" id="page16711">
 		<div class="panel-heading">
-			<a id="page16711_div01_toggle">[16711]retired_employee_list.jsp</a>
+			<!-- <a id="page16711_div01_toggle">[16711]retired_employee_list.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16711_div01_toggle">퇴사자 발령 목록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16711_div01">
 			<table class="table">

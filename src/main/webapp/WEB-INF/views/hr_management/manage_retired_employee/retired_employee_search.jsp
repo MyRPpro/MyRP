@@ -54,9 +54,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16710">
+	<div class="panel panel-primary" id="page16710">
 		<div class="panel-heading">
-			<a id="page16710_div01_toggle">[16710]retired_employee_search.jsp</a>
+			<!-- <a id="page16710_div01_toggle">[16710]retired_employee_search.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16710_div01_toggle">퇴사자 조회</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16710_div01">
 			<form class="form-inline" action="#" name="page16710_form01">
@@ -65,7 +69,7 @@
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="submit">검색</button>
 						<button class="btn btn-default" type="reset">재작성</button>
-						<button class="btn btn-default" type="button" id="page16710_btn01">퇴사자 등록</button>
+						<button class="btn btn-info" type="button" id="page16710_btn01">퇴사자 등록</button>
 					</span>
 				</div>
 			</form>

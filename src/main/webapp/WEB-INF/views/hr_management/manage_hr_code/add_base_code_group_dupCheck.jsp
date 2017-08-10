@@ -37,9 +37,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16121">
+	<div class="panel panel-primary" id="page16121">
 		<div class="panel-heading">
-			<a id="page16121_div01_toggle">[16121]add_base_code_group_dupCheck.jsp</a>
+			<!-- <a id="page16121_div01_toggle">[16121]add_base_code_group_dupCheck.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16121_div01_toggle">중복 확인</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16121_div01">
 			<c:if test="${cnt == 0}">
@@ -76,9 +80,11 @@
 						</tr>
 						<tr>
 							<th colspan="2">
-								<input class="btn btn-default btn-sm" type="submit" value="중복확인">
-								<input class="btn btn-default btn-sm" type="reset" value="재작성">
-								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16121_btn01">
+								<div class="btn-group btn-group-default">
+									<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
+									<input class="btn btn-default btn-sm" type="reset" value="재작성">
+									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16121_btn01">								
+								</div>
 							</th>
 						</tr>
 					</table>

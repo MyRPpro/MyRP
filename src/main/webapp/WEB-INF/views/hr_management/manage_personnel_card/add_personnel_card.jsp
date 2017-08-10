@@ -129,9 +129,13 @@
 	});
 </script>
 <body>
-<div class="panel panel-default" id="page16320">
+<div class="panel panel-primary" id="page16320">
 	<div class="panel-heading">
-		<a id="page16320_div01_toggle">[16320]add_personnel_card.jsp</a>
+		<!-- <a id="page16320_div01_toggle">[16320]add_personnel_card.jsp</a> -->
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+			<a id="page16320_div01_toggle">인사카드 등록</a>
+		</h3>
 	</div>
 	<div  class="panel-body" id="page16320_div01">
 		<form action="#" name="page16320_form01">
@@ -145,7 +149,7 @@
 							<input class="form-control input-sm" type="number" name="employee_id" value="${employee_id}"
 							min="1" max="9999" required>
 							<span class="input-group-btn">
-								<input class="btn btn-default btn-sm" type="button"
+								<input class="btn btn-info btn-sm" type="button"
 								value="중복확인" id="page16320_btn01">
 							</span>
 						</div>
@@ -268,10 +272,12 @@
 						<input type="hidden" name="dupcheck"
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<input class="btn btn-default btn-sm" type="submit" value="등록하기">
-						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-						<input class="btn btn-default btn-sm" type="button" value="사진추가" id="page16320_btn02">
-						<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16320_btn03">
+						<div class="btn-group btn-group-default">
+							<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
+							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+							<input class="btn btn-default btn-sm" type="button" value="사진추가" id="page16320_btn02">
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16320_btn03">						
+						</div>
 					</th>
 				</tr>
 			</table>

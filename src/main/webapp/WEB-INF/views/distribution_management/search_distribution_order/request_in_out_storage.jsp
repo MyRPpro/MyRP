@@ -89,7 +89,7 @@ $('.distribution_view_heading').bind("click",function(){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_view_heading">
-			<h3 class="panel-title">물류 출고요청</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;출고요청</a></h3>
 		</div>
 		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
@@ -167,7 +167,7 @@ $('.distribution_view_heading').bind("click",function(){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_view_heading">
-			<h3 class="panel-title">물류 입고요청</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;입고요청</a></h3>
 		</div>
 		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
@@ -232,7 +232,7 @@ $('.distribution_view_heading').bind("click",function(){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_view_heading">
-			<h3 class="panel-title">출고완료요청</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;출고완료요청</a></h3>
 		</div>
 <div class="panel-body distribution_view_content">
 			<div class="table-responsive">

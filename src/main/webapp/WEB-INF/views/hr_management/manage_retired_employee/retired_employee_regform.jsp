@@ -45,9 +45,13 @@
 
 </script>
 <body>
-	<div class="panel panel-default" id="page16721">
+	<div class="panel panel-primary" id="page16721">
 		<div class="panel-heading">
-			<a id="page16721_div01_toggle">[16721]retired_employee_regform.jsp</a>
+			<!-- <a id="page16721_div01_toggle">[16721]retired_employee_regform.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16721_div01_toggle">퇴사자 등록 양식</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16721_div01">
 			<form action="#" name="page16721_form01">
@@ -90,9 +94,11 @@
 					<tr>
 						<th colspan="2">
 							<input type="hidden" name="employee_id" value="${dto.employee_id}">
-							<input class="btn btn-default btn-xs" type="submit" value="퇴사자 등록">
-							<input class="btn btn-default btn-xs" type="reset" value="재작성">
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16721_btn01">
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-primary btn-sm" type="submit" value="퇴사자 등록">
+								<input class="btn btn-default btn-sm" type="reset" value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16721_btn01">							
+							</div>
 						</th>
 					</tr>
 				</table>

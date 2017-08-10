@@ -56,9 +56,12 @@ function slideUpFunction(){
 		});
 	});
 </script>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading">
+	<h3 class="panel-title">
+	<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 	 계정 등록
+	 </h3>
 </div>
 <div class="panel-body" style="text-align: center;">
 <form action="#" name="add_account_form1">
@@ -67,28 +70,30 @@ function slideUpFunction(){
 	<tr>
 		<th> 계정번호 </th>
 		<td>
-			<input type="text" name="account_id" id="account_id" onchange="reset_dupCheck()"> 
-			<input type="button" value="중복확인" onclick="add_account_dupCheck()" name="dupCheckButton" class="btn btn-primary btn-xs">
+			<div class="input-group">
+				<input type="text" name="account_id" id="account_id" onchange="reset_dupCheck()" class="form-control input-sm"> 
+				<span class="input-group-btn"><input type="button" value="중복확인" onclick="add_account_dupCheck()" name="dupCheckButton" class="btn btn-primary btn-sm"></span>
+			</div>
 			<div id="id_check_msg"> </div>
 		</td>
 	</tr>
 	<tr>
 		<th> 계정명 </th>
 		<td> 
-			<input type="text" name="account_name">
+			<input type="text" name="account_name" class="form-control input-sm">
 		</td>
 	</tr>
 	<tr>
 		<th> 계정금액 </th>
 		<td> 
-			<input type ="number" value = "0" min ="0" max="999999999999999999" name="account_balance">
+			<input type ="number" value = "0" min ="0" max="999999999999999999" name="account_balance" class="form-control input-sm">
 		</td>
 	</tr>
 	<tr>
 		<th colspan="2">
-			<input type="submit" value="등록하기" class="btn btn-default">
-			<input type="reset" value="재작성" class="btn btn-default">
-			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default">					
+			<input type="submit" value="등록하기" class="btn btn-primary btn-sm">
+			<input type="reset" value="재작성" class="btn btn-default btn-sm">
+			<input type="button" value="돌아가기" onclick="slideUpFunction();" class="btn btn-default btn-sm">					
 		</th>
 	</tr>
 </table>

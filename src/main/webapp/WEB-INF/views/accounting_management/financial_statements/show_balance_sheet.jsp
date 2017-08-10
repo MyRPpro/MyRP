@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file ="../../setting.jsp"%>
-<div class="panel panel-default">
+<html>
+<head></head>
+
+<body>
+<div class="panel panel-primary">
 <div class="panel-heading" style="text-align: center;">
-	 재무상태표<br>
+	<h3 class="panel-title">
+	 재무상태표<br></h3>
 	 <small>${year}년 ${quarter}</small>
 </div>
 <div class="panel-body" style="text-align: center;">
@@ -18,7 +23,7 @@
 					<tr>
 						<td colspan="2"> ${dtos.account_name} </td>
 						<td> ${dtos.sum}
-							 <c:set var="totalSum" value="${totalSum + dtos.sum}" />
+							 <c:set var="assets_totalSum" value="${assets_totalSum + dtos.sum}" />
 						</td>
 					</tr>
 				</c:if>
@@ -29,8 +34,7 @@
 			</c:forEach>
 			</c:if>
 			<tr>
-				<th colspan="3" align="right"> 자산총계 : ${totalSum}
-				<c:set var="totalSum" value="0" />
+				<th colspan="3" align="right"> 자산총계 : ${assets_totalSum}
 				</th>
 			</tr>
 		</table>
@@ -45,15 +49,15 @@
 					<tr>
 						<td colspan="2"> ${dtos.account_name} </td>
 						<td> ${dtos.sum}
-							 <c:set var="totalSum" value="${totalSum + dtos.sum}" />
+							 <c:set var="liabilities_totalSum" value="${liabilities_totalSum + dtos.sum}" />
 						</td>
 					</tr>
 				</c:if>
 			</c:forEach>
 			<tr>
-				<th colspan="3"> 부채총계 : ${totalSum}
-					<c:set var="right_totalSum" value="${right_totalSum + totalSum}" />
-					 <c:set var="totalSum" value="0" />
+				<th colspan="3"> 부채총계 : ${liabilities_totalSum}
+					<c:set var="right_totalSum" value="${right_totalSum + liabilities_totalSum}" />
+					<%--  <c:set var="totalSum" value="0" /> --%>
 				</th>
 			</tr>
 			<tr>
@@ -64,14 +68,14 @@
 					<tr>
 						<td colspan="2"> ${dtos.account_name} </td>
 						<td> ${dtos.sum}
-							<c:set var="totalSum" value="${totalSum + dtos.sum}" />
+							<c:set var="capital_totalSum" value="${capital_totalSum + dtos.sum}" />
 						</td>
 					</tr>
 				</c:if>
 			</c:forEach>
 			<tr>
-				<th colspan="3"> 자본총계 : ${totalSum}
-					<c:set var="right_totalSum" value="${right_totalSum + totalSum}" />
+				<th colspan="3"> 자본총계 : ${capital_totalSum}
+					<c:set var="right_totalSum" value="${right_totalSum + capital_totalSum}" />
 				</th>
 			</tr>
 			<c:if test="${3 < assetsCnt-(liabilitiesCnt+capitalCnt)}">
@@ -88,5 +92,14 @@
 		</td>
 		</tr>
 	</table>
+	</div>
+	<%-- <div class="panel-body" style="text-align: center; height: 200px;" id="show_graph2">
+		<jsp:include page="show_balance_sheet_graph2.jsp"  flush="true">
+			  <jsp:param name="assets_totalSum" value="${assets_totalSum}"/>
+			  <jsp:param name="liabilities_totalSum" value="${liabilities_totalSum}"/>
+			  <jsp:param name="capital_totalSum" value="${capital_totalSum}"/>
+		</jsp:include>
+	</div> --%>
 </div>
-</div>
+</body>
+</html>

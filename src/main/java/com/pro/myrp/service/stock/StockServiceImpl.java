@@ -101,6 +101,7 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("end_day",end_day);
 
 		select_stockpile_searchDtos = dao.select_stockpile_search(model);
+		if(select_stockpile_searchDtos.size() != 0){
 		search_product.add(select_stockpile_searchDtos.get(0).getProduct_id());
 		for(int i = 0; i < select_stockpile_searchDtos.size(); i++){
 				for(int a = 0; a < search_product.size(); a++ ){
@@ -241,6 +242,9 @@ public class StockServiceImpl implements StockService, CodeMyRP {
 		model.addAttribute("end_day",end_day);
 		
 		model.addAttribute("add_stock",add_stock);
+		}else{
+			model.addAttribute("size","0");
+		}
 	}
 	
 

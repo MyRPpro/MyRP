@@ -25,9 +25,13 @@
 	});
 </script>
 <body>
-	<div class="panel panel-default" id="page16611">
+	<div class="panel panel-primary" id="page16611">
 		<div class="panel-heading">
-			<a id="page16611_div01_toggel">[16611]hr_appointment_list.jsp</a>
+			<!-- <a id="page16611_div01_toggel">[16611]hr_appointment_list.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16611_div01_toggel">인사발령 목록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16611_div01">
 			<table class="table">

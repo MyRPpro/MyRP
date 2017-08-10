@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.pro.myrp.domain.accounting_management.AccountVO;
@@ -25,6 +26,7 @@ public class AccountServiceImpl implements AccountService {
 	private AccountDAO dao;
 	
 	//계좌리스트
+	@Transactional 
 	@Override
 	public void bank_account_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -85,7 +87,7 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
-	// 계좌등록 : 뷰(View)
+	// 계좌등록 
 	@Override
 	public void register_bank_account_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -98,12 +100,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	// 계좌 등록 : bank_account_id 불러오기
-	@Override
+	/*@Override
 	public void call_bank_account_id_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest) map.get("req");
 		
-	}
+	}*/
 	
 	// 계좌등록 : 등록처리
 	@Override
@@ -167,6 +169,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	// 전체 전표목록 조회
+	@Transactional 
 	@Override
 	public void search_all_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -239,6 +242,7 @@ public class AccountServiceImpl implements AccountService {
 			model.addAttribute("currentPage", currentPage);
 		}
 	}
+	@Transactional 
 	//상세전표조회
 	@Override
 	public void search_statement_detail(Model model) throws Exception {
@@ -296,6 +300,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	// 전표 승인 처리 
+	@Transactional 
 	@Override
 	public void approve_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -312,17 +317,6 @@ public class AccountServiceImpl implements AccountService {
 		int cnt = statement_ids.length-1; //선택한 거래에 해당하는 전표개수
 		Map<String, Object> daoMap = new HashMap<>();
 			daoMap.put("typeCnt", typeCnt);
-			//매출원가 넣어주기
-			if(statement_type.equals("54101")) { //매출전표일경우
-				Map<String, Object> oriPriceMap = new HashMap<>();
-				oriPriceMap.put("sales_id", connected_id);
-				oriPriceMap.put("account_id", "500014030000");
-				int count_sales = dao.select_count_sales(oriPriceMap);
-				int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);
-				oriPriceMap.put("account_value", count_sales*purchase_unit_price);
-				oriPriceMap.put("account_id", "500014020000");
-				dao.update_costs_of_goods_sold_account(oriPriceMap); // 매출원가계정 업데이트
-			}	
 			
 		for(int i=1; i<cnt+1; i++) {
 			daoMap.put("statement_id", statement_ids[i]);
@@ -345,14 +339,16 @@ public class AccountServiceImpl implements AccountService {
 				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경
 			}
 		}else if(checkCnt==1){ //계좌 가져야하는 계정의 전표인 경우
-			for(int i= 1; i<cnt+1; i++){	
+			for(int i= 1; i<cnt+1; i++){
+				System.out.println(cnt+"번째 전표!*********");
 				daoMap.put("statement_id", statement_ids[i]);
 				scnt += dao.update_statement_approval_state(daoMap); //전표 승인상태 변경
+				System.out.println("scnt : " + scnt);
 				acnt += dao.update_account_account_value(daoMap); // 계정 값 변경 
-				
+				System.out.println("acnt : " + acnt);
 				int typeCheck = dao.select_check_statement_type(daoMap); // 전표타입 판단
 				int check = dao.select_account_id_check(daoMap); //매입채무는 -값이므로 부호 바꿔주기 위해서 우선 매입채무인지 아닌지 확인
-				
+				System.out.println("이제부터 통장처리");
 				if(typeCheck!=0) { //입금, 출금, 급여 전표일 경우에만!
 					if(check!=0) {
 						System.out.println("매입채무!");
@@ -377,6 +373,7 @@ public class AccountServiceImpl implements AccountService {
 
 	}
 	// 전표 승인 거절
+	@Transactional 
 	@Override
 	public void disapprove_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -402,6 +399,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("scnt", scnt);
 	}
+	@Transactional 
 	@Override
 	public void search_unapproval_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -489,6 +487,7 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 	//승인전표 조회
+	@Transactional 
 	@Override
 	public void search_approval_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -576,6 +575,7 @@ public class AccountServiceImpl implements AccountService {
 		}
 	}
 	// connected_id 불러오기
+	@Transactional 
 	@Override
 	public void call_connected_id_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
@@ -608,6 +608,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	// 전표 등록 처리
 	@Override
+	@Transactional 
 	public void make_statement_pro_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -691,6 +692,7 @@ public class AccountServiceImpl implements AccountService {
 	
 	//////////////////////////// 계정 관리 ///////////////////////////////////////
 	@Override
+	@Transactional 
 	public void search_account_list_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -748,6 +750,7 @@ public class AccountServiceImpl implements AccountService {
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 	}
 	@Override
+	@Transactional 
 	public void add_account_dupCheck_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -814,6 +817,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("yearValuable", yearDto.size());
 	}
 	@Override
+	@Transactional 
 	public void show_balance_sheet_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -894,6 +898,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	//손익계산서 조회
 	@Override
+	@Transactional 
 	public void show_profit_and_loss_statement_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -937,8 +942,11 @@ public class AccountServiceImpl implements AccountService {
 						oriPriceMap.put("sales_id", sales_id);
 						oriPriceMap.put("account_id", "500014030000");
 						int count_sales = dao.select_count_sales(oriPriceMap);
-						int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);
-						sum = sum - (count_sales*purchase_unit_price);
+							long total_purchase_price = dao.select_total_purchase_price(daoMap);
+							int total_purcahse_count = dao.select_total_purchase_count(daoMap);
+						long sales_origin_unit_price = total_purchase_price/total_purcahse_count;
+						/*int purchase_unit_price = dao.select_purchase_unit_price(oriPriceMap);*/
+						sum = sum + (count_sales*sales_origin_unit_price);
 					}
 				}
 			String account_class = "";
@@ -965,6 +973,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("yearValuable", 999);
 	}
 	@Override
+	@Transactional 
 	public void show_statement_of_cash_flows_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -1014,16 +1023,24 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 	@Override
+	@Transactional 
 	public void search_statements_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 		int search_statements_list_type = 0;
+		int input_type = 0;
 		if(req.getParameter("search_statements_list_type")!=null) {
 			search_statements_list_type = Integer.parseInt(req.getParameter("search_statements_list_type"));
 		}else {
 			search_statements_list_type = 1;
 		}
+		if(req.getParameter("input_type")!=null) {
+			input_type = Integer.parseInt(req.getParameter("input_type"));
+		}else {
+			input_type = 0;
+		}
 		model.addAttribute("search_statements_list_type", search_statements_list_type);
+		model.addAttribute("input_type",input_type);
 	}
 	@Override
 	public void search_all_bond_debt_service(Model model) throws Exception {
@@ -1031,6 +1048,7 @@ public class AccountServiceImpl implements AccountService {
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
 	}
 	@Override
+	@Transactional 
 	public void search_bond_debt_by_company_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -1053,6 +1071,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("dtos", dtos);
 	}
 	@Override
+	@Transactional 
 	public void show_all_bond_debt_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");
@@ -1088,6 +1107,7 @@ public class AccountServiceImpl implements AccountService {
 		model.addAttribute("dtosCnt", dtos.size());
 	}
 	@Override
+	@Transactional 
 	public void show_bond_debt_by_company_service(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest req = (HttpServletRequest)map.get("req");

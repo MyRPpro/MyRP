@@ -205,9 +205,12 @@ function SetPrevYearDays(begin, end) {
     obj2.focus(); 
 }
 </script>
-<div id="search_bond_debt" class="panel panel-default">
+<div id="search_bond_debt" class="panel panel-primary">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		전체 채권/채무 현황
+		</h3>
 	</div>
 	<div class="panel-body"  id="search_bond_debt_date">
 			<form action="#" name="search_all_bond_debt_form" method="post" class="form-inline">
@@ -219,35 +222,35 @@ function SetPrevYearDays(begin, end) {
 				<td>
 					<input type="hidden" value="999" name="yearValuable">
 					<div>
-					<input type="date" id="startDate" name="startDate" class="form-control" > 
+					<input type="date" id="startDate" name="startDate" class="form-control input-sm" > 
 					~ 
-					<input type="date" id="endDate" name="endDate" class="form-control" >
+					<input type="date" id="endDate" name="endDate" class="form-control input-sm" >
 					</div>
 					<br>
 					<div class="form-group form-group-sm">
 						<div class="btn-toolbar" role="toolbar">
 						  <div class="btn-group" role="group">
-						  	  <button type="button" class="btn btn-default" onclick="SetToday('startDate', 'endDate');">금일</button>
-							  <button type="button" class="btn btn-default" onclick="SetYesterday('startDate', 'endDate');">전일</button>
+						  	  <button type="button" class="btn btn-default btn-sm" onclick="SetToday('startDate', 'endDate');">금일</button>
+							  <button type="button" class="btn btn-default btn-sm" onclick="SetYesterday('startDate', 'endDate');">전일</button>
 						  </div>
 						  <div class="btn-group" role="group">
-						  	  <button type="button" class="btn btn-default" onclick="SetWeek('startDate', 'endDate');">금주</button>
-						  	  <button type="button" class="btn btn-default" onclick="SetPrevWeek('startDate', 'endDate')">전주</button>
+						  	  <button type="button" class="btn btn-default btn-sm" onclick="SetWeek('startDate', 'endDate');">금주</button>
+						  	  <button type="button" class="btn btn-default btn-sm" onclick="SetPrevWeek('startDate', 'endDate')">전주</button>
 						  </div>
 						  <div class="btn-group" role="group">
-						  	  <button type="button" class="btn btn-default" onclick="SetCurrentMonthDays('startDate', 'endDate');">금월</button>
-						  	  <button type="button" class="btn btn-default" onclick="SetPrevMonthDays('startDate', 'endDate');">전월</button>
+						  	  <button type="button" class="btn btn-default btn-sm" onclick="SetCurrentMonthDays('startDate', 'endDate');">금월</button>
+						  	  <button type="button" class="btn btn-default btn-sm" onclick="SetPrevMonthDays('startDate', 'endDate');">전월</button>
 						  </div>
 						  <div class="btn-group" role="group">
-						  	  <button type="button" class="btn btn-default" onclick="SetCurrentQuarter('startDate', 'endDate');">금 분기</button>
-						  	  <button type="button" class="btn btn-default" onclick="SetPrevQuarter('startDate', 'endDate');">전 분기</button>
+						  	  <button type="button" class="btn btn-default btn-sm" onclick="SetCurrentQuarter('startDate', 'endDate');">금 분기</button>
+						  	  <button type="button" class="btn btn-default btn-sm" onclick="SetPrevQuarter('startDate', 'endDate');">전 분기</button>
 						  </div>
 						</div>
 					</div>
 		 		</td>
 			</tr>
 			<tr>
-				<td colspan="2"> <input type="submit" value="조회 " id="show_bond_debt"  class="btn btn-default"></td>
+				<td colspan="2"> <input type="submit" value="조회 " id="show_bond_debt"  class="btn btn-primary btn-sm"></td>
 			</tr>
 			</table>
 		</form>

@@ -67,9 +67,13 @@
 	
 </script>
 <body>
-<div class="panel panel-default" id="page16220">
+<div class="panel panel-primary" id="page16220">
 	<div class="panel-heading">
-		<a id="page16220_div01_toggle">[16220]add_dept.jsp</a>
+		<!-- <a id="page16220_div01_toggle">[16220]add_dept.jsp</a> -->
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+			<a id="page16220_div01_toggle">부서 등록</a>
+		</h3>
 	</div>
 	<div class="panel-body" id="page16220_div01">
 		<form action="#" name="page16220_form01">
@@ -81,7 +85,7 @@
 							<input class="form-control input-sm" type="number" name="dept_id" value="${dept_id}"
 							min="1" max="9999" step="1" required>
 							<span class="input-group-btn">
-								<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page16220_btn01">
+								<input class="btn btn-info btn-sm" type="button" value="중복확인" id="page16220_btn01">
 							</span>
 						</div>
 					</td>
@@ -112,10 +116,12 @@
 						<input type="hidden" name="dupcheck"
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<input class="btn btn-default btn-sm" type="submit" value="등록하기">
-						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-						<input class="btn btn-default btn-sm" type="button" value="닫기"
-						id="page16220_btn02">
+						<div class="btn-group btn-group-default">
+							<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
+							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+							<input class="btn btn-default btn-sm" type="button" value="닫기"
+							id="page16220_btn02">						
+						</div>
 					</th>
 				</tr>
 			</table>

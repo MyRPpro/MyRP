@@ -23,7 +23,7 @@
 			</font>
 			<br><br>
 			<!-- ----------------------------------------------------- -->
-			<form>
+
 			<div class="table-responsive">
 				<table class="table table-condensed table-striped table-hover" id="reg_sales_table">
 					<tr>
@@ -130,17 +130,17 @@
 		return false;
 	});
 	
-	$('#page2110_submit').click(function(){
+	$('#page2110_submit').click(function() {
 		
-		 var product_id = document.getElementById("product_id");
-		 var sales_id = document.getElementById("sales_id");
-		 var company_id = document.getElementById("company_id");
-		 var employee_id = document.getElementById("employee_id");
-		 var reg_date = document.getElementById("reg_date");
-		 var storage_out_date = document.getElementById("storage_out_date");
-		 var count_sales = document.getElementById("count_sales");
-		 var selling_price = document.getElementById("selling_price");
-		 var condition_note_receivable = document.getElementById("condition_note_receivable");
+		  var product_id = 					document.getElementById("product_id");
+		 var sales_id = 					document.getElementById("sales_id");
+		 var company_id = 					document.getElementById("company_id");
+		 var employee_id = 					document.getElementById("employee_id");
+		 var reg_date = 					document.getElementById("reg_date");
+		 var storage_out_date = 			document.getElementById("storage_out_date");
+		 var count_sales = 					document.getElementById("count_sales");
+		 var selling_price = 				document.getElementById("selling_price");
+		 var condition_note_receivable = 	document.getElementById("condition_note_receivable");
 		 
 		 if( product_id.value == 0 ){
 			 alert("상품이 선택되지 않았습니다. 원하는 상품을 선택해주세요.");		
@@ -211,9 +211,5 @@
 	}
 	
 	</script>
-	
-	
-	
-	
 </body>
 </html>

@@ -19,6 +19,7 @@ $(function(){
 //전표 상세페이지 띄우기
 function search_statement_detail(statement_id, connected_id, typeCnt){
 	$('#statements_contents').slideUp();
+	$('#search_statement_detail').slideDown();
 	var url="";
 	if(typeCnt==1){
 		url="/accounting_management/statement_management/search_statement_detail?statement_id="+statement_id+"&sales_id="+connected_id;
@@ -43,9 +44,12 @@ function search_statement_detail(statement_id, connected_id, typeCnt){
 	});
 }
 </script>
-<div class="panel panel-default" id="page16330">
+<div class="panel panel-primary" id="page16330">
 	<div class="panel-heading" id="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		<a> 승인 전표 조회 </a>
+		</h3>
 	</div>
 	<div class="panel-body" id="statements_contents">
 	<div style="text-align: center;">

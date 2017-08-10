@@ -72,7 +72,6 @@ public class SalesServiceImpl implements SalesService,CodeMyRP  {
 			cnt = dao.select_count_approve_sales();
 			System.out.println("  -> Search Cnt : " + cnt );
 			
-			
 		} else if (search_check == 3 ){
 			System.out.println("  -> Account_Approve");
 			

@@ -34,18 +34,23 @@ $(function(){
 	});
 });
 </script>
-<div id="search_account_list_overall" class="panel panel-default">
+<div id="search_account_list_overall" class="panel panel-primary ">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		계정 관리
+		</h3>
+		
 	</div>
 	<div class="panel-body">
 	 <small>총 계정 개수 : ${cnt}</small>
-	 <input type="submit" value="계정 추가" class="btn btn-default" id="add_account_button">
+	 <input type="submit" value="계정 추가" class="btn btn-primary btn-sm" id="add_account_button" style="margin-left: 6px;">
+	</div>
+	
 	<div id="account_list">
 	
 	</div>
 	<div id="account_list_stage">
 	
-	</div>
 	</div>
 </div>

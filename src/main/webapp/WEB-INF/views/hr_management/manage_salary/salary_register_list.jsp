@@ -25,9 +25,13 @@
 	});
 </script>
 <body>
-	<div class="panel panel-default" id="page16511">
+	<div class="panel panel-primary" id="page16511">
 		<div class="panel-heading">
-			<a id="page16511_div01_toggle">[16511]salary_register_list.jsp</a>
+			<!-- <a id="page16511_div01_toggle">[16511]salary_register_list.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16511_div01_toggle">급여대장 목록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16511_div01">
 			<table class="table">

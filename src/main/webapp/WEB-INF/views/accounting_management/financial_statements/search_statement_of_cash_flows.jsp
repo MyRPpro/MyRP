@@ -27,6 +27,14 @@ $(function(){
 				togo.html(response);	
 			}
 		});
+		$.ajax({ 	
+			data:    data,
+			type: 	'post',	 			
+			url: 	"/accounting_management/financial_statements/show_statement_of_cash_flows_graph",
+			success: function(response) { 	
+				$('#show_graph').html(response);	
+			}
+		});
 		return false;
 	});
 });
@@ -215,39 +223,43 @@ function SetPrevYearDays(begin, end) {
 		<td>
 			<input type="hidden" value="999" name="yearValuable">
 			<div>
-			<input type="date" id="startDate" name="startDate" class="form-control" > 
+			<input type="date" id="startDate" name="startDate" class="form-control input-sm" > 
 			~ 
-			<input type="date" id="endDate" name="endDate" class="form-control" >
+			<input type="date" id="endDate" name="endDate" class="form-control input-sm" >
 			</div>
 			<br>
 			<div class="form-group form-group-sm">
 				<div class="btn-toolbar" role="toolbar">
 				  <div class="btn-group" role="group">
-				  	  <button type="button" class="btn btn-default" onclick="SetToday('startDate', 'endDate');">금일</button>
-					  <button type="button" class="btn btn-default" onclick="SetYesterday('startDate', 'endDate');">전일</button>
+				  	  <button type="button" class="btn btn-default btn-sm" onclick="SetToday('startDate', 'endDate');">금일</button>
+					  <button type="button" class="btn btn-default btn-sm" onclick="SetYesterday('startDate', 'endDate');">전일</button>
 				  </div>
 				  <div class="btn-group" role="group">
-				  	  <button type="button" class="btn btn-default" onclick="SetWeek('startDate', 'endDate');">금주</button>
-				  	  <button type="button" class="btn btn-default" onclick="SetPrevWeek('startDate', 'endDate')">전주</button>
+				  	  <button type="button" class="btn btn-default btn-sm" onclick="SetWeek('startDate', 'endDate');">금주</button>
+				  	  <button type="button" class="btn btn-default btn-sm" onclick="SetPrevWeek('startDate', 'endDate')">전주</button>
 				  </div>
 				  <div class="btn-group" role="group">
-				  	  <button type="button" class="btn btn-default" onclick="SetCurrentMonthDays('startDate', 'endDate');">금월</button>
-				  	  <button type="button" class="btn btn-default" onclick="SetPrevMonthDays('startDate', 'endDate');">전월</button>
+				  	  <button type="button" class="btn btn-default btn-sm" onclick="SetCurrentMonthDays('startDate', 'endDate');">금월</button>
+				  	  <button type="button" class="btn btn-default btn-sm" onclick="SetPrevMonthDays('startDate', 'endDate');">전월</button>
 				  </div>
 				  <div class="btn-group" role="group">
-				  	  <button type="button" class="btn btn-default" onclick="SetCurrentQuarter('startDate', 'endDate');">금 분기</button>
-				  	  <button type="button" class="btn btn-default" onclick="SetPrevQuarter('startDate', 'endDate');">전 분기</button>
+				  	  <button type="button" class="btn btn-default btn-sm" onclick="SetCurrentQuarter('startDate', 'endDate');">금 분기</button>
+				  	  <button type="button" class="btn btn-default btn-sm" onclick="SetPrevQuarter('startDate', 'endDate');">전 분기</button>
 				  </div>
 				</div>
 			</div>
  		</td>
 	</tr>
 	<tr>
-		<td colspan="2"> <input type="submit" value="조회 " id="show_statement"  class="btn btn-default"></td>
+		<td colspan="2"> <input type="submit" value="조회 " id="show_statement"  class="btn btn-primary btn-sm"></td>
 	</tr>
 	</table>
 </form>
 </div>
 <div id="stage">
+
+</div>
+<div id="show_graph">
+</div>
 
 </div>

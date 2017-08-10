@@ -62,9 +62,12 @@ function slideUpFunction(){
 	});
 </script>
 <body>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		 계좌 등록
+		 </h3>
 	</div>
 	<div class="panel-body" style="text-align: center;">
 	<form name="register_bank_account_form1">
@@ -94,25 +97,25 @@ function slideUpFunction(){
 			<tr>
 				<th>계좌명</th>
 				<td>
-					<input type="text" name="bank_account_name" maxlength="20" id="bank_account_name">
+					<input type="text" name="bank_account_name" maxlength="20" id="bank_account_name" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>계좌번호</th>
 				<td>
-					<input type="text" name="bank_account_number" maxlength="20">
+					<input type="text" name="bank_account_number" maxlength="20" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
 				<th>잔액</th>
 				<td>
-					<input type="number" id="bank_account_balance" name="bank_account_balance" readonly="true"> <!-- max="999999999999999999" min="0" -->
+					<input type="number" id="bank_account_balance" name="bank_account_balance" readonly="true" class="form-control input-sm"> <!-- max="999999999999999999" min="0" -->
 				</td>
 			</tr>
 			<tr>
 				<th>은행</th>
 				<td>
-					<input type="text" name="bank_name" maxlength="12">
+					<input type="text" name="bank_name" maxlength="12" class="form-control input-sm">
 				</td>
 			</tr>
 			<tr>
@@ -127,14 +130,14 @@ function slideUpFunction(){
 			<tr>
 				<th>등록일</th>
 				<td>
-					<input type="Date" name="reg_date"> 
+					<input type="Date" name="reg_date" class="form-control input-sm"> 
 				</td>
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="submit" value="등록하기"  class="btn btn-default">
-					<input type="reset" value="재작성"  class="btn btn-default">
-					<input type="button" value="돌아가기"  onclick="slideUpFunction();"  class="btn btn-default">					
+					<input type="submit" value="등록하기"  class="btn btn-primary btn-sm">
+					<input type="reset" value="재작성"  class="btn btn-default btn-sm">
+					<input type="button" value="돌아가기"  onclick="slideUpFunction();"  class="btn btn-default btn-sm">					
 				</th>
 			</tr>
 		</table>

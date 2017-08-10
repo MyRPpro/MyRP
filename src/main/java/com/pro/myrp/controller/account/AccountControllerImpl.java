@@ -38,14 +38,14 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		return code.c(accounting_management, bank_account_registration, register_bank_account);
 	}
 	
-	@Override
+	/*@Override
 	@GetMapping(value="bank_account_registration/call_bank_account_id")
 	public String call_bank_account_id(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(call_bank_account_id));
 		model.addAttribute("req", req);
 		service.call_bank_account_id_service(model);
 		return code.c(accounting_management, bank_account_registration, call_bank_account_id);
-	}
+	}*/
 	
 	@Override
 	@PostMapping(value="bank_account_registration/register_bank_account_pro")
@@ -297,6 +297,7 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 	public String account_management(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(account_management));
 		model.addAttribute("req",req);
+		service.search_account_list_service(model);
 		return "accounting_management/account_management/account_management";
 	}
 	@Override
@@ -341,6 +342,33 @@ public class AccountControllerImpl implements AccountController, CodeMyRP{
 		model.addAttribute("req",req);
 		service.show_bond_debt_by_company_service(model);
 		return "accounting_management/bond_debt_status/show_bond_debt_by_company";
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_balance_sheet_graph")
+	public String show_balance_sheet_graph(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_balance_sheet_graph");
+		model.addAttribute("req",req);
+		service.show_balance_sheet_service(model);
+		return "accounting_management/financial_statements/show_balance_sheet_graph";
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_profit_and_loss_statement_graph")
+	public String show_profit_and_loss_statement_graph(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_profit_and_loss_statement_graph");
+		model.addAttribute("req",req);
+		service.show_profit_and_loss_statement_service(model);
+		return "accounting_management/financial_statements/show_profit_and_loss_statement_graph";
+	}
+
+	@Override
+	@PostMapping(value="financial_statements/show_statement_of_cash_flows_graph")
+	public String show_statement_of_cash_flows_graph(HttpServletRequest req, Model model) throws Exception {
+		System.out.println("show_statement_of_cash_flows_graph");
+		model.addAttribute("req",req);
+		service.show_statement_of_cash_flows_service(model);
+		return "accounting_management/financial_statements/show_statement_of_cash_flows_graph";
 	}
 
 

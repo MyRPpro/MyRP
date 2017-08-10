@@ -10,6 +10,11 @@
 </head>
 <script type="text/javascript">
 
+	$("#page16230_div01_toggle").bind("click", function(event) {
+		$("#page16230_div01").slideToggle();
+		return false;
+	});
+
 	$("#page16230_btn01").bind("click", function(event) {
 		$("#page16230").slideUp();
 		$("#page16210_div01").slideDown();
@@ -32,11 +37,15 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16230">
+	<div class="panel panel-primary" id="page16230">
 		<div class="panel-heading">
-			[16230]modify_dept.jsp
+			<!-- [16230]modify_dept.jsp -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16230_div01_toggle">부서정보 수정</a>
+			</h3>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body" id="page16230_div01">
 			<form action="#" name="page16230_form01">
 				<table class="table">
 					<tr>
@@ -73,10 +82,12 @@
 					</tr>
 					<tr>
 						<th colspan="2">
-							<input class="btn btn-default btn-xs" type="submit" value="수정하기">
-							<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-							<input class="btn btn-default btn-xs" type="button"
-							value="닫기" id="page16230_btn01">
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-default btn-xs" type="submit" value="수정하기">
+								<input class="btn btn-default btn-xs" type="reset"	value="재작성">
+								<input class="btn btn-default btn-xs" type="button"
+								value="닫기" id="page16230_btn01">							
+							</div>
 						</th>
 					</tr>
 				</table>

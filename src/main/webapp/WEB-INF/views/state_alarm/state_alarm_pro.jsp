@@ -38,7 +38,7 @@ $(".mov").bind("click", function(event) {
 	<c:if test = "${size == 0}">
 		<table class="table table-hover">
 			<tr>
-				<td><span class="text-center">알림을 모두 확인하셨습니다.</span></td>
+				<td><span class="text-center">알림을 없습니다.</span></td>
 			</tr>
 		</table>
 	</c:if>
