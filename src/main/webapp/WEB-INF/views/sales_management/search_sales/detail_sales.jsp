@@ -199,6 +199,7 @@
 	
 	$('#reg_sales_state').click(function(){
 		$('#main_screen').load("/accounting_management/statement_management/search_statements");
+		return false;
 	});
 	
 	$('#detail_sales_panel_heading').click(function(){

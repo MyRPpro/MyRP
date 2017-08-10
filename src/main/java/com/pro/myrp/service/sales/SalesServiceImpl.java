@@ -604,7 +604,7 @@ public class SalesServiceImpl implements SalesService,CodeMyRP  {
 		Date storage_out_date = req.getParameter("storage_out_date") == "" ? new Date(0) : Date.valueOf(req.getParameter("storage_out_date"));
 		int count_sales = Integer.parseInt( req.getParameter("count_sales") ); 
 		Long supply_price = Long.parseLong( req.getParameter("selling_price") );
-		int sales_state = Integer.parseInt( req.getParameter("sales_state") );
+		int sales_state = request_approval_sales_statement;
 		int condition_note_receivable = Integer.parseInt( req.getParameter("condition_note_receivable") );
 		
 		// 생성자 생성

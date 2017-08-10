@@ -255,7 +255,7 @@
 	});
 	
 	$('#button_reg_state').click(function(){
-		$('#main_screen').load('/accounting_management/statement_management/search_all_statements');
+		$('#main_screen').load("/accounting_management/statement_management/search_statements");
 		return false;
 	});
 	

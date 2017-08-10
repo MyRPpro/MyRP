@@ -93,10 +93,9 @@
 	<script type="text/javascript">
 	function sendStatement(){
 		var purchase_id = document.getElementById("purchase_id").innerHTML
-		$('#main_screen').load("/accounting_management/statement_management/make_statement");
-		
-		/* window.location="/accounting_management/statement_management/make_statement"; */
-						/* +"?purchase_id="+purchase_id; */
+		$('#main_screen').load("/accounting_management/statement_management/search_statements");
+		return false;
+
 	}
 	</script>
 
