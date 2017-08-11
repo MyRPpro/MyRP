@@ -147,97 +147,94 @@ var arrive_warehouse = "도착할 창고";
 //창고 등록
 var warehouse_location = "창고 위치 주소";
 
-
 /**
  * 회계관리
  */
 
 // 회계보고서
-	var fi_statements = "조회할 회계보고서 종류 선택";
-	//재무상태표 
-	var quarter = "조회할 분기";
-	//손익계산서
-	var startDate = "조회할 기간 : 시작일";
-	var endDate = "조회할 기간 : 끝일";
-	
+ var fi_statements = "조회할 회계보고서 종류 선택";
+ //재무상태표 
+ var quarter = "조회할 분기";
+ //손익계산서
+ var startDate = "조회할 기간 : 시작일";
+ var endDate = "조회할 기간 : 끝일";
+ 
 //계좌등록
-	var bank_account_id = "계좌 ID";
-	var bank_account_name = "계좌 이름";
-	var bank_account_number = "계좌번호 : - 까지 포함해서 입력해주세요"
-	var bank_account_balance = "계좌 잔액"
-	var bank_name = "은행명";
-	var bank_account_type = "계좌 유형";
-	var	use_state = "사용상태 ";
-	var	reg_date = "등록일자 : 자동입력";
+ var bank_account_id = "계좌 ID";
+ var bank_account_name = "계좌 이름 : 255자리 이하의 문자";
+ var bank_account_number = "계좌번호 : 20자리 이하의 문자"
+ var bank_account_balance = "계좌 잔액 : 18자리 이하의 숫자"
+ var bank_name = "은행명 : 255자리 이하의 문자";
+ var bank_account_type = "계좌 유형";
 //계정등록
-	var account_id = "계정 ID";
-	var dupCheckButton = "중복확인 버튼";
-	var account_name = "계정 이름";
-	var account_balance = "계정 금액";
+ var account_id = "계정번호 : 4자리 숫자 | 중복확인 필요(조회-확인:나머지 8자리 자동입력)";
+ var dupCheckButton = "중복확인 버튼";
+ var account_name = "계정 이름 : 255자리 이하의 문자";
+ var account_balance = "계정 금액 : 18자리 이하의 숫자";
 //전표 등록
-	var connected_id = "연결 ID";
-	var calling_button = "연결주문 조회";
-	var account_value = "계정 금액";
+ var connected_id = "연결 ID : 직접 입력하지 마시고, 조회 버튼을 통해 불러오세요";
+ var calling_button = "연결주문 조회";
+ var account_value = "계정 금액";	
 
 /**
  * 인사 관리
  */
-//16100
-var hr_code_group_id 	= "인사코드 그룹번호: 1자리 숫자 | 중복확인 필요";
-var hr_code_group_name  = "인사코드 그룹명";
-var hr_code_id			= "인사코드 번호: 3자리 숫자 | 중복확인 필요 | 인사코드의 키값";
-var hr_code_name 		= "인사코드 명";
-//16200
-var dept_id				= "부서번호: 4자리 숫자 | 중복확인 필요 | 부서의 키값";
-var dept_name			= "부서명";
+
+var hr_code_group_id 	= "인사코드 그룹번호 | 1자리 숫자 | 중복확인 필요";
+var hr_code_group_name  = "인사코드 그룹명 | 225자리 이하의 문자 | 필수입력";
+var hr_code_id			= "인사코드 번호 | 3자리 숫자 | 중복확인 필요 | 인사코드의 키값";
+var hr_code_name 		= "인사코드 명 | 255자리 이하의 문자 | 필수입력";
+
+var dept_id				= "부서번호 | 4자리 숫자 | 중복확인 필요 | 부서의 키값";
+var dept_name			= "부서명 | 255자리 이하의 문자 | 필수입력";
 var access_role			= "접근권한 | 모듈에 접속할 수 있는 ROLE을 부여";
-//16300
-var searchStr			= "사번,이름 검색";
-var employee_id			= "사원번호(4자리 숫자)";
-var employee_name		= "사원명";
-var residence_reg_no1	= "주민등록번호(생년월일 6자리 숫자)";
-var residence_reg_no2	= "주민등록번호(고유번호 7자리 숫자)";
-var join_date			= "입사일";
-var rank_name			= "직급";
-var tel					= "전화번호";
-var mobile_tel			= "휴대전화";
-var passport_no			= "여권번호";
-var email1				= "이메일(아이디)";
-var email2				= "이메일(도메인)";
-var address				= "주소";
-var hourly_wage			= "시급";
-var salary_account		= "급여계좌";
+
+var searchStr			= "사번 (4자리 숫자) 또는 이름 (50자리 이하의 문자) 검색";
+var employee_id			= "사원번호 | 4자리 숫자";
+var employee_name		= "사원명 | 50자리 이하의 문자";
+var residence_reg_no1	= "주민등록번호 | 생년월일 6자리 숫자";
+var residence_reg_no2	= "주민등록번호 | 고유번호 7자리 숫자";
+var join_date			= "입사일 | DATE";
+var rank_name			= "직급 | 직급을 선택하세요.";
+var tel					= "전화번호 | 30자 이하의 문자";
+var mobile_tel			= "휴대전화 | 30자 이하의 문자";
+var passport_no			= "여권번호 | 9자리 문자";
+var email1				= "이메일(아이디) | 20자리 이하의 문자";
+var email2				= "이메일(도메인) | 20자리 이하의 문자";
+var address				= "주소 | 255자 이하의 문자";
+var hourly_wage			= "시급 | 6자리 숫자 | 필수입력";
+var salary_account		= "급여계좌 | 20자리 이하의 문자 | 기본값 0";
 var file				= "증명사진(인사카드용 jpg사진)";
-//16600
-var appointment_date	= "발령일";
-var pre_rank_name		= "이전직급명";
-var post_rank_name		= "발령직급명";
-var pre_dept_name		= "이전부서명";
-var post_dept_name		= "발령부서명";
-//16700	
-var retired_date		= "퇴직일";
-var retired_reason		= "퇴직사유";
 
-var search_start 		= "검색시작일";
-var search_end			= "검색종료일";
+var appointment_date	= "발령일 | DATE | 기본값 오늘";
+var pre_rank_name		= "이전직급명 | 발령전 직급명입니다.";
+var post_rank_name		= "발령직급명 | 발령할 직급명입니다.";
+var pre_dept_name		= "이전부서명 | 발령전 부서명입니다.";
+var post_dept_name		= "발령부서명 | 발령할 부서명입니다.";
 
-var salary_register_id	= "급여대장 번호";
-var account_id			= "계정";
-var reg_date			= "등록일";
-var salary_register_name= "급여대장명";
-var pay_date			= "지급일";
-var total_pay			= "총 지급액";
-var total_employee		= "총 지급인원";
-var salary_state		= "급여상태";
+var retired_date		= "퇴직일 | DATE | 기본값 오늘";
+var retired_reason		= "퇴직사유 | 255자 이하의 문자";
 
-var bonus_ratio			= "상여금 비율";
-var night_overtime_ratio= "야근수당 비율";
-var weekend_overtime_ratio= "주말근무수당 비율";
-var base_worktime		= "기본 시간";
-var night_overtime		= "야근 시간";
-var weekend_overtime	= "주말 시간";
+var search_start 		= "검색시작일 | 미선택시 검색종료일 이전으로 모두 선택됩니다.";
+var search_end			= "검색종료일 | 미선택시 검색시작일 이후로 모두 선택됩니다.";
+
+var salary_register_id	= "급여대장 번호 | 12자리 문자";
+var account_id			= "계정 | 12자리 문자";
+var reg_date			= "등록일 | DATE | 기본값 오늘";
+var salary_register_name= "급여대장명 | 255자 이하의 문자";
+var pay_date			= "지급일 | DATE";
+var total_pay			= "총 지급액 | 12자리 숫자";
+var total_employee		= "총 지급인원 | 4자리 숫자";
+var salary_state		= "급여상태 | 5자리 숫자 | 기본값 0";
+
+var bonus_ratio			= "상여금 비율 | 0.0 ~ 1.0 사이의 값을 입력하세요.";
+var night_overtime_ratio= "야근수당 비율 | 1.0 ~ 2.0 사이의 값을 입력하세요.";
+var weekend_overtime_ratio= "주말근무수당 비율 | 1.0 ~ 2.0 사이의 값을 입력하세요.";
+var base_worktime		= "기본 시간 | 기본근무시간을 입력해 주세요.";
+var night_overtime		= "야근 시간 | 야근시간을 입력해 주세요.";
+var weekend_overtime	= "주말 시간 | 주말근무시간을 입력해 주세요.";
 /**
  * 근태관리
  */
-var attitude_date1 		= "휴가시작 일자";
-var attitude_date2 		= "휴가종료 일자";
+var attitude_date1 		= "휴가시작 일자 | 휴가 시작 일자를 선택해 주세요.";
+var attitude_date2 		= "휴가종료 일자 | 휴가 종료 일자를 선택해 주세요.";
