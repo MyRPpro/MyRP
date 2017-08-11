@@ -15,12 +15,13 @@
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title" id="sales_list_panel_title">
-						<span class="glyphicon glyphicon-euro"></span> &emsp;
-						판매 리스트 페이지 Sales_List
-					</h3>
+					<h4 class="panel-title">
+						<a id="page2110_div01_toggle"><span class="glyphicon glyphicon-tags"></span> &nbsp;
+							<b>판매 리스트 페이지</b>
+						</a>
+					</h4>
 				</div>	<!-- // panel-heading -->
-				<div class="panel-body" id="sales_list_panel_body" >
+				<div class="panel-body" id="page2110_div01" >
 					<div class="input-group" id="sales_list_input-group" style="width: 100%;">
 						<font class="media-heading" style="margin:0 auto;"> 입력된 판매 내역을 검색 할 수 있는 페이지 입니다.</font><br><br>
 							<form class="form-inline-block" id="sales_list_form" action="#" name="purchase_list_form" method="get" onsubmit="return search_list(1,1);">
@@ -33,7 +34,7 @@
 											<button class="btn btn-primary" id="list_btn_search" type="submit"> 검색 </button>
 										</div>
 										<div class="btn-group" role="group" style="width: 15%;">
-											<select id="months" class="form-control form-control btn-primary" style="height: 33px;" >                                              
+											<select id="months" class="form-control form-control btn-default" style="height: 33px;" >                                              
 												<option value="01" > 옵션 </option>
 												<option value="01" > 전표신청 </option>
 												<option value="02" > 전표승인 </option>
@@ -48,7 +49,6 @@
 											</select>
 										</div>
 									</div>
-										
 									<div class="btn-group btn-group-justified" role="group" aria-label="...">
 										<div class="btn-group" role="group">
 											<button type="button" class="btn btn-primary" onclick="return search_list(1,0)">전체검색</button>
@@ -72,28 +72,26 @@
 									</div>
 								</div>	<!-- // btn-group-justified -->
 							</form>	
-							<div id="list_page"></div>
 						</div>	<!-- // input-group -->
-					<div id="list_table"></div>
-				</div>	<!-- // panel-body  -->  	
+					</div>	<!-- // panel-body  -->  
+					<div class="panel-body" id="page2110_div02" style="padding-bottom: 0px;"></div>
+					<div class="panel-body" id="page2110_div03"></div>
 			</div> <!-- // panel panel-primary -->
 		</div> <!-- // col-xs-12 -->	 
 	</div>	<!-- // row -->
 		
 	<script type="text/javascript"> 	
 	
-	
-	
 	$(document).ready(function(){
-		$('#sales_list_panel_title').click(function(){
-			$('#sales_list_panel_body').slideToggle();
+		$('#page2110_div01_toggle').click(function(){
+			$('#page2110_div01').slideToggle();
 			return false;
 		});
 		
 		$('#list_btn_reg').click(function(){	// 판매 등록
-			$('#list_page').slideUp(500);
-			$('#list_table').slideDown(500);
-			$('#list_table').load("/sales_management/input_sales/reg_sales");
+			$('#page2110_div02').slideUp();	// 페이징
+			$('#page2110_div03').slideDown();
+			$('#page2110_div03').load("/sales_management/input_sales/reg_sales");
 			return false;
 		});
 	});
@@ -115,11 +113,12 @@
 		else if (check == 3 )		search_str = "account_c";	// 3.전표승인조회
 		else if (check == 5 )		search_str = "out_c";		// 5.출고완료조회
 		else if (check == 7 )		search_str = "receive_c";	// 7.지급완료조회
-
-		$('#list_page').slideDown(500);
-		$('#list_table').slideDown(500);
-		$('#list_page').load('/sales_management/search_sales/sales_list_page?search_str='+search_str+'&pageNum='+pageNum);
-		$('#list_table').load('/sales_management/search_sales/sales_list_table?search_str='+search_str+'&pageNum='+pageNum);
+		
+		
+		$('#page2110_div02').slideDown();
+		$('#page2110_div03').slideDown();
+		$('#page2110_div02').load('/sales_management/search_sales/sales_list_page?search_str='+search_str+'&pageNum='+pageNum);
+		$('#page2110_div03').load('/sales_management/search_sales/sales_list_table?search_str='+search_str+'&pageNum='+pageNum);
 		return false;
 	}
 

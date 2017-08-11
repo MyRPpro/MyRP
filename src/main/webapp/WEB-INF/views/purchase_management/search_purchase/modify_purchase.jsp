@@ -11,7 +11,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading" id="modify_purchase_heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-gift"></span> &emsp;
+						<span class="glyphicon glyphicon-shopping-cart"></span> &emsp;
 						구매번호" ${dtos.get(0).purchase_id}"의 상세 정보 입니다. 
 					</h3>
 				</div>	<!--  // panel-heading -->

@@ -14,7 +14,7 @@
 					<li> <span><b>[${i}]</b></span> </li>
 				</c:if>
 				<c:if test="${i != currentPage}">
-					<li> <a href="javascript:search_list('${i}','${check}')"> [${i}]</a> </li>
+					<li> <a href="javascript:search_list('${i}','${check}')"> ${i}</a> </li>
 				</c:if>
 			</c:forEach>
 			<c:if test="${pageCount > endPage}">

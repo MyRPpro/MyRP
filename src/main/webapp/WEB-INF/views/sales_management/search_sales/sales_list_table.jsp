@@ -28,47 +28,46 @@
 		</script>
 	</c:if>
 		 
-		 
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="panel panel-primary" id="sales_list_panel">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<h3 class="panel-title" id="sales_list_table_panel_title">
-						<span class="glyphicon glyphicon-euro"></span> 
-						&emsp;
-						<c:choose>
-							<c:when test="${check==0}">
-								전체 
-							</c:when>
-							<c:when test="${check==1}">
-								판매번호
-							</c:when>
-							<c:when test="${check==2}">
-								전표승인신청
-							</c:when>
-							<c:when test="${check==3}">
-								전표승인조회
-							</c:when>
-							<c:when test="${check==4}">
-								상품출고신청
-							</c:when>
-							<c:when test="${check==5}">
-								출고완료조회
-							</c:when>
-							<c:when test="${check==6}">
-								지급대기신청
-							</c:when>
-							<c:when test="${check==7}">
-								지급완료조회
-							</c:when>
-							<c:otherwise>
-								입력값 오류
-							</c:otherwise>
-						</c:choose>
-						검색 목록 Sales_List_Table &emsp; 검색개수 : 총 ${cnt} 개
-					</h3>
+					<h4 class="panel-title">
+						<a id="page2120_div01_toggle"><span class="glyphicon glyphicon-tags"></span> &nbsp;
+							<c:choose>
+								<c:when test="${check==0}">
+									전체 
+								</c:when>
+								<c:when test="${check==1}">
+									판매번호
+								</c:when>
+								<c:when test="${check==2}">
+									전표승인신청
+								</c:when>
+								<c:when test="${check==3}">
+									전표승인조회
+								</c:when>
+								<c:when test="${check==4}">
+									상품출고신청
+								</c:when>
+								<c:when test="${check==5}">
+									출고완료조회
+								</c:when>
+								<c:when test="${check==6}">
+									지급대기신청
+								</c:when>
+								<c:when test="${check==7}">
+									지급완료조회
+								</c:when>
+								<c:otherwise>
+									입력값 오류
+								</c:otherwise>
+							</c:choose>
+							검색 목록 , 검색개수 : 총 ${cnt} 개
+						</a>
+					</h4>
 				</div>	<!--  // panel-heading -->
-				<div class="panel-body" id="sales_list_table_panel_body">
+				<div class="panel-body" id="page2120_div01">
 					<div class="table-responsive">
 						<form action="#" method="get" onsubmit="return reg_sales();">
 							<div class="form-group">
@@ -117,14 +116,15 @@
 					</div> <!-- // table-responsive -->
 				</div>	<!-- // panel-body -->
 			</div>	<!-- // panel panel-primary -->
-			<div id="list_detail"></div>
+			<div id="page2120_div02"></div>
 		</div>	<!-- // col-xs-12 -->
 	</div>	<!-- // row -->
 	
 	<script type="text/javascript">	
 	
-	$('#sales_list_table_panel_title').click(function(){
-		$('#sales_list_table_panel_body').slideToggle();
+	$('#page2120_div01_toggle').click(function(){
+		$('#page2120_div01').slideToggle();
+		$('#page2110_div02').slideToggle();	// 페이징
 		return false;
 	});
 	
@@ -132,17 +132,17 @@
 		param = param.split(',');
 		var state = param[1];
 		
-		$('#sales_list_input-group').slideUp();
-		$('#sales_list_table_panel_body').slideUp();
-		  
+		$('#page2120_div01').slideUp();	// 페이징
+		$('#page2110_div02').slideUp();	// 페이징
+		
 		if( state == "22213" ){
-			$('#list_detail').slideDown();
-			$('#list_detail').load("/sales_management/search_sales/modify_sales?sales_id="+param[0]
+			$('#page2120_div02').slideDown();
+			$('#page2120_div02').load("/sales_management/search_sales/modify_sales?sales_id="+param[0]
 				+ '&sales_state=' + param[1]);
 			return false;
 		} else {
-			$('#list_detail').slideDown();
-			$('#list_detail').load("/sales_management/search_sales/detail_sales?sales_id="+param[0]
+			$('#page2120_div02').slideDown();
+			$('#page2120_div02').load("/sales_management/search_sales/detail_sales?sales_id="+param[0]
 			+'&sales_state='+param[1]
 			+'&account_id='+param[2]);
 			return false;

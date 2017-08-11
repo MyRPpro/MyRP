@@ -11,16 +11,16 @@
 
 	<form action="#" name="search_reg_purchase_form" method="get">
 		
-	<div class="panel panel-primary">
+	<div class="panel panel-primary" id="page3220_panel">
 	<div class="panel-heading">	
-		<h3 class="panel-title"> 
-		<span class="glyphicon glyphicon-gift"></span> 
-		&nbsp; &nbsp; 부족 재고 목록 조회 search_reg_purchase 
-		&emsp;  검색개수 : 총 ${cnt} 개
-		</h3>
+		<h4 class="panel-title" > 
+		<a id="page3220_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span> 
+		부족 재고 목록 조회 , 검색개수 : 총 ${cnt} 개
+		</a>
+		</h4>
 	</div>	<!-- // panel-heading -->
 	
-	<div class="panel-body">
+	<div class="panel-body" id="page3220_div01">
 		<div class="table-responsive">
 		<div class="form-group" >
 	
@@ -113,6 +113,7 @@
 		var stock_order_id = document.getElementById(num).value;
 		/* console.log("선택한 오더 번호 :" + stock_order_id); */
 		/* alert(stock_order_id); */
+		
 		$('#main_screen').load("/purchase_management/input_purchase/search_reg_purchase_pro?stock_order_id="+stock_order_id);
 		
 	}

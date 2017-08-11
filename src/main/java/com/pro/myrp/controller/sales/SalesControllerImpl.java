@@ -76,7 +76,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	}
 
 	@Override
-	@PostMapping(value="search_sales/modify_sales_pro")
+	@GetMapping(value="search_sales/modify_sales_pro")
 	public String modify_sales_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(modify_sales));
 		model.addAttribute("req", req);

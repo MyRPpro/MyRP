@@ -24,7 +24,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading" id="purchase_list_table_heading">
 			<h3 class="panel-title">
-				<span class="glyphicon glyphicon-gift"></span> 
+				<span class="glyphicon glyphicon-shopping-cart"></span> 
 				&nbsp; &nbsp; 
 				<c:choose>
 					<c:when test="${check==0}">

@@ -21,7 +21,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading"  id="purchase_list_heading" >
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-gift"></span> &emsp;
+						<span class="glyphicon glyphicon-shopping-cart"></span> &emsp;
 						구매 리스트 페이지 Purchase_List
 					</h3>
 				</div>	<!-- // panel-heading -->
