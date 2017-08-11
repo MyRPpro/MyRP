@@ -920,7 +920,7 @@
 								                           )
 					            )
 					        then 22215
-					        else 22213
+					        ELSE 22213 
 					        end
 		where	SALES_STATE = 22213
 		]]>

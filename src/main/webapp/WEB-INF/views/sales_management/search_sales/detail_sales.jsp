@@ -13,14 +13,15 @@
 	
 	<div class="row" id="row">
 		<div class="col-xs-12">
-			<div class="panel panel-primary">
+			<div class="panel panel-primary" id="page2140_panel">
 				<div class="panel-heading" >
-					<h3 class="panel-title" id="detail_sales_panel_heading">
-						<span class="glyphicon glyphicon-gift"></span> &emsp;
+					<h4 class="panel-title" >
+						<a href="page2140_dvi01_toggle"><span class="glyphicon glyphicon-tags"></span> &emsp;
 						판매번호" ${dtos.get(0).sales_id}"의 상세 정보 입니다. 
-					</h3>
+						</a>
+					</h4>
 				</div>	<!--  // panel-heading -->
-				<div class="panel-body" id="detail_sales_panel_body" >
+				<div class="panel-body" id="page2140_dvi01" >
 					<div class="table-responsive">
 						<div class="form-group">
 						
@@ -159,20 +160,20 @@
 									</tr>
 								</table>
 							</form>
-							
-							<c:if test="${sales_state == 22213 }">
-								<input type="button" class="btn btn-primary" id="reg_sales_state" value="회계전표 입력하기 ">
-							</c:if>
-							<c:if test="${sales_state == 22214 and account_id == '500014030000'}">
-								<input type="button" class="btn btn-primary"  value="출고요청하기" name="req_storage_out" onclick="req_storage_out();">
-							</c:if>
-							
-							<c:if test="${sales_state == 22223 and account_id == '500014030000'}">
-								<button type="button" class="btn btn-primary"  onclick="return req_receive();">채권회수요청</button>
-							</c:if>
-							
-							<button type="button" class="btn btn-primary" id="detail_sales_confirm"> 확인 </button>
-							
+							<div class="btn-group" align="center">
+								<span class="input-group-btn">
+									<c:if test="${sales_state == 22213 }">
+										<input type="button" class="btn btn-primary" id="reg_sales_state" value="회계전표 입력하기 ">
+									</c:if>
+									<c:if test="${sales_state == 22214 and account_id == '500014030000'}">
+										<input type="button" class="btn btn-primary"  value="출고요청하기" name="req_storage_out" onclick="req_storage_out();">
+									</c:if>
+									<c:if test="${sales_state == 22223 and account_id == '500014030000'}">
+										<button type="button" class="btn btn-primary"  onclick="return req_receive();">채권회수요청</button>
+									</c:if>
+									<button type="button" class="btn btn-primary" id="page2140_dvi02"> 확인 </button>
+								</span>
+							</div>
 						</div>	<!-- // form-group -->
 					</div> <!-- // table-responsive -->
 				</div>	<!-- // panel-body -->
@@ -199,18 +200,17 @@
 	
 	$('#reg_sales_state').click(function(){
 		$('#main_screen').load("/accounting_management/statement_management/search_statements");
+		return false;
 	});
 	
-	$('#detail_sales_panel_heading').click(function(){
-		$('#detail_sales_panel_body').slideToggle();
+	$('#page2140_dvi01_toggle').click(function(){
+		$('#page2140_dvi01').slideToggle();
 	});
 	
-	$('#detail_sales_confirm').click(function(){
-		
-		$('#list_detail').slideUp();
-		
-		$('#sales_list_input-group').slideDown();
-		$('#sales_list_table_panel_body').slideDown();
+	$('#page2140_dvi02').click(function(){	// 확인 버튼 클릭시
+		$('#page2120_div01').slideDown();	// 테이블 본문
+		$('#page2110_div02').slideDown();	// 페이징
+		$('#page2140_panel').slideUp();
 		
 	});
 	

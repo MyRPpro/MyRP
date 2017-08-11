@@ -48,7 +48,7 @@
 		var pay_date = $('#pay_date').val();
 		var diff = $('#pay_diff').val();
 		
-		if( diff != 0 ){	// 수금기간이 아님
+		if( diff > 0 ){	// 수금기간이 아님
 			$('#btn_req_receive').attr('disabled',true); 
 			$('#text_req_receive').val( "회수기간까지 앞으로"+diff+"일 남았습니다."); 
 		

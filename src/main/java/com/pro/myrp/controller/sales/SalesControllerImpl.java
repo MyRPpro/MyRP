@@ -76,7 +76,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	}
 
 	@Override
-	@PostMapping(value="search_sales/modify_sales_pro")
+	@GetMapping(value="search_sales/modify_sales_pro")
 	public String modify_sales_pro(HttpServletRequest req, Model model) throws Exception {
 		System.out.println(code.c(modify_sales));
 		model.addAttribute("req", req);
@@ -85,6 +85,8 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	}
 	
 	
+	
+	// 수금 요청
 	@Override
 	@GetMapping(value="search_sales/req_receive")
 	public String req_receive(HttpServletRequest req, Model model) throws Exception {
@@ -109,7 +111,7 @@ public class SalesControllerImpl implements SalesController,CodeMyRP {
 	
 	
 	
-	
+	// 등록 
 	@Override
 	@GetMapping(value="input_sales/reg_sales")
 	public String reg_sales(HttpServletRequest req, Model model) throws Exception {

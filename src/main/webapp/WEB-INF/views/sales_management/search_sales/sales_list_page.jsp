@@ -4,7 +4,7 @@
 
 <body>
 	<div class="text-center">
-		<ul class="pagination">
+		<ul class="pagination" style="margin-bottom: 0px">
 			<c:if test="${startPage > pageBlock}">
 				<li> <a href="javascript:search_list('1','${check}')">◀◀ </a> </li>
 				<li> <a href="javascript:search_list('${startPage - pageBlock}','${check}')">◀ </a> </li>
