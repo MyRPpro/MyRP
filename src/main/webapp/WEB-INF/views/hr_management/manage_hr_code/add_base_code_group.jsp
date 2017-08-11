@@ -62,9 +62,13 @@
 	
 </script>
 <body>
-<div class="panel panel-default" id="page16120">
+<div class="panel panel-primary" id="page16120">
 	<div class="panel-heading">
-		<a id="page16120_div01_toggle">[16120]add_base_code_group.jsp</a>
+		<!-- <a id="page16120_div01_toggle">[16120]add_base_code_group.jsp</a> -->
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+			<a id="page16120_div01_toggle">인사코드 그룹 등록</a>
+		</h3>
 	</div>
 	<div class="panel-body" id="page16120_div01">
 		<form action="#" name="page16120_form01">
@@ -76,7 +80,7 @@
 							<input class="form-control input-sm" type="number" name="hr_code_group_id"
 						min="1" max="9" step="1" value="${hr_code_group_id}" required>
 						<span class="input-group-btn">
-							<input class="btn btn-default btn-sm" type="button" value="중복확인" id="page16120_btn02">
+							<input class="btn btn-info btn-sm" type="button" value="중복확인" id="page16120_btn02">
 						</span>
 						</div>
 					</td>
@@ -101,9 +105,11 @@
 						<input type="hidden" name="dupcheck" 
 						<c:if test="${dupcheck == null}">value="0"</c:if>
 						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<input class="btn btn-default btn-sm" type="submit" value="등록하기">
-						<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-						<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16120_btn01">
+						<div class="btn-group btn-group-default">
+							<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
+							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16120_btn01">						
+						</div>
 					</th>
 				</tr>
 			</table>

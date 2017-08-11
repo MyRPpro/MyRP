@@ -53,9 +53,13 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16520">
+	<div class="panel panel-primary" id="page16520">
 		<div class="panel-heading">
-			<a id="page16520_div01_toggle">[16520]reg_salary_info.jsp</a>
+			<!-- <a id="page16520_div01_toggle">[16520]reg_salary_info.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16520_div01_toggle">급여대장 등록</a>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16520_div01">
 			<form action="#" name="page16520_form01">
@@ -96,7 +100,7 @@
 								<input class="form-control input-sm" type="number" name="total_pay"
 								min="0" required>
 								<span class="input-group-btn">
-									<button class="btn btn-default btn-sm" id="page16520_btn02">급여 계산</button>							
+									<button class="btn btn-info btn-sm" id="page16520_btn02">급여 계산</button>							
 								</span>
 							</div>
 						</td>
@@ -111,9 +115,11 @@
 					<tr>
 						<th colspan="2">
 							<input type="hidden" name="salary_state" value="26451">
-							<input class="btn btn-default btn-xs" type="submit" value="등록하기">
-							<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16520_btn01">
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
+								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16520_btn01">							
+							</div>
 						</th>
 					</tr>
 				</table>

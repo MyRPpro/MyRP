@@ -5,7 +5,7 @@
 <body>
 
 	<div class="text-center">
-		<ul class="pagination">
+		<ul class="pagination" style="margin-bottom: 0px">
 			<c:if test="${startPage > pageBlock}">
 				<li> <a href="javascript:search_lack_stock('1')"> ◀◀ </a> </li>
 				<li> <a href="javascript:search_lack_stock('${startPage - pageBlock}')"> ◀ </a> </li>

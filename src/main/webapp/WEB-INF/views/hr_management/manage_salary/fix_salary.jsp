@@ -55,10 +55,14 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16550">
+	<div class="panel panel-primary" id="page16550">
 		<div class="panel-heading">
-			<a id="page16550_div01_toggle">[16550]fix_salary.jsp</a>
-			<button class="btn btn-default btn-sm" id="print">출력</button>
+			<!-- <a id="page16550_div01_toggle">[16550]fix_salary.jsp</a> -->
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16550_div01_toggle">급여 확정</a>
+				<button class="btn btn-default btn-sm" id="print">출력</button>
+			</h3>
 		</div>
 		<div class="panel-body" id="page16550_div01">
 			<table class="table">
@@ -82,7 +86,7 @@
 					<td>${salary_registerVo.salary_state_name}</td>
 					<td>
 						<c:if test="${salary_registerVo.salary_state == 26450}">
-							<input class="form-control input-sm" type="button" value="미확정" id="page16550_btn01">						
+							<input class="form-control btn-info input-sm" type="button" value="미확정" id="page16550_btn01">						
 						</c:if>
 						<c:if test="${salary_registerVo.salary_state != 26450}">
 							<input class="form-control input-sm btn-success" type="button" value="확정">

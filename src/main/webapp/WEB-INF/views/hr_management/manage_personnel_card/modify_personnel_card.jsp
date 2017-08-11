@@ -119,10 +119,15 @@
 	
 </script>
 <body>
-<div class="panel panel-default" id="page16330">
+<div class="panel panel-primary" id="page16330">
 	<div class="panel-heading">
-		<a id="page16330_div01_toggle">[16330]modify_personnel_card.jsp</a>
-		<button class="btn btn-default btn-sm" id="print">출력</button>
+		<!-- <a id="page16330_div01_toggle">[16330]modify_personnel_card.jsp</a> -->
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+		<a id="page16330_div01_toggle">인사카드</a>
+			<button class="btn btn-default btn-sm" id="print">출력</button>
+		</h3>
+
 	</div>
 		<div class="panel-body" id="page16330_div01">		
 			<div>

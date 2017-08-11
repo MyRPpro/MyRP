@@ -116,7 +116,7 @@ $(function(){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_list_heading">
-			<h3 class="panel-title">창고이동 리스트</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;창고이동 리스트</a></h3>
 		</div>
 		<div class="panel-body distribution_list_content">
 			<div class="table-responsive">

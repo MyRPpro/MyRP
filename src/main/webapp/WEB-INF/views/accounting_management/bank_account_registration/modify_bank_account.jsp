@@ -92,9 +92,9 @@ $(function(){
 			</tr>
 			<tr>
 				<th colspan="2">
-					<input type="submit" value="수정하기" class="btn btn-default">
-					<input type="reset" value="재작성" class="btn btn-default">
-					<input type="button" value="돌아가기"  onclick="slideUpFunction();" class="btn btn-default">					
+					<input type="submit" value="수정하기" class="btn btn-primary btn-sm">
+					<input type="reset" value="재작성" class="btn btn-default btn-sm">
+					<input type="button" value="돌아가기"  onclick="slideUpFunction();" class="btn btn-default btn-sm">					
 				</th>
 			</tr>
 	 	</table>

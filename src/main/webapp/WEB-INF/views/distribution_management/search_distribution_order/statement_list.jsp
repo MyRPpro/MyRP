@@ -103,7 +103,7 @@ function stock_complete(id,product_id,lack_stock){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_in_list_heading">
-			<h3 class="panel-title">입고요청 처리내역</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;입고요청 처리내역</a></h3>
 		</div>
 		<div class="panel-body distribution_in_list_content">
 			<div class="table-responsive">
@@ -177,7 +177,7 @@ function stock_complete(id,product_id,lack_stock){
 <div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_out_list_heading">
-			<h3 class="panel-title">출고요청 처리내역</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;출고요청 처리내역</a></h3>
 		</div>
 		<div class="panel-body distribution_out_list_content">
 			<div class="table-responsive">

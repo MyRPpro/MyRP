@@ -74,7 +74,7 @@ $(function(){
 	<div class="col-xs-12">
 		<div class="panel panel-primary">
 			<div class="panel-heading distribution_view_heading">
-				<h3 class="panel-title"> 신규 등록</h3>
+				<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;신규 등록</a></h3>
 			</div>
 			<div class="panel-body distribution_view_content">
 				<div class="table-responsive">
@@ -100,7 +100,7 @@ $(function(){
 							<th><input class="form-control" type = "text" id = "warehouse_location" name = "warehouse_location" required></th>
 						</tr>
 						<tr>
-							<th colspan = "3"><input type = "button" class="btn btn-sm  btn-primary" value = "확인" id = "new_sub">&nbsp;<input type = "reset" class="btn btn-sm btn-info" value = "취소"></th>
+							<th colspan = "3"><div class = "btn-group btn-group-default"><input type = "button" class="btn btn-sm  btn-primary" value = "확인" id = "new_sub"><input type = "reset" class="btn btn-sm btn-default" value = "취소"></div></th>
 						</tr>
 					</table>
 					</form>
@@ -115,7 +115,7 @@ $(function(){
 	<div class="col-xs-12">
 	<div class="panel panel-primary">
 		<div class="panel-heading distribution_view_heading">
-			<h3 class="panel-title">창고 수정</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;창고 수정</a></h3>
 		</div>
 		<div class="panel-body distribution_view_content">
 			<div class="table-responsive">
@@ -136,7 +136,7 @@ $(function(){
 						</tr>
 					</c:forEach>
 					<tr>
-						<th colspan = "3"><input type = "button" class="btn btn-sm btn-primary" value = "확인" id = "modify_sub">&nbsp;<input type = "reset" class="btn btn-sm btn-info" value = "취소"></th>
+						<th colspan = "3"><div class = "btn-group btn-group-default"><input type = "button" class="btn btn-sm btn-primary" value = "확인" id = "modify_sub"><input type = "reset" class="btn btn-sm btn-default" value = "취소"></div></th>
 					</tr>
 				</table>
 				</form>

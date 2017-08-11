@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../setting.jsp" %>
 <body>
-
+	${check}
 	<div class="text-center">
-		<ul class="pagination">
+		<ul class="pagination" style="margin-bottom: 0px;">
 			<c:if test="${startPage > pageBlock}">
 				<li> <a href="javascript:list_table('1','${check}')">◀◀ </a> </li>
 				<li> <a href="javascript:list_table('${startPage - pageBlock}','${check}')">◀ </a> </li>
@@ -23,8 +23,6 @@
 				<li> <a href="javascript:list_table('${startPage + pageBlock}','${check}')"> ▶ </a> </li>
 				<li> <a href="javascript:list_table('${pageCount}','${check}')">▶▶ </a> </li>
 			</c:if>
-			
 		</ul>
 	</div>
-
 </body>

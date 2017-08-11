@@ -29,6 +29,17 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 에러메시지 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error_page/404error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/error_page/500error.jsp</location>
+	</error-page>
+
 
 	<!-- 한글 인코딩 처리 -->
 	<filter>
@@ -47,6 +58,9 @@
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	
+	
 	
 
 </web-app>

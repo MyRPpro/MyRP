@@ -31,13 +31,14 @@
 	
 	<div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title"> 
-		<span class="glyphicon glyphicon-gift"></span> 
-		&nbsp; &nbsp; 구매 입력 세부내용 페이지 reg_purchase
-		</h3>
+		<h4 class="panel-title">
+		<a id="page3210_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;  
+		구매 입력 세부내용 페이지
+		</a>
+		</h4>
 	</div>	<!-- // panel-heading -->
 	
-	<div class="panel-body">
+	<div class="panel-body" id="page3210_div01">
 		<div class="table-responsive">
 		<div class="form-group" >
 		
@@ -79,7 +80,12 @@
 		</table>
 		</div>	<!-- // form-group -->
 		
-		<input type="button" name="reg_state" value="전표입력하기" class="btn btn-primary" onclick="sendStatement();">
+		<div class="btn-group" align="center">
+			<span class="input-group-btn">
+				<input type="button" name="reg_state" value="전표 입력하기" class="btn btn-primary" onclick="sendStatement();">
+			</span>
+		</div>	<!-- // btn-group -->
+		
 		
 		</div> <!-- // table-responsive -->
 	</div>	<!-- // panel-body -->
@@ -91,12 +97,17 @@
 	</form>
 	
 	<script type="text/javascript">
+	
+	$('#page3210_div01_toggle').click(function(){
+		$('#page3210_div01').slideToggle();
+		return false;
+	});
+	
 	function sendStatement(){
 		var purchase_id = document.getElementById("purchase_id").innerHTML
-		$('#main_screen').load("/accounting_management/statement_management/make_statement");
-		
-		/* window.location="/accounting_management/statement_management/make_statement"; */
-						/* +"?purchase_id="+purchase_id; */
+		$('#main_screen').load("/accounting_management/statement_management/search_statements");
+		return false;
+
 	}
 	</script>
 

@@ -24,19 +24,22 @@ $(function(){
 	});
 });
 </script>
-<div class="panel panel-default" id="bank_account_list">
+<div class="panel panel-primary" id="bank_account_list">
 	<div class="panel-heading">
+		<h3 class="panel-title">
+		<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
 		 회계보고서
+		 </h3>
 	</div>
 		<div class="panel-body" style="text-align: center;">
 			<div class="btn-group" data-toggle="buttons"> 
-			<label for="fi_statements" class="btn btn-primary active" id="balance_sheet" > 재무상태표 
+			<label for="fi_statements" class="btn btn-primary active btn-sm" id="balance_sheet" > 재무상태표 
 			<input type="radio" name="fi_statements" value="balance_sheet" checked >
 			</label>
-			<label for="profit_and_loss_statement" class="btn btn-primary" id="profit_and_loss_statement"> 손익계산서
+			<label for="profit_and_loss_statement" class="btn btn-primary btn-sm" id="profit_and_loss_statement"> 손익계산서
 			<input type="radio" name="fi_statements" value="profit_and_loss">
 			</label>
-			<label for="statement_of_cash_flows" class="btn btn-primary" id="statement_of_cash_flows" > 현금흐름표
+			<label for="statement_of_cash_flows" class="btn btn-primary btn-sm" id="statement_of_cash_flows" > 현금흐름표
 				<input type="radio" name="fi_statements" value="cash_flows">
 			</label>
 			</div>

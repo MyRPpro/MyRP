@@ -46,8 +46,10 @@
 						<c:if test="${hr_code_groupVo.use_state == 'N'}">checked</c:if>>
 					</td>
 					<td>
-						<input class="btn btn-default btn-sm" type="submit" value="적용하기">
-						<input class="btn btn-default btn-sm" type="reset" value="되돌리기">
+						<div class="btn-group btn-group-default">
+							<input class="btn btn-primary btn-sm" type="submit" value="적용하기">
+							<input class="btn btn-default btn-sm" type="reset" value="되돌리기">
+						</div>
 					</td>
 				</tr>
 			</table>

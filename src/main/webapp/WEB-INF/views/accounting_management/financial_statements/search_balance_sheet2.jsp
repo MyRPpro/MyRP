@@ -44,7 +44,7 @@ $(function(){
 		<td> 
 			<input type="hidden" value="${yearValuable}" name="yearValuable">
 			
-			<select name="year" class="form-control">
+			<select name="year" class="form-control input-sm">
 			<c:forEach var = "yearDto" items = "${yearDto}">
 				<c:if test="${yearValuable != 0}">
 				<option value="${yearDto.year}"> ${yearDto.year}년 </option>
@@ -54,7 +54,7 @@ $(function(){
 			<option> ---- </option>
 			</c:if>
 			</select>
-			<select name="quarter" class="form-control">
+			<select name="quarter" class="form-control input-sm">
 				<option value="03"> 1분기 </option>
 				<option value="06"> 2분기 </option>
 				<option value="09"> 3분기 </option>
@@ -63,7 +63,7 @@ $(function(){
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2"> <input type="submit" value="조회 " id="show_statement"  class="btn btn-default"> </td>
+		<td colspan="2"> <input type="submit" value="조회 " id="show_statement"  class="btn btn-primary btn-sm"> </td>
 	</tr>
 </table>
 	

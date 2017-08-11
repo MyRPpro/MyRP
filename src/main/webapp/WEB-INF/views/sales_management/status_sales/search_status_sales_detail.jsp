@@ -10,21 +10,21 @@
 <body>
 
 
-	<div class="panel panel-primary" id="page2430_panel">
+	<div class="panel panel-primary" id="page2330_panel" style="margin-bottom: 0px; padding-bottom: 0px;" >
 		<div class="panel-heading">
 	  		 <h4 class="panel-title">
-	  		 	<a id="page2430_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
+	  		 	<a id="page2330_div01_toggle"><span class="glyphicon glyphicon-tags"></span> &nbsp;
 	  				검색한 내용의 세부내용을 표시합니다.
 	  			</a>
 	  		</h4>
 		</div>
-		<div class="panel-body" id="page2430_div01">
+		<div class="panel-body" id="page2330_div01" style="margin-bottom: 0px; padding-bottom: 0px;" >
 			
 			<!-- ----------------------------------------------------- -->
 			
 			<div class="table-responsive">
 				<form action="#" method="get"">
-					<div class="form-group">
+					<div class="form-group" style="margin-bottom: 0px; padding-bottom: 0px;" >
 						<table class="table table-condensed table-striped">
 							<tr>
 								<th>계정</th>
@@ -159,7 +159,7 @@
 						</table>
 						<div class="btn-group" align="center">
 							<span class="input-group-btn">
-								<input type="button" class="btn btn-primary" name="btn_confirm" id="page2430_btn01" value="확인" >
+								<input type="button" class="btn btn-primary" name="btn_confirm" id="page2330_btn01" value="확인" >
 							</span>
 						</div>	<!-- // btn-group -->
 						
@@ -170,22 +170,23 @@
 			<!-- ----------------------------------------------------- -->
 					
 		</div>	<!-- // panel-body -->
-		<div class="panel-body" id="page2430_div02"></div>
+		<div id="page2330_div02"></div>
 	</div>	<!-- // panel -->
 
 	
 	<!-- ------------------------------------------------------------------------------------- -->
 	
 	<script type="text/javascript">
-		$('#page2430_div01_toggle').click(function(){
-			$('#page2430_div01').slideToggle();
+		$('#page2330_div01_toggle').click(function(){
+			$('#page2330_div01').slideToggle();
 			return false;
 		});
 		
-		$('#page2430_btn01').click(function(){
-			$('#page2410_div01').slideDown();
-			$('#page2420_div01').slideDown();
-			$('#page2420_div02').slideUp();
+		$('#page2330_btn01').click(function(){
+			$('#page2310_div01').slideDown();
+			$('#page2310_div02').slideDown();
+			$('#page2320_div01').slideDown();
+			$('#page2320_div02').slideUp();
 			return false;
 		});
 		

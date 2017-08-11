@@ -5,9 +5,10 @@
 <head></head>
 
 <body>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 <div class="panel-heading" style="text-align: center;">
-	 재무상태표<br>
+	<h3 class="panel-title">
+	 재무상태표<br></h3>
 	 <small>${year}년 ${quarter}</small>
 </div>
 <div class="panel-body" style="text-align: center;">

@@ -13,7 +13,7 @@
 	
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 class="panel-title">재고현황</h3>
+			<h3 class="panel-title"><a><span class="glyphicon glyphicon glyphicon-road" aria-hidden="true"></span>&nbsp;재고현황</a></h3>
 		</div>
 		<div class="panel-body">
 			<div class="table-responsive">
