@@ -9,15 +9,15 @@
 </head>
 <body>
 
-	<div class="panel panel-primary" id="page2110">
+	<div class="panel panel-primary" id="page22220">
 		<div class="panel-heading">
 			<h5 class="panel-title">
-				<a id="page2120_div01_toggle"> <span class="glyphicon glyphicon-triangle-right"></span> &nbsp; 
-				판매 입력 세부 페이지 Reg_Sales_Table
+				<a id="page2220_div01_toggle"> <span class="glyphicon glyphicon-tags"></span> &nbsp; 
+				판매 입력 세부 페이지 
 				</a>
 			</h5>
 		</div>
-		<div class="panel-body" id="page2120_div01">
+		<div class="panel-body" id="page2220_div01">
 			<font class="media-heading"> 
 				
 			</font> 
@@ -63,8 +63,8 @@
 			<br>
 			<div class="btn-group" align="center">
 				<span class="input-group-btn"> 
-					<button type="button" id="page2120_btn02" class="btn btn-primary"> 회계전표 입력 </button>
-					<button type="button" id="page2120_btn03" class="btn btn-default"> 메인으로 이동 </button>
+					<button type="button" id="page2220_btn02" class="btn btn-primary"> 회계전표 입력 </button>
+					<button type="button" id="page2220_btn03" class="btn btn-default"> 메인으로 이동 </button>
 				</span>
 			</div>	<!-- // btn-group -->
 		</div>	<!-- // panel-body -->
@@ -90,17 +90,18 @@
 	
 	<script type="text/javascript">	
 	
-	$('#page2120_div01_toggle').click(function(){
-		$('#page2120_div01').slideToggle();
+	$('#page2220_div01_toggle').click(function(){
+		$('#page2220_div01').slideToggle();
 		return false;
 	});
 	
-	$('#page2120_btn02').click(function(){
+	$('#page2220_btn02').click(function(){
+		$('#page2210_div01').slideUp();
 		$('#main_screen').load("/accounting_management/statement_management/search_statements");
 		return false;
 	});
 	
-	$('#page2120_btn03').click(function(){
+	$('#page2220_btn03').click(function(){
 		window.location="/";
 		return false;
 	});

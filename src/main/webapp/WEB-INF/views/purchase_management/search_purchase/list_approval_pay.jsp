@@ -54,7 +54,7 @@
 	<div class="panel panel-primary">
 		<div class="panel-heading" id="list_approval_pay_table_heading">
 			<h3 class="panel-title">
-				<span class="glyphicon glyphicon-gift"></span> 
+				<span class="glyphicon glyphicon-shopping-cart"></span> 
 				상환 승인 검색 목록 조회 &emsp; 검색개수 : 총 ${cnt}개 
 			</h3>
 		</div>	<!-- // panel-title -->

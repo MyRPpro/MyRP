@@ -116,7 +116,7 @@
 	<script type="text/javascript">
 	
 	$('#reg_purchase_state').click(function(){
-		$('#main_screen').load("/accounting_management/statement_management/make_statement");
+		$('#main_screen').load("/accounting_management/statement_management/search_statements");
 		return false;
 	});
 	

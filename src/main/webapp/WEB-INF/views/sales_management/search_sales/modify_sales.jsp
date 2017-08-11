@@ -12,15 +12,15 @@
 	
 	<div class="row" id="row">
 		<div class="col-xs-12">
-			<div class="panel panel-primary" id="modify_sales_panel">
-				<div class="panel-heading" id="modify_sales_heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-euro"></span> &emsp;
+			<div class="panel panel-primary" id="page2130_panel">
+				<div class="panel-heading" >
+					<h4 class="panel-title">
+						<a id="page2130_div01_togle"> <span class="glyphicon glyphicon-tags"></span> &emsp;
 						판매번호" ${dtos.get(0).sales_id}"의 상세 정보 입니다. 
-						
-					</h3>
+						</a>
+					</h4>
 				</div>	<!--  // panel-heading -->
-				<div class="panel-body" id="modify_sales_content">
+				<div class="panel-body" id="page2130_div01">
 					<div class="table-responsive">
 						<div class="form-group">
 							<form class="form-inline-block" onsubmit="return modify_sales();" action="#" method="get"  >
@@ -181,11 +181,15 @@
 										</td>
 									</tr>
 								</table>
-								<center>
-									<input type="button" name="btn_confirm" id="btn_confirm" class="btn btn-primary"  value="확인" >
-									<input type=submit name="btn_modify"  id="btn_submit"  class="btn btn-info" value="수정하기" >
-									<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
-								</center>
+								<br>
+								<div class="btn-group" align="center">
+									<span class="input-group-btn">
+										<input type="button" name="btn_confirm" id="btn_confirm" class="btn btn-primary"  value="확인" >
+										<input type=submit name="btn_modify"  id="btn_submit"  class="btn btn-default" value="수정하기" >
+										<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
+									</span>
+								</div>
+								
 								<div id="alert_pro">
 								</div>
 							</form>
@@ -197,27 +201,23 @@
 	</div>	<!-- // row -->
 	
 	<script type="text/javascript">
-	/* 	
-	function detail_sales(){
-		$('#alert_pro').load("/sales_management/search_sales/modify_sales_pro");
-		return false;
-	}
-	 */
+
 	$('#btn_confirm').click(function(){
-		$('#sales_list_table_content').slideDown();
-		$('#sales_list_content').slideDown();
-		$('#modify_sales_panel').slideUp();
+		$('#page2120_div01').slideDown();	// 테이블 본문
+		$('#page2110_div02').slideDown();	// 페이징
+		$('#page2130_panel').slideUp();		// 세부페이지 본문
 		return false;
 	});
 	
-	$('#modify_sales_heading').click(function(){
-		$('#modify_sales_content').slideToggle();
+	$('#page2130_div01_togle').click(function(){
+		$('#page2130_div01').slideToggle();
 		return false;
 	});
 	
 	function modify_sales(){
 		
 		var sales_id = '${dtos.get(0).sales_id}';
+		var product_id = document.getElementById("product_id");
 		var account_id = document.getElementById("account_id");
 		var company_id = document.getElementById("company_id");
 		var employee_id = document.getElementById("employee_id");
@@ -258,17 +258,17 @@
 			return false;
 		}
 		
-		 $('#alert_pro').load('/sales_management/input_sales/modify_sales_pro?product_id='+product_id
-					+'&company_id='+company_id
-					+'&employee_id='+employee_id 
-					+'&reg_date='+reg_date
-					+'&storage_out_date='+storage_out_date
-					+'&count_sales='+count_sales
-					+'&selling_price='+selling_price
-					+'&sales_state='+sales_state
-					+'&condition_note_receivable='+condition_note_receivable
+		 $('#alert_pro').load('/sales_management/search_sales/modify_sales_pro?product_id='+product_id.value
+					+'&company_id='+company_id.value
+					+'&employee_id='+employee_id .value
+					+'&reg_date='+reg_date.value
+					+'&storage_out_date='+storage_out_date.value
+					+'&count_sales='+count_sales.value
+					+'&selling_price='+selling_price.value
+					+'&sales_state='+sales_state.value
+					+'&condition_note_receivable='+condition_note_receivable.value
 					+'&sales_id='+sales_id
-					+'&account_id='+account_id
+					+'&account_id='+account_id.value
 				 );	 
 		return false;
 	};

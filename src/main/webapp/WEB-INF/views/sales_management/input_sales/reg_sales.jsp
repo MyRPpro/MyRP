@@ -9,21 +9,23 @@
 </head>
 <body>
 
-	<div class="panel panel-primary" id="page2110">
+
+
+	<div class="panel panel-primary">
 		<div class="panel-heading">
 	  		 <h4 class="panel-title">
-	  		 	<a id="page2110_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
-	  			<b> 판매 입력 페이지 Reg_Sales </b>
+	  		 	<a id="page2210_div01_toggle"><span class="glyphicon glyphicon-tags"></span> &nbsp;
+	  			<b> 판매 입력 페이지 </b>
 	  			</a>
 	  		</h4>
 		</div>
-		<div class="panel-body" id="page2110_div01">
+		<div class="panel-body" id="page2210_div01">
 			<font class="media-heading">
 				새로운 판매 내역을 입력할 수 있는 페이지 입니다. *표시된 부분 필수 입력사항입니다. 
 			</font>
 			<br><br>
 			<!-- ----------------------------------------------------- -->
-			
+
 			<div class="table-responsive">
 				<table class="table table-condensed table-striped table-hover" id="reg_sales_table">
 					<tr>
@@ -104,19 +106,18 @@
 					
 					
 				</table>
-			</div>
-				
+			</div>	
 			<!-- ----------------------------------------------------- -->
-					
+				
 			<br>		
-		<div class="btn-group" align="center">
-			<span class="input-group-btn">
-				<input type="button" class="btn btn-primary" id="page2110_submit" value="등록하기" >
-				<input type="reset" class="btn btn-default" value="재작성">
-			</span>
-		</div>	<!-- // btn-group -->
+			<div class="btn-group" align="center">
+				<span class="input-group-btn">
+					<input type="button" class="btn btn-primary" id="page2210_submit" value="등록하기" >
+					<input type="reset" class="btn btn-default" value="재작성">
+				</span>
+			</div>	<!-- // btn-group -->
 		</div>	<!-- // panel-body -->
-		<div class="panel-body" id="page2110_div02"></div>
+		<div class="panel-body" id="page2210_div02"></div>
 	</div>	<!-- // panel -->
 
 	
@@ -124,14 +125,14 @@
 	
 	<script>
 
-	$('#page2110_div01_toggle').click(function() {
-		$('#page2110_div01').slideToggle();
+	$('#page2210_div01_toggle').click(function(){
+		$('#page2210_div01').slideToggle();
 		return false;
 	});
 	
-	$('#page2110_submit').click(function() {
+	$('#page2210_submit').click(function() {
 		
-		 var product_id = 					document.getElementById("product_id");
+		  var product_id = 					document.getElementById("product_id");
 		 var sales_id = 					document.getElementById("sales_id");
 		 var company_id = 					document.getElementById("company_id");
 		 var employee_id = 					document.getElementById("employee_id");
@@ -166,8 +167,9 @@
 			 condition_note_receivable.focus();		
 			 return false;
 		 } 
-		 
-		 $('#page2110_div02').load('/sales_management/input_sales/reg_sales_table?product_id='+product_id.value
+		 $('#page2210_div01').slideUp();
+		 $('#page2210_div02').slideDown();
+		 $('#page2210_div02').load('/sales_management/input_sales/reg_sales_table?product_id='+product_id.value
 								+'&company_id='+company_id.value
 								+'&employee_id='+employee_id.value 
 								+'&reg_date='+reg_date.value
