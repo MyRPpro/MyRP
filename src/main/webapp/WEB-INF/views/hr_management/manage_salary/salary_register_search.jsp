@@ -178,11 +178,13 @@
 		</div>
 		<div class="panel-body" id="page16510_div02"></div>
 		<div class="panel-body" id="page16510_div03">
-			<table class="table">
-				<tr>
-					<th>검색하실 급여대장의 급여구분이나 지급연월 범위를 검색창에 입력하세요.</th>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>검색하실 급여대장의 급여구분이나 지급연월 범위를 검색창에 입력하세요.</th>
+					</tr>
+				</table>			
+			</div>
 		</div>
 		<div class="panel-body" id="page16510_div04"></div>
 	</div>

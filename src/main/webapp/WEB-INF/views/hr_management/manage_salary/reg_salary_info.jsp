@@ -63,66 +63,68 @@
 		</div>
 		<div class="panel-body" id="page16520_div01">
 			<form action="#" name="page16520_form01">
-				<table class="table">
-					<tr>
-						<th>등록일</th>
-						<td>
-							<c:set var="now" value="<%= new java.util.Date() %>"/>
-							<input class="form-control input-sm" type="month" name="reg_date" 
-							value="<fmt:formatDate value='${now}' pattern='yyyy-MM'/>" 
-							required>
-						</td>
-					</tr>
-					<tr>
-						<th>급여대장명＊</th>
-						<td>
-							<select class="form-control input-sm" name="salary_register_name" required>
-								<option value=0>급여구분 선택</option>
-								<c:forEach var="vo" items="${hr_codeVos}">
-									<option value="${vo.hr_code_id}">${vo.hr_code_name}</option>
-								</c:forEach>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>지급일</th>
-						<td>
-							<c:set var="now" value="<%= new java.util.Date() %>"/>
-							<input class="form-control input-sm" type="date" name="pay_date" 
-							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
-							required>
-						</td>
-					</tr>
-					<tr>
-						<th>총 지급액＊</th>
-						<td>
-							<div class="input-group">
-								<input class="form-control input-sm" type="number" name="total_pay"
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th>등록일</th>
+							<td>
+								<c:set var="now" value="<%= new java.util.Date() %>"/>
+								<input class="form-control input-sm" type="month" name="reg_date" 
+								value="<fmt:formatDate value='${now}' pattern='yyyy-MM'/>" 
+								required>
+							</td>
+						</tr>
+						<tr>
+							<th>급여대장명＊</th>
+							<td>
+								<select class="form-control input-sm" name="salary_register_name" required>
+									<option value=0>급여구분 선택</option>
+									<c:forEach var="vo" items="${hr_codeVos}">
+										<option value="${vo.hr_code_id}">${vo.hr_code_name}</option>
+									</c:forEach>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>지급일</th>
+							<td>
+								<c:set var="now" value="<%= new java.util.Date() %>"/>
+								<input class="form-control input-sm" type="date" name="pay_date" 
+								value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
+								required>
+							</td>
+						</tr>
+						<tr>
+							<th>총 지급액＊</th>
+							<td>
+								<div class="input-group">
+									<input class="form-control input-sm" type="number" name="total_pay"
+									min="0" required>
+									<span class="input-group-btn">
+										<button class="btn btn-info btn-sm" id="page16520_btn02">급여 계산</button>							
+									</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>총 지급인원＊</th>
+							<td>
+								<input class="form-control" type="number" name="total_employee"
 								min="0" required>
-								<span class="input-group-btn">
-									<button class="btn btn-info btn-sm" id="page16520_btn02">급여 계산</button>							
-								</span>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th>총 지급인원＊</th>
-						<td>
-							<input class="form-control" type="number" name="total_employee"
-							min="0" required>
-						</td>
-					</tr>
-					<tr>
-						<th colspan="2">
-							<input type="hidden" name="salary_state" value="26451">
-							<div class="btn-group btn-group-default">
-								<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
-								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16520_btn01">							
-							</div>
-						</th>
-					</tr>
-				</table>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2">
+								<input type="hidden" name="salary_state" value="26451">
+								<div class="btn-group btn-group-default">
+									<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
+									<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16520_btn01">							
+								</div>
+							</th>
+						</tr>
+					</table>
+				</div>
 			</form>
 		</div>
 		<div id="page16520_div02"></div>

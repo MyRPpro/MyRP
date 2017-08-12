@@ -47,29 +47,31 @@
 			</h3>
 		</div>
 		<div class="panel-body" id="page16110_div01">
-			<table class="table">
-				<tr>
-					<td>인사코드 그룹번호</td>
-					<td>인사코드 그룹명</td>
-					<td>사용 상태</td>
-				</tr>
-				<c:forEach var="vo" items="${hr_code_groupVos}">
-				<tr>
-					<td>${vo.hr_code_group_id}</td>
-					<td>
-						<a href="/hr_management/manage_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
-							${vo.hr_code_group_name}
-						</a>
-					</td>
-					<td>${vo.use_state}</td>
-				</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="3">
-						<input class="btn btn-default btn-sm" type="button" value="등록하기" id="page16110_btn01">
-					</td>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<td>인사코드 그룹번호</td>
+						<td>인사코드 그룹명</td>
+						<td>사용 상태</td>
+					</tr>
+					<c:forEach var="vo" items="${hr_code_groupVos}">
+					<tr>
+						<td>${vo.hr_code_group_id}</td>
+						<td>
+							<a href="/hr_management/manage_hr_code/base_code_list?hr_code_group_id=${vo.hr_code_group_id}">
+								${vo.hr_code_group_name}
+							</a>
+						</td>
+						<td>${vo.use_state}</td>
+					</tr>
+					</c:forEach>
+					<tr>
+						<td colspan="3">
+							<input class="btn btn-default btn-sm" type="button" value="등록하기" id="page16110_btn01">
+						</td>
+					</tr>
+				</table>			
+			</div>
 		</div>
 		<div class="panel-body" id="page16110_div02"></div>
 	</div>

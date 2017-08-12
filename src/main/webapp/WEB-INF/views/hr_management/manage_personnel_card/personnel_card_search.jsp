@@ -83,11 +83,13 @@
 		</div>
 		<div class="panel-body" id="page16310_div02"></div>
 		<div class="panel-body" id="page16310_div03">
-			<table class="table">
-				<tr>
-					<th>검색하실 인사카드의 사번이나 사원명을 검색창에 입력하세요.</th>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>검색하실 인사카드의 사번이나 사원명을 검색창에 입력하세요.</th>
+					</tr>
+				</table>			
+			</div>
 		</div>
 		<div class="panel-body" id="page16310_div04"></div>
 	</div>

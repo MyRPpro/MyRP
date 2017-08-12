@@ -76,11 +76,13 @@
 		</div>
 		<div class="panel-body" id="page16710_div02"></div>
 		<div class="panel-body" id="page16710_div03">
-			<table class="table">
-				<tr>
-					<th>검색하실 퇴사자 정보의 사번이나 사원명을 검색창에 입력하세요.</th>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>검색하실 퇴사자 정보의 사번이나 사원명을 검색창에 입력하세요.</th>
+					</tr>
+				</table>			
+			</div>
 		</div>
 	</div>
 	<div id="page16710_div04"></div>
