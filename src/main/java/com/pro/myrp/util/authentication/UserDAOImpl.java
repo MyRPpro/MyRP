@@ -22,4 +22,10 @@ public class UserDAOImpl implements UserDAO {
 		return dao.login(daoMap);
 	}
 
+	@Override
+	public Object select_retired_employee(int employee_id) {
+		UserDAO dao = sqlSession.getMapper(UserDAO.class);
+		return dao.select_retired_employee(employee_id);
+	}
+
 }

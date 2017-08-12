@@ -5,6 +5,7 @@ public class LoginDTO {
 	private String employee_name;
 	private String employee_id;
 	private boolean useCookie;
+	
 	public String getEmployee_name() {
 		return employee_name;
 	}
@@ -23,5 +24,5 @@ public class LoginDTO {
 	public void setUseCookie(boolean useCookie) {
 		this.useCookie = useCookie;
 	}
-
+	
 }
