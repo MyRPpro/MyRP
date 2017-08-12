@@ -83,9 +83,9 @@
 					<tr>
 						<th colspan="2">
 							<div class="btn-group btn-group-default">
-								<input class="btn btn-default btn-xs" type="submit" value="수정하기">
-								<input class="btn btn-default btn-xs" type="reset"	value="재작성">
-								<input class="btn btn-default btn-xs" type="button"
+								<input class="btn btn-primary btn-sm" type="submit" value="수정하기">
+								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+								<input class="btn btn-default btn-sm" type="button"
 								value="닫기" id="page16230_btn01">							
 							</div>
 						</th>
