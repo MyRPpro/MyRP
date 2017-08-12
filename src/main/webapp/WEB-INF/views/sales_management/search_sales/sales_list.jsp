@@ -53,7 +53,28 @@
 										</div>
 									</div>
 									
+									<div class="btn-group btn-group-justified" role="group" aria-label="...">
+										<div class="btn-group" role="group">
+											<input type="button" class="btn btn-primary" name="btn_list_all" value="전체검색" onclick="return search_list(1,0)">
+										</div>
+										<div class="btn-group" role="group">
+											<input type="button" class="btn btn-primary" name="btn_reg_sales" value="판매등록" id="list_btn_reg">
+										</div>
+										<div class="btn-group" role="group">
+											<input type="button" class="btn btn-default" name="btn_reg_state" value="전표신청" onclick="return search_list(1,2)">
+										</div>
+										<div class="btn-group" role="group">
+											<input type="button" class="btn btn-default" name="btn_approve_state" value="전표승인" onclick="return search_list(1,3)">
+										</div>
+										<div class="btn-group" role="group">
+											<input type="button" class="btn btn-default" name="btn_search_out" value="출고조회" onclick="return search_list(1,5)">
+										</div>
+										<div class="btn-group" role="group">
+											<input type="button" class="btn btn-default" name="btn_complete_pay" value="수금완료" onclick="return search_list(1,7)">
+										</div>
+									</div>
 									
+									<!--  // 변경 전 
 									<div class="btn-group btn-group-justified" role="group" aria-label="...">
 										<div class="btn-group" role="group">
 											<button type="button" class="btn btn-primary" onclick="return search_list(1,0)">전체검색</button>
@@ -73,8 +94,8 @@
 										<div class="btn-group" role="group">
 											<button type="button" class="btn btn-default" onclick="return search_list(1,7)">수금완료</button>
 										</div>
-										
 									</div>
+									 -->
 								</div>	<!-- // btn-group-justified -->
 							</form>	
 						</div>	<!-- // input-group -->

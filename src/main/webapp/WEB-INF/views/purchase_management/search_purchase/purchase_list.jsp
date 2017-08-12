@@ -63,7 +63,7 @@
 									</div>
 									
 									<div class="btn-group" role="group">
-										<input type="button" name="btn_reg_purchasel" class="btn btn-primary " value="구매등록" 	id="list_btn_reg"	onclick="return reg_purchase();">
+										<input type="button" name="btn_reg_purchase" class="btn btn-primary " value="구매등록" 	id="list_btn_reg"	onclick="return reg_purchase();">
 									</div>
 									
 									<div class="btn-group" role="group">

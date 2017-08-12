@@ -8,17 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 
-
-	<div class="panel panel-primary" id="page2430_panel">
+	<div class="panel panel-primary" id="page3330_panel">
 		<div class="panel-heading">
 	  		 <h4 class="panel-title">
-	  		 	<a id="page2430_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
+	  		 	<a id="page3330_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;
 	  				검색한 내용의 세부내용을 표시합니다.
 	  			</a>
 	  		</h4>
 		</div>
-		<div class="panel-body" id="page2430_div01">
+		<div class="panel-body" id="page3330_div01">
 			
 			<!-- ----------------------------------------------------- -->
 			
@@ -107,7 +107,7 @@
 								<td>
 									<div class="form-group">
 										<c:forEach var="dto" items="${dtos}">
-											<input type="date" name="storage_out_date" id="storage_out_date" class="form-control input-sm"	value="${dto.storage_out_date}" readonly required>
+											<input type="date" name="storage_in_date" id="storage_in_date" class="form-control input-sm"	value="${dto.storage_in_date}" readonly required>
 										</c:forEach>
 									</div>
 								</td>
@@ -127,7 +127,7 @@
 								<td>
 									<div class="form-group">
 										<c:forEach var="dto" items="${dtos}">
-											<input type="number" name="count_sales" id="count_sales" class="form-control input-sm" value="${dto.count_sales}"  min="1" max="9999" readonly required>
+											<input type="number" name="count_purchase" id="count_purchase" class="form-control input-sm" value="${dto.count_purchase}"  min="1" max="9999" readonly required>
 										</c:forEach>
 									</div>
 								</td>
@@ -135,7 +135,7 @@
 	
 								<td><div class="form-group">
 										<c:forEach var="dto" items="${dtos}">
-											<input type="text" name="selling_price" id="selling_price" class="form-control input-sm" value="<fmt:formatNumber value="${dto.selling_price}" type="currency" currencySymbol="￦" />" min="1" max="999999999"  readonly required>
+											<input type="text" name="supply_price" id="supply_price" class="form-control input-sm" value="<fmt:formatNumber value="${dto.supply_price}" type="currency" currencySymbol="￦" />" min="1" max="999999999"  readonly required>
 										</c:forEach>
 										
 									</div>
@@ -143,14 +143,14 @@
 								<td> 
 									<div class="form-group">
 										<c:forEach var="dto" items="${dtos}">
-											<input type="number" name="condition_note_receivable" id="condition_note_receivable" class="form-control input-sm" value="${dto.condition_note_receivable}" min="1" max="12" readonly required>
+											<input type="number" name="condition_note_payable" id="condition_note_payable" class="form-control input-sm" value="${dto.condition_note_payable}" min="1" max="12" readonly required>
 										</c:forEach>
 									</div>
 								</td>
 								<td>
 									<div class="form-group">
 										<c:forEach var="dto" items="${dtos}">
-											<input type="hidden" name="sales_state" id="sales_state" value="${dto.sales_state}" readonly required>
+											<input type="hidden" name="purchase_state" id="purchase_state" value="${dto.purchase_state}" readonly required>
 											<input type="text" name="state_name" id="state_name" class="form-control input-sm" value="${dto.state_name}" readonly required>
 										</c:forEach>
 									</div>
@@ -159,10 +159,9 @@
 						</table>
 						<div class="btn-group" align="center">
 							<span class="input-group-btn">
-								<input type="button" class="btn btn-primary" name="btn_confirm" id="page2430_btn01" value="확인" >
+								<input type="button" class="btn btn-primary" name="btn_confirm" id="page3330_btn01" value="확인" >
 							</span>
 						</div>	<!-- // btn-group -->
-						
 					</div>
 				</form>
 			</div>
@@ -170,22 +169,20 @@
 			<!-- ----------------------------------------------------- -->
 					
 		</div>	<!-- // panel-body -->
-		<div class="panel-body" id="page2430_div02"></div>
 	</div>	<!-- // panel -->
-
 	
 	<!-- ------------------------------------------------------------------------------------- -->
 	
 	<script type="text/javascript">
-		$('#page2430_div01_toggle').click(function(){
-			$('#page2430_div01').slideToggle();
+		$('#page3330_div01_toggle').click(function(){
+			$('#page3330_div01').slideToggle();
 			return false;
 		});
 		
-		$('#page2430_btn01').click(function(){
-			$('#page2410_div01').slideDown();
-			$('#page2420_div01').slideDown();
-			$('#page2420_div02').slideUp();
+		$('#page3330_btn01').click(function(){
+			$('#page3310_div01').slideDown();
+			$('#page3320_div01').slideDown();
+			$('#page3330_panel').slideUp();
 			return false;
 		});
 		

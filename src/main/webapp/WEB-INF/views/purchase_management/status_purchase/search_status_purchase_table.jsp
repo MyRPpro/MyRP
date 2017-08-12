@@ -3,20 +3,53 @@
 <%@ include file="../../setting.jsp" %>
 
 <body>
+
+		<c:if test="${cnt == -1}">
+	<script type="text/javascript">
+		setTimeout(function(){
+			alert("검색내역이 없습니다. 구매입력을 해주세요.");
+			$('#main_screen').load("/purchase_management/input_purchase/reg_purchase");
+			return false;
+		}, 200);
+	</script>
+	</c:if>
 	
-		<div class="panel panel-primary" id="page2420">
+	<%-- check : ${check} --%>
+	
+	<div class="text-center" id="page3320_page">
+		<ul class="pagination">
+			<c:if test="${startPage > pageBlock}">
+				<li> <a href="javascript:list_table('1','${check}')">◀◀ </a> </li>
+				<li> <a href="javascript:list_table('${startPage - pageBlock}','${check}')">◀ </a> </li>
+			</c:if>
+			
+			<c:forEach var="i" begin="${startPage}" end="${endPage}">
+				<c:if test="${i == currentPage}">
+					<li> <span> <b> ${i} </b> </span> </li>
+				</c:if>
+				<c:if test="${i != currentPage}">
+					<li> <a href="javascript:list_table('${i}','${check}')"> ${i} </a> </li>
+				</c:if>
+			</c:forEach>
+			
+			<c:if test="${pageCount > endPage}">
+				<li> <a href="javascript:list_table('${startPage + pageBlock}','${check}')"> ▶ </a> </li>
+				<li> <a href="javascript:list_table('${pageCount}','${check}')">▶▶ </a> </li>
+			</c:if>
+			
+		</ul>
+	</div>
+	
+	<div class="panel panel-primary" id="page3320_panel">
 		<div class="panel-heading">
 	  		 <h4 class="panel-title">
-	  		 	<a id="page2420_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
-	  			판내 현황 검색 페이지 Search_Status_Sales_Table 검색결과 : ${cnt} 개 
+	  		 	<a id="page3320_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;
+	  			구매 현황 검색 페이지,  검색결과 : ${cnt} 개 
 	  			</a>
 	  		</h4>
 		</div>
-		<div class="panel-body" id="page2420_div01">
-			<font class="media-heading">
-				새로운 구매 내역을 입력할 수 있는 페이지 입니다. *표시된 부분 필수 입력사항입니다. 
-			</font>
-			<br><br>
+		<div class="panel-body" id="page3320_div01">
+			
 			<!-- ----------------------------------------------------- -->
 	
 			<div class="table-responsive">
@@ -36,7 +69,7 @@
 							
 							<!-- ----------------------------------------------------- -->
 							
-							<c:forEach var="dto" items="${SalesDTOs}">
+							<c:forEach var="dto" items="${PurchaseDTOs}">
 								<tr>
 									<!-- 구매번호를 눌렀을 때 이동 -->
 								
@@ -45,8 +78,8 @@
 										${dto.rnum}
 									</td>
 									<td>
-										<a href="javascript:detail_status_page('${dto.sales_id},${dto.account_id}')">
-											${dto.sales_id}
+										<a href="javascript:detail_status_page('${dto.purchase_id},${dto.account_id}')">
+											${dto.purchase_id}
 										</a>
 									</td>
 									<td>
@@ -59,7 +92,7 @@
 										${dto.company_name}
 									</td>
 									<td> 
-										<fmt:formatNumber value="${dto.selling_price}" type="currency"/> 
+										<fmt:formatNumber value="${dto.supply_price}" type="currency"/> 
 									</td>
 									<td>
 										${dto.state_name} 
@@ -71,33 +104,32 @@
 					</div>
 				</form>
 			</div>
-									
 
 			<!-- ----------------------------------------------------- -->
 				
 		</div>	<!-- // panel-body -->
-		<br>	
-		<div id="page2420_div02"></div>
 	</div>	<!-- // panel -->
-		
+	<div id="page3320_div02"></div>
+	
 	<!-- ------------------------------------------------------------------------------------- -->
 
 	<script type="text/javascript">	
 	
-		$('#page2420_div01_toggle').click(function(){
-			$('#page2420_div01').slideToggle();
+		$('#page3320_div01_toggle').click(function(){
+			$('#page3320_div01').slideToggle();
+			$('#page3320_page').slideToggle();
 			return false;
 		});
 		
 		function detail_status_page(param){
-			$('#page2410_div01').slideUp();
-			$('#page2420_div01').slideUp();
-			$('#page2420_div02').slideDown();
+			$('#page3310_div01').slideUp();
+			$('#page3320_div02').slideDown();
+			
 			param = param.split(',');
-			$('#page2420_div02').load('/sales_management/status_sales/search_status_sales_detail?sales_id='+param[0]
-			+'&account_id='+param[1] );
-			return false;
-	}
+			$('#page3320_div02').load('/purchase_management/status_purchase/search_status_purchase_detail?purchase_id='+param[0]
+				+'&account_id='+param[1] );
+				return false;
+		};
 	
 	</script>
 	

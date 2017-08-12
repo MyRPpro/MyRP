@@ -340,8 +340,43 @@ public class purchaseDAOImpl implements purchaseDAO {
 		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
 		return dao.update_purchase_bank(daoMap);
 	}
-	
-	
+
+	@Override
+	public int count_search_status_purchase(Map<String, String> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.count_search_status_purchase(daoMap);
+	}
+
+	@Override
+	public int count_option_status_purchase(Map<String, Object> optionMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.count_option_status_purchase(optionMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_serch_status_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_serch_status_purchase(daoMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_serch_option_status_purchase(Map<String, Object> optionMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_serch_option_status_purchase(optionMap);
+	}
+
+	@Override
+	public ArrayList<PurchaseDTO> select_all_status_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_all_status_purchase(daoMap);
+	}
+
+	@Override
+	public ArrayList<SalesDTO> select_detail_status_purchase(Map<String, Object> daoMap) {
+		purchaseDAO dao = sqlSession.getMapper(purchaseDAO.class);
+		return dao.select_detail_status_purchase(daoMap);
+	}
+
 
 	
 
