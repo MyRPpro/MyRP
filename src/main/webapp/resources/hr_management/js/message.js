@@ -31,49 +31,56 @@ var sale_unit_price			= "판매단가";
  */
 
 // reg_sales
-var storage_out_date	= "출고일 : YYYY-MM-DD 형식";
-var count_sales = "판매수량 : 4자리 정수";
-var selling_price = "판매가 : 9자리 정수 ";
-var condition_note_receivable = "어음기간 0~12개월 이하";
-var sales_state = "판매상태";
+var storage_out_date				= "출고날짜 | YYYY-MM-DD 형식 | 오늘부터 선택 가능 ";
+var count_sales 					= "판매수량 | 4자리 정수 | 필수 입력";
+var selling_price 					= "판매가격 | 9자리 정수 | 필수 입력 ";
+var condition_note_receivable 		= "어음개월수 | 0~12 사이의 숫자 | 0이면 현금으로 바로거래 ";
+var sales_state 					= "판매상태 | 5자리  정수 | 자동입력 ";
 
 // reg_sales_table
-var reg_sales_statement = "전표등록하기";
-var sales_id = "판매번호";
-var req_storage_out = "출고 요청하기 ";
-var reg_sales_confrim	= "회계전표 입력하기"
+var reg_sales_statement 			= "전표등록 | 생성한 판매 내역을 회계 전표로 등록 ";
+var sales_id 						= "판매번호 | 생성한 판매 내역의 고유 번호 ";
+var req_storage_out 				= "출고요청 | 물류에 해당 주문의 수량만큼 출고 요청 ";
+var reg_sales_confrim				= "회계전표 입력하기"
 
 //modify_sales
-var reg_reg_date = "등록일 : YYYY-MM-DD 형식";
-var reg_storage_out_date = "출고일 : YYYY-MM-DD 형식";
-var reg_count_sales = "판매수량 : 숫자 | 4자리";
-var reg_selling_price = "판매가격 : 숫자 | 9자리";
-var btn_modify = "수정버튼";
+var reg_reg_date 					= "등록일 : YYYY-MM-DD 형식";
+var reg_storage_out_date 			= "출고날짜 | YYYY-MM-DD 형식 | 오늘부터 선택 가능 ";
+var reg_count_sales 				= "판매수량 | 4자리 정수 | 필수 입력";
+var reg_selling_price 				= "판매가격 | 9자리 정수 | 필수 입력 ";
+var btn_modify 						= "수정버튼";
 
 //sales_list 
-var search_str = "판매번호 검색";
-var btn_all_list = "전체목록";
-var req_confirm = "승인요청";
-var req_sales_statement = "전표승인조회";
-var search_storage_out = "출고 완료 조회";
-var req_sales_statement = "전표승인신청";
-var search_sales_statement = "전표승인조회";
-var req_storage_out = "상품출고신청";
-var search_storage_out = "출고완료조회";
-var req_note_receive = "지급대기신청";
-var reg_condition_note_receivable = "어음기간";
-var search_note_receive = "지급완료조회";
+var search_str						= "검색을 원하는 판매번호 입력";
+var btn_all_list 					= "전체목록을 출력";
+var req_confirm 					= "확인버튼 | 승인요청";
+var req_sales_statement 			= "전표승인조회";
+var search_storage_out 				= "출고완료 조회";
+var req_sales_statement 			= "전표승인신청";
+var search_sales_statement 			= "전표승인조회";
+var req_storage_out					= "상품출고신청";
+var search_storage_out 				= "출고완료조회";
+var req_note_receive 				= "지급대기신청";
+var reg_condition_note_receivable 	= "어음기간";
+var search_note_receive 			= "지급완료조회";
+var btn_list_all					= "모든 판매 내역을 출력";
+var btn_reg_sales					= "새로운 판매 내역을 등록";
+var btn_reg_state					= "회계부에 전표 신청이 가능한 내역을 출력";
+var btn_approve_state				= "회계부에서 승인완료된 판매 내역을 조회";
+var btn_search_out					= "물류에서 출고완료된 판매 내역을 조회";
+var btn_complete_pay				= "수금가능한 판매 내역을 조회, 수금마감 가능";
+
 
 //search_status
-var start_date = "시작일 : YYYY-MM-DD 형식";
-var end_date = "종료일 : YYYY-MM-DD 형식";
-var today ="오늘";
-var a_day ="하루전";
-var a_week ="한주전";
-var a_month ="한달전";
-var a_quarter ="한분기전";
-var a_year ="일년전";
-var btn_search = "검색";
+var start_date 						= "시작일 : YYYY-MM-DD 형식";
+var end_date 						= "종료일 : YYYY-MM-DD 형식";
+var today 							= "오늘";
+var a_day 							= "하루전";
+var a_week 							= "한주전";
+var a_month 						= "한달전";
+var a_quarter 						= "한분기전";
+var a_year 							= "일년전";
+var btn_search 						= "검색버튼";
 
 
 
@@ -85,18 +92,17 @@ var btn_search = "검색";
 var reg_state 				= "전표 입력 페이지로 이동";
 
 // reg_purchase
-var reg_date				= "등록일 : YYYY-MM-DD 형식";
-var storage_in_date 		= "입고일 : YYYY-MM-DD 형식";
-var count_purchase 			= "수량 : 숫자 | 4자리";
-var supply_price 			= "가격 : 숫자 | 9자리";
-var condition_note_payable 	= "어음기간 : 숫자 | 12이하";
-var purchase_state 			= "구매상태코드";
+var reg_date				= "등록일 | YYYY-MM-DD 형식 | 입고일 이전으로 선택 가능 ";
+var storage_in_date 		= "입고일 : YYYY-MM-DD 형식 | 오늘부터 선택 가능 ";
+var count_purchase 			= "판매수량 | 4자리 정수 | 필수 입력";
+var supply_price 			= "판매가격 | 9자리 정수 | 필수 입력";
+var condition_note_payable 	= "어음개월수 | 0~12 사이의 숫자 | 0이면 현금으로 바로거래 ";
+var purchase_state 			= "구매상태 | 5자리  정수 | 자동입력 ";
 var purchase_state_name 	= "구매 상태 이름 ";
-var product_id 				= "상품번호 : 1200 + 6자리 숫자 ";
-var company_id 				= "거래처번호 : 1100 + 6자리 숫자 ";
-var employee_id 			= "담당자 번호: 4자리 숫자 ";
-var reg_date 				= "구매 상태 코드 ";
-var order_id 				= "주문번호 ";
+var product_id 				= "상품번호 | 1200 + 6자리 숫자 ";
+var company_id 				= "거래처번호 | 1100 + 6자리 숫자 ";
+var employee_id 			= "담당자 번호 | 4자리 숫자 ";
+var order_id 				= "주문번호  ";
 var btn_submit 				= "전송 버튼 ";
 var btn_reset 				= "재설정 버튼 ";
 var btn_search_lack 		= "부족재고 조회 ";
@@ -108,8 +114,8 @@ var btn_complete_pay		= "상황완료조회";
 
 
 //detail_purchase
-var account_name 			= "계정 이름 ";
-var order_id 				= "구매 상태 코드 ";
+var account_name 			= "계정 이름  ";
+var order_id 				= "주문아이디 | 설정된 값이 없으면 0으로 입력 ";
 var product_name 			= "상품이름 ";
 var company_name 			= "거래처 이름 ";
 var employee_name 			= "담당자 이름";
@@ -121,14 +127,15 @@ var req_complete_pay 		= "상환완료하기";
 var req_purchase_bank 		= "상황완료 후 구매통장 계산"
 
 // modify_purchase
-var state_name 				= "상태명";
+var state_name 				= "구매 상태명 | 자동입력";
 var btn_modify 				= "수정하기";
-var input_search 			= "검색어를 입력";
-var btn_list_all 			= "전체목록";
-var btn_reg_purchasel 		= "구매등록";
-var btn_search_state 		= "전표승인조회";
-var btn_search_storage_in 	= "입고완료조회";
-var btn_search_repay 		= "지급안료조회";
+var input_search 			= "원하는 구매 번호를 입력";
+var btn_list_all 			= "모든 구매 내역을 출력";
+var btn_reg_purchase 		= "새로운 구매 내역을 등록 | 페이지 이동";
+var btn_search_state 		= "회계부에서 승인완료된 구매 내역을 조회";
+var btn_search_storage_in 	= "물류에서 입고완료된 구매 내역을 조회";
+var btn_approval_pay 		= "회계부에서 상환 승인완료된 구매 내역을 조회 ";
+var btn_complete_pay 		= "상환완료된 구매 내역을 조회, 상환마감 가능 ";
 
 /**
  * 물류관리

@@ -14,7 +14,7 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 			  		 <h4 class="panel-title">
-			  		 	<a id="page3310_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
+			  		 	<a id="page3310_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;
 			  			<b> 구매 현황 검색 페이지  </b>
 			  			</a>
 			  		</h4>
@@ -23,7 +23,7 @@
 					<font class="media-heading">
 						<span>구매내역을 원하는 기간 및 옵션별로 검색할 수 있습니다. 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요.</span>
 					</font>
-					<br>
+					<br><br>
 					<!-- ----------------------------------------------------- -->
 					
 					<div class="form-group" style="margin-bottom: 0px; padding-bottom: 0px;">
@@ -31,7 +31,7 @@
 						
 						<div class="btn-group" align="center" style="margin-bottom: 0px;">
 							<span class="input-group-btn">
-								<input type="button" name="btn_all_list" value="전체내역 검색" class="btn btn-primary"  onclick="return list_table(1,2);">
+								<input type="button" name="btn_all_list" value="전체내역 검색" class="btn btn-primary"  onclick="return list_table(1,0);">
 								<input type="reset" class="btn btn-default" value="재작성">
 							</span>
 						</div>	<!-- // btn-group -->
@@ -50,7 +50,7 @@
 										value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
 								</div>
 								<div class="btn-group" role="group" style="width: 15%;">
-									<input type="button" name="btn_submit"class="btn btn-primary"  value="검색"  onclick="list_table(1,1);" >
+									<input type="submit" name="btn_submit"class="btn btn-primary"  value="검색" >
 								</div>
 								<div class="btn-group" role="group" style="width: 15%;">
 									<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
@@ -113,14 +113,14 @@
 								<div class="btn-group" role="group" style="width: 20%">
 									<select name="account_ids" id="account_ids"  class="form-control" >
 									   <option value="0" selected> 계정선택 </option>
-											<option value="500012020000">부가세예수금</option>
-											<option value="500014030000">상품매출</option>
-											<option value="500011020000">매출채권</option>
+											<option value="500011030000">부가세대수금</option>
+											<option value="500011050000">상품매입</option>
+											<option value="500012010000">매입채무</option>
 									</select>  
 								</div>
 								
 								<div class="btn-group" role="group"style="width: 20%">
-								  	<select name="account_ids" id="account_ids"  class="form-control" >
+								  	<select name="product_ids" id="product_ids"  class="form-control" >
 									   <option value="0" selected> 제품선택 </option>
 									   <c:forEach var="product" items="${product_ids}">
 									  		<option value="${product.product_id}">${product.product_name} </option>
@@ -129,7 +129,7 @@
 							  	</div>
 							  	
 							  	<div class="btn-group" role="group"style="width: 20%">
-								  	<select name="account_ids" id="account_ids"  class="form-control" >
+								  	<select name="company_ids" id="company_ids"  class="form-control" >
 									   <option value="0" selected> 거래처선택 </option>
 									   <c:forEach var="company" items="${company_ids}">
 									  		<option value="${company.company_id}">${company.company_name} </option>
@@ -138,7 +138,7 @@
 							  	</div>
 							  	
 							  	<div class="btn-group" role="group"style="width: 20%">
-								  	<select name="account_ids" id="account_ids" class="form-control"  >
+								  	<select name="employee_ids" id="employee_ids" class="form-control"  >
 									   <option value="0" selected> 담당자선택 </option>
 									   <c:forEach var="employee" items="${employee_ids}">
 									  		<option value="${employee.employee_id}">${employee.employee_name} </option>
@@ -147,7 +147,7 @@
 								</div>
 							
 								<div class="btn-group" role="group" style="width: 10%">
-									<input type="button" name="btn_submit"class="btn btn-primary"  value="검색" onclick="list_table(1,3);" > 
+									<input type="button" name="btn_submit"class="btn btn-primary"  value="검색" onclick="list_table(1,2);" > 
 								</div>
 								<div class="btn-group" role="group" style="width: 10%">
 									<input type="reset" name="btn_reset" class="btn btn-default" value="재설정"> 
@@ -159,27 +159,25 @@
 						</form>
 					</div>
 			
-			
 					<!-- ----------------------------------------------------- -->
-					<div class="panel-body" id="list_page"></div>
-					</div>	<!-- // panel-body -->
-				<div  id="page3310_div02">
-					<div class="panel-body" id="list_table"></div>
-				</div>
+					
+				</div>	<!-- // panel-body -->
+				<div class="panel-body" id="page3310_div02"></div>
 			</div>	<!-- // panel -->
-		</div>
+		</div>	
 	</div>
+	
 	<!-- ------------------------------------------------------------------------------------- -->
 	
-	<script type="text/javascript"> 	
+	<script type="text/javascript">
+	
+	$('#page3310_div01_toggle').click(function(){
+		$('#page3310_div01').slideToggle();
+		return false;
+	});
 	
 	function list_table(param,check){
-		
-		$('#page3310_div01_toggle').click(function(){
-			$('#page3310_div01').slideToggle();
-			return false;
-		});
-		
+	
 		var pageNum = param;
 		var check = check;
 		var account	= null;
@@ -190,14 +188,16 @@
 		if(check==1){
 			var start_date = document.getElementById("start_date").value 
 			var end_date = document.getElementById("end_date").value 
+		
+		}
+		
+		if(check==0){
+			var start_date = "all";
+			var end_date = "all";
+		
 		}
 		
 		if(check==2){
-			var start_date = "all";
-			var end_date = "all";
-		}
-		
-		if(check==3){
 			
 			var vals = new Array();
 			
@@ -205,10 +205,11 @@
 			product = document.getElementById("product_ids").value;
 			company = document.getElementById("company_ids").value;
 			employee = document.getElementById("employee_ids").value;
-			
+		
 		}
 		
-		$('#list_table').load('/sales_management/status_sales/search_status_sales_table?start_date='+start_date
+		
+		$('#page3310_div02').load('/purchase_management/status_purchase/search_status_purchase_table?start_date='+start_date
 				+'&end_date='+end_date
 				+'&pageNum='+pageNum
 				+'&account='+account
@@ -216,14 +217,7 @@
 				+'&company='+company
 				+'&employee='+employee
 				);
-		$('#list_page').load('/sales_management/status_sales/search_status_sales_page?start_date='+start_date
-				+'&end_date='+end_date
-				+'&pageNum='+pageNum
-				+'&account='+account
-				+'&product='+product
-				+'&company='+company
-				+'&employee='+employee
-				);
+		 
 		return false;
 	}
 	

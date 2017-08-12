@@ -41,14 +41,11 @@ public interface purchaseService extends MyRPService {
 	
 
 	public void search_status_purchase_service(Model model);
-	
-	/*
+
 	public void search_status_purchase_table_service(Model model);
 
-	public void search_status_purchase_page_service(Model model);
-
 	public void search_status_purchase_detail_service(Model model);
-	*/
+	
 	
 
 }
