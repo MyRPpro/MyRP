@@ -22,7 +22,7 @@
 				</div>	<!--  // panel-heading -->
 				<div class="panel-body" id="page2130_div01">
 					<div class="table-responsive">
-						<div class="form-group">
+						<div class="form-group" style="margin-bottom: 0px; padding-bottom: 0px; "  >
 							<form class="form-inline-block" onsubmit="return modify_sales();" action="#" method="get"  >
 								<table class="table table-condensed table-striped">
 									<tr>
@@ -186,100 +186,104 @@
 									<span class="input-group-btn">
 										<input type="button" name="btn_confirm" id="btn_confirm" class="btn btn-primary"  value="확인" >
 										<input type=submit name="btn_modify"  id="btn_submit"  class="btn btn-default" value="수정하기" >
+										<input type="button" name="reg_state" id="btn_reg_state" class="btn btn-default" value="회계전표 입력하기 " >
 										<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
 									</span>
-								</div>
-								
-								<div id="alert_pro">
 								</div>
 							</form>
 						</div>	<!-- // form-group -->
 					</div> <!-- // table-responsive -->
 				</div>	<!-- // panel-body -->
+				<div id="page2130_div02"></div>
 			</div>	<!-- // panel panel-primary -->
 		</div>	<!-- // col-xs-12 -->
 	</div>	<!-- // row -->
 	
 	<script type="text/javascript">
-
-	$('#btn_confirm').click(function(){
-		$('#page2120_div01').slideDown();	// 테이블 본문
-		$('#page2110_div02').slideDown();	// 페이징
-		$('#page2130_panel').slideUp();		// 세부페이지 본문
-		return false;
-	});
-	
-	$('#page2130_div01_togle').click(function(){
-		$('#page2130_div01').slideToggle();
-		return false;
-	});
-	
-	function modify_sales(){
 		
-		var sales_id = '${dtos.get(0).sales_id}';
-		var product_id = document.getElementById("product_id");
-		var account_id = document.getElementById("account_id");
-		var company_id = document.getElementById("company_id");
-		var employee_id = document.getElementById("employee_id");
-		var reg_date = document.getElementById("reg_date");
-		var storage_out_date = document.getElementById("storage_out_date");
-		var count_sales = document.getElementById("count_sales");
-		var selling_price = document.getElementById("selling_price");
-		var sales_state = document.getElementById("sales_state");
-		var condition_note_receivable = document.getElementById("condition_note_receivable");
+		$('#btn_confirm').click(function(){
+			$('#page2120_div01').slideDown();	// 테이블 본문
+			$('#page2110_div02').slideDown();	// 페이징
+			$('#page2130_panel').slideUp();		// 세부페이지 본문
+			return false;
+		});
 		
-		if (sales_id.value == 0) {
-			alert("상품이 선택되지 않았습니다. 원하는 상품을 선택해주세요.");
-			sales_id.focus();
+		$('#page2130_div01_togle').click(function(){
+			$('#page2130_div01').slideToggle();
 			return false;
-		} else if (company_id.value == 0) {
-			alert("거래처가 선택되지 않았습니다. 원하는 거래처을 선택해주세요.");
-			company_id.focus();
-			return false;
-		} else if (employee_id.value == 0) {
-			alert("담당자가 선택되지 않았습니다. 해당 담당자을 선택해주세요.");
-			employee_id.focus();
-			return false;
-		} else if (count_sales.value == 0) {
-			alert("수량이 입력되지 않았습니다. 원하는 상품을 선택해주세요.");
-			count_sales.focus();
-			return false;
-		} else if (selling_price.value == 0) {
-			alert("가격이 선택되지 않았습니다. 원하는 가격을 선택해주세요.");
-			selling_price.focus();
-			return false;
-		} else if (sales_state.value == 0) {
-			alert("거래상태가 선택되지 않았습니다. 원하는 상태을 선택해주세요.");
-			sales_state.focus();
-			return false;
-		} else if (condition_note_receivable.value == "") {
-			alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");
-			condition_note_receivable.focus();
-			return false;
-		}
+		});
 		
-		 $('#alert_pro').load('/sales_management/search_sales/modify_sales_pro?product_id='+product_id.value
-					+'&company_id='+company_id.value
-					+'&employee_id='+employee_id .value
-					+'&reg_date='+reg_date.value
-					+'&storage_out_date='+storage_out_date.value
-					+'&count_sales='+count_sales.value
-					+'&selling_price='+selling_price.value
-					+'&sales_state='+sales_state.value
-					+'&condition_note_receivable='+condition_note_receivable.value
-					+'&sales_id='+sales_id
-					+'&account_id='+account_id.value
-				 );	 
-		return false;
-	};
+		$('#btn_reg_state').click(function(){
+			$('#main_screen').load("/accounting_management/statement_management/search_statements");
+			return false;
+		});
+		
+		function modify_sales(){
+			
+			var sales_id = '${dtos.get(0).sales_id}';
+			var product_id = document.getElementById("product_id");
+			var account_id = document.getElementById("account_id");
+			var company_id = document.getElementById("company_id");
+			var employee_id = document.getElementById("employee_id");
+			var reg_date = document.getElementById("reg_date");
+			var storage_out_date = document.getElementById("storage_out_date");
+			var count_sales = document.getElementById("count_sales");
+			var selling_price = document.getElementById("selling_price");
+			var sales_state = document.getElementById("sales_state");
+			var condition_note_receivable = document.getElementById("condition_note_receivable");
+			
+			if (sales_id.value == 0) {
+				alert("상품이 선택되지 않았습니다. 원하는 상품을 선택해주세요.");
+				sales_id.focus();
+				return false;
+			} else if (company_id.value == 0) {
+				alert("거래처가 선택되지 않았습니다. 원하는 거래처을 선택해주세요.");
+				company_id.focus();
+				return false;
+			} else if (employee_id.value == 0) {
+				alert("담당자가 선택되지 않았습니다. 해당 담당자을 선택해주세요.");
+				employee_id.focus();
+				return false;
+			} else if (count_sales.value == 0) {
+				alert("수량이 입력되지 않았습니다. 원하는 상품을 선택해주세요.");
+				count_sales.focus();
+				return false;
+			} else if (selling_price.value == 0) {
+				alert("가격이 선택되지 않았습니다. 원하는 가격을 선택해주세요.");
+				selling_price.focus();
+				return false;
+			} else if (sales_state.value == 0) {
+				alert("거래상태가 선택되지 않았습니다. 원하는 상태을 선택해주세요.");
+				sales_state.focus();
+				return false;
+			} else if (condition_note_receivable.value == "") {
+				alert("어음기간이 입력되지 않았습니다. 일자를 입력해주세요.");
+				condition_note_receivable.focus();
+				return false;
+			}
+			
+			 $('#page2130_div02').load('/sales_management/search_sales/modify_sales_pro?product_id='+product_id.value
+						+'&company_id='+company_id.value
+						+'&employee_id='+employee_id .value
+						+'&reg_date='+reg_date.value
+						+'&storage_out_date='+storage_out_date.value
+						+'&count_sales='+count_sales.value
+						+'&selling_price='+selling_price.value
+						+'&sales_state='+sales_state.value
+						+'&condition_note_receivable='+condition_note_receivable.value
+						+'&sales_id='+sales_id
+						+'&account_id='+account_id.value
+					 );	 
+			return false;
+		};
+		
+		
+		
+		
 	
 	
 	
-	
-	
-	
-	
-	$(document).ready(
+		$(document).ready(
 			function() {
 				var reg_value = "";
 				$('#reg_product').change(

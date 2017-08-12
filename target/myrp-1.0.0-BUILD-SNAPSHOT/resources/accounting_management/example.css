@@ -1,0 +1,7 @@
+#graph {
+  margin: 20px auto 0 auto;
+}
+pre {
+  height: 500px;
+  overflow: auto;
+}

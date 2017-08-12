@@ -84,7 +84,7 @@ public class PurchaseControllerImpl implements purchaseController ,CodeMyRP {
 		System.out.println(code.c(modify_purchase));
 		model.addAttribute("req", req);
 		service.modify_purchase_pro_service(model);
-		return code.c(purchase_management, search_purchase, detail_purchase_pro);
+		return code.c(purchase_management, search_purchase, modify_purchase_pro);
 	}
 	
 

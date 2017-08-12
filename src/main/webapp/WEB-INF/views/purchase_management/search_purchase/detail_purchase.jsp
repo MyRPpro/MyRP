@@ -12,14 +12,15 @@
 
 	<div class="row" id="row">
 		<div class="col-xs-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading" id="detail_purchase_heading">
+			<div class="panel panel-primary" id="page3140_panel">
+				<div class="panel-heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-shopping-cart"></span> &emsp;
-						구매번호" ${dtos.get(0).purchase_id}"의 상세 정보 입니다. 
+						<a id="page3140_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;
+						구매번호" ${dtos.get(0).purchase_id}"의 상세 정보 입니다.
+						</a>
 					</h3>
 				</div>	<!--  // panel-heading -->
-				<div class="panel-body">
+				<div class="panel-body" id="page3140_div01">
 					<div class="table-responsive">
 						<div class="form-group">
 							<form class="form-inline-block" role="form"  action="#" method="get" >
@@ -157,63 +158,61 @@
 								
 									
 								</table>
-								<br>
 								<input type="hidden" name="purchase_id" id="purchase_id" value="${dtos.get(0).purchase_id}">
+							</form>	
 								<center>
-									<!-- ---------------------------------------------------------------------------------------------------------- -->									
-									
-									<c:if test="${purchase_state == 22213 }">
-										<input type="button" name="reg_state" id="button_reg_state" class="btn btn-primary" value="회계전표 입력하기 " >	
-									</c:if>
-									
-									<!-- ---------------------------------------------------------------------------------------------------------- -->									
-									
-									
-									
-									<c:if test="${dtos.get(0).purchase_state == 23203 && dtos.get(1).purchase_state == 23203 && dtos.get(2).purchase_state == 23203 }"> <!-- 입고 요청  -->
-										<input type="button" name="req_storage_in"  id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
-									</c:if>
-									
-									<!-- ---------------------------------------------------------------------------------------------------------- -->									
-									
-									<c:if test="${dtos.get(0).purchase_state == 23203 && dtos.get(1).purchase_state == 23205 && dtos.get(2).purchase_state == 23203 }"> <!-- 상환요청 -->
-										<div class="col-xs-9" style="display: inline;" >
-											<div class="input-group">
-												<input type="text" id="text_req_repay" name="req_repay" class="form-control" value="" placeholder="남은 기간" disabled="true" >
-												<span class="input-group-btn">
-													<button id="btn_req_repay" class="btn btn-info" type="button" disabled="true">상환요청</button>
-												</span>
-											</div>
-										</div>
-									</c:if>
+									<span class="input-group-btn">
 										
-									<!-- ---------------------------------------------------------------------------------------------------------- -->
-									
-									
-									
-									<c:if test="${dtos.get(0).purchase_state == 23208  && dtos.get(1).purchase_state == 23208  }"> <!-- 상환승인-->
-										<input type="button" name="req_complete_pay"  id="req_complete_pay" class="btn btn-primary" value="상환 완료 하기">
-									</c:if>
-									
-									<!-- ---------------------------------------------------------------------------------------------------------- -->
-									<%-- 
-									${dtos.get(0).purchase_state}<br>	
-									${dtos.get(1).purchase_state}<br>	
-									 --%>
-									<c:if test="${dtos.get(0).purchase_state == 23209  && dtos.get(1).purchase_state == 23209  }"> <!-- 상환하기-->
-										<c:if test="${dtos.get(0).purchase_state != 23299  && dtos.get(1).purchase_state != 23299  }"> <!-- 상환하기-->
-											<input type="button" name="req_purchase_bank"  id="req_purchase_bank" class="btn btn-primary" value="상환하기">
+										<c:if test="${purchase_state == 22213 }">
+											<input type="button" name="reg_state" id="button_reg_state" class="btn btn-primary" value="회계전표 입력하기 " >	
 										</c:if>
-									</c:if>
-									
-									<!-- ---------------------------------------------------------------------------------------------------------- -->
+										
+										<!-- ---------------------------------------------------------------------------------------------------------- -->									
+										
+										<c:if test="${dtos.get(0).purchase_state == 23203 && dtos.get(1).purchase_state == 23203 && dtos.get(2).purchase_state == 23203 }"> <!-- 입고 요청  -->
+											<input type="button" name="req_storage_in"  id="btn_req_storage_in" class="btn btn-primary" value="입고 요청 하기">
+										</c:if>
+										
+										<!-- ---------------------------------------------------------------------------------------------------------- -->									
+										
+										<c:if test="${dtos.get(0).purchase_state == 23203 && dtos.get(1).purchase_state == 23205 && dtos.get(2).purchase_state == 23203 }"> <!-- 상환요청 -->
+											<div class="col-xs-9" style="display: inline;" >
+												<div class="input-group">
+													<input type="text" id="text_req_repay" name="req_repay" class="form-control" value="" placeholder="남은 기간" disabled="true" >
+													<span class="input-group-btn">
+														<button id="btn_req_repay" class="btn btn-info" type="button" disabled="true">상환요청</button>
+													</span>
+												</div>
+											</div>
+										</c:if>
 											
-									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
+										<!-- ---------------------------------------------------------------------------------------------------------- -->
+										
+										<c:if test="${dtos.get(0).purchase_state == 23208  && dtos.get(1).purchase_state == 23208  }"> <!-- 상환승인-->
+											<input type="button" name="req_complete_pay"  id="req_complete_pay" class="btn btn-primary" value="상환 완료 하기">
+										</c:if>
+										
+										<!-- ---------------------------------------------------------------------------------------------------------- -->
+										<%-- 
+										${dtos.get(0).purchase_state}<br>	
+										${dtos.get(1).purchase_state}<br>	
+										 --%>
+										<c:if test="${dtos.get(0).purchase_state == 23209  && dtos.get(1).purchase_state == 23209  }"> <!-- 상환하기-->
+											<c:if test="${dtos.get(0).purchase_state != 23299  && dtos.get(1).purchase_state != 23299  }"> <!-- 상환하기-->
+												<input type="button" name="req_purchase_bank"  id="req_purchase_bank" class="btn btn-primary" value="상환하기">
+											</c:if>
+										</c:if>
+										
+										<!-- ---------------------------------------------------------------------------------------------------------- -->
+												
+										<input type="button" name="btn_confirm" class="btn btn-primary" id="btn_confirm" value="확인" >
+									
+									</span>
 								</center>
 								<br>
-								<div id="alert_pro">
+								<div id="page3140_div02">
 								</div>
-							</form>
+							
 						</div>	<!-- // form-group -->
 					</div> <!-- // table-responsive -->
 				</div>	<!-- // panel-body -->
@@ -225,32 +224,31 @@
 	
 	<script type="text/javascript">
 	
+	$('#page3140_div01_toggle').click(function(){
+		$('#page3140_div01').slideToggle();
+		return false;
+	});
 	
 	$('#req_purchase_bank').click(function(){
 		var purchase_id = $('#purchase_id').val();
 		var account_id = $('#account_id').val();
 		
-		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro?req_kind=req_purchase_bank&purchase_id='+purchase_id
+		$('#page3140_div02').load('/purchase_management/search_purchase/detail_purchase_pro?req_kind=req_purchase_bank&purchase_id='+purchase_id
 				+"&account_id"+account_id );
 		return false;
 	});
 	
 	
-	$('#alert_pro').ready(function(){
-		$('#alert_pro').slideUp();
-		return false;
-	});
-	
-	$('#btn-confirm').bind('click',function(){
-		$('#purchase_list_content').slideDown();
-		$('#purchase_list_table_content').slideDown();
-		$('#row').slideToggle();
+	$('#btn_confirm').bind('click',function(){
+		$('#page3140_panel').slideUp();
+		$('#page3120_div01').slideDown();	// 테이블 본문
+		$('#page3110_div02').slideDown();	// 페이징
 		return false;
 	});
 	 
 	$('#req_complete_pay').click(function(){
 		var purchase_id = $('#purchase_id').val();
-		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_complete_pay&purchase_id="+purchase_id);
+		$('#page3140_div02').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_complete_pay&purchase_id="+purchase_id);
 		return false;
 	});
 	
@@ -261,13 +259,13 @@
 	
 	$('#btn_req_storage_in').click(function(){
 		var purchase_id = $('#purchase_id').val();
-		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=storage_in&purchase_id="+purchase_id);
+		$('#page3140_div02').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=storage_in&purchase_id="+purchase_id);
 		return false;
 	});
 	
 	$('#btn_req_repay').ready(function(){
 		var purchase_id = $('#purchase_id').val();
-		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=pay_date&purchase_id="+purchase_id);
+		$('#page3140_div02').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=pay_date&purchase_id="+purchase_id);
 		return false;
 	})
 	$('#btn_req_repay').click(function(){
@@ -275,8 +273,8 @@
 		var price = $('#supply_price').val();
 		var count = $('#count_purchase').val();
 		price = price.replace(/[^0-9]/g,'');
-		$('#alert_pro').slideDown(500);
-		$('#alert_pro').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_repay&purchase_id="+purchase_id
+		$('#page3140_div02').slideDown(500);
+		$('#page3140_div02').load('/purchase_management/search_purchase/detail_purchase_pro'+"?req_kind=req_repay&purchase_id="+purchase_id
 				+"&supply_price="+price
 				+"&count="+count
 				);

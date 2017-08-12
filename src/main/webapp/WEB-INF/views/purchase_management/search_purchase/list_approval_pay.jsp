@@ -28,7 +28,7 @@
 	</c:if>
 	
 	
-	<div class="text-center">
+	<div class="text-center" id="page3150_page">
 		<ul class="pagination" style="margin:0 auto;">
 			<c:if test="${startPage > pageBlock}">
 				<li> <a href="javascript:list_approval_pay_table('1')">◀◀ </a> </li> <!-- 첫 페이지로 이동 -->
@@ -51,15 +51,17 @@
 	<br>
 	
 	
-	<div class="panel panel-primary">
+	<div class="panel panel-primary" id="page3150_panel" >
 		<div class="panel-heading" id="list_approval_pay_table_heading">
 			<h3 class="panel-title">
+				<a id="page3150_div01_toggle">
 				<span class="glyphicon glyphicon-shopping-cart"></span> 
-				상환 승인 검색 목록 조회 &emsp; 검색개수 : 총 ${cnt}개 
+					상환 승인 검색 목록 조회, 검색개수 : 총 ${cnt}개 
+				</a>
 			</h3>
 		</div>	<!-- // panel-title -->
 		
-		<div class="panel-body" id="list_approval_pay_table_content">
+		<div class="panel-body" id="page3150_div01">
 			<div class="table-responsive">
 				<div class="form-group" >
 					<table class="table table-condensed table-striped">
@@ -98,9 +100,11 @@
 	</div>	<!-- // panel panel-primary -->
 	
 	<script type="text/javascript">	
-	
-		$('#list_approval_pay_table_heading').click(function(){
-			$('#list_approval_pay_table_content').slideToggle();
+		
+		$('#page3150_div01_toggle').click(function(){
+			$('#page3150_div01').slideToggle();
+			$('#page3150_page').slideToggle();
+			return false;
 		});
 		
 		function detail_page(param) {
@@ -109,23 +113,20 @@
 			var state = param[1];
 			
 			// purchase_list 접기
-			$('#list_approval_pay_content').slideUp();
+			$('#page3150_div01').slideUp();
 			 
 			// list_approval_pay_table 접기
-			$('#list_approval_pay_table_content').slideUp();
+			$('#page3150_page').slideUp();
 			
-			$('#list_dateil').slideDown(500);
-			$('#list_dateil').load(
+			$('#page3150_div02').slideDown();
+			$('#page3150_div02').load(
 					'/purchase_management/search_purchase/detail_purchase?purchase_id='
 							+ param[0] + '&purchase_state=' + param[1]
 							+ '&account_id=' + param[2] );
-	
 				return false;
 			}
 		
 	</script>
-	
-	
 	
 </body>
 </html>

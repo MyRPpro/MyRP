@@ -9,167 +9,166 @@
 </head>
 <body>
 	
-	
-	<div class="panel panel-primary" id="page2110">
-		<div class="panel-heading">
-	  		 <h4 class="panel-title">
-	  		 	<a id="page3310_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
-	  			<b> 구매 현황 검색 페이지 : Search_Status_Sales </b>
-	  			</a>
-	  		</h4>
-		</div>
-		<div class="panel-body" id="page3310_div01">
-			<font class="media-heading">
-				<span>구매내역을 원하는 기간 및 옵션별로 검색할 수 있습니다. 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요.</span>
-			</font>
-			<br>
-			<!-- ----------------------------------------------------- -->
-			
-			<div class="form-group">
-				<form action="#" name="list_status_sales" method="GET" onsubmit="return list_table(1,1)">
-				
-				<div class="btn-group" align="center">
-					<span class="input-group-btn">
-						<input type="button" name="btn_all_list" value="전체내역 검색" class="btn btn-primary"  onclick="return list_table(1,2);">
-						<input type="reset" class="btn btn-default" value="재작성">
-					</span>
-				</div>	<!-- // btn-group -->
-				<hr>
-				
-				<!-- ----------------------------------------------------- -->
-				
-				<c:set var="today" value="<%= new java.util.Date() %>"/>
-
-					<div class="btn-group btn-group-justified" role="group" aria-label="...">
-						<div class="btn-group" role="group">
-							<input type="date" id="start_date" name="start_date" class="btn btn-default"
-								value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
-						</div>
-						<div class="btn-group" role="group">
-							<input type="date" id="end_date" name="end_date" class="btn btn-default"
-								value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
-						</div>
-					</div>
-					
-					<!-- ----------------------------------------------------- -->
-
-					<div class="btn-group btn-group-justified" role="group" aria-label="...">
-
-						<div class="btn-group" role="group">
-							<input type="button" id="today" name="today" value="오늘"
-								class="btn btn-default">
-						</div>
-
-						<div class="btn-group" role="group">
-							<input type="button" id="a_day" name="a_day" value="하루"
-								class="btn btn-default">
-						</div>
-						<div class="btn-group" role="group">
-							<input type="button" id="a_week" name="a_week" value="한주"
-								class="btn btn-default">
-						</div>
-						<div class="btn-group" role="group">
-							<input type="button" id="a_month" name="a_month" value="한달"
-								class="btn btn-default">
-						</div>
-						<div class="btn-group" role="group">
-							<input type="button" id="a_quarter" name="a_quarter" value="한분기"
-								class="btn btn-default">
-						</div>
-						<div class="btn-group" role="group">
-							<input type="button" id="a_year" name="a_year" value="일년"
-								class="btn btn-default">
-						</div>
-						
-						<div class="btn-group" role="group">
-							<select id="months" class="form-control" >                                              
-								<option value="0" selected> 월별 </option>
-								<option value="01" > 1월 </option>
-								<option value="02" > 2월 </option>
-								<option value="03" > 3월 </option>
-								<option value="04" > 4월 </option>
-								<option value="05" > 5월 </option>
-								<option value="06" > 6월 </option>
-								<option value="07" > 7월 </option>
-								<option value="08" > 8월 </option>
-								<option value="09" > 9월 </option>
-								<option value="10" > 10월 </option>
-								<option value="11" > 11월 </option>
-								<option value="12" > 12월 </option>
-							</select>
-						</div>
-					</div>
-					
-					<div class="btn-group" align="center">
-						<span class="input-group-btn">
-							<input type="submit" name="btn_submit"class="btn btn-primary"  value="검색" > 
-							<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
-						</span>
-					</div>	<!-- // btn-group -->
-						
-					
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+			  		 <h4 class="panel-title">
+			  		 	<a id="page3310_div01_toggle"><span class="glyphicon glyphicon-triangle-right"></span> &nbsp;
+			  			<b> 구매 현황 검색 페이지  </b>
+			  			</a>
+			  		</h4>
+				</div>
+				<div class="panel-body" id="page3310_div01">
+					<font class="media-heading">
+						<span>구매내역을 원하는 기간 및 옵션별로 검색할 수 있습니다. 전체 내역을 확인하고 싶으면 전체내역 버튼을 눌러주세요.</span>
+					</font>
+					<br>
 					<!-- ----------------------------------------------------- -->
 					
-					<div class="btn-group btn-group-justified" role="group" aria-label="...">
+					<div class="form-group" style="margin-bottom: 0px; padding-bottom: 0px;">
+						<form action="#" name="list_status_sales" method="GET" onsubmit="return list_table(1,1)">
 						
-						<div class="btn-group" role="group">
-							<select name="account_ids" id="account_ids"  class="form-control" >
-							   <option value="0" selected> 계정선택 </option>
-									<option value="500012020000">부가세예수금</option>
-									<option value="500014030000">상품매출</option>
-									<option value="500011020000">매출채권</option>
-							</select>  
-						</div>
+						<div class="btn-group" align="center" style="margin-bottom: 0px;">
+							<span class="input-group-btn">
+								<input type="button" name="btn_all_list" value="전체내역 검색" class="btn btn-primary"  onclick="return list_table(1,2);">
+								<input type="reset" class="btn btn-default" value="재작성">
+							</span>
+						</div>	<!-- // btn-group -->
+						<hr>
 						
-						<div class="btn-group" role="group">
-						  	<select name="account_ids" id="account_ids"  class="form-control" >
-							   <option value="0" selected> 제품선택 </option>
-							   <c:forEach var="product" items="${product_ids}">
-							  		<option value="${product.product_id}">${product.product_name} </option>
-							  	</c:forEach>
-						  	</select>
-					  	</div>
-					  	
-					  	<div class="btn-group" role="group">
-						  	<select name="account_ids" id="account_ids"  class="form-control" >
-							   <option value="0" selected> 거래처선택 </option>
-							   <c:forEach var="company" items="${company_ids}">
-							  		<option value="${company.company_id}">${company.company_name} </option>
-							  	</c:forEach>
-						  	</select>
-					  	</div>
-					  	
-					  	<div class="btn-group" role="group">
-						  	<select name="account_ids" id="account_ids" class="form-control"  >
-							   <option value="0" selected> 담당자선택 </option>
-							   <c:forEach var="employee" items="${employee_ids}">
-							  		<option value="${employee.employee_id}">${employee.employee_name} </option>
-							  	</c:forEach>
-						  	</select>
-						</div>
-					</div>
-					
-					<div class="btn-group" align="center">
-						<span class="input-group-btn">
-							<input type="submit" name="btn_submit"class="btn btn-primary"  value="검색" > 
-							<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
-						</span>
-					</div>	<!-- // btn-group -->
-
-				<!-- ----------------------------------------------------- -->
-				
-				</form>
-			</div>
-	
-	
-			<!-- ----------------------------------------------------- -->
-			<div class="panel-body" id="list_page"></div>
-			</div>	<!-- // panel-body -->
-		<div  id="page3310_div02">
-			<div class="panel-body" id="list_table"></div>
-		</div>
-	</div>	<!-- // panel -->
+						<!-- ----------------------------------------------------- -->
+						
+						<c:set var="today" value="<%= new java.util.Date() %>"/>
+							<div class="btn-group btn-group-justified" role="group" aria-label="...">
+								<div class="btn-group" role="group" style="width: 35%;" >
+									<input type="date" id="start_date" name="start_date" class="btn btn-default"
+										value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
+								</div>
+								<div class="btn-group" role="group" style="width: 35%;"  >
+									<input type="date" id="end_date" name="end_date" class="btn btn-default"
+										value="<fmt:formatDate value='${today}' pattern='yyyy-MM-dd'/>">
+								</div>
+								<div class="btn-group" role="group" style="width: 15%;">
+									<input type="button" name="btn_submit"class="btn btn-primary"  value="검색"  onclick="list_table(1,1);" >
+								</div>
+								<div class="btn-group" role="group" style="width: 15%;">
+									<input type="reset" name="btn_reset" class="btn btn-default" value="재설정">  
+								</div>
+							</div>
+							
+							<!-- ----------------------------------------------------- -->
 		
+							<div class="btn-group btn-group-justified" role="group" aria-label="...">
+		
+								<div class="btn-group" role="group">
+									<input type="button" id="today" name="today" value="오늘"
+										class="btn btn-default">
+								</div>
+		
+								<div class="btn-group" role="group">
+									<input type="button" id="a_day" name="a_day" value="하루"
+										class="btn btn-default">
+								</div>
+								<div class="btn-group" role="group">
+									<input type="button" id="a_week" name="a_week" value="한주"
+										class="btn btn-default">
+								</div>
+								<div class="btn-group" role="group">
+									<input type="button" id="a_month" name="a_month" value="한달"
+										class="btn btn-default">
+								</div>
+								<div class="btn-group" role="group">
+									<input type="button" id="a_quarter" name="a_quarter" value="한분기"
+										class="btn btn-default">
+								</div>
+								<div class="btn-group" role="group">
+									<input type="button" id="a_year" name="a_year" value="일년"
+										class="btn btn-default">
+								</div>
+								
+								<div class="btn-group" role="group">
+									<select id="months" class="form-control" >                                              
+										<option value="0" selected> 월별 </option>
+										<option value="01" > 1월 </option>
+										<option value="02" > 2월 </option>
+										<option value="03" > 3월 </option>
+										<option value="04" > 4월 </option>
+										<option value="05" > 5월 </option>
+										<option value="06" > 6월 </option>
+										<option value="07" > 7월 </option>
+										<option value="08" > 8월 </option>
+										<option value="09" > 9월 </option>
+										<option value="10" > 10월 </option>
+										<option value="11" > 11월 </option>
+										<option value="12" > 12월 </option>
+									</select>
+								</div>
+							</div>
+							
+							<!-- ----------------------------------------------------- -->
+							
+							<div class="btn-group btn-group-justified" align="center" role="group" aria-label="...">
+								
+								<div class="btn-group" role="group" style="width: 20%">
+									<select name="account_ids" id="account_ids"  class="form-control" >
+									   <option value="0" selected> 계정선택 </option>
+											<option value="500012020000">부가세예수금</option>
+											<option value="500014030000">상품매출</option>
+											<option value="500011020000">매출채권</option>
+									</select>  
+								</div>
+								
+								<div class="btn-group" role="group"style="width: 20%">
+								  	<select name="account_ids" id="account_ids"  class="form-control" >
+									   <option value="0" selected> 제품선택 </option>
+									   <c:forEach var="product" items="${product_ids}">
+									  		<option value="${product.product_id}">${product.product_name} </option>
+									  	</c:forEach>
+								  	</select>
+							  	</div>
+							  	
+							  	<div class="btn-group" role="group"style="width: 20%">
+								  	<select name="account_ids" id="account_ids"  class="form-control" >
+									   <option value="0" selected> 거래처선택 </option>
+									   <c:forEach var="company" items="${company_ids}">
+									  		<option value="${company.company_id}">${company.company_name} </option>
+									  	</c:forEach>
+								  	</select>
+							  	</div>
+							  	
+							  	<div class="btn-group" role="group"style="width: 20%">
+								  	<select name="account_ids" id="account_ids" class="form-control"  >
+									   <option value="0" selected> 담당자선택 </option>
+									   <c:forEach var="employee" items="${employee_ids}">
+									  		<option value="${employee.employee_id}">${employee.employee_name} </option>
+									  	</c:forEach>
+								  	</select>
+								</div>
+							
+								<div class="btn-group" role="group" style="width: 10%">
+									<input type="button" name="btn_submit"class="btn btn-primary"  value="검색" onclick="list_table(1,3);" > 
+								</div>
+								<div class="btn-group" role="group" style="width: 10%">
+									<input type="reset" name="btn_reset" class="btn btn-default" value="재설정"> 
+								</div>
+							</div>
+		
+						<!-- ----------------------------------------------------- -->
+						
+						</form>
+					</div>
+			
+			
+					<!-- ----------------------------------------------------- -->
+					<div class="panel-body" id="list_page"></div>
+					</div>	<!-- // panel-body -->
+				<div  id="page3310_div02">
+					<div class="panel-body" id="list_table"></div>
+				</div>
+			</div>	<!-- // panel -->
+		</div>
+	</div>
 	<!-- ------------------------------------------------------------------------------------- -->
 	
 	<script type="text/javascript"> 	

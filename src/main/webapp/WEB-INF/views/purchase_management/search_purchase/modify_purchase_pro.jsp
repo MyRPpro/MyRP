@@ -14,15 +14,15 @@
 			setTimeout(function(){
 				alert("정상적으로 수정되었습니다.");
 				/* window.location="/purchase_management/search_purchase/purchase_list" */
-			}, 500);
+			}, 200);
 		</script>
 	</c:if>
 	
 	<c:if test="${cnt == 0}">
 		<script type="text/javascript">
-			alert("변경된 내용이 없습니다.");
-			window.history.back();
-			
+			setTimeout(function(){
+				alert("변경된 내용이 없습니다.");
+			},200);
 		</script>
 	</c:if>
 
