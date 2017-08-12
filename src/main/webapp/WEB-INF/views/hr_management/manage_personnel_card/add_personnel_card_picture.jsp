@@ -36,32 +36,34 @@ iframe{
 		 	action="/hr_management/manage_personnel_card/add_personnel_card_upload"
 		 	enctype="multipart/form-data" name="addPictureForm" id="addPictureForm" target="employeeImage"
 		 	onsubmit="return addPictureFormCheck();">
-				<table class="table">
-					<tr>
-						<th colspan="2">
-							<iframe name="employeeImage"></iframe>
-						</th>
-					</tr>
-					<tr>
-						<th>파일</th>
-						<td>
-						<input class="form-control input-sm" type="file" name="file" required="required">
-						<input type="hidden" name="name" value="${employee_id}">
-						<input type="hidden" name="pwd" value="1">
-						<input type="hidden" name="title" value="1">
-						<input type="hidden" name="content" value="1">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<div class="btn-group btn-group-default">
-								<input class="btn btn-primary btn-sm" type="submit" value="작성">
-								<input class="btn btn-default btn-sm"  type="reset" value="취소">
-								<input class="btn btn-default btn-sm"  type="button" value="닫기" id="page16321_btn01">
-							</div>
-						</td>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th colspan="2">
+								<iframe name="employeeImage"></iframe>
+							</th>
+						</tr>
+						<tr>
+							<th>파일</th>
+							<td>
+							<input class="form-control input-sm" type="file" name="file" required="required">
+							<input type="hidden" name="name" value="${employee_id}">
+							<input type="hidden" name="pwd" value="1">
+							<input type="hidden" name="title" value="1">
+							<input type="hidden" name="content" value="1">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<div class="btn-group btn-group-default">
+									<input class="btn btn-primary btn-sm" type="submit" value="작성">
+									<input class="btn btn-default btn-sm"  type="reset" value="취소">
+									<input class="btn btn-default btn-sm"  type="button" value="닫기" id="page16321_btn01">
+								</div>
+							</td>
+						</tr>
+					</table>				
+				</div>
 			</form>
 		</div>
 	</div>

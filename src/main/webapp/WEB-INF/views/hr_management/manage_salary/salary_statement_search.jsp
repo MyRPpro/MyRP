@@ -42,51 +42,53 @@
 			</h3>
 		</div>
 		<div class="panel-body" id="page16531_div01">
-			<c:if test="${cnt == 0}">
-				<table class="table">
-					<tr>
-						<th>새로 승인완료된 전표가 없습니다.</th>
-					</tr>
-					<tr>
-						<td>
-							<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16531_btn01">			
-						</td>
-					</tr>
-				</table>
-			</c:if>
-			<c:if test="${cnt != 0}">
-				<table class="table">
-					<tr>
-						<th>급여대장 번호</th>
-						<th>계정</th>
-						<th>등록일</th>
-						<th>급여대장명</th>
-						<th>지급일</th>
-						<th>총 지급액</th>
-						<th>총 지급인원</th>
-						<th>급여상태</th>
-						<th></th>
-					</tr>
-					<c:forEach var="vo" items="${vos}">
+			<div class="table-responsive">
+				<c:if test="${cnt == 0}">
+					<table class="table">
 						<tr>
-							<td>${vo.salary_register_id}</td>
-							<td>${vo.account_id}</td>
-							<td>${vo.reg_date}</td>
-							<td>${vo.salary_register_name}</td>
-							<td>${vo.pay_date}</td>
-							<td><fmt:formatNumber value="${vo.total_pay}" type="number"/></td>
-							<td>${vo.total_employee}</td>
-							<td>${vo.salary_state_name}</td>
-							<td></td>
+							<th>새로 승인완료된 전표가 없습니다.</th>
 						</tr>
-					</c:forEach>
-					<tr>
-						<td colspan="8">
-							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16513_btn02">			
-						</td>
-					</tr>
-				</table>
-			</c:if>
+						<tr>
+							<td>
+								<input class="btn btn-default btn-xs" type="button" value="닫기" id="page16531_btn01">			
+							</td>
+						</tr>
+					</table>
+				</c:if>
+				<c:if test="${cnt != 0}">
+					<table class="table">
+						<tr>
+							<th>급여대장 번호</th>
+							<th>계정</th>
+							<th>등록일</th>
+							<th>급여대장명</th>
+							<th>지급일</th>
+							<th>총 지급액</th>
+							<th>총 지급인원</th>
+							<th>급여상태</th>
+							<th></th>
+						</tr>
+						<c:forEach var="vo" items="${vos}">
+							<tr>
+								<td>${vo.salary_register_id}</td>
+								<td>${vo.account_id}</td>
+								<td>${vo.reg_date}</td>
+								<td>${vo.salary_register_name}</td>
+								<td>${vo.pay_date}</td>
+								<td><fmt:formatNumber value="${vo.total_pay}" type="number"/></td>
+								<td>${vo.total_employee}</td>
+								<td>${vo.salary_state_name}</td>
+								<td></td>
+							</tr>
+						</c:forEach>
+						<tr>
+							<td colspan="8">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16513_btn02">			
+							</td>
+						</tr>
+					</table>
+				</c:if>
+			</div>
 		</div>
 	</div>
 </body>

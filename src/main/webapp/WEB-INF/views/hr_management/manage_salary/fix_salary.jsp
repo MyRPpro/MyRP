@@ -65,63 +65,65 @@
 			</h3>
 		</div>
 		<div class="panel-body" id="page16550_div01">
-			<table class="table">
-				<tr>
-					<th>급여대장 번호</th>
-					<th>급여대장명</th>
-					<th>등록일</th>
-					<th>지급일</th>
-					<th>총 지급액</th>
-					<th>총 지급인원</th>
-					<th>급여상태</th>
-					<th>확정여부</th>
-				</tr>
-				<tr>
-					<td>${salary_registerVo.salary_register_id}</td>
-					<td>${salary_registerVo.salary_register_name}</td>
-					<td>${salary_registerVo.reg_date}</td>
-					<td>${salary_registerVo.pay_date}</td>
-					<td><fmt:formatNumber value="${salary_registerVo.total_pay}" type="number"/></td>
-					<td>${salary_registerVo.total_employee}</td>
-					<td>${salary_registerVo.salary_state_name}</td>
-					<td>
-						<c:if test="${salary_registerVo.salary_state == 26450}">
-							<input class="form-control btn-info input-sm" type="button" value="미확정" id="page16550_btn01">						
-						</c:if>
-						<c:if test="${salary_registerVo.salary_state != 26450}">
-							<input class="form-control input-sm btn-success" type="button" value="확정">
-						</c:if>
-					</td>
-				</tr>
-			</table>
-			<table class="table">
-				<tr>
-					<th>부서명</th>
-					<th>사원번호</th>
-					<th>사원명</th>
-					<th>기본급</th>
-					<th>상여금</th>
-					<th>수당</th>
-					<th>경비</th>
-					<th>지급액</th>
-					<th>공제금액</th>
-					<th>수령액</th>
-				</tr>
-				<c:forEach var="dto" items="${salaryDtos}">
-				<tr>
-					<th>${dto.dept_name}</th>
-					<th>${dto.employee_id}</th>
-					<th>${dto.employee_name}</th>
-					<th><fmt:formatNumber value="${dto.base_pay}" type="number"/></th>
-					<th><fmt:formatNumber value="${dto.bonus}" type="number"/></th>
-					<th><fmt:formatNumber value="${dto.benefit}" type="number"/></th>
-					<th><fmt:formatNumber value="${dto.cost}" type="number"/></th>
-					<th><fmt:formatNumber value="${dto.pay}" type="number"/></th>
-					<th><fmt:formatNumber value="${dto.deduction_cost}" type="number"/></th>
-					<th><fmt:formatNumber value="${dto.takehome_pay}" type="number"/></th>
-				</tr>
-				</c:forEach>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>급여대장 번호</th>
+						<th>급여대장명</th>
+						<th>등록일</th>
+						<th>지급일</th>
+						<th>총 지급액</th>
+						<th>총 지급인원</th>
+						<th>급여상태</th>
+						<th>확정여부</th>
+					</tr>
+					<tr>
+						<td>${salary_registerVo.salary_register_id}</td>
+						<td>${salary_registerVo.salary_register_name}</td>
+						<td>${salary_registerVo.reg_date}</td>
+						<td>${salary_registerVo.pay_date}</td>
+						<td><fmt:formatNumber value="${salary_registerVo.total_pay}" type="number"/></td>
+						<td>${salary_registerVo.total_employee}</td>
+						<td>${salary_registerVo.salary_state_name}</td>
+						<td>
+							<c:if test="${salary_registerVo.salary_state == 26450}">
+								<input class="form-control btn-info input-sm" type="button" value="미확정" id="page16550_btn01">						
+							</c:if>
+							<c:if test="${salary_registerVo.salary_state != 26450}">
+								<input class="form-control input-sm btn-success" type="button" value="확정">
+							</c:if>
+						</td>
+					</tr>
+				</table>
+				<table class="table">
+					<tr>
+						<th>부서명</th>
+						<th>사원번호</th>
+						<th>사원명</th>
+						<th>기본급</th>
+						<th>상여금</th>
+						<th>수당</th>
+						<th>경비</th>
+						<th>지급액</th>
+						<th>공제금액</th>
+						<th>수령액</th>
+					</tr>
+					<c:forEach var="dto" items="${salaryDtos}">
+					<tr>
+						<th>${dto.dept_name}</th>
+						<th>${dto.employee_id}</th>
+						<th>${dto.employee_name}</th>
+						<th><fmt:formatNumber value="${dto.base_pay}" type="number"/></th>
+						<th><fmt:formatNumber value="${dto.bonus}" type="number"/></th>
+						<th><fmt:formatNumber value="${dto.benefit}" type="number"/></th>
+						<th><fmt:formatNumber value="${dto.cost}" type="number"/></th>
+						<th><fmt:formatNumber value="${dto.pay}" type="number"/></th>
+						<th><fmt:formatNumber value="${dto.deduction_cost}" type="number"/></th>
+						<th><fmt:formatNumber value="${dto.takehome_pay}" type="number"/></th>
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 		<div class="page16550_div02"></div>
 	</div>

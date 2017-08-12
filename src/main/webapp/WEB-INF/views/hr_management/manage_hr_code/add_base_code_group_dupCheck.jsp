@@ -48,46 +48,50 @@
 		<div class="panel-body" id="page16121_div01">
 			<c:if test="${cnt == 0}">
 				<form action="#" name="page16120_form02">
-					<table class="table">
-						<tr>
-							<th>선택하신 [${hr_code_group_id}]는 사용가능합니다.</th>
-						</tr>
-						<tr>
-							<td>
-								<input type="hidden" name="hr_code_group_id"
-								value="${hr_code_group_id}">
-								<input class="btn btn-default btn-sm" type="submit" value="확인">
-							</td>
-						</tr>
-					</table>
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th>선택하신 [${hr_code_group_id}]는 사용가능합니다.</th>
+							</tr>
+							<tr>
+								<td>
+									<input type="hidden" name="hr_code_group_id"
+									value="${hr_code_group_id}">
+									<input class="btn btn-default btn-sm" type="submit" value="확인">
+								</td>
+							</tr>
+						</table>					
+					</div>
 				</form>
 			</c:if>
 			<c:if test="${cnt == 1}">
 				<form action="#" name="page16120_form03">
-					<table class="table">
-						<tr>
-							<th colspan="2">
-								선택하신 [${hr_code_group_id}]는 이미 존재합니다.<br>
-								새로운 인사코드를 선택하세요.
-							</th>
-						</tr>
-						<tr>
-							<th>인사코드 그룹번호</th>
-							<td>
-								<input class="form-control input-sm" type="number" name="hr_code_group_id"
-								min="1" max="9" step="1" required autofocus>
-							</td>
-						</tr>
-						<tr>
-							<th colspan="2">
-								<div class="btn-group btn-group-default">
-									<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
-									<input class="btn btn-default btn-sm" type="reset" value="재작성">
-									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16121_btn01">								
-								</div>
-							</th>
-						</tr>
-					</table>
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th colspan="2">
+									선택하신 [${hr_code_group_id}]는 이미 존재합니다.<br>
+									새로운 인사코드를 선택하세요.
+								</th>
+							</tr>
+							<tr>
+								<th>인사코드 그룹번호</th>
+								<td>
+									<input class="form-control input-sm" type="number" name="hr_code_group_id"
+									min="1" max="9" step="1" required autofocus>
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<div class="btn-group btn-group-default">
+										<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
+										<input class="btn btn-default btn-sm" type="reset" value="재작성">
+										<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16121_btn01">								
+									</div>
+								</th>
+							</tr>
+						</table>					
+					</div>
 				</form>
 			</c:if>		
 		</div>

@@ -54,48 +54,52 @@
 		<div class="panel-body" id="page16151_div01">
 			<c:if test="${cnt == 0}">
 				<form action="#" name="page16151_form01">
-					<table class="table">
-						<tr>
-							<th>선택하신 [${hr_code_id}]는 사용가능합니다.</th>
-						</tr>
-						<tr>
-							<th>
-								<input type="hidden" name="hr_code_group_id" value="${hr_code_group_id}">
-								<input type="hidden" name="hr_code_id" value="${hr_code_id}">
-								<input class="btn btn-default btn-sm" type="submit" value="확인">
-							</th>
-						</tr>
-					</table>
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th>선택하신 [${hr_code_id}]는 사용가능합니다.</th>
+							</tr>
+							<tr>
+								<th>
+									<input type="hidden" name="hr_code_group_id" value="${hr_code_group_id}">
+									<input type="hidden" name="hr_code_id" value="${hr_code_id}">
+									<input class="btn btn-default btn-sm" type="submit" value="확인">
+								</th>
+							</tr>
+						</table>					
+					</div>
 				</form>
 			</c:if>
 			<c:if test="${cnt == 1}">
 				<form action="#" name="page16151_form02">
-					<table class="table">
-						<tr>
-							<th colspan="2">
-								선택하신 [${hr_code_id}]는 이미 존재합니다.<br>
-								새로운 인사코드를 선택하세요.
-							</th>
-						</tr>
-						<tr>
-							<th>인사코드 번호</th>
-							<td>
-								<input type="hidden" name="hr_code_group_id"
-								value="${hr_code_group_id}">
-								<input  class="form-control input-sm" type="number" name="hr_code_id"
-								min="1" max="999" step="1" required>
-							</td>
-						</tr>
-						<tr>
-							<th colspan="2">
-								<div class="btn-group btn-group-default">
-									<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
-									<input class="btn btn-default btn-sm" type="reset" value="재작성">
-									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16151_btn01">								
-								</div>
-							</th>
-						</tr>
-					</table>
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th colspan="2">
+									선택하신 [${hr_code_id}]는 이미 존재합니다.<br>
+									새로운 인사코드를 선택하세요.
+								</th>
+							</tr>
+							<tr>
+								<th>인사코드 번호</th>
+								<td>
+									<input type="hidden" name="hr_code_group_id"
+									value="${hr_code_group_id}">
+									<input  class="form-control input-sm" type="number" name="hr_code_id"
+									min="1" max="999" step="1" required>
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<div class="btn-group btn-group-default">
+										<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
+										<input class="btn btn-default btn-sm" type="reset" value="재작성">
+										<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16151_btn01">								
+									</div>
+								</th>
+							</tr>
+						</table>				
+					</div>
 				</form>
 			</c:if>		
 		</div>	

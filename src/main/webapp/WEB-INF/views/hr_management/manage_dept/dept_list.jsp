@@ -73,31 +73,33 @@
 					</ul>
 				</div>
 			</c:if>
-			<table class="table">
-				<tr>
-					<th>부서번호</th>
-					<th>부서명</th>
-					<th>접근권한</th>
-					<th>사용 상태</th>
-				</tr>
-				<c:forEach var="vo" items="${deptVos}">
-				<tr>
-					<td>${vo.dept_id}</td>
-					<td>
-						<a href="/hr_management/manage_dept/modify_dept?dept_id=${vo.dept_id}">
-							${vo.dept_name}
-						</a>
-					</td>
-					<td>${vo.access_role}</td>
-					<td>${vo.use_state}</td>
-				</tr>
-				</c:forEach>
-				<tr>
-					<td colspan="4">
-						<input class="btn btn-default btn-sm" type="button" value="부서 등록" id="page16210_btn01">
-					</td>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>부서번호</th>
+						<th>부서명</th>
+						<th>접근권한</th>
+						<th>사용 상태</th>
+					</tr>
+					<c:forEach var="vo" items="${deptVos}">
+					<tr>
+						<td>${vo.dept_id}</td>
+						<td>
+							<a href="/hr_management/manage_dept/modify_dept?dept_id=${vo.dept_id}">
+								${vo.dept_name}
+							</a>
+						</td>
+						<td>${vo.access_role}</td>
+						<td>${vo.use_state}</td>
+					</tr>
+					</c:forEach>
+					<tr>
+						<td colspan="4">
+							<input class="btn btn-default btn-sm" type="button" value="부서 등록" id="page16210_btn01">
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div class="panel-body" id="page16210_div02"></div>
 	</div>

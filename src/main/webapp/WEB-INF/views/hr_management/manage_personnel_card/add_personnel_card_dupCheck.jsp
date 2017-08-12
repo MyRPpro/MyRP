@@ -57,46 +57,50 @@
 		<div class="panel-body" id="page16323_div01">
 			<c:if test="${cnt == 0}">
 				<form action="#" name="page16323_form01">
-					<table class="table">
-						<tr>
-							<th>선택하신 [${employee_id}]는 사용가능합니다.</th>
-						</tr>
-						<tr>
-							<th>
-								<input type="hidden" name="employee_id" value="${employee_id}">
-								<input class="btn btn-default btn-sm" type="submit" value="확인">
-							</th>
-						</tr>
-					</table>
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th>선택하신 [${employee_id}]는 사용가능합니다.</th>
+							</tr>
+							<tr>
+								<th>
+									<input type="hidden" name="employee_id" value="${employee_id}">
+									<input class="btn btn-default btn-sm" type="submit" value="확인">
+								</th>
+							</tr>
+						</table>					
+					</div>
 				</form>
 			</c:if>
 			<c:if test="${cnt == 1}">
 				<form action="/hr_management/manage_personnel_card/add_personnel_card_dupCheck" name="page16323_form02">
-					<table class="table">
-						<tr>
-							<th colspan="2">
-								선택하신 [${employee_id}]는<br>
-								[${dup_employee_name}]에 사용중입니다.<br>
-								새로운 부서번호를 선택하세요.
-							</th>
-						</tr>
-						<tr>
-							<th>부서번호</th>
-							<td>
-								<input class="form-control input-sm" type="number" name="employee_id" 
-								min="1" max="9999" step="1" required>
-							</td>
-						</tr>
-						<tr>
-							<th colspan="2">
-								<div class="btn-group btn-group-default">
-									<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
-									<input class="btn btn-default btn-sm" type="reset" value="재작성">
-									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16323_btn01">
-								</div>
-							</th>
-						</tr>
-					</table>
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th colspan="2">
+									선택하신 [${employee_id}]는<br>
+									[${dup_employee_name}]에 사용중입니다.<br>
+									새로운 부서번호를 선택하세요.
+								</th>
+							</tr>
+							<tr>
+								<th>부서번호</th>
+								<td>
+									<input class="form-control input-sm" type="number" name="employee_id" 
+									min="1" max="9999" step="1" required>
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<div class="btn-group btn-group-default">
+										<input class="btn btn-primary btn-sm" type="submit" value="중복확인">
+										<input class="btn btn-default btn-sm" type="reset" value="재작성">
+										<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16323_btn01">
+									</div>
+								</th>
+							</tr>
+						</table>					
+					</div>
 				</form>
 			</c:if>
 		</div>

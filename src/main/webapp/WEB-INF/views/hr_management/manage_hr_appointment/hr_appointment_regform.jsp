@@ -75,81 +75,83 @@
 	</div>
 	<div class="panel-body" id="page16621_div01">
 		<form action="#" name="page16621_form01">
-			<table class="table">
-				<tr>
-					<th>사원번호</th>
-					<td><input class="form-control input-sm" type="text" name="employee_id"
-					value="${employeeVo.employee_id}" readonly></td>
-				</tr>
-				<tr>
-					<th>사원명</th>
-					<td><input class="form-control input-sm" type="text" name="employee_name"
-					value="${employeeVo.employee_name}" readonly></td>
-				</tr>
-				<tr>
-					<th>발령일＊</th>
-					<td>
-						<input class="form-control input-sm" type="date" name="appointment_date"
-						value="<fmt:formatDate value='${appointment_date}' pattern='yyyy-MM-dd'/>"
-						required>
-					</td>
-				</tr>
-				<tr>
-					<th>이전직급명</th>
-					<td>
-						<input type="hidden" name="hr_code_group_rank"
-						value="2">
-						<input type="hidden" name="pre_rank" 
-						value="${hr_code_id}">
-						<input class="form-control input-sm" type="text" name="pre_rank_name"
-						value="${rank_name}" readonly>
-					</td>
-				</tr>
-				<tr>
-					<th>발령직급명＊</th>
-					<td>
-						<select class="form-control input-sm" name="post_rank">
-							<option value=0>발령 직급 선택</option>
-							<c:forEach var="vo" items="${hr_codeVos}">
-								<option value="${vo.hr_code_id}">
-									${vo.hr_code_name}
-								</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>이전부서명</th>
-					<td>
-						<input type="hidden" name="pre_dept" 
-						value="${dept_id}">
-						<input class="form-control input-sm" type="text" name="pre_dept_name"
-						value="${dept_name}" readonly>
-					</td>
-				</tr>
-				<tr>
-					<th>발령부서명＊</th>
-					<td>
-						<select class="form-control input-sm" name="post_dept">
-							<option value=0>발령 부서 선택</option>
-							<c:forEach var="vo" items="${deptVos}">
-								<option value="${vo.dept_id}">
-									${vo.dept_name}
-								</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th colspan="2">
-						<div class="btn-group btn-group-default">
-							<input class="btn btn-primary btn-sm" type="submit" value="발령하기">
-							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16621_btn01">						
-						</div>
-					</th>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>사원번호</th>
+						<td><input class="form-control input-sm" type="text" name="employee_id"
+						value="${employeeVo.employee_id}" readonly></td>
+					</tr>
+					<tr>
+						<th>사원명</th>
+						<td><input class="form-control input-sm" type="text" name="employee_name"
+						value="${employeeVo.employee_name}" readonly></td>
+					</tr>
+					<tr>
+						<th>발령일＊</th>
+						<td>
+							<input class="form-control input-sm" type="date" name="appointment_date"
+							value="<fmt:formatDate value='${appointment_date}' pattern='yyyy-MM-dd'/>"
+							required>
+						</td>
+					</tr>
+					<tr>
+						<th>이전직급명</th>
+						<td>
+							<input type="hidden" name="hr_code_group_rank"
+							value="2">
+							<input type="hidden" name="pre_rank" 
+							value="${hr_code_id}">
+							<input class="form-control input-sm" type="text" name="pre_rank_name"
+							value="${rank_name}" readonly>
+						</td>
+					</tr>
+					<tr>
+						<th>발령직급명＊</th>
+						<td>
+							<select class="form-control input-sm" name="post_rank">
+								<option value=0>발령 직급 선택</option>
+								<c:forEach var="vo" items="${hr_codeVos}">
+									<option value="${vo.hr_code_id}">
+										${vo.hr_code_name}
+									</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>이전부서명</th>
+						<td>
+							<input type="hidden" name="pre_dept" 
+							value="${dept_id}">
+							<input class="form-control input-sm" type="text" name="pre_dept_name"
+							value="${dept_name}" readonly>
+						</td>
+					</tr>
+					<tr>
+						<th>발령부서명＊</th>
+						<td>
+							<select class="form-control input-sm" name="post_dept">
+								<option value=0>발령 부서 선택</option>
+								<c:forEach var="vo" items="${deptVos}">
+									<option value="${vo.dept_id}">
+										${vo.dept_name}
+									</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-primary btn-sm" type="submit" value="발령하기">
+								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16621_btn01">						
+							</div>
+						</th>
+					</tr>
+				</table>			
+			</div>
 		</form>
 	</div>
 	<div id="page16621_div02"></div>

@@ -62,52 +62,55 @@
 		<div class="panel-body" id="page16140_div01">
 			<div id="page16140_div02"></div>
 			<c:if test="${hr_code_groupVo.use_state == 'Y'}">
-				<table class="table">
-					<tr>
-						<th colspan="5">${hr_code_groupVo.hr_code_group_name}</th>
-					</tr>
-					<tr>
-						<th>인사코드 그룹번호</th>
-						<th>인사코드 번호</th>
-						<th>인사코드 명</th>
-						<th>사용 상태</th>
-					</tr>
-					<c:forEach var="vo" items="${hr_codeVos}">
-					<tr>
-						<td>${vo.hr_code_group_id}</td>
-						<td>${vo.hr_code_id}</td>
-						<td>
-							<a href="/hr_management/manage_hr_code/modify_base_code?hr_code_id=${vo.hr_code_id}&hr_code_group_id=${vo.hr_code_group_id}">
-								${vo.hr_code_name}
-							</a>
-						</td>
-						<td>${vo.use_state}</td>
-					</c:forEach>
-					<tr>
-						<td colspan="4">
-							<form action="/hr_management/manage_hr_code/add_base_code" name="page16140_form01">
-								<input type="hidden" name="hr_code_group_id" value="${hr_code_groupVo.hr_code_group_id}">
-								<div class="btn-group btn-group-default">
-									<input class="btn btn-primary btn-sm" type="submit" value="인사코드  등록">
-									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
-								</div>								
-							</form>
-						</td>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th colspan="5">${hr_code_groupVo.hr_code_group_name}</th>
+						</tr>
+						<tr>
+							<th>인사코드 그룹번호</th>
+							<th>인사코드 번호</th>
+							<th>인사코드 명</th>
+							<th>사용 상태</th>
+						</tr>
+						<c:forEach var="vo" items="${hr_codeVos}">
+						<tr>
+							<td>${vo.hr_code_group_id}</td>
+							<td>${vo.hr_code_id}</td>
+							<td>
+								<a href="/hr_management/manage_hr_code/modify_base_code?hr_code_id=${vo.hr_code_id}&hr_code_group_id=${vo.hr_code_group_id}">
+									${vo.hr_code_name}
+								</a>
+							</td>
+							<td>${vo.use_state}</td>
+						</c:forEach>
+						<tr>
+							<td colspan="4">
+								<form action="/hr_management/manage_hr_code/add_base_code" name="page16140_form01">
+									<input type="hidden" name="hr_code_group_id" value="${hr_code_groupVo.hr_code_group_id}">
+									<div class="btn-group btn-group-default">
+										<input class="btn btn-primary btn-sm" type="submit" value="인사코드  등록">
+										<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
+									</div>								
+								</form>
+							</td>
+						</tr>
+					</table>			
+				</div>
 			</c:if>
 			<c:if test="${hr_code_groupVo.use_state == 'N'}">
-				<table class="table">
-					<tr>
-						<th>${hr_code_groupVo.hr_code_group_name} 는 비사용 상태입니다.</th>
-					</tr>
-					<tr>
-						<td>
-							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
-						</td>
-					</tr>
-				</table>
-
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th>${hr_code_groupVo.hr_code_group_name} 는 비사용 상태입니다.</th>
+						</tr>
+						<tr>
+							<td>
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16140_btn01">
+							</td>
+						</tr>
+					</table>				
+				</div>
 			</c:if>
 		</div>
 		<div id="page16140_div03"></div>

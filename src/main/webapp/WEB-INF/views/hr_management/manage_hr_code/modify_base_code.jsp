@@ -35,55 +35,61 @@
 	
 </script>
 <body>
-	<div class="panel panel-default" id="page16160">
+	<div class="panel panel-primary" id="page16160">
 		<div class="panel-heading">
-			<a id="page16160_div01_toggle">[16160]modify_base_code.jsp</a>
+			<h3 class="panel-title">
+				<span class="glyphicon glyphicon-user"></span>
+				<a id="page16160_div01_toggle">인사코드 수정</a>
+			</h3>
+			
 		</div>
 		<div class="panel-body" id="page16160_div01">
 			<form action="#" name="page16160_form01">
-				<table class="table">
-					<tr>
-						<th>인사코드 그룹번호＊</th>
-						<td>
-							<input class="form-control input-sm" type="number" name="hr_code_group_id"
-							value="${hr_codeVo.hr_code_group_id}" readonly>
-						</td>
-					</tr>
-					<tr>
-						<th>인사코드 번호＊</th>
-						<td>
-							<input class="form-control input-sm" type="number" name="hr_code_id"
-							value="${hr_codeVo.hr_code_id}" readonly>
-						</td>
-					</tr>
-					<tr>
-					<tr>
-						<th>인사코드명＊</th>
-						<td>
-							<input class="form-control input-sm" type="text" name="hr_code_name"
-							value="${hr_codeVo.hr_code_name}" required>
-						</td>
-					</tr>
-					<tr>
-						<th>사용 상태＊</th>
-						<td>
-							<label for="used">사용</label>
-							<input type="radio" name="use_state" id="used" value="Y"
-							<c:if test="${hr_codeVo.use_state == 'Y'}">checked</c:if>>
-							<label for="unused">비사용</label>
-							<input type="radio" name="use_state" id="unused" value="N"
-							<c:if test="${hr_codeVo.use_state == 'N'}">checked</c:if>>
-						</td>
-					</tr>
-					<tr>
-						<th colspan="2">
-							<input class="btn btn-default btn-sm" type="submit" value="수정하기">
-							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-							<input class="btn btn-default btn-sm" type="button"
-							value="닫기" id="page16160_btn01">
-						</th>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th>인사코드 그룹번호＊</th>
+							<td>
+								<input class="form-control input-sm" type="number" name="hr_code_group_id"
+								value="${hr_codeVo.hr_code_group_id}" readonly>
+							</td>
+						</tr>
+						<tr>
+							<th>인사코드 번호＊</th>
+							<td>
+								<input class="form-control input-sm" type="number" name="hr_code_id"
+								value="${hr_codeVo.hr_code_id}" readonly>
+							</td>
+						</tr>
+						<tr>
+						<tr>
+							<th>인사코드명＊</th>
+							<td>
+								<input class="form-control input-sm" type="text" name="hr_code_name"
+								value="${hr_codeVo.hr_code_name}" required>
+							</td>
+						</tr>
+						<tr>
+							<th>사용 상태＊</th>
+							<td>
+								<label for="used">사용</label>
+								<input type="radio" name="use_state" id="used" value="Y"
+								<c:if test="${hr_codeVo.use_state == 'Y'}">checked</c:if>>
+								<label for="unused">비사용</label>
+								<input type="radio" name="use_state" id="unused" value="N"
+								<c:if test="${hr_codeVo.use_state == 'N'}">checked</c:if>>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2">
+								<input class="btn btn-primary btn-sm" type="submit" value="수정하기">
+								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+								<input class="btn btn-default btn-sm" type="button"
+								value="닫기" id="page16160_btn01">
+							</th>
+						</tr>
+					</table>				
+				</div>
 			</form>
 		</div>
 	</div>

@@ -8,31 +8,33 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table class="table">
-	<tr>
-		<th colspan="12" style="width:100px; height:130px;">
-			<img alt="사진 이미지" src="/resources/images/picture_employee/${pic_uid}"
-			width="100" height="125">
-		</th>
-	</tr>
-	<tr>
-		<th>사원번호</th>
-		<th>사원명</th>
-		<th>부서명</th>
-		<th>직급</th>
-		<th>입사일</th>
-		<th>퇴직일</th>
-		<th>퇴직사유</th>
-	</tr>
-	<tr>
-		<td>${dto.employee_id}</td>
-		<td>${dto.employee_name}</td>
-		<td>${dto.dept_name}</td>
-		<td>${dto.hr_code_name}</td>
-		<td>${dto.join_date}</td>
-		<td>${dto.retired_date}</td>
-		<td>${dto.retired_reason}</td>
-	</tr>
-</table>
+<div class="table-responsive">
+	<table class="table">
+		<tr>
+			<th colspan="12" style="width:100px; height:130px;">
+				<img alt="사진 이미지" src="/resources/images/picture_employee/${pic_uid}"
+				width="100" height="125">
+			</th>
+		</tr>
+		<tr>
+			<th>사원번호</th>
+			<th>사원명</th>
+			<th>부서명</th>
+			<th>직급</th>
+			<th>입사일</th>
+			<th>퇴직일</th>
+			<th>퇴직사유</th>
+		</tr>
+		<tr>
+			<td>${dto.employee_id}</td>
+			<td>${dto.employee_name}</td>
+			<td>${dto.dept_name}</td>
+			<td>${dto.hr_code_name}</td>
+			<td>${dto.join_date}</td>
+			<td>${dto.retired_date}</td>
+			<td>${dto.retired_reason}</td>
+		</tr>
+	</table>
+</div>
 </body>
 </html>
