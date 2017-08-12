@@ -15,4 +15,18 @@
 		]]>
 	</select>
 
+	<!-- 퇴사자 정보 확인 -->
+	<select id="select_retired_employee" parameterType="int"
+	resultType="Retired_EmployeeDTO">
+		<![CDATA[
+		SELECT	E.employee_id, E.employee_name, E.dept_id,
+				E.hr_code_group_rank, E.rank_code, 
+				E.join_date, RE.retired_date, RE.retired_reason
+		FROM	retired_employee RE , employee E
+		WHERE	RE.employee_id = E.employee_id
+		AND		E.employee_id = #{employee_id}
+		ORDER BY RE.retired_date DESC
+		]]>
+	</select>
+
 </mapper>

@@ -38,7 +38,11 @@ public class UserServiceImpl implements UserService, MyRPInterceptor {
 		daoMap.put("employee_id", employee_id);
 		
 		UserVO vo = dao.login(daoMap);
-		if(vo != null) model.addAttribute("userVO", vo);
+		if(vo != null) {
+			if(dao.select_retired_employee(employee_id) == null) {
+				model.addAttribute("userVO", vo);				
+			}
+		}
 	}
 
 	@Override
