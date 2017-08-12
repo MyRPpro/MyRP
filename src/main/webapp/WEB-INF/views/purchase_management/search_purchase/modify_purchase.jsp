@@ -8,16 +8,17 @@
 
 	<div class="row" id="row">
 		<div class="col-xs-12">
-			<div class="panel panel-primary">
-				<div class="panel-heading" id="modify_purchase_heading">
+			<div class="panel panel-primary" id="page3130_panel">
+				<div class="panel-heading">
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-shopping-cart"></span> &emsp;
-						구매번호" ${dtos.get(0).purchase_id}"의 상세 정보 입니다. 
+						<a id="page3130_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;
+							구매번호" ${dtos.get(0).purchase_id}"의 상세 정보 입니다. 
+						</a>
 					</h3>
 				</div>	<!--  // panel-heading -->
-				<div class="panel-body">
+				<div class="panel-body" id="page3130_div01" >
 					<div class="table-responsive">
-						<div class="form-group">
+						<div class="form-group" style="margin-bottom: 0px; padding-bottom: 0px; "  >
 							<form class="form-inline-block" action="#" onsubmit="return modify_purchase()" method="get" role="form" >
 								<table class="table table-condensed table-striped" id="modify_purchase_form2">
 									<tr>
@@ -222,20 +223,21 @@
 										</td>
 									</tr>
 								</table>
-								<br>
 								<input type="hidden" name="purchase_id" id="purchase_id" value="${dtos.get(0).purchase_id}">
-								<center>
-									<input type="button" name="btn_confirm" class="btn btn-primary" id="btn-confirm" value="확인" >
-									<input type=button name="btn_modify" class="btn btn-info"  id="btn_modify" value="수정하기" onclick="return modify_purchase();" >
-									<input type="button" name="reg_state" id="btn_reg_state" class="btn btn-info" value="회계전표 입력하기 " >
+								<br>
+								<div class="btn-group" align="center">
+									<span class="input-group-btn">
+										<input type="button" name="btn_confirm" class="btn btn-primary" id="btn_confirm" value="확인" >
+									<input type=button name="btn_modify" class="btn btn-default"  id="btn_modify" value="수정하기" onclick="return modify_purchase();" >
+									<input type="button" name="reg_state" id="btn_reg_state" class="btn btn-default" value="회계전표 입력하기 " >
 									<input type="reset" name="btn_reset" class="btn btn-default" value="재작성">
-								</center>
-								<div id="alert_pro">
+									</span>
 								</div>
 							</form>
 						</div>	<!-- // form-group -->
 					</div> <!-- // table-responsive -->
 				</div>	<!-- // panel-body -->
+				<div id="page3130_div02"></div>
 			</div>	<!-- // panel panel-primary -->
 		</div>	<!-- // col-xs-12 -->
 	</div>	<!-- // row -->
@@ -244,6 +246,14 @@
 
 	<script type="text/javascript">
 	
+		
+		$('#btn_confirm').click(function(){
+			$('#page3120_div01').slideDown();	// 테이블 본문
+			$('#page3110_page').slideDown();	// 페이징
+			$('#page3130_panel').slideUp();		// 세부페이지 본문
+			return false;
+		});
+		
 		$('#btn_reg_state').click(function(){
 			$('#main_screen').load("/accounting_management/statement_management/search_statements");
 			return false;
@@ -293,18 +303,17 @@
 				return false;
 			}
 
-			$('#alert_pro').load(
-					'/purchase_management/search_purchase/modify_purchase_pro?product_id='
-							+ product_id.value + '&company_id='
-							+ company_id.value + '&employee_id='
-							+ employee_id.value + '&reg_date=' + reg_date.value
+			$('#page3130_div02').load(
+					'/purchase_management/search_purchase/modify_purchase_pro?product_id='+ product_id.value 
+							+ '&company_id='+ company_id.value 
+							+ '&employee_id='+ employee_id.value 
+							+ '&reg_date=' + reg_date.value
 							+ '&storage_in_date=' + storage_in_date.value
 							+ '&count_purchase=' + count_purchase.value
 							+ '&supply_price=' + supply_price.value
 							+ '&purchase_state=' + purchase_state.value
-							+ '&condition_note_payable='
-							+ condition_note_payable.value + '&purchase_id='
-							+ purchase_id.value);
+							+ '&condition_note_payable='+ condition_note_payable.value 
+							+ '&purchase_id='+ purchase_id.value);
 			return false;
 		};
 

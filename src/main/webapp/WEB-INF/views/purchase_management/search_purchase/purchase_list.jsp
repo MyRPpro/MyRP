@@ -19,38 +19,42 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="panel panel-primary">
-				<div class="panel-heading"  id="purchase_list_heading" >
+				<div class="panel-heading" >
 					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-shopping-cart"></span> &emsp;
-						구매 리스트 페이지 Purchase_List
+						<a id="page3110_div01_toggle"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;
+							<b>구매 리스트 페이지 </b>
+						</a>
 					</h3>
 				</div>	<!-- // panel-heading -->
-				<div class="panel-body" id="purchase_list_content"  >
+				<div class="panel-body" id="page3110_div01">
 					<div class="input-group" id="content" style="display: inline;">
 						<font class="media-heading" style="margin:0 auto;"> 입력된 구매 내역을 검색 할 수 있는 페이지 입니다.</font><br><br>
-							<form class="form-inline-block" action="#" name="purchase_list_form" method="get">
+							<form class="form-inline-block" action="#" name="purchase_list_form" method="get"  onsubmit="return search_list(1,1);" >
 								<div class="input-group">
-									<input type="text" class="form-control" name="input_search" id="search_str" placeholder="구매번호를 입력하세요">
-									<span class="input-group-btn">
-										<button class="btn btn-primary" id="list_btn_search" type="button" onclick="return search_list(1,1)"> 검색 </button>
-										<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="true" > 
-											 &nbsp; <span class="caret"></span> 
-										</button>
-										<ul class = "dropdown-menu" >
-						                    <li><a href = "javascript:search_list(1,5)">전표신청</a></li>	<!-- 23202 -->
-						                    <li><a href = "javascript:search_list(1,6)">전표승인</a></li>	<!-- 23203 -->
-						                    <li><a href = "javascript:search_list(1,7)">입고신청</a></li>	<!-- 23204 -->
-						                    <li><a href = "javascript:search_list(1,8)">입고완료</a></li>	<!-- 23205 -->
-						                    <li><a href = "javascript:search_list(1,9)">지급대기</a></li>	<!-- 23206 -->
-						                    <li><a href = "javascript:search_list(1,10)">지급완료</a></li>	<!-- 23207 -->
-						                    <li class="divider" role="separator"></li>	
-						                    <li><a href = "javascript:search_list(1,11)">부가세대급금</a></li>	<!-- 500011030000 -->
-						                    <li><a href = "javascript:search_list(1,12)">상품매입</a></li>	<!-- 500011050000 -->
-						                    <li><a href = "javascript:search_list(1,13)">매입채무</a></li>	<!-- 500012010000 -->
-						                </ul>
-									</span>
-								</div>
-					            <center>
+								
+									<div class="btn-group btn-group-justified" role="group" aria-label="...">
+										<div class="btn-group" role="group" style="width: 70%;">
+											<input type="text" class="form-control" name="input_search" id="search_str" placeholder="구매번호를 입력하세요">
+										</div>
+										<div class="btn-group" role="group" style="width: 15%;">
+											<button class="btn btn-primary" id="list_btn_search" type="submit"> 검색 </button>
+										</div>
+										<div class="btn-group" role="group" style="width: 15%;">
+											<select id="months" class="form-control form-control btn-default" style="height: 33px;" >                                              
+												<option value="00" > 옵션 </option>
+												<option value="01" > 전표신청 </option>
+												<option value="02" > 전표승인 </option>
+												<option value="03" > 입고신청 </option>
+												<option value="04" > 입고완료 </option>
+												<option value="05" > 지급대기 </option>
+												<option value="06" > 지급완료 </option>
+												<option> ------- </option>
+												<option value="07" > 부가세대급금 </option>
+												<option value="08" > 상품매입 </option>
+												<option value="09" > 매입채무 </option>
+											</select>
+										</div>
+									</div>
 					            
 					            <div class="btn-group btn-group-justified" role="group" aria-label="...">
 						            
@@ -79,48 +83,39 @@
 									</div>
 								
 								</div>
-								
-								
-								<div id="list_page"></div> 
-								</center>
-							</form>	
+							</div> <!-- // input-group -->
+						</form>	
+						
 					</div>	<!-- // input-group -->
 				</div>	<!-- // panel-body  -->  	
-				<div class="panel-body"  >
-				<div id="list_table"></div>
-				</div>	<!-- // panel-body -->
+				<div class="panel-body" id="page3110_page" style="padding-bottom: 0px;"></div> 
+				<div class="panel-body" id="page3110_table"></div>
 			</div> <!-- // panel panel-primary -->
 		</div> <!-- // col-xs-12 -->	 
 	</div>	<!-- // row -->
 		
-		
 	
 	<script>	
-	
 	$('#list_approval_pay').click(function list_approval_pay_table (){
 		var pagenum = 1;
-		$('#list_table').slideDown(500);
-		$('#list_page').slideUp(500);
-		$('#list_table').load('/purchase_management/search_purchase/list_approval_pay?pageNum='+pagenum);
+		$('#page3110_table').slideDown();
+		$('#page3110_page').slideUp();
+		$('#page3110_table').load('/purchase_management/search_purchase/list_approval_pay?pageNum='+pagenum);
 		return false;
-		
-		
 	});
 	
 	$('#list_complete_pay').click(function list_complete_pay_table(){
 		var pagenum = 1;
-		$('#list_table').slideDown(500);
-		$('#list_page').slideUp(500);
-		$('#list_table').load('/purchase_management/search_purchase/list_complete_pay?pageNum='+pagenum);
+		$('#page3110_table').slideDown();
+		$('#page3110_page').slideUp();
+		$('#page3110_table').load('/purchase_management/search_purchase/list_complete_pay?pageNum='+pagenum);
 		return false;
 	});
 	
-	$('#purchase_list_heading').bind("click",function(){  
-		$('#purchase_list_content').slideToggle();
+	$('#page3110_div01_toggle').bind("click",function(){  
+		$('#page3110_div01').slideToggle();
+		return false;
 	})
-	
-	$('.dropdown-toggle').dropdown()
-	
 	
 	function reg_purchase(){
 		$('#main_screen').load('/purchase_management/input_purchase/reg_purchase');
@@ -132,7 +127,6 @@
 		var pagenum = pagenum;
 		var search_str = null;
 		/* console.log(" pagenum :" + pagenum ); */
-		
 		
 		// 전체 검색
 		if ( check == 0 ){
@@ -158,44 +152,15 @@
 		}
 		
 		/* console.log(" search_str :" + search_str ); */
-		$('#list_table').slideDown(500);
-		$('#list_page').slideDown(500);
-		$('#list_page').load('/purchase_management/search_purchase/purchase_list_page?search_str='+search_str+'&pageNum='+pagenum);
-		$('#list_table').load('/purchase_management/search_purchase/purchase_list_table?search_str='+search_str+'&pageNum='+pagenum);
-		
+		$('#page3110_table').slideDown();
+		$('#page3110_page').slideDown();
+		$('#page3110_page').load('/purchase_management/search_purchase/purchase_list_page?search_str='+search_str+'&pageNum='+pagenum);
+		$('#page3110_table').load('/purchase_management/search_purchase/purchase_list_table?search_str='+search_str+'&pageNum='+pagenum);
 		return false;
 	}
 	
 	
-	
 </script>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	</script>
 	
 </body>
 </html>

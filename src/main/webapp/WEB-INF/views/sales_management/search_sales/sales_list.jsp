@@ -26,6 +26,8 @@
 						<font class="media-heading" style="margin:0 auto;"> 입력된 판매 내역을 검색 할 수 있는 페이지 입니다.</font><br><br>
 							<form class="form-inline-block" id="sales_list_form" action="#" name="purchase_list_form" method="get" onsubmit="return search_list(1,1);">
 								<div class="input-group" >
+								
+								
 									<div class="btn-group btn-group-justified" role="group" aria-label="...">
 										<div class="btn-group" role="group" style="width: 70%;">
 											<input type="text" class="form-control" name="input_search" id="search_str" placeholder="판매번호를 입력하세요">
@@ -47,8 +49,11 @@
 												<option value="08" > 상품매출 </option>
 												<option value="09" > 매출채권 </option>
 											</select>
+										
 										</div>
 									</div>
+									
+									
 									<div class="btn-group btn-group-justified" role="group" aria-label="...">
 										<div class="btn-group" role="group">
 											<button type="button" class="btn btn-primary" onclick="return search_list(1,0)">전체검색</button>

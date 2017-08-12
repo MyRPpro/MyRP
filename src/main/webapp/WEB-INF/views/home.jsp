@@ -128,7 +128,7 @@ function fn_login_form() {
 		                        <div class="list-group" style="margin-bottom: 0px;">
 		                           <a href="/purchase_management/search_purchase/purchase_list" class="list-group-item"> 구매검색</a>
 		                           <a href="/purchase_management/input_purchase/reg_purchase" class="list-group-item"> 구매입력</a>
-		                           <a href="/purchase_management/staus_purchase/search_status_purchase" class="list-group-item"> 구매현황</a>
+		                           <a href="/purchase_management/status_purchase/search_status_purchase" class="list-group-item"> 구매현황</a>
 		                        </div>
 		                     </div>
 		                  	</div>

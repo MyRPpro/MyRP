@@ -123,8 +123,8 @@
 	<script type="text/javascript">	
 	
 	$('#page2120_div01_toggle').click(function(){
-		$('#page2120_div01').slideToggle();
 		$('#page2110_div02').slideToggle();	// 페이징
+		$('#page2120_div01').slideToggle();
 		return false;
 	});
 	

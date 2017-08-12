@@ -171,7 +171,7 @@
 									<c:if test="${sales_state == 22223 and account_id == '500014030000'}">
 										<button type="button" class="btn btn-primary"  onclick="return req_receive();">채권회수요청</button>
 									</c:if>
-									<button type="button" class="btn btn-primary" id="page2140_dvi02"> 확인 </button>
+									<button type="button" class="btn btn-primary" id="page2140_confirm"> 확인 </button>
 								</span>
 							</div>
 						</div>	<!-- // form-group -->
@@ -205,12 +205,14 @@
 	
 	$('#page2140_dvi01_toggle').click(function(){
 		$('#page2140_dvi01').slideToggle();
+		return false;
 	});
 	
-	$('#page2140_dvi02').click(function(){	// 확인 버튼 클릭시
+	$('#page2140_confirm').click(function(){	// 확인 버튼 클릭시
 		$('#page2120_div01').slideDown();	// 테이블 본문
 		$('#page2110_div02').slideDown();	// 페이징
 		$('#page2140_panel').slideUp();
+		return false;
 		
 	});
 	

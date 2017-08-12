@@ -28,7 +28,7 @@
 	</c:if>
 	
 	
-	<div class="text-center">
+	<div class="text-center" id="page3160_page">
 		<ul class="pagination" style="margin:0 auto;">
 			<c:if test="${startPage > pageBlock}">
 				<li> <a href="javascript:list_complete_pay_table('1')">◀◀ </a> </li> <!-- 첫 페이지로 이동 -->
@@ -50,15 +50,17 @@
 	</div>
 	<br>
 	
-	<div class="panel panel-primary">
-		<div class="panel-heading" id="list_approval_pay_table_heading">
+	<div class="panel panel-primary" id="page3160_panel" >
+		<div class="panel-heading" >
 			<h3 class="panel-title">
-				<span class="glyphicon glyphicon-shopping-cart"></span> 
-				상환 완료 검색 목록 조회 &emsp; 검색개수 : 총 ${cnt}개 
+				<a id="page3160_div01_toggle">
+				<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp; 
+				상환 완료 검색 목록 조회,  검색개수 : 총 ${cnt}개 
+				</a>
 			</h3>
 		</div>	<!-- // panel-title -->
 		
-		<div class="panel-body" id="list_approval_pay_table_content">
+		<div class="panel-body" id="page3160_div01">
 			<div class="table-responsive">
 				<div class="form-group" >
 					<table class="table table-condensed table-striped">
@@ -91,15 +93,15 @@
 				</div>	<!-- // table-responsive -->
 			</div>	<!-- // form-group -->
 		</div>	<!-- // panel-body -->
-		<div >
-			<div id="list_dateil"></div>
-		</div>
 	</div>	<!-- // panel panel-primary -->
+	<div id="page3160_div02"></div>
 	
 	<script type="text/javascript">	
 	
-		$('#list_approval_pay_table_heading').click(function(){
-			$('#list_approval_pay_table_content').slideToggle();
+		$('#page3160_div01_toggle').click(function(){
+			$('#page3160_div01').slideToggle();
+			$('#page3160_page').slideToggle();
+			return false;
 		});
 		
 		function detail_page(param) {
@@ -108,13 +110,11 @@
 			var state = param[1];
 			
 			// purchase_list 접기
-			$('#list_approval_pay_content').slideUp();
-			 
-			// list_approval_pay_table 접기
-			$('#list_approval_pay_table_content').slideUp();
+			$('#page3160_div01').slideUp();
+			$('#page3160_page').slideUp();
 			
-			$('#list_dateil').slideDown(500);
-			$('#list_dateil').load(
+			$('#page3160_div02').slideDown(500);
+			$('#page3160_div02').load(
 					'/purchase_management/search_purchase/detail_purchase?purchase_id='
 							+ param[0] + '&purchase_state=' + param[1]
 							+ '&account_id=' + param[2] );
