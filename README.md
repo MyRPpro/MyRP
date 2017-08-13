@@ -17,6 +17,7 @@
 8. sequence_diagram<br>
 ***
 ### 프로젝트 소개 자료
+#### 웹페이지 : http://amaco78.iptime.org:8081
 #### 프리젠테이션
 1. MyRP 프로젝트 소개   : https://www.youtube.com/watch?v=ktt4grDeKyk&t=528s<br>
 2. MyRP 시뮬레이션 시연 : https://www.youtube.com/watch?v=fnsoywEs5tE&t=14s<br>
