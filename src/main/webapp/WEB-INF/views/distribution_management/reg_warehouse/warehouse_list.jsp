@@ -22,9 +22,9 @@ $(function(){
 			if(warehouse[i].value.substring(0,1) == 1){
 				nomal = nomal > warehouse[i].value ? nomal * 1 + 1 : warehouse[i].value * 1 + 1;
 			}else if(warehouse[i].value.substring(0,1) == 2){
-				bad = bad > warehouse[i].value ? bad * 1 + 1: warehouse[i].value * 1 + 1;
+				bad = bad > warehouse[i].value ? bad * 1 + 1 : warehouse[i].value * 1 + 1;
 			}else if(warehouse[i].value.substring(0,1) == 3){
-				wait = wait > warehouse[i].value ? wait * 1  + 1: warehouse[i].value * 1 + 1;
+				wait = wait > warehouse[i].value ? wait * 1  + 1 : warehouse[i].value * 1 + 1;
 			}
 		}
 		

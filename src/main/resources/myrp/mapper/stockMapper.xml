@@ -343,8 +343,8 @@
  		FROM	warehouse_information
  		<if test = "warehouse_id != null">
  		WHERE	warehouse_id = #{warehouse_id}
- 		ORDER BY warehouse_id
  		</if>
+ 		ORDER BY warehouse_id
  	</select>
  	
  	<insert id="insert_warehouse" parameterType="java.util.Map">
