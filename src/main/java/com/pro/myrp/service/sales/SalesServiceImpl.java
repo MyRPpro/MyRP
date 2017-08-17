@@ -716,7 +716,7 @@ public class SalesServiceImpl implements SalesService,CodeMyRP  {
 		
 		Map<String, Object> daoMap = new HashMap<>();
 		daoMap.put("sales_id", sales_id);
-		daoMap.put("account_id", "500011020000");	// 매입 채무
+		daoMap.put("account_id", "500011020000");	// 매출 채권
 		daoMap.put("before_state", 22214);
 		daoMap.put("after_state", 22411);
 		

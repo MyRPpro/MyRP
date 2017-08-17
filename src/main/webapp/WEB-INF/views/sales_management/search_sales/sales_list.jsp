@@ -137,6 +137,7 @@
 		else if (check == 0 )		search_str = "all";			// 1.전체 검색
 		else if (check == 2 )		search_str = "account";		// 2.전표승인신청
 		else if (check == 3 )		search_str = "account_c";	// 3.전표승인조회
+		else if (check == 4 )		search_str = "out";			// 4.상품출고신청
 		else if (check == 5 )		search_str = "out_c";		// 5.출고완료조회
 		else if (check == 7 )		search_str = "receive_c";	// 7.지급완료조회
 		

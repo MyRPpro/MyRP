@@ -243,6 +243,9 @@
 		$('#page3140_panel').slideUp();
 		$('#page3120_div01').slideDown();	// 테이블 본문
 		$('#page3110_div02').slideDown();	// 페이징
+		
+		$('#page3150_div02').slideUp();
+		$('#page3150_div01').slideDown();	// 테이블 본문
 		return false;
 	});
 	 
