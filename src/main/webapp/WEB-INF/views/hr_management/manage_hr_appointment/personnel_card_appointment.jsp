@@ -9,33 +9,35 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table class="table">
-	<tr>
-		<th colspan="12" style="width:100px; height:130px;">
-			<img alt="사진 이미지" src="/resources/images/picture_employee/${pic_uid}"
-			width="100" height="125">
-		</th>
-	</tr>
-	<tr>
-		<th>사원번호</th>
-		<th>사원명</th>
-		<th>발령일</th>
-		<th>이전직급명</th>
-		<th>발령직급명</th>
-		<th>이전부서명</th>
-		<th>발령부서명</th>
-	</tr>
-	<c:forEach var="dto" items="${dtos}">
-	<tr>
-		<td>${dto.employee_id}</td>
-		<td>${dto.employee_name}</td>
-		<td>${dto.appointment_date}</td>
-		<td>${dto.pre_rank_name}</td>
-		<td>${dto.post_rank_name}</td>
-		<td>${dto.pre_dept_name}</td>
-		<td>${dto.post_dept_name}</td>
-	</tr>
-	</c:forEach>
-</table>
+<div class="table-responsive">
+	<table class="table">
+		<tr>
+			<th colspan="12" style="width:100px; height:130px;">
+				<img alt="사진 이미지" src="/resources/images/picture_employee/${pic_uid}"
+				width="100" height="125">
+			</th>
+		</tr>
+		<tr>
+			<th>사원번호</th>
+			<th>사원명</th>
+			<th>발령일</th>
+			<th>이전직급명</th>
+			<th>발령직급명</th>
+			<th>이전부서명</th>
+			<th>발령부서명</th>
+		</tr>
+		<c:forEach var="dto" items="${dtos}">
+		<tr>
+			<td>${dto.employee_id}</td>
+			<td>${dto.employee_name}</td>
+			<td>${dto.appointment_date}</td>
+			<td>${dto.pre_rank_name}</td>
+			<td>${dto.post_rank_name}</td>
+			<td>${dto.pre_dept_name}</td>
+			<td>${dto.post_dept_name}</td>
+		</tr>
+		</c:forEach>
+	</table>
+</div>
 </body>
 </html>

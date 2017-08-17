@@ -86,96 +86,98 @@
 			</h3>
 		</div>
 		<div class="panel-body" id="page16540_div01">
-			<table class="table">
-				<tr>
-					<th>급여대장 번호</th>
-					<th>상여금 비율</th>
-					<th>야근수당 비율</th>
-					<th>주말근무수당 비율</th>
-					<th>급여 계산</th>
-				</tr>
-				<tr>
-					<td>${salary_register_id}</td>
-					<td>
-						<div class="input-group">
-							<span class="input-group-addon"><small>x</small></span>
-							<input class="form-control input-sm" type="number"
-							name="bonus_ratio" min="0" max="1" step="0.01" value="0">		
-						</div>
-					</td>
-					<td>
-						<div class="input-group">
-							<span class="input-group-addon"><small>x</small></span>
-							<input class="form-control input-sm" type="number"
-							name="night_overtime_ratio" min="1" max="2" step="0.01" value="1">		
-						</div>
-					</td>
-					<td>
-						<div class="input-group">
-							<span class="input-group-addon"><small>x</small></span>
-							<input class="form-control input-sm" type="number"
-							name="weekend_overtime_ratio" min="1" max="2" step="0.01" value="1">		
-						</div>
-					</td>
-					<td>
-						<input class="form-control btn-info input-sm" type="button" value="결과 보기" id="page16540_btn01">
-					</td>
-				</tr>
-			</table>
-			<table class="table">
-				<tr>
-					<th>부서</th>
-					<th>사원번호</th>
-					<th>사원명</th>
-					<th>기본 시간</th>
-					<th>야근 시간</th>
-					<th>주말 시간</th>
-					<th>확정</th>
-				</tr>
-				<c:forEach var="dto" items="${dtos}">
-				<tr>
-					<td>${dto.dept_name}</td>
-					<td>${dto.employee_id}</td>
-					<td>
-						<a href="/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${dto.employee_id}&select_tab=salary"">
-							${dto.employee_name}
-						</a>
-					</td>
-					<td>
-						<div class="input-group">
-							<input class="form-control input-sm" type="number"
-							name="base_worktime" min="0" max="240" step="1"
-							<c:if test="${dto.fixed}">readonly</c:if>>
-							<span class="input-group-addon"><small>hr</small></span>
-						</div>
-					</td>
-					<td>
-						<div class="input-group">
-							<input class="form-control input-sm" type="number"
-							name="night_overtime" min="0" max="240" step="1"
-							<c:if test="${dto.fixed}">readonly</c:if>>
-							<span class="input-group-addon"><small>hr</small></span>
-						</div>
-					</td>
-					<td>
-						<div class="input-group">
-							<input class="form-control input-sm" type="number"
-							name="weekend_overtime" min="0" max="240" step="1"
-							<c:if test="${dto.fixed}">readonly</c:if>>
-							<span class="input-group-addon"><small>hr</small></span>
-						</div>
-					</td>
-					<td>
-						<input type="hidden" name="salary_register_id" value="${salary_register_id}">
-						<input type="hidden" name="employee_id" value="${dto.employee_id}">
-				    	<input class="btn btn-sm 
-				    	<c:if test="${!dto.fixed}">btn-default btn_fix_salary</c:if>
-				    	<c:if test="${dto.fixed}">btn-success</c:if>
-				    	" type="button" value="확정">
-					</td>
-				</tr>
-				</c:forEach>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>급여대장 번호</th>
+						<th>상여금 비율</th>
+						<th>야근수당 비율</th>
+						<th>주말근무수당 비율</th>
+						<th>급여 계산</th>
+					</tr>
+					<tr>
+						<td>${salary_register_id}</td>
+						<td>
+							<div class="input-group">
+								<span class="input-group-addon"><small>x</small></span>
+								<input class="form-control input-sm" type="number"
+								name="bonus_ratio" min="0" max="1" step="0.01" value="0">		
+							</div>
+						</td>
+						<td>
+							<div class="input-group">
+								<span class="input-group-addon"><small>x</small></span>
+								<input class="form-control input-sm" type="number"
+								name="night_overtime_ratio" min="1" max="2" step="0.01" value="1">		
+							</div>
+						</td>
+						<td>
+							<div class="input-group">
+								<span class="input-group-addon"><small>x</small></span>
+								<input class="form-control input-sm" type="number"
+								name="weekend_overtime_ratio" min="1" max="2" step="0.01" value="1">		
+							</div>
+						</td>
+						<td>
+							<input class="form-control btn-info input-sm" type="button" value="결과 보기" id="page16540_btn01">
+						</td>
+					</tr>
+				</table>
+				<table class="table">
+					<tr>
+						<th>부서</th>
+						<th>사원번호</th>
+						<th>사원명</th>
+						<th>기본 시간</th>
+						<th>야근 시간</th>
+						<th>주말 시간</th>
+						<th>확정</th>
+					</tr>
+					<c:forEach var="dto" items="${dtos}">
+					<tr>
+						<td>${dto.dept_name}</td>
+						<td>${dto.employee_id}</td>
+						<td>
+							<a href="/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${dto.employee_id}&select_tab=salary"">
+								${dto.employee_name}
+							</a>
+						</td>
+						<td>
+							<div class="input-group">
+								<input class="form-control input-sm" type="number"
+								name="base_worktime" min="0" max="240" step="1"
+								<c:if test="${dto.fixed}">readonly</c:if>>
+								<span class="input-group-addon"><small>hr</small></span>
+							</div>
+						</td>
+						<td>
+							<div class="input-group">
+								<input class="form-control input-sm" type="number"
+								name="night_overtime" min="0" max="240" step="1"
+								<c:if test="${dto.fixed}">readonly</c:if>>
+								<span class="input-group-addon"><small>hr</small></span>
+							</div>
+						</td>
+						<td>
+							<div class="input-group">
+								<input class="form-control input-sm" type="number"
+								name="weekend_overtime" min="0" max="240" step="1"
+								<c:if test="${dto.fixed}">readonly</c:if>>
+								<span class="input-group-addon"><small>hr</small></span>
+							</div>
+						</td>
+						<td>
+							<input type="hidden" name="salary_register_id" value="${salary_register_id}">
+							<input type="hidden" name="employee_id" value="${dto.employee_id}">
+					    	<input class="btn btn-sm 
+					    	<c:if test="${!dto.fixed}">btn-default btn_fix_salary</c:if>
+					    	<c:if test="${dto.fixed}">btn-success</c:if>
+					    	" type="button" value="확정">
+						</td>
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 		<div id="page16540_div02"></div>
 	</div>

@@ -47,50 +47,52 @@
 		</div>
 		<div class="panel-body" id="page16230_div01">
 			<form action="#" name="page16230_form01">
-				<table class="table">
-					<tr>
-						<th>부서번호</th>
-						<td>
-							<input class="form-control input-sm" type="text" name="dept_id"
-							value="${deptVo.dept_id}" readonly>
-						</td>
-					</tr>
-					<tr>
-						<th>부서명＊</th>
-						<td>
-							<input class="form-control input-sm" type="text" name="dept_name"
-							value="${deptVo.dept_name}" required>
-						</td>
-					</tr>
-					<tr>
-						<th>접근권한</th>
-						<td>
-							<input class="form-control input-sm" type="text" name="access_role"
-							value="${deptVo.access_role}" required>
-						</td>
-					</tr>
-					<tr>
-						<th>사용 상태＊</th>
-						<td>
-							<label for="used">사용</label>
-							<input type="radio" name="use_state" id="used" value="Y"
-							<c:if test="${deptVo.use_state == 'Y'}">checked</c:if>>
-							<label for="unused">비사용</label>
-							<input type="radio" name="use_state" id="unused" value="N"
-							<c:if test="${deptVo.use_state == 'N'}">checked</c:if>>
-						</td>
-					</tr>
-					<tr>
-						<th colspan="2">
-							<div class="btn-group btn-group-default">
-								<input class="btn btn-primary btn-sm" type="submit" value="수정하기">
-								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-								<input class="btn btn-default btn-sm" type="button"
-								value="닫기" id="page16230_btn01">							
-							</div>
-						</th>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th>부서번호</th>
+							<td>
+								<input class="form-control input-sm" type="text" name="dept_id"
+								value="${deptVo.dept_id}" readonly>
+							</td>
+						</tr>
+						<tr>
+							<th>부서명＊</th>
+							<td>
+								<input class="form-control input-sm" type="text" name="dept_name"
+								value="${deptVo.dept_name}" required>
+							</td>
+						</tr>
+						<tr>
+							<th>접근권한</th>
+							<td>
+								<input class="form-control input-sm" type="text" name="access_role"
+								value="${deptVo.access_role}" required>
+							</td>
+						</tr>
+						<tr>
+							<th>사용 상태＊</th>
+							<td>
+								<label for="used">사용</label>
+								<input type="radio" name="use_state" id="used" value="Y"
+								<c:if test="${deptVo.use_state == 'Y'}">checked</c:if>>
+								<label for="unused">비사용</label>
+								<input type="radio" name="use_state" id="unused" value="N"
+								<c:if test="${deptVo.use_state == 'N'}">checked</c:if>>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2">
+								<div class="btn-group btn-group-default">
+									<input class="btn btn-primary btn-sm" type="submit" value="수정하기">
+									<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+									<input class="btn btn-default btn-sm" type="button"
+									value="닫기" id="page16230_btn01">							
+								</div>
+							</th>
+						</tr>
+					</table>
+				</div>
 			</form>
 		</div>
 	</div>

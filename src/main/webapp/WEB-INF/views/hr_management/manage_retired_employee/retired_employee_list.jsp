@@ -35,30 +35,32 @@
 			</h3>
 		</div>
 		<div class="panel-body" id="page16711_div01">
-			<table class="table">
-				<tr>
-					<th>사원번호</th>
-					<th>사원명</th>
-					<th>부서명</th>
-					<th>직급</th>
-					<th>입사일</th>
-					<th>퇴직일</th>
-				</tr>
-				<c:forEach var="dto" items="${retired_employeeDto}">
-				<tr>
-					<td>${dto.employee_id}</td>
-					<td>
-						<a href="/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${dto.employee_id}&select_tab=retired">
-							${dto.employee_name}
-						</a>
-					</td>
-					<td>${dto.dept_name}</td>
-					<td>${dto.hr_code_name}</td>
-					<td>${dto.join_date}</td>
-					<td>${dto.retired_date}</td>	
-				</tr>
-				</c:forEach>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>사원번호</th>
+						<th>사원명</th>
+						<th>부서명</th>
+						<th>직급</th>
+						<th>입사일</th>
+						<th>퇴직일</th>
+					</tr>
+					<c:forEach var="dto" items="${retired_employeeDto}">
+					<tr>
+						<td>${dto.employee_id}</td>
+						<td>
+							<a href="/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${dto.employee_id}&select_tab=retired">
+								${dto.employee_name}
+							</a>
+						</td>
+						<td>${dto.dept_name}</td>
+						<td>${dto.hr_code_name}</td>
+						<td>${dto.join_date}</td>
+						<td>${dto.retired_date}</td>	
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 		<div id="page16711_div02"></div>
 	</div>

@@ -34,32 +34,34 @@
 			</h3>
 		</div>
 		<div class="panel-body" id="page16611_div01">
-			<table class="table">
-				<tr>
-					<th>발령일</th>
-					<th>사원번호</th>
-					<th>사원명</th>
-					<th>이전직급명</th>
-					<th>발령직급명</th>
-					<th>이전부서명</th>
-					<th>발령부서명</th>
-				</tr>
-				<c:forEach var="dto" items="${hr_appointment_listDtos}">
-				<tr>
-					<td>${dto.appointment_date}</td>
-					<td>${dto.employee_id}</td>
-					<td>
-						<a href="/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${dto.employee_id}&select_tab=appoint">
-							${dto.employee_name}
-						</a>
-					</td>
-					<td>${dto.pre_rank_name}</td>
-					<td>${dto.post_rank_name}</td>
-					<td>${dto.pre_dept_name}</td>
-					<td>${dto.post_dept_name}</td>	
-				</tr>
-				</c:forEach>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>발령일</th>
+						<th>사원번호</th>
+						<th>사원명</th>
+						<th>이전직급명</th>
+						<th>발령직급명</th>
+						<th>이전부서명</th>
+						<th>발령부서명</th>
+					</tr>
+					<c:forEach var="dto" items="${hr_appointment_listDtos}">
+					<tr>
+						<td>${dto.appointment_date}</td>
+						<td>${dto.employee_id}</td>
+						<td>
+							<a href="/hr_management/manage_personnel_card/modify_personnel_card?employee_id=${dto.employee_id}&select_tab=appoint">
+								${dto.employee_name}
+							</a>
+						</td>
+						<td>${dto.pre_rank_name}</td>
+						<td>${dto.post_rank_name}</td>
+						<td>${dto.pre_dept_name}</td>
+						<td>${dto.post_dept_name}</td>	
+					</tr>
+					</c:forEach>
+				</table>			
+			</div>
 		</div>
 		<div id="page16611_div02"></div>
 	</div>

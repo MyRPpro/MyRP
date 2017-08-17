@@ -34,34 +34,36 @@
 			</h3>
 		</div>
 		<div class="panel-body" id="page16511_div01">
-			<table class="table">
-				<tr>
-					<th>급여대장 번호</th>
-					<th>계정</th>
-					<th>등록일</th>
-					<th>급여대장명</th>
-					<th>지급일</th>
-					<th>총 지급액</th>
-					<th>총 지급인원</th>
-					<th>급여상태</th>		
-				</tr>
-				<c:forEach var="vo" items="${salary_registerVos}">
-				<tr>
-					<td>${vo.salary_register_id}</td>
-					<td>${vo.account_id}</td>
-					<td>${vo.reg_date}</td>
-					<td>
-						<a href="/hr_management/manage_salary/modify_salary_info?salary_register_id=${vo.salary_register_id}&account_id=${vo.account_id}">
-							${vo.salary_register_name}
-						</a>
-					</td>
-					<td>${vo.pay_date}</td>
-					<td><fmt:formatNumber value="${vo.total_pay}" type="number"/></td>
-					<td>${vo.total_employee}</td>
-					<td>${vo.salary_state_name}</td>
-				</tr>
-				</c:forEach>
-			</table>		
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>급여대장 번호</th>
+						<th>계정</th>
+						<th>등록일</th>
+						<th>급여대장명</th>
+						<th>지급일</th>
+						<th>총 지급액</th>
+						<th>총 지급인원</th>
+						<th>급여상태</th>		
+					</tr>
+					<c:forEach var="vo" items="${salary_registerVos}">
+					<tr>
+						<td>${vo.salary_register_id}</td>
+						<td>${vo.account_id}</td>
+						<td>${vo.reg_date}</td>
+						<td>
+							<a href="/hr_management/manage_salary/modify_salary_info?salary_register_id=${vo.salary_register_id}&account_id=${vo.account_id}">
+								${vo.salary_register_name}
+							</a>
+						</td>
+						<td>${vo.pay_date}</td>
+						<td><fmt:formatNumber value="${vo.total_pay}" type="number"/></td>
+						<td>${vo.total_employee}</td>
+						<td>${vo.salary_state_name}</td>
+					</tr>
+					</c:forEach>
+				</table>					
+			</div>
 		</div>
 	</div>
 </body>

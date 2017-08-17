@@ -77,54 +77,56 @@
 	</div>
 	<div class="panel-body" id="page16220_div01">
 		<form action="#" name="page16220_form01">
-			<table class="table">
-				<tr>
-					<th>부서번호＊</th>
-					<td>
-						<div class="input-group">
-							<input class="form-control input-sm" type="number" name="dept_id" value="${dept_id}"
-							min="1" max="9999" step="1" required>
-							<span class="input-group-btn">
-								<input class="btn btn-info btn-sm" type="button" value="중복확인" id="page16220_btn01">
-							</span>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>부서명＊</th>
-					<td>
-						<input class="form-control input-sm" type="text" name="dept_name" maxlength="255" required>
-					</td>
-				</tr>
-				<tr>
-					<th>접근권한</th>
-					<td>
-						<input class="form-control input-sm" type="text" name="access_role" maxlength="255" required>
-					</td>
-				</tr>
-				<tr>
-					<th>사용 상태＊</th>
-					<td>
-						<label for="used">사용</label>
-						<input type="radio" name="use_state" id="used" value="Y" checked>
-						<label for="unused">비사용</label>
-						<input type="radio" name="use_state" id="unused" value="N">
-					</td>
-				</tr>
-				<tr>
-					<th colspan="2">
-						<input type="hidden" name="dupcheck"
-						<c:if test="${dupcheck == null}">value="0"</c:if>
-						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<div class="btn-group btn-group-default">
-							<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
-							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-							<input class="btn btn-default btn-sm" type="button" value="닫기"
-							id="page16220_btn02">						
-						</div>
-					</th>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>부서번호＊</th>
+						<td>
+							<div class="input-group">
+								<input class="form-control input-sm" type="number" name="dept_id" value="${dept_id}"
+								min="1" max="9999" step="1" required>
+								<span class="input-group-btn">
+									<input class="btn btn-info btn-sm" type="button" value="중복확인" id="page16220_btn01">
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>부서명＊</th>
+						<td>
+							<input class="form-control input-sm" type="text" name="dept_name" maxlength="255" required>
+						</td>
+					</tr>
+					<tr>
+						<th>접근권한</th>
+						<td>
+							<input class="form-control input-sm" type="text" name="access_role" maxlength="255" required>
+						</td>
+					</tr>
+					<tr>
+						<th>사용 상태＊</th>
+						<td>
+							<label for="used">사용</label>
+							<input type="radio" name="use_state" id="used" value="Y" checked>
+							<label for="unused">비사용</label>
+							<input type="radio" name="use_state" id="unused" value="N">
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2">
+							<input type="hidden" name="dupcheck"
+							<c:if test="${dupcheck == null}">value="0"</c:if>
+							<c:if test="${dupcheck == 1}">value="1"</c:if>>
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
+								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="닫기"
+								id="page16220_btn02">						
+							</div>
+						</th>
+					</tr>
+				</table>			
+			</div>
 		</form>
 	</div>
 	<div id="page16220_div02"></div>

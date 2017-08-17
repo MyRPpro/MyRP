@@ -141,146 +141,148 @@
 		<form action="#" name="page16320_form01">
 			<div id="employee_picture_div">
 			</div>
-			<table class="table">
-				<tr>
-					<th>사원번호＊</th>
-					<td colspan="3">
-						<div class="input-group">
-							<input class="form-control input-sm" type="number" name="employee_id" value="${employee_id}"
-							min="1" max="9999" required>
-							<span class="input-group-btn">
-								<input class="btn btn-info btn-sm" type="button"
-								value="중복확인" id="page16320_btn01">
-							</span>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>사원명＊</th>
-					<td colspan="3">
-						<input class="form-control input-sm" type="text" name="employee_name"
-						maxlength="50" required>
-					</td>
-				</tr>
-				<tr>
-					<th>부서명＊</th>
-					<td colspan="3">
-						<select class="form-control input-sm" name="dept_id">
-							<option value=0 selected>부서 선택</option>
-							<c:forEach var="dept" items="${deptVos}">
-								<option value="${dept.dept_id}">
-									${dept.dept_name}
-								</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>직급＊</th>
-					<td colspan="3">
-						<select class="form-control input-sm" name="hr_code_id">
-							<option value=0 selected>직급 선택</option>
-							<c:forEach var="hr_code" items="${hr_codeVos}">
-								<option value="${hr_code.hr_code_id}">
-									${hr_code.hr_code_name}
-								</option>
-							</c:forEach>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th>주민번호＊</th>
-					<td>
-						<input class="form-control input-sm" type="text" name="residence_reg_no1" maxlength="6" required>
-					</td>
-					<td>-</td>
-					<td>
-						<input class="form-control input-sm" type="text" name="residence_reg_no2"
-						maxlength="7" required>
-					</td>
-				</tr>
-				<tr>
-					<th>입사일＊</th>
-					<td colspan="3">
-						<c:set var="now" value="<%= new java.util.Date() %>"/>
-						<input class="form-control input-sm" type="date" name="join_date" 
-						value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
-						required>
-					</td>
-				</tr>
-				<tr>
-					<th>전화번호</th>
-					<td colspan="3">
-						<input class="form-control input-sm" type="text" name="tel" maxlength="30">
-					</td>
-				</tr>
-				<tr>
-					<th>휴대전화</th>
-					<td colspan="3">
-						<input class="form-control input-sm" type="text" name="mobile_tel" maxlength="30">
-					</td>
-				</tr>
-				<tr>
-					<th>여권번호</th>
-					<td colspan="3">
-						<input class="form-control input-sm" type="text" name="passport_no" maxlength="9">
-					</td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td>
-						<input class="form-control input-sm" type="text" name="email1" maxlength="20">
-					</td>
-					<td>@</td>
-					<td>
-						<div class="input-group">
-							<input class="form-control input-sm" type="text" name="email2" maxlength="19">
-							<span class="input-group-btn">
-								<select class="btn btn-default btn-sm" name="email3" onchange="emailChk();">
-									<option value="0" selected>직접 입력</option>
-									<option value="gmail.com">gmail.com</option>
-									<option value="naver.com">naver.com</option>
-									<option value="daum.net">daum.net</option>
-									<option value="nate.com">nate.com</option>
-								</select>
-							</span>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td colspan="3">
-						<input class="form-control input-sm" type="text" name="address">
-					</td>
-				</tr>
-				<tr>
-					<th>시급＊</th>
-					<td colspan="3">
-						<input class="form-control input-sm" type="number" name="hourly_wage"
-						min="0" max="999999" required>
-					</td>
-				</tr>
-				<tr>
-					<th>급여계좌</th>
-					<td colspan="3">
-						<input class="form-control input-sm" type="text" name="salary_account"
-						maxlength="20">
-					</td>
-				</tr>
-				<tr>
-					<th colspan="4">
-						<input type="hidden" name="dupcheck"
-						<c:if test="${dupcheck == null}">value="0"</c:if>
-						<c:if test="${dupcheck == 1}">value="1"</c:if>>
-						<div class="btn-group btn-group-default">
-							<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
-							<input class="btn btn-default btn-sm" type="reset"	value="재작성">
-							<input class="btn btn-default btn-sm" type="button" value="사진추가" id="page16320_btn02">
-							<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16320_btn03">						
-						</div>
-					</th>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>사원번호＊</th>
+						<td colspan="3">
+							<div class="input-group">
+								<input class="form-control input-sm" type="number" name="employee_id" value="${employee_id}"
+								min="1" max="9999" required>
+								<span class="input-group-btn">
+									<input class="btn btn-info btn-sm" type="button"
+									value="중복확인" id="page16320_btn01">
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>사원명＊</th>
+						<td colspan="3">
+							<input class="form-control input-sm" type="text" name="employee_name"
+							maxlength="50" required>
+						</td>
+					</tr>
+					<tr>
+						<th>부서명＊</th>
+						<td colspan="3">
+							<select class="form-control input-sm" name="dept_id">
+								<option value=0 selected>부서 선택</option>
+								<c:forEach var="dept" items="${deptVos}">
+									<option value="${dept.dept_id}">
+										${dept.dept_name}
+									</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>직급＊</th>
+						<td colspan="3">
+							<select class="form-control input-sm" name="hr_code_id">
+								<option value=0 selected>직급 선택</option>
+								<c:forEach var="hr_code" items="${hr_codeVos}">
+									<option value="${hr_code.hr_code_id}">
+										${hr_code.hr_code_name}
+									</option>
+								</c:forEach>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>주민번호＊</th>
+						<td>
+							<input class="form-control input-sm" type="text" name="residence_reg_no1" maxlength="6" required>
+						</td>
+						<td>-</td>
+						<td>
+							<input class="form-control input-sm" type="text" name="residence_reg_no2"
+							maxlength="7" required>
+						</td>
+					</tr>
+					<tr>
+						<th>입사일＊</th>
+						<td colspan="3">
+							<c:set var="now" value="<%= new java.util.Date() %>"/>
+							<input class="form-control input-sm" type="date" name="join_date" 
+							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>" 
+							required>
+						</td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td colspan="3">
+							<input class="form-control input-sm" type="text" name="tel" maxlength="30">
+						</td>
+					</tr>
+					<tr>
+						<th>휴대전화</th>
+						<td colspan="3">
+							<input class="form-control input-sm" type="text" name="mobile_tel" maxlength="30">
+						</td>
+					</tr>
+					<tr>
+						<th>여권번호</th>
+						<td colspan="3">
+							<input class="form-control input-sm" type="text" name="passport_no" maxlength="9">
+						</td>
+					</tr>
+					<tr>
+						<td>이메일</td>
+						<td>
+							<input class="form-control input-sm" type="text" name="email1" maxlength="20">
+						</td>
+						<td>@</td>
+						<td>
+							<div class="input-group">
+								<input class="form-control input-sm" type="text" name="email2" maxlength="19">
+								<span class="input-group-btn">
+									<select class="btn btn-default btn-sm" name="email3" onchange="emailChk();">
+										<option value="0" selected>직접 입력</option>
+										<option value="gmail.com">gmail.com</option>
+										<option value="naver.com">naver.com</option>
+										<option value="daum.net">daum.net</option>
+										<option value="nate.com">nate.com</option>
+									</select>
+								</span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td colspan="3">
+							<input class="form-control input-sm" type="text" name="address">
+						</td>
+					</tr>
+					<tr>
+						<th>시급＊</th>
+						<td colspan="3">
+							<input class="form-control input-sm" type="number" name="hourly_wage"
+							min="0" max="999999" required>
+						</td>
+					</tr>
+					<tr>
+						<th>급여계좌</th>
+						<td colspan="3">
+							<input class="form-control input-sm" type="text" name="salary_account"
+							maxlength="20">
+						</td>
+					</tr>
+					<tr>
+						<th colspan="4">
+							<input type="hidden" name="dupcheck"
+							<c:if test="${dupcheck == null}">value="0"</c:if>
+							<c:if test="${dupcheck == 1}">value="1"</c:if>>
+							<div class="btn-group btn-group-default">
+								<input class="btn btn-primary btn-sm" type="submit" value="등록하기">
+								<input class="btn btn-default btn-sm" type="reset"	value="재작성">
+								<input class="btn btn-default btn-sm" type="button" value="사진추가" id="page16320_btn02">
+								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16320_btn03">						
+							</div>
+						</th>
+					</tr>
+				</table>			
+			</div>
 		</form>
 	</div>
 	<div id="page16320_div02"></div>

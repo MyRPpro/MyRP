@@ -55,53 +55,55 @@
 		</div>
 		<div class="panel-body" id="page16721_div01">
 			<form action="#" name="page16721_form01">
-				<table class="table">
-					<tr>
-						<th>사원번호</th>
-						<td>${dto.employee_id}</td>
-					</tr>
-					<tr>
-						<th>사원명</th>
-						<td>${dto.employee_name}</td>
-					</tr>
-					<tr>
-						<th>부서명</th>
-						<td>${dto.dept_name}</td>
-					</tr>
-					<tr>
-						<th>직급</th>
-						<td>${dto.hr_code_name}</td>
-					</tr>
-					<tr>
-						<th>입사일</th>
-						<td>${dto.join_date}</td>
-					</tr>
-					<tr>
-						<th>퇴직일＊</th>
-						<td>
-							<c:set var="now" value="<%= new java.util.Date() %>"/>
-							<input class="form-control input-sm" type="date" name="retired_date"
-							value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>"
-							required>
-						</td>
-					</tr>
-					<tr>
-						<th>퇴직사유＊</th>
-						<td>
-							<textarea class="form-control input-sm" rows="5" name="retired_reason">사유를 작성하세요.</textarea>
-						</td>
-					</tr>
-					<tr>
-						<th colspan="2">
-							<input type="hidden" name="employee_id" value="${dto.employee_id}">
-							<div class="btn-group btn-group-default">
-								<input class="btn btn-primary btn-sm" type="submit" value="퇴사자 등록">
-								<input class="btn btn-default btn-sm" type="reset" value="재작성">
-								<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16721_btn01">							
-							</div>
-						</th>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th>사원번호</th>
+							<td>${dto.employee_id}</td>
+						</tr>
+						<tr>
+							<th>사원명</th>
+							<td>${dto.employee_name}</td>
+						</tr>
+						<tr>
+							<th>부서명</th>
+							<td>${dto.dept_name}</td>
+						</tr>
+						<tr>
+							<th>직급</th>
+							<td>${dto.hr_code_name}</td>
+						</tr>
+						<tr>
+							<th>입사일</th>
+							<td>${dto.join_date}</td>
+						</tr>
+						<tr>
+							<th>퇴직일＊</th>
+							<td>
+								<c:set var="now" value="<%= new java.util.Date() %>"/>
+								<input class="form-control input-sm" type="date" name="retired_date"
+								value="<fmt:formatDate value='${now}' pattern='yyyy-MM-dd'/>"
+								required>
+							</td>
+						</tr>
+						<tr>
+							<th>퇴직사유＊</th>
+							<td>
+								<textarea class="form-control input-sm" rows="5" name="retired_reason">사유를 작성하세요.</textarea>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2">
+								<input type="hidden" name="employee_id" value="${dto.employee_id}">
+								<div class="btn-group btn-group-default">
+									<input class="btn btn-primary btn-sm" type="submit" value="퇴사자 등록">
+									<input class="btn btn-default btn-sm" type="reset" value="재작성">
+									<input class="btn btn-default btn-sm" type="button" value="닫기" id="page16721_btn01">							
+								</div>
+							</th>
+						</tr>
+					</table>
+				</div>
 			</form>
 		</div>
 		<div id="page16721_div02"></div>
